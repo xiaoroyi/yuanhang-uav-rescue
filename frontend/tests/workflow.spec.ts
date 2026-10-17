@@ -269,6 +269,71 @@ test('80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON�
   expect(errors).toEqual([])
 })
 
+test('生产构建只允许本机请求，真实求解与事件闭环离线可用', async ({ page, context, request }) => {
+  test.setTimeout(120000)
+  const external: string[] = [],
+    errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
+  await context.route('**/*', async (route) => {
+    const url = new URL(route.request().url())
+    if (
+      ['http:', 'https:'].includes(url.protocol) &&
+      !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname)
+    ) {
+      external.push(url.origin)
+      await route.abort('internetdisconnected')
+    } else await route.continue()
+  })
+  await page.goto('http://127.0.0.1:8011/')
+  await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeVisible()
+  await solve(page)
+  await expect(page.locator('.map-mode')).toHaveText('题设DEM · 离线')
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const initial = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByLabel('故障机体').selectOption('U01')
+  await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  const latest = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+  const plan = await (await request.get(`/api/v1/plans/${latest.plan_id}`)).json()
+  expect(plan.parent_plan_id).toBe(initial.plan_id)
+  expect(plan.validation.status).toBe('passed')
+  expect(plan.sorties.every((route: { drone_id: string }) => route.drone_id !== 'U01')).toBe(true)
+  await screenshot(page, 'production-offline-1440')
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: '计划JSON', exact: true }).click()
+  const file = await download
+  expect(JSON.parse(await fs.readFile((await file.path())!, 'utf8')).plan_id).toBe(plan.plan_id)
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'production-offline-1280')
+  await fs.writeFile(
+    path.resolve('../evidence/browser/production-offline.json'),
+    JSON.stringify(
+      {
+        origin: 'http://127.0.0.1:8011',
+        policy: 'Block all non-loopback HTTP(S) requests in the browser context.',
+        scenario_id: sid,
+        plan_id: plan.plan_id,
+        parent_plan_id: initial.plan_id,
+        snapshot_id: plan.snapshot_id,
+        validation: plan.validation.status,
+        external_requests: external,
+        console_errors: errors,
+      },
+      null,
+      2,
+    ) + '\n',
+  )
+  expect(external).toEqual([])
+  expect(errors).toEqual([])
+})
+
 test.beforeEach(async ({ request, page }) => {
   const response = await request.post('/api/v1/scenarios/examples', {
     data: { example: 'compact' },

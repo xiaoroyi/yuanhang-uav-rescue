@@ -1227,6 +1227,10 @@ export interface components {
             service_version: string;
             /** Solver Ready */
             solver_ready: boolean;
+            /** Service Source Sha256 */
+            service_source_sha256: string;
+            /** Runtime Id */
+            runtime_id: string;
         };
         /** ImportPreview */
         ImportPreview: {

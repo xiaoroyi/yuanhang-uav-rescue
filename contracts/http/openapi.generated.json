@@ -3394,6 +3394,14 @@
           "solver_ready": {
             "type": "boolean",
             "title": "Solver Ready"
+          },
+          "service_source_sha256": {
+            "type": "string",
+            "title": "Service Source Sha256"
+          },
+          "runtime_id": {
+            "type": "string",
+            "title": "Runtime Id"
           }
         },
         "additionalProperties": false,
@@ -3402,7 +3410,9 @@
           "workspace_id",
           "status",
           "service_version",
-          "solver_ready"
+          "solver_ready",
+          "service_source_sha256",
+          "runtime_id"
         ],
         "title": "Health"
       },

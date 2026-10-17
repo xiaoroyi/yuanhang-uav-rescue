@@ -14,6 +14,8 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from shared.build_info import verification_fingerprint
 
 
 def main():
@@ -36,6 +38,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     records = []
+    source_before = verification_fingerprint(ROOT)
     for i, command in enumerate(commands):
         start = time.perf_counter()
         run = subprocess.run(
@@ -48,7 +51,7 @@ def main():
             errors="replace",
         )
         path = out / f"check-{i+1:02}.txt"
-        path.write_text(run.stdout.rstrip()+"\n", encoding="utf-8", newline="\n")
+        path.write_text(run.stdout.rstrip() + "\n", encoding="utf-8", newline="\n")
         record = {
             "command": subprocess.list2cmdline(command),
             "exit_code": run.returncode,
@@ -61,6 +64,7 @@ def main():
             flush=True,
         )
     tracked = subprocess.check_output(["git", "diff", "--binary", "HEAD"], cwd=ROOT)
+    source_after = verification_fingerprint(ROOT)
     report = {
         "at_utc": datetime.now(timezone.utc).isoformat(),
         "head": subprocess.check_output(
@@ -75,7 +79,11 @@ def main():
             ["git", "status", "--short"], cwd=ROOT, text=True, encoding="utf-8"
         ),
         "checks": records,
-        "passed": all(r["exit_code"] == 0 for r in records),
+        "verification_source_before_sha256": source_before,
+        "verification_source_after_sha256": source_after,
+        "source_unchanged": source_before == source_after,
+        "passed": all(r["exit_code"] == 0 for r in records)
+        and source_before == source_after,
     }
     (out / "latest.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

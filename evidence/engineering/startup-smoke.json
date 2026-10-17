@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-10-17T21:28:41.197196+00:00",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "963cf30676d4a1e1263761672ae8a80988e296f1d587d8694f3abcb4fb1145a5",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "78aa496a549ac0dce726858d123c5557a760c837c0c1ce7cb0ced6077397a260",
+  "frontend_artifacts_verified": true,
+  "existing_service_reuse_exit": 0,
+  "existing_service_reuse_output": "援航已在运行：http://127.0.0.1:8000",
+  "note": "Actual local service on port 8000; no dependency install or data reset."
+}

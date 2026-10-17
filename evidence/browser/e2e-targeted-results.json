@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "80箱冻结"
+      "生产构建只允许"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,12 +109,12 @@
       "line": 0,
       "specs": [
         {
-          "title": "80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出",
+          "title": "生产构建只允许本机请求，真实求解与事件闭环离线可用",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 150000,
+              "timeout": 120000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "",
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 51678,
+                  "duration": 17408,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T20:52:21.856Z",
+                  "startTime": "2026-10-17T21:17:16.926Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,9 +137,9 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-ce326e6604e3e416dd98",
+          "id": "c601ceb5ecfc8efa4a14-c57b2dc146b83d4c0ee3",
           "file": "workflow.spec.ts",
-          "line": 190,
+          "line": 272,
           "column": 1
         }
       ]
@@ -147,8 +147,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T20:52:21.386Z",
-    "duration": 52596.892,
+    "startTime": "2026-10-17T21:17:16.456Z",
+    "duration": 18379.059,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

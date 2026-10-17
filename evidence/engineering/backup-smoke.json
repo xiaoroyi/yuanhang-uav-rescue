@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-10-17T21:23:16.049272+00:00",
+  "archive": "runtime/backups/yuanhang-backup-20261017T212205Z-cd66b8c0.zip",
+  "archive_sha256": "f7db0a51c807298b70d94184375b28e96cfca7051479edf73f115245a0bef8a0",
+  "restored_runtime": ".local/restore-smoke-1fdbc831",
+  "verified": true,
+  "table_counts": {
+    "scenarios": 2,
+    "scenario_versions": 2,
+    "snapshots": 2,
+    "jobs": 3,
+    "plans": 3,
+    "events": 0,
+    "reservations": 0,
+    "confirmations": 0,
+    "scenario_forks": 0,
+    "plan_refinements": 0
+  },
+  "restored_scenario_count": 2,
+  "raw_plan_records_identical": 3,
+  "http_plans_identical": 3,
+  "original_runtime_unchanged": true
+}

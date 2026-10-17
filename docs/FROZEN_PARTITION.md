@@ -50,4 +50,6 @@ evidence/solver/frozen-partition-contest.json绑定joint-contest-recomputed.json
 
 HTTP：GET /api/v1/plans/{plan_id}/partition。只读、不创建新任务或修改场景。后端读取该Plan绑定的Snapshot并独立复算联合方案后分析，历史场景变更不会改动分析结果。数据类型来自实际OpenAPI统一生成；兼容与边界见RFC-007。
 
+HTTP报告的source_plan_hash按GET Plan的JSON表示计算，统一UTC时间序列化，避免数据库中的+00:00与HTTP中的Z造成格式差异。可用shared.contracts.content_hash对下载的Plan JSON核对；CLI则对其输入Plan JSON计算同一规范hash。
+
 测试覆盖：真实80箱Worker→分区→修改当前场景→分区保持同一来源；半开十进制边界、峰值/着色、站点连通、异质能源拒绝、冻结时间/实体/库存/任务/见证篡改；浏览器包括原题加载、联合求解、2/3组切换、明细、导出、刷新和三种尺寸。截图在evidence/browser/verified/frozen-partition-*。

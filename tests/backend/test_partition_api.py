@@ -3,6 +3,7 @@ import time
 from fastapi.testclient import TestClient
 
 from backend.app.main import create_app
+from shared.contracts import content_hash
 
 
 def test_real_80_box_partition_uses_frozen_snapshot_after_current_scene_changes(
@@ -44,6 +45,7 @@ def test_real_80_box_partition_uses_frozen_snapshot_after_current_scene_changes(
         report = first.json()
         assert report["status"] == "ready" and len(report["atoms"]) == 3
         assert report["snapshot_content_hash"] == snap["content_hash"]
+        assert report["source_plan_hash"] == content_hash(plan)
         for drone in s["drones"]:
             if drone["type_id"] == "C":
                 drone["status"] = "unavailable"

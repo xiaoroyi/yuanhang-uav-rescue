@@ -18,6 +18,9 @@ def main():
     parser.add_argument(
         "--with-browser", action="store_true", help="额外安装浏览器验收所需Chromium"
     )
+    parser.add_argument(
+        "--check", action="store_true", help="只检查安装条件，不创建环境或安装依赖"
+    )
     args = parser.parse_args()
     if not ((3, 11) <= sys.version_info[:2] < (3, 13)):
         print("请使用 Python 3.11 或 3.12 运行此脚本。")
@@ -26,6 +29,25 @@ def main():
     if not npm:
         print("未找到 Node.js/npm。请安装 Node.js 24 LTS 后重试。")
         return 1
+    node = shutil.which("node")
+    if not node:
+        print("未找到Node.js，请安装Node.js24后重试。")
+        return 1
+    version = subprocess.run([node, "--version"], capture_output=True, text=True)
+    try:
+        major = int(version.stdout.strip().lstrip("v").split(".")[0])
+    except ValueError:
+        major = 0
+    if version.returncode or major < 24:
+        print(
+            "当前Node版本不满足项目基线，请使用Node.js24或更新的兼容版本；当前已验收版本为24。"
+        )
+        return 1
+    if args.check:
+        print(
+            f"安装条件通过：Python {sys.version.split()[0]}；Node {version.stdout.strip()}；npm已找到。未安装或修改依赖。"
+        )
+        return 0
     env = dict(os.environ)
     # Do not inherit a disabled TLS check into dependency installation.
     env.pop("NODE_TLS_REJECT_UNAUTHORIZED", None)

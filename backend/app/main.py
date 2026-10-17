@@ -81,6 +81,7 @@ from shared.contracts import (
     validate_snapshot,
     scenario_aircraft,
 )
+from shared.build_info import service_fingerprint
 from solver.adapters.contest import (
     compact_scenario,
     contest_scenario,
@@ -91,6 +92,7 @@ from solver.public_api import capabilities, validate, playback, analyze
 from solver.partition import partition
 
 ROOT = Path(__file__).resolve().parents[2]
+STARTUP_SOURCE_SHA256 = service_fingerprint(ROOT)
 
 
 def new_id(prefix):
@@ -203,6 +205,8 @@ class Health(StrictModel):
     status: str
     service_version: str
     solver_ready: bool
+    service_source_sha256: str
+    runtime_id: str
 
 
 class PlanSummary(StrictModel):
@@ -428,6 +432,10 @@ def create_app(runtime_dir: Path | None = None):
             "status": "ok",
             "service_version": "0.1.0",
             "solver_ready": True,
+            "service_source_sha256": STARTUP_SOURCE_SHA256,
+            "runtime_id": hashlib.sha256(
+                str(directory.resolve()).casefold().encode()
+            ).hexdigest()[:12],
         }
 
     @app.get("/api/v1/meta/capabilities", response_model=Capabilities)
@@ -621,7 +629,11 @@ def create_app(runtime_dir: Path | None = None):
     @app.get("/api/v1/plans/{plan_id}/partition", response_model=PartitionReport)
     def plan_partition(plan_id: str):
         with database.session() as session:
-            plan = require_row(session, PlanRow, plan_id).content
+            # Hash the same JSON representation emitted by GET /plans/{id}.
+            # Pydantic normalizes UTC datetime strings (+00:00 -> Z).
+            plan = Plan.model_validate(
+                require_row(session, PlanRow, plan_id).content
+            ).model_dump(mode="json", exclude_unset=True)
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
         return partition(snap, plan)
 
