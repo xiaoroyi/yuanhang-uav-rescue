@@ -291,6 +291,90 @@
         }
       }
     },
+    "/api/v1/terrain-assets/{asset_id}/package": {
+      "get": {
+        "summary": "Download Terrain Package",
+        "operationId": "download_terrain_package_api_v1_terrain_assets__asset_id__package_get",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Asset Id"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sha256"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/terrain-assets/import-package": {
+      "post": {
+        "summary": "Upload Terrain Package",
+        "operationId": "upload_terrain_package_api_v1_terrain_assets_import_package_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_terrain_package_api_v1_terrain_assets_import_package_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TerrainAsset"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/scenarios/{scenario_id}/terrain": {
       "post": {
         "summary": "Assign Terrain",
@@ -1855,6 +1939,20 @@
           "vertical_datum"
         ],
         "title": "Body_upload_terrain_api_v1_terrain_assets_post"
+      },
+      "Body_upload_terrain_package_api_v1_terrain_assets_import_package_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_terrain_package_api_v1_terrain_assets_import_package_post"
       },
       "Capabilities": {
         "properties": {

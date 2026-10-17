@@ -48,7 +48,20 @@ def put_immutable(path, data):
         temp.unlink(missing_ok=True)
 
 
-def register(directory: Path, data: bytes, name: str, datum: str):
+def put_catalog_entry(path, metadata):
+    # Sidecars are a derived catalog, not the content-addressed raster itself.
+    # JSON key order from an imported NPZ must not break an idempotent re-import.
+    if path.exists() and json.loads(path.read_text(encoding="utf-8")) == metadata:
+        return
+    put_immutable(
+        path,
+        (
+            json.dumps(metadata, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        ).encode(),
+    )
+
+
+def prepare(data: bytes, name: str, datum: str):
     if len(data) > 16 * 1024 * 1024:
         raise ValueError("DEM文件不能超过16MiB。")
     if data[:4] not in [b"II*\x00", b"MM\x00*", b"II+\x00", b"MM\x00+"]:
@@ -150,6 +163,11 @@ def register(directory: Path, data: bytes, name: str, datum: str):
                 "valid_fraction": float(np.mean(valid)),
                 "bounds": [west, south, east, north],
             }
+    return z, lon, lat, metadata, source_hash
+
+
+def register(directory: Path, data: bytes, name: str, datum: str):
+    z, lon, lat, metadata, source_hash = prepare(data, name, datum)
     content = io.BytesIO()
     np.savez_compressed(
         content,
@@ -165,10 +183,7 @@ def register(directory: Path, data: bytes, name: str, datum: str):
     put_immutable(directory / (digest + ".npz"), packed)
     put_immutable(directory / "sources" / (source_hash + ".tif"), data)
     public = {**metadata, "asset_id": asset_id, "sha256": digest}
-    put_immutable(
-        directory / (digest + ".json"),
-        (json.dumps(public, ensure_ascii=False, indent=2) + "\n").encode(),
-    )
+    put_catalog_entry(directory / (digest + ".json"), public)
     with terrain_store(directory):
         return describe(asset_id, digest)
 

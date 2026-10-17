@@ -1,0 +1,52 @@
+{
+  "checked_at_utc": "2026-10-17T18:36:22.030263+00:00",
+  "repository": "xiaoroyi/yuanhang-uav-rescue",
+  "branch": "feat/solo-fullstack-v0",
+  "runs": [
+    {
+      "id": 39057136797,
+      "name": "Application checks",
+      "head_sha": "a7a67871f89a2cb934cbccd3f625740c545f26e0",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39057136797",
+      "updated_at": "2026-10-17T18:14:58Z"
+    },
+    {
+      "id": 39056298267,
+      "name": "Application checks",
+      "head_sha": "49fb5e8fc4e7d9c80787bdcc8c3a140b3e8024d2",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39056298267",
+      "updated_at": "2026-10-17T18:03:22Z"
+    },
+    {
+      "id": 39055148320,
+      "name": "Application checks",
+      "head_sha": "e2c3c2fb813bfa3601698ab7b9f2fe252d999e24",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39055148320",
+      "updated_at": "2026-10-17T17:47:03Z"
+    },
+    {
+      "id": 39052935731,
+      "name": "Application checks",
+      "head_sha": "fad9a2f38e7532987fd403f7b68e90d32279ecfb",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39052935731",
+      "updated_at": "2026-10-17T17:16:47Z"
+    },
+    {
+      "id": 39050611139,
+      "name": "Application checks",
+      "head_sha": "284023f9fb07f6388851d955c1f7e7e9f1b113fd",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39050611139",
+      "updated_at": "2026-10-17T16:43:49Z"
+    }
+  ]
+}

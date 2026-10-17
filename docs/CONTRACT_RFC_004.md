@@ -10,4 +10,6 @@
 
 元数据记录来源文件hash、CRS/变换、原始/准备栅格尺寸、垂直基准、NoData比例与处理方法。资产列表/原始下载/准备栅格由后端管理；源数据和运行库不提交Git。原题只读归档不修改。
 
+补充便携完整包yuanhang-dem-v1：只接受三项manifest.json/terrain.npz/source.tif，40MiB限额，验证嵌套NPY头/解压尺寸、hash及源栅格重算一致性后入库；保持原准备二进制和hash，不因不同机器压缩库而改变旧Snapshot引用。JSON目录仅为派生索引，语义相同的键序变动不妨碍幂等导入。详见TERRAIN_ASSETS。
+
 参考：[Rasterio重投影](https://rasterio.readthedocs.io/en/stable/topics/reproject.html)、[warp API](https://rasterio.readthedocs.io/en/stable/api/rasterio.warp.html)。

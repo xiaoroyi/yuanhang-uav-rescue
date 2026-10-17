@@ -9,12 +9,12 @@ rendering chunks...
 computing gzip size...
 dist/index.html                                  0.95 kB │ gzip:   0.47 kB
 dist/assets/maplibre-gl-worker-DxGNRm0a.mjs    508.31 kB
-dist/assets/index-C0D-a-ey.css                  64.07 kB │ gzip:  14.19 kB
+dist/assets/index-B1g8zayg.css                  64.26 kB │ gzip:  14.23 kB
 dist/assets/map-DBE96hFo.css                    82.93 kB │ gzip:  10.72 kB
 dist/assets/rolldown-runtime-XKyaHtl9.js         0.72 kB │ gzip:   0.42 kB
-dist/assets/index-CcwSXUlR.js                  177.81 kB │ gzip:  53.89 kB
+dist/assets/index-CtXFUj4n.js                  178.86 kB │ gzip:  54.09 kB
 dist/assets/react-DW-uAbvl.js                  229.74 kB │ gzip:  72.14 kB
 dist/assets/charts-CjQlHGSd.js                 488.12 kB │ gzip: 164.71 kB
 dist/assets/map-B8_xo0QL.js                  1,041.81 kB │ gzip: 283.11 kB
 
-✓ built in 761ms
+✓ built in 805ms

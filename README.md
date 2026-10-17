@@ -12,6 +12,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 事件复盘中的“资源分析与试算”提供真实占用图、期望延期/硬截止余量、增配与能耗/SOH情景、三档压力测试和可恢复历史；每个试算均保存独立输入并真实计算，见 [统计口径](docs/RESOURCE_ANALYSIS.md)。
 
+已有方案可继续“深入优化30秒”，沿用同一快照并保留有效基线，见 [算法范围](docs/DEEP_OPTIMIZATION.md)。场景页可管理静态限制区，真实绕行见 [空间模型](docs/SPATIAL_ROUTING.md)；也可上传本地GeoTIFF，地图与净空使用同一绑定栅格。交接给队友时一并下载/导入完整DEM资产包以保留hash，见 [资产说明](docs/TERRAIN_ASSETS.md)。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

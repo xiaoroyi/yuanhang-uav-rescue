@@ -54,6 +54,8 @@ B-01：同一成员生成 TypeScript 业务类型，真实 OpenAPI 生成 HTTP c
 | GET /terrain-assets | 无 | TerrainAsset[]，原题只读与本机准备资产 |
 | POST /terrain-assets | multipart file + vertical_datum | 201准备资产；16MiB/200万像元限制，未自动绑定场景 |
 | GET /terrain-assets/{asset_id}/source | sha256 | 下载已核验来源文件 |
+| GET /terrain-assets/{asset_id}/package | sha256 | 下载完整用户DEM资产包，精确保留准备hash |
+| POST /terrain-assets/import-package | multipart file，最多40MiB | 201核验后的TerrainAsset；不自动绑定，跨实例与重复导入保持身份 |
 | POST /scenarios/{scenario_id}/terrain | expected_state_version、asset_id、sha256、update_dem_elevations | 检查点位覆盖，创建新版本，可从DEM提取高程，409保护并发编辑 |
 | GET /map/terrain | asset_id + sha256，缺省保留原题兼容入口 | 同绑定栅格的TerrainMap元数据 |
 | GET /map/terrain/{asset_id}/{sha256}.png | 内容身份 | 本地晕渲PNG，NoData透明；不是外部瓦片 |

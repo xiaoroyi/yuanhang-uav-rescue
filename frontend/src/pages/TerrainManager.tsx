@@ -22,6 +22,7 @@ export function TerrainManager({
     [meters, setMeters] = useState(false),
     [elevations, setElevations] = useState(true)
   const file = useRef<HTMLInputElement>(null)
+  const packageFile = useRef<HTMLInputElement>(null)
   const assets = useQuery({
     queryKey: ['terrain-assets'],
     queryFn: api.terrainAssets,
@@ -44,6 +45,22 @@ export function TerrainManager({
       notify('DEM已完成本地准备；点击绑定才会更新当前场景。')
     } catch (error) {
       notify(error instanceof Error ? error.message : 'DEM导入失败', true)
+    } finally {
+      setBusy(false)
+    }
+  }
+  async function importPackage(input: File) {
+    setBusy(true)
+    try {
+      const asset = await api.uploadTerrainPackage(input)
+      query.setQueryData<TerrainAsset[]>(['terrain-assets'], (old) => [
+        ...(old || []).filter((a) => a.asset_id !== asset.asset_id),
+        asset,
+      ])
+      setSelected(asset.asset_id)
+      notify('完整资产包已核验，原有内容hash保持一致。')
+    } catch (error) {
+      notify(error instanceof Error ? error.message : '资产包导入失败', true)
     } finally {
       setBusy(false)
     }
@@ -144,6 +161,22 @@ export function TerrainManager({
               单波段、带CRS、最大16MiB /
               200万像元。重投影采用高程max并传播未知掩码；NoData或覆盖外不能通过净空检查。准备后的地形仍不代表现实障碍完整。
             </p>
+            <input
+              ref={packageFile}
+              type="file"
+              hidden
+              accept=".zip"
+              data-testid="terrain-package-file"
+              onChange={(e) => {
+                const f = e.target.files?.[0]
+                if (f) void importPackage(f)
+                e.target.value = ''
+              }}
+            />
+            <Button disabled={busy} onClick={() => packageFile.current?.click()}>
+              <Upload size={14} />
+              导入完整资产包
+            </Button>
             {assets.isError && (
               <p role="alert" className="zone-error">
                 {assets.error.message}
@@ -205,6 +238,15 @@ export function TerrainManager({
                   <Download size={13} />
                   下载来源文件
                 </a>
+                {chosen.asset_id.startsWith('DEM-') && (
+                  <a
+                    href={`/api/v1/terrain-assets/${chosen.asset_id}/package?sha256=${chosen.sha256}`}
+                    className="button button-default"
+                  >
+                    <Download size={13} />
+                    下载完整资产包
+                  </a>
+                )}
               </div>
             )}
             <label className="checkbox-field terrain-meter-check">

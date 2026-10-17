@@ -53,6 +53,10 @@ from backend.app.terrain_assets import (
     describe as describe_terrain,
 )
 from solver.assets import terrain_store, terrain_info
+from backend.app.terrain_packages import (
+    export_package as export_terrain_package,
+    import_package as import_terrain_package,
+)
 from backend.app.storage import (
     ConfirmationRow,
     Database,
@@ -513,6 +517,34 @@ def create_app(runtime_dir: Path | None = None):
                 raise InputNotReady("DEM原始文件内容hash不一致。")
             return FileResponse(path, filename=info["name"])
         except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
+    @app.get("/api/v1/terrain-assets/{asset_id}/package")
+    def download_terrain_package(asset_id: str, sha256: str):
+        try:
+            data = export_terrain_package(directory / "assets", asset_id, sha256)
+            return Response(
+                data,
+                media_type="application/zip",
+                headers={
+                    "Content-Disposition": f'attachment; filename="{asset_id}.yuanhang-dem.zip"'
+                },
+            )
+        except (ValueError, OSError) as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
+    @app.post(
+        "/api/v1/terrain-assets/import-package",
+        response_model=TerrainAsset,
+        status_code=201,
+    )
+    async def upload_terrain_package(file: UploadFile = File(...)):
+        data = await file.read(40 * 1024 * 1024 + 1)
+        try:
+            return await run_in_threadpool(
+                import_terrain_package, directory / "assets", data
+            )
+        except (ValueError, RasterioError, OSError) as exc:
             raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
 
     @app.post("/api/v1/scenarios/{scenario_id}/terrain", response_model=Scenario)

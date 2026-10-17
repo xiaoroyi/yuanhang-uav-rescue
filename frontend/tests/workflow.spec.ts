@@ -341,10 +341,23 @@ test('GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史', asyn
     path: path.resolve('../evidence/browser/verified/terrain-assets-1440.png'),
   })
   await page.setViewportSize({ width: 1280, height: 720 })
+  await expect(
+    page.getByRole('button', { name: '绑定DEM并保存新版本', exact: true }),
+  ).toBeInViewport({ ratio: 0.95 })
   await page.screenshot({
     path: path.resolve('../evidence/browser/verified/terrain-assets-1280.png'),
   })
   await page.setViewportSize({ width: 1440, height: 900 })
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: '下载完整资产包', exact: true }).click()
+  const savedPackage = await download
+  expect(savedPackage.suggestedFilename()).toMatch(/\.yuanhang-dem\.zip$/)
+  const packagePath = await savedPackage.path()
+  const receipt = page.waitForResponse(
+    (r) => r.url().endsWith('/terrain-assets/import-package') && r.request().method() === 'POST',
+  )
+  await page.getByTestId('terrain-package-file').setInputFiles(packagePath!)
+  expect((await receipt).status()).toBe(201)
   await page.getByRole('button', { name: '绑定DEM并保存新版本', exact: true }).click()
   await expect(page.getByRole('dialog')).toBeHidden()
   const updated = await (await request.get(`/api/v1/scenarios/${sceneId}`)).json()

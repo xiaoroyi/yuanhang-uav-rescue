@@ -63,6 +63,14 @@ export const api = {
     if (!response.ok) throw new ApiError(response.status, data)
     return data as TerrainAsset
   },
+  uploadTerrainPackage: async (file: File) => {
+    const body = new FormData()
+    body.append('file', file)
+    const response = await fetch('/api/v1/terrain-assets/import-package', { method: 'POST', body })
+    const data = await response.json()
+    if (!response.ok) throw new ApiError(response.status, data)
+    return data as TerrainAsset
+  },
   health: () => request<components['schemas']['Health']>('/health'),
   scenarios: () => request<ScenarioSummary[]>('/scenarios'),
   scenario: (id: string) => request<Scenario>(`/scenarios/${id}`),

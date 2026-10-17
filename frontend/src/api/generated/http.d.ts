@@ -136,6 +136,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/terrain-assets/{asset_id}/package": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download Terrain Package */
+        get: operations["download_terrain_package_api_v1_terrain_assets__asset_id__package_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/terrain-assets/import-package": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Upload Terrain Package */
+        post: operations["upload_terrain_package_api_v1_terrain_assets_import_package_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/scenarios/{scenario_id}/terrain": {
         parameters: {
             query?: never;
@@ -700,6 +734,11 @@ export interface components {
             file: string;
             /** Vertical Datum */
             vertical_datum: string;
+        };
+        /** Body_upload_terrain_package_api_v1_terrain_assets_import_package_post */
+        Body_upload_terrain_package_api_v1_terrain_assets_import_package_post: {
+            /** File */
+            file: string;
         };
         /** Capabilities */
         Capabilities: {
@@ -2094,6 +2133,72 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    download_terrain_package_api_v1_terrain_assets__asset_id__package_get: {
+        parameters: {
+            query: {
+                sha256: string;
+            };
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    upload_terrain_package_api_v1_terrain_assets_import_package_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_terrain_package_api_v1_terrain_assets_import_package_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TerrainAsset"];
                 };
             };
             /** @description Validation Error */

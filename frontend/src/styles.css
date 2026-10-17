@@ -3922,3 +3922,14 @@ input[type='checkbox'] {
 .terrain-panel .button {
   width: 100%;
 }
+.dialog-content > .dialog-footer {
+  position: sticky;
+  bottom: -22px;
+  background: #fff;
+  z-index: 2;
+  padding-bottom: 14px;
+  box-shadow: 0 -10px 16px #ffffffdf;
+}
+.terrain-asset-detail > strong {
+  overflow-wrap: anywhere;
+}

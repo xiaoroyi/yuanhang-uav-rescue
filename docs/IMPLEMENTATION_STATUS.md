@@ -12,16 +12,16 @@
 | 后端 | FastAPI、生成Pydantic、SQLite WAL、不可变版本/快照/hash、独立Worker、真实取消/异常恢复、计划历史、确认事务、事件幂等、CSV/JSON/GeoJSON | 本机监听；无多用户权限与真实执行事实 |
 | 导入编辑 | JSON/CSV/XLSX预览、Excel/CSV模板、6类实体增改删、场景设置 | 复杂字段映射和错误面板仍需深化；引用错误会阻止保存 |
 | 空间限制 | 静态限制区矩形/JSON/GeoJSON、米制缓冲、可见图绕行、真实距离/地形/能耗/回放、穿越负例 | local_polygon_v1限基地100km；单外环，无动态生效窗口/三维空管许可 |
-| DEM资产 | 本地GeoTIFF注册、CRS/max重投影、NoData掩码传播、垂直基准/hash、版本绑定、可选高程提取、真实Worker/地图、来源下载 | 单波段米制，16MiB/200万像元；不是可取消长期建图队列，不自动转换垂直基准 |
+| DEM资产 | 本地GeoTIFF注册、CRS/max重投影、NoData掩码传播、垂直基准/hash、版本绑定、可选高程提取、真实Worker/地图、来源下载、完整资产包跨机移交 | 单波段米制，16MiB/200万像元；完整包40MiB；不是可取消长期建图队列，不自动转换垂直基准 |
 | 前端 | React/TS strict、三页、MapLibre离线底图+原始DEM预览、真实路线、箱件/任务/资源联动、双甘特、双策略、计划示意回放 | 无外部瓦片依赖；回放按计划分段匀速插值，不是遥测 |
 | 动态事件 | 未执行场景机体退出→版本+1→新快照真实重算→新旧航线和改派箱件 | 机体/电池依赖图、保留任务的区间插入修复、后继扩展与全量回退；仅零时刻未执行状态 |
 | 资源与情景 | 真实占用图/表、硬截止余量、期望延期、充电峰值；独立增配/倍率试算、三档压力、来源与原始v1历史，刷新保留 | 峰值是无限端口模型需求；未证明最少增配、未声称成功概率 |
 | 打印报告 | 自包含HTML、真实航线/任务/需求/资源/逐箱追踪；浏览器生成PDF并逐页渲染检查 | 默认32箱样例6页；不发送飞控指令 |
-| 工程 | 锁依赖、实际OpenAPI和TS生成、ESLint、生产构建、项目内浏览器、独立E2E数据库 | 远程CI和新电脑完整安装仍需实际验收 |
+| 工程 | 锁依赖、实际OpenAPI和TS生成、ESLint、生产构建、项目内浏览器、独立E2E数据库；已推送五个检查点远程CI成功 | 新电脑完整安装仍需实际验收；后续提交CI需逐次核对 |
 
 ## 当前验证记录
 
-- Python全套：`python -m pytest tests -q`，74 passed、8 subtests passed；Starlette/httpx和Rasterio/Affine有弃用提示，测试通过。
+- Python全套：`python -m pytest tests -q`，78 passed、8 subtests passed；Starlette/httpx和Rasterio/Affine有弃用提示，测试通过。
 - 契约：10 schemas、12 mock fixtures、16项历史HTTP设计草案检查通过。该检查不代替业务求解。
 - 前端：TypeScript strict + Vite生产构建通过；ESLint通过；时间格式2项回归通过。
 - 浏览器：已检查1440×900、1280×720，控制台错误为空。完整E2E 11项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏、资源增配、三档压力与历史恢复、任务刷新恢复、打印PDF、深入优化刷新恢复、限制区绕行、GeoTIFF绑定与刷新；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
@@ -46,3 +46,5 @@ Windows双击根目录 `start.cmd`；使用已构建前端和 `.venv` 启动单�
 静态限制区已通过单项浏览器保存→新版本→真实绕行→检查→回放；旧快照hash与Excel往返通过。算法与边界见SPATIAL_ROUTING.md，兼容升级见RFC-003。地图显示原始区边界，计算另含缓冲。下一步继续通用DEM资产和地面资源容量。
 
 通用DEM已通过真实GeoTIFF上传/绑定/Worker/确认/地图/来源下载及单项浏览器刷新流程；EPSG:3857、NoData拒绝、损坏hash、跨实例隔离有回归。边界与移交资产方式见TERRAIN_ASSETS.md。下一步继续地面资源容量。
+
+完整DEM包跨实例保留准确hash，重算来源再验证导入，重复导入幂等；ZIP路径和超大数组头负例通过。浏览器已下载→导入→绑定→真实求解。1280×720弹窗主操作保持可见。GitHub Actions已核对284023f/fad9a2f/e2c3c2f/49fb5e8/a7a6787五个检查点success，记录见evidence/verification/github-ci.json；新提交不沿用旧CI结论。
