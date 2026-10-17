@@ -64,8 +64,8 @@
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png |
-| B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png |
+| C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
+| B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
 | A-07 | P1 | A | A-02, C-06 | 绕行候选 A* 或可见图、净空预检、缓存键与失效；验收：禁入更新后候选重算且有验证 | done | feat/solo-fullstack-v0; docs/SPATIAL_ROUTING.md; solver/routing.py; tests/solver/test_routing.py; evidence/solver/zone-compact.json |
 | A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | todo | — |
 | C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | todo | — |

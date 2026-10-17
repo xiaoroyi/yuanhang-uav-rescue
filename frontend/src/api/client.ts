@@ -16,6 +16,8 @@ export type PlanAnalysis = components['schemas']['PlanAnalysis']
 export type WhatIfRequest = components['schemas']['WhatIfRequest']
 export type WhatIfReceipt = components['schemas']['WhatIfReceipt']
 export type WhatIfHistory = components['schemas']['WhatIfHistory']
+export type TerrainAsset = components['schemas']['TerrainAsset']
+export type TerrainMap = components['schemas']['TerrainMap']
 
 export class ApiError extends Error {
   code: string
@@ -44,6 +46,23 @@ async function request<T>(url: string, body?: unknown, method?: string): Promise
 }
 
 export const api = {
+  terrainAssets: () => request<TerrainAsset[]>('/terrain-assets'),
+  assignTerrain: (s: Scenario, asset: TerrainAsset, update_dem_elevations: boolean) =>
+    request<Scenario>(`/scenarios/${s.scenario_id}/terrain`, {
+      expected_state_version: s.state_version,
+      asset_id: asset.asset_id,
+      sha256: asset.sha256,
+      update_dem_elevations,
+    }),
+  uploadTerrain: async (file: File, datum: string) => {
+    const body = new FormData()
+    body.append('file', file)
+    body.append('vertical_datum', datum)
+    const response = await fetch('/api/v1/terrain-assets', { method: 'POST', body })
+    const data = await response.json()
+    if (!response.ok) throw new ApiError(response.status, data)
+    return data as TerrainAsset
+  },
   health: () => request<components['schemas']['Health']>('/health'),
   scenarios: () => request<ScenarioSummary[]>('/scenarios'),
   scenario: (id: string) => request<Scenario>(`/scenarios/${id}`),

@@ -1413,7 +1413,7 @@ export default function App() {
                         battery: '电池与充电',
                         time_window: '时间与硬截止',
                         energy: '能耗与储备',
-                        terrain: '题设地形净空',
+                        terrain: '地形净空',
                         communication: '连续通信',
                         restricted_zone: '限制区与缓冲',
                       }[c.code] || c.code}

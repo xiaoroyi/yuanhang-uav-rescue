@@ -220,7 +220,7 @@ def validate(snapshot, plan):
         "terrain",
         "passed" if terrain_ok and bool(plan["sorties"]) else "not_evaluated",
         (
-            "题设DEM闭像元航段净空已检查；非现实障碍/适航认证"
+            "绑定DEM闭像元航段净空已检查；非现实障碍/适航认证"
             if terrain_ok
             else "缺少可认证DEM，地形未评估"
         ),

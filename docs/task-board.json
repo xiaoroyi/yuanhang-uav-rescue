@@ -507,7 +507,10 @@
         "docs/IMPLEMENTATION_STATUS.md",
         "docs/SPATIAL_ROUTING.md",
         "tests/backend/test_spatial.py",
-        "evidence/browser/verified/zone-detour-1440.png"
+        "evidence/browser/verified/zone-detour-1440.png",
+        "docs/TERRAIN_ASSETS.md",
+        "tests/backend/test_terrain_assets.py",
+        "evidence/browser/verified/terrain-assets-1440.png"
       ]
     },
     {
@@ -527,7 +530,10 @@
         "docs/IMPLEMENTATION_STATUS.md",
         "docs/SPATIAL_ROUTING.md",
         "tests/backend/test_spatial.py",
-        "evidence/browser/verified/zone-detour-1440.png"
+        "evidence/browser/verified/zone-detour-1440.png",
+        "docs/TERRAIN_ASSETS.md",
+        "tests/backend/test_terrain_assets.py",
+        "evidence/browser/verified/terrain-assets-1440.png"
       ]
     },
     {

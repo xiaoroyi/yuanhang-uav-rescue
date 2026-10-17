@@ -14,7 +14,9 @@ from pathlib import Path
 import uuid
 from typing import Literal
 
-from fastapi import FastAPI, File, Request, UploadFile
+from fastapi import FastAPI, File, Form, Request, UploadFile
+from starlette.concurrency import run_in_threadpool
+from rasterio.errors import RasterioError
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response, HTMLResponse
@@ -44,6 +46,13 @@ from backend.app.jobs import JobManager, now
 from backend.app.imports import GROUPS, csv_template, excel_template, preview
 from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
 from backend.app.reports import build_report
+from backend.app.terrain_assets import (
+    TerrainAsset,
+    catalog as terrain_catalog,
+    register as register_terrain,
+    describe as describe_terrain,
+)
+from solver.assets import terrain_store, terrain_info
 from backend.app.storage import (
     ConfirmationRow,
     Database,
@@ -66,7 +75,7 @@ from shared.contracts import (
     validate_snapshot,
 )
 from solver.adapters.contest import compact_scenario, contest_scenario
-from solver.physics import InputNotReady, parameters
+from solver.physics import InputNotReady, parameters, terrain_maximum
 from solver.public_api import capabilities, validate, playback, analyze
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -103,6 +112,29 @@ class VersionRequest(StrictModel):
 
 class ScenarioUpdate(VersionRequest):
     scenario: Scenario
+
+
+class TerrainAssignment(VersionRequest):
+    asset_id: str
+    sha256: str = Field(pattern="^[a-f0-9]{64}$")
+    update_dem_elevations: bool = True
+
+
+class TerrainMap(StrictModel):
+    asset_id: str
+    name: str
+    sha256: str
+    bounds: tuple[float, float, float, float]
+    coordinates: tuple[
+        tuple[float, float],
+        tuple[float, float],
+        tuple[float, float],
+        tuple[float, float],
+    ]
+    crs: str
+    source: str
+    notice: str
+    image_url: str
 
 
 class ExampleRequest(StrictModel):
@@ -261,7 +293,8 @@ def create_app(runtime_dir: Path | None = None):
     @app.middleware("http")
     async def request_id(request, call_next):
         request.state.request_id = new_id("REQ")
-        response = await call_next(request)
+        with terrain_store(directory / "assets"):
+            response = await call_next(request)
         response.headers["X-Request-ID"] = request.state.request_id
         return response
 
@@ -389,9 +422,23 @@ def create_app(runtime_dir: Path | None = None):
     def meta():
         return capabilities()
 
-    @app.get("/api/v1/map/terrain")
-    def map_terrain():
-        return terrain_metadata()
+    @app.get("/api/v1/map/terrain", response_model=TerrainMap)
+    def map_terrain(asset_id: str | None = None, sha256: str | None = None):
+        try:
+            return terrain_metadata(asset_id, sha256)
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
+    @app.get("/api/v1/map/terrain/{asset_id}/{sha256}.png")
+    def bound_terrain_image(asset_id: str, sha256: str):
+        try:
+            return FileResponse(
+                terrain_image(directory, asset_id, sha256),
+                media_type="image/png",
+                headers={"Cache-Control": "public, max-age=31536000, immutable"},
+            )
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
 
     @app.get("/api/v1/map/terrain.png")
     def map_terrain_image():
@@ -425,6 +472,74 @@ def create_app(runtime_dir: Path | None = None):
                     select(ScenarioRow).order_by(ScenarioRow.updated_at.desc())
                 )
             ]
+
+    @app.get("/api/v1/terrain-assets", response_model=list[TerrainAsset])
+    def list_terrain_assets():
+        return terrain_catalog(directory / "assets")
+
+    @app.post("/api/v1/terrain-assets", response_model=TerrainAsset, status_code=201)
+    async def upload_terrain(
+        file: UploadFile = File(...), vertical_datum: str = Form(...)
+    ):
+        data = await file.read(16 * 1024 * 1024 + 1)
+        try:
+            return await run_in_threadpool(
+                register_terrain,
+                directory / "assets",
+                data,
+                file.filename or "local-dem.tif",
+                vertical_datum,
+            )
+        except (ValueError, RasterioError, OSError) as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
+    @app.get("/api/v1/terrain-assets/{asset_id}/source")
+    def download_terrain(asset_id: str, sha256: str):
+        try:
+            info = terrain_info(asset_id, sha256)
+            digest = info.get("source_sha256")
+            if digest is None:
+                path = next(
+                    (ROOT / "references/modeling/data/terrain").glob("*DEM.mat")
+                )
+                return FileResponse(path, filename="contest-dem.mat")
+            if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+                raise InputNotReady("来源hash无效。")
+            root = (directory / "assets/sources").resolve()
+            path = (root / (digest + ".tif")).resolve()
+            if path.parent != root or not path.is_file():
+                raise InputNotReady("DEM原始文件缺失。")
+            if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                raise InputNotReady("DEM原始文件内容hash不一致。")
+            return FileResponse(path, filename=info["name"])
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
+    @app.post("/api/v1/scenarios/{scenario_id}/terrain", response_model=Scenario)
+    def assign_terrain(scenario_id: str, body: TerrainAssignment):
+        with database.session() as session:
+            row = require_row(session, ScenarioRow, scenario_id)
+            require_version(row, body.expected_state_version)
+            s = copy.deepcopy(row.content)
+        try:
+            asset = describe_terrain(body.asset_id, body.sha256)
+            for node in [s["base"], *s["sites"]]:
+                coordinates = tuple(node["coordinates"])
+                elevation = terrain_maximum(
+                    body.asset_id, body.sha256, coordinates, coordinates
+                )
+                if body.update_dem_elevations:
+                    node["ground_elevation_m"] = elevation
+            s["terrain"] = asset["terrain"]
+            s["policy"]["requires_terrain"] = True
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+        return update_scenario(
+            scenario_id,
+            ScenarioUpdate(
+                expected_state_version=body.expected_state_version, scenario=s
+            ),
+        )
 
     @app.post("/api/v1/scenarios/examples", response_model=Scenario, status_code=201)
     def load_example(body: ExampleRequest):

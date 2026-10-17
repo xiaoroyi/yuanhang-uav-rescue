@@ -89,7 +89,7 @@ test('编辑输入使旧方案失效，导入预览创建新场景', async ({ pa
   const scene = await (await request.get(`/api/v1/scenarios/${originalId}`)).json()
   expect(scene.cargo_items[0].mass_kg).toBe(5.5)
   await page.getByRole('button', { name: '场景与资源', exact: true }).click()
-  await page.locator('input[type=file]').setInputFiles({
+  await page.locator('.resource-toolbar input[type=file]').setInputFiles({
     name: 'scene.json',
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify(scene)),
@@ -318,5 +318,52 @@ test('限制区保存新版本，真实绕行并沿折线回放', async ({ page,
   await page.getByRole('button', { name: '播放计划回放', exact: true }).click()
   await expect(page.locator('.planned-aircraft').first()).toBeVisible()
   await page.getByRole('button', { name: '暂停计划回放', exact: true }).click()
+  expect(errors).toEqual([])
+})
+
+test('GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  await solve(page)
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const old = (await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json())[0]
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: '管理DEM资产', exact: true }).click()
+  await page.getByLabel('垂直基准 / 数据说明').fill('contest_provided_elevation_reference')
+  await page.getByLabel('我确认高程值为米，基准声明与来源一致').check()
+  const folder = path.resolve('../references/modeling/data/terrain')
+  const filename = (await fs.readdir(folder)).find((name) => name.endsWith('.tif'))!
+  await page.getByTestId('terrain-file').setInputFiles(path.join(folder, filename))
+  await expect(page.getByLabel('DEM资产', { exact: true })).toHaveValue(/^DEM-/, { timeout: 30000 })
+  await page.getByLabel('绑定时从DEM提取基地与需求点高程').uncheck()
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/terrain-assets-1440.png'),
+  })
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/terrain-assets-1280.png'),
+  })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.getByRole('button', { name: '绑定DEM并保存新版本', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  const updated = await (await request.get(`/api/v1/scenarios/${sceneId}`)).json()
+  expect(updated.state_version).toBe(2)
+  expect(updated.terrain.asset_id).toMatch(/^DEM-/)
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await solve(page)
+  await expect(page.locator('.map-mode')).toHaveText('本地DEM · 离线')
+  const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  expect(plans).toHaveLength(2)
+  expect(plans[0].snapshot_id).not.toBe(old.snapshot_id)
+  const plan = await (await request.get(`/api/v1/plans/${plans[0].plan_id}`)).json()
+  expect(
+    plan.validation.checks.some(
+      (c: { code: string; status: string }) => c.code === 'terrain' && c.status === 'passed',
+    ),
+  ).toBe(true)
+  await screenshot(page, 'terrain-bound-workspace-1440')
+  await page.reload()
+  await expect(page.locator('.map-mode')).toHaveText('本地DEM · 离线')
   expect(errors).toEqual([])
 })

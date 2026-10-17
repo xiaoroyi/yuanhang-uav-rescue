@@ -4,7 +4,7 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Crosshair, Layers, MapPinned, Minus, Plus } from 'lucide-react'
 import type { FeatureCollection, LineString, Polygon } from 'geojson'
-import type { Plan, Scenario, Playback } from '../api/client'
+import type { Plan, Scenario, Playback, TerrainMap } from '../api/client'
 import { colorFor } from '../lib/format'
 
 maplibregl.setWorkerUrl(workerUrl)
@@ -44,6 +44,7 @@ export function RescueMap({
     [error, setError] = useState(false),
     [terrainShown, setTerrainShown] = useState(false)
   const [showTerrain, setShowTerrain] = useState(true)
+  const [terrainLabel, setTerrainLabel] = useState('')
   const [showZones, setShowZones] = useState(true)
   const fit = useCallback(() => {
     const scenario = latest.current.scenario
@@ -56,6 +57,55 @@ export function RescueMap({
       duration: 500,
     })
   }, [])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready) return
+    let canceled = false
+    const controller = new AbortController()
+    const clear = () => {
+      if (m.getLayer('terrain-preview')) m.removeLayer('terrain-preview')
+      if (m.getSource('terrain-preview')) m.removeSource('terrain-preview')
+    }
+    const terrain = scenario.terrain
+    clear()
+    setTerrainShown(false)
+    if (terrain.status === 'available' && terrain.asset_id && terrain.sha256) {
+      void fetch(
+        `/api/v1/map/terrain?asset_id=${encodeURIComponent(terrain.asset_id)}&sha256=${terrain.sha256}`,
+        { signal: controller.signal },
+      )
+        .then(async (response) => {
+          if (!response.ok) throw new Error('terrain unavailable')
+          const asset: TerrainMap = await response.json()
+          if (canceled || map.current !== m) return
+          m.addSource('terrain-preview', {
+            type: 'image',
+            url: asset.image_url,
+            coordinates: asset.coordinates,
+          })
+          m.addLayer(
+            {
+              id: 'terrain-preview',
+              type: 'raster',
+              source: 'terrain-preview',
+              paint: { 'raster-opacity': 0.66, 'raster-saturation': -0.3 },
+            },
+            'grid',
+          )
+          setTerrainLabel(
+            asset.asset_id === 'contest-dem-30m' ? '题设DEM · 离线' : '本地DEM · 离线',
+          )
+          setTerrainShown(true)
+        })
+        .catch(() => {
+          if (!canceled) setTerrainShown(false)
+        })
+    }
+    return () => {
+      canceled = true
+      controller.abort()
+    }
+  }, [ready, scenario.terrain])
   useEffect(() => {
     if (!container.current) return
     let m: maplibregl.Map
@@ -130,37 +180,6 @@ export function RescueMap({
           'line-opacity': ['case', ['get', 'dim'], 0.2, 0.85],
         },
       })
-      void fetch('/api/v1/map/terrain')
-        .then((r) => {
-          if (!r.ok) throw new Error('no terrain')
-          return r.json()
-        })
-        .then((asset: { coordinates: [number, number][]; image_url: string }) => {
-          if (!map.current || map.current !== m) return
-          m.addSource('terrain-preview', {
-            type: 'image',
-            url: asset.image_url,
-            coordinates: asset.coordinates as [
-              [number, number],
-              [number, number],
-              [number, number],
-              [number, number],
-            ],
-          })
-          m.addLayer(
-            {
-              id: 'terrain-preview',
-              type: 'raster',
-              source: 'terrain-preview',
-              paint: { 'raster-opacity': 0.66, 'raster-saturation': -0.3 },
-            },
-            'grid',
-          )
-          setTerrainShown(true)
-        })
-        .catch(() => {
-          /* A coordinate grid remains available when this optional local asset is absent. */
-        })
       m.on('click', 'routes', (e) => {
         const id = e.features?.[0]?.properties?.id
         if (id) latest.current.onSelect(id)
@@ -288,7 +307,7 @@ export function RescueMap({
   }, [ready, plan, oldPlan, selected, showRoutes, showOld])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready || !terrainShown) return
+    if (!m || !ready || !terrainShown || !m.getLayer('terrain-preview')) return
     m.setLayoutProperty('terrain-preview', 'visibility', showTerrain ? 'visible' : 'none')
   }, [ready, terrainShown, showTerrain])
   useEffect(() => {
@@ -336,7 +355,9 @@ export function RescueMap({
           <MapPinned size={14} /> 场景地图 <i /> <b>WGS84</b>
         </span>
         <span className="map-mode">
-          {terrainShown && showTerrain ? '题设DEM · 离线' : '本地坐标底图'}
+          {scenario.terrain.status === 'available' && terrainShown && showTerrain
+            ? terrainLabel
+            : '本地坐标底图'}
         </span>
       </div>
       <div className="map-controls">
@@ -366,7 +387,7 @@ export function RescueMap({
                 checked={showTerrain}
                 onChange={(e) => setShowTerrain(e.target.checked)}
               />
-              题设DEM地形
+              绑定DEM地形
             </label>
           )}
           <label>

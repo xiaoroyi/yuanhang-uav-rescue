@@ -23,6 +23,7 @@ import { RescueMap } from '../components/RescueMap'
 import { Badge, Button, Modal } from '../components/ui'
 import { category, number, originLabel, percent, statusLabel } from '../lib/format'
 import { ZoneManager } from './ZoneManager'
+import { TerrainManager } from './TerrainManager'
 
 type Group = 'sites' | 'demands' | 'cargo_items' | 'drone_types' | 'drones' | 'batteries'
 type Row = Record<string, unknown>
@@ -594,6 +595,7 @@ export function ScenarioEditor({
           </footer>
         </section>
         <aside className="scenario-aside">
+          <TerrainManager scenario={scenario} onAssigned={onCreated} notify={notify} />
           <ZoneManager scenario={scenario} onSave={onSave} notify={notify} />
           <section className="panel">
             <RescueMap
@@ -636,7 +638,11 @@ export function ScenarioEditor({
               <MapPin size={15} />
               <span>地形数据</span>
               <Badge tone={scenario.terrain.status === 'available' ? 'teal' : 'amber'}>
-                {scenario.terrain.status === 'available' ? '题设DEM' : '未提供'}
+                {scenario.terrain.status === 'available'
+                  ? scenario.terrain.asset_id === 'contest-dem-30m'
+                    ? '题设DEM'
+                    : '本地DEM'
+                  : '未提供'}
               </Badge>
             </div>
             <p>输入保存不代表物理可行。载重、能耗、时限和资源约束将在真实求解后独立检查。</p>
@@ -887,7 +893,7 @@ function SettingsForm({
               })
             }
           />
-          要求通过题设DEM净空检查
+          要求通过绑定DEM净空检查
         </label>
       </div>
       <p className="callout">当前模型不含连续通信认证；费用未配置。不能把仿真结果当作实飞许可。</p>

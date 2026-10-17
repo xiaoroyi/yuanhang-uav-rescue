@@ -2,8 +2,8 @@
 > yuanhang-rescue-console@0.1.0 test:unit
 > node --test tests/unit/*.test.mjs
 
-✔ rounding carries seconds into the next minute and hour (0.4259ms)
-✔ zero is data, missing values remain unknown (9.3758ms)
+✔ rounding carries seconds into the next minute and hour (0.4663ms)
+✔ zero is data, missing values remain unknown (10.6599ms)
 ℹ tests 2
 ℹ suites 0
 ℹ pass 2
@@ -11,4 +11,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 103.1186
+ℹ duration_ms 115.5988

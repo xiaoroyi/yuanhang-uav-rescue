@@ -8,6 +8,7 @@ import traceback
 import time
 
 from solver.public_api import replan, solve
+from solver.assets import terrain_store
 
 
 def atomic_json(path: Path, value):
@@ -30,6 +31,12 @@ def atomic_json(path: Path, value):
 def main():
     source, output, progress = map(Path, sys.argv[1:4])
     data = json.loads(source.read_text(encoding="utf-8"))
+    # input.json lives in runtime/jobs/JOB-id; no user path enters core SolverOptions.
+    with terrain_store(source.parents[2] / "assets"):
+        return run_job(data, output, progress)
+
+
+def run_job(data, output, progress):
 
     def callback(value):
         try:

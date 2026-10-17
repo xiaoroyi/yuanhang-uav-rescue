@@ -122,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 22804,
+                  "duration": 24439,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:10:01.807Z",
+                  "startTime": "2026-10-17T18:25:20.215Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 12902,
+                  "duration": 13582,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:10:24.947Z",
+                  "startTime": "2026-10-17T18:25:44.990Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -190,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13625,
+                  "duration": 15294,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:10:37.859Z",
+                  "startTime": "2026-10-17T18:25:58.582Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -224,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 9921,
+                  "duration": 9909,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:10:51.495Z",
+                  "startTime": "2026-10-17T18:26:13.887Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -258,12 +258,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 12075,
+                  "duration": 12492,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:11:01.427Z",
+                  "startTime": "2026-10-17T18:26:23.808Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -292,12 +292,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13321,
+                  "duration": 15986,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:11:13.512Z",
+                  "startTime": "2026-10-17T18:26:36.310Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -326,12 +326,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4109,
+                  "duration": 5799,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:11:26.842Z",
+                  "startTime": "2026-10-17T18:26:52.310Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -360,12 +360,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6730,
+                  "duration": 7119,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:11:30.962Z",
+                  "startTime": "2026-10-17T18:26:58.120Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -394,12 +394,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 41939,
+                  "duration": 42538,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:11:37.703Z",
+                  "startTime": "2026-10-17T18:27:05.249Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -428,12 +428,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 17271,
+                  "duration": 18345,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:12:19.651Z",
+                  "startTime": "2026-10-17T18:27:47.797Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -445,15 +445,49 @@
           "file": "workflow.spec.ts",
           "line": 279,
           "column": 1
+        },
+        {
+          "title": "GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27049,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T18:28:06.151Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-2aa3f9039612ac814343",
+          "file": "workflow.spec.ts",
+          "line": 324,
+          "column": 1
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T18:10:01.292Z",
-    "duration": 155960.002,
-    "expected": 10,
+    "startTime": "2026-10-17T18:25:19.723Z",
+    "duration": 193862.513,
+    "expected": 11,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

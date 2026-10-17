@@ -8,22 +8,22 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import lru_cache
-import hashlib
 import math
-from pathlib import Path
 
 import numpy as np
 from pyproj import Geod
 from solver.routing import route_path, RoutingUnavailable
+from solver.errors import InputNotReady
+from solver.assets import (
+    terrain_data,
+    terrain_token,
+    arrays_for_token,
+    validate_reference,
+)
 
-ROOT = Path(__file__).resolve().parents[1]
 GEOD = Geod(ellps="WGS84")
 ENERGY_MODEL = "contest_transport_v1"
 CHARGE_MODEL = "contest_two_stage_v1"
-
-
-class InputNotReady(ValueError):
-    pass
 
 
 @dataclass(frozen=True)
@@ -34,24 +34,6 @@ class Leg:
     cruise_m: float
     terrain_checked: bool
     path: tuple
-
-
-@lru_cache(maxsize=2)
-def terrain_data(asset_id: str, expected_hash: str):
-    if asset_id != "contest-dem-30m":
-        raise InputNotReady("尚未注册该地形资产，请使用已核验的题设DEM或关闭强制地形。")
-    from scipy.io import loadmat
-
-    path = next((ROOT / "references/modeling/data/terrain").glob("*DEM.mat"))
-    if hashlib.sha256(path.read_bytes()).hexdigest() != expected_hash:
-        raise InputNotReady("地形资产内容哈希与快照不一致。")
-    values = loadmat(path)
-    return (
-        values["dem"],
-        values["longitude"].ravel(),
-        values["latitude"].ravel(),
-        float(values["nodata"].item()),
-    )
 
 
 def supercover_cells(x0, y0, x1, y1):
@@ -81,9 +63,15 @@ def supercover_cells(x0, y0, x1, y1):
     return result
 
 
-@lru_cache(maxsize=8192)
 def terrain_maximum(asset_id, digest, start, finish):
-    dem, longitude, latitude, nodata = terrain_data(asset_id, digest)
+    token = terrain_token(asset_id, digest)
+    arrays_for_token(token)
+    return _terrain_maximum_cached(token, start, finish)
+
+
+@lru_cache(maxsize=8192)
+def _terrain_maximum_cached(token, start, finish):
+    dem, longitude, latitude, nodata, _ = arrays_for_token(token)
     # WGS84 geodesic subdivision; closed-cell supercover on each projected raster chord.
     az, _, distance = GEOD.inv(*start, *finish)
     count = max(1, math.ceil(distance / 20))
@@ -166,6 +154,8 @@ def leg(scenario, drone_type, start_id, end_id):
     work1 = z1 + (0 if end_id == base_id else service_height)
     terrain = scenario["terrain"]
     checked = terrain["status"] == "available"
+    if checked:
+        validate_reference(terrain)
     maximum = (
         max(
             terrain_maximum(

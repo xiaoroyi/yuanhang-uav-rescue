@@ -50,6 +50,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/map/terrain/{asset_id}/{sha256}.png": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Bound Terrain Image */
+        get: operations["bound_terrain_image_api_v1_map_terrain__asset_id___sha256__png_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/map/terrain.png": {
         parameters: {
             query?: never;
@@ -78,6 +95,58 @@ export interface paths {
         get: operations["list_scenarios_api_v1_scenarios_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/terrain-assets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Terrain Assets */
+        get: operations["list_terrain_assets_api_v1_terrain_assets_get"];
+        put?: never;
+        /** Upload Terrain */
+        post: operations["upload_terrain_api_v1_terrain_assets_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/terrain-assets/{asset_id}/source": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Download Terrain */
+        get: operations["download_terrain_api_v1_terrain_assets__asset_id__source_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/terrain": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Assign Terrain */
+        post: operations["assign_terrain_api_v1_scenarios__scenario_id__terrain_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -624,6 +693,13 @@ export interface components {
         Body_import_file_api_v1_scenarios_import_file_post: {
             /** File */
             file: string;
+        };
+        /** Body_upload_terrain_api_v1_terrain_assets_post */
+        Body_upload_terrain_api_v1_terrain_assets_post: {
+            /** File */
+            file: string;
+            /** Vertical Datum */
+            vertical_datum: string;
         };
         /** Capabilities */
         Capabilities: {
@@ -1612,6 +1688,93 @@ export interface components {
             /** Vertical Datum */
             vertical_datum: string | null;
         };
+        /** TerrainAsset */
+        TerrainAsset: {
+            /** Asset Id */
+            asset_id: string;
+            /** Name */
+            name: string;
+            /** Sha256 */
+            sha256: string;
+            terrain: components["schemas"]["Terrain"];
+            /** Bounds */
+            bounds: [
+                number,
+                number,
+                number,
+                number
+            ];
+            /** Dimensions */
+            dimensions: [
+                number,
+                number
+            ];
+            /** Valid Fraction */
+            valid_fraction: number;
+            /** Source Sha256 */
+            source_sha256: string | null;
+            /** Source Crs */
+            source_crs: string;
+            /** Processing */
+            processing: string[];
+        };
+        /** TerrainAssignment */
+        TerrainAssignment: {
+            /** Expected State Version */
+            expected_state_version: number;
+            /** Asset Id */
+            asset_id: string;
+            /** Sha256 */
+            sha256: string;
+            /**
+             * Update Dem Elevations
+             * @default true
+             */
+            update_dem_elevations: boolean;
+        };
+        /** TerrainMap */
+        TerrainMap: {
+            /** Asset Id */
+            asset_id: string;
+            /** Name */
+            name: string;
+            /** Sha256 */
+            sha256: string;
+            /** Bounds */
+            bounds: [
+                number,
+                number,
+                number,
+                number
+            ];
+            /** Coordinates */
+            coordinates: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            /** Crs */
+            crs: string;
+            /** Source */
+            source: string;
+            /** Notice */
+            notice: string;
+            /** Image Url */
+            image_url: string;
+        };
         /**
          * TerrainStatus
          * @enum {string}
@@ -1756,7 +1919,10 @@ export interface operations {
     };
     map_terrain_api_v1_map_terrain_get: {
         parameters: {
-            query?: never;
+            query?: {
+                asset_id?: string | null;
+                sha256?: string | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -1769,7 +1935,48 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
+                    "application/json": components["schemas"]["TerrainMap"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    bound_terrain_image_api_v1_map_terrain__asset_id___sha256__png_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+                sha256: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -1810,6 +2017,127 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ScenarioSummary"][];
+                };
+            };
+        };
+    };
+    list_terrain_assets_api_v1_terrain_assets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TerrainAsset"][];
+                };
+            };
+        };
+    };
+    upload_terrain_api_v1_terrain_assets_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_upload_terrain_api_v1_terrain_assets_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TerrainAsset"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    download_terrain_api_v1_terrain_assets__asset_id__source_get: {
+        parameters: {
+            query: {
+                sha256: string;
+            };
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_terrain_api_v1_scenarios__scenario_id__terrain_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TerrainAssignment"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Scenario"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
