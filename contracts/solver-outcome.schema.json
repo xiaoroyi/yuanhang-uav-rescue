@@ -34,7 +34,8 @@
           "energy",
           "terrain",
           "communication",
-          "restricted_zone"
+          "restricted_zone",
+          "ground_resource"
         ]
       },
       "uniqueItems": true

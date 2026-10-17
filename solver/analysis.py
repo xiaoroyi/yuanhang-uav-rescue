@@ -32,13 +32,25 @@ def analyze(snapshot, plan):
                 {
                     "battery_id": r["battery_id"],
                     "type_id": drones[r["drone_id"]]["type_id"],
-                    "start_s": r["return_s"],
+                    "start_s": r.get("charge_start_s", r["return_s"]),
                     "end_s": r["battery_released_s"],
                     "is_initial": False,
                     "sortie_id": r["sortie_id"],
                 }
             )
-    for b in s["batteries"]:
+    for row in plan.get("initial_charges", []):
+        b = next(b for b in s["batteries"] if b["battery_id"] == row["battery_id"])
+        charge_windows.append(
+            {
+                "battery_id": row["battery_id"],
+                "type_id": b["compatible_type_id"],
+                "start_s": row["start_s"],
+                "end_s": row["end_s"],
+                "is_initial": True,
+                "sortie_id": None,
+            }
+        )
+    for b in s["batteries"] if not s.get("resource_limits") else []:
         uses = sorted(by_battery[b["battery_id"]], key=lambda r: r["prepare_start_s"])
         if not uses:
             continue
@@ -68,12 +80,20 @@ def analyze(snapshot, plan):
             "battery_released_s",
         ),
     ]:
-        horizon = max([r[release_key] for r in plan["sorties"]], default=0)
+        horizon = max(
+            [r[release_key] for r in plan["sorties"]]
+            + [
+                w["end_s"]
+                for w in charge_windows
+                if kind == "battery" and w["is_initial"]
+            ],
+            default=0,
+        )
         for record in records:
             identity = record[id_key]
             uses = [r for r in plan["sorties"] if r[id_key] == identity]
             initial = sum(
-                w["end_s"] - w["start_s"]
+                w["end_s"] - record["available_after_s"]
                 for w in charge_windows
                 if kind == "battery" and w["battery_id"] == identity and w["is_initial"]
             )
@@ -114,6 +134,23 @@ def analyze(snapshot, plan):
         "snapshot_id": snapshot["snapshot_id"],
         "scenario_state_version": snapshot["scenario_state_version"],
         "model_scope": plan["model_scope"],
+        "resource_limits": s.get("resource_limits"),
+        "prep_peak": interval_peak(
+            [(r["prepare_start_s"], r["takeoff_s"]) for r in plan["sorties"]]
+        ),
+        "charge_wait_s": sum(
+            r.get("charge_start_s", r["return_s"]) - r["return_s"]
+            for r in plan["sorties"]
+        )
+        + sum(
+            row["start_s"]
+            - next(
+                b["available_after_s"]
+                for b in s["batteries"]
+                if b["battery_id"] == row["battery_id"]
+            )
+            for row in plan.get("initial_charges", [])
+        ),
         "delivery": deliveries,
         "resources": resources,
         "charge_windows": sorted(
@@ -126,7 +163,11 @@ def analyze(snapshot, plan):
         "min_hard_slack_s": min(slacks) if slacks else None,
         "notes": [
             "占用率按该类资源从场景零点至最后释放计，属于计划占用，不是设备实测统计。",
-            "充电峰值为现有无限端口模型的并发需求，不代表已考虑端口容量。",
+            (
+                f"有限地面容量：{s['resource_limits']['prep_slots']}个准备工位、{s['resource_limits']['charging_ports']}个充电端口；初始补能和等待单独记录。"
+                if s.get("resource_limits")
+                else "充电峰值为现有无限端口模型的并发需求，不代表已考虑端口容量。"
+            ),
             "期望截止允许延期；硬截止必须通过独立检查。",
             "初始充电仅在本次方案实际先补能时计入。",
         ],

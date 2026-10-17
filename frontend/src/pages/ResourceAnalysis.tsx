@@ -309,7 +309,11 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
             {a.charge_peak}
             <em>块电池</em>
           </strong>
-          <small>现有无限端口模型下的并发需求</small>
+          <small>
+            {a.resource_limits
+              ? `实际并发 / ${a.resource_limits.charging_ports}个端口；准备峰值${a.prep_peak}/${a.resource_limits.prep_slots}`
+              : '现有无限端口模型下的并发需求'}
+          </small>
         </div>
       </div>
       <div className="analysis-columns">

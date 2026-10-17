@@ -53,6 +53,9 @@ def validate(snapshot, plan):
     energy_total = 0.0
     terrain_ok = True
     zone_checked = 0
+    limits = s.get("resource_limits")
+    initial_charges_by_battery = {}
+    charge_windows = []
 
     def equal(actual, expected, code, label, object_id):
         if actual is None or not math.isclose(
@@ -64,6 +67,39 @@ def validate(snapshot, plan):
                 f"{label}不一致：给定{actual}，独立重算{expected:.6f}",
                 object_id,
             )
+
+    if plan.get("initial_charges") and not limits:
+        add("ground_resource", "failed", "未声明有限地面模型，不能增加初始补能任务")
+    for row in plan.get("initial_charges", []):
+        bid = row["battery_id"]
+        if bid not in batteries or bid in initial_charges_by_battery:
+            add("battery", "failed", "初始补能引用不存在或重复的电池", bid)
+            continue
+        b = batteries[bid]
+        typ = types[b["compatible_type_id"]]
+        try:
+            parameters(typ)
+        except (InputNotReady, KeyError) as exc:
+            add("battery", "failed", str(exc), bid)
+            continue
+        if (
+            b["status"] not in ["available", "charging"]
+            or b["location_id"] != s["base"]["id"]
+            or b["soh"] <= 0
+        ):
+            add("inventory", "failed", "初始补能电池状态或位置不允许", bid)
+        if row["start_s"] < b["available_after_s"] or row["end_s"] < row["start_s"]:
+            add("time_window", "failed", "初始补能发生在可用时间前或时间倒序", bid)
+        equal(row["from_soc"], b["soc"], "battery", "初始补能SOC", bid)
+        equal(
+            row["end_s"] - row["start_s"],
+            charge_seconds(typ, b["soc"]),
+            "battery",
+            "初始补能时长",
+            bid,
+        )
+        initial_charges_by_battery[bid] = row
+        charge_windows.append((row["start_s"], row["end_s"]))
 
     for route in plan["sorties"]:
         rid = route["sortie_id"]
@@ -168,13 +204,21 @@ def validate(snapshot, plan):
             departure = route["return_soc"] + energy / usable
             if departure > 1 + 1e-8:
                 add("energy", "failed", "出发可用电量不足以完成该架次", rid)
+            charge_start = route.get("charge_start_s", clock)
+            if limits and "charge_start_s" not in route:
+                add("ground_resource", "failed", "有限端口模型缺少充电开始时刻", rid)
+            if not limits and not math.isclose(charge_start, clock, abs_tol=1e-7):
+                add("ground_resource", "failed", "无限端口模型不能隐含充电排队", rid)
+            if charge_start < clock - 1e-7:
+                add("battery", "failed", "尚未返航即开始充电", rid)
             equal(
                 route["battery_released_s"],
-                clock + charge_seconds(typ, route["return_soc"]),
+                charge_start + charge_seconds(typ, route["return_soc"]),
                 "battery",
                 "补能完成时刻",
                 rid,
             )
+            charge_windows.append((charge_start, route["battery_released_s"]))
             battery_uses.setdefault(route["battery_id"], []).append(
                 (
                     route["prepare_start_s"],
@@ -197,6 +241,18 @@ def validate(snapshot, plan):
                 allowed = ([initial] if b["status"] != "charging" else []) + (
                     [1.0] if start + 1e-8 >= fully_ready else []
                 )
+                if limits:
+                    # Explicit ground model cannot infer an unrecorded free charger.
+                    initial_row = initial_charges_by_battery.get(bid)
+                    allowed = (
+                        [1.0]
+                        if initial_row and start + 1e-8 >= initial_row["end_s"]
+                        else (
+                            [b["soc"]]
+                            if not initial_row and abs(b["soc"] - 1) < 1e-9
+                            else []
+                        )
+                    )
                 if not any(math.isclose(departure, v, abs_tol=1e-7) for v in allowed):
                     add(
                         "battery",
@@ -226,6 +282,47 @@ def validate(snapshot, plan):
         ),
     )
     add("communication", "not_evaluated", "当前运输求解未接入连续无线链路认证")
+    if limits:
+
+        def peak(windows):
+            events = sorted(
+                [
+                    (time, change)
+                    for start, end in windows
+                    if end > start
+                    for time, change in [(start, 1), (end, -1)]
+                ]
+            )
+            active = maximum = 0
+            for _, change in events:
+                active += change
+                maximum = max(maximum, active)
+            return maximum
+
+        prep_peak = peak(
+            [(r["prepare_start_s"], r["takeoff_s"]) for r in plan["sorties"]]
+        )
+        charge_peak = peak(charge_windows)
+        if prep_peak > limits["prep_slots"]:
+            add(
+                "ground_resource",
+                "failed",
+                f"准备并发{prep_peak}超过工位{limits['prep_slots']}",
+            )
+        if charge_peak > limits["charging_ports"]:
+            add(
+                "ground_resource",
+                "failed",
+                f"充电并发{charge_peak}超过端口{limits['charging_ports']}",
+            )
+        if not any(
+            c["code"] == "ground_resource" and c["status"] == "failed" for c in checks
+        ):
+            add(
+                "ground_resource",
+                "passed",
+                f"准备峰值{prep_peak}/{limits['prep_slots']}，含初始补能的充电峰值{charge_peak}/{limits['charging_ports']}；等待占用电池",
+            )
     if s.get("restricted_zones") and not any(
         c["code"] == "restricted_zone" and c["status"] == "failed" for c in checks
     ):
@@ -242,9 +339,13 @@ def validate(snapshot, plan):
         set(
             BASE_SCOPE
             + plan["model_scope"]
+            + (["ground_resource"] if limits else [])
+            + (["restricted_zone"] if s.get("restricted_zones") else [])
             + [d for d in ["terrain", "communication"] if s["policy"]["requires_" + d]]
         )
     )
+    for code in set(required) - set(plan["model_scope"]):
+        add(code, "failed", "Plan未声明场景要求的必检模型范围")
     failed = any(c["status"] == "failed" for c in checks)
     complete = all(
         any(c["code"] == code and c["status"] == "passed" for c in checks)

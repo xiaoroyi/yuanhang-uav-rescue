@@ -33,6 +33,8 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 
 可选扩展缺省时不补null/默认数组，HTTP及规范化exclude_unset以维持旧Snapshot原字节语义与hash。限制区详见RFC-003：非空restricted_zones始终强制检查，旧数据省略则沿用原模型；字段存在时进入版本/hash，不可只改地图图层而沿用旧方案。
 
+有限地面资源详见RFC-005：resource_limits存在时要求ground_resource，charge_start_s区分排队与真正补能，initial_charges记录初始低SOC补满。它们均为兼容可选字段，旧数据省略时不追加默认值。
+
 ## P0 数据资格
 
 - 单基地，整箱不可拆；需求 required_quantity 是箱数，与库存箱件数分开。

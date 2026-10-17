@@ -8,7 +8,7 @@ import uuid
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from backend.app.generated.domain import Scenario, Plan, SolveJob
+from backend.app.generated.domain import Scenario, Plan, SolveJob, ResourceLimits
 
 
 class DTO(BaseModel):
@@ -61,6 +61,9 @@ class PlanAnalysis(DTO):
     snapshot_id: str
     scenario_state_version: int
     model_scope: list[str]
+    resource_limits: ResourceLimits | None
+    prep_peak: int
+    charge_wait_s: float
     delivery: DeliveryAnalysis
     resources: list[ResourceUsage]
     charge_windows: list[ChargeWindow]

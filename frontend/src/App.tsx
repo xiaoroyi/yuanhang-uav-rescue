@@ -105,6 +105,11 @@ export default function App() {
     queryFn: () => api.getSnapshot(planQuery.data!.snapshot_id),
     enabled: !!planQuery.data,
   })
+  const quality = useQuery({
+    queryKey: ['analysis', planId],
+    queryFn: () => api.analysis(planId),
+    enabled: !!planId,
+  })
   const events = useQuery({
     queryKey: ['events', scenarioId],
     queryFn: () => api.events(scenarioId),
@@ -830,6 +835,26 @@ export default function App() {
                       ))}
                     </div>
                   )}
+                  {page === 'workspace' && plan && quality.data?.plan_id === plan.plan_id && (
+                    <div
+                      className="plan-quality"
+                      title="加权箱秒是每箱期望延期秒乘需求优先级的合计，不是墙钟时长。"
+                    >
+                      <Badge tone="teal">硬截止已检查</Badge>
+                      <span>
+                        {quality.data.delivery.expected_demand_count
+                          ? `期望延期 ${quality.data.delivery.late_demand_count} 条 · 加权箱秒 ${number(quality.data.delivery.weighted_box_delay_s, 0)}`
+                          : '未设置期望时限'}
+                      </span>
+                      {quality.data.resource_limits && (
+                        <span>
+                          准备 {quality.data.resource_limits.prep_slots} 工位 · 充电{' '}
+                          {quality.data.resource_limits.charging_ports} 端口
+                        </span>
+                      )}
+                      <small>先减少优先级加权期望延期，再比较时间 / 能耗</small>
+                    </div>
+                  )}
                   {page === 'events' && eventTab === 'analysis' ? (
                     <ResourceAnalysis
                       key={scenario.scenario_id}
@@ -1208,8 +1233,8 @@ export default function App() {
                                 </div>
                                 <p>
                                   {objective === 'time'
-                                    ? '优先缩短同等保障下的完成时间'
-                                    : '在共同约束下减少能源消耗'}
+                                    ? '先减加权期望延期，再缩短完成时间'
+                                    : '先减加权期望延期，再降低能源消耗'}
                                 </p>
                                 {p ? (
                                   <>
@@ -1416,6 +1441,7 @@ export default function App() {
                         terrain: '地形净空',
                         communication: '连续通信',
                         restricted_zone: '限制区与缓冲',
+                        ground_resource: '工位与充电端口',
                       }[c.code] || c.code}
                     </strong>
                     <p>{c.message}</p>

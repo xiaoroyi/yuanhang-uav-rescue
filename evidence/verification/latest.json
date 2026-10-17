@@ -1,51 +1,51 @@
 {
-  "at_utc": "2026-10-17T18:39:57.169336+00:00",
-  "head": "1a2823fcdb77e9bffd5875deaf9a9cd8da047a75",
+  "at_utc": "2026-10-17T19:04:27.420567+00:00",
+  "head": "45bf351415444bcc4dd891ef173e43ffe09237c3",
   "branch": "feat/solo-fullstack-v0",
-  "working_tree_diff_sha256": "3e26763493a3c4840d98941261eeb368673b1858f527815a59e8da1c493becc3",
+  "working_tree_diff_sha256": "15474117c9e99f9c0240bf574429f7cf3659b2eeb6c85b49764f25f7941379fd",
   "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
-  "status": " M README.md\n M backend/app/main.py\n M backend/app/terrain_assets.py\n M contracts/http/openapi.generated.json\n M docs/04-API-CONTRACT.md\n M docs/CONTRACT_RFC_004.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/TERRAIN_ASSETS.md\n M evidence/browser/e2e-results.json\n M evidence/browser/e2e-targeted-results.json\n M evidence/browser/verified/deep-optimization-1440.png\n M evidence/browser/verified/print-report-screen.png\n M evidence/browser/verified/print-report.pdf\n M evidence/browser/verified/scenario-1440.png\n M evidence/browser/verified/scenario-mobile.png\n M evidence/browser/verified/stress-history-1440.png\n M evidence/browser/verified/terrain-assets-1280.png\n M evidence/browser/verified/terrain-assets-1440.png\n M evidence/browser/verified/terrain-bound-workspace-1440.png\n M evidence/browser/verified/workspace-1280.png\n M evidence/browser/verified/workspace-1440.png\n M evidence/browser/verified/zone-detour-1440.png\n M evidence/browser/verified/zone-editor-1440.png\n M evidence/verification/check-01.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/check-07.txt\n M frontend/src/api/client.ts\n M frontend/src/api/generated/http.d.ts\n M frontend/src/pages/TerrainManager.tsx\n M frontend/src/styles.css\n M frontend/tests/workflow.spec.ts\n?? backend/app/terrain_packages.py\n?? evidence/verification/github-ci.json\n?? tests/backend/test_terrain_packages.py\n",
+  "status": " M backend/app/analytics.py\n M backend/app/generated/domain.py\n M backend/app/imports.py\n M backend/app/main.py\n M backend/app/reports.py\n M contracts/capabilities.schema.json\n M contracts/common.schema.json\n M contracts/http/openapi.generated.json\n M contracts/plan.schema.json\n M contracts/scenario.schema.json\n M contracts/solver-options.schema.json\n M contracts/solver-outcome.schema.json\n M docs/03-DATA-CONTRACT.md\n M docs/05-SOLVER-CONTRACT.md\n M docs/08-TASK-BOARD.md\n M docs/CONTRACT_CHANGELOG.md\n M docs/RESOURCE_ANALYSIS.md\n M docs/task-board.json\n M evidence/browser/e2e-results.json\n M evidence/browser/e2e-targeted-results.json\n M evidence/browser/verified/deep-optimization-1440.png\n M evidence/browser/verified/print-report-screen.png\n M evidence/browser/verified/print-report.pdf\n M evidence/browser/verified/replan-1440.png\n M evidence/browser/verified/scenario-1440.png\n M evidence/browser/verified/stress-history-1440.png\n M evidence/browser/verified/terrain-assets-1440.png\n M evidence/browser/verified/terrain-bound-workspace-1440.png\n M evidence/browser/verified/workspace-1280.png\n M evidence/browser/verified/workspace-1440.png\n M evidence/browser/verified/zone-detour-1440.png\n M evidence/browser/verified/zone-editor-1440.png\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/check-07.txt\n M frontend/src/App.tsx\n M frontend/src/api/generated/http.d.ts\n M frontend/src/components/ResourceTimeline.tsx\n M frontend/src/pages/ResourceAnalysis.tsx\n M frontend/src/pages/ScenarioEditor.tsx\n M frontend/src/styles.css\n M frontend/tests/workflow.spec.ts\n M shared/contracts.py\n M solver/analysis.py\n M solver/cp_pool.py\n M solver/public_api.py\n M solver/validation.py\n?? docs/CONTRACT_RFC_005.md\n?? docs/GROUND_RESOURCES.md\n?? evidence/browser/verified/ground-calendars-1440.png\n?? evidence/browser/verified/initial-charge-1440.png\n?? evidence/solver/ground-compact.json\n?? evidence/solver/ground-deep-compact.json\n?? solver/ground.py\n?? solver/identities.py\n?? tests/backend/test_ground_api.py\n?? tests/solver/test_ground.py\n",
   "checks": [
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
       "exit_code": 0,
-      "elapsed_s": 61.4,
+      "elapsed_s": 69.368,
       "output": "evidence/verification/check-01.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
       "exit_code": 0,
-      "elapsed_s": 0.393,
+      "elapsed_s": 0.362,
       "output": "evidence/verification/check-02.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
       "exit_code": 0,
-      "elapsed_s": 0.482,
+      "elapsed_s": 0.494,
       "output": "evidence/verification/check-03.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
       "exit_code": 0,
-      "elapsed_s": 2.815,
+      "elapsed_s": 2.81,
       "output": "evidence/verification/check-04.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
       "exit_code": 0,
-      "elapsed_s": 0.628,
+      "elapsed_s": 0.687,
       "output": "evidence/verification/check-05.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
       "exit_code": 0,
-      "elapsed_s": 4.17,
+      "elapsed_s": 4.159,
       "output": "evidence/verification/check-06.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:e2e",
       "exit_code": 0,
-      "elapsed_s": 197.834,
+      "elapsed_s": 227.032,
       "output": "evidence/verification/check-07.txt"
     }
   ],

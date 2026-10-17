@@ -2250,7 +2250,8 @@
           "energy",
           "terrain",
           "communication",
-          "restricted_zone"
+          "restricted_zone",
+          "ground_resource"
         ],
         "title": "Code"
       },
@@ -3122,6 +3123,48 @@
         ],
         "title": "ImportPreview"
       },
+      "InitialCharge": {
+        "properties": {
+          "battery_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Battery Id"
+          },
+          "start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "End S"
+          },
+          "from_soc": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "From Soc"
+          },
+          "to_soc": {
+            "type": "integer",
+            "const": 1,
+            "title": "To Soc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "battery_id",
+          "start_s",
+          "end_s",
+          "from_soc",
+          "to_soc"
+        ],
+        "title": "InitialCharge"
+      },
       "JobState": {
         "type": "string",
         "enum": [
@@ -3244,7 +3287,8 @@
           "energy",
           "terrain",
           "communication",
-          "restricted_zone"
+          "restricted_zone",
+          "ground_resource"
         ],
         "title": "ModelScopeEnum"
       },
@@ -3399,6 +3443,20 @@
                 "type": "null"
               }
             ]
+          },
+          "initial_charges": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/InitialCharge"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Charges"
           }
         },
         "additionalProperties": false,
@@ -3446,6 +3504,24 @@
             },
             "type": "array",
             "title": "Model Scope"
+          },
+          "resource_limits": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResourceLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "prep_peak": {
+            "type": "integer",
+            "title": "Prep Peak"
+          },
+          "charge_wait_s": {
+            "type": "number",
+            "title": "Charge Wait S"
           },
           "delivery": {
             "$ref": "#/components/schemas/DeliveryAnalysis"
@@ -3501,6 +3577,9 @@
           "snapshot_id",
           "scenario_state_version",
           "model_scope",
+          "resource_limits",
+          "prep_peak",
+          "charge_wait_s",
           "delivery",
           "resources",
           "charge_windows",
@@ -3819,6 +3898,29 @@
         ],
         "title": "ResourceAddition"
       },
+      "ResourceLimits": {
+        "properties": {
+          "prep_slots": {
+            "type": "integer",
+            "maximum": 32.0,
+            "minimum": 1.0,
+            "title": "Prep Slots"
+          },
+          "charging_ports": {
+            "type": "integer",
+            "maximum": 64.0,
+            "minimum": 1.0,
+            "title": "Charging Ports"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "prep_slots",
+          "charging_ports"
+        ],
+        "title": "ResourceLimits"
+      },
       "ResourceUsage": {
         "properties": {
           "kind": {
@@ -4051,6 +4153,16 @@
               }
             ],
             "title": "Restricted Zones"
+          },
+          "resource_limits": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResourceLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -4686,6 +4798,18 @@
           },
           "communication_status": {
             "$ref": "#/components/schemas/CommunicationStatus"
+          },
+          "charge_start_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Charge Start S"
           }
         },
         "additionalProperties": false,
@@ -4803,7 +4927,8 @@
           "energy",
           "terrain",
           "communication",
-          "restricted_zone"
+          "restricted_zone",
+          "ground_resource"
         ],
         "title": "SupportedModelScopeEnum"
       },

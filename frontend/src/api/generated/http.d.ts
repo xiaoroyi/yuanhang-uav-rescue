@@ -827,7 +827,7 @@ export interface components {
          * Code
          * @enum {string}
          */
-        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
+        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
         /**
          * Code1
          * @enum {string}
@@ -1132,6 +1132,22 @@ export interface components {
                 [key: string]: unknown;
             }[];
         };
+        /** InitialCharge */
+        InitialCharge: {
+            /** Battery Id */
+            battery_id: string;
+            /** Start S */
+            start_s: number;
+            /** End S */
+            end_s: number;
+            /** From Soc */
+            from_soc: number;
+            /**
+             * To Soc
+             * @constant
+             */
+            to_soc: 1;
+        };
         /**
          * JobState
          * @enum {string}
@@ -1167,7 +1183,7 @@ export interface components {
          * ModelScopeEnum
          * @enum {string}
          */
-        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
+        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
         /**
          * Objective
          * @enum {string}
@@ -1218,6 +1234,8 @@ export interface components {
             /** Event Id */
             event_id: string | null;
             change_summary: components["schemas"]["ChangeSummary"] | null;
+            /** Initial Charges */
+            initial_charges?: components["schemas"]["InitialCharge"][] | null;
         };
         /** PlanAnalysis */
         PlanAnalysis: {
@@ -1229,6 +1247,11 @@ export interface components {
             scenario_state_version: number;
             /** Model Scope */
             model_scope: string[];
+            resource_limits: components["schemas"]["ResourceLimits"] | null;
+            /** Prep Peak */
+            prep_peak: number;
+            /** Charge Wait S */
+            charge_wait_s: number;
             delivery: components["schemas"]["DeliveryAnalysis"];
             /** Resources */
             resources: components["schemas"]["ResourceUsage"][];
@@ -1370,6 +1393,13 @@ export interface components {
             /** Battery Capacity Kwh */
             battery_capacity_kwh?: number | null;
         };
+        /** ResourceLimits */
+        ResourceLimits: {
+            /** Prep Slots */
+            prep_slots: number;
+            /** Charging Ports */
+            charging_ports: number;
+        };
         /** ResourceUsage */
         ResourceUsage: {
             /**
@@ -1458,6 +1488,7 @@ export interface components {
             policy: components["schemas"]["Policy"];
             /** Restricted Zones */
             restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
+            resource_limits?: components["schemas"]["ResourceLimits"] | null;
         };
         /** ScenarioOrigin */
         ScenarioOrigin: {
@@ -1668,6 +1699,8 @@ export interface components {
             return_soc: number | null;
             terrain_status: components["schemas"]["TerrainStatus"];
             communication_status: components["schemas"]["CommunicationStatus"];
+            /** Charge Start S */
+            charge_start_s?: number | null;
         };
         /**
          * Status
@@ -1709,7 +1742,7 @@ export interface components {
          * SupportedModelScopeEnum
          * @enum {string}
          */
-        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
+        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
         /**
          * SupportedObjective
          * @enum {string}

@@ -333,7 +333,10 @@
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "tests/solver/test_solver.py"
+        "tests/solver/test_solver.py",
+        "docs/GROUND_RESOURCES.md",
+        "tests/solver/test_ground.py",
+        "evidence/solver/ground-deep-compact.json"
       ]
     },
     {
@@ -351,7 +354,9 @@
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "tests/backend/test_api.py"
+        "tests/backend/test_api.py",
+        "tests/backend/test_ground_api.py",
+        "docs/GROUND_RESOURCES.md"
       ]
     },
     {
@@ -370,7 +375,9 @@
       "pr": null,
       "evidence": [
         "frontend/src/components/ResourceTimeline.tsx",
-        "evidence/browser/e2e-results.json"
+        "evidence/browser/e2e-results.json",
+        "docs/GROUND_RESOURCES.md",
+        "evidence/browser/verified/ground-calendars-1440.png"
       ]
     },
     {

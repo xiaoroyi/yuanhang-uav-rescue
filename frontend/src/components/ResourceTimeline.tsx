@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BatteryCharging, Expand, Plane, Shrink } from 'lucide-react'
 import type { Plan, Scenario } from '../api/client'
 import { clock, colorFor, percent } from '../lib/format'
@@ -16,9 +16,18 @@ export function ResourceTimeline({
 }) {
   const [mode, setMode] = useState<'drone' | 'battery'>('drone'),
     [expanded, setExpanded] = useState(false)
+  useEffect(() => {
+    if (!expanded) return
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpanded(false)
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [expanded])
   const horizon =
     Math.max(
       ...plan.sorties.map((r) => (mode === 'battery' ? r.battery_released_s : r.drone_released_s)),
+      ...(mode === 'battery' ? (plan.initial_charges || []).map((w) => w.end_s) : []),
     ) * 1.05
   const resources = useMemo(
     () =>
@@ -54,6 +63,7 @@ export function ResourceTimeline({
           <button
             className="icon-button"
             title={expanded ? '收起' : '展开时间轴'}
+            aria-expanded={expanded}
             onClick={() => setExpanded(!expanded)}
           >
             {expanded ? <Shrink size={16} /> : <Expand size={16} />}
@@ -79,6 +89,39 @@ export function ResourceTimeline({
               <small>{resource.type}型</small>
             </div>
             <div className="timeline-track">
+              {mode === 'battery' &&
+                (plan.initial_charges || [])
+                  .filter((w) => w.battery_id === resource.id)
+                  .map((w) => {
+                    const available = scenario.batteries.find(
+                      (b) => b.battery_id === resource.id,
+                    )!.available_after_s
+                    return (
+                      <div
+                        key={'initial-' + w.battery_id}
+                        className="timeline-bar initial-charge-bar"
+                        title={`初始补能 ${clock(w.start_s)}–${clock(w.end_s)}；先等待至可用端口`}
+                        style={{
+                          left: `${(available / horizon) * 100}%`,
+                          width: `${((w.end_s - available) / horizon) * 100}%`,
+                        }}
+                      >
+                        <span
+                          className="bar-wait"
+                          style={{
+                            left: 0,
+                            width: `${((w.start_s - available) / (w.end_s - available)) * 100}%`,
+                          }}
+                        />
+                        <span
+                          className="bar-charge"
+                          style={{
+                            left: `${((w.start_s - available) / (w.end_s - available)) * 100}%`,
+                          }}
+                        />
+                      </div>
+                    )
+                  })}
               {ticks.map((_, i) => (
                 <div className="timeline-gridline" key={i} style={{ left: `${(i / 6) * 100}%` }} />
               ))}
@@ -113,9 +156,18 @@ export function ResourceTimeline({
                     </span>
                     {mode === 'battery' && (
                       <span
-                        className="bar-charge"
+                        className="bar-wait"
                         style={{
                           left: `${((r.return_s - r.prepare_start_s) / (r.battery_released_s - r.prepare_start_s)) * 100}%`,
+                          width: `${(((r.charge_start_s ?? r.return_s) - r.return_s) / (r.battery_released_s - r.prepare_start_s)) * 100}%`,
+                        }}
+                      />
+                    )}
+                    {mode === 'battery' && (
+                      <span
+                        className="bar-charge"
+                        style={{
+                          left: `${(((r.charge_start_s ?? r.return_s) - r.prepare_start_s) / (r.battery_released_s - r.prepare_start_s)) * 100}%`,
                         }}
                       />
                     )}
@@ -134,6 +186,12 @@ export function ResourceTimeline({
           <i className="flight" />
           执行架次
         </span>
+        {mode === 'battery' && (
+          <span>
+            <i className="wait" />
+            等待充电端口
+          </span>
+        )}
         {mode === 'battery' && (
           <span>
             <i className="charge" />

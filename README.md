@@ -14,6 +14,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 已有方案可继续“深入优化30秒”，沿用同一快照并保留有效基线，见 [算法范围](docs/DEEP_OPTIMIZATION.md)。场景页可管理静态限制区，真实绕行见 [空间模型](docs/SPATIAL_ROUTING.md)；也可上传本地GeoTIFF，地图与净空使用同一绑定栅格。交接给队友时一并下载/导入完整DEM资产包以保留hash，见 [资产说明](docs/TERRAIN_ASSETS.md)。
 
+场景设置可启用有限准备工位与充电端口，真实安排初始补能、返航排队与资源预约。甘特图展开后可查看完整等待/充电窗口，口径见 [地面资源](docs/GROUND_RESOURCES.md)。未启用时保留原题允许并行充电的模型。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

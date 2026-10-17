@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 import copy
 from datetime import datetime, timezone
-import hashlib
 import math
 import random
 import time
@@ -29,6 +28,8 @@ from solver.presentation import playback
 from solver.dependencies import affected_closure
 from solver.metrics import objective_score
 from solver.analysis import analyze
+from solver.ground import earliest_slot, initial_schedule
+from solver.identities import sortie_id
 
 
 def capabilities():
@@ -38,7 +39,8 @@ def capabilities():
         "solver_ready": True,
         "supported_objectives": ["time", "energy", "balanced"],
         "supported_events": ["drone.unavailable"],
-        "supported_model_scope": BASE_SCOPE + ["terrain", "restricted_zone"],
+        "supported_model_scope": BASE_SCOPE
+        + ["terrain", "restricted_zone", "ground_resource"],
         "supported_energy_models": [ENERGY_MODEL],
         "supported_charge_models": [CHARGE_MODEL],
         "features": {
@@ -127,6 +129,16 @@ def _construct(
             ("battery", fixed["battery_id"], fixed["battery_released_s"]),
         ]:
             reserved[kind, identity].append((fixed["prepare_start_s"], end))
+    limits = s.get("resource_limits")
+    prep_windows = [(r["prepare_start_s"], r["takeoff_s"]) for r in fixed_routes]
+    charge_windows = [
+        (r.get("charge_start_s", r["return_s"]), r["battery_released_s"])
+        for r in fixed_routes
+    ]
+    initial_charges, initial_ready = initial_schedule(
+        s, seed, charge_windows, start_floor
+    )
+    charge_windows.extend((w["start_s"], w["end_s"]) for w in initial_charges)
     drones = {
         d["drone_id"]: {**d, "ready": max(start_floor, d["available_after_s"])}
         for d in s["drones"]
@@ -139,6 +151,8 @@ def _construct(
         and b["location_id"] == s["base"]["id"]
         and b["soh"] > 0
     }
+    for bid, ready in initial_ready.items():
+        batteries[bid].update(ready=ready, soc=1.0, status="available")
     result = []
 
     def due(cid):
@@ -190,7 +204,21 @@ def _construct(
                     soc = 1.0
                 start = max(u["ready"], ready)
                 return_soc = soc - route["energy_kwh"] / usable
-                for _ in range(len(fixed_routes) * 2 + 1):
+                for _ in range(
+                    len(fixed_routes) * 2 + len(prep_windows) + len(charge_windows) + 2
+                ):
+                    start = earliest_slot(
+                        start,
+                        route["prepare_s"],
+                        prep_windows,
+                        limits["prep_slots"] if limits else None,
+                    )
+                    charge_start = earliest_slot(
+                        start + route["duration_s"],
+                        charge_seconds(typ, return_soc),
+                        charge_windows,
+                        limits["charging_ports"] if limits else None,
+                    )
                     occupied = []
                     for kind, identity, release in [
                         (
@@ -201,9 +229,7 @@ def _construct(
                         (
                             "battery",
                             bid,
-                            start
-                            + route["duration_s"]
-                            + charge_seconds(typ, return_soc),
+                            charge_start + charge_seconds(typ, return_soc),
                         ),
                     ]:
                         occupied.extend(
@@ -222,7 +248,9 @@ def _construct(
                     for c in v["cargo_ids"]
                 ):
                     continue
-                choices.append((start + route["duration_s"], start, uid, bid, soc))
+                choices.append(
+                    (start + route["duration_s"], start, uid, bid, soc, charge_start)
+                )
         return min(choices) if choices else None
 
     while remaining:
@@ -287,7 +315,7 @@ def _construct(
             assigned = assignment(route)
             if not assigned:
                 continue
-            finish, start, uid, bid, soc = assigned
+            finish, start, uid, bid, soc, charge_start = assigned
             throughput = len(route["cargo_ids"]) ** 0.72
             score = (
                 route["energy_kwh"] / throughput
@@ -300,7 +328,9 @@ def _construct(
             alternatives.append((score, route, assigned))
         if not alternatives:
             return None
-        _, route, (finish, start, uid, bid, soc) = min(alternatives, key=lambda x: x[0])
+        _, route, (finish, start, uid, bid, soc, charge_start) = min(
+            alternatives, key=lambda x: x[0]
+        )
         b = batteries[bid]
         typ = types[route["type_id"]]
         return_soc = soc - route["energy_kwh"] / (b["capacity_kwh"] * b["soh"])
@@ -308,17 +338,15 @@ def _construct(
             {**v, "delivery_complete_s": start + v["delivery_complete_s"]}
             for v in route["visits"]
         ]
-        identity = "|".join(
-            [
-                ",".join(sorted(route["cargo_ids"])),
+        sortie = {
+            "sortie_id": sortie_id(
+                route["cargo_ids"],
                 uid,
                 bid,
-                f"{start:.6f}",
-                ",".join(v["site_id"] for v in visits),
-            ]
-        )
-        sortie = {
-            "sortie_id": "SRT-" + hashlib.sha256(identity.encode()).hexdigest()[:12],
+                start,
+                visits,
+                charge_start if limits else None,
+            ),
             "kind": "transport",
             "drone_id": uid,
             "battery_id": bid,
@@ -329,7 +357,7 @@ def _construct(
             "takeoff_s": start + route["prepare_s"],
             "return_s": finish,
             "drone_released_s": finish + typ["turnaround_duration_s"],
-            "battery_released_s": finish + charge_seconds(typ, return_soc),
+            "battery_released_s": charge_start + charge_seconds(typ, return_soc),
             "energy_kwh": route["energy_kwh"],
             "return_soc": return_soc,
             "terrain_status": (
@@ -337,14 +365,18 @@ def _construct(
             ),
             "communication_status": "not_evaluated",
         }
+        if limits:
+            sortie["charge_start_s"] = charge_start
         result.append(sortie)
+        prep_windows.append((sortie["prepare_start_s"], sortie["takeoff_s"]))
+        charge_windows.append((charge_start, sortie["battery_released_s"]))
         drones[uid]["ready"] = sortie["drone_released_s"]
         batteries[bid].update(ready=sortie["battery_released_s"], soc=1.0)
         remaining.difference_update(route["cargo_ids"])
-    return result
+    return {"sorties": result, "initial_charges": initial_charges}
 
 
-def _make_plan(snapshot, options, routes):
+def _make_plan(snapshot, options, routes, initial_charges=None):
     s = snapshot["scenario"]
     return {
         "schema_version": "0.1.0-draft",
@@ -358,7 +390,13 @@ def _make_plan(snapshot, options, routes):
         "has_validated_plan": True,
         "model_scope": BASE_SCOPE
         + (["terrain"] if s["terrain"]["status"] == "available" else [])
-        + (["restricted_zone"] if s.get("restricted_zones") else []),
+        + (["restricted_zone"] if s.get("restricted_zones") else [])
+        + (["ground_resource"] if s.get("resource_limits") else []),
+        **(
+            {"initial_charges": copy.deepcopy(initial_charges or [])}
+            if s.get("resource_limits")
+            else {}
+        ),
         "metrics": {
             "last_delivery_s": max(
                 v["delivery_complete_s"] for r in routes for v in r["visits"]
@@ -378,7 +416,12 @@ def _make_plan(snapshot, options, routes):
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "solver_notes": [
             "真实限时多起点插入启发式；未证明全局最优。",
-            "题设载荷能耗、两段充电；默认充电端口无限。",
+            "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
+            (
+                f"有限保障：准备工位{s['resource_limits']['prep_slots']}、充电端口{s['resource_limits']['charging_ports']}，初始低SOC先补满并记录等待。"
+                if s.get("resource_limits")
+                else "题设载荷能耗、两段充电；充电端口无限。"
+            ),
             "航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。",
             *(
                 [
@@ -498,6 +541,10 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                 ],
             )
         budget = max(0.01, min(float(options["time_limit_s"]), 3600.0))
+        if "ground_resource" in options["requested_model_scope"] and not s.get(
+            "resource_limits"
+        ):
+            raise InputNotReady("请求地面容量检查，但场景尚未设置准备工位与充电端口。")
         deadline = started + (
             min(5.0, budget * 0.3) if options["mode"] == "improve" else budget * 0.9
         )
@@ -515,7 +562,12 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                 raise InputNotReady("深入优化基线必须来自同一快照，且mode=improve。")
             if validate(snapshot, initial_plan)["status"] != "passed":
                 raise InputNotReady("深入优化基线未通过当前快照的独立检查。")
-            base = _make_plan(snapshot, options, copy.deepcopy(initial_plan["sorties"]))
+            base = _make_plan(
+                snapshot,
+                options,
+                copy.deepcopy(initial_plan["sorties"]),
+                initial_plan.get("initial_charges", []),
+            )
             base["validation"] = validate(snapshot, base)
             base["solver_notes"].append(
                 "深入优化继承已验算基线 "
@@ -530,13 +582,15 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         for iteration in range(48):
             if time.perf_counter() >= deadline:
                 break
-            routes = _construct(
+            schedule = _construct(
                 s, options["objective"], options["seed"] + iteration, deadline, cache
             )
-            if routes is None:
+            if schedule is None:
                 non_improving += 1
                 continue
-            candidate = _make_plan(snapshot, options, routes)
+            candidate = _make_plan(
+                snapshot, options, schedule["sorties"], schedule["initial_charges"]
+            )
             progress("独立重算约束")
             report = validate(snapshot, candidate)
             count += 1
@@ -591,7 +645,9 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                 deep_limited = details["status"] in ("FEASIBLE", "UNKNOWN")
                 summary = f"有限路线池深入优化：{details['pool_size']}条候选，CP-SAT状态{details['status']}，10毫秒保守时间网格、单线程；未证明所有路线空间的全局最优。"
                 if routes:
-                    candidate = _make_plan(snapshot, options, routes)
+                    candidate = _make_plan(
+                        snapshot, options, routes, best[1].get("initial_charges", [])
+                    )
                     report = validate(snapshot, candidate)
                     count += 1
                     if report["status"] == "passed":
@@ -723,10 +779,12 @@ def _try_local_repair(snapshot, previous_plan, options, started, progress_callba
                 if changed is None:
                     continue
                 routes = sorted(
-                    [*fixed, *changed],
+                    [*fixed, *changed["sorties"]],
                     key=lambda r: (r["prepare_start_s"], r["sortie_id"]),
                 )
-                candidate = _make_plan(snapshot, options, routes)
+                candidate = _make_plan(
+                    snapshot, options, routes, changed["initial_charges"]
+                )
                 report = validate(snapshot, candidate)
                 count += 1
                 if report["status"] != "passed":

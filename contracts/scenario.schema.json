@@ -637,6 +637,26 @@
         ],
         "additionalProperties": false
       }
+    },
+    "resource_limits": {
+      "type": "object",
+      "properties": {
+        "prep_slots": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "charging_ports": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      },
+      "required": [
+        "prep_slots",
+        "charging_ports"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [

@@ -41,9 +41,9 @@
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
 | A-03 | P0 | A | A-02 | `time`/`energy` 两策略、硬截止与统一保障要求；验收：同 Snapshot 两次真实计算，指标口径一致 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; evidence/browser/e2e-results.json |
-| A-04 | P0 | A | A-02 | 电池两段充电、逐实体释放时刻、甘特占用验证；验收：不重复占用，充电后再复用 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py |
-| C-04 | P0 | B | C-03, A-03 | 方案版本、比较、计划确认事务、冲突码；验收：过期/Mock/验证失败都无法确认 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
-| B-04 | P0 | B | B-03, A-04 | 机体+电池甘特、资源/架次联动、方案比较卡；验收：相同方案也诚实显示，不造差异 | done | feat/solo-fullstack-v0; frontend/src/components/ResourceTimeline.tsx; evidence/browser/e2e-results.json |
+| A-04 | P0 | A | A-02 | 电池两段充电、逐实体释放时刻、甘特占用验证；验收：不重复占用，充电后再复用 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; docs/GROUND_RESOURCES.md; tests/solver/test_ground.py; evidence/solver/ground-deep-compact.json |
+| C-04 | P0 | B | C-03, A-03 | 方案版本、比较、计划确认事务、冲突码；验收：过期/Mock/验证失败都无法确认 | done | feat/solo-fullstack-v0; tests/backend/test_api.py; tests/backend/test_ground_api.py; docs/GROUND_RESOURCES.md |
+| B-04 | P0 | B | B-03, A-04 | 机体+电池甘特、资源/架次联动、方案比较卡；验收：相同方案也诚实显示，不造差异 | done | feat/solo-fullstack-v0; frontend/src/components/ResourceTimeline.tsx; evidence/browser/e2e-results.json; docs/GROUND_RESOURCES.md; evidence/browser/verified/ground-calendars-1440.png |
 | X-02 | P0 | A+B | A-03, A-04, C-04, B-04 | 资源/时间验收（重叠、硬截止、空值显示、费用禁用）；验收：自动化负例全部通过 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; tests/backend/test_api.py |
 
 ## G3

@@ -35,6 +35,8 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 
 搜索采用10毫秒向上取整的资源占用时间网格、单线程和显式种子。共同目标先比较逐箱优先级加权期望延期，再比较所选时间/能耗/均衡目标；只有完整浮点物理重算通过且严格改善时才替换有效基线。有限池状态OPTIMAL仅说明该离散池模型；对外仍为FEASIBLE，不声称全路线空间全局最优。非满初始SOC、预算不足或整数范围过大时跳过该优化，保留快速方案。取消仍取消本次Job，旧Plan保持不变。
 
+可选resource_limits要求ground_resource检查；准备/端口容量、初始补能与等待的语义见RFC-005和GROUND_RESOURCES。满初始SOC的深层模型支持Cumulative容量；非满初始SOC仍有真实有限日历构造与独立检查，深层阶段不暗重置SOC。
+
 实现和同预算真实输入证据见 `solver/cp_pool.py`、`evidence/solver/deep-compact.json`、`deep-contest.json`。间隔模型参考 [OR-Tools调度文档](https://developers.google.com/optimization/scheduling/job_shop)。
 
 ## 重规划

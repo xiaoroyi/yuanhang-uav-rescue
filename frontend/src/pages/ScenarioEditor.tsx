@@ -895,6 +895,64 @@ function SettingsForm({
           />
           要求通过绑定DEM净空检查
         </label>
+        <label className="checkbox-field span-2">
+          <input
+            type="checkbox"
+            checked={!!draft.resource_limits}
+            onChange={(e) => {
+              if (e.target.checked)
+                setDraft({ ...draft, resource_limits: { prep_slots: 1, charging_ports: 2 } })
+              else {
+                const { resource_limits: _limits, ...without } = draft
+                setDraft(without)
+              }
+            }}
+          />
+          限制准备工位与充电端口
+        </label>
+        {draft.resource_limits && (
+          <>
+            <label className="field">
+              <span>准备工位 / 个</span>
+              <input
+                type="number"
+                min="1"
+                max="32"
+                value={draft.resource_limits.prep_slots}
+                onChange={(e) =>
+                  setDraft({
+                    ...draft,
+                    resource_limits: {
+                      ...draft.resource_limits!,
+                      prep_slots: Number(e.target.value),
+                    },
+                  })
+                }
+              />
+            </label>
+            <label className="field">
+              <span>充电端口 / 个</span>
+              <input
+                type="number"
+                min="1"
+                max="64"
+                value={draft.resource_limits.charging_ports}
+                onChange={(e) =>
+                  setDraft({
+                    ...draft,
+                    resource_limits: {
+                      ...draft.resource_limits!,
+                      charging_ports: Number(e.target.value),
+                    },
+                  })
+                }
+              />
+            </label>
+            <p className="callout span-2">
+              初始低电量先补满；等待占用电池。准备工位与端口分别计数，不代表起降位或飞行避碰。
+            </p>
+          </>
+        )}
       </div>
       <p className="callout">当前模型不含连续通信认证；费用未配置。不能把仿真结果当作实飞许可。</p>
       <div className="dialog-footer">

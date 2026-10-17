@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "GeoTIFF"
+      "低SOC"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,7 +109,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史",
+          "title": "低SOC初始补能使用端口，并在甘特和打印报告保留窗口",
           "ok": true,
           "tags": [],
           "tests": [
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 31846,
+                  "duration": 14791,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T18:34:46.705Z",
+                  "startTime": "2026-10-17T19:15:40.524Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,9 +137,9 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-2aa3f9039612ac814343",
+          "id": "c601ceb5ecfc8efa4a14-7a4082d902de1db027a7",
           "file": "workflow.spec.ts",
-          "line": 324,
+          "line": 429,
           "column": 1
         }
       ]
@@ -147,8 +147,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T18:34:46.306Z",
-    "duration": 32712.481,
+    "startTime": "2026-10-17T19:15:40.163Z",
+    "duration": 15604.114,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

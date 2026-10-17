@@ -21,6 +21,7 @@ OBJECTS = {
     "charge_model",
     "coordinates",
     "restricted_zones",
+    "resource_limits",
 }
 NUMBERS = {
     "state_version",

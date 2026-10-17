@@ -1,5 +1,5 @@
 {
-  "plan_id": "PLAN-5C85470B8EFC4703",
+  "plan_id": "PLAN-73A9FC95631C41CA",
   "page_count": 6,
   "pages": [
     {
@@ -34,7 +34,7 @@
     },
     {
       "page": 6,
-      "text_characters": 1495,
+      "text_characters": 1542,
       "plan_id_present": true,
       "image": "evidence/browser/verified/print-report-final-page-6.png"
     }

@@ -203,6 +203,8 @@ def validate_options(options, snapshot):
             required.add(domain)
     if snapshot["scenario"].get("restricted_zones"):
         required.add("restricted_zone")
+    if snapshot["scenario"].get("resource_limits"):
+        required.add("ground_resource")
     require(
         required <= set(options["requested_model_scope"]),
         "requested scope omits required policy checks",
@@ -269,6 +271,11 @@ def validate_plan(plan, snapshot):
             "invalid sortie time ordering",
         )
         require(end <= sortie["battery_released_s"], "battery released before return")
+        if "charge_start_s" in sortie:
+            require(
+                end <= sortie["charge_start_s"] <= sortie["battery_released_s"],
+                "invalid charge start ordering",
+            )
         require(
             start >= max(drone["available_after_s"], battery["available_after_s"]),
             "resource used before available",
@@ -401,6 +408,8 @@ def validate_plan(plan, snapshot):
         checks = plan["validation"]["checks"]
         if s.get("restricted_zones"):
             required.add("restricted_zone")
+        if s.get("resource_limits"):
+            required.add("ground_resource")
         require(
             required <= set(plan["model_scope"]),
             "validated plan scope missing required check",

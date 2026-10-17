@@ -3,111 +3,22 @@
 > node scripts/run-e2e.mjs
 
 
-Running 11 tests using 1 worker
+Running 13 tests using 1 worker
 
-(node:41236) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:39720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ok  1 tests\workflow.spec.ts:34:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (18.9s)
-  ok  2 tests\workflow.spec.ts:75:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.3s)
-  ok  3 tests\workflow.spec.ts:108:1 › 真实故障重规划保留旧方案，展示新旧变化 (14.9s)
-  ok  4 tests\workflow.spec.ts:130:1 › 手机窄屏仍可切页和运行计算 (9.8s)
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\applications.py", line 1216, in __call__
-    await super().__call__(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
-    raise exc
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
-    await self.app(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\base.py", line 203, in __call__
-    response = await self.dispatch_func(request, call_next)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\backend\app\main.py", line 301, in request_id
-    response = await call_next(request)
-               ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\base.py", line 179, in call_next
-    raise app_exc from app_exc.__cause__ or app_exc.__context__
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\base.py", line 149, in coro
-    await self.app(scope, receive_or_disconnect, send_no_error)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
-    await self.simple_response(scope, receive, send, request_headers=headers)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\cors.py", line 149, in simple_response
-    await self.app(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
-    await self.app(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\routing.py", line 676, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 2809, in app
-    await route.handle(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 1328, in handle
-    await super().handle(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\routing.py", line 282, in handle
-    await self.app(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 166, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
-    raise exc
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
-    await app(scope, receive, sender)
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 152, in app
-    response = await f(request)
-               ^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 745, in app
-    raw_response = await run_endpoint_function(
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\routing.py", line 374, in run_endpoint_function
-    return await run_in_threadpool(
-           ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
-    return await anyio.to_thread.run_sync(func)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
-    return await get_async_backend().run_sync_in_worker_thread(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
-    return await future
-           ^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
-    result = context.run(func, *args)
-             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
-    return function(**arguments)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\backend\app\main.py", line 986, in get_progress
-    return app.state.jobs.progress(job_id)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\backend\app\jobs.py", line 239, in progress
-    return json.loads(path.read_text(encoding="utf-8"))
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\miniconda\miniconda3\envs\lqb\Lib\pathlib.py", line 1058, in read_text
-    with self.open(mode='r', encoding=encoding, errors=errors) as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\miniconda\miniconda3\envs\lqb\Lib\pathlib.py", line 1044, in open
-    return io.open(self, mode, buffering, encoding, errors, newline)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-PermissionError: [Errno 13] Permission denied: 'E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\e2e-runtime\\jobs\\JOB-943DE57D80BC421D\\progress.json'
-  ok  5 tests\workflow.spec.ts:142:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (12.7s)
-  ok  6 tests\workflow.spec.ts:171:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (15.9s)
-  ok  7 tests\workflow.spec.ts:222:1 › 任务刷新恢复，重新载入页面不重复提交求解 (4.6s)
-  ok  8 tests\workflow.spec.ts:234:1 › 打印报告包含真实任务并可离线保存PDF (7.2s)
-  ok  9 tests\workflow.spec.ts:256:1 › 深入优化保留同快照基线，刷新后继续真实计算 (42.6s)
-  ok 10 tests\workflow.spec.ts:279:1 › 限制区保存新版本，真实绕行并沿折线回放 (18.5s)
-  ok 11 tests\workflow.spec.ts:324:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (33.0s)
+  ok  1 tests\workflow.spec.ts:34:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (18.7s)
+  ok  2 tests\workflow.spec.ts:75:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.6s)
+  ok  3 tests\workflow.spec.ts:108:1 › 真实故障重规划保留旧方案，展示新旧变化 (15.0s)
+  ok  4 tests\workflow.spec.ts:130:1 › 手机窄屏仍可切页和运行计算 (10.5s)
+  ok  5 tests\workflow.spec.ts:142:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (12.2s)
+  ok  6 tests\workflow.spec.ts:171:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (16.6s)
+  ok  7 tests\workflow.spec.ts:222:1 › 任务刷新恢复，重新载入页面不重复提交求解 (4.8s)
+  ok  8 tests\workflow.spec.ts:234:1 › 打印报告包含真实任务并可离线保存PDF (6.9s)
+  ok  9 tests\workflow.spec.ts:256:1 › 深入优化保留同快照基线，刷新后继续真实计算 (42.5s)
+  ok 10 tests\workflow.spec.ts:279:1 › 限制区保存新版本，真实绕行并沿折线回放 (18.1s)
+  ok 11 tests\workflow.spec.ts:324:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (31.5s)
+  ok 12 tests\workflow.spec.ts:384:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (17.9s)
+  ok 13 tests\workflow.spec.ts:421:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (12.5s)
 
-  11 passed (3.2m)
+  13 passed (3.7m)

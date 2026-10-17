@@ -879,6 +879,11 @@ def create_app(runtime_dir: Path | None = None):
                 **body.model_dump(exclude={"initial_plan_id"}),
             }
             if (
+                snap["scenario"].get("resource_limits")
+                and "ground_resource" not in options["requested_model_scope"]
+            ):
+                options["requested_model_scope"].append("ground_resource")
+            if (
                 snap["scenario"].get("restricted_zones")
                 and "restricted_zone" not in options["requested_model_scope"]
             ):
@@ -1149,6 +1154,63 @@ def create_app(runtime_dir: Path | None = None):
                             end_s=r["return_s"],
                         )
                     )
+            for initial in plan.get("initial_charges", []):
+                battery = next(
+                    b
+                    for b in snap["scenario"]["batteries"]
+                    if b["battery_id"] == initial["battery_id"]
+                )
+                session.add(
+                    ReservationRow(
+                        scenario_id=scenario.id,
+                        plan_id=plan_id,
+                        kind="battery",
+                        resource_id=initial["battery_id"],
+                        start_s=battery["available_after_s"],
+                        end_s=initial["end_s"],
+                    )
+                )
+            limits = snap["scenario"].get("resource_limits")
+            if limits:
+                charge_windows = analyze(snap, plan)["charge_windows"]
+                for kind, capacity, windows in [
+                    (
+                        "prep_slot",
+                        limits["prep_slots"],
+                        [
+                            (r["prepare_start_s"], r["takeoff_s"])
+                            for r in plan["sorties"]
+                        ],
+                    ),
+                    (
+                        "charging_port",
+                        limits["charging_ports"],
+                        [(w["start_s"], w["end_s"]) for w in charge_windows],
+                    ),
+                ]:
+                    available = [0.0] * capacity
+                    for begin, end in sorted(windows):
+                        if end <= begin:
+                            continue
+                        candidates = [i for i, t in enumerate(available) if t <= begin]
+                        if not candidates:
+                            raise AppError(
+                                409,
+                                "RESOURCE_CONFLICT",
+                                "地面资源窗口分配不一致，确认已回滚。",
+                            )
+                        slot = candidates[0]
+                        available[slot] = end
+                        session.add(
+                            ReservationRow(
+                                scenario_id=scenario.id,
+                                plan_id=plan_id,
+                                kind=kind,
+                                resource_id=f"{snap['scenario']['base']['id']}:{kind}:{slot+1}",
+                                start_s=begin,
+                                end_s=end,
+                            )
+                        )
             when = now()
             scenario.active_plan_id = plan_id
             row.confirmed_at = when
@@ -1293,6 +1355,9 @@ def create_app(runtime_dir: Path | None = None):
                 "return_s",
                 "energy_kwh",
                 "return_soc",
+                "charge_start_s",
+                "battery_released_s",
+                "drone_released_s",
             ]
         )
         for r in plan["sorties"]:
@@ -1314,6 +1379,9 @@ def create_app(runtime_dir: Path | None = None):
                             r["return_s"],
                             r["energy_kwh"],
                             r["return_soc"],
+                            r.get("charge_start_s", r["return_s"]),
+                            r["battery_released_s"],
+                            r["drone_released_s"],
                         ]
                     )
         return Response(

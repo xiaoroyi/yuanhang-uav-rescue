@@ -1,6 +1,7 @@
 """Render every page of the browser-generated report PDF and record inspectable metadata."""
 
 from pathlib import Path
+import argparse
 import json
 import re
 
@@ -10,16 +11,30 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pdf", default="print-report.pdf")
+    parser.add_argument("--prefix", default="print-report-final-page")
+    args = parser.parse_args()
+    if (
+        not re.fullmatch("[A-Za-z0-9_-]+", args.prefix)
+        or Path(args.pdf).name != args.pdf
+    ):
+        raise ValueError("Use a project report filename and a safe image prefix.")
     folder = ROOT / "evidence/browser/verified"
-    document = pymupdf.open(folder / "print-report.pdf")
-    for old in folder.glob('print-report-final-page-*.png'):
-        number=re.fullmatch(r'print-report-final-page-(\d+)\.png',old.name)
-        if number and int(number.group(1))>len(document) and old.resolve().is_relative_to(ROOT.resolve()):old.unlink()
+    document = pymupdf.open(folder / args.pdf)
+    for old in folder.glob(args.prefix + "-*.png"):
+        number = re.fullmatch(re.escape(args.prefix) + r"-(\d+)\.png", old.name)
+        if (
+            number
+            and int(number.group(1)) > len(document)
+            and old.resolve().is_relative_to(ROOT.resolve())
+        ):
+            old.unlink()
     match = re.search(r"PLAN-[A-Z0-9-]+", document[0].get_text())
     plan_id = match.group(0) if match else None
     records = []
     for index, page in enumerate(document):
-        file = folder / f"print-report-final-page-{index+1}.png"
+        file = folder / f"{args.prefix}-{index+1}.png"
         page.get_pixmap(matrix=pymupdf.Matrix(1.3, 1.3), alpha=False).save(file)
         content = page.get_text()
         records.append(
@@ -36,7 +51,12 @@ def main():
         "pages": records,
         "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
     }
-    (ROOT / "evidence/browser/print-report-qa.json").write_text(
+    report_name = (
+        "print-report-qa"
+        if args.prefix == "print-report-final-page"
+        else args.prefix + "-qa"
+    )
+    (ROOT / "evidence/browser" / (report_name + ".json")).write_text(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps(report, ensure_ascii=False, indent=2))

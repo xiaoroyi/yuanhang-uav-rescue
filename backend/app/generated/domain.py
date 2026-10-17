@@ -44,6 +44,7 @@ class SupportedModelScopeEnum(Enum):
     terrain = "terrain"
     communication = "communication"
     restricted_zone = "restricted_zone"
+    ground_resource = "ground_resource"
 
 
 class SupportedEnergyModel(
@@ -123,6 +124,7 @@ class ScopeEnum(Enum):
     terrain = "terrain"
     communication = "communication"
     restricted_zone = "restricted_zone"
+    ground_resource = "ground_resource"
 
 
 class Scope(RootModel[list[ScopeEnum]]):
@@ -147,6 +149,7 @@ class Code(Enum):
     terrain = "terrain"
     communication = "communication"
     restricted_zone = "restricted_zone"
+    ground_resource = "ground_resource"
 
 
 class Status1(Enum):
@@ -291,6 +294,7 @@ class ModelScopeEnum(Enum):
     terrain = "terrain"
     communication = "communication"
     restricted_zone = "restricted_zone"
+    ground_resource = "ground_resource"
 
 
 class Metrics(BaseModel):
@@ -373,6 +377,7 @@ class Sortie(BaseModel):
     return_soc: confloat(ge=0.0, le=1.0) | None
     terrain_status: TerrainStatus
     communication_status: CommunicationStatus
+    charge_start_s: confloat(ge=0.0) | None = None
 
 
 class UnservedDemandId(
@@ -420,6 +425,19 @@ class ChangeSummary(BaseModel):
     added_sortie_ids: list[AddedSortieId] = Field(..., min_length=0)
 
 
+class InitialCharge(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    battery_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    start_s: confloat(ge=0.0)
+    end_s: confloat(ge=0.0)
+    from_soc: confloat(ge=0.0, le=1.0)
+    to_soc: Literal[1]
+
+
 class Plan(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -455,6 +473,7 @@ class Plan(BaseModel):
         | None
     )
     change_summary: ChangeSummary | None
+    initial_charges: list[InitialCharge] | None = None
 
 
 class Mode(Enum):
@@ -685,6 +704,14 @@ class RestrictedZone(BaseModel):
     geometry: Geometry
 
 
+class ResourceLimits(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    prep_slots: conint(ge=1, le=32)
+    charging_ports: conint(ge=1, le=64)
+
+
 class Scenario(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -710,6 +737,7 @@ class Scenario(BaseModel):
     batteries: list[Battery] = Field(..., min_length=0)
     policy: Policy
     restricted_zones: list[RestrictedZone] | None = Field(None, max_length=12)
+    resource_limits: ResourceLimits | None = None
 
 
 class Snapshot(BaseModel):
@@ -786,6 +814,7 @@ class RequestedModelScopeEnum(Enum):
     terrain = "terrain"
     communication = "communication"
     restricted_zone = "restricted_zone"
+    ground_resource = "ground_resource"
 
 
 class SolverOptions(BaseModel):

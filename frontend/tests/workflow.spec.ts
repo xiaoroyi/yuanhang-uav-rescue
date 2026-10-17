@@ -380,3 +380,83 @@ test('GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史', asyn
   await expect(page.locator('.map-mode')).toHaveText('本地DEM · 离线')
   expect(errors).toEqual([])
 })
+
+test('有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示', async ({ page, request }) => {
+  await solve(page)
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: '场景设置', exact: true }).click()
+  await page.getByLabel('限制准备工位与充电端口').check()
+  await page.getByLabel('准备工位 / 个', { exact: true }).fill('1')
+  await page.getByLabel('充电端口 / 个', { exact: true }).fill('1')
+  await page.getByRole('button', { name: '保存设置', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await solve(page)
+  const summaries = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  const plan = await (await request.get(`/api/v1/plans/${summaries[0].plan_id}`)).json()
+  expect(plan.model_scope).toContain('ground_resource')
+  const analysis = await (await request.get(`/api/v1/plans/${plan.plan_id}/analysis`)).json()
+  expect(analysis.prep_peak).toBeLessThanOrEqual(1)
+  expect(analysis.charge_peak).toBeLessThanOrEqual(1)
+  expect(analysis.charge_wait_s).toBeGreaterThan(0)
+  await page.locator('.timeline-panel').getByRole('button', { name: '电池', exact: true }).click()
+  await expect(page.locator('.timeline-legend')).toContainText('等待充电端口')
+  expect(
+    await page
+      .locator('.bar-wait')
+      .evaluateAll((nodes) => nodes.some((n) => n.getBoundingClientRect().width > 1)),
+  ).toBe(true)
+  await screenshot(page, 'ground-calendars-1440')
+  await page.getByTitle('展开时间轴', { exact: true }).click()
+  await expect
+    .poll(async () => (await page.locator('.timeline-expanded').boundingBox())?.height || 0)
+    .toBeGreaterThan(400)
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/ground-timeline-expanded-1440.png'),
+  })
+  await page.getByTitle('收起', { exact: true }).click()
+  await page.getByRole('button', { name: '检查报告', exact: true }).click()
+  await expect(page.getByRole('dialog')).toContainText('准备峰值1/1')
+  await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗' }).click()
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await expect(page.locator('.analysis-kpis')).toContainText('实际并发 / 1个端口')
+})
+
+test('低SOC初始补能使用端口，并在甘特和打印报告保留窗口', async ({ page, request }) => {
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const s = await (await request.get(`/api/v1/scenarios/${sceneId}`)).json()
+  s.resource_limits = { prep_slots: 1, charging_ports: 1 }
+  s.batteries[0].soc = 0.6
+  for (const d of s.demands) if (d.hard_deadline_s !== null) d.hard_deadline_s = 100000
+  const saved = await request.put(`/api/v1/scenarios/${sceneId}`, {
+    data: { expected_state_version: 1, scenario: s },
+  })
+  expect(saved.ok()).toBe(true)
+  await page.reload()
+  await solve(page)
+  await page.locator('.timeline-panel').getByRole('button', { name: '电池', exact: true }).click()
+  await expect(page.locator('.initial-charge-bar')).toHaveCount(1)
+  await screenshot(page, 'initial-charge-1440')
+  await page.getByTitle('展开时间轴', { exact: true }).click()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/initial-charge-timeline-1440.png'),
+  })
+  await page.getByTitle('收起', { exact: true }).click()
+  const popup = page.waitForEvent('popup')
+  await page.getByRole('link', { name: '打印报告', exact: true }).click()
+  const report = await popup
+  await expect(report.locator('body')).toContainText('初始补能与排队')
+  await expect(report.locator('body')).toContainText('准备工位1个')
+  await report.pdf({
+    path: path.resolve('../evidence/browser/verified/initial-charge-report.pdf'),
+    format: 'A4',
+    landscape: true,
+    printBackground: true,
+    preferCSSPageSize: true,
+  })
+  await report.close()
+})
