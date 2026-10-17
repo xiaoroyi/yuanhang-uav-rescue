@@ -60,6 +60,11 @@ const jointRun = await json("evidence/solver/joint-contest-recomputed.json");
 const joint = jointRun.outcome.plan;
 const partition = await json("evidence/solver/frozen-partition-contest.json");
 const battery = await json("evidence/solver/battery-replan.json");
+const urgent = await json("evidence/browser/urgent-demand.json");
+const capacityCompact = (await json("evidence/solver/capacity-compact.json"))
+  .report;
+const capacityContest = (await json("evidence/solver/capacity-contest.json"))
+  .report;
 const verification = await json("evidence/verification/latest.json");
 const checkOutput = (await read("evidence/verification/check-01.txt")).toString(
   "utf8",
@@ -149,12 +154,17 @@ const batteryChanges = battery.plan.sorties.reduce(
 );
 slide(
   "资源退出后的真实改派",
-  `<div class="image-copy"><div><div class="big-number">${batteryChanges}<small>箱更换电池分配</small></div>${bullets([`退出 ${battery.event.payload.battery_id} 后，新计划绑定新版本，原方案与输入保留。`, "支持运输机、中继机和运输电池的零时刻退出。", "局部修复需要重新检查；不适用时在剩余预算内全量重算。"])}</div>${await picture("battery-fault-changes-1280", "运输电池退出后的真实改派统计和新时间轴")}</div>`,
+  `<div class="image-copy"><div><div class="big-number">${batteryChanges}<small>箱更换电池分配</small></div>${bullets([`退出 ${battery.event.payload.battery_id} 后，新计划绑定新版本，原方案与输入保留。`, "支持运输机、中继机、运输电池和中继能源组件退出。", "局部修复需要重新检查；不适用时在剩余预算内全量重算。"])}</div>${await picture("battery-fault-changes-1280", "运输电池退出后的真实改派统计和新时间轴")}</div>`,
   "来源：battery-replan.json；仅适用整个场景尚未执行的状态，不证明最小改动",
 );
 
 const sensitivity = nominal.sensitivity.filter((row) =>
   [0.2, 0.3].includes(row.min_return_soc),
+);
+slide(
+  "紧急需求与实物库存一起插入",
+  `<div class="image-copy"><div><div class="big-number">${new Set(urgent.plan.sorties.flatMap((r) => r.cargo_ids)).size}<small>箱重新完整排程</small></div>${bullets([`新增${urgent.event.payload.demand.required_quantity}箱需求，同时登记基地实物库存。`, "新输入、新版本、新快照和全量求解，旧记录保留。", "再加入零秒硬截止时未发布新方案，旧版确认禁用。", "仅支持未执行场景与已有救援点。"])}</div>${await picture("urgent-demand-result-1440", "紧急新增物资后的真实全量重规划")}</div>`,
+  "来源：urgent-demand.json；新增箱件不计为旧箱件改派，不用历史Plan冒充新结果",
 );
 slide(
   "单点额定运输诊断",
@@ -197,6 +207,32 @@ slide(
   "冻结任务分区",
   `<div class="image-copy"><div><div class="big-number">${partition.atoms.length}<small>个不可拆分连通单元</small></div>${bullets(["继承同一联合方案的任务、时刻和实际通信关系。", "完整枚举合法的2组或3组划分，比较专用资源与工作量。", "峰值见证、实体分配与库存缺口均可导出复核。"])}</div>${await picture("frozen-partition-1440", "联合方案冻结分区、专用资源与库存缺口")}</div>`,
   "同质满SOC/零时刻条件，最多10单元；冻结配置缺口不等于重新调度时的最少增配",
+);
+
+slide(
+  "运输架次的容量必要下界",
+  `<p class="intro">按可用库存与可用机型，分别计算质量、体积必要条件。</p>${table(
+    ["输入", "最小质量", "最小体积", "质量下界", "体积下界", "合并下界"],
+    [
+      [
+        "默认32箱",
+        `${n(capacityCompact.mass_min_kg)} kg`,
+        `${n(capacityCompact.volume_min_l)} L`,
+        capacityCompact.mass_bound,
+        capacityCompact.volume_bound,
+        capacityCompact.sortie_lower_bound,
+      ],
+      [
+        "原题80箱",
+        `${n(capacityContest.mass_min_kg)} kg`,
+        `${n(capacityContest.volume_min_l)} L`,
+        capacityContest.mass_bound,
+        capacityContest.volume_bound,
+        capacityContest.sortie_lower_bound,
+      ],
+    ],
+  )}<p class="scope">完整服务运输架次数的必要下界，不是最少机体或电池数量。<br>忽略路径、能耗、时限、整箱组合、充电与通信。<br>达到下界也不证明完整调度最优，精确比值与箱件见证可导出复核。</p>`,
+  "来源：capacity-compact.json / capacity-contest.json；各自绑定输入hash，见RFC-011",
 );
 
 slide(

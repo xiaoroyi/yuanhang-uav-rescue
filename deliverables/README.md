@@ -14,3 +14,11 @@ node scripts/build-demo.mjs --require-verified
 --require-verified会拒绝未与最新完整检查一致的源码。生成后需逐页检查实际PDF渲染，不能只看页面数或文本存在。
 
 当前提供HTML/PDF演示稿，不是赛事官方提交模板。PPTX尚未导出：当前环境未提供Presentations技能要求的官方artifact-tool运行时，不能按该技能流程生成可编辑PPTX。未据此声称比赛材料或匿名审查全部完成。通用文案、截图与来源可供后续按官方模板整理。
+
+## 实际操作录像
+
+打开walkthrough.html播放yuanhang-walkthrough.webm，含中文字幕和12个章节跳转。保留真实计算等待时间，无旁白；它是实际生产构建的浏览器操作，不是实飞或遥测。视频、播放器、封面、字幕需放在同一目录。walkthrough-analysis.json为录制中实际下载的分析文件。
+
+复现命令为`node scripts/record-demo.mjs --require-verified`，然后`node scripts/check-demo-video.mjs`。前者要求已有当前生产构建和完整回归，使用独立8021端口与.local/video-runtime下的新数据库，保留该记录，不修改runtime演示库。后者实际解码视频、检查字幕与章节并截图供视觉核验。若8021已占用会停止，不关闭别人的服务。
+
+录像的原始Snapshot、Plan、事件、源码hash和视频SHA在evidence/video/recording.json；生成后仍须检查实际画面。录制和保存依据[Playwright官方视频说明](https://playwright.dev/docs/videos)，关闭Context后保存完整视频。

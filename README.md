@@ -85,3 +85,5 @@ node frontend/scripts/generate-types.mjs
 原数模历史结果不是当前优化器输出。资料来源见 [索引](references/README.md)；Git协作见 [CONTRIBUTING.md](CONTRIBUTING.md)。使用功能分支和PR，保留 main，不force push。
 
 资源分析现提供[运输架次容量必要下界](docs/CAPACITY_BOUNDS.md)，绑定原快照并导出精确比值与箱件见证；它不能用于推算最少机体/电池数量。
+
+实际[操作录像](deliverables/walkthrough.html)包含真实生产构建的求解、策略对照、电池退出重规划和导出，附中文章节与字幕。原始视频为WebM，模型内规划演示，不是实飞记录。
