@@ -132,7 +132,9 @@ test('中继机退出保存新版本，真实重规划保留旧方案和连续�
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await expect(page.getByLabel('中继方案变化')).toContainText('联合能耗变化')
   await page.getByLabel('中继方案变化').scrollIntoViewIfNeeded()
-  await page.screenshot({ path: path.resolve('../evidence/browser/verified/relay-fault-differences-1440.png') })
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/relay-fault-differences-1440.png'),
+  })
   expect(errors).toEqual([])
 })
 
@@ -185,13 +187,97 @@ test('历史方案等待绑定原始快照，延迟期间不显示混合版本�
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
 })
 
+test('80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出', async ({ page, request }) => {
+  test.setTimeout(150000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  page.on('console', (e) => {
+    if (e.type() === 'error') errors.push(e.text())
+  })
+  await page.getByRole('button', { name: '更多场景操作', exact: true }).click()
+  await page.getByRole('button', { name: '加载原题80箱场景', exact: true }).click()
+  await expect(page.locator('.scene-bar')).toContainText('80 箱物资')
+  const sid = await page.getByLabel('选择场景').inputValue()
+  expect((await (await request.get(`/api/v1/scenarios/${sid}`)).json()).cargo_items).toHaveLength(
+    80,
+  )
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: '配置通信资源', exact: true }).click()
+  await page.getByLabel('要求全程连续通信，启用运输与中继联合调度').check()
+  await page.getByRole('button', { name: '保存通信配置', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  const summary = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+  const plan = await (await request.get(`/api/v1/plans/${summary.plan_id}`)).json()
+  expect(plan.sorties.flatMap((r: { cargo_ids: string[] }) => r.cargo_ids)).toHaveLength(80)
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '冻结任务分区', exact: true }).click()
+  const analysis = page.getByLabel('冻结方案分区分析', { exact: true })
+  await expect(analysis).toBeVisible({ timeout: 30000 })
+  await expect(page.locator('.partition-atom')).toHaveCount(3)
+  await expect(page.locator('.partition-group')).toHaveCount(2)
+  await expect(page.locator('.partition-shortage')).toContainText('C型运输机')
+  await screenshot(page, 'frozen-partition-1440')
+  const download = page.waitForEvent('download')
+  await page.getByRole('button', { name: '导出完整分区', exact: true }).click()
+  const file = await download
+  const report = JSON.parse(await fs.readFile((await file.path())!, 'utf8'))
+  expect(report.plan_id).toBe(plan.plan_id)
+  expect(report.snapshot_id).toBe(plan.snapshot_id)
+  expect(report.status).toBe('ready')
+  await page.getByRole('button', { name: '3 个任务组', exact: true }).click()
+  await expect(page.locator('.partition-group')).toHaveCount(3)
+  await page.getByRole('button', { name: '均衡优先', exact: true }).click()
+  await page.locator('.partition-group-grid').scrollIntoViewIfNeeded()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/frozen-partition-groups-1440.png'),
+  })
+  await page
+    .locator('.partition-assignment-details')
+    .first()
+    .getByText('查看峰值见证与实体分配', { exact: true })
+    .click()
+  await expect(page.locator('.partition-assignment-details').first()).toContainText('同时占用')
+  await page
+    .locator('.partition-assignment-details')
+    .first()
+    .getByText('查看峰值见证与实体分配', { exact: true })
+    .click()
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.locator('.partition-configuration').scrollIntoViewIfNeeded()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/frozen-partition-resources-1280.png'),
+  })
+  await page.reload()
+  await expect(page.getByLabel('选择场景')).toHaveValue(sid)
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '冻结任务分区', exact: true }).click()
+  await expect(page.getByLabel('冻结方案分区分析')).toContainText(plan.plan_id, { timeout: 30000 })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect
+    .poll(async () =>
+      page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      ),
+    )
+    .toBeLessThanOrEqual(2)
+  await screenshot(page, 'frozen-partition-mobile')
+  expect(errors).toEqual([])
+})
+
 test.beforeEach(async ({ request, page }) => {
   const response = await request.post('/api/v1/scenarios/examples', {
     data: { example: 'compact' },
   })
   expect(response.status()).toBe(201)
   const scene = await response.json()
-  await page.addInitScript((id) => localStorage.setItem('yuanhang-scenario', id), scene.scenario_id)
+  await page.addInitScript((id) => {
+    if (!localStorage.getItem('yuanhang-scenario')) localStorage.setItem('yuanhang-scenario', id)
+  }, scene.scenario_id)
   await page.goto('/')
   await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeVisible()
 })

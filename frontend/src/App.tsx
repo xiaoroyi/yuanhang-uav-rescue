@@ -44,6 +44,7 @@ import { ResourceTimeline } from './components/ResourceTimeline'
 import { CommunicationPanel } from './components/CommunicationPanel'
 import { ScenarioEditor } from './pages/ScenarioEditor'
 import { ResourceAnalysis } from './pages/ResourceAnalysis'
+import { PartitionAnalysis } from './pages/PartitionAnalysis'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
 
 type Page = 'workspace' | 'scenario' | 'events'
@@ -52,7 +53,7 @@ const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced
 export default function App() {
   const query = useQueryClient()
   const [page, setPage] = useState<Page>('workspace'),
-    [eventTab, setEventTab] = useState<'events' | 'analysis'>('events'),
+    [eventTab, setEventTab] = useState<'events' | 'analysis' | 'partition'>('events'),
     [scenarioId, setScenarioId] = useState(() => localStorage.getItem('yuanhang-scenario') || ''),
     [planId, setPlanId] = useState(''),
     [jobId, setJobId] = useState(''),
@@ -605,6 +606,9 @@ export default function App() {
                       value={scenarioId}
                       onChange={(e) => chooseScene(e.target.value)}
                     >
+                      {!scenarios.data?.some((s) => s.scenario_id === scenarioId) && (
+                        <option value={scenarioId}>{scenario.name}</option>
+                      )}
                       {scenarios.data?.map((s) => (
                         <option key={s.scenario_id} value={s.scenario_id}>
                           {s.name}
@@ -695,7 +699,9 @@ export default function App() {
                         {page === 'events'
                           ? eventTab === 'analysis'
                             ? '看清资源，让每次增配都有依据'
-                            : '面对变化，让救援继续前行'
+                            : eventTab === 'partition'
+                              ? '分组协作，让保障各有所属'
+                              : '面对变化，让救援继续前行'
                           : '每一份物资，都有清晰的下一程'}
                         <span>{page === 'events' ? 'EVENT REVIEW' : 'LIVE WORKSPACE'}</span>
                       </h1>
@@ -703,7 +709,9 @@ export default function App() {
                         {page === 'events'
                           ? eventTab === 'analysis'
                             ? '从计划占用和时限余量出发，真实比较增配与压力情景。'
-                            : '保留原计划与事件事实，在新快照上重新计算未来任务。'
+                            : eventTab === 'partition'
+                              ? '继承已验证联合方案，核算独立任务组的资源峰值与共享损失。'
+                              : '保留原计划与事件事实，在新快照上重新计算未来任务。'
                           : '从真实输入出发，统筹箱件、机体与电池，生成可核对的运输方案。'}
                       </p>
                     </div>
@@ -776,6 +784,13 @@ export default function App() {
                       >
                         <Database size={15} />
                         资源分析与试算
+                      </button>
+                      <button
+                        className={eventTab === 'partition' ? 'active' : ''}
+                        onClick={() => setEventTab('partition')}
+                      >
+                        <Layers size={15} />
+                        冻结任务分区
                       </button>
                     </div>
                   )}
@@ -865,7 +880,7 @@ export default function App() {
                         </div>
                       </div>
                     )}
-                  {!(page === 'events' && eventTab === 'analysis') && (
+                  {!(page === 'events' && eventTab !== 'events') && (
                     <div className="stats-grid">
                       {stats.map((s, i) => (
                         <div className="stat-card" key={s.label}>
@@ -905,10 +920,16 @@ export default function App() {
                       <small>先减少优先级加权期望延期，再比较时间 / 能耗</small>
                     </div>
                   )}
-                  {page === 'events' && eventTab === 'analysis' ? (
+                  {page === 'events' && eventTab === 'partition' ? (
+                    <PartitionAnalysis
+                      key={plan?.plan_id || 'no-plan'}
+                      plan={plan}
+                      onConfigure={() => setPage('scenario')}
+                    />
+                  ) : page === 'events' && eventTab === 'analysis' ? (
                     <ResourceAnalysis
                       key={scenario.scenario_id}
-                      scenario={scenario}
+                      scenario={viewScenario || scenario}
                       plan={plan}
                       stale={stale}
                       onOpen={(scene) => {
@@ -1408,7 +1429,7 @@ export default function App() {
                       </aside>
                     </div>
                   )}
-                  {plan && !(page === 'events' && eventTab === 'analysis') && (
+                  {plan && !(page === 'events' && eventTab !== 'events') && (
                     <ResourceTimeline
                       scenario={viewScenario || scenario}
                       plan={plan}
@@ -1416,10 +1437,9 @@ export default function App() {
                       onSelect={setSelected}
                     />
                   )}
-                  {plan?.communication_report &&
-                    !(page === 'events' && eventTab === 'analysis') && (
-                      <CommunicationPanel plan={plan} />
-                    )}
+                  {plan?.communication_report && !(page === 'events' && eventTab !== 'events') && (
+                    <CommunicationPanel plan={plan} />
+                  )}
                   <div className="workspace-footer">
                     <div>
                       <ShieldCheck size={15} />

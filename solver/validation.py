@@ -5,7 +5,12 @@ from __future__ import annotations
 import copy
 import math
 
-from shared.contracts import ContractError, validate_plan, validate_snapshot
+from shared.contracts import (
+    ContractError,
+    validate_plan,
+    validate_snapshot,
+    has_execution_facts,
+)
 from solver.physics import InputNotReady, charge_seconds, leg, parameters
 from solver.routing import path_is_clear
 
@@ -42,6 +47,8 @@ def validate(snapshot, plan):
         add("cargo_unique", "failed", str(exc))
         return {"status": "failed", "checks": checks}
     s = snapshot["scenario"]
+    if s["data_origin"] == "mock" or has_execution_facts(s):
+        add("inventory", "failed", "当前真实规划模型不能认证Mock输入或覆盖已有执行事实")
     if not s["base"]["available"]:
         add("inventory", "failed", "调度基地不可用，不能发布运输方案")
     types = {t["type_id"]: t for t in s["drone_types"]}

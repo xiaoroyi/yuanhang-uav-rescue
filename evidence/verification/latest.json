@@ -1,46 +1,52 @@
 {
-  "at_utc": "2026-10-17T20:36:24.764066+00:00",
-  "head": "e355a693a23bd399ab1551a3a109a478e04c6498",
+  "at_utc": "2026-10-17T21:07:07.351689+00:00",
+  "head": "0f3b1227490469b8aaded8fa1390872a4591327f",
   "branch": "feat/solo-fullstack-v0",
-  "working_tree_diff_sha256": "cfafdfdf9b213980d1a2c998e1c6b1e26e0231c19619975961e3d7f08602e422",
+  "working_tree_diff_sha256": "73fe5acd3d3108b225779e32c8cb63187ddf34f66d4e7cc69207ee39607c02ff",
   "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
-  "status": " M README.md\n M docs/08-TASK-BOARD.md\n M docs/COMMUNICATION.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/task-board.json\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/github-ci.json\n M solver/AGENTS.md\n M solver/adapters/contest.py\n M solver/joint.py\n M solver/public_api.py\n M tests/solver/test_radio.py\n?? evidence/solver/joint-contest-recomputed.json\n?? solver/adapters/joint_patterns.py\n?? solver/data/\n?? tests/solver/test_joint_patterns.py\n",
+  "status": " M README.md\n M backend/app/main.py\n M contracts/http/openapi.generated.json\n M docs/04-API-CONTRACT.md\n M docs/08-TASK-BOARD.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/task-board.json\n M evidence/browser/e2e-results.json\n M evidence/browser/e2e-targeted-results.json\n M evidence/browser/joint-report-page-qa.json\n M evidence/browser/verified/deep-optimization-1440.png\n M evidence/browser/verified/ground-calendars-1440.png\n M evidence/browser/verified/initial-charge-report.pdf\n M evidence/browser/verified/joint-report-page-1.png\n M evidence/browser/verified/joint-report-page-2.png\n M evidence/browser/verified/joint-report-page-3.png\n M evidence/browser/verified/joint-report-page-4.png\n M evidence/browser/verified/joint-report-page-5.png\n M evidence/browser/verified/joint-report-page-6.png\n M evidence/browser/verified/joint-report-page-7.png\n M evidence/browser/verified/joint-report.pdf\n M evidence/browser/verified/joint-resource-analysis-1440.png\n M evidence/browser/verified/joint-resource-windows-1440.png\n M evidence/browser/verified/joint-workspace-1280.png\n M evidence/browser/verified/joint-workspace-1440.png\n M evidence/browser/verified/print-report-screen.png\n M evidence/browser/verified/print-report.pdf\n M evidence/browser/verified/relay-fault-replan-1440.png\n M evidence/browser/verified/replan-1280.png\n M evidence/browser/verified/replan-1440.png\n M evidence/browser/verified/resource-analysis-1280.png\n M evidence/browser/verified/resource-analysis-1440.png\n M evidence/browser/verified/stress-history-1440.png\n M evidence/browser/verified/terrain-bound-workspace-1440.png\n M evidence/browser/verified/workspace-1280.png\n M evidence/browser/verified/workspace-1440.png\n M evidence/browser/verified/zone-detour-1440.png\n M evidence/browser/verified/zone-editor-1440.png\n M evidence/solver/joint-replan.json\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/check-07.txt\n M frontend/src/App.tsx\n M frontend/src/api/client.ts\n M frontend/src/api/generated/http.d.ts\n M frontend/tests/workflow.spec.ts\n M solver/public_api.py\n M solver/validation.py\n M tests/solver/test_joint_patterns.py\n M tests/solver/test_solver.py\n?? backend/app/partition_views.py\n?? docs/CONTRACT_RFC_007.md\n?? docs/DEMO_RUNBOOK.md\n?? docs/FROZEN_PARTITION.md\n?? evidence/browser/verified/frozen-partition-1440.png\n?? evidence/browser/verified/frozen-partition-groups-1440.png\n?? evidence/browser/verified/frozen-partition-mobile.png\n?? evidence/browser/verified/frozen-partition-resources-1280.png\n?? evidence/browser/verified/relay-fault-differences-1440.png\n?? evidence/solver/frozen-partition-contest.json\n?? evidence/solver/joint-contest-input-change.json\n?? frontend/src/pages/PartitionAnalysis.tsx\n?? frontend/src/pages/partition-analysis.css\n?? solver/partition.py\n?? tests/backend/test_partition_api.py\n?? tests/solver/test_partition.py\n",
   "checks": [
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
       "exit_code": 0,
-      "elapsed_s": 141.424,
+      "elapsed_s": 177.282,
       "output": "evidence/verification/check-01.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
       "exit_code": 0,
-      "elapsed_s": 0.528,
+      "elapsed_s": 0.372,
       "output": "evidence/verification/check-02.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
       "exit_code": 0,
-      "elapsed_s": 0.522,
+      "elapsed_s": 0.514,
       "output": "evidence/verification/check-03.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
       "exit_code": 0,
-      "elapsed_s": 2.898,
+      "elapsed_s": 2.962,
       "output": "evidence/verification/check-04.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
       "exit_code": 0,
-      "elapsed_s": 0.566,
+      "elapsed_s": 0.644,
       "output": "evidence/verification/check-05.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
       "exit_code": 0,
-      "elapsed_s": 4.502,
+      "elapsed_s": 4.555,
       "output": "evidence/verification/check-06.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:e2e",
+      "exit_code": 0,
+      "elapsed_s": 398.316,
+      "output": "evidence/verification/check-07.txt"
     }
   ],
   "passed": true

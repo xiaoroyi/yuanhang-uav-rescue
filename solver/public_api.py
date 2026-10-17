@@ -519,26 +519,6 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                     )
                 ],
             )
-        if "communication" in options["requested_model_scope"]:
-            if not s.get("communication"):
-                return _outcome(
-                    "UNKNOWN",
-                    options,
-                    started,
-                    reason="unsupported_scope",
-                    diagnostics=[
-                        diagnostic(
-                            "INPUT_NOT_READY", "连续通信尚未配置链路参数和中继资源。"
-                        )
-                    ],
-                )
-            if not s["policy"]["requires_communication"]:
-                raise InputNotReady(
-                    "请求通信求解前，请先开启场景的连续通信策略并保存新版本。"
-                )
-            return _solve_joint(
-                snapshot, options, started, progress_callback, initial_plan
-            )
         if set(options["requested_model_scope"]) - set(
             capabilities()["supported_model_scope"]
         ):
@@ -548,7 +528,9 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                 started,
                 reason="unsupported_scope",
                 diagnostics=[
-                    diagnostic("UNSUPPORTED_SCOPE", "当前引擎尚不支持连续通信认证。")
+                    diagnostic(
+                        "UNSUPPORTED_SCOPE", "请求包含当前引擎尚未支持的模型范围。"
+                    )
                 ],
             )
         if (
@@ -617,6 +599,26 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
             "resource_limits"
         ):
             raise InputNotReady("请求地面容量检查，但场景尚未设置准备工位与充电端口。")
+        if "communication" in options["requested_model_scope"]:
+            if not s.get("communication"):
+                return _outcome(
+                    "UNKNOWN",
+                    options,
+                    started,
+                    reason="unsupported_scope",
+                    diagnostics=[
+                        diagnostic(
+                            "INPUT_NOT_READY", "连续通信尚未配置链路参数和中继资源。"
+                        )
+                    ],
+                )
+            if not s["policy"]["requires_communication"]:
+                raise InputNotReady(
+                    "请求通信求解前，请先开启场景的连续通信策略并保存新版本。"
+                )
+            return _solve_joint(
+                snapshot, options, started, progress_callback, initial_plan
+            )
         deadline = started + (
             min(5.0, budget * 0.3) if options["mode"] == "improve" else budget * 0.9
         )

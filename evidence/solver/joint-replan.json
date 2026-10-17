@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-993544FF1C664E35",
-    "scenario_id": "SCN-A3AE8D9680474FF3",
+    "snapshot_id": "SNAP-F7C44215E4614AF8",
+    "scenario_id": "SCN-4F24892F0C5A4994",
     "scenario_state_version": 3,
-    "content_hash": "6fc3413493950077470689adeb81b29b99356686595d0127e635e1e4ad7f7b83",
-    "created_at": "2026-10-17T20:41:50.670854Z",
+    "content_hash": "d1b6fef2cab6c6bea9ba4f5f5c000eece67c3865715c0b3f7b182836b2029a24",
+    "created_at": "2026-10-17T21:01:20.564069Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-A3AE8D9680474FF3",
+      "scenario_id": "SCN-4F24892F0C5A4994",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 3,
       "mode": "simulation",
@@ -1135,12 +1135,12 @@
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-ccc4fdfe-34ec-40",
-    "scenario_id": "SCN-A3AE8D9680474FF3",
+    "event_id": "EVT-926b3ae5-1fd1-45",
+    "scenario_id": "SCN-4F24892F0C5A4994",
     "expected_state_version": 2,
     "event_type": "drone.unavailable",
-    "occurred_at": "2026-10-17T20:41:50.623000Z",
-    "received_at": "2026-10-17T20:41:50.630052Z",
+    "occurred_at": "2026-10-17T21:01:20.527000Z",
+    "received_at": "2026-10-17T21:01:20.535184Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：未起飞机体退出",
@@ -1150,9 +1150,9 @@
   },
   "previous_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-30E1EFE1A2F74E25",
-    "scenario_id": "SCN-A3AE8D9680474FF3",
-    "snapshot_id": "SNAP-50D321718A48459D",
+    "plan_id": "PLAN-D0B777673DF94AFF",
+    "scenario_id": "SCN-4F24892F0C5A4994",
+    "snapshot_id": "SNAP-5DAE7155D8394468",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1660,7 +1660,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T20:41:48.869634Z",
+    "generated_at": "2026-10-17T21:01:18.266252Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1914,13 +1914,13 @@
         {
           "stage": "priority_delay",
           "status": "OPTIMAL",
-          "seconds": 0.46716440000000004,
+          "seconds": 0.602628,
           "objective": 7832256
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.41517410000000005,
+          "seconds": 0.48630470000000003,
           "objective": 764021
         }
       ]
@@ -1928,9 +1928,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-CF107FB88E4443E9",
-    "scenario_id": "SCN-A3AE8D9680474FF3",
-    "snapshot_id": "SNAP-993544FF1C664E35",
+    "plan_id": "PLAN-828E86CFE48C4C92",
+    "scenario_id": "SCN-4F24892F0C5A4994",
+    "snapshot_id": "SNAP-F7C44215E4614AF8",
     "scenario_state_version": 3,
     "data_origin": "solver",
     "objective": "time",
@@ -2438,7 +2438,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T20:42:22.476247Z",
+    "generated_at": "2026-10-17T21:01:52.678735Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -2450,8 +2450,8 @@
       "有限联合候选：16个悬停位置、94段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
       "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
     ],
-    "parent_plan_id": "PLAN-30E1EFE1A2F74E25",
-    "event_id": "EVT-ccc4fdfe-34ec-40",
+    "parent_plan_id": "PLAN-D0B777673DF94AFF",
+    "event_id": "EVT-926b3ae5-1fd1-45",
     "change_summary": {
       "preserved_sortie_ids": [
         "SRT-08c16e45e379",
@@ -2723,13 +2723,13 @@
         {
           "stage": "priority_delay",
           "status": "FEASIBLE",
-          "seconds": 25.961926300000002,
-          "objective": 8366416
+          "seconds": 25.880812900000002,
+          "objective": 8370156
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.6423924000000001,
+          "seconds": 0.659483,
           "objective": 764021
         }
       ]

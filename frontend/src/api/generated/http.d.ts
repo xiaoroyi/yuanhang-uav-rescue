@@ -272,6 +272,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/plans/{plan_id}/partition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Plan Partition */
+        get: operations["plan_partition_api_v1_plans__plan_id__partition_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/plans/{plan_id}/report": {
         parameters: {
             query?: never;
@@ -1307,6 +1324,195 @@ export interface components {
          * @enum {string}
          */
         Objective: "time" | "energy" | "balanced";
+        /** PartitionAssignment */
+        PartitionAssignment: {
+            /** Task Id */
+            task_id: string;
+            /** Start S */
+            start_s: number;
+            /** End S */
+            end_s: number;
+            /** Original Resource Id */
+            original_resource_id: string;
+            /** Allocated Resource Id */
+            allocated_resource_id: string;
+            /** Needs Addition */
+            needs_addition: boolean;
+        };
+        /** PartitionAtom */
+        PartitionAtom: {
+            /** Atom Id */
+            atom_id: string;
+            /** Site Ids */
+            site_ids: string[];
+            /** Transport Sortie Ids */
+            transport_sortie_ids: string[];
+            /** Relay Sortie Ids */
+            relay_sortie_ids: string[];
+        };
+        /** PartitionCandidate */
+        PartitionCandidate: {
+            /** Groups */
+            groups: components["schemas"]["PartitionGroup"][];
+            /** Configuration */
+            configuration: components["schemas"]["PartitionConfiguration"][];
+            /** Normalized Deficit */
+            normalized_deficit: number;
+            /** Normalized Size */
+            normalized_size: number;
+            /** Workload Cv2 */
+            workload_cv2: number;
+            /** Objective Exact */
+            objective_exact: {
+                [key: string]: string;
+            };
+            /** Fits Inventory */
+            fits_inventory: boolean;
+        };
+        /** PartitionConfiguration */
+        PartitionConfiguration: {
+            /** Resource Key */
+            resource_key: string;
+            /** Inventory */
+            inventory: number;
+            /** Pooled Required */
+            pooled_required: number;
+            /** Partition Required */
+            partition_required: number;
+            /** Extra Vs Pool */
+            extra_vs_pool: number;
+            /** Shortfall */
+            shortfall: number;
+            /** Unallocated Stock */
+            unallocated_stock: number;
+        };
+        /** PartitionEdge */
+        PartitionEdge: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "transport" | "relay";
+            /** Task Id */
+            task_id: string;
+            /** Site Ids */
+            site_ids: string[];
+        };
+        /** PartitionGroup */
+        PartitionGroup: {
+            /** Group Id */
+            group_id: string;
+            /** Atom Ids */
+            atom_ids: string[];
+            /** Site Ids */
+            site_ids: string[];
+            /** Transport Sortie Ids */
+            transport_sortie_ids: string[];
+            /** Relay Sortie Ids */
+            relay_sortie_ids: string[];
+            /** Box Count */
+            box_count: number;
+            /** Workload S */
+            workload_s: number;
+            /** Resources */
+            resources: components["schemas"]["PartitionResourcePeak"][];
+        };
+        /** PartitionPooledRequirement */
+        PartitionPooledRequirement: {
+            /** Resource Key */
+            resource_key: string;
+            /** Required Count */
+            required_count: number;
+        };
+        /** PartitionReport */
+        PartitionReport: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "frozen_joint_homogeneous_v1";
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ready" | "limited";
+            /** Reason */
+            reason: string | null;
+            /** Plan Id */
+            plan_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            /** Snapshot Content Hash */
+            snapshot_content_hash: string;
+            /** Source Plan Hash */
+            source_plan_hash: string;
+            /** Max Atoms */
+            max_atoms: number;
+            /** Atoms */
+            atoms: components["schemas"]["PartitionAtom"][];
+            /** Edges */
+            edges: components["schemas"]["PartitionEdge"][];
+            /** Resource Classes */
+            resource_classes: components["schemas"]["PartitionResourceClass"][];
+            /** Pooled Requirements */
+            pooled_requirements: components["schemas"]["PartitionPooledRequirement"][];
+            /** Variants */
+            variants: components["schemas"]["PartitionVariant"][];
+            /** Audit Checks */
+            audit_checks: string[];
+            /** Notes */
+            notes: string[];
+        };
+        /** PartitionResourceClass */
+        PartitionResourceClass: {
+            /** Key */
+            key: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "drone" | "battery" | "relay_drone" | "relay_energy" | "prep" | "charger";
+            /** Type Id */
+            type_id: string;
+            /** Label */
+            label: string;
+            /** Inventory */
+            inventory: number;
+        };
+        /** PartitionResourcePeak */
+        PartitionResourcePeak: {
+            /** Resource Key */
+            resource_key: string;
+            /** Required Count */
+            required_count: number;
+            /** Peak At S */
+            peak_at_s: number | null;
+            /** Peak Task Ids */
+            peak_task_ids: string[];
+            /** Assignments */
+            assignments: components["schemas"]["PartitionAssignment"][];
+        };
+        /** PartitionVariant */
+        PartitionVariant: {
+            /**
+             * Group Count
+             * @enum {integer}
+             */
+            group_count: 2 | 3;
+            /** Candidate Count */
+            candidate_count: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "available" | "not_possible";
+            /** Reason */
+            reason: string | null;
+            resource_first: components["schemas"]["PartitionCandidate"] | null;
+            balanced_first: components["schemas"]["PartitionCandidate"] | null;
+        };
         /** Payload */
         Payload: {
             /** Drone Id */
@@ -2718,6 +2924,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PlanAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    plan_partition_api_v1_plans__plan_id__partition_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PartitionReport"];
                 };
             };
             /** @description Validation Error */

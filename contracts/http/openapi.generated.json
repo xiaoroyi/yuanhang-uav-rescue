@@ -617,6 +617,45 @@
         }
       }
     },
+    "/api/v1/plans/{plan_id}/partition": {
+      "get": {
+        "summary": "Plan Partition",
+        "operationId": "plan_partition_api_v1_plans__plan_id__partition_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartitionReport"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/plans/{plan_id}/report": {
       "get": {
         "summary": "Plan Report",
@@ -3651,6 +3690,571 @@
           "balanced"
         ],
         "title": "Objective"
+      },
+      "PartitionAssignment": {
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "title": "Task Id"
+          },
+          "start_s": {
+            "type": "number",
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "title": "End S"
+          },
+          "original_resource_id": {
+            "type": "string",
+            "title": "Original Resource Id"
+          },
+          "allocated_resource_id": {
+            "type": "string",
+            "title": "Allocated Resource Id"
+          },
+          "needs_addition": {
+            "type": "boolean",
+            "title": "Needs Addition"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "task_id",
+          "start_s",
+          "end_s",
+          "original_resource_id",
+          "allocated_resource_id",
+          "needs_addition"
+        ],
+        "title": "PartitionAssignment"
+      },
+      "PartitionAtom": {
+        "properties": {
+          "atom_id": {
+            "type": "string",
+            "title": "Atom Id"
+          },
+          "site_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Site Ids"
+          },
+          "transport_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Transport Sortie Ids"
+          },
+          "relay_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Relay Sortie Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "atom_id",
+          "site_ids",
+          "transport_sortie_ids",
+          "relay_sortie_ids"
+        ],
+        "title": "PartitionAtom"
+      },
+      "PartitionCandidate": {
+        "properties": {
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionGroup"
+            },
+            "type": "array",
+            "title": "Groups"
+          },
+          "configuration": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionConfiguration"
+            },
+            "type": "array",
+            "title": "Configuration"
+          },
+          "normalized_deficit": {
+            "type": "number",
+            "title": "Normalized Deficit"
+          },
+          "normalized_size": {
+            "type": "number",
+            "title": "Normalized Size"
+          },
+          "workload_cv2": {
+            "type": "number",
+            "title": "Workload Cv2"
+          },
+          "objective_exact": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Objective Exact"
+          },
+          "fits_inventory": {
+            "type": "boolean",
+            "title": "Fits Inventory"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "groups",
+          "configuration",
+          "normalized_deficit",
+          "normalized_size",
+          "workload_cv2",
+          "objective_exact",
+          "fits_inventory"
+        ],
+        "title": "PartitionCandidate"
+      },
+      "PartitionConfiguration": {
+        "properties": {
+          "resource_key": {
+            "type": "string",
+            "title": "Resource Key"
+          },
+          "inventory": {
+            "type": "integer",
+            "title": "Inventory"
+          },
+          "pooled_required": {
+            "type": "integer",
+            "title": "Pooled Required"
+          },
+          "partition_required": {
+            "type": "integer",
+            "title": "Partition Required"
+          },
+          "extra_vs_pool": {
+            "type": "integer",
+            "title": "Extra Vs Pool"
+          },
+          "shortfall": {
+            "type": "integer",
+            "title": "Shortfall"
+          },
+          "unallocated_stock": {
+            "type": "integer",
+            "title": "Unallocated Stock"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_key",
+          "inventory",
+          "pooled_required",
+          "partition_required",
+          "extra_vs_pool",
+          "shortfall",
+          "unallocated_stock"
+        ],
+        "title": "PartitionConfiguration"
+      },
+      "PartitionEdge": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "transport",
+              "relay"
+            ],
+            "title": "Kind"
+          },
+          "task_id": {
+            "type": "string",
+            "title": "Task Id"
+          },
+          "site_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Site Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "task_id",
+          "site_ids"
+        ],
+        "title": "PartitionEdge"
+      },
+      "PartitionGroup": {
+        "properties": {
+          "group_id": {
+            "type": "string",
+            "title": "Group Id"
+          },
+          "atom_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Atom Ids"
+          },
+          "site_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Site Ids"
+          },
+          "transport_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Transport Sortie Ids"
+          },
+          "relay_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Relay Sortie Ids"
+          },
+          "box_count": {
+            "type": "integer",
+            "title": "Box Count"
+          },
+          "workload_s": {
+            "type": "number",
+            "title": "Workload S"
+          },
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionResourcePeak"
+            },
+            "type": "array",
+            "title": "Resources"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "group_id",
+          "atom_ids",
+          "site_ids",
+          "transport_sortie_ids",
+          "relay_sortie_ids",
+          "box_count",
+          "workload_s",
+          "resources"
+        ],
+        "title": "PartitionGroup"
+      },
+      "PartitionPooledRequirement": {
+        "properties": {
+          "resource_key": {
+            "type": "string",
+            "title": "Resource Key"
+          },
+          "required_count": {
+            "type": "integer",
+            "title": "Required Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_key",
+          "required_count"
+        ],
+        "title": "PartitionPooledRequirement"
+      },
+      "PartitionReport": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "frozen_joint_homogeneous_v1",
+            "title": "Model Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "limited"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "snapshot_content_hash": {
+            "type": "string",
+            "title": "Snapshot Content Hash"
+          },
+          "source_plan_hash": {
+            "type": "string",
+            "title": "Source Plan Hash"
+          },
+          "max_atoms": {
+            "type": "integer",
+            "title": "Max Atoms"
+          },
+          "atoms": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionAtom"
+            },
+            "type": "array",
+            "title": "Atoms"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionEdge"
+            },
+            "type": "array",
+            "title": "Edges"
+          },
+          "resource_classes": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionResourceClass"
+            },
+            "type": "array",
+            "title": "Resource Classes"
+          },
+          "pooled_requirements": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionPooledRequirement"
+            },
+            "type": "array",
+            "title": "Pooled Requirements"
+          },
+          "variants": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionVariant"
+            },
+            "type": "array",
+            "title": "Variants"
+          },
+          "audit_checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Audit Checks"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "status",
+          "reason",
+          "plan_id",
+          "snapshot_id",
+          "scenario_state_version",
+          "snapshot_content_hash",
+          "source_plan_hash",
+          "max_atoms",
+          "atoms",
+          "edges",
+          "resource_classes",
+          "pooled_requirements",
+          "variants",
+          "audit_checks",
+          "notes"
+        ],
+        "title": "PartitionReport"
+      },
+      "PartitionResourceClass": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "drone",
+              "battery",
+              "relay_drone",
+              "relay_energy",
+              "prep",
+              "charger"
+            ],
+            "title": "Kind"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "inventory": {
+            "type": "integer",
+            "title": "Inventory"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "key",
+          "kind",
+          "type_id",
+          "label",
+          "inventory"
+        ],
+        "title": "PartitionResourceClass"
+      },
+      "PartitionResourcePeak": {
+        "properties": {
+          "resource_key": {
+            "type": "string",
+            "title": "Resource Key"
+          },
+          "required_count": {
+            "type": "integer",
+            "title": "Required Count"
+          },
+          "peak_at_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Peak At S"
+          },
+          "peak_task_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Peak Task Ids"
+          },
+          "assignments": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionAssignment"
+            },
+            "type": "array",
+            "title": "Assignments"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_key",
+          "required_count",
+          "peak_at_s",
+          "peak_task_ids",
+          "assignments"
+        ],
+        "title": "PartitionResourcePeak"
+      },
+      "PartitionVariant": {
+        "properties": {
+          "group_count": {
+            "type": "integer",
+            "enum": [
+              2,
+              3
+            ],
+            "title": "Group Count"
+          },
+          "candidate_count": {
+            "type": "integer",
+            "title": "Candidate Count"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "available",
+              "not_possible"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "resource_first": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PartitionCandidate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "balanced_first": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PartitionCandidate"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "group_count",
+          "candidate_count",
+          "status",
+          "reason",
+          "resource_first",
+          "balanced_first"
+        ],
+        "title": "PartitionVariant"
       },
       "Payload": {
         "properties": {

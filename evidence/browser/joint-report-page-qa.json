@@ -1,5 +1,5 @@
 {
-  "plan_id": "PLAN-1F63CA5237404A1C",
+  "plan_id": "PLAN-E584FCE956E94F9D",
   "page_count": 7,
   "pages": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "page": 2,
-      "text_characters": 1475,
+      "text_characters": 1473,
       "plan_id_present": true,
       "image": "evidence/browser/verified/joint-report-page-2.png"
     },
@@ -22,13 +22,13 @@
     },
     {
       "page": 4,
-      "text_characters": 1123,
+      "text_characters": 1124,
       "plan_id_present": true,
       "image": "evidence/browser/verified/joint-report-page-4.png"
     },
     {
       "page": 5,
-      "text_characters": 1195,
+      "text_characters": 1192,
       "plan_id_present": true,
       "image": "evidence/browser/verified/joint-report-page-5.png"
     },

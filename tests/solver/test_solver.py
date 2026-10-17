@@ -34,6 +34,22 @@ def test_real_plan_and_input_immutability(case):
     assert snapshot == before
 
 
+def test_independent_validation_rejects_mock_or_unused_actual_state(case):
+    snapshot, options = case
+    plan = solve(snapshot, options)["plan"]
+    assert plan
+    for mode in ["mock", "unused_battery_in_use"]:
+        changed = copy.deepcopy(snapshot)
+        if mode == "mock":
+            changed["scenario"]["data_origin"] = "mock"
+        else:
+            extra = copy.deepcopy(changed["scenario"]["batteries"][0])
+            extra.update(battery_id="ACTUAL-EXTRA", status="in_use")
+            changed["scenario"]["batteries"].append(extra)
+        changed["content_hash"] = content_hash(changed["scenario"])
+        assert validate(changed, plan)["status"] == "failed"
+
+
 def test_no_drone_is_proved_infeasible(case):
     snapshot, options = case
     snapshot["scenario"]["drones"] = []

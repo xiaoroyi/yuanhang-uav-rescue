@@ -575,7 +575,7 @@
         "A-02",
         "G0-03"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
@@ -638,10 +638,13 @@
         "A-04",
         "X-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/GROUND_RESOURCES.md",
+        "tests/solver/test_ground.py"
+      ]
     },
     {
       "id": "A-10",
@@ -687,10 +690,13 @@
         "A-10",
         "C-08"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/solver/joint-replan.json",
+        "frontend/tests/workflow.spec.ts"
+      ]
     },
     {
       "id": "A-11",
@@ -723,10 +729,17 @@
       "dependencies": [
         "A-08"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/FROZEN_PARTITION.md",
+        "docs/CONTRACT_RFC_007.md",
+        "tests/solver/test_partition.py",
+        "tests/backend/test_partition_api.py",
+        "evidence/solver/frozen-partition-contest.json",
+        "evidence/browser/verified/frozen-partition-1440.png"
+      ]
     },
     {
       "id": "C-09",

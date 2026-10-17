@@ -67,15 +67,15 @@
 | C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
 | B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
 | A-07 | P1 | A | A-02, C-06 | 绕行候选 A* 或可见图、净空预检、缓存键与失效；验收：禁入更新后候选重算且有验证 | done | feat/solo-fullstack-v0; docs/SPATIAL_ROUTING.md; solver/routing.py; tests/solver/test_routing.py; evidence/solver/zone-compact.json |
-| A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | in_progress | feat/solo-fullstack-v0; docs/COMMUNICATION.md; solver/joint.py; tests/solver/test_radio.py; evidence/solver/joint-compact.json; evidence/solver/joint-contest.json; tests/solver/test_joint_patterns.py; evidence/solver/joint-contest-recomputed.json; evidence/solver/joint-replan.json |
+| A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | done | feat/solo-fullstack-v0; docs/COMMUNICATION.md; solver/joint.py; tests/solver/test_radio.py; evidence/solver/joint-compact.json; evidence/solver/joint-contest.json; tests/solver/test_joint_patterns.py; evidence/solver/joint-contest-recomputed.json; evidence/solver/joint-replan.json |
 | C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | done | feat/solo-fullstack-v0; docs/CONTRACT_RFC_006.md; tests/backend/test_joint_api.py; contracts/http/openapi.generated.json |
 | B-07 | P1 | B | C-07 | 中继点/服务时间轴、通信来源与缺口高亮；验收：点击航段显示接入/回传来源与证据 | in_progress | feat/solo-fullstack-v0; frontend/src/components/CommunicationPanel.tsx; evidence/browser/verified/joint-workspace-1440.png; evidence/browser/e2e-results.json |
-| A-09 | P1 | A | A-04, X-02 | 充电端口、起降位与地面工位容量约束；验收：同刻容量超限可检测 | todo | — |
+| A-09 | P1 | A | A-04, X-02 | 充电端口、起降位与地面工位容量约束；验收：同刻容量超限可检测 | in_progress | feat/solo-fullstack-v0; docs/GROUND_RESOURCES.md; tests/solver/test_ground.py |
 | A-10 | P1 | A | A-05, A-07, C-05 | 电池退出、紧急插单、落点变更、未来封控事件；验收：作用范围、发生/接收时间、旧事实可追踪 | todo | — |
 | C-08 | P1 | B | A-10, C-05 | 地图/资源新增事件 API 与一致性事务；验收：版本冲突返回结构化错误 | todo | — |
-| B-08 | P1 | B | A-10, C-08 | 动态图层与复盘/故障明细页面；验收：失败、未评估、已验证状态可区分 | todo | — |
+| B-08 | P1 | B | A-10, C-08 | 动态图层与复盘/故障明细页面；验收：失败、未评估、已验证状态可区分 | in_progress | feat/solo-fullstack-v0; evidence/solver/joint-replan.json; frontend/tests/workflow.spec.ts |
 | A-11 | P1 | A | A-03, A-07, A-08 | 部分保障、资源缺口/增配试算、可证明下界；验收：明确“证明无解”与“预算未找到” | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
-| A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | todo | — |
+| A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | done | feat/solo-fullstack-v0; docs/FROZEN_PARTITION.md; docs/CONTRACT_RFC_007.md; tests/solver/test_partition.py; tests/backend/test_partition_api.py; evidence/solver/frozen-partition-contest.json; evidence/browser/verified/frozen-partition-1440.png |
 | C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 | B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 

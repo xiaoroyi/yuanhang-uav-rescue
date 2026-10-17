@@ -1,0 +1,437 @@
+.partition-analysis {
+  display: grid;
+  gap: 18px;
+}
+.partition-intro {
+  padding: 25px;
+}
+.partition-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.partition-title h3 {
+  margin: 8px 0;
+  font-size: 20px;
+  letter-spacing: -0.6px;
+}
+.partition-title p {
+  color: #6c8381;
+  font-size: 12px;
+  line-height: 1.8;
+  margin: 0;
+}
+.partition-title > .badge {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.partition-symbol {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  color: #138578;
+  background: #e8f4ef;
+  flex-shrink: 0;
+}
+.partition-source {
+  margin-top: 22px;
+  padding-top: 17px;
+  border-top: 1px solid #e8eeee;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #67817e;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+.partition-source code {
+  color: #345d56;
+  font-size: 10px;
+}
+.partition-source .button {
+  margin-left: auto;
+}
+.partition-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.partition-controls > span {
+  margin-left: auto;
+  font-size: 11px;
+  color: #6c827e;
+}
+.partition-atoms .panel-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.partition-atom-grid {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding: 0 20px 20px;
+  flex-wrap: wrap;
+}
+.partition-atom {
+  flex: 1 1 180px;
+  padding: 15px;
+  border: 1px solid #e2ece8;
+  border-radius: 9px;
+  background: #f5faf7;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.partition-atom header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.partition-atom header > span:last-child,
+.partition-atom small {
+  font-size: 10px;
+  color: #6a817c;
+}
+.partition-atom > strong {
+  font-size: 11px;
+  color: #385d54;
+  line-height: 1.9;
+}
+.partition-atom.tone-1 {
+  background: #f7f6fb;
+  border-color: #e9e3f0;
+}
+.partition-atom.tone-2 {
+  background: #fcf8f0;
+  border-color: #eee5d2;
+}
+.partition-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.partition-kpis > div {
+  border-radius: 10px;
+  border: 1px solid #e1e9e8;
+  background: white;
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+}
+.partition-kpis small {
+  font-size: 11px;
+  color: #567872;
+}
+.partition-kpis strong {
+  font-family: var(--font-numeric);
+  color: #254e46;
+  font-size: 28px;
+  font-weight: 550;
+  letter-spacing: -1px;
+}
+.partition-kpis em {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  color: #78908b;
+  margin-left: 7px;
+}
+.partition-kpis span {
+  color: #708781;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.partition-kpis .partition-amber {
+  color: #b78330;
+}
+.partition-shortage {
+  margin: 0;
+  line-height: 1.9;
+  font-size: 12px;
+}
+.partition-group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  align-items: start;
+}
+.partition-group {
+  padding: 20px;
+  border-top: 3px solid #74a392;
+}
+.partition-group.tone-1 {
+  border-top-color: #9a88b7;
+}
+.partition-group.tone-2 {
+  border-top-color: #cca15c;
+}
+.partition-group > header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.partition-group header > .badge {
+  margin-left: auto;
+  font-size: 9px;
+}
+.partition-group-number {
+  width: 37px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  background: #eff6f1;
+  color: #47775d;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.partition-group h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+.partition-group header p {
+  margin: 0;
+  font-size: 10px;
+  color: #6c827e;
+}
+.partition-group-sites {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+  min-height: 23px;
+}
+.partition-group-sites span {
+  padding: 4px 6px;
+  border-radius: 4px;
+  color: #5f7970;
+  background: #f0f5f2;
+  font-size: 10px;
+}
+.partition-workload {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 9px;
+}
+.partition-workload > span {
+  font-size: 11px;
+  color: #668178;
+}
+.partition-workload > strong {
+  font-size: 13px;
+  font-weight: 550;
+  color: #335d50;
+}
+.partition-workload > div {
+  grid-column: 1/-1;
+  background: #eef2ef;
+  height: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.partition-workload i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #77a08f;
+  transition: width 0.3s ease;
+}
+.tone-1 .partition-workload i {
+  background: #9a88b7;
+}
+.tone-2 .partition-workload i {
+  background: #cca15c;
+}
+.partition-workload small {
+  grid-column: 1/-1;
+  color: #6a837b;
+  font-size: 10px;
+}
+.partition-group-tasks {
+  margin: 18px 0;
+  display: flex;
+  gap: 18px;
+  color: #5d7a70;
+  font-size: 10px;
+}
+.partition-group-tasks span {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.partition-resource-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 14px;
+  border-top: 1px solid #e9eeea;
+}
+.partition-resource-chips > span {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 10px;
+  color: #688173;
+  background: #f5f7f4;
+  border-radius: 5px;
+  padding: 6px 8px;
+}
+.partition-resource-chips strong {
+  color: #34594a;
+  font-size: 12px;
+}
+.partition-assignment-details {
+  margin-top: 17px;
+  font-size: 11px;
+  color: #5e7f72;
+}
+.partition-assignment-details summary,
+.partition-evidence summary {
+  cursor: pointer;
+  line-height: 1.8;
+}
+.partition-assignment-details > div {
+  padding-top: 8px;
+}
+.partition-assignment-details h4 {
+  margin-bottom: 6px;
+}
+.partition-assignment-details p {
+  line-height: 1.8;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.partition-assignment-details code {
+  font-size: 9px;
+}
+.partition-assignment-details .data-table {
+  font-size: 10px;
+  min-width: 380px;
+}
+.partition-assignment-details .table-scroll {
+  max-height: 260px;
+}
+.partition-configuration .data-table {
+  min-width: 730px;
+}
+.partition-evidence {
+  padding: 22px;
+}
+.partition-evidence > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #5d8873;
+}
+.partition-evidence h3 {
+  font-size: 13px;
+  margin: 0;
+}
+.partition-audit-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 17px 0;
+}
+.partition-audit-list span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #5b7f6d;
+}
+.partition-evidence details {
+  color: #6b8278;
+  font-size: 11px;
+  line-height: 1.9;
+  border-top: 1px solid #e7eee7;
+  padding-top: 14px;
+}
+.partition-evidence dl {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 6px;
+}
+.partition-evidence dd {
+  margin: 0;
+  font-family: monospace;
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+.partition-empty {
+  padding: 25px;
+}
+.partition-empty .empty {
+  min-height: 260px;
+}
+.partition-notes {
+  color: #72857d;
+  font-size: 11px;
+  line-height: 1.9;
+  padding: 0 20px;
+}
+.partition-loading {
+  padding: 45px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  color: #6d897c;
+}
+.partition-loading h3 {
+  font-size: 15px;
+  color: #365a4b;
+}
+.partition-loading p {
+  font-size: 12px;
+  line-height: 1.8;
+}
+@media (max-width: 1200px) {
+  .partition-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .partition-title {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 640px) {
+  .partition-intro {
+    padding: 18px;
+  }
+  .partition-title h3 {
+    font-size: 17px;
+  }
+  .partition-symbol {
+    width: 44px;
+    height: 44px;
+  }
+  .partition-title > .badge {
+    margin-left: 0;
+  }
+  .partition-source .button {
+    margin-left: 0;
+  }
+  .partition-controls > span {
+    margin-left: 0;
+  }
+  .partition-kpis {
+    gap: 9px;
+  }
+  .partition-kpis > div {
+    padding: 14px;
+  }
+  .partition-kpis strong {
+    font-size: 25px;
+  }
+  .partition-group-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .partition-evidence dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

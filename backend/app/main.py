@@ -47,6 +47,7 @@ from backend.app.jobs import JobManager, now
 from backend.app.imports import GROUPS, csv_template, excel_template, preview
 from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
 from backend.app.reports import build_report
+from backend.app.partition_views import PartitionReport
 from backend.app.terrain_assets import (
     TerrainAsset,
     catalog as terrain_catalog,
@@ -87,6 +88,7 @@ from solver.adapters.contest import (
 )
 from solver.physics import InputNotReady, parameters, terrain_maximum
 from solver.public_api import capabilities, validate, playback, analyze
+from solver.partition import partition
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -615,6 +617,13 @@ def create_app(runtime_dir: Path | None = None):
             plan = require_row(session, PlanRow, plan_id).content
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
             return analyze(snap, plan)
+
+    @app.get("/api/v1/plans/{plan_id}/partition", response_model=PartitionReport)
+    def plan_partition(plan_id: str):
+        with database.session() as session:
+            plan = require_row(session, PlanRow, plan_id).content
+            snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+        return partition(snap, plan)
 
     @app.get("/api/v1/plans/{plan_id}/report", response_class=HTMLResponse)
     def plan_report(plan_id: str):

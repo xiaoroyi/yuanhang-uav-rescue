@@ -2,6 +2,7 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import pytest
 
 from shared.contracts import content_hash, validate_outcome, validate_scenario
 from solver.adapters.contest import contest_scenario, contest_communication
@@ -88,3 +89,76 @@ def test_original_80_box_joint_plan_is_recomputed_and_independently_checked():
     assert plan["relay_sorties"] and plan["communication_report"]["coverage_gap_s"] == 0
     assert validate(snapshot, plan)["status"] == "passed"
     assert any("历史分组仅作候选" in note for note in plan["solver_notes"])
+
+
+@pytest.mark.parametrize(
+    "problem,status",
+    [
+        ("mock", "UNKNOWN"),
+        ("closed_base", "INFEASIBLE"),
+        ("no_aircraft", "INFEASIBLE"),
+        ("no_energy", "INFEASIBLE"),
+        ("unknown_scope", "UNKNOWN"),
+        ("unconfigured_ground", "UNKNOWN"),
+    ],
+)
+def test_archived_pattern_cannot_bypass_common_input_guards(
+    monkeypatch, problem, status
+):
+    import solver.joint
+
+    s = case()
+    if problem == "mock":
+        s["data_origin"] = "mock"
+    elif problem == "closed_base":
+        s["base"]["available"] = False
+    elif problem == "no_aircraft":
+        for drone in s["drones"]:
+            drone["status"] = "unavailable"
+    elif problem == "no_energy":
+        for battery in s["batteries"]:
+            battery["status"] = "unavailable"
+    snapshot = dict(
+        schema_version=s["schema_version"],
+        snapshot_id="SNAP-GUARD",
+        scenario_id=s["scenario_id"],
+        scenario_state_version=1,
+        content_hash=content_hash(s),
+        created_at=s["start_time"],
+        scenario=s,
+    )
+    scope = [
+        "cargo_unique",
+        "capacity",
+        "inventory",
+        "aircraft",
+        "battery",
+        "time_window",
+        "energy",
+        "terrain",
+        "communication",
+    ]
+    if problem == "unknown_scope":
+        scope.append("future_model")
+    elif problem == "unconfigured_ground":
+        scope.append("ground_resource")
+    options = dict(
+        schema_version=s["schema_version"],
+        snapshot_id=snapshot["snapshot_id"],
+        plan_id="PLAN-GUARD",
+        objective="time",
+        mode="quick",
+        time_limit_s=60,
+        seed=42,
+        parent_plan_id=None,
+        event_id=None,
+        allow_partial_service=False,
+        requested_model_scope=scope,
+    )
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Invalid input reached joint candidate scheduling.")
+
+    monkeypatch.setattr(solver.joint, "schedule", forbidden)
+    result = solve(snapshot, options)
+    assert result["plan"] is None and result["solver_status"] == status

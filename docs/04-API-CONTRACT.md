@@ -65,3 +65,7 @@ B-01：同一成员生成 TypeScript 业务类型，真实 OpenAPI 生成 HTTP c
 ## 通信接口（RFC-006）
 
 GET /scenarios/{scenario_id}/communication-template只读返回原题链路/中继参数和按当前点位生成的有限悬停候选，不自动启用或保存。常规PUT Scenario保存communication及policy.requires_communication并创建新版本；Job自动补communication必检范围。Plan包含独立验证的relay_sorties、communication_report、joint_metrics及结构化joint_search。确认事务预约运输与中继实体及共同地面容量。原任务CSV继续按运输箱件输出，format=relay_csv单独导出中继任务；JSON保存完整联合Plan，GeoJSON加入kind=relay的路线。模板Excel包含通信配置并支持往返。
+
+## 冻结分区接口（RFC-007）
+
+GET /plans/{plan_id}/partition返回绑定原Snapshot的PartitionReport，独立检查原联合Plan后完整枚举2/3组；不修改Plan和当前场景。状态ready表示完成冻结模型分析，limited明确说明模型/规模/来源限制；每个K单独给available或not_possible。分配、缺口、峰值见证、来源hash和精确排序分数随JSON返回，实际类型来自42路径的OpenAPI。详细边界见FROZEN_PARTITION.md。

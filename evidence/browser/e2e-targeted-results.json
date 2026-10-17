@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "中继机退出|历史方案等待"
+      "80箱冻结"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,7 +109,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "中继机退出保存新版本，真实重规划保留旧方案和连续保障",
+          "title": "80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出",
           "ok": true,
           "tags": [],
           "tests": [
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 52427,
+                  "duration": 51678,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T20:41:39.626Z",
+                  "startTime": "2026-10-17T20:52:21.856Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,43 +137,9 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-a3900ce511d56f3a1248",
+          "id": "c601ceb5ecfc8efa4a14-ce326e6604e3e416dd98",
           "file": "workflow.spec.ts",
-          "line": 83,
-          "column": 1
-        },
-        {
-          "title": "历史方案等待绑定原始快照，延迟期间不显示混合版本结果",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 90000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "",
-              "projectName": "",
-              "results": [
-                {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 8852,
-                  "errors": [],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-10-17T20:42:32.402Z",
-                  "annotations": [],
-                  "attachments": []
-                }
-              ],
-              "status": "expected"
-            }
-          ],
-          "id": "c601ceb5ecfc8efa4a14-97e57c6bf2aa8b4b7a1d",
-          "file": "workflow.spec.ts",
-          "line": 137,
+          "line": 190,
           "column": 1
         }
       ]
@@ -181,9 +147,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T20:41:39.153Z",
-    "duration": 62800.088,
-    "expected": 2,
+    "startTime": "2026-10-17T20:52:21.386Z",
+    "duration": 52596.892,
+    "expected": 1,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

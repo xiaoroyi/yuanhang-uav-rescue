@@ -19,6 +19,7 @@ export type WhatIfHistory = components['schemas']['WhatIfHistory']
 export type TerrainAsset = components['schemas']['TerrainAsset']
 export type TerrainMap = components['schemas']['TerrainMap']
 export type Communication = NonNullable<Scenario['communication']>
+export type PartitionReport = components['schemas']['PartitionReport']
 
 export class ApiError extends Error {
   code: string
@@ -92,6 +93,7 @@ export const api = {
       expected_state_version: s.state_version,
     }),
   getSnapshot: (id: string) => request<Snapshot>(`/snapshots/${id}`),
+  partition: (id: string) => request<PartitionReport>(`/plans/${id}/partition`),
   solve: (
     snapshot_id: string,
     objective: 'time' | 'energy' | 'balanced',
