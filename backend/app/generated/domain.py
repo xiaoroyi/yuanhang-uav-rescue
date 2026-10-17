@@ -472,7 +472,7 @@ class Payload(BaseModel):
     )
 
 
-class Event(BaseModel):
+class DroneUnavailableEvent(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
@@ -491,6 +491,44 @@ class Event(BaseModel):
     actor: Actor
     reason: constr(min_length=1)
     payload: Payload
+
+
+class Payload1(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    battery_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+
+
+class BatteryUnavailableEvent(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    schema_version: Literal["0.1.0-draft"]
+    event_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    scenario_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    expected_state_version: conint(ge=1)
+    event_type: Literal["battery.unavailable"]
+    occurred_at: AwareDatetime
+    received_at: AwareDatetime
+    effective_time_s: confloat(ge=0.0)
+    actor: Actor
+    reason: constr(min_length=1)
+    payload: Payload1
+
+
+class Event(RootModel[DroneUnavailableEvent | BatteryUnavailableEvent]):
+    root: DroneUnavailableEvent | BatteryUnavailableEvent = Field(
+        ...,
+        description="Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review.",
+        title="Event",
+    )
 
 
 class DataOrigin(Enum):

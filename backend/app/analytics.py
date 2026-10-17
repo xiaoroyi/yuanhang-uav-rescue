@@ -179,15 +179,15 @@ def transform(source, request: WhatIfRequest):
     for b in s["batteries"]:
         b["soh"] *= request.battery_soh_multiplier
     for field, value in [
-        ("能耗倍率", request.energy_multiplier),
-        ("飞行时长倍率", request.flight_time_multiplier),
-        ("电池SOH倍率", request.battery_soh_multiplier),
+        ("运输能耗倍率", request.energy_multiplier),
+        ("运输飞行时长倍率", request.flight_time_multiplier),
+        ("运输电池SOH倍率", request.battery_soh_multiplier),
     ]:
         if value != 1:
             changes.append(f"{field}乘以{value:g}，为用户设定情景，不是实测概率。")
     if request.min_return_soc is not None:
         s["policy"]["min_return_soc"] = request.min_return_soc
-        changes.append(f"返航SOC下限改为{request.min_return_soc:.1%}。")
+        changes.append(f"运输返航SOC下限改为{request.min_return_soc:.1%}。")
     altered = 0
     if request.noncritical_deadline_multiplier != 1:
         for d in s["demands"]:

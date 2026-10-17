@@ -15,9 +15,11 @@ const env = {
   YUANHANG_RUNTIME: path.join(root, '.local/e2e-runtime'),
   YUANHANG_API_URL: 'http://127.0.0.1:8011',
   YUANHANG_E2E_STOP_FILE: stopFile,
-  YUANHANG_E2E_REPORT: process.argv.some((arg) => arg.startsWith('--grep'))
-    ? '../evidence/browser/e2e-targeted-results.json'
-    : '../evidence/browser/e2e-results.json',
+  YUANHANG_E2E_REPORT:
+    process.env.YUANHANG_E2E_REPORT ||
+    (process.argv.some((arg) => arg.startsWith('--grep'))
+      ? '../evidence/browser/e2e-targeted-results.json'
+      : '../evidence/browser/e2e-results.json'),
 }
 const python = path.join(
   root,

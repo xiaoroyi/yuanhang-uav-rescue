@@ -24,6 +24,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 场景页“单点运输诊断”提供额定安全载重、真实箱件组批、基线和返航余量敏感性。它对应单点运输物理模型，未分配实际机体/电池；执行前仍须正式求解。模型和独立CLI见 [诊断说明](docs/NOMINAL_ANALYSIS.md)。
 
+故障事件现支持零时刻机体或运输电池退出，普通运输和联合通信均可真实重规划，并保留原方案；页面分别统计机体、电池改派箱件。事件范围、完整版本链和能源状态保留见 [事件说明](docs/EVENTS.md)。Linux CI增加类型漂移和两条浏览器烟测，范围见 [自动化检查](docs/CI_CHECKS.md)。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

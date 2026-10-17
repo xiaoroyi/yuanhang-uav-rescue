@@ -15,6 +15,9 @@ from shared.contracts import (
     validate_scenario,
     validate_snapshot,
     has_execution_facts,
+    require,
+    validate_schema,
+    validate_applied_event,
 )
 from solver.physics import (
     CHARGE_MODEL,
@@ -40,7 +43,7 @@ def capabilities():
         "schema_versions": ["0.1.0-draft"],
         "solver_ready": True,
         "supported_objectives": ["time", "energy", "balanced"],
-        "supported_events": ["drone.unavailable"],
+        "supported_events": ["drone.unavailable", "battery.unavailable"],
         "supported_model_scope": BASE_SCOPE
         + ["terrain", "restricted_zone", "ground_resource", "communication"],
         "supported_energy_models": [ENERGY_MODEL],
@@ -1045,10 +1048,14 @@ def _try_local_repair(snapshot, previous_plan, options, started, progress_callba
         ):
             return None
         available = {d["drone_id"] for d in s["drones"] if d["status"] == "available"}
+        available_batteries = {
+            b["battery_id"] for b in s["batteries"] if b["status"] == "available"
+        }
         direct = {
             r["sortie_id"]
             for r in previous_plan["sorties"]
             if r["drone_id"] not in available
+            or r["battery_id"] not in available_batteries
         }
         expanded, edges = affected_closure(previous_plan["sorties"], direct)
         neighborhoods = [direct] + ([expanded] if expanded != direct else [])
@@ -1133,56 +1140,40 @@ def _try_local_repair(snapshot, previous_plan, options, started, progress_callba
 
 def replan(snapshot, previous_plan, event, options, progress_callback=None):
     started = time.perf_counter()
-    if (
-        options.get("mode") != "replan"
-        or options.get("parent_plan_id") != previous_plan["plan_id"]
-        or options.get("event_id") != event["event_id"]
-        or previous_plan["scenario_id"] != snapshot["scenario_id"]
-        or previous_plan["scenario_state_version"] >= snapshot["scenario_state_version"]
-    ):
+    if event.get("event_type") not in capabilities()["supported_events"]:
+        return _outcome(
+            "UNKNOWN",
+            options,
+            started,
+            reason="unsupported_scope",
+            diagnostics=[
+                diagnostic("UNSUPPORTED_SCOPE", "当前只支持零时刻机体或运输电池退出。")
+            ],
+        )
+    try:
+        validate_snapshot(snapshot)
+        validate_options(options, snapshot)
+        validate_schema("plan", previous_plan)
+        validate_applied_event(event, snapshot["scenario"])
+        require(
+            options["mode"] == "replan"
+            and options["parent_plan_id"] == previous_plan["plan_id"]
+            and options["event_id"] == event["event_id"]
+            and previous_plan["scenario_id"] == snapshot["scenario_id"]
+            and previous_plan["scenario_state_version"]
+            <= event["expected_state_version"]
+            and previous_plan["data_origin"] == "solver"
+            and previous_plan["has_validated_plan"]
+            and previous_plan["validation"]["status"] == "passed",
+            "重规划身份链或原方案来源不完整。",
+        )
+    except (ValueError, KeyError, TypeError) as exc:
         return _outcome(
             "UNKNOWN",
             options,
             started,
             reason="input_not_ready",
-            diagnostics=[diagnostic("INPUT_NOT_READY", "重规划身份链不完整。")],
-        )
-    if event["event_type"] != "drone.unavailable":
-        return _outcome(
-            "UNKNOWN",
-            options,
-            started,
-            reason="unsupported_scope",
-            diagnostics=[
-                diagnostic("UNSUPPORTED_SCOPE", "当前只支持未执行场景的机体退出。")
-            ],
-        )
-    if event.get("effective_time_s", 0) != 0:
-        return _outcome(
-            "UNKNOWN",
-            options,
-            started,
-            reason="unsupported_scope",
-            diagnostics=[
-                diagnostic(
-                    "UNSUPPORTED_EVENT_STATE",
-                    "当前重规划只支持尚未执行场景的零时刻机体退出。",
-                )
-            ],
-        )
-    s = snapshot["scenario"]
-    if has_execution_facts(s):
-        return _outcome(
-            "UNKNOWN",
-            options,
-            started,
-            reason="unsupported_scope",
-            diagnostics=[
-                diagnostic(
-                    "UNSUPPORTED_EVENT_STATE",
-                    "存在执行事实，不能通过重新全量规划覆盖。",
-                )
-            ],
+            diagnostics=[diagnostic("INPUT_NOT_READY", str(exc))],
         )
     result = _try_local_repair(
         snapshot, previous_plan, options, started, progress_callback

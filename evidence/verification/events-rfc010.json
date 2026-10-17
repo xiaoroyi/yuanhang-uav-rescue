@@ -1,0 +1,76 @@
+{
+  "recorded_at_utc": "2026-10-17T22:16:05.931724+00:00",
+  "head_at_record_time": "0078043504fe9f18528f3ac6cd9c5693af844486",
+  "verification_source_at_record_time": "bc324579d63b2bf471e6e4a348bd54635072bf1bf10c7083c23d15b8932572b7",
+  "service_source_at_record_time": "dce2f8deadbdd55fc47155a4ce51305f9c8237568d13221c0d2360c56c662d50",
+  "scope_note": "Targeted observations from actual completed commands; identity captured at record assembly, not asserted to be a before/after full-suite hash. The last full local checkpoint is 169 Python tests, 8 subtests and 19 browser flows; a new full-suite run is still pending.",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest tests/contracts tests/backend/test_api.py::test_events_idempotent_and_true_replan tests/solver/test_solver.py -q",
+      "exit_code": 0,
+      "passed": 48,
+      "subtests_passed": 8,
+      "elapsed_s": 21.04
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest tests/solver/test_battery_event.py tests/backend/test_battery_events.py tests/solver/test_nominal.py -q",
+      "exit_code": 0,
+      "passed": 32,
+      "elapsed_s": 9.92
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep 运输电池退出",
+      "exit_code": 0,
+      "stats": {
+        "startTime": "2026-10-17T22:13:50.382Z",
+        "duration": 64422.505999999994,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "output": "evidence/browser/e2e-targeted-results.json"
+    },
+    {
+      "command": "node scripts/run-e2e.mjs --grep '单点诊断|生产构建'",
+      "exit_code": 0,
+      "output": "evidence/verification/browser-smoke-local.json",
+      "workdir": "frontend",
+      "environment": {
+        "YUANHANG_E2E_REPORT": "../.local/ci-artifacts/local-smoke.json (absolute resolved path)"
+      }
+    },
+    {
+      "command": "npm.cmd --prefix frontend run lint",
+      "exit_code": 0
+    },
+    {
+      "command": "npm.cmd --prefix frontend run build",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/Scripts/python scripts/check_contracts.py",
+      "exit_code": 0,
+      "schemas": 10,
+      "fixtures": 13,
+      "draft_http_operations": 16
+    },
+    {
+      "command": ".venv/Scripts/python scripts/check_governance.py",
+      "exit_code": 0,
+      "tasks": 56,
+      "source_hashes": 42,
+      "legacy_asts": 18
+    }
+  ],
+  "visual_review": [
+    "battery-fault-1440.png",
+    "battery-fault-1280.png",
+    "battery-fault-changes-1280.png",
+    "battery-fault-changes-390.png",
+    "joint-battery-fault-1440.png",
+    "joint-battery-fault-1280.png",
+    "joint-battery-fault-changes-1280.png",
+    "joint-battery-fault-changes-390.png"
+  ]
+}

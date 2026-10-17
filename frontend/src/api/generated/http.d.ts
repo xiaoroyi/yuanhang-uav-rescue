@@ -774,6 +774,41 @@ export interface components {
             /** Available After S */
             available_after_s: number;
         };
+        /** BatteryUnavailableEvent */
+        BatteryUnavailableEvent: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: "0.1.0-draft";
+            /** Event Id */
+            event_id: string;
+            /** Scenario Id */
+            scenario_id: string;
+            /** Expected State Version */
+            expected_state_version: number;
+            /**
+             * Event Type
+             * @constant
+             */
+            event_type: "battery.unavailable";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+            /**
+             * Received At
+             * Format: date-time
+             */
+            received_at: string;
+            /** Effective Time S */
+            effective_time_s: number;
+            actor: components["schemas"]["Actor"];
+            /** Reason */
+            reason: string;
+            payload: components["schemas"]["Payload1"];
+        };
         /** Body_import_file_api_v1_scenarios_import_file_post */
         Body_import_file_api_v1_scenarios_import_file_post: {
             /** File */
@@ -1125,31 +1160,8 @@ export interface components {
             energy_model: components["schemas"]["EnergyModel"];
             charge_model: components["schemas"]["ChargeModel"];
         };
-        /** EnergyModel */
-        EnergyModel: {
-            /** Model Id */
-            model_id: string;
-            /** Parameters */
-            parameters: {
-                [key: string]: number;
-            };
-        };
-        /** Error1 */
-        Error1: {
-            code: components["schemas"]["Code1"];
-            /** Message */
-            message: string;
-            /** Field Path */
-            field_path: string | null;
-            /** Details */
-            details: {
-                [key: string]: unknown;
-            };
-            /** Request Id */
-            request_id: string;
-        };
-        /** Event */
-        Event: {
+        /** DroneUnavailableEvent */
+        DroneUnavailableEvent: {
             /**
              * Schema Version
              * @constant
@@ -1183,6 +1195,34 @@ export interface components {
             reason: string;
             payload: components["schemas"]["Payload"];
         };
+        /** EnergyModel */
+        EnergyModel: {
+            /** Model Id */
+            model_id: string;
+            /** Parameters */
+            parameters: {
+                [key: string]: number;
+            };
+        };
+        /** Error1 */
+        Error1: {
+            code: components["schemas"]["Code1"];
+            /** Message */
+            message: string;
+            /** Field Path */
+            field_path: string | null;
+            /** Details */
+            details: {
+                [key: string]: unknown;
+            };
+            /** Request Id */
+            request_id: string;
+        };
+        /**
+         * Event
+         * @description Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review.
+         */
+        Event: components["schemas"]["DroneUnavailableEvent"] | components["schemas"]["BatteryUnavailableEvent"];
         /** EventReceipt */
         EventReceipt: {
             event: components["schemas"]["Event"];
@@ -1692,6 +1732,11 @@ export interface components {
         Payload: {
             /** Drone Id */
             drone_id: string;
+        };
+        /** Payload1 */
+        Payload1: {
+            /** Battery Id */
+            battery_id: string;
         };
         /** Plan */
         Plan: {

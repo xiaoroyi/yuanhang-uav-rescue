@@ -80,7 +80,7 @@ from shared.contracts import (
     validate_options,
     validate_scenario,
     validate_snapshot,
-    scenario_aircraft,
+    event_target,
 )
 from shared.build_info import service_fingerprint
 from solver.adapters.contest import (
@@ -1324,18 +1324,14 @@ def create_app(runtime_dir: Path | None = None):
                 }
             row = require_row(session, ScenarioRow, value["scenario_id"])
             require_version(row, value["expected_state_version"])
+            value["received_at"] = now()
             try:
                 validate_event(value, row.content)
             except ContractError as exc:
                 raise AppError(422, "UNSUPPORTED_EVENT_STATE", str(exc)) from exc
             s = copy.deepcopy(row.content)
-            next(
-                d
-                for d in scenario_aircraft(s)
-                if d["drone_id"] == value["payload"]["drone_id"]
-            )["status"] = "unavailable"
+            event_target(s, value)["status"] = "unavailable"
             s["state_version"] = row.version + 1
-            value["received_at"] = now()
             row.version = s["state_version"]
             row.content = s
             row.updated_at = now()

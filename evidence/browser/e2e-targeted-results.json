@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "单点诊断"
+      "运输电池退出"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,7 +109,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景",
+          "title": "运输场景运输电池退出，真实改派、确认和历史恢复",
           "ok": true,
           "tags": [],
           "tests": [
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 21439,
+                  "duration": 23553,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T21:44:17.882Z",
+                  "startTime": "2026-10-17T22:13:50.906Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,19 +137,53 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-8105d903bc8750953a94",
+          "id": "c601ceb5ecfc8efa4a14-e22472289255d403f7cd",
           "file": "workflow.spec.ts",
-          "line": 12,
-          "column": 1
+          "line": 112,
+          "column": 3
+        },
+        {
+          "title": "联合通信场景运输电池退出，真实改派、确认和历史恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 39880,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T22:14:14.734Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-92987f53b41b8961fb53",
+          "file": "workflow.spec.ts",
+          "line": 112,
+          "column": 3
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T21:44:17.411Z",
-    "duration": 22372.354,
-    "expected": 1,
+    "startTime": "2026-10-17T22:13:50.382Z",
+    "duration": 64422.505999999994,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

@@ -536,7 +536,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   />
                 </label>
                 <label className="field">
-                  <span>能耗倍率</span>
+                  <span>运输能耗倍率</span>
                   <input
                     aria-label="试算能耗倍率"
                     type="number"
@@ -548,7 +548,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   />
                 </label>
                 <label className="field">
-                  <span>飞行时长倍率</span>
+                  <span>运输飞行时长倍率</span>
                   <input
                     type="number"
                     min=".25"
@@ -559,7 +559,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   />
                 </label>
                 <label className="field">
-                  <span>SOH倍率</span>
+                  <span>运输电池SOH倍率</span>
                   <input
                     aria-label="试算SOH倍率"
                     type="number"
@@ -571,7 +571,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   />
                 </label>
                 <label className="field">
-                  <span>返航SOC下限</span>
+                  <span>运输返航SOC下限</span>
                   <input
                     type="number"
                     min="0"
@@ -595,7 +595,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
               </label>
               <div className="callout">
                 <PackagePlus size={16} />
-                新增资源来自同型参数假设；SOC满电、SOH再乘设定倍率。所有硬截止和必须保障需求保留。
+                新增资源采用同型参数、满电假设，再乘运输电池SOH倍率。倍率与返航余量只作用于运输资源；中继参数沿用原配置。硬截止和必须保障需求保留。
               </div>
               <Button
                 variant="primary"

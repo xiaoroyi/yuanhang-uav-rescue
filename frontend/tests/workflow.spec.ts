@@ -73,6 +73,11 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
       (b: Record<string, unknown>) => !('drone_id' in b) && !('battery_id' in b),
     ),
   ).toBe(true)
+  await page.getByLabel('诊断返航余量').selectOption('0.4')
+  await expect(page.getByTestId('nominal-sortie-count')).toHaveText('—架次')
+  await expect(dialog.getByText(/部分站点不满足当前有限组批模型条件/)).toBeVisible()
+  await page.getByLabel('诊断返航余量').selectOption('0.3')
+  await expect(page.getByTestId('nominal-sortie-count')).toHaveText('20架次')
   for (const [width, height] of [
     [1280, 720],
     [390, 844],
@@ -102,6 +107,105 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
   )
   expect(errors).toEqual([])
 })
+
+for (const joint of [false, true]) {
+  test(`${joint ? '联合通信' : '运输'}场景运输电池退出，真实改派、确认和历史恢复`, async ({
+    page,
+    request,
+  }) => {
+    test.setTimeout(joint ? 180000 : 90000)
+    const errors: string[] = []
+    page.on('pageerror', (error) => errors.push(error.message))
+    const sid = await page.getByLabel('选择场景').inputValue()
+    if (joint) {
+      const s = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+      s.communication = await (
+        await request.get(`/api/v1/scenarios/${sid}/communication-template`)
+      ).json()
+      s.policy.requires_communication = true
+      expect(
+        (
+          await request.put(`/api/v1/scenarios/${sid}`, {
+            data: { expected_state_version: 1, scenario: s },
+          })
+        ).ok(),
+      ).toBe(true)
+      await page.reload()
+    }
+    await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+    await expect(page.locator('.job-banner')).toBeVisible()
+    await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+    await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+    const first = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+    const old = await (await request.get(`/api/v1/plans/${first.plan_id}`)).json()
+    const oldSnapshot = await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()
+    const failed = old.sorties[0].battery_id
+    await page.getByRole('button', { name: '确认方案', exact: true }).click()
+    await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+    await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+    await page.getByLabel('故障事件类型').selectOption('battery')
+    await page.getByLabel('故障运输电池').selectOption(failed)
+    await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
+    await expect(page.locator('.job-banner')).toBeVisible()
+    await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+    await expect(page.locator('.event-history')).toContainText(`运输电池 ${failed} 退出`)
+    await expect(page.locator('.comparison-cards')).toContainText('电池改派箱件')
+    const summaries = await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()
+    const plan = await (await request.get(`/api/v1/plans/${summaries[0].plan_id}`)).json()
+    expect(plan.plan_id).not.toBe(old.plan_id)
+    expect(plan.parent_plan_id).toBe(old.plan_id)
+    expect(plan.scenario_state_version).toBe(old.scenario_state_version + 1)
+    expect(plan.validation.status).toBe('passed')
+    expect(plan.sorties.every((row: { battery_id: string }) => row.battery_id !== failed)).toBe(
+      true,
+    )
+    expect(
+      new Set(plan.sorties.flatMap((row: { cargo_ids: string[] }) => row.cargo_ids)).size,
+    ).toBe(32)
+    if (joint) expect(plan.communication_report.coverage_gap_s).toBe(0)
+    expect(await (await request.get(`/api/v1/plans/${old.plan_id}`)).json()).toEqual(old)
+    expect(await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()).toEqual(
+      oldSnapshot,
+    )
+    const events = await (await request.get(`/api/v1/scenarios/${sid}/events`)).json()
+    expect(events).toHaveLength(1)
+    expect(events[0].event_type).toBe('battery.unavailable')
+    expect(events[0].payload).toEqual({ battery_id: failed })
+    await page.getByRole('button', { name: '确认方案', exact: true }).click()
+    await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+    const name = joint ? 'joint-battery-fault' : 'battery-fault'
+    await screenshot(page, `${name}-1440`)
+    await page.reload()
+    await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+    await expect(page.locator('.event-history')).toContainText(`运输电池 ${failed} 退出`)
+    await expect(page.locator('.comparison-cards')).toContainText('电池改派箱件')
+    await page.setViewportSize({ width: 1280, height: 720 })
+    await screenshot(page, `${name}-1280`)
+    for (const width of [1280, 390]) {
+      await page.setViewportSize({ width, height: width === 390 ? 844 : 720 })
+      await page.locator('.comparison-cards').scrollIntoViewIfNeeded()
+      await page.screenshot({
+        path: path.resolve(`../evidence/browser/verified/${name}-changes-${width}.png`),
+      })
+    }
+    await fs.writeFile(
+      path.resolve(`../evidence/solver/${joint ? 'joint-' : ''}battery-replan.json`),
+      JSON.stringify(
+        {
+          old_snapshot: oldSnapshot,
+          old_plan: old,
+          event: events[0],
+          snapshot: await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json(),
+          plan,
+          page_errors: errors,
+        },
+        null,
+        2,
+      ) + '\n',
+    )
+    expect(errors).toEqual([])
+  })
+}
 
 test('连续通信联合调度、真实中继地图与资源窗口、确认及报告', async ({ page, request }) => {
   test.setTimeout(120000)

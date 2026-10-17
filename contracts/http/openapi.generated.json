@@ -2043,6 +2043,81 @@
         ],
         "title": "Battery"
       },
+      "BatteryUnavailableEvent": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "event_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Event Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "event_type": {
+            "type": "string",
+            "const": "battery.unavailable",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "effective_time_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Effective Time S"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Payload1"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "event_id",
+          "scenario_id",
+          "expected_state_version",
+          "event_type",
+          "occurred_at",
+          "received_at",
+          "effective_time_s",
+          "actor",
+          "reason",
+          "payload"
+        ],
+        "title": "BatteryUnavailableEvent"
+      },
       "Body_import_file_api_v1_scenarios_import_file_post": {
         "properties": {
           "file": {
@@ -3171,78 +3246,7 @@
         ],
         "title": "DroneType"
       },
-      "EnergyModel": {
-        "properties": {
-          "model_id": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
-            "title": "Model Id"
-          },
-          "parameters": {
-            "additionalProperties": {
-              "type": "number"
-            },
-            "type": "object",
-            "title": "Parameters"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "model_id",
-          "parameters"
-        ],
-        "title": "EnergyModel"
-      },
-      "Error1": {
-        "properties": {
-          "code": {
-            "$ref": "#/components/schemas/Code1"
-          },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "title": "Message"
-          },
-          "field_path": {
-            "anyOf": [
-              {
-                "type": "string",
-                "minLength": 1
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Field Path"
-          },
-          "details": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Details"
-          },
-          "request_id": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
-            "title": "Request Id"
-          }
-        },
-        "additionalProperties": false,
-        "type": "object",
-        "required": [
-          "code",
-          "message",
-          "field_path",
-          "details",
-          "request_id"
-        ],
-        "title": "Error1"
-      },
-      "Event": {
+      "DroneUnavailableEvent": {
         "properties": {
           "schema_version": {
             "type": "string",
@@ -3315,7 +3319,90 @@
           "reason",
           "payload"
         ],
-        "title": "Event"
+        "title": "DroneUnavailableEvent"
+      },
+      "EnergyModel": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Model Id"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Parameters"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "parameters"
+        ],
+        "title": "EnergyModel"
+      },
+      "Error1": {
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code1"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Message"
+          },
+          "field_path": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field Path"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          },
+          "request_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "field_path",
+          "details",
+          "request_id"
+        ],
+        "title": "Error1"
+      },
+      "Event": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/DroneUnavailableEvent"
+          },
+          {
+            "$ref": "#/components/schemas/BatteryUnavailableEvent"
+          }
+        ],
+        "title": "Event",
+        "description": "Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review."
       },
       "EventReceipt": {
         "properties": {
@@ -4870,6 +4957,23 @@
           "drone_id"
         ],
         "title": "Payload"
+      },
+      "Payload1": {
+        "properties": {
+          "battery_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Battery Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "battery_id"
+        ],
+        "title": "Payload1"
       },
       "Plan": {
         "properties": {

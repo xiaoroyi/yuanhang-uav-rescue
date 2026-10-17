@@ -206,6 +206,11 @@ def _baselines(counts, patterns, reserve):
 
 def validate_batches(s, batches, expected_ids, reserve):
     """Independent reconstruction, not evaluate_route or optimizer flags."""
+    batch_ids = [row["batch_id"] for row in batches]
+    if len(batch_ids) != len(set(batch_ids)) or any(
+        not row["cargo_ids"] or not row["batch_id"] for row in batches
+    ):
+        raise ValueError("额定组批批次ID重复、为空或包含空箱件任务。")
     types = {t["type_id"]: t for t in s["drone_types"]}
     boxes = {b["cargo_id"]: b for b in s["cargo_items"]}
     demands = {d["demand_id"]: d for d in s["demands"]}

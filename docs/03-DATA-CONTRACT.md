@@ -60,4 +60,4 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 
 `effective_time_s` 明确新计划的时钟；occurred_at/received_at 分别为发生和接收时刻，由 B 后端设置可信接收时间。去重先查 `(scenario_id,event_id)`；同 ID 同内容返回首个结果，同 ID 不同内容 409。首次应用才检查 expected_state_version 并递增一次。
 
-本草案缺少执行事实，故首版仅允许**整个场景尚未执行**的未起飞机体退出。B 先更新 Scenario 再建 Snapshot，A replan 接收新快照、旧 Plan 与 Event，不允许旧版本输入。处理中途事件须先引入执行事实、冻结区间与箱件占有者，不靠回放推断已经送达。
+本草案缺少完整执行事实，当前仅允许**整个场景尚未执行**的零时刻机体或运输电池退出。RFC-010兼容扩展Event为严格联合：drone.unavailable带drone_id，battery.unavailable带battery_id，不能交叉或同时给出。B只改指定资源可用状态、保留能源/位置，先更新Scenario再建Snapshot；A核对完整Event与应用后版本、目标退出状态及父Plan链。处理中途事件须先引入执行事实、冻结区间与箱件占有者，不靠回放推断已经送达。

@@ -75,10 +75,13 @@
         "G0-03"
       ],
       "status": "in_progress",
-      "branch": "docs/g0-governance",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/G0_REPORT.md"
+        "contracts/http/openapi.generated.json",
+        "backend/app/generated/domain.py",
+        "frontend/src/api/generated/http.d.ts",
+        "evidence/verification/github-ci.json"
       ]
     },
     {
@@ -657,16 +660,22 @@
       "priority": "P1",
       "owner": "A",
       "title": "电池退出、紧急插单、落点变更、未来封控事件",
-      "acceptance": "作用范围、发生/接收时间、旧事实可追踪",
+      "acceptance": "已实现零时刻运输电池退出，完整类型/幂等/版本链、真实重规划和历史保留；紧急插单、落点变更、未来封控及中继能源退出仍未实现",
       "dependencies": [
         "A-05",
         "A-07",
         "C-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/CONTRACT_RFC_010.md",
+        "tests/backend/test_battery_events.py",
+        "tests/solver/test_battery_event.py",
+        "evidence/solver/battery-replan.json",
+        "evidence/solver/joint-battery-replan.json"
+      ]
     },
     {
       "id": "C-08",
@@ -674,15 +683,21 @@
       "priority": "P1",
       "owner": "B",
       "title": "地图/资源新增事件 API 与一致性事务",
-      "acceptance": "版本冲突返回结构化错误",
+      "acceptance": "已实现零时刻运输电池退出，完整类型/幂等/版本链、真实重规划和历史保留；紧急插单、落点变更、未来封控及中继能源退出仍未实现",
       "dependencies": [
         "A-10",
         "C-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/CONTRACT_RFC_010.md",
+        "tests/backend/test_battery_events.py",
+        "tests/solver/test_battery_event.py",
+        "evidence/solver/battery-replan.json",
+        "evidence/solver/joint-battery-replan.json"
+      ]
     },
     {
       "id": "B-08",

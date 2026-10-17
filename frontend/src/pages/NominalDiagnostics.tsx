@@ -27,9 +27,9 @@ export function NominalDiagnostics({ snapshot }: { snapshot: Snapshot }) {
   const report = query.data
   const scenarios = snapshot.scenario
   const names = new Map(scenarios.sites.map((s) => [s.id, s.name]))
-  const reserves = [...new Set([0.1, 0.2, 0.3, scenarios.policy.min_return_soc])].sort(
-    (a, b) => a - b,
-  )
+  const reserves = [
+    ...new Set([...Array.from({ length: 11 }, (_, i) => i / 10), scenarios.policy.min_return_soc]),
+  ].sort((a, b) => a - b)
   const labels = {
     rated_payload: '额定载重上限',
     energy: '能量约束',

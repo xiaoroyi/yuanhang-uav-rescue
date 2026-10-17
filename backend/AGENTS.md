@@ -1,5 +1,7 @@
 # B 系统线后端模块
 
+RFC-010的Event由Schema生成RootModel联合，model_dump仍是原始JSON对象，不在HTTP增加root层；严格区分机体与运输电池负载。服务器先去重，再用自身received_at校验新事件；初次应用检查版本、执行事实与可退出状态。只修改指定资源status，保留能源/位置，并清除当前规划预约。Snapshot单点诊断见RFC-009，不持久化为Plan或Job。
+
 B 与 frontend owner 是同一人，C-* 为历史任务编号。遵守根 AGENTS，先读 docs/03、04、05。
 
 维护 FastAPI、数据校验、SQLite、不可变快照、独立 Worker、幂等事件、确认事务和导出；不重写算法物理公式。只通过 solver/public_api 调用 A。长求解不能阻塞 HTTP；真实 Worker 停止后才能 canceled。

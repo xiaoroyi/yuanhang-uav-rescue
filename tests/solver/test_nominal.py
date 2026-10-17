@@ -145,7 +145,18 @@ def test_capacity_bisection_is_safe_and_unreachable_is_null(case):
 
 @pytest.mark.parametrize(
     "fault",
-    ["duplicate", "missing", "energy", "soc", "duration", "volume", "type", "site"],
+    [
+        "duplicate",
+        "missing",
+        "energy",
+        "soc",
+        "duration",
+        "volume",
+        "type",
+        "site",
+        "empty_batch",
+        "batch_id",
+    ],
 )
 def test_independent_auditor_rejects_corrupted_batches(case, fault):
     s = tiny(case)
@@ -154,6 +165,10 @@ def test_independent_auditor_rejects_corrupted_batches(case, fault):
         rows[0]["cargo_ids"].append(rows[0]["cargo_ids"][0])
     elif fault == "missing":
         rows.pop()
+    elif fault == "empty_batch":
+        rows.append(dict(rows[0], batch_id="EMPTY", cargo_ids=[]))
+    elif fault == "batch_id":
+        rows[1]["batch_id"] = rows[0]["batch_id"]
     elif fault == "type":
         rows[0]["type_id"] = "DOES-NOT-EXIST"
     elif fault == "site":

@@ -6,6 +6,7 @@ on:
 jobs:
   integration:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,5 +26,27 @@ jobs:
       - run: npm --prefix frontend run lint
       - run: npm --prefix frontend run test:unit
       - run: npm --prefix frontend run build
-      - run: .venv/bin/python scripts/export_openapi.py && node frontend/scripts/generate-types.mjs
-      - run: git diff --exit-code -- contracts/http/openapi.generated.json frontend/src/api/generated/http.d.ts
+      - run: .venv/bin/python scripts/generate_models.py
+      - run: .venv/bin/python scripts/export_openapi.py
+      - run: node frontend/scripts/generate-types.mjs
+      - run: git diff --exit-code -- backend/app/generated/domain.py contracts/http/openapi.generated.json frontend/src/api/generated/http.d.ts
+      - name: Install project-local Chromium
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.local/ms-playwright
+        run: node frontend/node_modules/@playwright/test/cli.js install --with-deps chromium
+      - name: Production offline and nominal diagnostic browser smoke
+        id: browser_smoke
+        env:
+          YUANHANG_E2E_REPORT: ${{ github.workspace }}/.local/ci-artifacts/browser-smoke.json
+        run: node frontend/scripts/run-e2e.mjs --grep '单点诊断|生产构建'
+      - name: Retain fresh browser result and failure traces
+        if: ${{ !cancelled() && steps.browser_smoke.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-smoke-${{ github.sha }}
+          path: |
+            .local/ci-artifacts/browser-smoke.json
+            frontend/test-results/
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: warn

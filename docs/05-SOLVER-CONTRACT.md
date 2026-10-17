@@ -43,7 +43,7 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 
 ## 重规划
 
-后端先应用事件并保存新版本快照，再把新 Snapshot、原 Plan、Event 和 mode=replan 的 Options 传入。两引用须完整、旧/新计划属于同一 Scenario，旧 Plan 不修改，新 Plan 绑定新快照，future sortie 不再引用故障实体。首版整个场景尚未执行，后续中途修复须先补执行事实契约。
+后端先应用事件并保存新版本快照，再把新Snapshot、原Plan、完整Event和mode=replan的Options传入。核对Schema、Scenario、event.expected_state_version+1等于新版本、目标确实已退出、父Plan来自真实已验证来源。机体退出和运输电池退出均受支持，负载严格区分，详见RFC-010。旧Plan不修改，新Plan绑定新快照，不引用退出实体。运输局部修复同时识别两类资源直接影响并沿依赖传播；不适用或失败时在剩余预算内全量回退，通信走全量联合重算。整个场景必须尚未执行，中途修复须先补执行事实契约。
 
 ## 旧算法适配
 

@@ -1,13 +1,13 @@
 # 援航｜算法与前后端接口细则（A 算法 × B 系统）
 
-> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准 V1 或已实现 API。
+> 本仓库适配说明：仅A（算法/项目负责人）与B（前端+后端+集成）两人。C-*只保留为后端任务编号。原始ZIP留存于references/source/original-handoff.zip。未取得旧版机器契约，当前0.1.0-draft仍待正式团队冻结；已授权分支实施，真实能力见IMPLEMENTATION_STATUS、实际OpenAPI与各RFC，不把proposed误读成没有代码。
 
 > 本文是 `CODEX_MASTER_HANDOFF.md` 第 3—5 章的**接口验收附录**。目标是让 A、B 在分别开发时知道每个字段来自哪里，怎样传递，何时允许改变，如何断言错误。
 > **不直接覆盖 `contracts/*.schema.json`**。本仓库没有取得旧V1文件；当前草案见 manifest 和 docs/03–05。下文保留的旧格式与扩展目标须经 RFC 评审，不是已实现功能或实测解。
 
 ## A. 单一数据流：后端才持久化，算法才算物理，前端才渲染
 
-下表 B 后端与 B 前端是同一位系统成员的两个模块。本文保留旧 V1 背景及 P1/P2 接口目标；含 schema_version=1.0.0 的示例不能作为本仓库0.1草案样例发送。当前精确字段/状态/接口与限制以 docs/03、04、05 和 RFC-001 为准；例如P0暂不支持relay sortie、部分保障或在途状态，且真实成功候选必须独立验证通过。所有扩展仍保留在任务板。
+下表B后端与B前端是同一位系统成员的两个模块。本文保留旧V1背景及P1/P2接口目标；含schema_version=1.0.0的示例不能作为本仓库0.1草案样例发送。当前精确字段/状态/接口以docs/03、04、05、IMPLEMENTATION_STATUS及已实施RFC为准；当前已有RFC-006中继扩展与RFC-010运输电池退出，部分保障和在途执行仍未具备，真实成功候选必须独立验证通过。所有扩展仍保留在任务板。
 
 | 链条 | B 接收/保存 | A 接收/生成 | B 读取/展示 | 禁止事项 |
 |---|---|---|---|---|
@@ -134,7 +134,7 @@
 ## G. 两个人每次变更必须做的契约测试
 
 1. A 修改 Solver 输出：用当前 `contracts/plan.schema.json` 校验，再跑后端真实 Adapter test，最后由 B 验证地图/甘特的选择联动。
-2. B 修改接口：运行 `pytest backend/tests`，生成新 `openapi.json` 和前端 TypeScript 类型；B 运行 `typecheck/build`；必要时 A 确认语义。
+2. B 修改接口：运行 `pytest tests/backend`，按README导出实际OpenAPI并生成前端TypeScript类型；B运行lint/typecheck/build；必要时A确认语义。
 3. B 修改 UI：使用 `fixture` 和真实 Plan 两条数据路径，至少验证 `mock` 标签、`null`/`not_evaluated`、时间线及点击高亮。
 4. 修改共享字段：单 PR 含 Schema、fixture、Pydantic、TS 生成类型、文档、测试和版本迁移说明；禁止先合并其中一半。
 5. 每次集成将 Scenario/Job/Plan/Event 的实际响应保存到已匿名的 `evidence/contract-smoke/`，标注 commit SHA、来源和是否 Mock。

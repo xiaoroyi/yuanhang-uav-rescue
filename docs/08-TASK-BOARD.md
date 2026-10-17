@@ -13,7 +13,7 @@
 | G0-01 | P0 | A+B | — | 检查现有仓库；列已存在文件、代码与测试，记录何处缺失；验收：`IMPLEMENTATION_STATUS.md` 有真实库存，未擅自覆盖 | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-02 | P0 | A+B | G0-01 | 确认 AGENTS、模块 owner、Git PR 规则、决定日志；验收：两人各自 Codex 阅读相同文件，改变规则须 PR | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-03 | P0 | A+B | G0-01 | 评审并冻结首次Scenario/Plan/Event/SolveJob及Python options/outcome契约；验收：schema/fixtures 校验绿；无歧义单位与状态；当前草案通过结构检查，待 A/B 人工确认冻结 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
-| G0-04 | P0 | A+B | G0-03 | 确认 `/api/v1` OpenAPI、错误状态、前端 TS 生成方式；验收：已有真实FastAPI OpenAPI、生成Pydantic/TS、success/failure回归和CI漂移检查；正式接口冻结仍待A/B人工复核 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
+| G0-04 | P0 | A+B | G0-03 | 确认 `/api/v1` OpenAPI、错误状态、前端 TS 生成方式；验收：已有真实FastAPI OpenAPI、生成Pydantic/TS、success/failure回归和CI漂移检查；正式接口冻结仍待A/B人工复核 | in_progress | feat/solo-fullstack-v0; contracts/http/openapi.generated.json; backend/app/generated/domain.py; frontend/src/api/generated/http.d.ts; evidence/verification/github-ci.json |
 | G0-05 | P0 | A | G0-01 | 排查原数模完整入口、数据/依赖许可及可跑程度；验收：原件hash和18份源码AST通过；G0时旧环境缺6个业务包，旧路径与许可证待核验；当前项目依赖已独立安装锁定，适配实跑归A-01，仍不执行历史bootstrap/env | done | docs/g0-governance; docs/LEGACY_BASELINE_AUDIT.md; evidence/governance/legacy-audit.json |
 | G0-06 | P0 | B | G0-01 | 确定页面结构、Design Tokens、三页验收流程；验收：页面清单每项有数据源、状态和交互目标 | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-07 | P0 | A+B | G0-03 | CI 契约校验、lint、pytest、前端 build 基础；验收：最小样例脚本本地和 CI 执行一致；当前有 CI 配置与本地检查，远程 CI 待实际运行 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
@@ -71,8 +71,8 @@
 | C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | done | feat/solo-fullstack-v0; docs/CONTRACT_RFC_006.md; tests/backend/test_joint_api.py; contracts/http/openapi.generated.json |
 | B-07 | P1 | B | C-07 | 中继点/服务时间轴、通信来源与缺口高亮；验收：点击航段显示接入/回传来源与证据 | in_progress | feat/solo-fullstack-v0; frontend/src/components/CommunicationPanel.tsx; evidence/browser/verified/joint-workspace-1440.png; evidence/browser/e2e-results.json |
 | A-09 | P1 | A | A-04, X-02 | 充电端口、起降位与地面工位容量约束；验收：同刻容量超限可检测 | in_progress | feat/solo-fullstack-v0; docs/GROUND_RESOURCES.md; tests/solver/test_ground.py |
-| A-10 | P1 | A | A-05, A-07, C-05 | 电池退出、紧急插单、落点变更、未来封控事件；验收：作用范围、发生/接收时间、旧事实可追踪 | todo | — |
-| C-08 | P1 | B | A-10, C-05 | 地图/资源新增事件 API 与一致性事务；验收：版本冲突返回结构化错误 | todo | — |
+| A-10 | P1 | A | A-05, A-07, C-05 | 电池退出、紧急插单、落点变更、未来封控事件；验收：已实现零时刻运输电池退出，完整类型/幂等/版本链、真实重规划和历史保留；紧急插单、落点变更、未来封控及中继能源退出仍未实现 | in_progress | feat/solo-fullstack-v0; docs/CONTRACT_RFC_010.md; tests/backend/test_battery_events.py; tests/solver/test_battery_event.py; evidence/solver/battery-replan.json; evidence/solver/joint-battery-replan.json |
+| C-08 | P1 | B | A-10, C-05 | 地图/资源新增事件 API 与一致性事务；验收：已实现零时刻运输电池退出，完整类型/幂等/版本链、真实重规划和历史保留；紧急插单、落点变更、未来封控及中继能源退出仍未实现 | in_progress | feat/solo-fullstack-v0; docs/CONTRACT_RFC_010.md; tests/backend/test_battery_events.py; tests/solver/test_battery_event.py; evidence/solver/battery-replan.json; evidence/solver/joint-battery-replan.json |
 | B-08 | P1 | B | A-10, C-08 | 动态图层与复盘/故障明细页面；验收：失败、未评估、已验证状态可区分 | in_progress | feat/solo-fullstack-v0; evidence/solver/joint-replan.json; frontend/tests/workflow.spec.ts |
 | A-11 | P1 | A | A-03, A-07, A-08 | 部分保障、资源缺口/增配试算、可证明下界；验收：明确“证明无解”与“预算未找到” | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
 | A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | done | feat/solo-fullstack-v0; docs/FROZEN_PARTITION.md; docs/CONTRACT_RFC_007.md; tests/solver/test_partition.py; tests/backend/test_partition_api.py; evidence/solver/frozen-partition-contest.json; evidence/browser/verified/frozen-partition-1440.png |

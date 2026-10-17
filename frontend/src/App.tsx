@@ -73,6 +73,7 @@ export default function App() {
     [eventBusy, setEventBusy] = useState(false),
     [playTime, setPlayTime] = useState<number | null>(null),
     [playing, setPlaying] = useState(false)
+  const [failureKind, setFailureKind] = useState<'drone' | 'battery'>('drone')
   const initialized = useRef(false),
     seenJobs = useRef(new Set<string>())
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: api.scenarios })
@@ -207,6 +208,7 @@ export default function App() {
     setPlayTime(null)
     setPlaying(false)
     setFailureId('')
+    setFailureKind('drone')
   }, [])
   const choosePlan = useCallback(
     (id: string) => {
@@ -345,19 +347,31 @@ export default function App() {
     try {
       const when = new Date().toISOString(),
         eventId = 'EVT-' + crypto.randomUUID().slice(0, 16)
-      const event = await api.event({
+      const common = {
         schema_version: scenario.schema_version,
         event_id: eventId,
         scenario_id: scenario.scenario_id,
         expected_state_version: scenario.state_version,
-        event_type: 'drone.unavailable',
         occurred_at: when,
         received_at: when,
         effective_time_s: 0,
-        actor: 'simulation',
-        reason: '模拟演练：未起飞机体退出',
-        payload: { drone_id: failureId },
-      })
+        actor: 'simulation' as const,
+      }
+      const event = await api.event(
+        failureKind === 'drone'
+          ? {
+              ...common,
+              event_type: 'drone.unavailable',
+              reason: '模拟演练：未起飞机体退出',
+              payload: { drone_id: failureId },
+            }
+          : {
+              ...common,
+              event_type: 'battery.unavailable',
+              reason: '模拟演练：运输电池退出',
+              payload: { battery_id: failureId },
+            },
+      )
       const updated = await api.scenario(scenarioId)
       query.setQueryData(['scenario', scenarioId], updated)
       void query.invalidateQueries({ queryKey: ['scenarios'] })
@@ -376,7 +390,9 @@ export default function App() {
       )
       setJobId(newJob.job_id)
       query.setQueryData(['job', newJob.job_id], newJob)
-      notify(`${failureId}已退出，新版本正在真实重规划。`)
+      notify(
+        `${failureKind === 'battery' ? '运输电池 ' : '机体 '}${failureId}已退出，新版本正在真实重规划。`,
+      )
       setFailureId('')
     } catch (e) {
       notify((e as Error).message, true)
@@ -446,6 +462,19 @@ export default function App() {
     plan && oldPlan
       ? plan.sorties.reduce(
           (n, r) => n + r.cargo_ids.filter((c) => oldAssignments.get(c) !== r.drone_id).length,
+          0,
+        )
+      : 0
+  const oldBatteryAssignments = new Map<string, string>(
+    oldPlan?.sorties.flatMap((r) =>
+      r.cargo_ids.map((c) => [c, r.battery_id] as [string, string]),
+    ) || [],
+  )
+  const changedBatteryCargo =
+    plan && oldPlan
+      ? plan.sorties.reduce(
+          (n, r) =>
+            n + r.cargo_ids.filter((c) => oldBatteryAssignments.get(c) !== r.battery_id).length,
           0,
         )
       : 0
@@ -951,26 +980,38 @@ export default function App() {
                         <div className="event-form">
                           <label className="field">
                             <span>事件类型</span>
-                            <select>
-                              <option>未起飞机体退出</option>
+                            <select
+                              aria-label="故障事件类型"
+                              value={failureKind}
+                              onChange={(e) => {
+                                setFailureKind(e.target.value as 'drone' | 'battery')
+                                setFailureId('')
+                              }}
+                            >
+                              <option value="drone">未起飞机体退出</option>
+                              <option value="battery">运输电池退出</option>
                             </select>
                           </label>
                           <label className="field">
-                            <span>受影响机体</span>
+                            <span>{failureKind === 'drone' ? '受影响机体' : '受影响运输电池'}</span>
                             <select
-                              aria-label="故障机体"
+                              aria-label={failureKind === 'drone' ? '故障机体' : '故障运输电池'}
                               value={failureId}
                               onChange={(e) => setFailureId(e.target.value)}
                             >
-                              <option value="">请选择可用机体</option>
-                              {scenario.drones
-                                .filter((d) => d.status === 'available')
-                                .map((d) => (
-                                  <option key={d.drone_id} value={d.drone_id}>
-                                    {d.drone_id} · {d.type_id}型
-                                  </option>
-                                ))}
-                              {scenario.policy.requires_communication &&
+                              <option value="">
+                                {failureKind === 'drone' ? '请选择可用机体' : '请选择可退出电池'}
+                              </option>
+                              {failureKind === 'drone' &&
+                                scenario.drones
+                                  .filter((d) => d.status === 'available')
+                                  .map((d) => (
+                                    <option key={d.drone_id} value={d.drone_id}>
+                                      {d.drone_id} · {d.type_id}型
+                                    </option>
+                                  ))}
+                              {failureKind === 'drone' &&
+                                scenario.policy.requires_communication &&
                                 scenario.communication?.relay_drones
                                   .filter((d) => d.status === 'available')
                                   .map((d) => (
@@ -978,11 +1019,19 @@ export default function App() {
                                       {d.drone_id} · 中继机
                                     </option>
                                   ))}
+                              {failureKind === 'battery' &&
+                                scenario.batteries
+                                  .filter((b) => ['available', 'charging'].includes(b.status))
+                                  .map((b) => (
+                                    <option key={b.battery_id} value={b.battery_id}>
+                                      {b.battery_id} · {b.compatible_type_id}型 · {percent(b.soc)}
+                                    </option>
+                                  ))}
                             </select>
                           </label>
                           <div className="callout amber">
                             <TriangleAlert size={16} />
-                            事件将保存为新版本；原计划保留，不把机体传送回基地，也不修改实际交付事实。
+                            仅支持尚未执行场景。事件保存新版本并保留原计划，只改变指定资源的可用状态。
                           </div>
                           <Button
                             variant="primary"
@@ -1003,7 +1052,12 @@ export default function App() {
                               <div className="event-item" key={e.event_id}>
                                 <i />
                                 <div>
-                                  <strong>{e.payload.drone_id} 退出</strong>
+                                  <strong>
+                                    {e.event_type === 'drone.unavailable'
+                                      ? `机体 ${e.payload.drone_id}`
+                                      : `运输电池 ${e.payload.battery_id}`}{' '}
+                                    退出
+                                  </strong>
                                   <p>{e.reason}</p>
                                   <small>
                                     v{e.expected_state_version} → v{e.expected_state_version + 1} ·{' '}
@@ -1016,7 +1070,7 @@ export default function App() {
                             ))
                           ) : (
                             <p className="muted">
-                              还没有事件。先生成方案，再选择一架机体模拟故障。
+                              还没有事件。先生成方案，再选择机体或运输电池模拟退出。
                             </p>
                           )}
                         </div>
@@ -1067,9 +1121,10 @@ export default function App() {
                                 </strong>
                               </div>
                               <div>
-                                <span>新方案检查</span>
+                                <span>电池改派箱件</span>
                                 <strong className="teal">
-                                  {plan.validation.status === 'passed' ? '通过' : '待处理'}
+                                  {changedBatteryCargo}
+                                  <small>箱</small>
                                 </strong>
                               </div>
                             </div>

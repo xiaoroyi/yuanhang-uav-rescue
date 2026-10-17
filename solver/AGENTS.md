@@ -9,3 +9,5 @@
 cp_pool.py为可选限时深入优化，继承已验算基线、只接受共同目标严格改善；不宣称全路线空间最优。routing.py为静态限制区可见图，规则见SPATIAL_ROUTING与RFC-003。assets.py提供只读terrain_store上下文与内容hash校验，通用DEM见TERRAIN_ASSETS与RFC-004；自定义资产目录需显式上下文，不绕过NoData/CRS/基准检查。
 
 partition.py为冻结同版联合任务的有限完整枚举与独立分配核查，最多10个连通单元，仅同质满SOC/零时刻资源；不改原Plan或通信来源，不把配置缺口称重新调度时最少资源。接口与复现见FROZEN_PARTITION和RFC-007。
+
+nominal.py由public_api导出analyze_single_site，额定单点能力、完整计数DP与基线/敏感性，只生成诊断批次，不是实体Plan。边界与独立重建见NOMINAL_ANALYSIS/RFC-009。replan必须接收完整Event并核对应用后版本/目标退出状态；局部直接影响集包含不可用机体和运输电池，沿两类资源依赖传播，非满SOC和通信等情况全量回退，见RFC-010。

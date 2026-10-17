@@ -73,3 +73,7 @@ GET /plans/{plan_id}/partition返回绑定原Snapshot的PartitionReport，独立
 ## 单点诊断接口（RFC-009）
 
 GET /snapshots/{snapshot_id}/single-site-analysis?min_return_soc=0.2，返回严格NominalReport，绑定不可变Snapshot。诊断参数不改场景策略，省略时使用快照策略。complete表示额定单点有限模型完成，不是Plan验证状态；partial/limited不给出完整场景metrics。报告没有实际机体、电池或执行时刻，不能传给确认API。实际OpenAPI统一生成TS，当前43个路径。模型边界与CLI见NOMINAL_ANALYSIS.md。
+
+## 退出事件扩展（RFC-010）
+
+POST /events接受严格Event联合：drone.unavailable携带drone_id，battery.unavailable携带运输battery_id。旧机体JSON有效，负载不能混用，不增加root层。服务端received_at校验发生时刻；幂等重试先于版本检查。只允许零时刻未执行场景，目标状态退出后保持能源/位置，事务保存版本并清除当前预约，原Plan保留。新Snapshot与父Plan/Event链经HTTP与纯Solver双重核对，详见EVENTS.md。

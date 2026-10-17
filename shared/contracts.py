@@ -566,6 +566,28 @@ def has_execution_facts(scenario):
     )
 
 
+def event_target(scenario, event):
+    """Resolve the typed resource without mutating it or merging ID namespaces."""
+    if event["event_type"] == "drone.unavailable":
+        collection, key = scenario_aircraft(scenario), "drone_id"
+    elif event["event_type"] == "battery.unavailable":
+        collection, key = scenario["batteries"], "battery_id"
+    else:
+        raise ContractError("unsupported event type")
+    resources = index(collection, key)
+    identifier = event["payload"][key]
+    require(identifier in resources, f"event missing {key}")
+    return resources[identifier]
+
+
+def _validate_event_clock(event):
+    occurred, received = (
+        datetime.fromisoformat(event[k].replace("Z", "+00:00"))
+        for k in ("occurred_at", "received_at")
+    )
+    require(received >= occurred, "event receive time precedes occurrence")
+
+
 def validate_event(event, scenario):
     validate_schema("event", event)
     require(event["scenario_id"] == scenario["scenario_id"], "event scenario mismatch")
@@ -574,17 +596,35 @@ def validate_event(event, scenario):
         "event expected version mismatch",
     )
     require(event["effective_time_s"] == 0, "P0 event requires unexecuted time zero")
-    drones = index(scenario_aircraft(scenario), "drone_id")
-    require(event["payload"]["drone_id"] in drones, "event missing drone")
+    target = event_target(scenario, event)
+    allowed = (
+        ("available", "charging")
+        if event["event_type"] == "battery.unavailable"
+        else ("available",)
+    )
+    require(target["status"] in allowed, "event resource is not withdrawable")
     require(
         not has_execution_facts(scenario),
         "P0 event cannot reset execution facts",
     )
-    occurred, received = (
-        datetime.fromisoformat(event[k].replace("Z", "+00:00"))
-        for k in ("occurred_at", "received_at")
+    _validate_event_clock(event)
+
+
+def validate_applied_event(event, scenario):
+    """A replan consumes the immutable version immediately after this event."""
+    validate_schema("event", event)
+    require(event["scenario_id"] == scenario["scenario_id"], "event scenario mismatch")
+    require(
+        event["expected_state_version"] + 1 == scenario["state_version"],
+        "applied event version mismatch",
     )
-    require(received >= occurred, "event receive time precedes occurrence")
+    require(event["effective_time_s"] == 0, "event requires unexecuted time zero")
+    require(not has_execution_facts(scenario), "event cannot reset execution facts")
+    require(
+        event_target(scenario, event)["status"] == "unavailable",
+        "event target is not unavailable in its resulting snapshot",
+    )
+    _validate_event_clock(event)
 
 
 def check_http_draft():
@@ -653,8 +693,9 @@ def main():
     validate_plan(data["fixtures/mock/plan.json"], snap)
     validate_options(data["fixtures/mock/solver-options.json"], snap)
     validate_outcome(data["fixtures/mock/solver-outcome.json"], snap)
-    validate_event(data["fixtures/mock/event.json"], snap["scenario"])
     for e in entries:
+        if e["schema"] == "event":
+            validate_event(data[e["path"]], snap["scenario"])
         if e["schema"] == "solve-job":
             validate_job(data[e["path"]])
     require(

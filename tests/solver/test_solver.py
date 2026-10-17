@@ -9,6 +9,22 @@ from solver.public_api import replan, solve, validate
 from solver.dependencies import affected_closure
 
 
+def withdrawal_event(scenario, event_id, drone_id):
+    return dict(
+        schema_version=scenario["schema_version"],
+        event_id=event_id,
+        scenario_id=scenario["scenario_id"],
+        expected_state_version=scenario["state_version"] - 1,
+        event_type="drone.unavailable",
+        occurred_at=scenario["start_time"],
+        received_at=scenario["start_time"],
+        effective_time_s=0,
+        actor="simulation",
+        reason="Test withdrawal",
+        payload={"drone_id": drone_id},
+    )
+
+
 def test_original_resources_come_from_tables():
     s = contest_scenario()
     assert len(s["cargo_items"]) == 80 and len(s["sites"]) == 15
@@ -172,7 +188,7 @@ def test_unstarted_drone_failure_replans_new_version(case):
         scenario_state_version=2,
         content_hash=content_hash(s),
     )
-    event = {"event_id": "EVT-TEST", "event_type": "drone.unavailable"}
+    event = withdrawal_event(s, "EVT-TEST", failed)
     options.update(
         mode="replan",
         plan_id="PLAN-REPLAN",
@@ -284,7 +300,7 @@ def test_local_repair_retains_unaffected_reservations_when_deadlines_have_slack(
     result = replan(
         snap,
         old,
-        {"event_id": "EVT-REPAIR", "event_type": "drone.unavailable"},
+        withdrawal_event(snap["scenario"], "EVT-REPAIR", failed),
         options,
     )
     assert result["plan"], result
@@ -322,7 +338,7 @@ def test_partial_initial_soc_uses_verified_full_fallback(case):
     result = replan(
         snap,
         old,
-        {"event_id": "EVT-FALLBACK", "event_type": "drone.unavailable"},
+        withdrawal_event(snap["scenario"], "EVT-FALLBACK", "U01"),
         options,
     )
     assert result["plan"], result
