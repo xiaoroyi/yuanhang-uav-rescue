@@ -1,0 +1,31 @@
+{
+  "at_utc": "2026-10-17T23:14:26.177228+00:00",
+  "scope": "Observed targeted checks, not a full suite",
+  "source_at_record_sha256": "d3645957085621124cd8493560a803e4636aab9d598a499939f73d76dc9279da",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest tests/backend/test_relay_energy_events.py -q",
+      "passed": 10,
+      "elapsed_s": 16.47
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep 中继能源组件退出",
+      "passed": 1,
+      "elapsed_s": 31.4
+    }
+  ],
+  "visual_review": {
+    "reviewed": true,
+    "images": [
+      "relay-energy-fault-1440",
+      "relay-energy-fault-1280",
+      "relay-energy-windows-1280"
+    ],
+    "observations": "实际查看两个尺寸与真实组件窗口，无重叠；旧组件已退出，新Plan使用其他组件，通信缺口0。"
+  },
+  "corrected_test_errors": [
+    "coverage_gap_s is the actual report field",
+    "optional communication must be omitted, not null"
+  ],
+  "full_verification_pending": true
+}

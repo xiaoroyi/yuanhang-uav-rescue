@@ -3699,10 +3699,13 @@
           },
           {
             "$ref": "#/components/schemas/DemandAddedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/RelayEnergyUnavailableEvent"
           }
         ],
         "title": "Event",
-        "description": "Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review."
+        "description": "Implementation draft: additive zero-time relay component withdrawal RFC-013; preserving previous event JSON; pending A/B review."
       },
       "EventReceipt": {
         "properties": {
@@ -5427,6 +5430,23 @@
         ],
         "title": "Payload2"
       },
+      "Payload3": {
+        "properties": {
+          "component_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Component Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "component_id"
+        ],
+        "title": "Payload3"
+      },
       "Plan": {
         "properties": {
           "schema_version": {
@@ -6158,6 +6178,81 @@
           "available_after_s"
         ],
         "title": "RelayEnergy"
+      },
+      "RelayEnergyUnavailableEvent": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "event_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Event Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "event_type": {
+            "type": "string",
+            "const": "relay_energy.unavailable",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "effective_time_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Effective Time S"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Payload3"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "event_id",
+          "scenario_id",
+          "expected_state_version",
+          "event_type",
+          "occurred_at",
+          "received_at",
+          "effective_time_s",
+          "actor",
+          "reason",
+          "payload"
+        ],
+        "title": "RelayEnergyUnavailableEvent"
       },
       "RelayModel": {
         "properties": {

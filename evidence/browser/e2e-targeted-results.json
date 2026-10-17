@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "紧急需求插入"
+      "中继能源组件退出"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,12 +109,12 @@
       "line": 0,
       "specs": [
         {
-          "title": "紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案",
+          "title": "中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 120000,
+              "timeout": 180000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "",
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 35927,
+                  "duration": 30449,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T23:07:06.218Z",
+                  "startTime": "2026-10-17T23:12:22.500Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,9 +137,9 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-598115cbbcc91845a2b6",
+          "id": "c601ceb5ecfc8efa4a14-c124d4b204e4873d700e",
           "file": "workflow.spec.ts",
-          "line": 111,
+          "line": 442,
           "column": 1
         }
       ]
@@ -147,8 +147,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T23:07:05.707Z",
-    "duration": 36902.509999999995,
+    "startTime": "2026-10-17T23:12:21.976Z",
+    "duration": 31443.443,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

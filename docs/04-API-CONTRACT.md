@@ -83,3 +83,5 @@ POST /events接受严格Event联合：drone.unavailable携带drone_id，battery.
 PlanAnalysis新增可选capacity_bound，绑定原Snapshot，包含质量/体积必要下界、精确分数与箱件见证；旧分析JSON省略该字段仍可解析。不改变Plan可行性或确认接口，详见CAPACITY_BOUNDS。
 
 RFC-012复用POST /events，新增demand.added；原退出JSON兼容，事务追加需求与实物箱件，保存新版本并清除预约。其后mode=replan全量求解。详情见EVENTS/CONTRACT_RFC_012，HTTP类型仍统一生成。
+
+RFC-013复用POST /events精确退出中继能源组件，保留SOC/SOH/位置，完整版本链与通信联合重算；详见EVENTS。

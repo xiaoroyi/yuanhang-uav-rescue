@@ -63,3 +63,5 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 本草案缺少完整执行事实，当前仅允许**整个场景尚未执行**的零时刻机体或运输电池退出。RFC-010兼容扩展Event为严格联合：drone.unavailable带drone_id，battery.unavailable带battery_id，不能交叉或同时给出。B只改指定资源可用状态、保留能源/位置，先更新Scenario再建Snapshot；A核对完整Event与应用后版本、目标退出状态及父Plan链。处理中途事件须先引入执行事实、冻结区间与箱件占有者，不靠回放推断已经送达。
 
 RFC-012在严格Event联合中增加demand.added，payload引用既有Demand/Cargo结构；未执行场景向已有点位新增必须保障需求与等量实物库存。来源改user_input（Mock不升级），完整状态转移与负例见EVENTS。
+
+RFC-013增加relay_energy.unavailable，payload仅component_id，来自communication.relay_energy；与drone_id/battery_id严格独立。Event现在四个互斥分支，旧JSON保留。

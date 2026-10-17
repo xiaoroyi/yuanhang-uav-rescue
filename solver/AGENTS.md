@@ -13,3 +13,5 @@ partition.py为冻结同版联合任务的有限完整枚举与独立分配核�
 nominal.py由public_api导出analyze_single_site，额定单点能力、完整计数DP与基线/敏感性，只生成诊断批次，不是实体Plan。边界与独立重建见NOMINAL_ANALYSIS/RFC-009。replan必须接收完整Event并核对应用后版本/目标退出状态；局部直接影响集包含不可用机体和运输电池，沿两类资源依赖传播，非满SOC和通信等情况全量回退，见RFC-010。
 
 bounds.py为只读运输架次容量下界，numerics.py固定原容量容差；validation用fsum重建容量，Fraction下界需保守包含容差与舍入保护。不得把架次数转为最少机体/电池数量。见CAPACITY_BOUNDS/RFC-011。
+
+新增需求事件直接全量重算，不能仅修旧任务；中继能源组件退出由联合重算与独立检查覆盖。完整Event链见RFC-012/013。

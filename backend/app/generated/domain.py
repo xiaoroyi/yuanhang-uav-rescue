@@ -523,6 +523,36 @@ class BatteryUnavailableEvent(BaseModel):
     payload: Payload1
 
 
+class Payload3(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    component_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+
+
+class RelayEnergyUnavailableEvent(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    schema_version: Literal["0.1.0-draft"]
+    event_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    scenario_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    expected_state_version: conint(ge=1)
+    event_type: Literal["relay_energy.unavailable"]
+    occurred_at: AwareDatetime
+    received_at: AwareDatetime
+    effective_time_s: confloat(ge=0.0)
+    actor: Actor
+    reason: constr(min_length=1)
+    payload: Payload3
+
+
 class DataOrigin(Enum):
     mock = "mock"
     solver = "solver"
@@ -1227,11 +1257,21 @@ class DemandAddedEvent(BaseModel):
 
 
 class Event(
-    RootModel[DroneUnavailableEvent | BatteryUnavailableEvent | DemandAddedEvent]
+    RootModel[
+        DroneUnavailableEvent
+        | BatteryUnavailableEvent
+        | DemandAddedEvent
+        | RelayEnergyUnavailableEvent
+    ]
 ):
-    root: DroneUnavailableEvent | BatteryUnavailableEvent | DemandAddedEvent = Field(
+    root: (
+        DroneUnavailableEvent
+        | BatteryUnavailableEvent
+        | DemandAddedEvent
+        | RelayEnergyUnavailableEvent
+    ) = Field(
         ...,
-        description="Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review.",
+        description="Implementation draft: additive zero-time relay component withdrawal RFC-013; preserving previous event JSON; pending A/B review.",
         title="Event",
     )
 

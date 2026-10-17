@@ -573,6 +573,10 @@ def event_target(scenario, event):
         collection, key = scenario_aircraft(scenario), "drone_id"
     elif event["event_type"] == "battery.unavailable":
         collection, key = scenario["batteries"], "battery_id"
+    elif event["event_type"] == "relay_energy.unavailable":
+        collection, key = (scenario.get("communication") or {}).get(
+            "relay_energy", []
+        ), "component_id"
     else:
         raise ContractError("unsupported event type")
     resources = index(collection, key)
@@ -664,7 +668,8 @@ def validate_event(event, scenario):
         target = event_target(scenario, event)
         allowed = (
             ("available", "charging")
-            if event["event_type"] == "battery.unavailable"
+            if event["event_type"]
+            in ("battery.unavailable", "relay_energy.unavailable")
             else ("available",)
         )
         require(target["status"] in allowed, "event resource is not withdrawable")
@@ -784,7 +789,9 @@ def main():
     validate_outcome(data["fixtures/mock/solver-outcome.json"], snap)
     for e in entries:
         if e["schema"] == "event":
-            validate_event(data[e["path"]], snap["scenario"])
+            context = data[e.get("context_snapshot", "fixtures/mock/snapshot.json")]
+            validate_snapshot(context)
+            validate_event(data[e["path"]], context["scenario"])
         if e["schema"] == "solve-job":
             validate_job(data[e["path"]])
     require(

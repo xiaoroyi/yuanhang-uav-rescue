@@ -70,6 +70,17 @@
       "path": "fixtures/mock/event-demand.json",
       "schema": "event",
       "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/snapshot-relay.json",
+      "schema": "snapshot",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event-relay-energy.json",
+      "schema": "event",
+      "purpose": "mock_development_only",
+      "context_snapshot": "fixtures/mock/snapshot-relay.json"
     }
   ]
 }

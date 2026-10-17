@@ -439,6 +439,107 @@ async function screenshot(page: Page, name: string) {
   await page.screenshot({ path: path.resolve(`../evidence/browser/verified/${name}.png`) })
 }
 
+test('中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复', async ({
+  page,
+  request,
+}) => {
+  test.setTimeout(180000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const scene = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  scene.communication = await (
+    await request.get(`/api/v1/scenarios/${sid}/communication-template`)
+  ).json()
+  scene.policy.requires_communication = true
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 1, scenario: scene },
+      })
+    ).ok(),
+  ).toBe(true)
+  await page.reload()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  const old = await (
+    await request.get(
+      `/api/v1/plans/${(await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0].plan_id}`,
+    )
+  ).json()
+  const oldSnapshot = await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()
+  const failed = old.relay_sorties[0].component_id
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByLabel('故障事件类型').selectOption('relay_energy')
+  await page.getByLabel('故障中继能源组件').selectOption(failed)
+  await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  await expect(page.locator('.event-history')).toContainText(`中继能源组件 ${failed} 退出`)
+  await expect(page.getByLabel('中继方案变化')).toContainText('联合能耗变化')
+  const plan = await (
+    await request.get(
+      `/api/v1/plans/${(await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0].plan_id}`,
+    )
+  ).json()
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()
+  const events = await (await request.get(`/api/v1/scenarios/${sid}/events`)).json()
+  expect(plan.parent_plan_id).toBe(old.plan_id)
+  expect(plan.scenario_state_version).toBe(3)
+  expect(plan.communication_report.coverage_gap_s).toBe(0)
+  expect(plan.relay_sorties.every((r: { component_id: string }) => r.component_id !== failed)).toBe(
+    true,
+  )
+  expect(events[0].event_type).toBe('relay_energy.unavailable')
+  expect(events[0].payload).toEqual({ component_id: failed })
+  const expected = structuredClone(oldSnapshot.scenario)
+  expected.state_version = 3
+  expected.communication.relay_energy.find(
+    (b: { component_id: string }) => b.component_id === failed,
+  ).status = 'unavailable'
+  expect(snapshot.scenario).toEqual(expected)
+  expect(await (await request.get(`/api/v1/plans/${old.plan_id}`)).json()).toEqual(old)
+  expect(await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()).toEqual(
+    oldSnapshot,
+  )
+  await screenshot(page, 'relay-energy-fault-1440')
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'relay-energy-fault-1280')
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await page.reload()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await expect(page.locator('.event-history')).toContainText(`中继能源组件 ${failed} 退出`)
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  await page
+    .getByRole('region', { name: '通信协同结果' })
+    .getByRole('button', { name: '能源组件', exact: true })
+    .click()
+  await page.getByRole('region', { name: '通信协同结果' }).scrollIntoViewIfNeeded()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/relay-energy-windows-1280.png'),
+  })
+  await fs.writeFile(
+    path.resolve('../evidence/solver/relay-energy-replan.json'),
+    JSON.stringify(
+      {
+        previous_snapshot: oldSnapshot,
+        previous_plan: old,
+        snapshot,
+        event: events[0],
+        plan,
+        page_errors: errors,
+      },
+      null,
+      2,
+    ) + '\n',
+  )
+  expect(errors).toEqual([])
+})
+
 test('中继机退出保存新版本，真实重规划保留旧方案和连续保障', async ({ page, request }) => {
   test.setTimeout(150000)
   const errors: string[] = []

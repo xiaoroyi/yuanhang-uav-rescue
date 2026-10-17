@@ -1319,9 +1319,9 @@ export interface components {
         };
         /**
          * Event
-         * @description Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review.
+         * @description Implementation draft: additive zero-time relay component withdrawal RFC-013; preserving previous event JSON; pending A/B review.
          */
-        Event: components["schemas"]["DroneUnavailableEvent"] | components["schemas"]["BatteryUnavailableEvent"] | components["schemas"]["DemandAddedEvent"];
+        Event: components["schemas"]["DroneUnavailableEvent"] | components["schemas"]["BatteryUnavailableEvent"] | components["schemas"]["DemandAddedEvent"] | components["schemas"]["RelayEnergyUnavailableEvent"];
         /** EventReceipt */
         EventReceipt: {
             event: components["schemas"]["Event"];
@@ -1878,6 +1878,11 @@ export interface components {
             /** Cargo Items */
             cargo_items: components["schemas"]["Items"][];
         };
+        /** Payload3 */
+        Payload3: {
+            /** Component Id */
+            component_id: string;
+        };
         /** Plan */
         Plan: {
             /**
@@ -2105,6 +2110,41 @@ export interface components {
             location_id: string;
             /** Available After S */
             available_after_s: number;
+        };
+        /** RelayEnergyUnavailableEvent */
+        RelayEnergyUnavailableEvent: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: "0.1.0-draft";
+            /** Event Id */
+            event_id: string;
+            /** Scenario Id */
+            scenario_id: string;
+            /** Expected State Version */
+            expected_state_version: number;
+            /**
+             * Event Type
+             * @constant
+             */
+            event_type: "relay_energy.unavailable";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+            /**
+             * Received At
+             * Format: date-time
+             */
+            received_at: string;
+            /** Effective Time S */
+            effective_time_s: number;
+            actor: components["schemas"]["Actor"];
+            /** Reason */
+            reason: string;
+            payload: components["schemas"]["Payload3"];
         };
         /** RelayModel */
         RelayModel: {

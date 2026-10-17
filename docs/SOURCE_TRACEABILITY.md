@@ -1,6 +1,6 @@
 # 从原设计方案到全量任务的对应关系与事实边界
 
-> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准 V1 或已实现 API。
+> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准 V1；实际已实现API与范围以IMPLEMENTATION_STATUS和实际OpenAPI快照为准。
 
 > 本文便于队友确认：完整方案的关键模块没有因为两人分工而遗漏，也说明哪些属于原数模已有研究基础，哪些只是本次计划扩展。
 

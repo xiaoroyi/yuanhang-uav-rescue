@@ -74,7 +74,9 @@ export default function App() {
     [eventBusy, setEventBusy] = useState(false),
     [playTime, setPlayTime] = useState<number | null>(null),
     [playing, setPlaying] = useState(false)
-  const [failureKind, setFailureKind] = useState<'drone' | 'battery' | 'urgent'>('drone')
+  const [failureKind, setFailureKind] = useState<'drone' | 'battery' | 'relay_energy' | 'urgent'>(
+    'drone',
+  )
   const initialized = useRef(false),
     seenJobs = useRef(new Set<string>())
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: api.scenarios })
@@ -409,13 +411,20 @@ export default function App() {
             reason: '模拟演练：未起飞机体退出',
             payload: { drone_id: failureId },
           }
-        : {
-            ...common,
-            event_type: 'battery.unavailable',
-            reason: '模拟演练：运输电池退出',
-            payload: { battery_id: failureId },
-          },
-      `${failureKind === 'battery' ? '运输电池 ' : '机体 '}${failureId}已退出`,
+        : failureKind === 'battery'
+          ? {
+              ...common,
+              event_type: 'battery.unavailable',
+              reason: '模拟演练：运输电池退出',
+              payload: { battery_id: failureId },
+            }
+          : {
+              ...common,
+              event_type: 'relay_energy.unavailable',
+              reason: '模拟演练：中继能源组件退出',
+              payload: { component_id: failureId },
+            },
+      `${failureKind === 'battery' ? '运输电池 ' : failureKind === 'relay_energy' ? '中继能源组件 ' : '机体 '}${failureId}已退出`,
     )
   }
   async function insertUrgent(payload: UrgentPayload, reason: string) {
@@ -1015,12 +1024,17 @@ export default function App() {
                               aria-label="故障事件类型"
                               value={failureKind}
                               onChange={(e) => {
-                                setFailureKind(e.target.value as 'drone' | 'battery' | 'urgent')
+                                setFailureKind(
+                                  e.target.value as 'drone' | 'battery' | 'relay_energy' | 'urgent',
+                                )
                                 setFailureId('')
                               }}
                             >
                               <option value="drone">未起飞机体退出</option>
                               <option value="battery">运输电池退出</option>
+                              {scenario.policy.requires_communication && (
+                                <option value="relay_energy">中继能源组件退出</option>
+                              )}
                               <option value="urgent">紧急需求插入</option>
                             </select>
                           </label>
@@ -1041,17 +1055,29 @@ export default function App() {
                             <>
                               <label className="field">
                                 <span>
-                                  {failureKind === 'drone' ? '受影响机体' : '受影响运输电池'}
+                                  {failureKind === 'drone'
+                                    ? '受影响机体'
+                                    : failureKind === 'relay_energy'
+                                      ? '受影响中继能源组件'
+                                      : '受影响运输电池'}
                                 </span>
                                 <select
-                                  aria-label={failureKind === 'drone' ? '故障机体' : '故障运输电池'}
+                                  aria-label={
+                                    failureKind === 'drone'
+                                      ? '故障机体'
+                                      : failureKind === 'relay_energy'
+                                        ? '故障中继能源组件'
+                                        : '故障运输电池'
+                                  }
                                   value={failureId}
                                   onChange={(e) => setFailureId(e.target.value)}
                                 >
                                   <option value="">
                                     {failureKind === 'drone'
                                       ? '请选择可用机体'
-                                      : '请选择可退出电池'}
+                                      : failureKind === 'relay_energy'
+                                        ? '请选择可退出组件'
+                                        : '请选择可退出电池'}
                                   </option>
                                   {failureKind === 'drone' &&
                                     scenario.drones
@@ -1068,6 +1094,14 @@ export default function App() {
                                       .map((d) => (
                                         <option key={d.drone_id} value={d.drone_id}>
                                           {d.drone_id} · 中继机
+                                        </option>
+                                      ))}
+                                  {failureKind === 'relay_energy' &&
+                                    scenario.communication?.relay_energy
+                                      .filter((b) => ['available', 'charging'].includes(b.status))
+                                      .map((b) => (
+                                        <option key={b.component_id} value={b.component_id}>
+                                          {b.component_id} · 中继能源 · {percent(b.soc)}
                                         </option>
                                       ))}
                                   {failureKind === 'battery' &&
@@ -1111,7 +1145,9 @@ export default function App() {
                                       ? `新增需求 ${e.payload.demand.demand_id} · ${e.payload.demand.required_quantity}箱`
                                       : e.event_type === 'drone.unavailable'
                                         ? `机体 ${e.payload.drone_id} 退出`
-                                        : `运输电池 ${e.payload.battery_id} 退出`}
+                                        : e.event_type === 'battery.unavailable'
+                                          ? `运输电池 ${e.payload.battery_id} 退出`
+                                          : `中继能源组件 ${e.payload.component_id} 退出`}
                                   </strong>
                                   <p>{e.reason}</p>
                                   <small>

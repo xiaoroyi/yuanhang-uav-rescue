@@ -47,6 +47,7 @@ def capabilities():
             "drone.unavailable",
             "battery.unavailable",
             "demand.added",
+            "relay_energy.unavailable",
         ],
         "supported_model_scope": BASE_SCOPE
         + ["terrain", "restricted_zone", "ground_resource", "communication"],

@@ -11,7 +11,7 @@
 | drone.unavailable | {"drone_id":"U01"} | Scenario.drones或communication.relay_drones中的available机体 |
 | battery.unavailable | {"battery_id":"BAT-A-01"} | Scenario.batteries中的available或初始charging电池 |
 
-Event使用三个互斥Schema分支，旧机体事件JSON保持有效。不存在额外root包装；Pydantic/实际OpenAPI/TS由同一契约生成。混用负载、未知ID、非零事件时钟或用新事件ID重复退出已不可用目标均拒绝。
+Event使用四个互斥Schema分支，旧机体事件JSON保持有效。不存在额外root包装；Pydantic/实际OpenAPI/TS由同一契约生成。混用负载、未知ID、非零事件时钟或用新事件ID重复退出已不可用目标均拒绝。
 
 ## 后端顺序与事务
 
@@ -37,7 +37,7 @@ evidence/solver/battery-replan.json和joint-battery-replan.json保存浏览器�
 
 专项检查涵盖完整版本链、旧JSON兼容、负载互斥、接收时钟、幂等与事务、确认预约释放/重新确认、初始补能电池不被重置、其他资源执行事实，以及独立检查拒绝重新引用退出电池。完整测试计数见IMPLEMENTATION_STATUS。
 
-已有点位的零时刻紧急插单已按RFC-012实现。落点变更、未来封控、中继能源组件退出及执行中重规划尚未实现，保留在A-10/C-08，不能用当前事件负载自行追加字段。
+已有点位的零时刻紧急插单已按RFC-012实现。中继能源组件退出已按RFC-013实现。落点变更、未来封控及执行中重规划尚未实现，保留在A-10/C-08，不能用当前事件负载自行追加字段。
 
 ## 紧急需求插入
 
@@ -48,3 +48,9 @@ Event类型demand.added，payload为demand与cargo_items，引用Scenario现有�
 算法对这种事件直接全量重算全部需求，不能只修复旧任务而遗漏新货。页面新增“新增已安排箱件”，机体与电池改派仅比较两版共有箱件。原方案保留。若新增硬截止无法满足，新Job没有Plan；页面明确旧版，确认禁用。
 
 本轮22项算法专项、12项新增API检查通过，连同旧电池/契约共46项通过、8 subtests passed；1条真实浏览器流程完成32→34箱、确认、刷新恢复，以及继续插入零秒硬截止后未发布旧方案。证据为evidence/browser/urgent-demand.json；专项计数不替代下一轮完整检查。
+
+## 中继能源组件退出
+
+启用通信时，在事件类型中选择“中继能源组件退出”，再选择精确component_id。Event为relay_energy.unavailable，payload仅component_id；运输电池ID不能代替组件。目标可为available或初始charging，状态转移只退出该组件，保留全部能源/位置参数。通信新方案全量重算，必须独立检查不引用已退出组件并保持要求的连续保障。见CONTRACT_RFC_013。
+
+实际10项专项检查与1条联合浏览器流程通过；新方案模型内通信缺口0，旧快照/方案不变，新版本可确认和刷新恢复。1440/1280事件页及新能源窗口已查看，evidence/solver/relay-energy-replan.json保存完整前后输入、Event与Plan。专项首次运行有两项测试用法错误（coverage_gap_s字段名、可选communication应省略而不是null），已修正测试，未放宽业务检查。

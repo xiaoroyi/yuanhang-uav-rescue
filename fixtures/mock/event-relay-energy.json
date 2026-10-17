@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1.0-draft",
+  "event_id": "EVT-MOCK-RELAY-ENERGY",
+  "scenario_id": "SCN-MOCK-001",
+  "expected_state_version": 1,
+  "event_type": "relay_energy.unavailable",
+  "occurred_at": "2026-10-17T09:00:00+08:00",
+  "received_at": "2026-10-17T09:00:00+08:00",
+  "effective_time_s": 0,
+  "actor": "simulation",
+  "reason": "Mock development only",
+  "payload": {
+    "component_id": "R-COMP-01"
+  }
+}
