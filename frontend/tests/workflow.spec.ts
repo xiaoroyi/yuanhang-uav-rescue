@@ -80,6 +80,111 @@ async function screenshot(page: Page, name: string) {
   await page.screenshot({ path: path.resolve(`../evidence/browser/verified/${name}.png`) })
 }
 
+test('中继机退出保存新版本，真实重规划保留旧方案和连续保障', async ({ page, request }) => {
+  test.setTimeout(150000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const s = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  s.communication = await (
+    await request.get(`/api/v1/scenarios/${sid}/communication-template`)
+  ).json()
+  s.policy.requires_communication = true
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 1, scenario: s },
+      })
+    ).ok(),
+  ).toBe(true)
+  await page.reload()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  const before = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+  const oldPlan = await (await request.get(`/api/v1/plans/${before.plan_id}`)).json()
+  expect(oldPlan.relay_sorties.some((r: { drone_id: string }) => r.drone_id === 'R01')).toBe(true)
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByLabel('故障机体').selectOption('R01')
+  await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  const summaries = await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()
+  expect(summaries).toHaveLength(2)
+  const newPlan = await (await request.get(`/api/v1/plans/${summaries[0].plan_id}`)).json()
+  expect(newPlan.parent_plan_id).toBe(oldPlan.plan_id)
+  expect(newPlan.scenario_state_version).toBe(3)
+  expect(newPlan.relay_sorties.every((r: { drone_id: string }) => r.drone_id !== 'R01')).toBe(true)
+  expect(newPlan.communication_report.coverage_gap_s).toBe(0)
+  expect(await (await request.get(`/api/v1/plans/${oldPlan.plan_id}`)).json()).toEqual(oldPlan)
+  const snapshot = await (await request.get(`/api/v1/snapshots/${newPlan.snapshot_id}`)).json()
+  const events = await (await request.get(`/api/v1/scenarios/${sid}/events`)).json()
+  await fs.writeFile(
+    path.resolve('../evidence/solver/joint-replan.json'),
+    JSON.stringify({ snapshot, event: events[0], previous_plan: oldPlan, plan: newPlan }, null, 2) +
+      '\n',
+  )
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  await screenshot(page, 'relay-fault-replan-1440')
+  await page.reload()
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await expect(page.getByLabel('中继方案变化')).toContainText('联合能耗变化')
+  await page.getByLabel('中继方案变化').scrollIntoViewIfNeeded()
+  await page.screenshot({ path: path.resolve('../evidence/browser/verified/relay-fault-differences-1440.png') })
+  expect(errors).toEqual([])
+})
+
+test('历史方案等待绑定原始快照，延迟期间不显示混合版本结果', async ({ page, request }) => {
+  await solve(page)
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const s = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  s.cargo_items[0].mass_kg = 99
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 1, scenario: s },
+      })
+    ).ok(),
+  ).toBe(true)
+  let release = () => {}
+  const gate = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  await page.route('**/api/v1/snapshots/*', async (route) => {
+    await gate
+    await route.continue()
+  })
+  await page.reload()
+  await expect(page.getByLabel('方案快照绑定')).toContainText('正在加载 v1')
+  await expect(page.getByTestId('sortie-card')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '检查报告', exact: true })).toBeDisabled()
+  release()
+  await expect(page.getByLabel('方案快照绑定')).toBeHidden()
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+  await expect(page.locator('.alert').filter({ hasText: '历史方案' })).toContainText(
+    '场景已更新为 v2',
+  )
+  await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  await page.unroute('**/api/v1/snapshots/*')
+  let failSnapshots = true
+  await page.route('**/api/v1/snapshots/*', async (route) => {
+    if (failSnapshots)
+      await route.fulfill({ status: 503, json: { error: { message: '测试快照读取失败' } } })
+    else await route.continue()
+  })
+  await page.reload()
+  await expect(page.getByLabel('方案快照绑定')).toContainText('原始输入加载失败', {
+    timeout: 20000,
+  })
+  await expect(page.getByTestId('sortie-card')).toHaveCount(0)
+  failSnapshots = false
+  await page.getByRole('button', { name: '重试加载快照', exact: true }).click()
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+})
+
 test.beforeEach(async ({ request, page }) => {
   const response = await request.post('/api/v1/scenarios/examples', {
     data: { example: 'compact' },

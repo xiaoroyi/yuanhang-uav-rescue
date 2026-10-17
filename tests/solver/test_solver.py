@@ -54,6 +54,33 @@ def test_missing_communication_is_not_success(case):
     )
 
 
+@pytest.mark.parametrize("kind", ["cargo", "drone", "battery"])
+@pytest.mark.parametrize("communication", [False, True])
+def test_initial_solve_cannot_silently_replace_execution_facts(
+    case, kind, communication
+):
+    from solver.adapters.contest import contest_communication
+
+    snapshot, options = case
+    s = snapshot["scenario"]
+    if communication:
+        s["communication"] = contest_communication(s)
+        s["policy"]["requires_communication"] = True
+        options["requested_model_scope"].append("communication")
+    if kind == "cargo":
+        s["cargo_items"][0]["status"] = "delivered"
+    elif kind == "drone":
+        s["drones"][0]["status"] = "in_flight"
+    else:
+        s["batteries"][0]["status"] = "in_use"
+    snapshot["content_hash"] = content_hash(s)
+    before = copy.deepcopy(snapshot)
+    outcome = solve(snapshot, options)
+    assert outcome["solver_status"] == "UNKNOWN" and outcome["plan"] is None
+    assert outcome["diagnostics"][0]["code"] == "UNSUPPORTED_EXECUTION_STATE"
+    assert snapshot == before
+
+
 def test_mutations_rejected_by_independent_rebuild(case):
     snapshot, options = case
     result = solve(snapshot, options)

@@ -2382,6 +2382,9 @@ input[type='checkbox'] {
   grid-template-columns: repeat(4, 1fr);
   gap: 13px;
 }
+.joint-event-diff {
+  margin-top: 12px;
+}
 .comparison-cards > div {
   padding: 17px;
   background: white;

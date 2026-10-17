@@ -15,3 +15,5 @@ Plan可选joint_metrics记录relay_energy_kwh、joint_energy_kwh、joint_makespa
 本RFC必须与生成类型、独立负例、后端任务、地图/时间轴、指标和导出共同落地，未接通前capabilities不宣称relay_coordination已可用。
 
 实现补充：joint_search在Plan及无解SolverOutcome中可选提供，用于保存有限候选数量和各阶段状态；缺省旧Outcome不追加该字段。独立校验失败返回ERROR/validation_failed，不能降格为普通UNKNOWN；继承基线的first_feasible_s记录重新验证基线的时刻。CLI使用实际UTC创建时间和唯一ID。
+
+事件语义补充：现有drone.unavailable.payload.drone_id可引用运输机或中继机，两类ID在Scenario中全局互斥；字段形状不变。只接受effective_time_s=0，后端创建新版本、清除旧确认预约并幂等保存事件，联合重规划重新计算运输与中继。当前模型不能消化在途/已交付/实际占用事实，首次求解与事件入口同样拒绝这些状态，不能仅在replan中检查。

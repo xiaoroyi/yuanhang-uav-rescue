@@ -543,6 +543,29 @@ def validate_job(job, plan=None):
         )
 
 
+def scenario_aircraft(scenario):
+    """Both aircraft fleets share the globally unique drone_id namespace."""
+    return [
+        *scenario["drones"],
+        *scenario.get("communication", {}).get("relay_drones", []),
+    ]
+
+
+def has_execution_facts(scenario):
+    """The current planning model cannot silently replace recorded execution."""
+    return (
+        any(
+            c["status"] not in ("available", "unavailable")
+            for c in scenario["cargo_items"]
+        )
+        or any(
+            d["status"] not in ("available", "unavailable")
+            for d in scenario_aircraft(scenario)
+        )
+        or any(b["status"] in ("reserved", "in_use") for b in scenario["batteries"])
+    )
+
+
 def validate_event(event, scenario):
     validate_schema("event", event)
     require(event["scenario_id"] == scenario["scenario_id"], "event scenario mismatch")
@@ -550,16 +573,11 @@ def validate_event(event, scenario):
         event["expected_state_version"] == scenario["state_version"],
         "event expected version mismatch",
     )
-    drones = index(scenario["drones"], "drone_id")
+    require(event["effective_time_s"] == 0, "P0 event requires unexecuted time zero")
+    drones = index(scenario_aircraft(scenario), "drone_id")
     require(event["payload"]["drone_id"] in drones, "event missing drone")
     require(
-        all(d["status"] in ("available", "unavailable") for d in scenario["drones"]),
-        "P0 event unsupported execution state",
-    )
-    require(
-        all(
-            c["status"] in ("available", "unavailable") for c in scenario["cargo_items"]
-        ),
+        not has_execution_facts(scenario),
         "P0 event cannot reset execution facts",
     )
     occurred, received = (

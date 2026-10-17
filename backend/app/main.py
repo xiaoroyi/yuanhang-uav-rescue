@@ -78,6 +78,7 @@ from shared.contracts import (
     validate_options,
     validate_scenario,
     validate_snapshot,
+    scenario_aircraft,
 )
 from solver.adapters.contest import (
     compact_scenario,
@@ -1290,7 +1291,9 @@ def create_app(runtime_dir: Path | None = None):
                 raise AppError(422, "UNSUPPORTED_EVENT_STATE", str(exc)) from exc
             s = copy.deepcopy(row.content)
             next(
-                d for d in s["drones"] if d["drone_id"] == value["payload"]["drone_id"]
+                d
+                for d in scenario_aircraft(s)
+                if d["drone_id"] == value["payload"]["drone_id"]
             )["status"] = "unavailable"
             s["state_version"] = row.version + 1
             value["received_at"] = now()

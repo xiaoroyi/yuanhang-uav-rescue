@@ -14,6 +14,7 @@ from shared.contracts import (
     validate_options,
     validate_scenario,
     validate_snapshot,
+    has_execution_facts,
 )
 from solver.physics import (
     CHARGE_MODEL,
@@ -505,6 +506,19 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         validate_snapshot(snapshot)
         validate_options(options, snapshot)
         s = snapshot["scenario"]
+        if has_execution_facts(s):
+            return _outcome(
+                "UNKNOWN",
+                options,
+                started,
+                reason="unsupported_scope",
+                diagnostics=[
+                    diagnostic(
+                        "UNSUPPORTED_EXECUTION_STATE",
+                        "当前只支持尚未执行的规划场景；存在装载、在途、已交付或已占用事实，不能通过全量求解覆盖。",
+                    )
+                ],
+            )
         if "communication" in options["requested_model_scope"]:
             if not s.get("communication"):
                 return _outcome(
@@ -856,21 +870,31 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
                 continue
             seed = {"plan": pattern[0], "candidate_count": 0, "diagnostics": []}
             schedule_options = {
-                "station_ids": pattern[1], "max_relay_sorties": 3,
+                "station_ids": pattern[1],
+                "max_relay_sorties": 3,
                 "coverage_block_s": 600,
             }
-            attempt_deadline = min(deadline, time.perf_counter() + min(40, budget * 0.6))
+            attempt_deadline = min(
+                deadline, time.perf_counter() + min(40, budget * 0.6)
+            )
             progress("重算历史分组候选的全部物理，搜索新的联合排程")
         else:
             remaining = deadline - time.perf_counter()
             if remaining <= 0.2:
                 break
-            seed_options["time_limit_s"] = min(seed_options["time_limit_s"], remaining * 0.2)
+            seed_options["time_limit_s"] = min(
+                seed_options["time_limit_s"], remaining * 0.2
+            )
             seed = solve(relaxed, seed_options)
         if seed["plan"]:
             try:
                 routes, relays, communication, details = schedule(
-                    s, seed["plan"], options, attempt_deadline, progress, **schedule_options
+                    s,
+                    seed["plan"],
+                    options,
+                    attempt_deadline,
+                    progress,
+                    **schedule_options,
                 )
                 if routes:
                     candidate = _make_plan(snapshot, options, routes)
@@ -920,7 +944,10 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
                                 "历史分组仅作候选；箱件、飞行物理、排程、实体和连续通信均按当前快照重新计算，未复用历史时刻或能耗。"
                             )
             except (InputNotReady, TimeoutError) as exc:
-                details = {"status": "LIMITED_CANDIDATES_OR_BUDGET", "message": str(exc)}
+                details = {
+                    "status": "LIMITED_CANDIDATES_OR_BUDGET",
+                    "message": str(exc),
+                }
     if incumbent is not None and (
         candidate is None
         or objective_score(s, incumbent, options["objective"])
@@ -1141,9 +1168,7 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
             ],
         )
     s = snapshot["scenario"]
-    if any(
-        c["status"] not in ("available", "unavailable") for c in s["cargo_items"]
-    ) or any(d["status"] in ("loaded", "in_flight", "reserved") for d in s["drones"]):
+    if has_execution_facts(s):
         return _outcome(
             "UNKNOWN",
             options,

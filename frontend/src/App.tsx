@@ -29,6 +29,7 @@ import {
   Play,
   Plus,
   RefreshCw,
+  RadioTower,
   Search,
   Settings2,
   ShieldCheck,
@@ -96,10 +97,14 @@ export default function App() {
     queryFn: () => api.plan(planId),
     enabled: !!planId,
   })
+  const comparisonPlanId =
+    previousId ||
+    (planQuery.data?.scenario_id === scenarioId ? planQuery.data.parent_plan_id : '') ||
+    ''
   const oldQuery = useQuery({
-    queryKey: ['plan', previousId],
-    queryFn: () => api.plan(previousId),
-    enabled: !!previousId,
+    queryKey: ['plan', comparisonPlanId],
+    queryFn: () => api.plan(comparisonPlanId),
+    enabled: !!comparisonPlanId,
   })
   const planSnapshot = useQuery({
     queryKey: ['snapshot', planQuery.data?.snapshot_id],
@@ -152,9 +157,17 @@ export default function App() {
       !job.data.plan_id,
   })
   const scenario = sceneQuery.data,
-    plan = planQuery.data?.scenario_id === scenarioId ? planQuery.data : null,
+    selectedPlan = planQuery.data?.scenario_id === scenarioId ? planQuery.data : null,
     oldPlan = oldQuery.data
-  const viewScenario = plan ? planSnapshot.data?.scenario || scenario : scenario
+  const snapshotBound = !!(
+    selectedPlan &&
+    planSnapshot.data?.snapshot_id === selectedPlan.snapshot_id &&
+    planSnapshot.data.scenario_id === selectedPlan.scenario_id &&
+    planSnapshot.data.scenario_state_version === selectedPlan.scenario_state_version
+  )
+  const plan = snapshotBound ? selectedPlan : null
+  const bindingUnavailable = !!selectedPlan && !snapshotBound
+  const viewScenario = plan ? planSnapshot.data!.scenario : scenario
   const isBusy = !!(
     submitting ||
     (job.data &&
@@ -192,6 +205,7 @@ export default function App() {
     setSearch('')
     setPlayTime(null)
     setPlaying(false)
+    setFailureId('')
   }, [])
   const choosePlan = useCallback(
     (id: string) => {
@@ -200,6 +214,7 @@ export default function App() {
       setSelected(null)
       setPlayTime(null)
       setPlaying(false)
+      setPreviousId('')
     },
     [scenarioId],
   )
@@ -298,7 +313,7 @@ export default function App() {
   }, [playing, plan])
 
   async function runSolver(objective: 'time' | 'energy' | 'balanced', improve = false) {
-    if (!scenario || isBusy || scenario.data_origin === 'mock') return
+    if (!scenario || isBusy || bindingUnavailable || scenario.data_origin === 'mock') return
     setSubmitting(true)
     try {
       const snap =
@@ -738,7 +753,7 @@ export default function App() {
                         <Button
                           variant="primary"
                           busy={isBusy}
-                          disabled={scenario.data_origin === 'mock'}
+                          disabled={bindingUnavailable || scenario.data_origin === 'mock'}
                           onClick={() => void runSolver('time')}
                         >
                           <Play size={14} /> {plan ? '重新求解' : '生成真实方案'}
@@ -768,6 +783,25 @@ export default function App() {
                     <div className="alert alert-amber">
                       <TriangleAlert size={17} />
                       当前为Mock开发样例，仅供结构预览，不能发布已验证方案或确认计划。
+                    </div>
+                  )}
+                  {bindingUnavailable && (
+                    <div className="alert alert-amber" role="status" aria-label="方案快照绑定">
+                      {planSnapshot.isError ? (
+                        <ShieldAlert size={18} />
+                      ) : (
+                        <LoaderCircle size={18} className="spin" />
+                      )}
+                      <span>
+                        {planSnapshot.isError
+                          ? '方案原始输入加载失败，暂时隐藏计算结果。'
+                          : `正在加载 v${selectedPlan!.scenario_state_version} 方案的原始输入…`}
+                      </span>
+                      {planSnapshot.isError && (
+                        <Button variant="ghost" onClick={() => void planSnapshot.refetch()}>
+                          重试加载快照
+                        </Button>
+                      )}
                     </div>
                   )}
                   {stale && (
@@ -915,6 +949,14 @@ export default function App() {
                                     {d.drone_id} · {d.type_id}型
                                   </option>
                                 ))}
+                              {scenario.policy.requires_communication &&
+                                scenario.communication?.relay_drones
+                                  .filter((d) => d.status === 'available')
+                                  .map((d) => (
+                                    <option key={d.drone_id} value={d.drone_id}>
+                                      {d.drone_id} · 中继机
+                                    </option>
+                                  ))}
                             </select>
                           </label>
                           <div className="callout amber">
@@ -976,38 +1018,61 @@ export default function App() {
                           />
                         </section>
                         {oldPlan && plan && oldPlan.plan_id !== plan.plan_id ? (
-                          <div className="comparison-cards">
-                            <div>
-                              <span>机体改派箱件</span>
-                              <strong>
-                                {changedCargo}
-                                <small>箱</small>
-                              </strong>
+                          <div>
+                            <div className="comparison-cards">
+                              <div>
+                                <span>机体改派箱件</span>
+                                <strong>
+                                  {changedCargo}
+                                  <small>箱</small>
+                                </strong>
+                              </div>
+                              <div>
+                                <span>返航时间变化</span>
+                                <strong>
+                                  {number(
+                                    (plan.metrics.makespan_s || 0) -
+                                      (oldPlan.metrics.makespan_s || 0),
+                                    0,
+                                  )}
+                                  <small>秒</small>
+                                </strong>
+                              </div>
+                              <div>
+                                <span>保持架次</span>
+                                <strong>
+                                  {plan.change_summary?.preserved_sortie_ids.length || 0}
+                                  <small>次</small>
+                                </strong>
+                              </div>
+                              <div>
+                                <span>新方案检查</span>
+                                <strong className="teal">
+                                  {plan.validation.status === 'passed' ? '通过' : '待处理'}
+                                </strong>
+                              </div>
                             </div>
-                            <div>
-                              <span>返航时间变化</span>
-                              <strong>
-                                {number(
-                                  (plan.metrics.makespan_s || 0) -
-                                    (oldPlan.metrics.makespan_s || 0),
-                                  0,
-                                )}
-                                <small>秒</small>
-                              </strong>
-                            </div>
-                            <div>
-                              <span>保持架次</span>
-                              <strong>
-                                {plan.change_summary?.preserved_sortie_ids.length || 0}
-                                <small>次</small>
-                              </strong>
-                            </div>
-                            <div>
-                              <span>新方案检查</span>
-                              <strong className="teal">
-                                {plan.validation.status === 'passed' ? '通过' : '待处理'}
-                              </strong>
-                            </div>
+                            {oldPlan.joint_metrics && plan.joint_metrics && (
+                              <div className="callout joint-event-diff" aria-label="中继方案变化">
+                                <RadioTower size={18} />
+                                <span>
+                                  中继任务 {oldPlan.joint_metrics.relay_sortie_count} →{' '}
+                                  {plan.joint_metrics.relay_sortie_count} 架次 · 联合能耗变化{' '}
+                                  {number(
+                                    plan.joint_metrics.joint_energy_kwh -
+                                      oldPlan.joint_metrics.joint_energy_kwh,
+                                    3,
+                                  )}{' '}
+                                  kWh · 联合返航变化{' '}
+                                  {number(
+                                    plan.joint_metrics.joint_makespan_s -
+                                      oldPlan.joint_metrics.joint_makespan_s,
+                                    0,
+                                  )}{' '}
+                                  秒
+                                </span>
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <div className="event-explainer">
@@ -1265,7 +1330,11 @@ export default function App() {
                                   </>
                                 ) : (
                                   <button
-                                    disabled={isBusy || scenario.data_origin === 'mock'}
+                                    disabled={
+                                      isBusy ||
+                                      bindingUnavailable ||
+                                      scenario.data_origin === 'mock'
+                                    }
                                     onClick={() => void runSolver(objective)}
                                   >
                                     真实计算此策略 <ArrowRight size={12} />

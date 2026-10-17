@@ -8,6 +8,49 @@ from backend.app.storage import ReservationRow
 from shared.contracts import content_hash
 
 
+def test_relay_fault_is_versioned_idempotent_and_rejects_future_execution(tmp_path):
+    app = create_app(tmp_path / "runtime")
+    with TestClient(app) as client:
+        s = client.post(
+            "/api/v1/scenarios/examples", json={"example": "compact"}
+        ).json()
+        sid = s["scenario_id"]
+        s["communication"] = client.get(
+            f"/api/v1/scenarios/{sid}/communication-template"
+        ).json()
+        s["policy"]["requires_communication"] = True
+        s = client.put(
+            f"/api/v1/scenarios/{sid}",
+            json={"expected_state_version": 1, "scenario": s},
+        ).json()
+        event = dict(
+            schema_version=s["schema_version"],
+            event_id="EVT-RELAY-FAULT",
+            scenario_id=sid,
+            expected_state_version=2,
+            event_type="drone.unavailable",
+            occurred_at=s["start_time"],
+            received_at=s["start_time"],
+            effective_time_s=30,
+            actor="simulation",
+            reason="中继机未起飞退出",
+            payload={"drone_id": "R01"},
+        )
+        rejected = client.post("/api/v1/events", json=event)
+        assert rejected.status_code == 422
+        assert client.get(f"/api/v1/scenarios/{sid}").json() == s
+        event["effective_time_s"] = 0
+        accepted = client.post("/api/v1/events", json=event)
+        assert accepted.status_code == 200, accepted.text
+        assert accepted.json()["state_version_after"] == 3
+        current = client.get(f"/api/v1/scenarios/{sid}").json()
+        assert current["communication"]["relay_drones"][0]["status"] == "unavailable"
+        assert current["drones"] == s["drones"]
+        duplicate = client.post("/api/v1/events", json=event)
+        assert duplicate.status_code == 200 and not duplicate.json()["applied"]
+        assert client.get(f"/api/v1/scenarios/{sid}").json() == current
+
+
 def test_real_joint_worker_shared_ground_confirmation_and_roundtrip(tmp_path):
     app = create_app(tmp_path / "runtime")
     with TestClient(app) as client:
