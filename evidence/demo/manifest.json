@@ -1,0 +1,108 @@
+{
+  "generated_at_utc": "2026-10-17T22:34:38.210Z",
+  "slide_count": 13,
+  "source_files": {
+    "evidence/solver/nominal-contest.json": "bcdaafe06c9d272f349ef719773a1bff97496ed0f758bccb8c39645bdcc5ab40",
+    "evidence/solver/nominal-compact.json": "6c6ca0a261fab2d688683dd65dcf9fb0c0be38bc62bea09627038aa58707fd5f",
+    "evidence/solver/joint-contest-recomputed.json": "d75cb42e1d9121f7ff9e9bdbbe266991feec14364331734ef2515dfaf96caaf5",
+    "evidence/solver/frozen-partition-contest.json": "d51f41e4d4726a169e259b761618059fda9bd793233417a63a3480e3c7aad543",
+    "evidence/solver/battery-replan.json": "8d226ae5d4f59335d109f3370dcf5de50d68441e6e6260a33c504e27e32e32fa",
+    "evidence/verification/latest.json": "179c4f5fd0ebbc848f0b42465b78f429cdb9479902c8caa333fa9284a708f891",
+    "evidence/verification/check-01.txt": "516c49e0986769f7ee4b0db468ae09387a55ccfef6f0a20b9b9b1be38fef064c",
+    "evidence/browser/e2e-results.json": "204bc7105613263c6ecdf99f8040cf18af1adf76be37ac6f6616c23ef8d77a4a",
+    "evidence/browser/verified/workspace-1440.png": "5496b99ed2c76ec498ab65f500030bfc49ba0c3816fb11560105981c08be8892",
+    "evidence/browser/verified/ground-timeline-expanded-1440.png": "3402b1194b7884fdc108ac9abec8f861e98628d4bd4eeb30ac45a1fa7bfed4fd",
+    "evidence/browser/verified/battery-fault-changes-1280.png": "1e5de9b30c878d9c994a8b53f81d5922929e95bc8a2c320e0c5f0a3b4e496278",
+    "evidence/browser/verified/zone-detour-1440.png": "c670cfb363b0b39d5ae9941049c95cba162e627a46a43bdfc404cc84ab0170e3",
+    "evidence/browser/verified/joint-resource-windows-1440.png": "f8a081db1a03fbb32fa5cc11c9bb248e2d128978d02758d5ae45f3f9951c3dee",
+    "evidence/browser/verified/frozen-partition-1440.png": "83f94cfc1a07f74ce6e3f7fd9ceefe25919602a040e83578f99a96ddea6ce10c",
+    "evidence/browser/verified/resource-analysis-1440.png": "7f15934ab1eae41d00700481f598f41ae8e2837f2f47b36c66990ec899fdc586"
+  },
+  "verification_source_at_build": "c1c7a08180ab2c18fcaef7eb649fa8433fd4bb32d59974712b1808253058c7cb",
+  "last_full_verification_source": "287ea5cf9291242bdc285f8f108d859015e9d6f25a68997f1250baeaa555c17f",
+  "full_verification_matches_current_source": false,
+  "page_errors": [],
+  "network_requests": [],
+  "keyboard_navigation": "Home, ArrowRight and End checked",
+  "slides": [
+    {
+      "slide": 1,
+      "title": "援航",
+      "image": "evidence/demo/slide-01.png",
+      "issues": []
+    },
+    {
+      "slide": 2,
+      "title": "场景与实体数据",
+      "image": "evidence/demo/slide-02.png",
+      "issues": []
+    },
+    {
+      "slide": 3,
+      "title": "真实调度工作台",
+      "image": "evidence/demo/slide-03.png",
+      "issues": []
+    },
+    {
+      "slide": 4,
+      "title": "电池与地面资源",
+      "image": "evidence/demo/slide-04.png",
+      "issues": []
+    },
+    {
+      "slide": 5,
+      "title": "资源退出后的真实改派",
+      "image": "evidence/demo/slide-05.png",
+      "issues": []
+    },
+    {
+      "slide": 6,
+      "title": "单点额定运输诊断",
+      "image": "evidence/demo/slide-06.png",
+      "issues": []
+    },
+    {
+      "slide": 7,
+      "title": "地形与静态限制区",
+      "image": "evidence/demo/slide-07.png",
+      "issues": []
+    },
+    {
+      "slide": 8,
+      "title": "运输与通信联合保障",
+      "image": "evidence/demo/slide-08.png",
+      "issues": []
+    },
+    {
+      "slide": 9,
+      "title": "原题80箱联合实例",
+      "image": "evidence/demo/slide-09.png",
+      "issues": []
+    },
+    {
+      "slide": 10,
+      "title": "冻结任务分区",
+      "image": "evidence/demo/slide-10.png",
+      "issues": []
+    },
+    {
+      "slide": 11,
+      "title": "资源情景与压力对照",
+      "image": "evidence/demo/slide-11.png",
+      "issues": []
+    },
+    {
+      "slide": 12,
+      "title": "验证记录与模型边界",
+      "image": "evidence/demo/slide-12.png",
+      "issues": []
+    },
+    {
+      "slide": 13,
+      "title": "本机演示操作",
+      "image": "evidence/demo/slide-13.png",
+      "issues": []
+    }
+  ],
+  "note": "HTML and PDF walkthrough from recorded evidence, not a PPTX or official contest submission template. Individual visual inspection remains required."
+}

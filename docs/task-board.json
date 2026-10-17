@@ -1021,14 +1021,22 @@
       "priority": "P0",
       "owner": "B",
       "title": "项目简表（官方模板）和项目说明书",
-      "acceptance": "每条宣称对应代码与试验证据，按字数上限",
+      "acceptance": "通用操作说明与演示稿已生成，来源hash可复核；官方项目简表/完整模板适配仍待提供赛事材料，不冒充正式提交件",
       "dependencies": [
         "X-01"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/DEMO_RUNBOOK.md",
+        "docs/DEMO_SCRIPT.md",
+        "deliverables/README.md",
+        "deliverables/yuanhang-demo.html",
+        "deliverables/yuanhang-demo.pdf",
+        "evidence/demo/manifest.json",
+        "evidence/demo/pdf-qa.json"
+      ]
     },
     {
       "id": "S-02",
@@ -1036,14 +1044,22 @@
       "priority": "P0",
       "owner": "B",
       "title": "演示视频、系统截图、答辩 PPT（可选但建议）",
-      "acceptance": "真实操作镜头，标注加速/历史回放",
+      "acceptance": "真实系统截图及13页离线HTML/PDF演示稿已生成并检查；正式视频与PPTX仍待完成，工具运行时限制见deliverables/README",
       "dependencies": [
         "X-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/DEMO_RUNBOOK.md",
+        "docs/DEMO_SCRIPT.md",
+        "deliverables/README.md",
+        "deliverables/yuanhang-demo.html",
+        "deliverables/yuanhang-demo.pdf",
+        "evidence/demo/manifest.json",
+        "evidence/demo/pdf-qa.json"
+      ]
     },
     {
       "id": "S-03",

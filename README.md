@@ -12,6 +12,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 完整步骤见 [本机操作手册](docs/DEMO_RUNBOOK.md)。演示顺序：生成真实方案 → 点击架次/甘特联动 → 计算能耗策略 → 检查报告/确认/导出 → 事件复盘选择机体 → 记录故障并重规划。场景页可编辑物资重量、电池SOC/SOH或导入JSON/CSV/XLSX，再重新计算。
 
+另有可离线放映的[系统演示材料](deliverables/README.md)：双击demo.cmd打开单文件HTML，或阅读PDF。素材来自真实界面与已保存的计算结果，源码和证据有hash对应；正式比赛模板和PPTX仍需后续整理。
+
 事件复盘中的“资源分析与试算”提供真实占用图、期望延期/硬截止余量、增配与能耗/SOH情景、三档压力测试和可恢复历史；每个试算均保存独立输入并真实计算，见 [统计口径](docs/RESOURCE_ANALYSIS.md)。
 
 已有方案可继续“深入优化30秒”，沿用同一快照并保留有效基线，见 [算法范围](docs/DEEP_OPTIMIZATION.md)。场景页可管理静态限制区，真实绕行见 [空间模型](docs/SPATIAL_ROUTING.md)；也可上传本地GeoTIFF，地图与净空使用同一绑定栅格。交接给队友时一并下载/导入完整DEM资产包以保留hash，见 [资产说明](docs/TERRAIN_ASSETS.md)。

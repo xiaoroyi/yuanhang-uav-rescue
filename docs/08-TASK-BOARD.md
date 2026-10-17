@@ -104,8 +104,8 @@
 | Q-03 | P0 | B | C-03, C-04, C-05 | 自动契约/数据库/HTTP/并发/重启/导出/离线/安全测试；验收：CI + 本地复现命令 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | Q-04 | P0 | B | B-03, B-04, B-05 | UI 交互/响应/颜色可读性/异常态/地图离线显示；验收：实测截图与操作验收 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | Q-05 | P0 | A+B | X-01, X-02, X-03, Q-03, Q-04 | 端到端回归脚本与最小真实演示包；验收：任一队友可重新安装并完成全部关键流程 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
-| S-01 | P0 | B | X-01 | 项目简表（官方模板）和项目说明书；验收：每条宣称对应代码与试验证据，按字数上限 | todo | — |
-| S-02 | P0 | B | X-03 | 演示视频、系统截图、答辩 PPT（可选但建议）；验收：真实操作镜头，标注加速/历史回放 | todo | — |
+| S-01 | P0 | B | X-01 | 项目简表（官方模板）和项目说明书；验收：通用操作说明与演示稿已生成，来源hash可复核；官方项目简表/完整模板适配仍待提供赛事材料，不冒充正式提交件 | in_progress | feat/solo-fullstack-v0; docs/DEMO_RUNBOOK.md; docs/DEMO_SCRIPT.md; deliverables/README.md; deliverables/yuanhang-demo.html; deliverables/yuanhang-demo.pdf; evidence/demo/manifest.json; evidence/demo/pdf-qa.json |
+| S-02 | P0 | B | X-03 | 演示视频、系统截图、答辩 PPT（可选但建议）；验收：真实系统截图及13页离线HTML/PDF演示稿已生成并检查；正式视频与PPTX仍待完成，工具运行时限制见deliverables/README | in_progress | feat/solo-fullstack-v0; docs/DEMO_RUNBOOK.md; docs/DEMO_SCRIPT.md; deliverables/README.md; deliverables/yuanhang-demo.html; deliverables/yuanhang-demo.pdf; evidence/demo/manifest.json; evidence/demo/pdf-qa.json |
 | S-03 | P0 | B | — | 商业计划书（可选）、竞品对比/用户访谈；验收：实际验证与假设分开，无虚构合同/收入 | todo | — |
 | S-04 | P0 | A+B | S-01, Q-05 | 匿名、许可证、原创新增贡献、源代码与原型证明；取得官方指南/模板与最新通知，核对截止及复用条款；验收：不透露培养单位/导师/身份信息，除官方必须实名栏目 | todo | — |
 
