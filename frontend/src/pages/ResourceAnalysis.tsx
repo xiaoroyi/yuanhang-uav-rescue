@@ -199,6 +199,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
       const task = await api.solve(
         snap.snapshot_id,
         plan.objective as 'time' | 'energy' | 'balanced',
+        { time_limit_s: fork.scenario.policy.requires_communication ? 60 : 15 },
       )
       setJobId(task.job_id)
       query.setQueryData(['job', task.job_id], task)

@@ -229,6 +229,228 @@ class Error1(BaseModel):
     )
 
 
+class RadioEndpoint(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    tx_power_dbm: confloat(ge=-100.0, le=100.0)
+    gain_dbi: confloat(ge=-20.0, le=50.0)
+
+
+class RadioGateway(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    tx_power_dbm: confloat(ge=-100.0, le=100.0)
+    gain_dbi: confloat(ge=-20.0, le=50.0)
+    antenna_height_m: confloat(ge=0.01, le=1000.0)
+
+
+class RelayModel(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    mass_kg: confloat(ge=0.01, le=10000.0)
+    cruise_speed_mps: confloat(ge=0.01, le=200.0)
+    climb_speed_mps: confloat(ge=0.01, le=100.0)
+    descent_speed_mps: confloat(ge=0.01, le=100.0)
+    cruise_power_kw: confloat(ge=0.001, le=1000.0)
+    hover_power_kw: confloat(ge=0.001, le=1000.0)
+    radio_power_kw: confloat(ge=0.0, le=100.0)
+    climb_efficiency: confloat(ge=0.001, le=1.0)
+    prepare_duration_s: confloat(ge=0.0, le=86400.0)
+    link_duration_s: confloat(ge=0.0, le=86400.0)
+    turnaround_duration_s: confloat(ge=0.0, le=86400.0)
+    full_charge_s: confloat(ge=0.01, le=864000.0)
+    max_agl_m: confloat(ge=0.1, le=3000.0)
+    min_return_soc: confloat(ge=0.0, le=0.99)
+
+
+class Status2(Enum):
+    available = "available"
+    unavailable = "unavailable"
+
+
+class RelayAircraft(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    drone_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    status: Status2
+    location_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    available_after_s: confloat(ge=0.0)
+
+
+class Status3(Enum):
+    available = "available"
+    charging = "charging"
+    unavailable = "unavailable"
+
+
+class RelayEnergy(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    component_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    capacity_kwh: confloat(ge=0.001, le=10000.0)
+    soc: confloat(ge=0.0, le=1.0)
+    soh: confloat(ge=0.0, le=1.0)
+    status: Status3
+    location_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    available_after_s: confloat(ge=0.0)
+
+
+class Coordinate2(RootModel[confloat(ge=-180.0, le=180.0)]):
+    root: confloat(ge=-180.0, le=180.0)
+
+
+class Coordinate3(RootModel[confloat(ge=-90.0, le=90.0)]):
+    root: confloat(ge=-90.0, le=90.0)
+
+
+class RelayStation(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    station_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    coordinates: tuple[Coordinate2, Coordinate3]
+    agl_m: confloat(ge=0.01, le=3000.0)
+
+
+class Communication(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    model_id: Literal["projected_dem_radio_v1"]
+    frequency_mhz: confloat(ge=1.0, le=100000.0)
+    system_loss_db: confloat(ge=0.0, le=100.0)
+    obstruction_loss_db: confloat(ge=0.0, le=100.0)
+    sensitivity_dbm: confloat(ge=-200.0, le=0.0)
+    fading_margin_db: confloat(ge=0.0, le=100.0)
+    gateway: RadioGateway
+    transport: RadioEndpoint
+    relay_access: RadioEndpoint
+    relay_backhaul: RadioEndpoint
+    relay_model: RelayModel
+    relay_drones: list[RelayAircraft] = Field(..., max_length=8)
+    relay_energy: list[RelayEnergy] = Field(..., max_length=32)
+    candidate_stations: list[RelayStation] = Field(..., max_length=48)
+
+
+class StationCoordinate(RootModel[confloat(ge=-180.0, le=180.0)]):
+    root: confloat(ge=-180.0, le=180.0)
+
+
+class StationCoordinate1(RootModel[confloat(ge=-90.0, le=90.0)]):
+    root: confloat(ge=-90.0, le=90.0)
+
+
+class Coordinate4Item(RootModel[confloat(ge=-180.0, le=180.0)]):
+    root: confloat(ge=-180.0, le=180.0)
+
+
+class Coordinate4Item1(RootModel[confloat(ge=-90.0, le=90.0)]):
+    root: confloat(ge=-90.0, le=90.0)
+
+
+class Coordinate4(RootModel[tuple[Coordinate4Item, Coordinate4Item1]]):
+    root: tuple[Coordinate4Item, Coordinate4Item1]
+
+
+class RouteGeometry(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    type: Literal["LineString"]
+    coordinates: list[Coordinate4] = Field(..., min_length=2)
+
+
+class RelaySortie(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    relay_sortie_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    drone_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    component_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    station_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    station_coordinates: tuple[StationCoordinate, StationCoordinate1]
+    station_agl_m: confloat(ge=0.0)
+    station_elevation_m: float
+    prepare_start_s: confloat(ge=0.0)
+    takeoff_s: confloat(ge=0.0)
+    arrival_s: confloat(ge=0.0)
+    service_start_s: confloat(ge=0.0)
+    service_end_s: confloat(ge=0.0)
+    return_s: confloat(ge=0.0)
+    drone_released_s: confloat(ge=0.0)
+    charge_start_s: confloat(ge=0.0)
+    component_released_s: confloat(ge=0.0)
+    energy_kwh: confloat(ge=0.0)
+    return_soc: confloat(ge=0.0, le=1.0)
+    route_geometry: RouteGeometry
+
+
+class JointMetrics(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    relay_energy_kwh: confloat(ge=0.0)
+    joint_energy_kwh: confloat(ge=0.0)
+    joint_makespan_s: confloat(ge=0.0)
+    relay_sortie_count: conint(ge=0, le=1000)
+
+
+class Source(Enum):
+    gateway = "gateway"
+    relay = "relay"
+
+
+class CommunicationWindow(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    sortie_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    start_s: confloat(ge=0.0)
+    end_s: confloat(ge=0.0)
+    source: Source
+    relay_sortie_id: (
+        constr(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128)
+        | None
+    )
+
+
+class CommunicationReport(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    model_id: Literal["projected_dem_radio_v1"]
+    transport_active_s: confloat(ge=0.0)
+    direct_s: confloat(ge=0.0)
+    relay_s: confloat(ge=0.0)
+    coverage_gap_s: confloat(ge=0.0)
+    windows: list[CommunicationWindow] = Field(..., max_length=20000)
+
+
 class Error(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -331,7 +553,7 @@ class Visit(BaseModel):
     delivery_complete_s: confloat(ge=0.0)
 
 
-class RouteGeometry(BaseModel):
+class RouteGeometry1(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
@@ -367,7 +589,7 @@ class Sortie(BaseModel):
     )
     cargo_ids: list[CargoId] = Field(..., min_length=1)
     visits: list[Visit] = Field(..., min_length=1)
-    route_geometry: RouteGeometry
+    route_geometry: RouteGeometry1
     prepare_start_s: confloat(ge=0.0)
     takeoff_s: confloat(ge=0.0)
     return_s: confloat(ge=0.0)
@@ -438,6 +660,28 @@ class InitialCharge(BaseModel):
     to_soc: Literal[1]
 
 
+class Stage(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    stage: str
+    status: str
+    seconds: confloat(ge=0.0)
+    objective: float | None
+
+
+class JointSearch(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    method: Literal["fixed_grouping_joint_cp_v1"]
+    status: str
+    station_count: conint(ge=0)
+    coverage_atom_count: conint(ge=0)
+    relay_slot_limit: conint(ge=0)
+    stages: list[Stage]
+
+
 class Plan(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -474,6 +718,10 @@ class Plan(BaseModel):
     )
     change_summary: ChangeSummary | None
     initial_charges: list[InitialCharge] | None = None
+    relay_sorties: list[RelaySortie] | None = Field(None, max_length=1000)
+    joint_metrics: JointMetrics | None = None
+    communication_report: CommunicationReport | None = None
+    joint_search: JointSearch | None = None
 
 
 class Mode(Enum):
@@ -487,7 +735,7 @@ class DataOrigin1(Enum):
     verified_dataset = "verified_dataset"
 
 
-class Status2(Enum):
+class Status4(Enum):
     not_evaluated = "not_evaluated"
     available = "available"
     invalid = "invalid"
@@ -497,7 +745,7 @@ class Terrain(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    status: Status2
+    status: Status4
     asset_id: (
         constr(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128)
         | None
@@ -547,7 +795,7 @@ class Demand(BaseModel):
     mandatory: bool
 
 
-class Status3(Enum):
+class Status5(Enum):
     available = "available"
     reserved = "reserved"
     loaded = "loaded"
@@ -569,7 +817,7 @@ class CargoItem(BaseModel):
     type: constr(min_length=1)
     mass_kg: PositiveFloat
     volume_l: PositiveFloat
-    status: Status3
+    status: Status5
     location_id: constr(
         pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
     )
@@ -616,7 +864,7 @@ class DroneType(BaseModel):
     charge_model: ChargeModel
 
 
-class Status4(Enum):
+class Status6(Enum):
     available = "available"
     reserved = "reserved"
     loaded = "loaded"
@@ -634,14 +882,14 @@ class Drone(BaseModel):
     type_id: constr(
         pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
     )
-    status: Status4
+    status: Status6
     location_id: constr(
         pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
     )
     available_after_s: confloat(ge=0.0)
 
 
-class Status5(Enum):
+class Status7(Enum):
     available = "available"
     reserved = "reserved"
     in_use = "in_use"
@@ -662,7 +910,7 @@ class Battery(BaseModel):
     capacity_kwh: PositiveFloat
     soc: confloat(ge=0.0, le=1.0)
     soh: confloat(ge=0.0, le=1.0)
-    status: Status5
+    status: Status7
     location_id: constr(
         pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
     )
@@ -680,7 +928,7 @@ class Policy(BaseModel):
     cost_model_available: Literal[False]
 
 
-class Coordinate2(RootModel[list[Coordinates]]):
+class Coordinate5(RootModel[list[Coordinates]]):
     root: list[Coordinates]
 
 
@@ -689,7 +937,7 @@ class Geometry(BaseModel):
         extra="forbid",
     )
     type: Literal["Polygon"]
-    coordinates: list[Coordinate2] = Field(..., max_length=1, min_length=1)
+    coordinates: list[Coordinate5] = Field(..., max_length=1, min_length=1)
 
 
 class RestrictedZone(BaseModel):
@@ -738,6 +986,7 @@ class Scenario(BaseModel):
     policy: Policy
     restricted_zones: list[RestrictedZone] | None = Field(None, max_length=12)
     resource_limits: ResourceLimits | None = None
+    communication: Communication | None = None
 
 
 class Snapshot(BaseModel):

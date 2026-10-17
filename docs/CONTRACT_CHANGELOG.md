@@ -14,3 +14,4 @@
 - RFC-003：Scenario可选restricted_zones，model_scope与检查code扩展restricted_zone；旧数据无此字段仍有效。HTTP与入库exclude_unset防止给旧快照补默认值，显式null不伪装缺省。消费者原子升级Schema→Pydantic→OpenAPI→TS，并补旧快照hash、Excel往返、绕行/穿越/边界/缓冲与浏览器版本链检查。规则状态仍为proposed，不代表A/B签字。
 - RFC-004：复用原Scenario.terrain字段注册本地GeoTIFF资产；新增资产/绑定/地图独立HTTP DTO、生成类型与只读Solver资产上下文。旧题设引用不变，未知像元不补齐，绑定创建新版本。通过真实GeoTIFF→Worker→独立检查→确认/地图/来源下载、CRS/NoData/损坏/隔离与浏览器刷新检查；完整状态见IMPLEMENTATION_STATUS。
 - RFC-005：可选resource_limits、charge_start_s和initial_charges，强制ground_resource范围。有限准备/充电排程、初始补能、独立峰值检查、等待甘特、分析/CSV/报告与确认预约同批实现；缺省旧对象不补字段，旧Snapshot/hash与原无限模型保留。详见GROUND_RESOURCES。Pydantic/OpenAPI/TS同步生成，状态仍待团队复核。
+- RFC-006：可选通信参数/中继实体/能源组件与联合Plan对象；既有metrics不改变运输含义，额外joint_metrics统计联合结果，joint_search保存有限搜索证据。解析连续区间检查、共享地面容量、Worker/确认/Excel/CSV/GeoJSON/报告和界面同批接入，32箱小场景通过，80箱尚为UNKNOWN。正式团队批准仍待复核。

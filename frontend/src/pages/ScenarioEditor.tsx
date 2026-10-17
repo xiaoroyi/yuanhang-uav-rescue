@@ -24,6 +24,7 @@ import { Badge, Button, Modal } from '../components/ui'
 import { category, number, originLabel, percent, statusLabel } from '../lib/format'
 import { ZoneManager } from './ZoneManager'
 import { TerrainManager } from './TerrainManager'
+import { CommunicationManager } from './CommunicationManager'
 
 type Group = 'sites' | 'demands' | 'cargo_items' | 'drone_types' | 'drones' | 'batteries'
 type Row = Record<string, unknown>
@@ -597,6 +598,12 @@ export function ScenarioEditor({
         <aside className="scenario-aside">
           <TerrainManager scenario={scenario} onAssigned={onCreated} notify={notify} />
           <ZoneManager scenario={scenario} onSave={onSave} notify={notify} />
+          <CommunicationManager
+            key={`${scenario.scenario_id}:${scenario.state_version}`}
+            scenario={scenario}
+            onSave={onSave}
+            notify={notify}
+          />
           <section className="panel">
             <RescueMap
               scenario={scenario}
@@ -954,7 +961,7 @@ function SettingsForm({
           </>
         )}
       </div>
-      <p className="callout">当前模型不含连续通信认证；费用未配置。不能把仿真结果当作实飞许可。</p>
+      <p className="callout">通信与中继在专用面板配置；费用未配置。仿真结果不作为实飞许可。</p>
       <div className="dialog-footer">
         <Button variant="primary" busy={busy} onClick={() => void save(draft)}>
           保存设置

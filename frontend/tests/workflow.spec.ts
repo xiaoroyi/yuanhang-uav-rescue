@@ -9,6 +9,61 @@ async function solve(page: Page) {
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
 }
 
+test('连续通信联合调度、真实中继地图与资源窗口、确认及报告', async ({ page, request }) => {
+  test.setTimeout(120000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  page.on('console', (e) => {
+    if (e.type() === 'error') errors.push(e.text())
+  })
+  const sid = await page.getByLabel('选择场景').inputValue()
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: '配置通信资源', exact: true }).click()
+  await page.getByLabel('要求全程连续通信，启用运输与中继联合调度').check()
+  await expect(page.getByRole('dialog')).toContainText('R-COMP-06')
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/communication-config-1280.png'),
+  })
+  await page.getByRole('button', { name: '保存通信配置', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  const panel = page.getByRole('region', { name: '通信协同结果' })
+  await expect(panel).toContainText('模型内无通信缺口')
+  await expect(page.locator('.map-marker-relay').first()).toBeAttached()
+  const summaries = await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()
+  const plan = await (await request.get(`/api/v1/plans/${summaries[0].plan_id}`)).json()
+  expect(plan.relay_sorties.length).toBeGreaterThan(0)
+  expect(plan.communication_report.coverage_gap_s).toBe(0)
+  expect(plan.model_scope).toContain('communication')
+  await screenshot(page, 'joint-workspace-1440')
+  await panel.scrollIntoViewIfNeeded()
+  await panel.getByRole('button', { name: '能源组件', exact: true }).click()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/joint-resource-windows-1440.png'),
+  })
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  const report = await page.context().newPage()
+  await report.goto(`/api/v1/plans/${plan.plan_id}/report`)
+  await expect(report.getByText('通信与中继保障', { exact: true })).toBeVisible()
+  await report.pdf({
+    path: path.resolve('../evidence/browser/verified/joint-report.pdf'),
+    printBackground: true,
+    preferCSSPageSize: true,
+  })
+  await report.close()
+  await page.reload()
+  await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'joint-workspace-1280')
+  expect(errors).toEqual([])
+})
+
 async function screenshot(page: Page, name: string) {
   await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
   await page.mouse.move(1100, 50)

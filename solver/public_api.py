@@ -40,12 +40,12 @@ def capabilities():
         "supported_objectives": ["time", "energy", "balanced"],
         "supported_events": ["drone.unavailable"],
         "supported_model_scope": BASE_SCOPE
-        + ["terrain", "restricted_zone", "ground_resource"],
+        + ["terrain", "restricted_zone", "ground_resource", "communication"],
         "supported_energy_models": [ENERGY_MODEL],
         "supported_charge_models": [CHARGE_MODEL],
         "features": {
             "partial_service": False,
-            "relay_coordination": False,
+            "relay_coordination": True,
             "execution_state": False,
             "dem_validation": True,
             "what_if": True,
@@ -503,6 +503,26 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         validate_snapshot(snapshot)
         validate_options(options, snapshot)
         s = snapshot["scenario"]
+        if "communication" in options["requested_model_scope"]:
+            if not s.get("communication"):
+                return _outcome(
+                    "UNKNOWN",
+                    options,
+                    started,
+                    reason="unsupported_scope",
+                    diagnostics=[
+                        diagnostic(
+                            "INPUT_NOT_READY", "连续通信尚未配置链路参数和中继资源。"
+                        )
+                    ],
+                )
+            if not s["policy"]["requires_communication"]:
+                raise InputNotReady(
+                    "请求通信求解前，请先开启场景的连续通信策略并保存新版本。"
+                )
+            return _solve_joint(
+                snapshot, options, started, progress_callback, initial_plan
+            )
         if set(options["requested_model_scope"]) - set(
             capabilities()["supported_model_scope"]
         ):
@@ -747,12 +767,167 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         )
 
 
+def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
+    """Build a private transport relaxation, then independently check the joint plan."""
+    import hashlib
+    from shared.contracts import content_hash
+    from solver.joint import schedule
+
+    s = snapshot["scenario"]
+    budget = max(0.01, min(float(options["time_limit_s"]), 3600))
+    deadline = started + budget * 0.90
+    incumbent = None
+    if initial_plan is not None:
+        fresh_validation = validate(snapshot, initial_plan)
+        if (
+            options["mode"] != "improve"
+            or initial_plan["data_origin"] != "solver"
+            or not initial_plan["has_validated_plan"]
+            or initial_plan["snapshot_id"] != snapshot["snapshot_id"]
+            or initial_plan["objective"] != options["objective"]
+            or fresh_validation["status"] != "passed"
+        ):
+            raise InputNotReady("联合深入优化基线必须是同一快照/策略的已验证方案。")
+        incumbent = copy.deepcopy(initial_plan)
+        incumbent["validation"] = fresh_validation
+        incumbent["solver_status"] = "FEASIBLE"
+
+    def progress(message):
+        if progress_callback:
+            progress_callback(
+                {
+                    "stage": message,
+                    "elapsed_s": time.perf_counter() - started,
+                    "candidate_count": int(incumbent is not None),
+                }
+            )
+
+    progress("生成私有运输松弛候选，尚不是联合可行方案")
+    relaxed = copy.deepcopy(snapshot)
+    relaxed["scenario"]["policy"]["requires_communication"] = False
+    relaxed["scenario"].pop("communication", None)
+    relaxed["content_hash"] = content_hash(relaxed["scenario"])
+    relaxed["snapshot_id"] = (
+        "SNAP-RELAXED-"
+        + hashlib.sha256(snapshot["snapshot_id"].encode()).hexdigest()[:16]
+    )
+    seed_options = {
+        **options,
+        "snapshot_id": relaxed["snapshot_id"],
+        "plan_id": "PLAN-PRIVATE-RELAXED",
+        "mode": "quick",
+        "time_limit_s": min(5, budget * 0.18),
+        "parent_plan_id": None,
+        "event_id": None,
+        "requested_model_scope": [
+            code for code in options["requested_model_scope"] if code != "communication"
+        ],
+    }
+    seed = solve(relaxed, seed_options)
+    candidate = None
+    details = {"status": "NO_TRANSPORT_SEED"}
+    if seed["plan"]:
+        try:
+            routes, relays, communication, details = schedule(
+                s, seed["plan"], options, deadline, progress
+            )
+            if routes:
+                candidate = _make_plan(snapshot, options, routes)
+                candidate["model_scope"].append("communication")
+                candidate["relay_sorties"] = relays
+                relay_energy = sum(r["energy_kwh"] for r in relays)
+                candidate["joint_metrics"] = {
+                    "relay_energy_kwh": relay_energy,
+                    "joint_energy_kwh": candidate["metrics"]["energy_kwh"]
+                    + relay_energy,
+                    "joint_makespan_s": max(
+                        [
+                            candidate["metrics"]["makespan_s"],
+                            *[r["return_s"] for r in relays],
+                        ]
+                    ),
+                    "relay_sortie_count": len(relays),
+                }
+                candidate["communication_report"] = communication
+                candidate["joint_search"] = {
+                    "method": "fixed_grouping_joint_cp_v1",
+                    "status": details["status"],
+                    "station_count": details.get("stations", 0),
+                    "coverage_atom_count": details.get("atoms", 0),
+                    "relay_slot_limit": details.get("relay_slots", 0),
+                    "stages": details.get("stages", []),
+                }
+                candidate["solver_notes"] = [
+                    note
+                    for note in candidate["solver_notes"]
+                    if not note.startswith("通信未评估")
+                ]
+                candidate["solver_notes"].extend(
+                    [
+                        "有限运输组批/访问顺序与悬停候选上的联合排程；解析连续覆盖，未证明原问题全局最优。",
+                        "projected_dem_radio_v1：UTM闭四边形DEM、最多250m运动弦、2mm像元数值外扩；不是实际无线电覆盖认证。",
+                        "既有metrics仅统计运输，joint_metrics统计运输与中继；中继CP采用全充电时长上界，输出与独立检查使用实际两阶段补能。",
+                        f"有限联合候选：{details.get('stations', 0)}个悬停位置、{details.get('atoms', 0)}段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
+                    ]
+                )
+                progress("独立复算中继物理、实体占用和全阶段通信")
+                candidate["validation"] = validate(snapshot, candidate)
+                if candidate["validation"]["status"] != "passed":
+                    details = {
+                        "status": "VALIDATION_FAILED",
+                        "checks": candidate["validation"]["checks"],
+                    }
+                    candidate = None
+        except (InputNotReady, TimeoutError) as exc:
+            details = {"status": "LIMITED_CANDIDATES_OR_BUDGET", "message": str(exc)}
+    if incumbent is not None and (
+        candidate is None
+        or objective_score(s, incumbent, options["objective"])
+        <= objective_score(s, candidate, options["objective"])
+    ):
+        candidate = incumbent
+        candidate.update(
+            plan_id=options["plan_id"],
+            generated_at=datetime.now(timezone.utc).isoformat(),
+        )
+        candidate["solver_notes"].append(
+            "联合深入优化保留已验算基线；有限分解内未找到严格改善。"
+        )
+    if candidate is None:
+        return _outcome(
+            "UNKNOWN",
+            options,
+            started,
+            reason="time_limit" if time.perf_counter() >= deadline else "finished",
+            count=seed["candidate_count"],
+            diagnostics=[
+                diagnostic(
+                    "JOINT_CANDIDATE_NOT_FOUND",
+                    "有限联合候选尚未产生通过独立检查的方案：" + str(details),
+                )
+            ],
+        )
+    elapsed = time.perf_counter() - started
+    return _outcome(
+        "FEASIBLE",
+        options,
+        started,
+        plan=candidate,
+        first=elapsed,
+        count=seed["candidate_count"] + 1,
+        validation=candidate["validation"],
+        reason="time_limit" if time.perf_counter() >= deadline else "finished",
+    )
+
+
 def _try_local_repair(snapshot, previous_plan, options, started, progress_callback):
     """Keep complete validated reservations, expanding through resource successors if needed."""
     try:
         validate_snapshot(snapshot)
         validate_options(options, snapshot)
         s = snapshot["scenario"]
+        if s["policy"]["requires_communication"]:
+            return None
         if s["data_origin"] == "mock" or not s["base"]["available"]:
             return None
         if set(options["requested_model_scope"]) - set(

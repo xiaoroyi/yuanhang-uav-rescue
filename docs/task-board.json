@@ -575,10 +575,16 @@
         "A-02",
         "G0-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/COMMUNICATION.md",
+        "solver/joint.py",
+        "tests/solver/test_radio.py",
+        "evidence/solver/joint-compact.json",
+        "evidence/solver/joint-contest.json"
+      ]
     },
     {
       "id": "C-07",
@@ -590,10 +596,14 @@
       "dependencies": [
         "A-08"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/CONTRACT_RFC_006.md",
+        "tests/backend/test_joint_api.py",
+        "contracts/http/openapi.generated.json"
+      ]
     },
     {
       "id": "B-07",
@@ -605,10 +615,14 @@
       "dependencies": [
         "C-07"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "frontend/src/components/CommunicationPanel.tsx",
+        "evidence/browser/verified/joint-workspace-1440.png",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-09",

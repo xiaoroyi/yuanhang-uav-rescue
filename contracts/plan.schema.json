@@ -462,6 +462,86 @@
         ],
         "additionalProperties": false
       }
+    },
+    "relay_sorties": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/relay_sortie"
+      }
+    },
+    "joint_metrics": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/joint_metrics"
+    },
+    "communication_report": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/communication_report"
+    },
+    "joint_search": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "const": "fixed_grouping_joint_cp_v1"
+        },
+        "status": {
+          "type": "string"
+        },
+        "station_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_atom_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "relay_slot_limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stage": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "seconds": {
+                "type": "number",
+                "minimum": 0
+              },
+              "objective": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "stage",
+              "status",
+              "seconds",
+              "objective"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "method",
+        "status",
+        "station_count",
+        "coverage_atom_count",
+        "relay_slot_limit",
+        "stages"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [

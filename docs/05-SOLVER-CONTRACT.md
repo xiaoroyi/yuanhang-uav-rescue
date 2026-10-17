@@ -39,6 +39,8 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 
 实现和同预算真实输入证据见 `solver/cp_pool.py`、`evidence/solver/deep-compact.json`、`deep-contest.json`。间隔模型参考 [OR-Tools调度文档](https://developers.google.com/optimization/scheduling/job_shop)。
 
+启用连续通信时，先产生具有独立ID的私有运输松弛，再联合安排有限运输模式与悬停候选，最后重建中继物理/能源、资源并发与全阶段链路。松弛不保存为用户联合方案；旧metrics保持运输口径，联合目标使用joint_metrics。高级初始状态与80箱搜索提升仍在任务板。真实边界、默认参数和验收见COMMUNICATION.md及RFC-006。
+
 ## 重规划
 
 后端先应用事件并保存新版本快照，再把新 Snapshot、原 Plan、Event 和 mode=replan 的 Options 传入。两引用须完整、旧/新计划属于同一 Scenario，旧 Plan 不修改，新 Plan 绑定新快照，future sortie 不再引用故障实体。首版整个场景尚未执行，后续中途修复须先补执行事实契约。

@@ -22,6 +22,7 @@ OBJECTS = {
     "coordinates",
     "restricted_zones",
     "resource_limits",
+    "communication",
 }
 NUMBERS = {
     "state_version",

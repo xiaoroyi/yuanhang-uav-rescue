@@ -500,6 +500,45 @@
         }
       }
     },
+    "/api/v1/scenarios/{scenario_id}/communication-template": {
+      "get": {
+        "summary": "Communication Template",
+        "operationId": "communication_template_api_v1_scenarios__scenario_id__communication_template_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Communication"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/plans/{plan_id}/playback": {
       "get": {
         "summary": "Plan Playback",
@@ -1676,7 +1715,8 @@
               "enum": [
                 "json",
                 "csv",
-                "geojson"
+                "geojson",
+                "relay_csv"
               ],
               "type": "string",
               "default": "json",
@@ -1878,7 +1918,7 @@
             "title": "Soh"
           },
           "status": {
-            "$ref": "#/components/schemas/Status5"
+            "$ref": "#/components/schemas/Status7"
           },
           "location_id": {
             "type": "string",
@@ -2070,7 +2110,7 @@
             "title": "Volume L"
           },
           "status": {
-            "$ref": "#/components/schemas/Status3"
+            "$ref": "#/components/schemas/Status5"
           },
           "location_id": {
             "type": "string",
@@ -2274,6 +2314,151 @@
         ],
         "title": "Code1"
       },
+      "Communication": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "projected_dem_radio_v1",
+            "title": "Model Id"
+          },
+          "frequency_mhz": {
+            "type": "number",
+            "maximum": 100000.0,
+            "minimum": 1.0,
+            "title": "Frequency Mhz"
+          },
+          "system_loss_db": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "System Loss Db"
+          },
+          "obstruction_loss_db": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Obstruction Loss Db"
+          },
+          "sensitivity_dbm": {
+            "type": "number",
+            "maximum": 0.0,
+            "minimum": -200.0,
+            "title": "Sensitivity Dbm"
+          },
+          "fading_margin_db": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Fading Margin Db"
+          },
+          "gateway": {
+            "$ref": "#/components/schemas/RadioGateway"
+          },
+          "transport": {
+            "$ref": "#/components/schemas/RadioEndpoint"
+          },
+          "relay_access": {
+            "$ref": "#/components/schemas/RadioEndpoint"
+          },
+          "relay_backhaul": {
+            "$ref": "#/components/schemas/RadioEndpoint"
+          },
+          "relay_model": {
+            "$ref": "#/components/schemas/RelayModel"
+          },
+          "relay_drones": {
+            "items": {
+              "$ref": "#/components/schemas/RelayAircraft"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Relay Drones"
+          },
+          "relay_energy": {
+            "items": {
+              "$ref": "#/components/schemas/RelayEnergy"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "title": "Relay Energy"
+          },
+          "candidate_stations": {
+            "items": {
+              "$ref": "#/components/schemas/RelayStation"
+            },
+            "type": "array",
+            "maxItems": 48,
+            "title": "Candidate Stations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "frequency_mhz",
+          "system_loss_db",
+          "obstruction_loss_db",
+          "sensitivity_dbm",
+          "fading_margin_db",
+          "gateway",
+          "transport",
+          "relay_access",
+          "relay_backhaul",
+          "relay_model",
+          "relay_drones",
+          "relay_energy",
+          "candidate_stations"
+        ],
+        "title": "Communication"
+      },
+      "CommunicationReport": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "projected_dem_radio_v1",
+            "title": "Model Id"
+          },
+          "transport_active_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Transport Active S"
+          },
+          "direct_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Direct S"
+          },
+          "relay_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Relay S"
+          },
+          "coverage_gap_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Coverage Gap S"
+          },
+          "windows": {
+            "items": {
+              "$ref": "#/components/schemas/CommunicationWindow"
+            },
+            "type": "array",
+            "maxItems": 20000,
+            "title": "Windows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "transport_active_s",
+          "direct_s",
+          "relay_s",
+          "coverage_gap_s",
+          "windows"
+        ],
+        "title": "CommunicationReport"
+      },
       "CommunicationStatus": {
         "type": "string",
         "enum": [
@@ -2282,6 +2467,54 @@
           "not_evaluated"
         ],
         "title": "CommunicationStatus"
+      },
+      "CommunicationWindow": {
+        "properties": {
+          "sortie_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Sortie Id"
+          },
+          "start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "End S"
+          },
+          "source": {
+            "$ref": "#/components/schemas/Source"
+          },
+          "relay_sortie_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Sortie Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sortie_id",
+          "start_s",
+          "end_s",
+          "source",
+          "relay_sortie_id"
+        ],
+        "title": "CommunicationWindow"
       },
       "Comparison": {
         "properties": {
@@ -2420,11 +2653,49 @@
         "title": "Coordinate1"
       },
       "Coordinate2": {
+        "type": "number",
+        "maximum": 180.0,
+        "minimum": -180.0,
+        "title": "Coordinate2"
+      },
+      "Coordinate3": {
+        "type": "number",
+        "maximum": 90.0,
+        "minimum": -90.0,
+        "title": "Coordinate3"
+      },
+      "Coordinate4": {
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/Coordinate4Item"
+          },
+          {
+            "$ref": "#/components/schemas/Coordinate4Item1"
+          }
+        ],
+        "type": "array",
+        "maxItems": 2,
+        "minItems": 2,
+        "title": "Coordinate4"
+      },
+      "Coordinate4Item": {
+        "type": "number",
+        "maximum": 180.0,
+        "minimum": -180.0,
+        "title": "Coordinate4Item"
+      },
+      "Coordinate4Item1": {
+        "type": "number",
+        "maximum": 90.0,
+        "minimum": -90.0,
+        "title": "Coordinate4Item1"
+      },
+      "Coordinate5": {
         "items": {
           "$ref": "#/components/schemas/Coordinates"
         },
         "type": "array",
-        "title": "Coordinate2"
+        "title": "Coordinate5"
       },
       "Coordinates": {
         "prefixItems": [
@@ -2693,7 +2964,7 @@
             "title": "Type Id"
           },
           "status": {
-            "$ref": "#/components/schemas/Status4"
+            "$ref": "#/components/schemas/Status6"
           },
           "location_id": {
             "type": "string",
@@ -3032,7 +3303,7 @@
           },
           "coordinates": {
             "items": {
-              "$ref": "#/components/schemas/Coordinate2"
+              "$ref": "#/components/schemas/Coordinate5"
             },
             "type": "array",
             "maxItems": 1,
@@ -3175,6 +3446,86 @@
           "canceled"
         ],
         "title": "JobState"
+      },
+      "JointMetrics": {
+        "properties": {
+          "relay_energy_kwh": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Relay Energy Kwh"
+          },
+          "joint_energy_kwh": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Joint Energy Kwh"
+          },
+          "joint_makespan_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Joint Makespan S"
+          },
+          "relay_sortie_count": {
+            "type": "integer",
+            "maximum": 1000.0,
+            "minimum": 0.0,
+            "title": "Relay Sortie Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "relay_energy_kwh",
+          "joint_energy_kwh",
+          "joint_makespan_s",
+          "relay_sortie_count"
+        ],
+        "title": "JointMetrics"
+      },
+      "JointSearch": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "const": "fixed_grouping_joint_cp_v1",
+            "title": "Method"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "station_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Station Count"
+          },
+          "coverage_atom_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Coverage Atom Count"
+          },
+          "relay_slot_limit": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Relay Slot Limit"
+          },
+          "stages": {
+            "items": {
+              "$ref": "#/components/schemas/Stage"
+            },
+            "type": "array",
+            "title": "Stages"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "method",
+          "status",
+          "station_count",
+          "coverage_atom_count",
+          "relay_slot_limit",
+          "stages"
+        ],
+        "title": "JointSearch"
       },
       "Metrics": {
         "properties": {
@@ -3457,6 +3808,51 @@
               }
             ],
             "title": "Initial Charges"
+          },
+          "relay_sorties": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RelaySortie"
+                },
+                "type": "array",
+                "maxItems": 1000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Sorties"
+          },
+          "joint_metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JointMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "communication_report": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CommunicationReport"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "joint_search": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JointSearch"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -3851,6 +4247,434 @@
         ],
         "title": "Progress"
       },
+      "RadioEndpoint": {
+        "properties": {
+          "tx_power_dbm": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": -100.0,
+            "title": "Tx Power Dbm"
+          },
+          "gain_dbi": {
+            "type": "number",
+            "maximum": 50.0,
+            "minimum": -20.0,
+            "title": "Gain Dbi"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tx_power_dbm",
+          "gain_dbi"
+        ],
+        "title": "RadioEndpoint"
+      },
+      "RadioGateway": {
+        "properties": {
+          "tx_power_dbm": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": -100.0,
+            "title": "Tx Power Dbm"
+          },
+          "gain_dbi": {
+            "type": "number",
+            "maximum": 50.0,
+            "minimum": -20.0,
+            "title": "Gain Dbi"
+          },
+          "antenna_height_m": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.01,
+            "title": "Antenna Height M"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tx_power_dbm",
+          "gain_dbi",
+          "antenna_height_m"
+        ],
+        "title": "RadioGateway"
+      },
+      "RelayAircraft": {
+        "properties": {
+          "drone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Drone Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status2"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Available After S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "drone_id",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "title": "RelayAircraft"
+      },
+      "RelayEnergy": {
+        "properties": {
+          "component_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Component Id"
+          },
+          "capacity_kwh": {
+            "type": "number",
+            "maximum": 10000.0,
+            "minimum": 0.001,
+            "title": "Capacity Kwh"
+          },
+          "soc": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Soc"
+          },
+          "soh": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Soh"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status3"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Available After S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "component_id",
+          "capacity_kwh",
+          "soc",
+          "soh",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "title": "RelayEnergy"
+      },
+      "RelayModel": {
+        "properties": {
+          "mass_kg": {
+            "type": "number",
+            "maximum": 10000.0,
+            "minimum": 0.01,
+            "title": "Mass Kg"
+          },
+          "cruise_speed_mps": {
+            "type": "number",
+            "maximum": 200.0,
+            "minimum": 0.01,
+            "title": "Cruise Speed Mps"
+          },
+          "climb_speed_mps": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.01,
+            "title": "Climb Speed Mps"
+          },
+          "descent_speed_mps": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.01,
+            "title": "Descent Speed Mps"
+          },
+          "cruise_power_kw": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.001,
+            "title": "Cruise Power Kw"
+          },
+          "hover_power_kw": {
+            "type": "number",
+            "maximum": 1000.0,
+            "minimum": 0.001,
+            "title": "Hover Power Kw"
+          },
+          "radio_power_kw": {
+            "type": "number",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Radio Power Kw"
+          },
+          "climb_efficiency": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.001,
+            "title": "Climb Efficiency"
+          },
+          "prepare_duration_s": {
+            "type": "number",
+            "maximum": 86400.0,
+            "minimum": 0.0,
+            "title": "Prepare Duration S"
+          },
+          "link_duration_s": {
+            "type": "number",
+            "maximum": 86400.0,
+            "minimum": 0.0,
+            "title": "Link Duration S"
+          },
+          "turnaround_duration_s": {
+            "type": "number",
+            "maximum": 86400.0,
+            "minimum": 0.0,
+            "title": "Turnaround Duration S"
+          },
+          "full_charge_s": {
+            "type": "number",
+            "maximum": 864000.0,
+            "minimum": 0.01,
+            "title": "Full Charge S"
+          },
+          "max_agl_m": {
+            "type": "number",
+            "maximum": 3000.0,
+            "minimum": 0.1,
+            "title": "Max Agl M"
+          },
+          "min_return_soc": {
+            "type": "number",
+            "maximum": 0.99,
+            "minimum": 0.0,
+            "title": "Min Return Soc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mass_kg",
+          "cruise_speed_mps",
+          "climb_speed_mps",
+          "descent_speed_mps",
+          "cruise_power_kw",
+          "hover_power_kw",
+          "radio_power_kw",
+          "climb_efficiency",
+          "prepare_duration_s",
+          "link_duration_s",
+          "turnaround_duration_s",
+          "full_charge_s",
+          "max_agl_m",
+          "min_return_soc"
+        ],
+        "title": "RelayModel"
+      },
+      "RelaySortie": {
+        "properties": {
+          "relay_sortie_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Relay Sortie Id"
+          },
+          "drone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Drone Id"
+          },
+          "component_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Component Id"
+          },
+          "station_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Station Id"
+          },
+          "station_coordinates": {
+            "prefixItems": [
+              {
+                "$ref": "#/components/schemas/StationCoordinate"
+              },
+              {
+                "$ref": "#/components/schemas/StationCoordinate1"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Station Coordinates"
+          },
+          "station_agl_m": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Station Agl M"
+          },
+          "station_elevation_m": {
+            "type": "number",
+            "title": "Station Elevation M"
+          },
+          "prepare_start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Prepare Start S"
+          },
+          "takeoff_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Takeoff S"
+          },
+          "arrival_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Arrival S"
+          },
+          "service_start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Service Start S"
+          },
+          "service_end_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Service End S"
+          },
+          "return_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Return S"
+          },
+          "drone_released_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Drone Released S"
+          },
+          "charge_start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Charge Start S"
+          },
+          "component_released_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Component Released S"
+          },
+          "energy_kwh": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Energy Kwh"
+          },
+          "return_soc": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Return Soc"
+          },
+          "route_geometry": {
+            "$ref": "#/components/schemas/RouteGeometry"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "relay_sortie_id",
+          "drone_id",
+          "component_id",
+          "station_id",
+          "station_coordinates",
+          "station_agl_m",
+          "station_elevation_m",
+          "prepare_start_s",
+          "takeoff_s",
+          "arrival_s",
+          "service_start_s",
+          "service_end_s",
+          "return_s",
+          "drone_released_s",
+          "charge_start_s",
+          "component_released_s",
+          "energy_kwh",
+          "return_soc",
+          "route_geometry"
+        ],
+        "title": "RelaySortie"
+      },
+      "RelayStation": {
+        "properties": {
+          "station_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Station Id"
+          },
+          "coordinates": {
+            "prefixItems": [
+              {
+                "$ref": "#/components/schemas/Coordinate2"
+              },
+              {
+                "$ref": "#/components/schemas/Coordinate3"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Coordinates"
+          },
+          "agl_m": {
+            "type": "number",
+            "maximum": 3000.0,
+            "minimum": 0.01,
+            "title": "Agl M"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "station_id",
+          "coordinates",
+          "agl_m"
+        ],
+        "title": "RelayStation"
+      },
       "RemovedSortieId": {
         "type": "string",
         "maxLength": 128,
@@ -3927,7 +4751,9 @@
             "type": "string",
             "enum": [
               "drone",
-              "battery"
+              "battery",
+              "relay_drone",
+              "relay_energy"
             ],
             "title": "Kind"
           },
@@ -4022,7 +4848,7 @@
           },
           "coordinates": {
             "items": {
-              "$ref": "#/components/schemas/Coordinates"
+              "$ref": "#/components/schemas/Coordinate4"
             },
             "type": "array",
             "minItems": 2,
@@ -4036,6 +4862,30 @@
           "coordinates"
         ],
         "title": "RouteGeometry"
+      },
+      "RouteGeometry1": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "LineString",
+            "title": "Type"
+          },
+          "coordinates": {
+            "items": {
+              "$ref": "#/components/schemas/Coordinates"
+            },
+            "type": "array",
+            "minItems": 2,
+            "title": "Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "title": "RouteGeometry1"
       },
       "Scenario": {
         "properties": {
@@ -4158,6 +5008,16 @@
             "anyOf": [
               {
                 "$ref": "#/components/schemas/ResourceLimits"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "communication": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Communication"
               },
               {
                 "type": "null"
@@ -4741,7 +5601,7 @@
             "title": "Visits"
           },
           "route_geometry": {
-            "$ref": "#/components/schemas/RouteGeometry"
+            "$ref": "#/components/schemas/RouteGeometry1"
           },
           "prepare_start_s": {
             "type": "number",
@@ -4834,6 +5694,63 @@
         ],
         "title": "Sortie"
       },
+      "Source": {
+        "type": "string",
+        "enum": [
+          "gateway",
+          "relay"
+        ],
+        "title": "Source"
+      },
+      "Stage": {
+        "properties": {
+          "stage": {
+            "type": "string",
+            "title": "Stage"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "seconds": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Seconds"
+          },
+          "objective": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Objective"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "stage",
+          "status",
+          "seconds",
+          "objective"
+        ],
+        "title": "Stage"
+      },
+      "StationCoordinate": {
+        "type": "number",
+        "maximum": 180.0,
+        "minimum": -180.0,
+        "title": "StationCoordinate"
+      },
+      "StationCoordinate1": {
+        "type": "number",
+        "maximum": 90.0,
+        "minimum": -90.0,
+        "title": "StationCoordinate1"
+      },
       "Status": {
         "type": "string",
         "enum": [
@@ -4856,13 +5773,30 @@
       "Status2": {
         "type": "string",
         "enum": [
-          "not_evaluated",
           "available",
-          "invalid"
+          "unavailable"
         ],
         "title": "Status2"
       },
       "Status3": {
+        "type": "string",
+        "enum": [
+          "available",
+          "charging",
+          "unavailable"
+        ],
+        "title": "Status3"
+      },
+      "Status4": {
+        "type": "string",
+        "enum": [
+          "not_evaluated",
+          "available",
+          "invalid"
+        ],
+        "title": "Status4"
+      },
+      "Status5": {
         "type": "string",
         "enum": [
           "available",
@@ -4872,9 +5806,9 @@
           "delivered",
           "unavailable"
         ],
-        "title": "Status3"
+        "title": "Status5"
       },
-      "Status4": {
+      "Status6": {
         "type": "string",
         "enum": [
           "available",
@@ -4883,9 +5817,9 @@
           "in_flight",
           "unavailable"
         ],
-        "title": "Status4"
+        "title": "Status6"
       },
-      "Status5": {
+      "Status7": {
         "type": "string",
         "enum": [
           "available",
@@ -4894,7 +5828,7 @@
           "charging",
           "unavailable"
         ],
-        "title": "Status5"
+        "title": "Status7"
       },
       "SupportedChargeModel": {
         "type": "string",
@@ -4944,7 +5878,7 @@
       "Terrain": {
         "properties": {
           "status": {
-            "$ref": "#/components/schemas/Status2"
+            "$ref": "#/components/schemas/Status4"
           },
           "asset_id": {
             "anyOf": [

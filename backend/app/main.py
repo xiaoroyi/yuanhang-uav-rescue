@@ -33,6 +33,7 @@ from backend.app.generated.domain import (
     Snapshot,
     SolveJob,
     Validation,
+    Communication,
 )
 from backend.app.analytics import (
     PlanAnalysis,
@@ -78,7 +79,11 @@ from shared.contracts import (
     validate_scenario,
     validate_snapshot,
 )
-from solver.adapters.contest import compact_scenario, contest_scenario
+from solver.adapters.contest import (
+    compact_scenario,
+    contest_scenario,
+    contest_communication,
+)
 from solver.physics import InputNotReady, parameters, terrain_maximum
 from solver.public_api import capabilities, validate, playback, analyze
 
@@ -586,6 +591,16 @@ def create_app(runtime_dir: Path | None = None):
             data["data_origin"] = "user_input"
         return save_new(data)
 
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/communication-template",
+        response_model=Communication,
+    )
+    def communication_template(scenario_id: str):
+        with database.session() as session:
+            scenario = require_row(session, ScenarioRow, scenario_id).content
+            # Read-only suggestion. Applying it uses normal versioned Scenario PUT.
+            return contest_communication(scenario)
+
     @app.get("/api/v1/plans/{plan_id}/playback", response_model=Playback)
     def plan_playback(plan_id: str):
         with database.session() as session:
@@ -893,6 +908,11 @@ def create_app(runtime_dir: Path | None = None):
                 and "terrain" not in options["requested_model_scope"]
             ):
                 options["requested_model_scope"].append("terrain")
+            if (
+                snap["scenario"]["policy"]["requires_communication"]
+                and "communication" not in options["requested_model_scope"]
+            ):
+                options["requested_model_scope"].append("communication")
             try:
                 validate_options(options, snap)
             except ContractError as exc:
@@ -1170,6 +1190,21 @@ def create_app(runtime_dir: Path | None = None):
                         end_s=initial["end_s"],
                     )
                 )
+            for r in plan.get("relay_sorties", []):
+                for kind, identity, end in [
+                    ("relay_drone", r["drone_id"], r["drone_released_s"]),
+                    ("relay_energy", r["component_id"], r["component_released_s"]),
+                ]:
+                    session.add(
+                        ReservationRow(
+                            scenario_id=scenario.id,
+                            plan_id=plan_id,
+                            kind=kind,
+                            resource_id=identity,
+                            start_s=r["prepare_start_s"],
+                            end_s=end,
+                        )
+                    )
             limits = snap["scenario"].get("resource_limits")
             if limits:
                 charge_windows = analyze(snap, plan)["charge_windows"]
@@ -1179,7 +1214,7 @@ def create_app(runtime_dir: Path | None = None):
                         limits["prep_slots"],
                         [
                             (r["prepare_start_s"], r["takeoff_s"])
-                            for r in plan["sorties"]
+                            for r in [*plan["sorties"], *plan.get("relay_sorties", [])]
                         ],
                     ),
                     (
@@ -1299,12 +1334,46 @@ def create_app(runtime_dir: Path | None = None):
             ]
 
     @app.get("/api/v1/plans/{plan_id}/export")
-    def export_plan(plan_id: str, format: Literal["json", "csv", "geojson"] = "json"):
+    def export_plan(
+        plan_id: str, format: Literal["json", "csv", "geojson", "relay_csv"] = "json"
+    ):
         with database.session() as session:
             plan = copy.deepcopy(require_row(session, PlanRow, plan_id).content)
         headers = {"Content-Disposition": f'attachment; filename="{plan_id}.{format}"'}
         if format == "json":
             return JSONResponse(content=plan, headers=headers)
+        if format == "relay_csv":
+            buffer = io.StringIO()
+            fields = [
+                "relay_sortie_id",
+                "drone_id",
+                "component_id",
+                "station_id",
+                "station_agl_m",
+                "station_elevation_m",
+                "prepare_start_s",
+                "takeoff_s",
+                "arrival_s",
+                "service_start_s",
+                "service_end_s",
+                "return_s",
+                "drone_released_s",
+                "charge_start_s",
+                "component_released_s",
+                "energy_kwh",
+                "return_soc",
+            ]
+            writer = csv.writer(buffer)
+            writer.writerow(["plan_id", "snapshot_id", *fields])
+            for r in plan.get("relay_sorties", []):
+                writer.writerow([plan_id, plan["snapshot_id"], *[r[k] for k in fields]])
+            return Response(
+                "\ufeff" + buffer.getvalue(),
+                media_type="text/csv; charset=utf-8",
+                headers={
+                    "Content-Disposition": f'attachment; filename="{plan_id}-relays.csv"'
+                },
+            )
         if format == "geojson":
             features = [
                 {
@@ -1329,6 +1398,29 @@ def create_app(runtime_dir: Path | None = None):
                 }
                 for r in plan["sorties"]
             ]
+            features.extend(
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "plan_id": plan_id,
+                        "snapshot_id": plan["snapshot_id"],
+                        "kind": "relay",
+                        **{
+                            k: r[k]
+                            for k in [
+                                "relay_sortie_id",
+                                "drone_id",
+                                "component_id",
+                                "service_start_s",
+                                "service_end_s",
+                                "energy_kwh",
+                            ]
+                        },
+                    },
+                    "geometry": r["route_geometry"],
+                }
+                for r in plan.get("relay_sorties", [])
+            )
             return Response(
                 json.dumps(
                     {"type": "FeatureCollection", "features": features},

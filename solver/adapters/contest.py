@@ -14,6 +14,108 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "references/modeling/data"
 
 
+def contest_communication(scenario):
+    """Opt-in original radio/relay inputs, read from the archived source tables."""
+    values = {
+        (r[0], r[3]): r[4]
+        for r in rows("通信链路参数.xlsx")
+        if len(r) > 4 and isinstance(r[4], (int, float))
+    }
+    relay_rows = rows("中继无人机数据.xlsx")
+    r = next(r for r in relay_rows if r[0] == "R" and len(r) > 18 and r[4] == 23.5)
+    count, full = next(
+        (int(r[1]), float(r[2]))
+        for r in relay_rows
+        if r[0] == "R" and r[1:3] == [6, 1800]
+    )
+
+    def endpoint(name):
+        return {
+            "tx_power_dbm": float(values[name, "Pt"]),
+            "gain_dbi": float(values[name, "G"]),
+        }
+
+    base = scenario["base"]
+    stations = []
+    for site in scenario["sites"]:
+        for height in [150, 300]:
+            stations.append(
+                {
+                    "station_id": f"RS-{site['id']}-{height}",
+                    "coordinates": list(site["coordinates"]),
+                    "agl_m": height,
+                }
+            )
+        a, b = base["coordinates"], site["coordinates"]
+        stations.append(
+            {
+                "station_id": f"RS-MID-{site['id']}",
+                "coordinates": [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2],
+                "agl_m": 300,
+            }
+        )
+    stations.append(
+        {
+            "station_id": "RS-BASE-300",
+            "coordinates": list(base["coordinates"]),
+            "agl_m": 300,
+        }
+    )
+    return {
+        "model_id": "projected_dem_radio_v1",
+        "frequency_mhz": float(values["传播参数", "f"]),
+        "system_loss_db": float(values["传播参数", "Lsys"]),
+        "obstruction_loss_db": float(values["传播参数", "Lobs"]),
+        "sensitivity_dbm": float(values["接收参数", "Psens"]),
+        "fading_margin_db": float(values["接收参数", "M"]),
+        "gateway": {
+            **endpoint("固定网关 G01"),
+            "antenna_height_m": float(values["固定网关 G01", "hG"]),
+        },
+        "transport": endpoint("运输无人机"),
+        "relay_access": endpoint("中继接入端"),
+        "relay_backhaul": endpoint("中继回传端"),
+        "relay_model": dict(
+            zip(["mass_kg", "cruise_speed_mps", "cruise_power_kw"], map(float, r[4:7]))
+        )
+        | {
+            "climb_speed_mps": float(r[12]),
+            "descent_speed_mps": float(r[13]),
+            "hover_power_kw": float(r[16]),
+            "radio_power_kw": float(r[17]),
+            "climb_efficiency": float(r[14]),
+            "prepare_duration_s": float(r[9]),
+            "link_duration_s": float(r[10]),
+            "turnaround_duration_s": float(r[11]),
+            "full_charge_s": full,
+            "max_agl_m": float(r[18]),
+            "min_return_soc": float(r[8]) / 100,
+        },
+        "relay_drones": [
+            {
+                "drone_id": f"R{i+1:02}",
+                "status": "available",
+                "location_id": base["id"],
+                "available_after_s": 0,
+            }
+            for i in range(2)
+        ],
+        "relay_energy": [
+            {
+                "component_id": f"R-COMP-{i+1:02}",
+                "capacity_kwh": float(r[7]),
+                "soc": 1,
+                "soh": 1,
+                "status": "available",
+                "location_id": base["id"],
+                "available_after_s": 0,
+            }
+            for i in range(count)
+        ],
+        "candidate_stations": stations[:48],
+    }
+
+
 def rows(filename, sheet="数据"):
     wb = load_workbook(DATA / "tables" / filename, read_only=True, data_only=True)
     try:

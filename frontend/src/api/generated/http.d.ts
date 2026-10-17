@@ -221,6 +221,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/scenarios/{scenario_id}/communication-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Communication Template */
+        get: operations["communication_template_api_v1_scenarios__scenario_id__communication_template_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/plans/{plan_id}/playback": {
         parameters: {
             query?: never;
@@ -717,7 +734,7 @@ export interface components {
             soc: number;
             /** Soh */
             soh: number;
-            status: components["schemas"]["Status5"];
+            status: components["schemas"]["Status7"];
             /** Location Id */
             location_id: string;
             /** Available After S */
@@ -777,7 +794,7 @@ export interface components {
             mass_kg: number;
             /** Volume L */
             volume_l: number;
-            status: components["schemas"]["Status3"];
+            status: components["schemas"]["Status5"];
             /** Location Id */
             location_id: string;
         };
@@ -833,11 +850,70 @@ export interface components {
          * @enum {string}
          */
         Code1: "SCHEMA_INVALID" | "REFERENCE_INVALID" | "RESOURCE_CONFLICT" | "STATE_VERSION_CONFLICT" | "SNAPSHOT_STALE" | "UNSUPPORTED_SCOPE" | "INPUT_NOT_READY" | "NO_VALIDATED_PLAN" | "UNSUPPORTED_EVENT_STATE" | "SOLVER_BUSY" | "CANCELED" | "EXTERNAL_ASSET_UNAVAILABLE" | "INTERNAL_ERROR";
+        /** Communication */
+        Communication: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "projected_dem_radio_v1";
+            /** Frequency Mhz */
+            frequency_mhz: number;
+            /** System Loss Db */
+            system_loss_db: number;
+            /** Obstruction Loss Db */
+            obstruction_loss_db: number;
+            /** Sensitivity Dbm */
+            sensitivity_dbm: number;
+            /** Fading Margin Db */
+            fading_margin_db: number;
+            gateway: components["schemas"]["RadioGateway"];
+            transport: components["schemas"]["RadioEndpoint"];
+            relay_access: components["schemas"]["RadioEndpoint"];
+            relay_backhaul: components["schemas"]["RadioEndpoint"];
+            relay_model: components["schemas"]["RelayModel"];
+            /** Relay Drones */
+            relay_drones: components["schemas"]["RelayAircraft"][];
+            /** Relay Energy */
+            relay_energy: components["schemas"]["RelayEnergy"][];
+            /** Candidate Stations */
+            candidate_stations: components["schemas"]["RelayStation"][];
+        };
+        /** CommunicationReport */
+        CommunicationReport: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "projected_dem_radio_v1";
+            /** Transport Active S */
+            transport_active_s: number;
+            /** Direct S */
+            direct_s: number;
+            /** Relay S */
+            relay_s: number;
+            /** Coverage Gap S */
+            coverage_gap_s: number;
+            /** Windows */
+            windows: components["schemas"]["CommunicationWindow"][];
+        };
         /**
          * CommunicationStatus
          * @enum {string}
          */
         CommunicationStatus: "passed" | "failed" | "not_evaluated";
+        /** CommunicationWindow */
+        CommunicationWindow: {
+            /** Sortie Id */
+            sortie_id: string;
+            /** Start S */
+            start_s: number;
+            /** End S */
+            end_s: number;
+            source: components["schemas"]["Source"];
+            /** Relay Sortie Id */
+            relay_sortie_id: string | null;
+        };
         /** Comparison */
         Comparison: {
             /** Plan Id */
@@ -889,7 +965,20 @@ export interface components {
         /** Coordinate1 */
         Coordinate1: number;
         /** Coordinate2 */
-        Coordinate2: components["schemas"]["Coordinates"][];
+        Coordinate2: number;
+        /** Coordinate3 */
+        Coordinate3: number;
+        /** Coordinate4 */
+        Coordinate4: [
+            components["schemas"]["Coordinate4Item"],
+            components["schemas"]["Coordinate4Item1"]
+        ];
+        /** Coordinate4Item */
+        Coordinate4Item: number;
+        /** Coordinate4Item1 */
+        Coordinate4Item1: number;
+        /** Coordinate5 */
+        Coordinate5: components["schemas"]["Coordinates"][];
         /** Coordinates */
         Coordinates: [
             components["schemas"]["Coordinate"],
@@ -969,7 +1058,7 @@ export interface components {
             drone_id: string;
             /** Type Id */
             type_id: string;
-            status: components["schemas"]["Status4"];
+            status: components["schemas"]["Status6"];
             /** Location Id */
             location_id: string;
             /** Available After S */
@@ -1098,7 +1187,7 @@ export interface components {
              */
             type: "Polygon";
             /** Coordinates */
-            coordinates: components["schemas"]["Coordinate2"][];
+            coordinates: components["schemas"]["Coordinate5"][];
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -1153,6 +1242,35 @@ export interface components {
          * @enum {string}
          */
         JobState: "queued" | "running" | "completed" | "failed" | "canceled";
+        /** JointMetrics */
+        JointMetrics: {
+            /** Relay Energy Kwh */
+            relay_energy_kwh: number;
+            /** Joint Energy Kwh */
+            joint_energy_kwh: number;
+            /** Joint Makespan S */
+            joint_makespan_s: number;
+            /** Relay Sortie Count */
+            relay_sortie_count: number;
+        };
+        /** JointSearch */
+        JointSearch: {
+            /**
+             * Method
+             * @constant
+             */
+            method: "fixed_grouping_joint_cp_v1";
+            /** Status */
+            status: string;
+            /** Station Count */
+            station_count: number;
+            /** Coverage Atom Count */
+            coverage_atom_count: number;
+            /** Relay Slot Limit */
+            relay_slot_limit: number;
+            /** Stages */
+            stages: components["schemas"]["Stage"][];
+        };
         /** Metrics */
         Metrics: {
             /** Last Delivery S */
@@ -1236,6 +1354,11 @@ export interface components {
             change_summary: components["schemas"]["ChangeSummary"] | null;
             /** Initial Charges */
             initial_charges?: components["schemas"]["InitialCharge"][] | null;
+            /** Relay Sorties */
+            relay_sorties?: components["schemas"]["RelaySortie"][] | null;
+            joint_metrics?: components["schemas"]["JointMetrics"] | null;
+            communication_report?: components["schemas"]["CommunicationReport"] | null;
+            joint_search?: components["schemas"]["JointSearch"] | null;
         };
         /** PlanAnalysis */
         PlanAnalysis: {
@@ -1374,6 +1497,134 @@ export interface components {
             /** Candidate Count */
             candidate_count: number;
         };
+        /** RadioEndpoint */
+        RadioEndpoint: {
+            /** Tx Power Dbm */
+            tx_power_dbm: number;
+            /** Gain Dbi */
+            gain_dbi: number;
+        };
+        /** RadioGateway */
+        RadioGateway: {
+            /** Tx Power Dbm */
+            tx_power_dbm: number;
+            /** Gain Dbi */
+            gain_dbi: number;
+            /** Antenna Height M */
+            antenna_height_m: number;
+        };
+        /** RelayAircraft */
+        RelayAircraft: {
+            /** Drone Id */
+            drone_id: string;
+            status: components["schemas"]["Status2"];
+            /** Location Id */
+            location_id: string;
+            /** Available After S */
+            available_after_s: number;
+        };
+        /** RelayEnergy */
+        RelayEnergy: {
+            /** Component Id */
+            component_id: string;
+            /** Capacity Kwh */
+            capacity_kwh: number;
+            /** Soc */
+            soc: number;
+            /** Soh */
+            soh: number;
+            status: components["schemas"]["Status3"];
+            /** Location Id */
+            location_id: string;
+            /** Available After S */
+            available_after_s: number;
+        };
+        /** RelayModel */
+        RelayModel: {
+            /** Mass Kg */
+            mass_kg: number;
+            /** Cruise Speed Mps */
+            cruise_speed_mps: number;
+            /** Climb Speed Mps */
+            climb_speed_mps: number;
+            /** Descent Speed Mps */
+            descent_speed_mps: number;
+            /** Cruise Power Kw */
+            cruise_power_kw: number;
+            /** Hover Power Kw */
+            hover_power_kw: number;
+            /** Radio Power Kw */
+            radio_power_kw: number;
+            /** Climb Efficiency */
+            climb_efficiency: number;
+            /** Prepare Duration S */
+            prepare_duration_s: number;
+            /** Link Duration S */
+            link_duration_s: number;
+            /** Turnaround Duration S */
+            turnaround_duration_s: number;
+            /** Full Charge S */
+            full_charge_s: number;
+            /** Max Agl M */
+            max_agl_m: number;
+            /** Min Return Soc */
+            min_return_soc: number;
+        };
+        /** RelaySortie */
+        RelaySortie: {
+            /** Relay Sortie Id */
+            relay_sortie_id: string;
+            /** Drone Id */
+            drone_id: string;
+            /** Component Id */
+            component_id: string;
+            /** Station Id */
+            station_id: string;
+            /** Station Coordinates */
+            station_coordinates: [
+                components["schemas"]["StationCoordinate"],
+                components["schemas"]["StationCoordinate1"]
+            ];
+            /** Station Agl M */
+            station_agl_m: number;
+            /** Station Elevation M */
+            station_elevation_m: number;
+            /** Prepare Start S */
+            prepare_start_s: number;
+            /** Takeoff S */
+            takeoff_s: number;
+            /** Arrival S */
+            arrival_s: number;
+            /** Service Start S */
+            service_start_s: number;
+            /** Service End S */
+            service_end_s: number;
+            /** Return S */
+            return_s: number;
+            /** Drone Released S */
+            drone_released_s: number;
+            /** Charge Start S */
+            charge_start_s: number;
+            /** Component Released S */
+            component_released_s: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Return Soc */
+            return_soc: number;
+            route_geometry: components["schemas"]["RouteGeometry"];
+        };
+        /** RelayStation */
+        RelayStation: {
+            /** Station Id */
+            station_id: string;
+            /** Coordinates */
+            coordinates: [
+                components["schemas"]["Coordinate2"],
+                components["schemas"]["Coordinate3"]
+            ];
+            /** Agl M */
+            agl_m: number;
+        };
         /** RemovedSortieId */
         RemovedSortieId: string;
         /** ResourceAddition */
@@ -1406,7 +1657,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "drone" | "battery";
+            kind: "drone" | "battery" | "relay_drone" | "relay_energy";
             /** Resource Id */
             resource_id: string;
             /** Type Id */
@@ -1436,6 +1687,16 @@ export interface components {
         };
         /** RouteGeometry */
         RouteGeometry: {
+            /**
+             * Type
+             * @constant
+             */
+            type: "LineString";
+            /** Coordinates */
+            coordinates: components["schemas"]["Coordinate4"][];
+        };
+        /** RouteGeometry1 */
+        RouteGeometry1: {
             /**
              * Type
              * @constant
@@ -1489,6 +1750,7 @@ export interface components {
             /** Restricted Zones */
             restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
             resource_limits?: components["schemas"]["ResourceLimits"] | null;
+            communication?: components["schemas"]["Communication"] | null;
         };
         /** ScenarioOrigin */
         ScenarioOrigin: {
@@ -1682,7 +1944,7 @@ export interface components {
             cargo_ids: components["schemas"]["CargoId"][];
             /** Visits */
             visits: components["schemas"]["Visit"][];
-            route_geometry: components["schemas"]["RouteGeometry"];
+            route_geometry: components["schemas"]["RouteGeometry1"];
             /** Prepare Start S */
             prepare_start_s: number;
             /** Takeoff S */
@@ -1703,6 +1965,26 @@ export interface components {
             charge_start_s?: number | null;
         };
         /**
+         * Source
+         * @enum {string}
+         */
+        Source: "gateway" | "relay";
+        /** Stage */
+        Stage: {
+            /** Stage */
+            stage: string;
+            /** Status */
+            status: string;
+            /** Seconds */
+            seconds: number;
+            /** Objective */
+            objective: number | null;
+        };
+        /** StationCoordinate */
+        StationCoordinate: number;
+        /** StationCoordinate1 */
+        StationCoordinate1: number;
+        /**
          * Status
          * @enum {string}
          */
@@ -1716,22 +1998,32 @@ export interface components {
          * Status2
          * @enum {string}
          */
-        Status2: "not_evaluated" | "available" | "invalid";
+        Status2: "available" | "unavailable";
         /**
          * Status3
          * @enum {string}
          */
-        Status3: "available" | "reserved" | "loaded" | "in_transit" | "delivered" | "unavailable";
+        Status3: "available" | "charging" | "unavailable";
         /**
          * Status4
          * @enum {string}
          */
-        Status4: "available" | "reserved" | "loaded" | "in_flight" | "unavailable";
+        Status4: "not_evaluated" | "available" | "invalid";
         /**
          * Status5
          * @enum {string}
          */
-        Status5: "available" | "reserved" | "in_use" | "charging" | "unavailable";
+        Status5: "available" | "reserved" | "loaded" | "in_transit" | "delivered" | "unavailable";
+        /**
+         * Status6
+         * @enum {string}
+         */
+        Status6: "available" | "reserved" | "loaded" | "in_flight" | "unavailable";
+        /**
+         * Status7
+         * @enum {string}
+         */
+        Status7: "available" | "reserved" | "in_use" | "charging" | "unavailable";
         /** SupportedChargeModel */
         SupportedChargeModel: string;
         /** SupportedEnergyModel */
@@ -1750,7 +2042,7 @@ export interface components {
         SupportedObjective: "time" | "energy" | "balanced";
         /** Terrain */
         Terrain: {
-            status: components["schemas"]["Status2"];
+            status: components["schemas"]["Status4"];
             /** Asset Id */
             asset_id: string | null;
             /** Sha256 */
@@ -2333,6 +2625,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Scenario"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    communication_template_api_v1_scenarios__scenario_id__communication_template_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Communication"];
                 };
             };
             /** @description Validation Error */
@@ -3193,7 +3516,7 @@ export interface operations {
     export_plan_api_v1_plans__plan_id__export_get: {
         parameters: {
             query?: {
-                format?: "json" | "csv" | "geojson";
+                format?: "json" | "csv" | "geojson" | "relay_csv";
             };
             header?: never;
             path: {

@@ -281,7 +281,29 @@ def validate(snapshot, plan):
             else "缺少可认证DEM，地形未评估"
         ),
     )
-    add("communication", "not_evaluated", "当前运输求解未接入连续无线链路认证")
+    if s["policy"]["requires_communication"] or "communication" in plan["model_scope"]:
+        try:
+            from solver.relay import validate_joint
+
+            issues, report = validate_joint(s, plan)
+            for code, message, identity in issues:
+                add(code, "failed", message, identity)
+            if not issues:
+                add(
+                    "communication",
+                    "passed",
+                    f"投影DEM连续区间模型：直连{report['direct_s']:.2f}秒、中继{report['relay_s']:.2f}秒、缺口0；非现实链路认证",
+                )
+        except (InputNotReady, KeyError, TypeError, ValueError) as exc:
+            add("communication", "failed", str(exc))
+    else:
+        add("communication", "not_evaluated", "当前方案未要求连续无线链路检查")
+        if plan.get("relay_sorties") or plan.get("communication_report"):
+            add("communication", "failed", "未启用通信模型却包含中继或覆盖报告")
+    charge_windows.extend(
+        (r["charge_start_s"], r["component_released_s"])
+        for r in plan.get("relay_sorties", [])
+    )
     if limits:
 
         def peak(windows):
@@ -300,7 +322,10 @@ def validate(snapshot, plan):
             return maximum
 
         prep_peak = peak(
-            [(r["prepare_start_s"], r["takeoff_s"]) for r in plan["sorties"]]
+            [
+                (r["prepare_start_s"], r["takeoff_s"])
+                for r in [*plan["sorties"], *plan.get("relay_sorties", [])]
+            ]
         )
         charge_peak = peak(charge_windows)
         if prep_peak > limits["prep_slots"]:

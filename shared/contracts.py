@@ -149,6 +149,29 @@ def validate_scenario(s):
     for b in s["batteries"]:
         require(b["compatible_type_id"] in types, "battery references missing type")
         require(b["location_id"] in locations, "battery references missing location")
+    communication = s.get("communication")
+    if communication:
+        relay_drones = index(communication["relay_drones"], "drone_id")
+        components = index(communication["relay_energy"], "component_id")
+        index(communication["candidate_stations"], "station_id")
+        require(
+            not (set(relay_drones) & {d["drone_id"] for d in s["drones"]}),
+            "transport and relay aircraft IDs must differ",
+        )
+        require(
+            not (set(components) & {b["battery_id"] for b in s["batteries"]}),
+            "transport and relay energy IDs must differ",
+        )
+        for entity in [*relay_drones.values(), *components.values()]:
+            require(
+                entity["location_id"] in locations,
+                "relay resource references missing location",
+            )
+        for station in communication["candidate_stations"]:
+            require(
+                station["agl_m"] <= communication["relay_model"]["max_agl_m"],
+                "relay station exceeds AGL limit",
+            )
     terrain = s["terrain"]
     if terrain["status"] == "available":
         require(
@@ -243,6 +266,13 @@ def validate_plan(plan, snapshot):
     demands = index(s["demands"], "demand_id")
     sites = index(s["sites"], "id")
     index(plan["sorties"], "sortie_id")
+    relay_sorties = plan.get("relay_sorties", [])
+    index(relay_sorties, "relay_sortie_id")
+    if relay_sorties or plan.get("joint_metrics") or plan.get("communication_report"):
+        require(
+            s["policy"]["requires_communication"] and bool(s.get("communication")),
+            "joint plan requires enabled communication inputs",
+        )
     assigned = []
     quantities = Counter()
     windows = {}
@@ -382,6 +412,27 @@ def validate_plan(plan, snapshot):
         )
         if all(e is not None for e in socs):
             close(m["min_return_soc"], min(socs), "SOC")
+    if "joint_metrics" in plan:
+        joint = plan["joint_metrics"]
+        require(
+            joint["relay_sortie_count"] == len(relay_sorties),
+            "relay sortie count mismatch",
+        )
+        close(
+            joint["relay_energy_kwh"],
+            sum(r["energy_kwh"] for r in relay_sorties),
+            "relay energy",
+        )
+        close(
+            joint["joint_energy_kwh"],
+            m["energy_kwh"] + joint["relay_energy_kwh"],
+            "joint energy",
+        )
+        close(
+            joint["joint_makespan_s"],
+            max([m["makespan_s"], *[r["return_s"] for r in relay_sorties]]),
+            "joint makespan",
+        )
     if plan["has_validated_plan"]:
         require(
             s["data_origin"] != "mock",

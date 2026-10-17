@@ -1,0 +1,55 @@
+{
+  "plan_id": "PLAN-A19207A6A5894FF4",
+  "page_count": 8,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 691,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-1.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 1475,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-2.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 1234,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-3.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 1123,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-4.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 1360,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-5.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 1540,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-6.png"
+    },
+    {
+      "page": 7,
+      "text_characters": 1033,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-7.png"
+    },
+    {
+      "page": 8,
+      "text_characters": 838,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-8.png"
+    }
+  ],
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval."
+}

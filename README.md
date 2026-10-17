@@ -16,6 +16,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 场景设置可启用有限准备工位与充电端口，真实安排初始补能、返航排队与资源预约。甘特图展开后可查看完整等待/充电窗口，口径见 [地面资源](docs/GROUND_RESOURCES.md)。未启用时保留原题允许并行充电的模型。
 
+场景页“配置通信资源”可开启连续通信与中继联合求解，提供真实中继位置、服务窗口、能源组件和独立覆盖检查。默认32箱场景已有完整验证；原题80箱联合搜索仍在改进，不能沿用小场景成功结论。用法和有限模型边界见 [通信协同](docs/COMMUNICATION.md)。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

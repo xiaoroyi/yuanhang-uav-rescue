@@ -3,22 +3,25 @@
 > node scripts/run-e2e.mjs
 
 
-Running 13 tests using 1 worker
+Running 14 tests using 1 worker
 
-(node:39720) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:25364) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ok  1 tests\workflow.spec.ts:34:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (18.7s)
-  ok  2 tests\workflow.spec.ts:75:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.6s)
-  ok  3 tests\workflow.spec.ts:108:1 › 真实故障重规划保留旧方案，展示新旧变化 (15.0s)
-  ok  4 tests\workflow.spec.ts:130:1 › 手机窄屏仍可切页和运行计算 (10.5s)
-  ok  5 tests\workflow.spec.ts:142:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (12.2s)
-  ok  6 tests\workflow.spec.ts:171:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (16.6s)
-  ok  7 tests\workflow.spec.ts:222:1 › 任务刷新恢复，重新载入页面不重复提交求解 (4.8s)
-  ok  8 tests\workflow.spec.ts:234:1 › 打印报告包含真实任务并可离线保存PDF (6.9s)
-  ok  9 tests\workflow.spec.ts:256:1 › 深入优化保留同快照基线，刷新后继续真实计算 (42.5s)
-  ok 10 tests\workflow.spec.ts:279:1 › 限制区保存新版本，真实绕行并沿折线回放 (18.1s)
-  ok 11 tests\workflow.spec.ts:324:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (31.5s)
-  ok 12 tests\workflow.spec.ts:384:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (17.9s)
-  ok 13 tests\workflow.spec.ts:421:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (12.5s)
+  ok  1 tests\workflow.spec.ts:12:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (57.0s)
+  ok  2 tests\workflow.spec.ts:89:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (23.8s)
+  ok  3 tests\workflow.spec.ts:130:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.2s)
+  ok  4 tests\workflow.spec.ts:163:1 › 真实故障重规划保留旧方案，展示新旧变化 (16.4s)
+  ok  5 tests\workflow.spec.ts:185:1 › 手机窄屏仍可切页和运行计算 (11.2s)
+  ok  6 tests\workflow.spec.ts:197:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (13.9s)
+  ok  7 tests\workflow.spec.ts:226:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (19.5s)
+  ok  8 tests\workflow.spec.ts:277:1 › 任务刷新恢复，重新载入页面不重复提交求解 (5.9s)
+  ok  9 tests\workflow.spec.ts:289:1 › 打印报告包含真实任务并可离线保存PDF (7.8s)
+  ok 10 tests\workflow.spec.ts:311:1 › 深入优化保留同快照基线，刷新后继续真实计算 (43.1s)
+  ok 11 tests\workflow.spec.ts:334:1 › 限制区保存新版本，真实绕行并沿折线回放 (19.6s)
+  ok 12 tests\workflow.spec.ts:379:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (33.2s)
+  ok 13 tests\workflow.spec.ts:439:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (20.0s)
+  ok 14 tests\workflow.spec.ts:484:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (16.1s)
 
-  13 passed (3.7m)
+  Slow test file: tests\workflow.spec.ts (5.0m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  14 passed (5.1m)

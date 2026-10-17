@@ -35,6 +35,7 @@ export function RescueMap({
     map = useRef<maplibregl.Map | null>(null),
     markers = useRef<maplibregl.Marker[]>([])
   const aircraft = useRef<maplibregl.Marker[]>([])
+  const relayMarkers = useRef<maplibregl.Marker[]>([])
   const latest = useRef({ scenario, plan, selected, onSelect, onSelectSite })
   latest.current = { scenario, plan, selected, onSelect, onSelectSite }
   const [ready, setReady] = useState(false),
@@ -46,11 +47,14 @@ export function RescueMap({
   const [showTerrain, setShowTerrain] = useState(true)
   const [terrainLabel, setTerrainLabel] = useState('')
   const [showZones, setShowZones] = useState(true)
+  const [showRelays, setShowRelays] = useState(true)
   const fit = useCallback(() => {
     const scenario = latest.current.scenario
     const bounds = new maplibregl.LngLatBounds()
     for (const n of [scenario.base, ...scenario.sites])
       bounds.extend(n.coordinates as [number, number])
+    for (const r of latest.current.plan?.relay_sorties || [])
+      bounds.extend(r.station_coordinates as [number, number])
     map.current?.fitBounds(bounds, {
       padding: { top: 70, bottom: 55, left: 55, right: 110 },
       maxZoom: 13,
@@ -164,6 +168,20 @@ export function RescueMap({
         },
       })
       m.addSource('routes', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      for (const id of ['relay-routes', 'relay-backhaul']) {
+        m.addSource(id, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+        m.addLayer({
+          id,
+          type: 'line',
+          source: id,
+          paint: {
+            'line-color': '#8970ae',
+            'line-width': id === 'relay-routes' ? 2.2 : 1.4,
+            'line-dasharray': id === 'relay-routes' ? [4, 2] : [1, 3],
+            'line-opacity': 0.8,
+          },
+        })
+      }
       m.addLayer({
         id: 'routes-halo',
         type: 'line',
@@ -198,6 +216,7 @@ export function RescueMap({
       observer.disconnect()
       markers.current.forEach((x) => x.remove())
       aircraft.current.forEach((x) => x.remove())
+      relayMarkers.current.forEach((x) => x.remove())
       m.remove()
       map.current = null
     }
@@ -305,6 +324,69 @@ export function RescueMap({
     m.setLayoutProperty('routes-halo', 'visibility', showRoutes ? 'visible' : 'none')
     m.setLayoutProperty('old-routes', 'visibility', showOld ? 'visible' : 'none')
   }, [ready, plan, oldPlan, selected, showRoutes, showOld])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready) return
+    const relays = plan?.relay_sorties || []
+    relayMarkers.current.forEach((marker) => marker.remove())
+    relayMarkers.current = []
+    const paths: FeatureCollection<LineString> = {
+      type: 'FeatureCollection',
+      features: relays.map((r) => ({
+        type: 'Feature',
+        properties: { id: r.relay_sortie_id },
+        geometry: r.route_geometry as LineString,
+      })),
+    }
+    const links: FeatureCollection<LineString> = {
+      type: 'FeatureCollection',
+      features: relays
+        .filter(
+          (r) => playTime == null || (r.service_start_s <= playTime && playTime <= r.service_end_s),
+        )
+        .map((r) => ({
+          type: 'Feature',
+          properties: { id: r.relay_sortie_id },
+          geometry: {
+            type: 'LineString',
+            coordinates: [scenario.base.coordinates, r.station_coordinates],
+          },
+        })),
+    }
+    ;(m.getSource('relay-routes') as maplibregl.GeoJSONSource).setData(paths)
+    ;(m.getSource('relay-backhaul') as maplibregl.GeoJSONSource).setData(links)
+    for (const id of ['relay-routes', 'relay-backhaul'])
+      m.setLayoutProperty(id, 'visibility', showRelays ? 'visible' : 'none')
+    if (!showRelays) return
+    const seen = new Set<string>()
+    for (const row of relays) {
+      if (seen.has(row.station_id)) continue
+      seen.add(row.station_id)
+      const element = document.createElement('button')
+      element.className = 'map-marker map-marker-relay'
+      element.title = `${row.station_id} · 悬停离地${row.station_agl_m}m\n${relays
+        .filter((r) => r.station_id === row.station_id)
+        .map(
+          (r) => `${r.drone_id} ${Math.round(r.service_start_s)}–${Math.round(r.service_end_s)}秒`,
+        )
+        .join('\n')}\n紫色点线为已验证的固定网关回传，非覆盖半径`
+      element.setAttribute('aria-label', `中继服务点${row.station_id}`)
+      const dot = document.createElement('span')
+      dot.className = 'map-marker-dot'
+      dot.textContent = 'R'
+      const label = document.createElement('span')
+      label.className = 'map-marker-label'
+      label.textContent = row.station_id
+      element.append(dot, label)
+      element.onclick = () =>
+        m.easeTo({ center: row.station_coordinates as [number, number], duration: 350 })
+      relayMarkers.current.push(
+        new maplibregl.Marker({ element, anchor: 'center' })
+          .setLngLat(row.station_coordinates as [number, number])
+          .addTo(m),
+      )
+    }
+  }, [ready, plan, showRelays, playTime, scenario.base.coordinates])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !terrainShown || !m.getLayer('terrain-preview')) return
@@ -418,8 +500,18 @@ export function RescueMap({
               限制区原始边界
             </label>
           )}
+          {!!plan?.communication_report && (
+            <label>
+              <input
+                type="checkbox"
+                checked={showRelays}
+                onChange={(e) => setShowRelays(e.target.checked)}
+              />
+              中继路线、服务点与回传
+            </label>
+          )}
           <p>
-            点位与航线均来自当前输入/计算。限制区图层显示原始边界，计算另含安全缓冲。通信图层尚未接入。
+            点位与航线来自绑定输入/计算。限制区显示原始边界，计算另含缓冲。紫色点线表示中继固定回传链路，不代表圆形覆盖范围。
           </p>
         </div>
       )}
@@ -443,6 +535,12 @@ export function RescueMap({
           <span>
             <i style={{ background: '#cf6656', borderRadius: 2 }} />
             限制区
+          </span>
+        )}
+        {!!plan?.relay_sorties?.length && (
+          <span>
+            <i style={{ background: '#8970ae' }} />
+            中继服务点
           </span>
         )}
       </div>

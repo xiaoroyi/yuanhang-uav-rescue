@@ -61,3 +61,7 @@ B-01：同一成员生成 TypeScript 业务类型，真实 OpenAPI 生成 HTTP c
 | GET /map/terrain/{asset_id}/{sha256}.png | 内容身份 | 本地晕渲PNG，NoData透明；不是外部瓦片 |
 
 来源、垂直基准、重投影和Worker上下文见TERRAIN_ASSETS.md；未支持的CRS/损坏文件/覆盖外以结构化422反馈，真实求解无法认证时保持UNKNOWN而非伪造已验证方案。
+
+## 通信接口（RFC-006）
+
+GET /scenarios/{scenario_id}/communication-template只读返回原题链路/中继参数和按当前点位生成的有限悬停候选，不自动启用或保存。常规PUT Scenario保存communication及policy.requires_communication并创建新版本；Job自动补communication必检范围。Plan包含独立验证的relay_sorties、communication_report、joint_metrics及结构化joint_search。确认事务预约运输与中继实体及共同地面容量。原任务CSV继续按运输箱件输出，format=relay_csv单独导出中继任务；JSON保存完整联合Plan，GeoJSON加入kind=relay的路线。模板Excel包含通信配置并支持往返。

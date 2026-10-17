@@ -36,7 +36,7 @@ class DeliveryAnalysis(DTO):
 
 
 class ResourceUsage(DTO):
-    kind: Literal["drone", "battery"]
+    kind: Literal["drone", "battery", "relay_drone", "relay_energy"]
     resource_id: str
     type_id: str
     sortie_count: int

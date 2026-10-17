@@ -18,6 +18,7 @@ export type WhatIfReceipt = components['schemas']['WhatIfReceipt']
 export type WhatIfHistory = components['schemas']['WhatIfHistory']
 export type TerrainAsset = components['schemas']['TerrainAsset']
 export type TerrainMap = components['schemas']['TerrainMap']
+export type Communication = NonNullable<Scenario['communication']>
 
 export class ApiError extends Error {
   code: string
@@ -74,6 +75,8 @@ export const api = {
   health: () => request<components['schemas']['Health']>('/health'),
   scenarios: () => request<ScenarioSummary[]>('/scenarios'),
   scenario: (id: string) => request<Scenario>(`/scenarios/${id}`),
+  communicationTemplate: (id: string) =>
+    request<Communication>(`/scenarios/${id}/communication-template`),
   example: (example: 'compact' | 'contest') =>
     request<Scenario>('/scenarios/examples', { example }),
   import: (scenario: Scenario) => request<Scenario>('/scenarios/import', scenario),
@@ -141,7 +144,7 @@ export const api = {
     request<components['schemas']['Validation']>(`/scenarios/${s.scenario_id}/validate`, {
       expected_state_version: s.state_version,
     }),
-  exportUrl: (plan: string, format: 'json' | 'csv' | 'geojson') =>
+  exportUrl: (plan: string, format: 'json' | 'csv' | 'geojson' | 'relay_csv') =>
     `/api/v1/plans/${plan}/export?format=${format}`,
   reportUrl: (plan: string) => `/api/v1/plans/${plan}/report`,
 }

@@ -50,6 +50,17 @@ def analyze(snapshot, plan):
                 "sortie_id": None,
             }
         )
+    for row in plan.get("relay_sorties", []):
+        charge_windows.append(
+            {
+                "battery_id": row["component_id"],
+                "type_id": "R",
+                "start_s": row["charge_start_s"],
+                "end_s": row["component_released_s"],
+                "is_initial": False,
+                "sortie_id": row["relay_sortie_id"],
+            }
+        )
     for b in s["batteries"] if not s.get("resource_limits") else []:
         uses = sorted(by_battery[b["battery_id"]], key=lambda r: r["prepare_start_s"])
         if not uses:
@@ -123,6 +134,43 @@ def analyze(snapshot, plan):
         )
         for t in s["drone_types"]
     }
+    if plan.get("relay_sorties"):
+        by_type["R"] = interval_peak(
+            [(w["start_s"], w["end_s"]) for w in charge_windows if w["type_id"] == "R"]
+        )
+        config = s["communication"]
+        for kind, records, id_key, release_key in [
+            ("relay_drone", config["relay_drones"], "drone_id", "drone_released_s"),
+            (
+                "relay_energy",
+                config["relay_energy"],
+                "component_id",
+                "component_released_s",
+            ),
+        ]:
+            horizon = max(r[release_key] for r in plan["relay_sorties"])
+            for record in records:
+                uses = [r for r in plan["relay_sorties"] if r[id_key] == record[id_key]]
+                occupied = sum(r[release_key] - r["prepare_start_s"] for r in uses)
+                resources.append(
+                    {
+                        "kind": kind,
+                        "resource_id": record[id_key],
+                        "type_id": "R",
+                        "sortie_count": len(uses),
+                        "occupied_s": occupied,
+                        "flight_s": sum(
+                            r["arrival_s"]
+                            - r["takeoff_s"]
+                            + r["return_s"]
+                            - r["service_end_s"]
+                            for r in uses
+                        ),
+                        "energy_kwh": sum(r["energy_kwh"] for r in uses),
+                        "horizon_s": horizon,
+                        "utilization": occupied / horizon if horizon else 0,
+                    }
+                )
     deliveries = delivery_analysis(s, plan)
     slacks = [
         d["hard_deadline_s"] - d["complete_s"]
@@ -136,11 +184,14 @@ def analyze(snapshot, plan):
         "model_scope": plan["model_scope"],
         "resource_limits": s.get("resource_limits"),
         "prep_peak": interval_peak(
-            [(r["prepare_start_s"], r["takeoff_s"]) for r in plan["sorties"]]
+            [
+                (r["prepare_start_s"], r["takeoff_s"])
+                for r in [*plan["sorties"], *plan.get("relay_sorties", [])]
+            ]
         ),
         "charge_wait_s": sum(
             r.get("charge_start_s", r["return_s"]) - r["return_s"]
-            for r in plan["sorties"]
+            for r in [*plan["sorties"], *plan.get("relay_sorties", [])]
         )
         + sum(
             row["start_s"]

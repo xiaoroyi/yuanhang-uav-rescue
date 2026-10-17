@@ -1,5 +1,5 @@
 {
-  "plan_id": "PLAN-EB63F5E53BE04CD3",
+  "plan_id": "PLAN-42D92AA10F564450",
   "page_count": 7,
   "pages": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "page": 4,
-      "text_characters": 1002,
+      "text_characters": 1020,
       "plan_id_present": true,
       "image": "evidence/browser/verified/initial-charge-report-page-4.png"
     },
@@ -40,7 +40,7 @@
     },
     {
       "page": 7,
-      "text_characters": 674,
+      "text_characters": 672,
       "plan_id_present": true,
       "image": "evidence/browser/verified/initial-charge-report-page-7.png"
     }

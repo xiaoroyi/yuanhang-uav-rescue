@@ -3,7 +3,11 @@ import json
 from pathlib import Path
 
 from shared.contracts import content_hash
-from solver.adapters.contest import compact_scenario, contest_scenario
+from solver.adapters.contest import (
+    compact_scenario,
+    contest_scenario,
+    contest_communication,
+)
 from solver.public_api import solve
 
 
@@ -16,6 +20,11 @@ def main():
     )
     parser.add_argument("--seconds", type=float, default=15)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--communication",
+        action="store_true",
+        help="启用原题通信/中继参数与有限悬停候选",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     s = (
@@ -23,6 +32,9 @@ def main():
         if args.scenario
         else (compact_scenario() if args.example == "compact" else contest_scenario())
     )
+    if args.communication:
+        s["communication"] = s.get("communication") or contest_communication(s)
+        s["policy"]["requires_communication"] = True
     snapshot = {
         "schema_version": s["schema_version"],
         "snapshot_id": "SNAP-CLI-001",
@@ -41,6 +53,9 @@ def main():
         "time_window",
         "energy",
     ] + (["terrain"] if s["policy"]["requires_terrain"] else [])
+    scope += ["communication"] if s["policy"]["requires_communication"] else []
+    scope += ["restricted_zone"] if s.get("restricted_zones") else []
+    scope += ["ground_resource"] if s.get("resource_limits") else []
     options = {
         "schema_version": s["schema_version"],
         "plan_id": "PLAN-CLI-001",
@@ -73,6 +88,9 @@ def main():
                 "runtime_s": result["runtime_s"],
                 "first_feasible_s": result["first_feasible_s"],
                 "metrics": result["plan"]["metrics"] if result["plan"] else None,
+                "joint_metrics": (
+                    result["plan"].get("joint_metrics") if result["plan"] else None
+                ),
                 "diagnostics": result["diagnostics"],
             },
             ensure_ascii=False,

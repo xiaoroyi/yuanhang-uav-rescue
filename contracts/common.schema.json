@@ -231,6 +231,639 @@
         "request_id"
       ],
       "additionalProperties": false
+    },
+    "radio_endpoint": {
+      "title": "RadioEndpoint",
+      "type": "object",
+      "properties": {
+        "tx_power_dbm": {
+          "type": "number",
+          "minimum": -100,
+          "maximum": 100
+        },
+        "gain_dbi": {
+          "type": "number",
+          "minimum": -20,
+          "maximum": 50
+        }
+      },
+      "required": [
+        "tx_power_dbm",
+        "gain_dbi"
+      ],
+      "additionalProperties": false
+    },
+    "radio_gateway": {
+      "title": "RadioGateway",
+      "type": "object",
+      "properties": {
+        "tx_power_dbm": {
+          "type": "number",
+          "minimum": -100,
+          "maximum": 100
+        },
+        "gain_dbi": {
+          "type": "number",
+          "minimum": -20,
+          "maximum": 50
+        },
+        "antenna_height_m": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "tx_power_dbm",
+        "gain_dbi",
+        "antenna_height_m"
+      ],
+      "additionalProperties": false
+    },
+    "relay_model": {
+      "title": "RelayModel",
+      "type": "object",
+      "properties": {
+        "mass_kg": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 10000
+        },
+        "cruise_speed_mps": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 200
+        },
+        "climb_speed_mps": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 100
+        },
+        "descent_speed_mps": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 100
+        },
+        "cruise_power_kw": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 1000
+        },
+        "hover_power_kw": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 1000
+        },
+        "radio_power_kw": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "climb_efficiency": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 1
+        },
+        "prepare_duration_s": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "link_duration_s": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "turnaround_duration_s": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 86400
+        },
+        "full_charge_s": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 864000
+        },
+        "max_agl_m": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 3000
+        },
+        "min_return_soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 0.99
+        }
+      },
+      "required": [
+        "mass_kg",
+        "cruise_speed_mps",
+        "climb_speed_mps",
+        "descent_speed_mps",
+        "cruise_power_kw",
+        "hover_power_kw",
+        "radio_power_kw",
+        "climb_efficiency",
+        "prepare_duration_s",
+        "link_duration_s",
+        "turnaround_duration_s",
+        "full_charge_s",
+        "max_agl_m",
+        "min_return_soc"
+      ],
+      "additionalProperties": false
+    },
+    "relay_aircraft": {
+      "title": "RelayAircraft",
+      "type": "object",
+      "properties": {
+        "drone_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        },
+        "location_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "available_after_s": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "drone_id",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "additionalProperties": false
+    },
+    "relay_energy": {
+      "title": "RelayEnergy",
+      "type": "object",
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "capacity_kwh": {
+          "type": "number",
+          "minimum": 0.001,
+          "maximum": 10000
+        },
+        "soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "soh": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "status": {
+          "enum": [
+            "available",
+            "charging",
+            "unavailable"
+          ]
+        },
+        "location_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "available_after_s": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "component_id",
+        "capacity_kwh",
+        "soc",
+        "soh",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "additionalProperties": false
+    },
+    "relay_station": {
+      "title": "RelayStation",
+      "type": "object",
+      "properties": {
+        "station_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "coordinates": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "agl_m": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 3000
+        }
+      },
+      "required": [
+        "station_id",
+        "coordinates",
+        "agl_m"
+      ],
+      "additionalProperties": false
+    },
+    "communication": {
+      "title": "Communication",
+      "type": "object",
+      "properties": {
+        "model_id": {
+          "const": "projected_dem_radio_v1"
+        },
+        "frequency_mhz": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "system_loss_db": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "obstruction_loss_db": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "sensitivity_dbm": {
+          "type": "number",
+          "minimum": -200,
+          "maximum": 0
+        },
+        "fading_margin_db": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "gateway": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/radio_gateway"
+        },
+        "transport": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/radio_endpoint"
+        },
+        "relay_access": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/radio_endpoint"
+        },
+        "relay_backhaul": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/radio_endpoint"
+        },
+        "relay_model": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/relay_model"
+        },
+        "relay_drones": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/relay_aircraft"
+          }
+        },
+        "relay_energy": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/relay_energy"
+          }
+        },
+        "candidate_stations": {
+          "type": "array",
+          "maxItems": 48,
+          "items": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/relay_station"
+          }
+        }
+      },
+      "required": [
+        "model_id",
+        "frequency_mhz",
+        "system_loss_db",
+        "obstruction_loss_db",
+        "sensitivity_dbm",
+        "fading_margin_db",
+        "gateway",
+        "transport",
+        "relay_access",
+        "relay_backhaul",
+        "relay_model",
+        "relay_drones",
+        "relay_energy",
+        "candidate_stations"
+      ],
+      "additionalProperties": false
+    },
+    "relay_sortie": {
+      "title": "RelaySortie",
+      "type": "object",
+      "properties": {
+        "relay_sortie_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "drone_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "component_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "station_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "station_coordinates": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            },
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "station_agl_m": {
+          "type": "number",
+          "minimum": 0
+        },
+        "station_elevation_m": {
+          "type": "number"
+        },
+        "prepare_start_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "takeoff_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "arrival_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "service_start_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "service_end_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "return_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "drone_released_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "charge_start_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "component_released_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "energy_kwh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "return_soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "route_geometry": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "LineString"
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                  }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "relay_sortie_id",
+        "drone_id",
+        "component_id",
+        "station_id",
+        "station_coordinates",
+        "station_agl_m",
+        "station_elevation_m",
+        "prepare_start_s",
+        "takeoff_s",
+        "arrival_s",
+        "service_start_s",
+        "service_end_s",
+        "return_s",
+        "drone_released_s",
+        "charge_start_s",
+        "component_released_s",
+        "energy_kwh",
+        "return_soc",
+        "route_geometry"
+      ],
+      "additionalProperties": false
+    },
+    "joint_metrics": {
+      "title": "JointMetrics",
+      "type": "object",
+      "properties": {
+        "relay_energy_kwh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "joint_energy_kwh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "joint_makespan_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "relay_sortie_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "relay_energy_kwh",
+        "joint_energy_kwh",
+        "joint_makespan_s",
+        "relay_sortie_count"
+      ],
+      "additionalProperties": false
+    },
+    "communication_window": {
+      "title": "CommunicationWindow",
+      "type": "object",
+      "properties": {
+        "sortie_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "start_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "end_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "source": {
+          "enum": [
+            "gateway",
+            "relay"
+          ]
+        },
+        "relay_sortie_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "sortie_id",
+        "start_s",
+        "end_s",
+        "source",
+        "relay_sortie_id"
+      ],
+      "additionalProperties": false
+    },
+    "communication_report": {
+      "title": "CommunicationReport",
+      "type": "object",
+      "properties": {
+        "model_id": {
+          "const": "projected_dem_radio_v1"
+        },
+        "transport_active_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "direct_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "relay_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "coverage_gap_s": {
+          "type": "number",
+          "minimum": 0
+        },
+        "windows": {
+          "type": "array",
+          "maxItems": 20000,
+          "items": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/communication_window"
+          }
+        }
+      },
+      "required": [
+        "model_id",
+        "transport_active_s",
+        "direct_s",
+        "relay_s",
+        "coverage_gap_s",
+        "windows"
+      ],
+      "additionalProperties": false
     }
   }
 }

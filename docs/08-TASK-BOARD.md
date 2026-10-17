@@ -67,9 +67,9 @@
 | C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
 | B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md; docs/SPATIAL_ROUTING.md; tests/backend/test_spatial.py; evidence/browser/verified/zone-detour-1440.png; docs/TERRAIN_ASSETS.md; tests/backend/test_terrain_assets.py; evidence/browser/verified/terrain-assets-1440.png |
 | A-07 | P1 | A | A-02, C-06 | 绕行候选 A* 或可见图、净空预检、缓存键与失效；验收：禁入更新后候选重算且有验证 | done | feat/solo-fullstack-v0; docs/SPATIAL_ROUTING.md; solver/routing.py; tests/solver/test_routing.py; evidence/solver/zone-compact.json |
-| A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | todo | — |
-| C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | todo | — |
-| B-07 | P1 | B | C-07 | 中继点/服务时间轴、通信来源与缺口高亮；验收：点击航段显示接入/回传来源与证据 | todo | — |
+| A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | in_progress | feat/solo-fullstack-v0; docs/COMMUNICATION.md; solver/joint.py; tests/solver/test_radio.py; evidence/solver/joint-compact.json; evidence/solver/joint-contest.json |
+| C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | done | feat/solo-fullstack-v0; docs/CONTRACT_RFC_006.md; tests/backend/test_joint_api.py; contracts/http/openapi.generated.json |
+| B-07 | P1 | B | C-07 | 中继点/服务时间轴、通信来源与缺口高亮；验收：点击航段显示接入/回传来源与证据 | in_progress | feat/solo-fullstack-v0; frontend/src/components/CommunicationPanel.tsx; evidence/browser/verified/joint-workspace-1440.png; evidence/browser/e2e-results.json |
 | A-09 | P1 | A | A-04, X-02 | 充电端口、起降位与地面工位容量约束；验收：同刻容量超限可检测 | todo | — |
 | A-10 | P1 | A | A-05, A-07, C-05 | 电池退出、紧急插单、落点变更、未来封控事件；验收：作用范围、发生/接收时间、旧事实可追踪 | todo | — |
 | C-08 | P1 | B | A-10, C-05 | 地图/资源新增事件 API 与一致性事务；验收：版本冲突返回结构化错误 | todo | — |

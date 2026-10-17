@@ -35,6 +35,8 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 
 有限地面资源详见RFC-005：resource_limits存在时要求ground_resource，charge_start_s区分排队与真正补能，initial_charges记录初始低SOC补满。它们均为兼容可选字段，旧数据省略时不追加默认值。
 
+连续通信详见RFC-006：可选communication及relay_sorties/communication_report/joint_metrics/joint_search；原metrics仍仅统计运输。来源窗口、双向回传、中继实体与能源组件均独立重建；联合累计通信时长按运输任务相加，不是墙钟时长。配置启用后必检communication；缺口或范围不支持不能发布联合方案。
+
 ## P0 数据资格
 
 - 单基地，整箱不可拆；需求 required_quantity 是箱数，与库存箱件数分开。

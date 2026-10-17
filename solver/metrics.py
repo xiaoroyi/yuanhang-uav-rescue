@@ -72,6 +72,12 @@ def delivery_analysis(scenario, plan):
 def objective_score(scenario, plan, objective):
     late = delivery_analysis(scenario, plan)["weighted_box_delay_s"]
     m = plan["metrics"]
+    if plan.get("joint_metrics"):
+        m = {
+            **m,
+            "energy_kwh": plan["joint_metrics"]["joint_energy_kwh"],
+            "makespan_s": plan["joint_metrics"]["joint_makespan_s"],
+        }
     if objective == "energy":
         return late, m["energy_kwh"], m["makespan_s"]
     if objective == "balanced":

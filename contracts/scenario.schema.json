@@ -657,6 +657,9 @@
         "charging_ports"
       ],
       "additionalProperties": false
+    },
+    "communication": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/communication"
     }
   },
   "required": [

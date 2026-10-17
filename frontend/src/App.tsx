@@ -40,6 +40,7 @@ import { api, ApiError, downloadJson, type Scenario } from './api/client'
 import { Badge, Button, Empty, Modal, Toasts, type ToastMessage } from './components/ui'
 import { RescueMap } from './components/RescueMap'
 import { ResourceTimeline } from './components/ResourceTimeline'
+import { CommunicationPanel } from './components/CommunicationPanel'
 import { ScenarioEditor } from './pages/ScenarioEditor'
 import { ResourceAnalysis } from './pages/ResourceAnalysis'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
@@ -305,7 +306,13 @@ export default function App() {
       const created = await api.solve(
         snap.snapshot_id,
         objective,
-        improve ? { mode: 'improve', time_limit_s: 30, initial_plan_id: plan?.plan_id } : {},
+        improve
+          ? {
+              mode: 'improve',
+              time_limit_s: scenario.policy.requires_communication ? 60 : 30,
+              initial_plan_id: plan?.plan_id,
+            }
+          : { time_limit_s: scenario.policy.requires_communication ? 60 : 15 },
       )
       setJobId(created.job_id)
       query.setQueryData(['job', created.job_id], created)
@@ -344,7 +351,12 @@ export default function App() {
       const newJob = await api.solve(
         snap.snapshot_id,
         plan.objective as 'time' | 'energy' | 'balanced',
-        { mode: 'replan', parent_plan_id: plan.plan_id, event_id: event.event.event_id },
+        {
+          mode: 'replan',
+          parent_plan_id: plan.plan_id,
+          event_id: event.event.event_id,
+          time_limit_s: updated.policy.requires_communication ? 60 : 15,
+        },
       )
       setJobId(newJob.job_id)
       query.setQueryData(['job', newJob.job_id], newJob)
@@ -391,7 +403,7 @@ export default function App() {
             note: plan ? `最后返航 ${duration(plan.metrics.makespan_s)}` : '以整站交接完成计时',
           },
           {
-            label: '预计总能耗',
+            label: plan?.joint_metrics ? '运输能耗' : '预计总能耗',
             value: number(plan?.metrics.energy_kwh, 2),
             unit: 'kWh',
             icon: Zap,
@@ -709,13 +721,17 @@ export default function App() {
                       {page === 'workspace' && plan && (
                         <Button
                           disabled={isBusy || stale || scenario.data_origin === 'mock'}
-                          title="同一快照上执行30秒限时路线池搜索；未找到更优方案时保留已验算基线。"
+                          title={
+                            scenario.policy.requires_communication
+                              ? '同一快照上执行60秒有限分解联合调度；未找到更优方案时保留已验算基线。'
+                              : '同一快照上执行30秒限时路线池搜索；未找到更优方案时保留已验算基线。'
+                          }
                           onClick={() =>
                             void runSolver(plan.objective as 'time' | 'energy' | 'balanced', true)
                           }
                         >
                           <RefreshCw size={14} />
-                          深入优化30秒
+                          {scenario.policy.requires_communication ? '联合优化60秒' : '深入优化30秒'}
                         </Button>
                       )}
                       {page === 'workspace' && (
@@ -1331,6 +1347,10 @@ export default function App() {
                       onSelect={setSelected}
                     />
                   )}
+                  {plan?.communication_report &&
+                    !(page === 'events' && eventTab === 'analysis') && (
+                      <CommunicationPanel plan={plan} />
+                    )}
                   <div className="workspace-footer">
                     <div>
                       <ShieldCheck size={15} />
