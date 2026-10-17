@@ -43,6 +43,7 @@ class SupportedModelScopeEnum(Enum):
     energy = "energy"
     terrain = "terrain"
     communication = "communication"
+    restricted_zone = "restricted_zone"
 
 
 class SupportedEnergyModel(
@@ -121,6 +122,7 @@ class ScopeEnum(Enum):
     energy = "energy"
     terrain = "terrain"
     communication = "communication"
+    restricted_zone = "restricted_zone"
 
 
 class Scope(RootModel[list[ScopeEnum]]):
@@ -144,6 +146,7 @@ class Code(Enum):
     energy = "energy"
     terrain = "terrain"
     communication = "communication"
+    restricted_zone = "restricted_zone"
 
 
 class Status1(Enum):
@@ -287,6 +290,7 @@ class ModelScopeEnum(Enum):
     energy = "energy"
     terrain = "terrain"
     communication = "communication"
+    restricted_zone = "restricted_zone"
 
 
 class Metrics(BaseModel):
@@ -657,6 +661,30 @@ class Policy(BaseModel):
     cost_model_available: Literal[False]
 
 
+class Coordinate2(RootModel[list[Coordinates]]):
+    root: list[Coordinates]
+
+
+class Geometry(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    type: Literal["Polygon"]
+    coordinates: list[Coordinate2] = Field(..., max_length=1, min_length=1)
+
+
+class RestrictedZone(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    zone_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    name: constr(min_length=1)
+    buffer_m: confloat(ge=0.0, le=5000.0)
+    geometry: Geometry
+
+
 class Scenario(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -681,6 +709,7 @@ class Scenario(BaseModel):
     drones: list[Drone] = Field(..., min_length=0)
     batteries: list[Battery] = Field(..., min_length=0)
     policy: Policy
+    restricted_zones: list[RestrictedZone] | None = Field(None, max_length=12)
 
 
 class Snapshot(BaseModel):
@@ -756,6 +785,7 @@ class RequestedModelScopeEnum(Enum):
     energy = "energy"
     terrain = "terrain"
     communication = "communication"
+    restricted_zone = "restricted_zone"
 
 
 class SolverOptions(BaseModel):

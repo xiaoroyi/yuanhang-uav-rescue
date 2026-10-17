@@ -13,7 +13,15 @@ from backend.app.generated.domain import Scenario
 from shared.contracts import validate_scenario
 
 GROUPS = ["sites", "demands", "cargo_items", "drone_types", "drones", "batteries"]
-OBJECTS = {"terrain", "base", "policy", "energy_model", "charge_model", "coordinates"}
+OBJECTS = {
+    "terrain",
+    "base",
+    "policy",
+    "energy_model",
+    "charge_model",
+    "coordinates",
+    "restricted_zones",
+}
 NUMBERS = {
     "state_version",
     "ground_elevation_m",
@@ -120,7 +128,7 @@ def preview(filename, data, current=None, entity=None):
         raise ValueError("场景必须为JSON对象。")
     if s.get("data_origin") != "mock":
         s["data_origin"] = "user_input"
-    normalized = Scenario.model_validate(s).model_dump(mode="json")
+    normalized = Scenario.model_validate(s).model_dump(mode="json", exclude_unset=True)
     validate_scenario(normalized)
     return {
         "scenario": normalized,

@@ -50,7 +50,8 @@
           "time_window",
           "energy",
           "terrain",
-          "communication"
+          "communication",
+          "restricted_zone"
         ]
       },
       "uniqueItems": true

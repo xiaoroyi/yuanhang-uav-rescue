@@ -275,3 +275,48 @@ test('深入优化保留同快照基线，刷新后继续真实计算', async ({
   expect(current.validation.status).toBe('passed')
   await screenshot(page, 'deep-optimization-1440')
 })
+
+test('限制区保存新版本，真实绕行并沿折线回放', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  await solve(page)
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const old = (await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json())[0]
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: '管理限制区', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.getByRole('button', { name: '加入草稿', exact: true }).click()
+  await expect(page.getByLabel('限制区JSON')).toContainText('临时限制区')
+  await page.screenshot({ path: path.resolve('../evidence/browser/verified/zone-editor-1440.png') })
+  await page.getByRole('button', { name: '保存限制区', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await expect(page.locator('.zone-saved-list')).toContainText('临时限制区')
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  await solve(page)
+  const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  expect(plans).toHaveLength(2)
+  expect(plans[0].snapshot_id).not.toBe(old.snapshot_id)
+  const plan = await (await request.get(`/api/v1/plans/${plans[0].plan_id}`)).json()
+  expect(plan.model_scope).toContain('restricted_zone')
+  expect(
+    plan.sorties.some(
+      (r: { visits: unknown[]; route_geometry: { coordinates: unknown[] } }) =>
+        r.route_geometry.coordinates.length > r.visits.length + 2,
+    ),
+  ).toBe(true)
+  expect(
+    plan.validation.checks.some(
+      (c: { code: string; status: string }) =>
+        c.code === 'restricted_zone' && c.status === 'passed',
+    ),
+  ).toBe(true)
+  await page.getByRole('button', { name: '检查报告', exact: true }).click()
+  await expect(page.getByRole('dialog')).toContainText('限制区与缓冲')
+  await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗' }).click()
+  await screenshot(page, 'zone-detour-1440')
+  await page.getByRole('button', { name: '播放计划回放', exact: true }).click()
+  await expect(page.locator('.planned-aircraft').first()).toBeVisible()
+  await page.getByRole('button', { name: '暂停计划回放', exact: true }).click()
+  expect(errors).toEqual([])
+})

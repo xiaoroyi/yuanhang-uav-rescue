@@ -38,7 +38,7 @@ def capabilities():
         "solver_ready": True,
         "supported_objectives": ["time", "energy", "balanced"],
         "supported_events": ["drone.unavailable"],
-        "supported_model_scope": BASE_SCOPE + ["terrain"],
+        "supported_model_scope": BASE_SCOPE + ["terrain", "restricted_zone"],
         "supported_energy_models": [ENERGY_MODEL],
         "supported_charge_models": [CHARGE_MODEL],
         "features": {
@@ -357,7 +357,8 @@ def _make_plan(snapshot, options, routes):
         "solver_status": "FEASIBLE",
         "has_validated_plan": True,
         "model_scope": BASE_SCOPE
-        + (["terrain"] if s["terrain"]["status"] == "available" else []),
+        + (["terrain"] if s["terrain"]["status"] == "available" else [])
+        + (["restricted_zone"] if s.get("restricted_zones") else []),
         "metrics": {
             "last_delivery_s": max(
                 v["delivery_complete_s"] for r in routes for v in r["visits"]
@@ -379,6 +380,13 @@ def _make_plan(snapshot, options, routes):
             "真实限时多起点插入启发式；未证明全局最优。",
             "题设载荷能耗、两段充电；默认充电端口无限。",
             "航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。",
+            *(
+                [
+                    "local_polygon_v1：基地100km范围静态禁入区与米制缓冲，绕行另加10m数值余量；测地段20m弦检查。"
+                ]
+                if s.get("restricted_zones")
+                else []
+            ),
             "通信未评估；输出为仿真/规划建议，不是实飞许可。",
         ],
         "parent_plan_id": options["parent_plan_id"],

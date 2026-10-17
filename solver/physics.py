@@ -14,6 +14,7 @@ from pathlib import Path
 
 import numpy as np
 from pyproj import Geod
+from solver.routing import route_path, RoutingUnavailable
 
 ROOT = Path(__file__).resolve().parents[1]
 GEOD = Geod(ellps="WGS84")
@@ -32,6 +33,7 @@ class Leg:
     descend_m: float
     cruise_m: float
     terrain_checked: bool
+    path: tuple
 
 
 @lru_cache(maxsize=2)
@@ -150,7 +152,11 @@ def leg(scenario, drone_type, start_id, end_id):
     p = parameters(drone_type)
     nodes = {n["id"]: n for n in [scenario["base"], *scenario["sites"]]}
     start, end = nodes[start_id], nodes[end_id]
-    distance = abs(GEOD.inv(*start["coordinates"], *end["coordinates"])[2])
+    try:
+        path = route_path(scenario, start["coordinates"], end["coordinates"])
+    except RoutingUnavailable as exc:
+        raise InputNotReady(str(exc)) from exc
+    distance = sum(abs(GEOD.inv(*a, *b)[2]) for a, b in zip(path, path[1:]))
     base_id = scenario["base"]["id"]
     z0, z1 = start["ground_elevation_m"], end["ground_elevation_m"]
     if z0 is None or z1 is None:
@@ -161,18 +167,26 @@ def leg(scenario, drone_type, start_id, end_id):
     terrain = scenario["terrain"]
     checked = terrain["status"] == "available"
     maximum = (
-        terrain_maximum(
-            terrain["asset_id"],
-            terrain["sha256"],
-            tuple(start["coordinates"]),
-            tuple(end["coordinates"]),
+        max(
+            terrain_maximum(
+                terrain["asset_id"],
+                terrain["sha256"],
+                a,
+                b,
+            )
+            for a, b in zip(path, path[1:])
         )
         if checked
         else max(z0, z1)
     )
     cruise = max(maximum + p.get("clearance_m", 50.0), work0, work1)
     return Leg(
-        distance, max(0.0, cruise - work0), max(0.0, cruise - work1), cruise, checked
+        distance,
+        max(0.0, cruise - work0),
+        max(0.0, cruise - work1),
+        cruise,
+        checked,
+        path,
     )
 
 
@@ -220,9 +234,9 @@ def evaluate_route(scenario, drone_type, stops):
     visits = []
     current = scenario["base"]["id"]
     coords = [scenario["base"]["coordinates"]]
-    nodes = {n["id"]: n for n in scenario["sites"]}
     for dest, ids in [*stops, (scenario["base"]["id"], [])]:
         geom = leg(scenario, drone_type, current, dest)
+        coords.extend([list(point) for point in geom.path[1:]])
         duration, use = leg_values(drone_type, geom, remaining)
         clock += duration
         energy += use
@@ -234,9 +248,6 @@ def evaluate_route(scenario, drone_type, stops):
                 {"site_id": dest, "cargo_ids": list(ids), "delivery_complete_s": clock}
             )
             remaining -= sum(cargos[c]["mass_kg"] for c in ids)
-            coords.append(nodes[dest]["coordinates"])
-        else:
-            coords.append(scenario["base"]["coordinates"])
         current = dest
     return {
         "type_id": drone_type["type_id"],

@@ -1887,7 +1887,8 @@
           "time_window",
           "energy",
           "terrain",
-          "communication"
+          "communication",
+          "restricted_zone"
         ],
         "title": "Code"
       },
@@ -2054,6 +2055,13 @@
         "maximum": 90.0,
         "minimum": -90.0,
         "title": "Coordinate1"
+      },
+      "Coordinate2": {
+        "items": {
+          "$ref": "#/components/schemas/Coordinates"
+        },
+        "type": "array",
+        "title": "Coordinate2"
       },
       "Coordinates": {
         "prefixItems": [
@@ -2652,6 +2660,31 @@
         ],
         "title": "Features"
       },
+      "Geometry": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "Polygon",
+            "title": "Type"
+          },
+          "coordinates": {
+            "items": {
+              "$ref": "#/components/schemas/Coordinate2"
+            },
+            "type": "array",
+            "maxItems": 1,
+            "minItems": 1,
+            "title": "Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "title": "Geometry"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -2848,7 +2881,8 @@
           "time_window",
           "energy",
           "terrain",
-          "communication"
+          "communication",
+          "restricted_zone"
         ],
         "title": "ModelScopeEnum"
       },
@@ -3481,6 +3515,40 @@
         ],
         "title": "ResourceUsage"
       },
+      "RestrictedZone": {
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Zone Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "buffer_m": {
+            "type": "number",
+            "maximum": 5000.0,
+            "minimum": 0.0,
+            "title": "Buffer M"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "zone_id",
+          "name",
+          "buffer_m",
+          "geometry"
+        ],
+        "title": "RestrictedZone"
+      },
       "RouteGeometry": {
         "properties": {
           "type": {
@@ -3606,6 +3674,21 @@
           },
           "policy": {
             "$ref": "#/components/schemas/Policy"
+          },
+          "restricted_zones": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/RestrictedZone"
+                },
+                "type": "array",
+                "maxItems": 12
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restricted Zones"
           }
         },
         "additionalProperties": false,
@@ -4357,7 +4440,8 @@
           "time_window",
           "energy",
           "terrain",
-          "communication"
+          "communication",
+          "restricted_zone"
         ],
         "title": "SupportedModelScopeEnum"
       },

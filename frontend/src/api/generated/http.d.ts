@@ -712,7 +712,7 @@ export interface components {
          * Code
          * @enum {string}
          */
-        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication";
+        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
         /**
          * Code1
          * @enum {string}
@@ -773,6 +773,8 @@ export interface components {
         Coordinate: number;
         /** Coordinate1 */
         Coordinate1: number;
+        /** Coordinate2 */
+        Coordinate2: components["schemas"]["Coordinates"][];
         /** Coordinates */
         Coordinates: [
             components["schemas"]["Coordinate"],
@@ -973,6 +975,16 @@ export interface components {
             /** What If */
             what_if: boolean;
         };
+        /** Geometry */
+        Geometry: {
+            /**
+             * Type
+             * @constant
+             */
+            type: "Polygon";
+            /** Coordinates */
+            coordinates: components["schemas"]["Coordinate2"][];
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -1040,7 +1052,7 @@ export interface components {
          * ModelScopeEnum
          * @enum {string}
          */
-        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication";
+        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
         /**
          * Objective
          * @enum {string}
@@ -1267,6 +1279,16 @@ export interface components {
             /** Utilization */
             utilization: number;
         };
+        /** RestrictedZone */
+        RestrictedZone: {
+            /** Zone Id */
+            zone_id: string;
+            /** Name */
+            name: string;
+            /** Buffer M */
+            buffer_m: number;
+            geometry: components["schemas"]["Geometry"];
+        };
         /** RouteGeometry */
         RouteGeometry: {
             /**
@@ -1319,6 +1341,8 @@ export interface components {
             /** Batteries */
             batteries: components["schemas"]["Battery"][];
             policy: components["schemas"]["Policy"];
+            /** Restricted Zones */
+            restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
         };
         /** ScenarioOrigin */
         ScenarioOrigin: {
@@ -1570,7 +1594,7 @@ export interface components {
          * SupportedModelScopeEnum
          * @enum {string}
          */
-        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication";
+        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone";
         /**
          * SupportedObjective
          * @enum {string}

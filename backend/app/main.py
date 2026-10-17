@@ -19,6 +19,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.routing import APIRoute
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import delete, select
 
@@ -86,6 +87,14 @@ class AppError(Exception):
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
+
+
+class PreserveMissingFieldsRoute(APIRoute):
+    """Omitted optional extensions must not change old Snapshot wire hashes."""
+
+    def __init__(self, *args, **kwargs):
+        kwargs["response_model_exclude_unset"] = True
+        super().__init__(*args, **kwargs)
 
 
 class VersionRequest(StrictModel):
@@ -239,6 +248,7 @@ def create_app(runtime_dir: Path | None = None):
         database.engine.dispose()
 
     app = FastAPI(title="援航 · 应急调度API", version="0.1.0", lifespan=lifespan)
+    app.router.route_class = PreserveMissingFieldsRoute
     app.state.database = database
     app.add_middleware(
         CORSMiddleware,
@@ -315,7 +325,7 @@ def create_app(runtime_dir: Path | None = None):
         s = copy.deepcopy(s)
         s.update(scenario_id=new_id("SCN"), state_version=1)
         # Persist exactly the typed representation emitted over HTTP before computing hashes.
-        s = Scenario.model_validate(s).model_dump(mode="json")
+        s = Scenario.model_validate(s).model_dump(mode="json", exclude_unset=True)
         checked_scenario(s)
         with database.session(immediate=True) as session:
             session.add(
@@ -424,7 +434,7 @@ def create_app(runtime_dir: Path | None = None):
 
     @app.post("/api/v1/scenarios/import", response_model=Scenario, status_code=201)
     def import_scenario(body: Scenario):
-        data = body.model_dump(mode="json")
+        data = body.model_dump(mode="json", exclude_unset=True)
         if data["data_origin"] != "mock":
             data["data_origin"] = "user_input"
         return save_new(data)
@@ -606,7 +616,7 @@ def create_app(runtime_dir: Path | None = None):
 
     @app.put("/api/v1/scenarios/{scenario_id}", response_model=Scenario)
     def update_scenario(scenario_id: str, body: ScenarioUpdate):
-        s = body.scenario.model_dump(mode="json")
+        s = body.scenario.model_dump(mode="json", exclude_unset=True)
         if s["scenario_id"] != scenario_id:
             raise AppError(422, "REFERENCE_INVALID", "路径和正文场景ID不一致。")
         with database.session(immediate=True) as session:
@@ -721,6 +731,11 @@ def create_app(runtime_dir: Path | None = None):
                 "plan_id": plan_id,
                 **body.model_dump(exclude={"initial_plan_id"}),
             }
+            if (
+                snap["scenario"].get("restricted_zones")
+                and "restricted_zone" not in options["requested_model_scope"]
+            ):
+                options["requested_model_scope"].append("restricted_zone")
             if (
                 snap["scenario"]["policy"]["requires_terrain"]
                 and "terrain" not in options["requested_model_scope"]

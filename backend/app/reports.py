@@ -22,7 +22,16 @@ def route_svg(scenario, plan):
     positions = {
         n["id"]: (n["coordinates"][0] * factor, n["coordinates"][1]) for n in nodes
     }
-    xs, ys = zip(*positions.values())
+    coordinates = [n["coordinates"] for n in nodes]
+    coordinates.extend(
+        p for r in plan["sorties"] for p in r["route_geometry"]["coordinates"]
+    )
+    coordinates.extend(
+        p
+        for z in scenario.get("restricted_zones", [])
+        for p in z["geometry"]["coordinates"][0]
+    )
+    xs, ys = zip(*[(p[0] * factor, p[1]) for p in coordinates])
     west, east, south, north = min(xs), max(xs), min(ys), max(ys)
     span_x = max(east - west, 0.001)
     span_y = max(north - south, 0.001)
@@ -44,6 +53,14 @@ def route_svg(scenario, plan):
     parts = [
         '<svg viewBox="0 0 1200 420" role="img" aria-label="输入坐标与真实方案航线示意"><rect width="1200" height="420" rx="12" fill="#f3f7f4"/>'
     ]
+    for zone in scenario.get("restricted_zones", []):
+        points = " ".join(
+            f"{x:.2f},{y:.2f}"
+            for x, y in [xy(p) for p in zone["geometry"]["coordinates"][0]]
+        )
+        parts.append(
+            f'<polygon points="{points}" fill="#cf6656" fill-opacity=".18" stroke="#b75a4e" stroke-dasharray="4 3"><title>{text(zone["name"])} · {zone["buffer_m"]:g}m安全缓冲</title></polygon>'
+        )
     for route in plan["sorties"]:
         points = " ".join(
             f"{x:.2f},{y:.2f}"
@@ -63,6 +80,11 @@ def route_svg(scenario, plan):
     parts.append(
         '<text x="18" y="25" fill="#557364" font-size="12">WGS84坐标示意 · 任务级运输路线 · 非实时障碍图</text></svg>'
     )
+    if scenario.get("restricted_zones"):
+        parts.insert(
+            -1,
+            '<text x="18" y="405" fill="#a4584a" font-size="11">红色为限制区原始边界；航路计算另含设定缓冲及数值余量。</text>',
+        )
     return "".join(parts)
 
 

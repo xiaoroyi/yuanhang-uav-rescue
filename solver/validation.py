@@ -7,6 +7,7 @@ import math
 
 from shared.contracts import ContractError, validate_plan, validate_snapshot
 from solver.physics import InputNotReady, charge_seconds, leg, parameters
+from solver.routing import path_is_clear
 
 BASE_SCOPE = [
     "cargo_unique",
@@ -51,6 +52,7 @@ def validate(snapshot, plan):
     battery_uses = {}
     energy_total = 0.0
     terrain_ok = True
+    zone_checked = 0
 
     def equal(actual, expected, code, label, object_id):
         if actual is None or not math.isclose(
@@ -95,6 +97,7 @@ def validate(snapshot, plan):
                 {"site_id": s["base"]["id"], "cargo_ids": []},
             ]:
                 geometry = leg(s, typ, current, visit["site_id"])
+                expected_coords.extend([list(p) for p in geometry.path[1:]])
                 terrain_ok = terrain_ok and geometry.terrain_checked
                 # Recompute from raw mass and model parameters; never read optimizer energy contributions.
                 ratio = max(0.0, mass) / typ["max_payload_kg"]
@@ -137,12 +140,14 @@ def validate(snapshot, plan):
                         if not nodes[visit["site_id"]]["available"]:
                             add("inventory", "failed", "投送点不可用", visit["site_id"])
                     mass -= sum(cargos[c]["mass_kg"] for c in visit["cargo_ids"])
-                    expected_coords.append(nodes[visit["site_id"]]["coordinates"])
-                else:
-                    expected_coords.append(s["base"]["coordinates"])
                 current = visit["site_id"]
             if route["route_geometry"]["coordinates"] != expected_coords:
                 add("time_window", "failed", "路线几何与实际访问次序不一致", rid)
+            if s.get("restricted_zones") and not path_is_clear(
+                s, route["route_geometry"]["coordinates"]
+            ):
+                add("restricted_zone", "failed", "提交航线接触限制区或其安全缓冲", rid)
+            zone_checked += 1
             equal(route["return_s"], clock, "time_window", "返航时刻", rid)
             equal(
                 route["drone_released_s"],
@@ -221,6 +226,18 @@ def validate(snapshot, plan):
         ),
     )
     add("communication", "not_evaluated", "当前运输求解未接入连续无线链路认证")
+    if s.get("restricted_zones") and not any(
+        c["code"] == "restricted_zone" and c["status"] == "failed" for c in checks
+    ):
+        add(
+            "restricted_zone",
+            (
+                "passed"
+                if zone_checked == len(plan["sorties"]) and zone_checked
+                else "not_evaluated"
+            ),
+            "静态限制区及缓冲按测地航段20m弦检查；若航段输入无效则未完成，不含空域许可",
+        )
     required = sorted(
         set(
             BASE_SCOPE

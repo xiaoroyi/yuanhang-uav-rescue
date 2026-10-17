@@ -45,7 +45,8 @@
           "time_window",
           "energy",
           "terrain",
-          "communication"
+          "communication",
+          "restricted_zone"
         ]
       },
       "uniqueItems": true
@@ -76,7 +77,8 @@
                   "time_window",
                   "energy",
                   "terrain",
-                  "communication"
+                  "communication",
+                  "restricted_zone"
                 ]
               },
               "status": {

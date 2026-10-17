@@ -1,6 +1,7 @@
 """Read-only views of an already validated plan, with no execution side effects."""
 
 from __future__ import annotations
+from solver.physics import leg, GEOD
 
 
 def playback(plan, snapshot):
@@ -13,6 +14,7 @@ def playback(plan, snapshot):
     for sortie in plan["sorties"]:
         model = types[drones[sortie["drone_id"]]["type_id"]]
         current = scenario["base"]["coordinates"]
+        current_id = scenario["base"]["id"]
         cursor = sortie["takeoff_s"]
 
         def phase(kind, start, end, origin, destination):
@@ -30,13 +32,32 @@ def playback(plan, snapshot):
                 )
 
         phase("prepare", sortie["prepare_start_s"], cursor, current, current)
+
+        def flight(kind, origin_id, destination_id, begin, finish):
+            path = leg(scenario, model, origin_id, destination_id).path
+            distances = [abs(GEOD.inv(*a, *b)[2]) for a, b in zip(path, path[1:])]
+            total = sum(distances)
+            tick = begin
+            for i, (a, b) in enumerate(zip(path, path[1:])):
+                end = (
+                    finish
+                    if i == len(distances) - 1
+                    else (
+                        tick + (finish - begin) * distances[i] / total
+                        if total
+                        else tick
+                    )
+                )
+                phase(kind, tick, end, a, b)
+                tick = end
+
         for visit in sortie["visits"]:
             destination = nodes[visit["site_id"]]["coordinates"]
             handover = model["handover_fixed_s"] + model["handover_per_box_s"] * len(
                 visit["cargo_ids"]
             )
             arrival = visit["delivery_complete_s"] - handover
-            phase("flight", cursor, arrival, current, destination)
+            flight("flight", current_id, visit["site_id"], cursor, arrival)
             phase(
                 "handover",
                 arrival,
@@ -45,12 +66,13 @@ def playback(plan, snapshot):
                 destination,
             )
             cursor, current = visit["delivery_complete_s"], destination
-        phase(
+            current_id = visit["site_id"]
+        flight(
             "return",
+            current_id,
+            scenario["base"]["id"],
             cursor,
             sortie["return_s"],
-            current,
-            scenario["base"]["coordinates"],
         )
     return {
         "plan_id": plan["plan_id"],

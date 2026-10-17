@@ -31,6 +31,8 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 
 实现分支在入库前先经生成的Scenario模型规范化数字与带时区时间，然后对同一HTTP可见表示计算hash，避免int/float或UTC日期序列化导致服务端与客户端快照不同。
 
+可选扩展缺省时不补null/默认数组，HTTP及规范化exclude_unset以维持旧Snapshot原字节语义与hash。限制区详见RFC-003：非空restricted_zones始终强制检查，旧数据省略则沿用原模型；字段存在时进入版本/hash，不可只改地图图层而沿用旧方案。
+
 ## P0 数据资格
 
 - 单基地，整箱不可拆；需求 required_quantity 是箱数，与库存箱件数分开。

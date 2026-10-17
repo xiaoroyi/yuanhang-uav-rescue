@@ -580,6 +580,63 @@
         "cost_model_available"
       ],
       "additionalProperties": false
+    },
+    "restricted_zones": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "buffer_m": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5000
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Polygon"
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 64,
+                  "items": {
+                    "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/coordinates"
+                  }
+                }
+              }
+            },
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "zone_id",
+          "name",
+          "buffer_m",
+          "geometry"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [

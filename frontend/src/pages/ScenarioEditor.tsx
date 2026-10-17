@@ -22,6 +22,7 @@ import { api, downloadJson, type Scenario } from '../api/client'
 import { RescueMap } from '../components/RescueMap'
 import { Badge, Button, Modal } from '../components/ui'
 import { category, number, originLabel, percent, statusLabel } from '../lib/format'
+import { ZoneManager } from './ZoneManager'
 
 type Group = 'sites' | 'demands' | 'cargo_items' | 'drone_types' | 'drones' | 'batteries'
 type Row = Record<string, unknown>
@@ -593,6 +594,7 @@ export function ScenarioEditor({
           </footer>
         </section>
         <aside className="scenario-aside">
+          <ZoneManager scenario={scenario} onSave={onSave} notify={notify} />
           <section className="panel">
             <RescueMap
               scenario={scenario}

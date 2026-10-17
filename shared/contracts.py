@@ -13,6 +13,7 @@ import sys
 
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
+from shared.geometry import valid_ring
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMAT = FormatChecker()
@@ -122,6 +123,17 @@ def validate_scenario(s):
     index(s["cargo_items"], "cargo_id")
     index(s["drones"], "drone_id")
     index(s["batteries"], "battery_id")
+    zones = s.get("restricted_zones", [])
+    index(zones, "zone_id")
+    require(
+        sum(len(z["geometry"]["coordinates"][0]) - 1 for z in zones) <= 160,
+        "restricted zone vertex budget exceeded",
+    )
+    for zone in zones:
+        require(
+            valid_ring(zone["geometry"]["coordinates"][0]),
+            "restricted zone must be a simple closed polygon",
+        )
     for d in demands.values():
         require(d["site_id"] in sites, "demand references missing site")
     for c in s["cargo_items"]:
@@ -189,6 +201,8 @@ def validate_options(options, snapshot):
     for domain in ["terrain", "communication"]:
         if snapshot["scenario"]["policy"]["requires_" + domain]:
             required.add(domain)
+    if snapshot["scenario"].get("restricted_zones"):
+        required.add("restricted_zone")
     require(
         required <= set(options["requested_model_scope"]),
         "requested scope omits required policy checks",
@@ -385,6 +399,8 @@ def validate_plan(plan, snapshot):
                     f"{domain} not validated",
                 )
         checks = plan["validation"]["checks"]
+        if s.get("restricted_zones"):
+            required.add("restricted_zone")
         require(
             required <= set(plan["model_scope"]),
             "validated plan scope missing required check",

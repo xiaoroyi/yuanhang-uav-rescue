@@ -504,7 +504,10 @@
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/IMPLEMENTATION_STATUS.md",
+        "docs/SPATIAL_ROUTING.md",
+        "tests/backend/test_spatial.py",
+        "evidence/browser/verified/zone-detour-1440.png"
       ]
     },
     {
@@ -521,7 +524,10 @@
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/IMPLEMENTATION_STATUS.md",
+        "docs/SPATIAL_ROUTING.md",
+        "tests/backend/test_spatial.py",
+        "evidence/browser/verified/zone-detour-1440.png"
       ]
     },
     {
@@ -535,11 +541,14 @@
         "A-02",
         "C-06"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/SPATIAL_ROUTING.md",
+        "solver/routing.py",
+        "tests/solver/test_routing.py",
+        "evidence/solver/zone-compact.json"
       ]
     },
     {

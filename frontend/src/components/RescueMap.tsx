@@ -3,7 +3,7 @@ import * as maplibregl from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Crosshair, Layers, MapPinned, Minus, Plus } from 'lucide-react'
-import type { FeatureCollection, LineString } from 'geojson'
+import type { FeatureCollection, LineString, Polygon } from 'geojson'
 import type { Plan, Scenario, Playback } from '../api/client'
 import { colorFor } from '../lib/format'
 
@@ -44,6 +44,7 @@ export function RescueMap({
     [error, setError] = useState(false),
     [terrainShown, setTerrainShown] = useState(false)
   const [showTerrain, setShowTerrain] = useState(true)
+  const [showZones, setShowZones] = useState(true)
   const fit = useCallback(() => {
     const scenario = latest.current.scenario
     const bounds = new maplibregl.LngLatBounds()
@@ -83,6 +84,19 @@ export function RescueMap({
         type: 'line',
         source: 'grid',
         paint: { 'line-color': '#a5bdb2', 'line-width': 0.7, 'line-opacity': 0.35 },
+      })
+      m.addSource('zones', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
+      m.addLayer({
+        id: 'zones-fill',
+        type: 'fill',
+        source: 'zones',
+        paint: { 'fill-color': '#cf6656', 'fill-opacity': 0.18 },
+      })
+      m.addLayer({
+        id: 'zones-outline',
+        type: 'line',
+        source: 'zones',
+        paint: { 'line-color': '#b75a4e', 'line-width': 1.7, 'line-dasharray': [3, 2] },
       })
       m.addSource('old-routes', {
         type: 'geojson',
@@ -234,8 +248,22 @@ export function RescueMap({
         },
       })
     ;(m.getSource('grid') as maplibregl.GeoJSONSource).setData(grid)
+    const zones: FeatureCollection<Polygon> = {
+      type: 'FeatureCollection',
+      features: (scenario.restricted_zones || []).map((z) => ({
+        type: 'Feature',
+        properties: { id: z.zone_id, name: z.name, buffer_m: z.buffer_m },
+        geometry: z.geometry as Polygon,
+      })),
+    }
+    ;(m.getSource('zones') as maplibregl.GeoJSONSource).setData(zones)
     fit()
   }, [ready, scenario, fit])
+  useEffect(() => {
+    if (!map.current || !ready) return
+    for (const layer of ['zones-fill', 'zones-outline'])
+      map.current.setLayoutProperty(layer, 'visibility', showZones ? 'visible' : 'none')
+  }, [ready, showZones])
   useEffect(() => {
     const m = map.current
     if (!m || !ready) return
@@ -359,7 +387,19 @@ export function RescueMap({
               事件前方案
             </label>
           )}
-          <p>点位与航线均来自当前输入/计算。通信图层尚未接入。</p>
+          {!!scenario.restricted_zones?.length && (
+            <label>
+              <input
+                type="checkbox"
+                checked={showZones}
+                onChange={(e) => setShowZones(e.target.checked)}
+              />
+              限制区原始边界
+            </label>
+          )}
+          <p>
+            点位与航线均来自当前输入/计算。限制区图层显示原始边界，计算另含安全缓冲。通信图层尚未接入。
+          </p>
         </div>
       )}
       <div className="map-north">
@@ -378,6 +418,12 @@ export function RescueMap({
           <i className="legend-route" />
           运输航线
         </span>
+        {!!scenario.restricted_zones?.length && (
+          <span>
+            <i style={{ background: '#cf6656', borderRadius: 2 }} />
+            限制区
+          </span>
+        )}
       </div>
       <div className="map-attribution">
         {playTime != null
