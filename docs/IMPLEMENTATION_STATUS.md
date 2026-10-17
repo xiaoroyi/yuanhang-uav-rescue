@@ -80,3 +80,5 @@ RFC-010后续专项：32项算法/API检查通过（含电池事件、完整身�
 已实际核对d7aad4b的远端运行39074450180：Linux 183 passed、8 subtests passed，两条浏览器烟测expected=2、unexpected/flaky/skipped=0，Pydantic/OpenAPI/TS漂移检查和产物上传成功。新生成报告已从该运行的专用artifact取回，见github-ci-details.json与github-browser-smoke.json；不是用仓库历史截图代替本次CI证据。本机完整浏览器套件仍待统一复验。
 
 演示材料草稿已生成13页单文件离线HTML/PDF，配套demo.cmd、DEMO_SCRIPT和逐页渲染记录evidence/demo。实际PDF页面已逐页检查，键盘Home/End/下一页与零外网请求检查通过。第12页仍明确最近完整本机检查点，源码尚待最终复验；最终交付前须用build-demo.mjs --require-verified重建。PPTX受指定工具运行时缺失限制，官方模板/完整比赛材料仍未完成。
+
+RFC-011专项已完成14项Python与1条真实浏览器流程，旧运输/电池事件25项回归通过；容量下界绑定原快照，额外库存分开选最轻/最小体积见证，数值整数边界有保守保护，1440/1280/390截图已查看。完整回归尚待下一检查点。原题80箱容量下界10、默认32箱4，均不等于完整调度最优或最少资源。A-11仍含部分保障/可证明最小增配未完成范围。

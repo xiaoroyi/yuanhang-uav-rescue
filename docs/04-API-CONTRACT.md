@@ -77,3 +77,7 @@ GET /snapshots/{snapshot_id}/single-site-analysis?min_return_soc=0.2，返回严
 ## 退出事件扩展（RFC-010）
 
 POST /events接受严格Event联合：drone.unavailable携带drone_id，battery.unavailable携带运输battery_id。旧机体JSON有效，负载不能混用，不增加root层。服务端received_at校验发生时刻；幂等重试先于版本检查。只允许零时刻未执行场景，目标状态退出后保持能源/位置，事务保存版本并清除当前预约，原Plan保留。新Snapshot与父Plan/Event链经HTTP与纯Solver双重核对，详见EVENTS.md。
+
+## 容量诊断（RFC-011）
+
+PlanAnalysis新增可选capacity_bound，绑定原Snapshot，包含质量/体积必要下界、精确分数与箱件见证；旧分析JSON省略该字段仍可解析。不改变Plan可行性或确认接口，详见CAPACITY_BOUNDS。

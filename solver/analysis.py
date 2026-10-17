@@ -5,6 +5,7 @@ import math
 
 from solver.metrics import delivery_analysis
 from solver.physics import charge_seconds
+from solver.bounds import capacity_lower_bound
 
 
 def interval_peak(intervals):
@@ -182,6 +183,7 @@ def analyze(snapshot, plan):
         "snapshot_id": snapshot["snapshot_id"],
         "scenario_state_version": snapshot["scenario_state_version"],
         "model_scope": plan["model_scope"],
+        "capacity_bound": capacity_lower_bound(snapshot),
         "resource_limits": s.get("resource_limits"),
         "prep_peak": interval_peak(
             [

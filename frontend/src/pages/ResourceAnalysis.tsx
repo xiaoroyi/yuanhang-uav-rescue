@@ -12,6 +12,7 @@ import {
   PackagePlus,
   Plane,
   RadioTower,
+  Scale,
   ShieldCheck,
   TriangleAlert,
   X,
@@ -322,6 +323,69 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
           </small>
         </div>
       </div>
+      {a.capacity_bound && (
+        <section className="panel capacity-bound" aria-label="运输架次容量下界">
+          <div className="capacity-bound-summary">
+            <Scale size={24} />
+            <div className="capacity-bound-description">
+              <h3>运输架次容量下界</h3>
+              <p>完整服务的质量与体积必要条件，不代表最少机队或完整调度最优值。</p>
+            </div>
+            {a.capacity_bound.status === 'ready' ? (
+              <>
+                <div className="capacity-bound-number">
+                  <small>必要下界</small>
+                  <strong data-testid="capacity-sortie-lower-bound">
+                    {number(a.capacity_bound.sortie_lower_bound)}
+                    <em>架次</em>
+                  </strong>
+                </div>
+                <div className="capacity-bound-number">
+                  <small>当前计划</small>
+                  <strong>
+                    {plan.sorties.length}
+                    <em>运输架次</em>
+                  </strong>
+                </div>
+              </>
+            ) : (
+              <Badge tone="amber">未评估</Badge>
+            )}
+          </div>
+          {a.capacity_bound.status === 'ready' ? (
+            <details>
+              <summary>查看下界依据</summary>
+              <div className="capacity-bound-basis">
+                <div>
+                  <small>质量口径</small>
+                  <p>
+                    所需质量至少 <b>{number(a.capacity_bound.mass_min_kg, 3)} kg</b>
+                    ，可用机型最大额定载重 {number(a.capacity_bound.max_payload_kg, 2)} kg。
+                  </p>
+                  <strong>质量必要下界 {number(a.capacity_bound.mass_bound)} 架次</strong>
+                </div>
+                <div>
+                  <small>体积口径</small>
+                  <p>
+                    所需体积至少 <b>{number(a.capacity_bound.volume_min_l, 3)} L</b>
+                    ，可用机型最大额定容积 {number(a.capacity_bound.max_volume_l, 2)} L。
+                  </p>
+                  <strong>体积必要下界 {number(a.capacity_bound.volume_bound)} 架次</strong>
+                </div>
+              </div>
+              <p className="capacity-bound-note">
+                两套箱件见证独立选择，可以不同。忽略路径、能耗、时限、充电与通信等约束；不能按架次差额计算增机数量。数值容差、精确比值和箱件见证保留在分析JSON。
+              </p>
+              <p className="capacity-bound-note">
+                绑定快照 v{a.capacity_bound.scenario_state_version} · 可用机型{' '}
+                {a.capacity_bound.eligible_type_ids.join(' / ')}
+              </p>
+            </details>
+          ) : (
+            <p className="capacity-bound-note">{a.capacity_bound.reason}</p>
+          )}
+        </section>
+      )}
       <div className="analysis-columns">
         <div className="analysis-main">
           <section className="panel utilization-panel">

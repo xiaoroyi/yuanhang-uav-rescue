@@ -13,6 +13,7 @@ from shared.contracts import (
 )
 from solver.physics import InputNotReady, charge_seconds, leg, parameters
 from solver.routing import path_is_clear
+from solver.numerics import CAPACITY_TOLERANCE
 
 BASE_SCOPE = [
     "cargo_unique",
@@ -113,11 +114,11 @@ def validate(snapshot, plan):
         typ = types[drones[route["drone_id"]]["type_id"]]
         try:
             p = parameters(typ)
-            mass = sum(cargos[c]["mass_kg"] for c in route["cargo_ids"])
-            volume = sum(cargos[c]["volume_l"] for c in route["cargo_ids"])
+            mass = math.fsum(cargos[c]["mass_kg"] for c in route["cargo_ids"])
+            volume = math.fsum(cargos[c]["volume_l"] for c in route["cargo_ids"])
             if (
-                mass > typ["max_payload_kg"] + 1e-8
-                or volume > typ["max_volume_l"] + 1e-8
+                mass > typ["max_payload_kg"] + CAPACITY_TOLERANCE
+                or volume > typ["max_volume_l"] + CAPACITY_TOLERANCE
             ):
                 add("capacity", "failed", "质量或容积超过机型上限", rid)
             prep = typ["prepare_duration_s"] + p["load_per_box_s"] * len(

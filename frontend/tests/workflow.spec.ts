@@ -108,6 +108,55 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
   expect(errors).toEqual([])
 })
 
+test('容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await solve(page)
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const source = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  const panel = page.getByRole('region', { name: '运输架次容量下界' })
+  await expect(page.getByTestId('capacity-sortie-lower-bound')).toHaveText('4架次')
+  await panel.locator('summary').click()
+  await expect(panel).toContainText('不能按架次差额计算增机数量')
+  const download = page.waitForEvent('download')
+  await page.getByRole('button', { name: '导出分析JSON', exact: true }).click()
+  const exported = JSON.parse(await fs.readFile((await (await download).path())!, 'utf8'))
+  const bound = exported.analysis.capacity_bound
+  expect(bound.status).toBe('ready')
+  expect(bound.sortie_lower_bound).toBe(4)
+  expect(
+    bound.witnesses.reduce(
+      (sum: number, row: { required_quantity: number }) => sum + row.required_quantity,
+      0,
+    ),
+  ).toBe(32)
+  expect(bound.exact.mass_ratio).toMatch(/^\d+\/\d+$/)
+  const plan = await (await request.get(`/api/v1/plans/${exported.analysis.plan_id}`)).json()
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()
+  expect(bound.snapshot_content_hash).toBe(snapshot.content_hash)
+  expect(bound.sortie_lower_bound).toBeLessThanOrEqual(plan.sorties.length)
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await panel.scrollIntoViewIfNeeded()
+    await screenshot(page, `capacity-bound-${width}`)
+    expect(await panel.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(
+      true,
+    )
+  }
+  expect(await (await request.get(`/api/v1/scenarios/${sid}`)).json()).toEqual(source)
+  await fs.writeFile(
+    path.resolve('../evidence/browser/capacity-bound.json'),
+    JSON.stringify({ analysis: exported.analysis, page_errors: errors }, null, 2) + '\n',
+  )
+  expect(errors).toEqual([])
+})
+
 for (const joint of [false, true]) {
   test(`${joint ? '联合通信' : '运输'}场景运输电池退出，真实改派、确认和历史恢复`, async ({
     page,

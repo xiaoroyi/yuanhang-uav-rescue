@@ -2165,6 +2165,51 @@
         ],
         "title": "Body_upload_terrain_package_api_v1_terrain_assets_import_package_post"
       },
+      "BoundWitness": {
+        "properties": {
+          "demand_id": {
+            "type": "string",
+            "title": "Demand Id"
+          },
+          "required_quantity": {
+            "type": "integer",
+            "title": "Required Quantity"
+          },
+          "mass_min_kg": {
+            "type": "number",
+            "title": "Mass Min Kg"
+          },
+          "volume_min_l": {
+            "type": "number",
+            "title": "Volume Min L"
+          },
+          "mass_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Mass Cargo Ids"
+          },
+          "volume_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Volume Cargo Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demand_id",
+          "required_quantity",
+          "mass_min_kg",
+          "volume_min_l",
+          "mass_cargo_ids",
+          "volume_cargo_ids"
+        ],
+        "title": "BoundWitness"
+      },
       "Capabilities": {
         "properties": {
           "api_version": {
@@ -2241,6 +2286,183 @@
           "features"
         ],
         "title": "Capabilities"
+      },
+      "CapacityBound": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "transport_capacity_relaxation_v1",
+            "title": "Model Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "limited"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "snapshot_content_hash": {
+            "type": "string",
+            "title": "Snapshot Content Hash"
+          },
+          "required_box_count": {
+            "type": "integer",
+            "title": "Required Box Count"
+          },
+          "eligible_type_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Eligible Type Ids"
+          },
+          "max_payload_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Payload Kg"
+          },
+          "max_volume_l": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Volume L"
+          },
+          "mass_min_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mass Min Kg"
+          },
+          "volume_min_l": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume Min L"
+          },
+          "mass_bound": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mass Bound"
+          },
+          "volume_bound": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Volume Bound"
+          },
+          "sortie_lower_bound": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sortie Lower Bound"
+          },
+          "exact": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Exact"
+          },
+          "witnesses": {
+            "items": {
+              "$ref": "#/components/schemas/BoundWitness"
+            },
+            "type": "array",
+            "title": "Witnesses"
+          },
+          "numeric_policy": {
+            "type": "string",
+            "title": "Numeric Policy"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "status",
+          "reason",
+          "snapshot_id",
+          "scenario_state_version",
+          "snapshot_content_hash",
+          "required_box_count",
+          "eligible_type_ids",
+          "max_payload_kg",
+          "max_volume_l",
+          "mass_min_kg",
+          "volume_min_l",
+          "mass_bound",
+          "volume_bound",
+          "sortie_lower_bound",
+          "exact",
+          "witnesses",
+          "numeric_policy",
+          "notes"
+        ],
+        "title": "CapacityBound"
       },
       "CargoId": {
         "type": "string",
@@ -5206,6 +5428,16 @@
             },
             "type": "array",
             "title": "Model Scope"
+          },
+          "capacity_bound": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CapacityBound"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "resource_limits": {
             "anyOf": [

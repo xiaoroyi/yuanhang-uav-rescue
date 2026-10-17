@@ -736,7 +736,11 @@
       "evidence": [
         "docs/RESOURCE_ANALYSIS.md",
         "tests/backend/test_analytics.py",
-        "evidence/browser/e2e-results.json"
+        "evidence/browser/e2e-results.json",
+        "docs/CAPACITY_BOUNDS.md",
+        "tests/solver/test_bounds.py",
+        "tests/backend/test_capacity_bound_api.py",
+        "evidence/browser/capacity-bound.json"
       ]
     },
     {

@@ -9,6 +9,7 @@ import uuid
 from pydantic import BaseModel, ConfigDict, Field
 
 from backend.app.generated.domain import Scenario, Plan, SolveJob, ResourceLimits
+from backend.app.bound_views import CapacityBound
 
 
 class DTO(BaseModel):
@@ -61,6 +62,7 @@ class PlanAnalysis(DTO):
     snapshot_id: str
     scenario_state_version: int
     model_scope: list[str]
+    capacity_bound: CapacityBound | None = None
     resource_limits: ResourceLimits | None
     prep_peak: int
     charge_wait_s: float

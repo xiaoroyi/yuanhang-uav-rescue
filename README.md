@@ -83,3 +83,5 @@ node frontend/scripts/generate-types.mjs
 | docs/、prompts/ | 全量任务、决策、规范和两人接手提示词 |
 
 原数模历史结果不是当前优化器输出。资料来源见 [索引](references/README.md)；Git协作见 [CONTRIBUTING.md](CONTRIBUTING.md)。使用功能分支和PR，保留 main，不force push。
+
+资源分析现提供[运输架次容量必要下界](docs/CAPACITY_BOUNDS.md)，绑定原快照并导出精确比值与箱件见证；它不能用于推算最少机体/电池数量。

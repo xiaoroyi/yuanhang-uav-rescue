@@ -826,6 +826,21 @@ export interface components {
             /** File */
             file: string;
         };
+        /** BoundWitness */
+        BoundWitness: {
+            /** Demand Id */
+            demand_id: string;
+            /** Required Quantity */
+            required_quantity: number;
+            /** Mass Min Kg */
+            mass_min_kg: number;
+            /** Volume Min L */
+            volume_min_l: number;
+            /** Mass Cargo Ids */
+            mass_cargo_ids: string[];
+            /** Volume Cargo Ids */
+            volume_cargo_ids: string[];
+        };
         /** Capabilities */
         Capabilities: {
             /**
@@ -848,6 +863,55 @@ export interface components {
             /** Supported Charge Models */
             supported_charge_models: components["schemas"]["SupportedChargeModel"][];
             features: components["schemas"]["Features"];
+        };
+        /** CapacityBound */
+        CapacityBound: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "transport_capacity_relaxation_v1";
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ready" | "limited";
+            /** Reason */
+            reason: string | null;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            /** Snapshot Content Hash */
+            snapshot_content_hash: string;
+            /** Required Box Count */
+            required_box_count: number;
+            /** Eligible Type Ids */
+            eligible_type_ids: string[];
+            /** Max Payload Kg */
+            max_payload_kg: number | null;
+            /** Max Volume L */
+            max_volume_l: number | null;
+            /** Mass Min Kg */
+            mass_min_kg: number | null;
+            /** Volume Min L */
+            volume_min_l: number | null;
+            /** Mass Bound */
+            mass_bound: number | null;
+            /** Volume Bound */
+            volume_bound: number | null;
+            /** Sortie Lower Bound */
+            sortie_lower_bound: number | null;
+            /** Exact */
+            exact: {
+                [key: string]: string;
+            };
+            /** Witnesses */
+            witnesses: components["schemas"]["BoundWitness"][];
+            /** Numeric Policy */
+            numeric_policy: string;
+            /** Notes */
+            notes: string[];
         };
         /** CargoId */
         CargoId: string;
@@ -1796,6 +1860,7 @@ export interface components {
             scenario_state_version: number;
             /** Model Scope */
             model_scope: string[];
+            capacity_bound?: components["schemas"]["CapacityBound"] | null;
             resource_limits: components["schemas"]["ResourceLimits"] | null;
             /** Prep Peak */
             prep_peak: number;

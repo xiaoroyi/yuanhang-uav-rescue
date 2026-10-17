@@ -52,3 +52,7 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 先读 `docs/LEGACY_BASELINE_AUDIT.md` 和 `references/modeling/README.md`。复制已核验物理函数至 solver adapter 并建立单测；不直接把 18 个提交文件包装成已独立可运行服务。它们有路径注入、导入建目录、旧输出依赖和有限模型假设。Q2/Q3 正式源码与旧问题目录不完全一致，必须跟随发布清单选择。
 
 A-01/A-02已有非Mock输入、当前物理模型、真实调度和独立验证，运行证据位于evidence/solver，回归位于tests/solver。fixtures/mock保留开发结构示例，不能改标签冒充算法输出；当前能力与限制见IMPLEMENTATION_STATUS。
+
+## 只读容量下界
+
+solver.bounds.capacity_lower_bound(snapshot)计算完整运输架次容量必要下界，solver.analysis.analyze将其加入capacity_bound。无HTTP/数据库副作用，严格复用Snapshot输入校验。数值与独立见证见CAPACITY_BOUNDS/RFC-011。不是最少实体资源或完整调度最优证明。
