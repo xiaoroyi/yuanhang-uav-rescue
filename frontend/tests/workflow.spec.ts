@@ -9,6 +9,100 @@ async function solve(page: Page) {
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
 }
 
+test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景', async ({ page, request }) => {
+  const errors: string[] = []
+  const snapshots: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  page.on('response', (response) => {
+    if (
+      response.request().method() === 'POST' &&
+      /\/scenarios\/[^/]+\/snapshots$/.test(response.url())
+    )
+      snapshots.push(response.url())
+  })
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await screenshot(page, 'scenario-with-nominal-1440')
+  await page.getByRole('button', { name: '单点运输诊断', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(page.getByTestId('nominal-sortie-count')).toHaveText('6架次')
+  await expect(dialog).toContainText('完整需求 32 箱')
+  await dialog.getByRole('button', { name: '关闭弹窗', exact: true }).click()
+  await page.getByRole('button', { name: '更多场景操作', exact: true }).click()
+  await page.getByRole('button', { name: '加载原题80箱场景', exact: true }).click()
+  await expect(page.locator('.scene-bar')).toContainText('80 箱物资')
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const original = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  await page.getByRole('button', { name: '单点运输诊断', exact: true }).click()
+  await expect(page.getByTestId('nominal-sortie-count')).toHaveText('18架次')
+  await expect(dialog.getByRole('table', { name: '单点安全载重' }).locator('tbody tr')).toHaveCount(
+    45,
+  )
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  await dialog.screenshot({
+    path: path.resolve('../evidence/browser/verified/nominal-capacity-1440.png'),
+  })
+  await page.getByLabel('诊断需求点').selectOption('S006')
+  await expect(dialog.getByRole('table', { name: '单点安全载重' }).locator('tbody tr')).toHaveCount(
+    3,
+  )
+  await dialog.getByRole('button', { name: '整箱组批', exact: true }).click()
+  await page.getByLabel('诊断需求点').selectOption('all')
+  await expect(dialog.getByRole('table', { name: '单点整箱组批' }).locator('tbody tr')).toHaveCount(
+    18,
+  )
+  await dialog.screenshot({
+    path: path.resolve('../evidence/browser/verified/nominal-batches-1440.png'),
+  })
+  await page.getByLabel('诊断返航余量').selectOption('0.3')
+  await expect(page.getByTestId('nominal-sortie-count')).toHaveText('20架次')
+  await dialog.getByRole('button', { name: '敏感性与核查', exact: true }).click()
+  await expect(dialog.getByRole('table', { name: '返航余量敏感性' })).toContainText('30.0%')
+  await expect(dialog.locator('.nominal-checks span')).toHaveCount(6)
+  const download = page.waitForEvent('download')
+  await dialog.getByRole('button', { name: '导出诊断', exact: true }).click()
+  const file = await download
+  const exported = JSON.parse(await fs.readFile((await file.path())!, 'utf8'))
+  expect(exported.status).toBe('complete')
+  expect(exported.metrics.sortie_count).toBe(20)
+  expect(exported.parameters.min_return_soc).toBe(0.3)
+  expect(new Set(exported.batches.flatMap((b: { cargo_ids: string[] }) => b.cargo_ids)).size).toBe(
+    80,
+  )
+  expect(
+    exported.batches.every(
+      (b: Record<string, unknown>) => !('drone_id' in b) && !('battery_id' in b),
+    ),
+  ).toBe(true)
+  for (const [width, height] of [
+    [1280, 720],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await dialog.getByRole('table', { name: '返航余量敏感性' }).scrollIntoViewIfNeeded()
+    await expect(dialog.locator('.nominal-footer')).toBeInViewport()
+    await dialog.screenshot({
+      path: path.resolve(`../evidence/browser/verified/nominal-sensitivity-${width}.png`),
+    })
+  }
+  expect(await (await request.get(`/api/v1/scenarios/${sid}`)).json()).toEqual(original)
+  expect(await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()).toEqual([])
+  expect(snapshots).toHaveLength(2)
+  await fs.writeFile(
+    path.resolve('../evidence/browser/nominal-diagnostic.json'),
+    JSON.stringify(
+      {
+        scenario_id: sid,
+        report: exported,
+        snapshot_requests: snapshots.length,
+        page_errors: errors,
+      },
+      null,
+      2,
+    ) + '\n',
+  )
+  expect(errors).toEqual([])
+})
+
 test('连续通信联合调度、真实中继地图与资源窗口、确认及报告', async ({ page, request }) => {
   test.setTimeout(120000)
   const errors: string[] = []

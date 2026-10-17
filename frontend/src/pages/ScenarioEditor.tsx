@@ -7,6 +7,7 @@ import {
   Database,
   Edit3,
   FileJson,
+  FlaskConical,
   MapPin,
   Package,
   Plane,
@@ -18,13 +19,14 @@ import {
   Upload,
   Battery,
 } from 'lucide-react'
-import { api, downloadJson, type Scenario } from '../api/client'
+import { api, downloadJson, type Scenario, type Snapshot } from '../api/client'
 import { RescueMap } from '../components/RescueMap'
 import { Badge, Button, Modal } from '../components/ui'
 import { category, number, originLabel, percent, statusLabel } from '../lib/format'
 import { ZoneManager } from './ZoneManager'
 import { TerrainManager } from './TerrainManager'
 import { CommunicationManager } from './CommunicationManager'
+import { NominalDiagnostics } from './NominalDiagnostics'
 
 type Group = 'sites' | 'demands' | 'cargo_items' | 'drone_types' | 'drones' | 'batteries'
 type Row = Record<string, unknown>
@@ -157,6 +159,9 @@ export function ScenarioEditor({
     [importing, setImporting] = useState(false),
     [preview, setPreview] = useState<Scenario | null>(null),
     [settings, setSettings] = useState(false)
+  const [nominalOpen, setNominalOpen] = useState(false)
+  const [nominalSnapshot, setNominalSnapshot] = useState<Snapshot | null>(null)
+  const [creatingNominal, setCreatingNominal] = useState(false)
   const fileInput = useRef<HTMLInputElement>(null)
   const meta = groups.find((g) => g.key === group)!,
     rows = scenario[group] as unknown as Row[]
@@ -480,6 +485,25 @@ export function ScenarioEditor({
               <p>需求与库存分别维护 · 每块电池独立追踪</p>
             </div>
             <div>
+              <Button
+                busy={creatingNominal}
+                onClick={async () => {
+                  setCreatingNominal(true)
+                  setNominalSnapshot(null)
+                  try {
+                    const snapshot = await api.snapshot(scenario)
+                    setNominalSnapshot(snapshot)
+                    setNominalOpen(true)
+                  } catch (error) {
+                    notify(error instanceof Error ? error.message : '创建诊断快照失败。', true)
+                  } finally {
+                    setCreatingNominal(false)
+                  }
+                }}
+              >
+                <FlaskConical size={14} />
+                单点运输诊断
+              </Button>
               <input
                 ref={fileInput}
                 type="file"
@@ -656,6 +680,17 @@ export function ScenarioEditor({
           </section>
         </aside>
       </div>
+      <Modal
+        open={nominalOpen}
+        onOpenChange={setNominalOpen}
+        title="单点运输能力诊断"
+        description="基于当前不可变快照，重新计算安全载重、整箱组合与返航余量敏感性。"
+        wide
+      >
+        {nominalSnapshot && (
+          <NominalDiagnostics key={nominalSnapshot.snapshot_id} snapshot={nominalSnapshot} />
+        )}
+      </Modal>
       <Modal
         open={!!editing}
         onOpenChange={(open) => {

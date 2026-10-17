@@ -31,6 +31,7 @@ from solver.metrics import objective_score
 from solver.analysis import analyze
 from solver.ground import earliest_slot, initial_schedule
 from solver.identities import sortie_id
+from solver.nominal import analyze_single_site
 
 
 def capabilities():

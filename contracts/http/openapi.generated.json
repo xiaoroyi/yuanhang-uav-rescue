@@ -1237,6 +1237,63 @@
         }
       }
     },
+    "/api/v1/snapshots/{snapshot_id}/single-site-analysis": {
+      "get": {
+        "summary": "Single Site Analysis",
+        "operationId": "single_site_analysis_api_v1_snapshots__snapshot_id__single_site_analysis_get",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Snapshot Id"
+            }
+          },
+          {
+            "name": "min_return_soc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 1,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Min Return Soc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NominalReport"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/solve-jobs": {
       "post": {
         "summary": "Create Job",
@@ -3691,6 +3748,537 @@
           "ground_resource"
         ],
         "title": "ModelScopeEnum"
+      },
+      "NominalBatch": {
+        "properties": {
+          "batch_id": {
+            "type": "string",
+            "title": "Batch Id"
+          },
+          "site_id": {
+            "type": "string",
+            "title": "Site Id"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cargo Ids"
+          },
+          "mass_kg": {
+            "type": "number",
+            "title": "Mass Kg"
+          },
+          "volume_l": {
+            "type": "number",
+            "title": "Volume L"
+          },
+          "duration_s": {
+            "type": "number",
+            "title": "Duration S"
+          },
+          "energy_kwh": {
+            "type": "number",
+            "title": "Energy Kwh"
+          },
+          "return_soc": {
+            "type": "number",
+            "title": "Return Soc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "batch_id",
+          "site_id",
+          "type_id",
+          "cargo_ids",
+          "mass_kg",
+          "volume_l",
+          "duration_s",
+          "energy_kwh",
+          "return_soc"
+        ],
+        "title": "NominalBatch"
+      },
+      "NominalCapacity": {
+        "properties": {
+          "site_id": {
+            "type": "string",
+            "title": "Site Id"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "capacity_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Kg"
+          },
+          "max_volume_l": {
+            "type": "number",
+            "title": "Max Volume L"
+          },
+          "nominal_energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nominal Energy Kwh"
+          },
+          "allowed_energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allowed Energy Kwh"
+          },
+          "empty_energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Empty Energy Kwh"
+          },
+          "full_energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Energy Kwh"
+          },
+          "roundtrip_distance_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Roundtrip Distance M"
+          },
+          "terrain_evaluated": {
+            "type": "boolean",
+            "title": "Terrain Evaluated"
+          },
+          "limit": {
+            "type": "string",
+            "enum": [
+              "empty_infeasible",
+              "rated_payload",
+              "energy",
+              "unavailable"
+            ],
+            "title": "Limit"
+          },
+          "root_width_kg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Root Width Kg"
+          },
+          "residual_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Residual Kwh"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "site_id",
+          "type_id",
+          "capacity_kg",
+          "max_volume_l",
+          "nominal_energy_kwh",
+          "allowed_energy_kwh",
+          "empty_energy_kwh",
+          "full_energy_kwh",
+          "roundtrip_distance_m",
+          "terrain_evaluated",
+          "limit",
+          "root_width_kg",
+          "residual_kwh",
+          "reason"
+        ],
+        "title": "NominalCapacity"
+      },
+      "NominalMetrics": {
+        "properties": {
+          "sortie_count": {
+            "type": "integer",
+            "title": "Sortie Count"
+          },
+          "energy_kwh": {
+            "type": "number",
+            "title": "Energy Kwh"
+          },
+          "operation_s": {
+            "type": "number",
+            "title": "Operation S"
+          },
+          "min_return_soc": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Return Soc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sortie_count",
+          "energy_kwh",
+          "operation_s",
+          "min_return_soc"
+        ],
+        "title": "NominalMetrics"
+      },
+      "NominalParameters": {
+        "properties": {
+          "min_return_soc": {
+            "type": "number",
+            "title": "Min Return Soc"
+          },
+          "nominal_soc": {
+            "type": "number",
+            "title": "Nominal Soc"
+          },
+          "nominal_soh": {
+            "type": "number",
+            "title": "Nominal Soh"
+          },
+          "max_count_states_per_site": {
+            "type": "integer",
+            "title": "Max Count States Per Site"
+          },
+          "priority": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Priority"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "min_return_soc",
+          "nominal_soc",
+          "nominal_soh",
+          "max_count_states_per_site",
+          "priority"
+        ],
+        "title": "NominalParameters"
+      },
+      "NominalReport": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "single_site_nominal_transport_v1",
+            "title": "Model Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "limited",
+              "partial",
+              "complete"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "snapshot_content_hash": {
+            "type": "string",
+            "title": "Snapshot Content Hash"
+          },
+          "required_box_count": {
+            "type": "integer",
+            "title": "Required Box Count"
+          },
+          "available_box_count": {
+            "type": "integer",
+            "title": "Available Box Count"
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/NominalParameters"
+          },
+          "analysis_input_hash": {
+            "type": "string",
+            "title": "Analysis Input Hash"
+          },
+          "capacities": {
+            "items": {
+              "$ref": "#/components/schemas/NominalCapacity"
+            },
+            "type": "array",
+            "title": "Capacities"
+          },
+          "sites": {
+            "items": {
+              "$ref": "#/components/schemas/NominalSite"
+            },
+            "type": "array",
+            "title": "Sites"
+          },
+          "batches": {
+            "items": {
+              "$ref": "#/components/schemas/NominalBatch"
+            },
+            "type": "array",
+            "title": "Batches"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NominalMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "single_box_baseline": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NominalMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "greedy_baseline": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NominalMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sensitivity": {
+            "items": {
+              "$ref": "#/components/schemas/NominalSensitivity"
+            },
+            "type": "array",
+            "title": "Sensitivity"
+          },
+          "audit_checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Audit Checks"
+          },
+          "runtime_s": {
+            "type": "number",
+            "title": "Runtime S"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "status",
+          "reason",
+          "snapshot_id",
+          "scenario_id",
+          "scenario_state_version",
+          "snapshot_content_hash",
+          "required_box_count",
+          "available_box_count",
+          "parameters",
+          "analysis_input_hash",
+          "capacities",
+          "sites",
+          "batches",
+          "metrics",
+          "single_box_baseline",
+          "greedy_baseline",
+          "sensitivity",
+          "audit_checks",
+          "runtime_s",
+          "notes"
+        ],
+        "title": "NominalReport"
+      },
+      "NominalSensitivity": {
+        "properties": {
+          "min_return_soc": {
+            "type": "number",
+            "title": "Min Return Soc"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "partial"
+            ],
+            "title": "Status"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NominalMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "min_return_soc",
+          "status",
+          "metrics"
+        ],
+        "title": "NominalSensitivity"
+      },
+      "NominalSite": {
+        "properties": {
+          "site_id": {
+            "type": "string",
+            "title": "Site Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "limited",
+              "infeasible"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "count_states": {
+            "type": "integer",
+            "title": "Count States"
+          },
+          "box_count": {
+            "type": "integer",
+            "title": "Box Count"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NominalMetrics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "site_id",
+          "status",
+          "reason",
+          "count_states",
+          "box_count",
+          "metrics"
+        ],
+        "title": "NominalSite"
       },
       "Objective": {
         "type": "string",

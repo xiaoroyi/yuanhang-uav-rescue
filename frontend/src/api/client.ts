@@ -20,6 +20,7 @@ export type TerrainAsset = components['schemas']['TerrainAsset']
 export type TerrainMap = components['schemas']['TerrainMap']
 export type Communication = NonNullable<Scenario['communication']>
 export type PartitionReport = components['schemas']['PartitionReport']
+export type NominalReport = components['schemas']['NominalReport']
 
 export class ApiError extends Error {
   code: string
@@ -93,6 +94,8 @@ export const api = {
       expected_state_version: s.state_version,
     }),
   getSnapshot: (id: string) => request<Snapshot>(`/snapshots/${id}`),
+  nominal: (id: string, reserve: number) =>
+    request<NominalReport>(`/snapshots/${id}/single-site-analysis?min_return_soc=${reserve}`),
   partition: (id: string) => request<PartitionReport>(`/plans/${id}/partition`),
   solve: (
     snapshot_id: string,

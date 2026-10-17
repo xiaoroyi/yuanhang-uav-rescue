@@ -68,4 +68,8 @@ GET /scenarios/{scenario_id}/communication-template只读返回原题链路/中�
 
 ## 冻结分区接口（RFC-007）
 
-GET /plans/{plan_id}/partition返回绑定原Snapshot的PartitionReport，独立检查原联合Plan后完整枚举2/3组；不修改Plan和当前场景。状态ready表示完成冻结模型分析，limited明确说明模型/规模/来源限制；每个K单独给available或not_possible。分配、缺口、峰值见证、来源hash和精确排序分数随JSON返回，实际类型来自42路径的OpenAPI。详细边界见FROZEN_PARTITION.md。
+GET /plans/{plan_id}/partition返回绑定原Snapshot的PartitionReport，独立检查原联合Plan后完整枚举2/3组；不修改Plan和当前场景。状态ready表示完成冻结模型分析，limited明确说明模型/规模/来源限制；每个K单独给available或not_possible。分配、缺口、峰值见证、来源hash和精确排序分数随JSON返回。详细边界见FROZEN_PARTITION.md。
+
+## 单点诊断接口（RFC-009）
+
+GET /snapshots/{snapshot_id}/single-site-analysis?min_return_soc=0.2，返回严格NominalReport，绑定不可变Snapshot。诊断参数不改场景策略，省略时使用快照策略。complete表示额定单点有限模型完成，不是Plan验证状态；partial/limited不给出完整场景metrics。报告没有实际机体、电池或执行时刻，不能传给确认API。实际OpenAPI统一生成TS，当前43个路径。模型边界与CLI见NOMINAL_ANALYSIS.md。

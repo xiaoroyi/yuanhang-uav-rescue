@@ -8,6 +8,7 @@
 |---|---|---|
 | 输入 | 默认5点32箱、原题15点80箱；逐箱库存与需求分离；JSON/CSV/XLSX预览、模板、六类实体编辑、版本保存 | 复杂字段映射与错误面板仍需深化 |
 | 运输物理 | 题设载荷相关航程、剩余载荷分航段能耗、WGS84航路、准备/装载/交接、SOC/SOH、两阶段充电 | 不含风雨、全航程多机避碰或真实飞控 |
+| 单点诊断 | 额定安全载重、完整计数DP整箱组批、逐箱/贪心基线、余量敏感性、独立重算、绑定快照和JSON导出 | 满SOC/SOH100%的单站往返，忽略实体数量/充电/时限/通信；每站最多512计数状态，不是可确认Plan |
 | 调度 | 多起点三站插入、共同延期优先目标、时间/能耗/均衡策略；同快照可选30秒有限路线池CP-SAT深入优化 | FEASIBLE；不证明全路线空间全局最优，限时结果可能非单调 |
 | 独立检查 | 重建载荷、箱件唯一性、实体、时间、能源、充电、地形、静态限制区、地面容量和通信 | 不信任优化器passed；Mock与已有执行事实不能冒充真实初始场景 |
 | 地面资源 | 可选准备工位/充电端口、初始低SOC补满、返航排队、CP累积容量、确认预约、甘特等待与充电分开 | 未配置保持原无限容量；起降坪容量未建模 |
@@ -27,14 +28,14 @@
 
 执行`.venv\Scripts\python scripts/verify.py --browser`，实际命令、输出、耗时、Git身份和工作区状态在`evidence/verification/latest.json`与check-01至07.txt。
 
-- Python：132 passed、8 subtests passed；有第三方弃用提示，未导致失败。
-- 契约：10 schemas、12 mock fixtures、16项历史HTTP草案检查通过；实际OpenAPI已生成42个路径。结构检查不替代真实求解。
+- Python：169 passed、8 subtests passed；有第三方弃用提示，未导致失败。
+- 契约：10 schemas、12 mock fixtures、16项历史HTTP草案检查通过；实际OpenAPI已生成43个路径。结构检查不替代真实求解。
 - 治理：56张任务、依赖无环；42个原件hash、18份历史Python AST与文档引用检查通过，未运行历史bootstrap/env。
 - 前端：ESLint、时间格式2项单测、TypeScript strict与生产构建通过。
-- 浏览器：完整17条流程通过，见evidence/browser/e2e-results.json；控制台错误断言通过。覆盖双策略/确认/导出/回放/历史、输入编辑/导入、运输与中继故障、资源情景/压力、任务恢复、打印、深入优化、限制区、DEM包、有限地面资源、低SOC补能、80箱联合分区、历史快照延迟/失败/重试。
+- 浏览器：完整19条流程通过，见evidence/browser/e2e-results.json；unexpected/flaky/skipped均为0。覆盖双策略/确认/导出/回放/历史、输入编辑/导入、运输与中继故障、资源情景/压力、任务恢复、打印、深入优化、限制区、DEM包、有限地面资源、低SOC补能、80箱联合分区、历史快照延迟/失败/重试，以及单点诊断和生产构建仅本机网络闭环。
 - 视觉：1440×900、1280×720及390宽窄屏已运行和检查；分区四张图已检查。最新普通报告6页、低SOC报告7页、联合报告7页已逐页渲染并实际查看，来源Plan与分页记录在evidence/browser/*-qa.json。不承诺固定页数。
 
-此检查点在提交前运行；后续代码改动不能直接沿用它的全套结论。针对性检查单独记数，不冒称全套。
+本轮完成于2026-10-17T21:56:07Z，verification_source_before/after相同、source_unchanged=true。此检查点在提交前运行；后续代码改动不能直接沿用它的全套结论。针对性检查单独记数，不冒称全套。
 
 ## 主要算法证据
 
@@ -50,6 +51,7 @@
 | joint-contest-input-change.json | 运输能耗倍率改为0.9后重新求解并独立检查；运输能耗确实相应变化，联合指标由新排程重算，不复制原值；运行时有并发回归负载，不作为独立性能比较 |
 | joint-replan.json | 浏览器真实R01退出后的新Snapshot/Event/父Plan/新Plan；新方案不引用R01，缺口0，原Plan保留 |
 | frozen-partition-contest.json | 继承新80箱联合方案：3个连通单元，2组3候选/3组1候选；冻结资源优先配置与缺口见FROZEN_PARTITION |
+| nominal-contest.json / nominal-compact.json | 当前额定单点真实重算：80箱18批/59.1313kWh，32箱6批/14.8194kWh；原题30%余量20批，累计时间不当机队完成时间 |
 
 上述文件在evidence/solver/；对不同输入、快照、模型或预算的结果不能宣称同条件优化优势。原数模论文结果从未冒充当前求解。
 
@@ -57,16 +59,18 @@
 
 本机双击start.cmd；已有.venv与生产构建时访问http://127.0.0.1:8000/，无需登录或外部地图。数据在runtime/，测试在.local/e2e-runtime/，均不提交。新电脑首次安装按README，支持项目内Python3.11/3.12环境、基线Node24。
 
-人工演示按DEMO_RUNBOOK.md；算法边界依次见DEEP_OPTIMIZATION、SPATIAL_ROUTING、TERRAIN_ASSETS、GROUND_RESOURCES、COMMUNICATION、FROZEN_PARTITION。接口扩展见RFC-003至007；正式A/B冻结仍待复核。Solver不import后端，HTTP类型来自实际OpenAPI，别另建一套手写字段。
+人工演示按DEMO_RUNBOOK.md；算法边界依次见DEEP_OPTIMIZATION、SPATIAL_ROUTING、TERRAIN_ASSETS、GROUND_RESOURCES、COMMUNICATION、FROZEN_PARTITION、NOMINAL_ANALYSIS。接口扩展见RFC-003至009；正式A/B冻结仍待复核。Solver不import后端，HTTP类型来自实际OpenAPI，别另建一套手写字段。
 
 远端每个检查点单独核对，见evidence/verification/github-ci.json。2906600的Linux CI曾因45秒小场景联合搜索失败而出现90 passed/4 errors；修复后e355a69与5a712db完整Linux CI成功，失败历史保留。更新提交不自动继承旧CI结论。
 
 ## 未完成与接下来工作
 
-下一步优先：单点额定载荷/整箱组批诊断 → 有界事件扩展与实验 → 最终交接、PR与验收。
+下一步优先：有界事件扩展与实验 → 最终交接、PR与验收。
 
 全部P1/P2仍在任务板。尚未验收：一般大规模联合搜索深化、通信来源/缺口交互深化、起降坪容量、电池退出/紧急插单/落点变更/未来封控事件、部分保障与可证明下界、异质初始状态分区、长期建图队列、AI学习搜索、真机/仿真、完整官方项目简表/视频/PPT/商业材料及赛事复用条款核对。没有费率不输出人民币；没有外部数据/硬件不伪造研究精度或实飞结论。
 
-本机运维新补（RFC-008）：Health提供启动源码/数据目录身份；有效产物不调用Node，过期时只用已有依赖离线重建，旧服务不自动终止。setup.cmd --check已运行且未安装依赖。20项启动/API回归、18项工程回归及新增方案hash核对共19项定向检查通过；不相加冒称新的全套计数。生产构建在浏览器只允许本机HTTP(S)时，完成真实求解→确认→U01故障重规划→JSON导出，1项新增E2E通过，外网请求/控制台错误均为空，1440/1280截图已检查。
+本机运维（RFC-008）已纳入本轮全套回归：Health提供启动源码/数据目录身份；有效产物不调用Node，过期时只用已有依赖离线重建，旧服务不自动终止。setup.cmd --check已运行且未安装依赖。生产构建只允许本机HTTP(S)时完成真实求解、确认、U01故障重规划、JSON导出，外网请求/控制台错误均为空，1440/1280截图已检查。
 
-SQLite备份使用backup API，已验证WAL最新提交、资产、恢复与拒绝覆盖。当前演示库实际备份后恢复至.local新目录，2个场景/3份原始Plan记录及HTTP输出一致；原runtime保持不变。证据见evidence/engineering、evidence/browser/production-offline.json，操作见LOCAL_OPERATIONS。全套基线仍为上方132/17；上述运维代码与新增生产流程将在后续全量验收时统一更新。
+SQLite备份使用backup API，已验证WAL最新提交、资产、恢复与拒绝覆盖。演示库实际备份后恢复至.local新目录，2个场景/3份原始Plan记录及HTTP输出一致；原runtime保持不变。证据见evidence/engineering、evidence/browser/production-offline.json，操作见LOCAL_OPERATIONS。
+
+单点诊断（RFC-009）已纳入本轮全套回归；1440/1280/390弹窗已实际查看。真实箱重变化2批→3批，余量20%→30%使原题18批→20批；没有写入Plan/Job或改动原场景。

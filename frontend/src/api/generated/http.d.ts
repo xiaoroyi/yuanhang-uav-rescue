@@ -461,6 +461,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/snapshots/{snapshot_id}/single-site-analysis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Single Site Analysis */
+        get: operations["single_site_analysis_api_v1_snapshots__snapshot_id__single_site_analysis_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/solve-jobs": {
         parameters: {
             query?: never;
@@ -1323,6 +1340,160 @@ export interface components {
          * @enum {string}
          */
         ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
+        /** NominalBatch */
+        NominalBatch: {
+            /** Batch Id */
+            batch_id: string;
+            /** Site Id */
+            site_id: string;
+            /** Type Id */
+            type_id: string;
+            /** Cargo Ids */
+            cargo_ids: string[];
+            /** Mass Kg */
+            mass_kg: number;
+            /** Volume L */
+            volume_l: number;
+            /** Duration S */
+            duration_s: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Return Soc */
+            return_soc: number;
+        };
+        /** NominalCapacity */
+        NominalCapacity: {
+            /** Site Id */
+            site_id: string;
+            /** Type Id */
+            type_id: string;
+            /** Capacity Kg */
+            capacity_kg: number | null;
+            /** Max Volume L */
+            max_volume_l: number;
+            /** Nominal Energy Kwh */
+            nominal_energy_kwh: number | null;
+            /** Allowed Energy Kwh */
+            allowed_energy_kwh: number | null;
+            /** Empty Energy Kwh */
+            empty_energy_kwh: number | null;
+            /** Full Energy Kwh */
+            full_energy_kwh: number | null;
+            /** Roundtrip Distance M */
+            roundtrip_distance_m: number | null;
+            /** Terrain Evaluated */
+            terrain_evaluated: boolean;
+            /**
+             * Limit
+             * @enum {string}
+             */
+            limit: "empty_infeasible" | "rated_payload" | "energy" | "unavailable";
+            /** Root Width Kg */
+            root_width_kg: number | null;
+            /** Residual Kwh */
+            residual_kwh: number | null;
+            /** Reason */
+            reason: string | null;
+        };
+        /** NominalMetrics */
+        NominalMetrics: {
+            /** Sortie Count */
+            sortie_count: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Operation S */
+            operation_s: number;
+            /** Min Return Soc */
+            min_return_soc: number | null;
+        };
+        /** NominalParameters */
+        NominalParameters: {
+            /** Min Return Soc */
+            min_return_soc: number;
+            /** Nominal Soc */
+            nominal_soc: number;
+            /** Nominal Soh */
+            nominal_soh: number;
+            /** Max Count States Per Site */
+            max_count_states_per_site: number;
+            /** Priority */
+            priority: string[];
+        };
+        /** NominalReport */
+        NominalReport: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "single_site_nominal_transport_v1";
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "limited" | "partial" | "complete";
+            /** Reason */
+            reason: string | null;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Scenario Id */
+            scenario_id: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            /** Snapshot Content Hash */
+            snapshot_content_hash: string;
+            /** Required Box Count */
+            required_box_count: number;
+            /** Available Box Count */
+            available_box_count: number;
+            parameters: components["schemas"]["NominalParameters"];
+            /** Analysis Input Hash */
+            analysis_input_hash: string;
+            /** Capacities */
+            capacities: components["schemas"]["NominalCapacity"][];
+            /** Sites */
+            sites: components["schemas"]["NominalSite"][];
+            /** Batches */
+            batches: components["schemas"]["NominalBatch"][];
+            metrics: components["schemas"]["NominalMetrics"] | null;
+            single_box_baseline: components["schemas"]["NominalMetrics"] | null;
+            greedy_baseline: components["schemas"]["NominalMetrics"] | null;
+            /** Sensitivity */
+            sensitivity: components["schemas"]["NominalSensitivity"][];
+            /** Audit Checks */
+            audit_checks: string[];
+            /** Runtime S */
+            runtime_s: number;
+            /** Notes */
+            notes: string[];
+        };
+        /** NominalSensitivity */
+        NominalSensitivity: {
+            /** Min Return Soc */
+            min_return_soc: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "complete" | "partial";
+            metrics: components["schemas"]["NominalMetrics"] | null;
+        };
+        /** NominalSite */
+        NominalSite: {
+            /** Site Id */
+            site_id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "complete" | "limited" | "infeasible";
+            /** Reason */
+            reason: string | null;
+            /** Count States */
+            count_states: number;
+            /** Box Count */
+            box_count: number;
+            metrics: components["schemas"]["NominalMetrics"] | null;
+        };
         /**
          * Objective
          * @enum {string}
@@ -3359,6 +3530,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Snapshot"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    single_site_analysis_api_v1_snapshots__snapshot_id__single_site_analysis_get: {
+        parameters: {
+            query?: {
+                min_return_soc?: number | null;
+            };
+            header?: never;
+            path: {
+                snapshot_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NominalReport"];
                 };
             };
             /** @description Validation Error */

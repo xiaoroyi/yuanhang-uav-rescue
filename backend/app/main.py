@@ -14,7 +14,7 @@ from pathlib import Path
 import uuid
 from typing import Literal
 
-from fastapi import FastAPI, File, Form, Request, UploadFile
+from fastapi import FastAPI, File, Form, Query, Request, UploadFile
 from starlette.concurrency import run_in_threadpool
 from rasterio.errors import RasterioError
 from fastapi.exceptions import RequestValidationError
@@ -48,6 +48,7 @@ from backend.app.imports import GROUPS, csv_template, excel_template, preview
 from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
 from backend.app.reports import build_report
 from backend.app.partition_views import PartitionReport
+from backend.app.nominal_views import NominalReport
 from backend.app.terrain_assets import (
     TerrainAsset,
     catalog as terrain_catalog,
@@ -88,7 +89,13 @@ from solver.adapters.contest import (
     contest_communication,
 )
 from solver.physics import InputNotReady, parameters, terrain_maximum
-from solver.public_api import capabilities, validate, playback, analyze
+from solver.public_api import (
+    capabilities,
+    validate,
+    playback,
+    analyze,
+    analyze_single_site,
+)
 from solver.partition import partition
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -893,6 +900,17 @@ def create_app(runtime_dir: Path | None = None):
     def get_snapshot(snapshot_id: str):
         with database.session() as session:
             return require_row(session, SnapshotRow, snapshot_id).content
+
+    @app.get(
+        "/api/v1/snapshots/{snapshot_id}/single-site-analysis",
+        response_model=NominalReport,
+    )
+    def single_site_analysis(
+        snapshot_id: str, min_return_soc: float | None = Query(None, ge=0, le=1)
+    ):
+        with database.session() as session:
+            snap = require_row(session, SnapshotRow, snapshot_id).content
+        return analyze_single_site(snap, min_return_soc)
 
     @app.post("/api/v1/solve-jobs", response_model=SolveJob, status_code=202)
     def create_job(body: SolveRequest):

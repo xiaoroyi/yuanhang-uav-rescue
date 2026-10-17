@@ -1,2 +1,2 @@
 PASS: 56 tasks across G0–G6, dependency graph acyclic; states={'done': 27, 'in_progress': 17, 'todo': 12}.
-PASS: 42 source hashes, 18 legacy Python ASTs, 19 local document links; no legacy code execution.
+PASS: 42 source hashes, 18 legacy Python ASTs, 22 local document links; no legacy code execution.

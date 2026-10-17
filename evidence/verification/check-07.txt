@@ -3,28 +3,39 @@
 > node scripts/run-e2e.mjs
 
 
-Running 17 tests using 1 worker
+Running 19 tests using 1 worker
 
-(node:24584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:56192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ok  1 tests\workflow.spec.ts:12:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (38.1s)
-  ok  2 tests\workflow.spec.ts:83:1 › 中继机退出保存新版本，真实重规划保留旧方案和连续保障 (52.2s)
-  ok  3 tests\workflow.spec.ts:141:1 › 历史方案等待绑定原始快照，延迟期间不显示混合版本结果 (9.4s)
-  ok  4 tests\workflow.spec.ts:190:1 › 80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出 (52.0s)
-  ok  5 tests\workflow.spec.ts:285:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (23.7s)
-  ok  6 tests\workflow.spec.ts:326:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.0s)
-  ok  7 tests\workflow.spec.ts:359:1 › 真实故障重规划保留旧方案，展示新旧变化 (16.5s)
-  ok  8 tests\workflow.spec.ts:381:1 › 手机窄屏仍可切页和运行计算 (10.9s)
-  ok  9 tests\workflow.spec.ts:393:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (13.3s)
-  ok 10 tests\workflow.spec.ts:422:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (18.2s)
-  ok 11 tests\workflow.spec.ts:473:1 › 任务刷新恢复，重新载入页面不重复提交求解 (5.3s)
-  ok 12 tests\workflow.spec.ts:485:1 › 打印报告包含真实任务并可离线保存PDF (7.6s)
-  ok 13 tests\workflow.spec.ts:507:1 › 深入优化保留同快照基线，刷新后继续真实计算 (43.3s)
-  ok 14 tests\workflow.spec.ts:530:1 › 限制区保存新版本，真实绕行并沿折线回放 (19.4s)
-  ok 15 tests\workflow.spec.ts:575:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (34.2s)
-  ok 16 tests\workflow.spec.ts:635:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (19.7s)
-  ok 17 tests\workflow.spec.ts:680:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (15.1s)
+  ok  1 tests\workflow.spec.ts:12:1 › 单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景 (28.9s)
+  ok  2 tests\workflow.spec.ts:106:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (37.6s)
+  ok  3 tests\workflow.spec.ts:177:1 › 中继机退出保存新版本，真实重规划保留旧方案和连续保障 (53.3s)
+  ok  4 tests\workflow.spec.ts:235:1 › 历史方案等待绑定原始快照，延迟期间不显示混合版本结果 (9.5s)
+  ok  5 tests\workflow.spec.ts:284:1 › 80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出 (49.8s)
+05:51:50 [vite] (client) [console.error] TypeError: Failed to fetch
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+  ok  6 tests\workflow.spec.ts:366:1 › 生产构建只允许本机请求，真实求解与事件闭环离线可用 (17.4s)
+  ok  7 tests\workflow.spec.ts:444:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (17.5s)
+  ok  8 tests\workflow.spec.ts:485:1 › 编辑输入使旧方案失效，导入预览创建新场景 (15.2s)
+  ok  9 tests\workflow.spec.ts:518:1 › 真实故障重规划保留旧方案，展示新旧变化 (16.4s)
+  ok 10 tests\workflow.spec.ts:540:1 › 手机窄屏仍可切页和运行计算 (11.0s)
+  ok 11 tests\workflow.spec.ts:552:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (13.1s)
+  ok 12 tests\workflow.spec.ts:581:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (19.4s)
+  ok 13 tests\workflow.spec.ts:632:1 › 任务刷新恢复，重新载入页面不重复提交求解 (5.5s)
+  ok 14 tests\workflow.spec.ts:644:1 › 打印报告包含真实任务并可离线保存PDF (7.9s)
+  ok 15 tests\workflow.spec.ts:666:1 › 深入优化保留同快照基线，刷新后继续真实计算 (43.2s)
+  ok 16 tests\workflow.spec.ts:689:1 › 限制区保存新版本，真实绕行并沿折线回放 (19.8s)
+  ok 17 tests\workflow.spec.ts:734:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (33.4s)
+  ok 18 tests\workflow.spec.ts:794:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (20.7s)
+  ok 19 tests\workflow.spec.ts:839:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (14.8s)
 
-  Slow test file: tests\workflow.spec.ts (6.5m)
+  Slow test file: tests\workflow.spec.ts (7.2m)
   Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
-  17 passed (6.6m)
+  19 passed (7.3m)

@@ -22,6 +22,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 联合方案可在“事件复盘 → 冻结任务分区”比较2/3组的专用资源、工作量和共享损失，展开峰值证据及实体分配。它保持原任务与通信关系，资源不足时明确列出需增配数量；见 [分区口径](docs/FROZEN_PARTITION.md)。
 
+场景页“单点运输诊断”提供额定安全载重、真实箱件组批、基线和返航余量敏感性。它对应单点运输物理模型，未分配实际机体/电池；执行前仍须正式求解。模型和独立CLI见 [诊断说明](docs/NOMINAL_ANALYSIS.md)。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

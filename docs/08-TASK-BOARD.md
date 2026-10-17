@@ -13,8 +13,8 @@
 | G0-01 | P0 | A+B | — | 检查现有仓库；列已存在文件、代码与测试，记录何处缺失；验收：`IMPLEMENTATION_STATUS.md` 有真实库存，未擅自覆盖 | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-02 | P0 | A+B | G0-01 | 确认 AGENTS、模块 owner、Git PR 规则、决定日志；验收：两人各自 Codex 阅读相同文件，改变规则须 PR | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-03 | P0 | A+B | G0-01 | 评审并冻结首次Scenario/Plan/Event/SolveJob及Python options/outcome契约；验收：schema/fixtures 校验绿；无歧义单位与状态；当前草案通过结构检查，待 A/B 人工确认冻结 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
-| G0-04 | P0 | A+B | G0-03 | 确认 `/api/v1` OpenAPI、错误状态、前端 TS 生成方式；验收：`contracts tests` 覆盖 success/failure 样例；当前仅 HTTP 设计草案，真实生成类型与 OpenAPI 未具备 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
-| G0-05 | P0 | A | G0-01 | 排查原数模完整入口、数据/依赖许可及可跑程度；验收：原件hash和18份源码AST通过；实际依赖探测缺6个业务包，明确旧路径与许可证待核验，当前不可直接运行；适配实跑归A-01，不宣称已跑通 | done | docs/g0-governance; docs/LEGACY_BASELINE_AUDIT.md; evidence/governance/legacy-audit.json |
+| G0-04 | P0 | A+B | G0-03 | 确认 `/api/v1` OpenAPI、错误状态、前端 TS 生成方式；验收：已有真实FastAPI OpenAPI、生成Pydantic/TS、success/failure回归和CI漂移检查；正式接口冻结仍待A/B人工复核 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
+| G0-05 | P0 | A | G0-01 | 排查原数模完整入口、数据/依赖许可及可跑程度；验收：原件hash和18份源码AST通过；G0时旧环境缺6个业务包，旧路径与许可证待核验；当前项目依赖已独立安装锁定，适配实跑归A-01，仍不执行历史bootstrap/env | done | docs/g0-governance; docs/LEGACY_BASELINE_AUDIT.md; evidence/governance/legacy-audit.json |
 | G0-06 | P0 | B | G0-01 | 确定页面结构、Design Tokens、三页验收流程；验收：页面清单每项有数据源、状态和交互目标 | done | docs/g0-governance; docs/G0_REPORT.md |
 | G0-07 | P0 | A+B | G0-03 | CI 契约校验、lint、pytest、前端 build 基础；验收：最小样例脚本本地和 CI 执行一致；当前有 CI 配置与本地检查，远程 CI 待实际运行 | in_progress | docs/g0-governance; docs/G0_REPORT.md |
 
@@ -24,7 +24,7 @@
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| A-01 | P0 | A | G0-03, G0-05 | 原题 Q1/Q2 物理与装载适配，纯 Python 入口；验收：非 Mock 小场景真实运行 | done | feat/solo-fullstack-v0; evidence/solver/first-compact.json; solver/physics.py |
+| A-01 | P0 | A | G0-03, G0-05 | 原题 Q1/Q2 物理与装载适配，纯 Python 入口；验收：非Mock运输真实运行；额定单点能力/整箱DP诊断独立复算，原题80箱18批，严格30%余量20批；诊断不冒充实体Plan | done | feat/solo-fullstack-v0; evidence/solver/first-compact.json; solver/physics.py; solver/nominal.py; docs/NOMINAL_ANALYSIS.md; evidence/solver/nominal-contest.json; evidence/browser/nominal-diagnostic.json; tests/solver/test_nominal.py |
 | A-02 | P0 | A | A-01, G0-03 | 机体/电池快速可行初解、时间限制与独立检查；验收：Plan 含逐箱、逐机、电池、验证与约束口径 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; evidence/solver/first-contest.json |
 | C-01 | P0 | B | G0-03, G0-04 | JSON/CSV 场景导入、Pydantic 语义校验、业务错误；验收：更换场景不用改源码；逐行错误可见 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | C-02 | P0 | B | C-01 | state_version、不可变 snapshot/hash、SQLite；验收：编辑后旧 Snapshot 不变 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |

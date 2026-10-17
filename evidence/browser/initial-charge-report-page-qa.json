@@ -1,5 +1,5 @@
 {
-  "plan_id": "PLAN-A19A37CF85374CDA",
+  "plan_id": "PLAN-755CD57187BF4C25",
   "page_count": 7,
   "pages": [
     {
@@ -45,5 +45,12 @@
       "image": "evidence/browser/verified/initial-charge-report-page-7.png"
     }
   ],
-  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval."
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "visual_review": {
+    "reviewer": "Codex visual inspection",
+    "all_pages_viewed": true,
+    "reviewed_at_utc": "2026-10-17T21:57:49.334601+00:00",
+    "pdf_sha256": "909fd1daef48a7b11dd9bd4d16f17c860ff9dda921eaa5312638f6740a41577d",
+    "finding": "No unintended overlap, clipping, missing rows or broken pagination observed."
+  }
 }

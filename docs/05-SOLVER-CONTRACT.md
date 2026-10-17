@@ -47,6 +47,8 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 
 ## 旧算法适配
 
+只读analyze_single_site(snapshot,min_return_soc=None)由public_api导出，纯Python实现见nominal.py。它返回额定单点NominalReport，不是solve outcome或可确认Plan；完整范围、有限计数DP与独立检查见NOMINAL_ANALYSIS及RFC-009。调用不会重置实际实体状态或修改快照。
+
 先读 `docs/LEGACY_BASELINE_AUDIT.md` 和 `references/modeling/README.md`。复制已核验物理函数至 solver adapter 并建立单测；不直接把 18 个提交文件包装成已独立可运行服务。它们有路径注入、导入建目录、旧输出依赖和有限模型假设。Q2/Q3 正式源码与旧问题目录不完全一致，必须跟随发布清单选择。
 
-A-01 先交非 Mock 小场景输入和真实模型参数，A-02 真实计算并独立验证；到那时才增加 `fixtures/regression/` 和真实运行证据。不得把本轮人工画的 mock Plan 改标签当算法输出。
+A-01/A-02已有非Mock输入、当前物理模型、真实调度和独立验证，运行证据位于evidence/solver，回归位于tests/solver。fixtures/mock保留开发结构示例，不能改标签冒充算法输出；当前能力与限制见IMPLEMENTATION_STATUS。
