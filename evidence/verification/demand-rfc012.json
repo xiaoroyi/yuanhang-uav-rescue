@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-10-17T23:07:58.038922+00:00",
+  "scope": "Observed targeted checks, not a full-suite report",
+  "source_at_record_sha256": "a943d8aa07005b9ebc3df8fcd886330bb39076fa92a1211fe9fcf8076ff08eab",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest tests/solver/test_demand_event.py -q",
+      "passed": 22
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest tests/backend/test_demand_events.py tests/backend/test_battery_events.py tests/contracts -q",
+      "passed": 46,
+      "subtests_passed": 8
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep 紧急需求插入",
+      "passed": 1,
+      "elapsed_s": 36.9
+    }
+  ],
+  "observed": "32 to 34 real cargo, real replan and confirmation; further impossible zero hard deadline creates no Plan and disables historical-plan confirmation.",
+  "visual_review": "1440/1280/390 initial form and 1440 positive/no-result states inspected; added mobile footer accessibility check passed, footer image pending inspection.",
+  "full_verification_pending": true
+}

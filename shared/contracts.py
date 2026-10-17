@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
+import copy
 from datetime import datetime
 import hashlib
 import json
@@ -588,6 +589,67 @@ def _validate_event_clock(event):
     require(received >= occurred, "event receive time precedes occurrence")
 
 
+def _with_added_demand(scenario, event):
+    payload = event["payload"]
+    result = copy.deepcopy(scenario)
+    if result["data_origin"] != "mock":
+        result["data_origin"] = "user_input"
+    result["demands"].append(copy.deepcopy(payload["demand"]))
+    result["cargo_items"].extend(copy.deepcopy(payload["cargo_items"]))
+    return result
+
+
+def _validate_demand_addition(event, scenario):
+    demand = event["payload"]["demand"]
+    boxes = event["payload"]["cargo_items"]
+    require(demand["mandatory"], "added urgent demand must be mandatory")
+    require(
+        demand["site_id"] in {s["id"] for s in scenario["sites"]},
+        "added demand requires an existing site",
+    )
+    require(
+        demand["cargo_type"] in {d["cargo_type"] for d in scenario["demands"]},
+        "added demand requires an existing cargo type",
+    )
+    require(
+        demand["demand_id"] not in {d["demand_id"] for d in scenario["demands"]},
+        "added demand ID already exists",
+    )
+    require(
+        len(boxes) == demand["required_quantity"],
+        "added demand needs exactly its required inventory quantity",
+    )
+    require(
+        all(
+            b["status"] == "available"
+            and b["location_id"] == scenario["base"]["id"]
+            and b["demand_id"] == demand["demand_id"]
+            and b["type"] == demand["cargo_type"]
+            for b in boxes
+        ),
+        "added cargo must be available at base and match its new demand",
+    )
+    expected, hard = demand["expected_deadline_s"], demand["hard_deadline_s"]
+    require(
+        expected is None or hard is None or expected <= hard,
+        "added demand expected deadline exceeds its hard deadline",
+    )
+    validate_scenario(_with_added_demand(scenario, event))
+
+
+def apply_event_to_scenario(event, scenario):
+    """Validated pure transition; neither the original scene nor event is modified."""
+    validate_event(event, scenario)
+    if event["event_type"] == "demand.added":
+        result = _with_added_demand(scenario, event)
+    else:
+        result = copy.deepcopy(scenario)
+        event_target(result, event)["status"] = "unavailable"
+    result["state_version"] += 1
+    validate_scenario(result)
+    return result
+
+
 def validate_event(event, scenario):
     validate_schema("event", event)
     require(event["scenario_id"] == scenario["scenario_id"], "event scenario mismatch")
@@ -596,13 +658,16 @@ def validate_event(event, scenario):
         "event expected version mismatch",
     )
     require(event["effective_time_s"] == 0, "P0 event requires unexecuted time zero")
-    target = event_target(scenario, event)
-    allowed = (
-        ("available", "charging")
-        if event["event_type"] == "battery.unavailable"
-        else ("available",)
-    )
-    require(target["status"] in allowed, "event resource is not withdrawable")
+    if event["event_type"] == "demand.added":
+        _validate_demand_addition(event, scenario)
+    else:
+        target = event_target(scenario, event)
+        allowed = (
+            ("available", "charging")
+            if event["event_type"] == "battery.unavailable"
+            else ("available",)
+        )
+        require(target["status"] in allowed, "event resource is not withdrawable")
     require(
         not has_execution_facts(scenario),
         "P0 event cannot reset execution facts",
@@ -620,10 +685,34 @@ def validate_applied_event(event, scenario):
     )
     require(event["effective_time_s"] == 0, "event requires unexecuted time zero")
     require(not has_execution_facts(scenario), "event cannot reset execution facts")
-    require(
-        event_target(scenario, event)["status"] == "unavailable",
-        "event target is not unavailable in its resulting snapshot",
-    )
+    if event["event_type"] == "demand.added":
+        payload = event["payload"]
+        demands = index(scenario["demands"], "demand_id")
+        boxes = index(scenario["cargo_items"], "cargo_id")
+        require(
+            demands.get(payload["demand"]["demand_id"]) == payload["demand"],
+            "added demand differs from its resulting snapshot",
+        )
+        require(
+            all(boxes.get(b["cargo_id"]) == b for b in payload["cargo_items"]),
+            "added inventory differs from its resulting snapshot",
+        )
+        before = copy.deepcopy(scenario)
+        before["demands"] = [
+            d
+            for d in before["demands"]
+            if d["demand_id"] != payload["demand"]["demand_id"]
+        ]
+        added = {b["cargo_id"] for b in payload["cargo_items"]}
+        before["cargo_items"] = [
+            b for b in before["cargo_items"] if b["cargo_id"] not in added
+        ]
+        _validate_demand_addition(event, before)
+    else:
+        require(
+            event_target(scenario, event)["status"] == "unavailable",
+            "event target is not unavailable in its resulting snapshot",
+        )
     _validate_event_clock(event)
 
 

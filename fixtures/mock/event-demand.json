@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1.0-draft",
+  "event_id": "EVT-MOCK-DEMAND-ADDED",
+  "scenario_id": "SCN-MOCK-001",
+  "expected_state_version": 1,
+  "event_type": "demand.added",
+  "occurred_at": "2026-10-17T09:00:00+08:00",
+  "received_at": "2026-10-17T09:00:00+08:00",
+  "effective_time_s": 0,
+  "actor": "simulation",
+  "reason": "Mock development example, never a verified solver result",
+  "payload": {
+    "demand": {
+      "demand_id": "DEM-URG-MOCK",
+      "site_id": "S01",
+      "cargo_type": "MED",
+      "required_quantity": 1,
+      "priority": 1,
+      "expected_deadline_s": 1200,
+      "hard_deadline_s": 1800,
+      "mandatory": true
+    },
+    "cargo_items": [
+      {
+        "cargo_id": "CARGO-URG-MOCK",
+        "demand_id": "DEM-URG-MOCK",
+        "type": "MED",
+        "mass_kg": 2,
+        "volume_l": 3,
+        "status": "available",
+        "location_id": "O01"
+      }
+    ]
+  }
+}

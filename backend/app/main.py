@@ -76,11 +76,10 @@ from backend.app.storage import (
 from shared.contracts import (
     ContractError,
     content_hash,
-    validate_event,
     validate_options,
     validate_scenario,
     validate_snapshot,
-    event_target,
+    apply_event_to_scenario,
 )
 from shared.build_info import service_fingerprint
 from solver.adapters.contest import (
@@ -1326,12 +1325,9 @@ def create_app(runtime_dir: Path | None = None):
             require_version(row, value["expected_state_version"])
             value["received_at"] = now()
             try:
-                validate_event(value, row.content)
+                s = apply_event_to_scenario(value, row.content)
             except ContractError as exc:
                 raise AppError(422, "UNSUPPORTED_EVENT_STATE", str(exc)) from exc
-            s = copy.deepcopy(row.content)
-            event_target(s, value)["status"] = "unavailable"
-            s["state_version"] = row.version + 1
             row.version = s["state_version"]
             row.content = s
             row.updated_at = now()

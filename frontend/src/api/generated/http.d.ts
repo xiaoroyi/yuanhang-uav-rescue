@@ -1164,6 +1164,41 @@ export interface components {
             /** Mandatory */
             mandatory: boolean;
         };
+        /** DemandAddedEvent */
+        DemandAddedEvent: {
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: "0.1.0-draft";
+            /** Event Id */
+            event_id: string;
+            /** Scenario Id */
+            scenario_id: string;
+            /** Expected State Version */
+            expected_state_version: number;
+            /**
+             * Event Type
+             * @constant
+             */
+            event_type: "demand.added";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+            /**
+             * Received At
+             * Format: date-time
+             */
+            received_at: string;
+            /** Effective Time S */
+            effective_time_s: number;
+            actor: components["schemas"]["Actor"];
+            /** Reason */
+            reason: string;
+            payload: components["schemas"]["Payload2"];
+        };
         /** DemandDelivery */
         DemandDelivery: {
             /** Demand Id */
@@ -1284,9 +1319,9 @@ export interface components {
         };
         /**
          * Event
-         * @description Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review.
+         * @description Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review.
          */
-        Event: components["schemas"]["DroneUnavailableEvent"] | components["schemas"]["BatteryUnavailableEvent"];
+        Event: components["schemas"]["DroneUnavailableEvent"] | components["schemas"]["BatteryUnavailableEvent"] | components["schemas"]["DemandAddedEvent"];
         /** EventReceipt */
         EventReceipt: {
             event: components["schemas"]["Event"];
@@ -1378,6 +1413,41 @@ export interface components {
              * @constant
              */
             to_soc: 1;
+        };
+        /** Items */
+        Items: {
+            /** Cargo Id */
+            cargo_id: string;
+            /** Demand Id */
+            demand_id: string;
+            /** Type */
+            type: string;
+            /** Mass Kg */
+            mass_kg: number;
+            /** Volume L */
+            volume_l: number;
+            status: components["schemas"]["Status8"];
+            /** Location Id */
+            location_id: string;
+        };
+        /** ItemsModel */
+        ItemsModel: {
+            /** Demand Id */
+            demand_id: string;
+            /** Site Id */
+            site_id: string;
+            /** Cargo Type */
+            cargo_type: string;
+            /** Required Quantity */
+            required_quantity: number;
+            /** Priority */
+            priority: number;
+            /** Expected Deadline S */
+            expected_deadline_s: number | null;
+            /** Hard Deadline S */
+            hard_deadline_s: number | null;
+            /** Mandatory */
+            mandatory: boolean;
         };
         /**
          * JobState
@@ -1801,6 +1871,12 @@ export interface components {
         Payload1: {
             /** Battery Id */
             battery_id: string;
+        };
+        /** Payload2 */
+        Payload2: {
+            demand: components["schemas"]["ItemsModel"];
+            /** Cargo Items */
+            cargo_items: components["schemas"]["Items"][];
         };
         /** Plan */
         Plan: {
@@ -2515,6 +2591,11 @@ export interface components {
          * @enum {string}
          */
         Status7: "available" | "reserved" | "in_use" | "charging" | "unavailable";
+        /**
+         * Status8
+         * @enum {string}
+         */
+        Status8: "available" | "reserved" | "loaded" | "in_transit" | "delivered" | "unavailable";
         /** SupportedChargeModel */
         SupportedChargeModel: string;
         /** SupportedEnergyModel */

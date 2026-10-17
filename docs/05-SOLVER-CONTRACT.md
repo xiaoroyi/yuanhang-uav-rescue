@@ -56,3 +56,5 @@ A-01/A-02已有非Mock输入、当前物理模型、真实调度和独立验证�
 ## 只读容量下界
 
 solver.bounds.capacity_lower_bound(snapshot)计算完整运输架次容量必要下界，solver.analysis.analyze将其加入capacity_bound。无HTTP/数据库副作用，严格复用Snapshot输入校验。数值与独立见证见CAPACITY_BOUNDS/RFC-011。不是最少实体资源或完整调度最优证明。
+
+demand.added核对应用后新增记录与完整payload一致，直接全量重算，禁止把仅含旧任务的局部修复发布为新结果。任何新Plan须服务新增必须保障需求；预算失败不复用父Plan。

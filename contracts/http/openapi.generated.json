@@ -3251,6 +3251,81 @@
         ],
         "title": "Demand"
       },
+      "DemandAddedEvent": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "event_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Event Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "event_type": {
+            "type": "string",
+            "const": "demand.added",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "effective_time_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Effective Time S"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Payload2"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "event_id",
+          "scenario_id",
+          "expected_state_version",
+          "event_type",
+          "occurred_at",
+          "received_at",
+          "effective_time_s",
+          "actor",
+          "reason",
+          "payload"
+        ],
+        "title": "DemandAddedEvent"
+      },
       "DemandDelivery": {
         "properties": {
           "demand_id": {
@@ -3621,10 +3696,13 @@
           },
           {
             "$ref": "#/components/schemas/BatteryUnavailableEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DemandAddedEvent"
           }
         ],
         "title": "Event",
-        "description": "Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review."
+        "description": "Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review."
       },
       "EventReceipt": {
         "properties": {
@@ -3850,6 +3928,135 @@
           "to_soc"
         ],
         "title": "InitialCharge"
+      },
+      "Items": {
+        "properties": {
+          "cargo_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Cargo Id"
+          },
+          "demand_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Demand Id"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Type"
+          },
+          "mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Mass Kg"
+          },
+          "volume_l": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Volume L"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status8"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cargo_id",
+          "demand_id",
+          "type",
+          "mass_kg",
+          "volume_l",
+          "status",
+          "location_id"
+        ],
+        "title": "Items"
+      },
+      "ItemsModel": {
+        "properties": {
+          "demand_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Demand Id"
+          },
+          "site_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Site Id"
+          },
+          "cargo_type": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Cargo Type"
+          },
+          "required_quantity": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Required Quantity"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Priority"
+          },
+          "expected_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Deadline S"
+          },
+          "hard_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hard Deadline S"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "title": "Mandatory"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demand_id",
+          "site_id",
+          "cargo_type",
+          "required_quantity",
+          "priority",
+          "expected_deadline_s",
+          "hard_deadline_s",
+          "mandatory"
+        ],
+        "title": "ItemsModel"
       },
       "JobState": {
         "type": "string",
@@ -5196,6 +5403,29 @@
           "battery_id"
         ],
         "title": "Payload1"
+      },
+      "Payload2": {
+        "properties": {
+          "demand": {
+            "$ref": "#/components/schemas/ItemsModel"
+          },
+          "cargo_items": {
+            "items": {
+              "$ref": "#/components/schemas/Items"
+            },
+            "type": "array",
+            "maxItems": 32,
+            "minItems": 1,
+            "title": "Cargo Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demand",
+          "cargo_items"
+        ],
+        "title": "Payload2"
       },
       "Plan": {
         "properties": {
@@ -7367,6 +7597,18 @@
           "unavailable"
         ],
         "title": "Status7"
+      },
+      "Status8": {
+        "type": "string",
+        "enum": [
+          "available",
+          "reserved",
+          "loaded",
+          "in_transit",
+          "delivered",
+          "unavailable"
+        ],
+        "title": "Status8"
       },
       "SupportedChargeModel": {
         "type": "string",

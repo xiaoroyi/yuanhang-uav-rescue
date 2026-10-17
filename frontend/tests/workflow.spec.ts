@@ -108,6 +108,118 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
   expect(errors).toEqual([])
 })
 
+test('紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案', async ({
+  page,
+  request,
+}) => {
+  test.setTimeout(120000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  await solve(page)
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const original = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
+  const old = await (await request.get(`/api/v1/plans/${original.plan_id}`)).json()
+  const oldSnapshot = await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByLabel('故障事件类型').selectOption('urgent')
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  await page.getByRole('button', { name: '填写紧急需求', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await page.getByLabel('紧急箱件数量').fill('2')
+  await page.getByLabel('紧急期望截止分钟').fill('90')
+  await page.getByLabel('紧急硬截止分钟').fill('300')
+  await page.getByLabel('紧急每箱质量').fill('0')
+  await expect(dialog.getByRole('button', { name: '保存需求并重规划', exact: true })).toBeDisabled()
+  await page.getByLabel('紧急每箱质量').fill('3')
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await dialog.screenshot({
+      path: path.resolve(`../evidence/browser/verified/urgent-demand-form-${width}.png`),
+    })
+    expect(await dialog.evaluate((e) => e.scrollWidth <= e.clientWidth + 1)).toBe(true)
+    if (width === 390) {
+      await dialog
+        .getByRole('button', { name: '保存需求并重规划', exact: true })
+        .scrollIntoViewIfNeeded()
+      await expect(
+        dialog.getByRole('button', { name: '保存需求并重规划', exact: true }),
+      ).toBeInViewport()
+      await dialog.screenshot({
+        path: path.resolve('../evidence/browser/verified/urgent-demand-form-footer-390.png'),
+      })
+    }
+  }
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await dialog.getByRole('button', { name: '保存需求并重规划', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.getByLabel('新增需求安排')).toContainText('2 箱')
+  await expect(page.locator('.event-history')).toContainText('新增需求')
+  const plan = await (
+    await request.get(
+      `/api/v1/plans/${(await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0].plan_id}`,
+    )
+  ).json()
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()
+  const events = await (await request.get(`/api/v1/scenarios/${sid}/events`)).json()
+  expect(plan.parent_plan_id).toBe(old.plan_id)
+  expect(plan.scenario_state_version).toBe(2)
+  expect(plan.validation.status).toBe('passed')
+  expect(new Set(plan.sorties.flatMap((r: { cargo_ids: string[] }) => r.cargo_ids)).size).toBe(34)
+  expect(events[0].event_type).toBe('demand.added')
+  expect(events[0].payload.cargo_items).toHaveLength(2)
+  expect(snapshot.scenario.data_origin).toBe('user_input')
+  expect(await (await request.get(`/api/v1/plans/${old.plan_id}`)).json()).toEqual(old)
+  expect(await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()).toEqual(
+    oldSnapshot,
+  )
+  await screenshot(page, 'urgent-demand-result-1440')
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await page.reload()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await expect(page.getByLabel('新增需求安排')).toContainText('2 箱')
+  await page.getByLabel('故障事件类型').selectOption('urgent')
+  await page.getByRole('button', { name: '填写紧急需求', exact: true }).click()
+  await page.getByLabel('紧急箱件数量').fill('1')
+  await page.getByLabel('紧急期望截止分钟').fill('0')
+  await page.getByLabel('紧急硬截止分钟').fill('0')
+  await dialog.getByRole('button', { name: '保存需求并重规划', exact: true }).click()
+  await expect(dialog).toBeHidden()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  const after = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  expect(after.state_version).toBe(3)
+  expect(after.cargo_items).toHaveLength(35)
+  const jobs = await (await request.get(`/api/v1/scenarios/${sid}/solve-jobs`)).json()
+  expect(jobs[0].has_validated_plan).toBe(false)
+  expect(jobs[0].plan_id).toBeNull()
+  expect((await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()).length).toBe(2)
+  await screenshot(page, 'urgent-demand-no-result-1440')
+  await fs.writeFile(
+    path.resolve('../evidence/browser/urgent-demand.json'),
+    JSON.stringify(
+      {
+        original_snapshot: oldSnapshot,
+        original_plan: old,
+        event: events[0],
+        snapshot,
+        plan,
+        impossible_job: jobs[0],
+        impossible_scene: after,
+        page_errors: errors,
+      },
+      null,
+      2,
+    ) + '\n',
+  )
+  expect(errors).toEqual([])
+})
+
 test('容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏', async ({ page, request }) => {
   const errors: string[] = []
   page.on('pageerror', (error) => errors.push(error.message))

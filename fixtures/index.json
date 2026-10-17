@@ -65,6 +65,11 @@
       "path": "fixtures/mock/event-battery.json",
       "schema": "event",
       "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event-demand.json",
+      "schema": "event",
+      "purpose": "mock_development_only"
     }
   ]
 }

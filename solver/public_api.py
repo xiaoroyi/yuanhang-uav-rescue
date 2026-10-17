@@ -43,7 +43,11 @@ def capabilities():
         "schema_versions": ["0.1.0-draft"],
         "solver_ready": True,
         "supported_objectives": ["time", "energy", "balanced"],
-        "supported_events": ["drone.unavailable", "battery.unavailable"],
+        "supported_events": [
+            "drone.unavailable",
+            "battery.unavailable",
+            "demand.added",
+        ],
         "supported_model_scope": BASE_SCOPE
         + ["terrain", "restricted_zone", "ground_resource", "communication"],
         "supported_energy_models": [ENERGY_MODEL],
@@ -1147,7 +1151,10 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
             started,
             reason="unsupported_scope",
             diagnostics=[
-                diagnostic("UNSUPPORTED_SCOPE", "当前只支持零时刻机体或运输电池退出。")
+                diagnostic(
+                    "UNSUPPORTED_SCOPE",
+                    "当前支持零时刻资源退出或已有点位紧急需求插入。",
+                )
             ],
         )
     try:
@@ -1175,8 +1182,12 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
             reason="input_not_ready",
             diagnostics=[diagnostic("INPUT_NOT_READY", str(exc))],
         )
-    result = _try_local_repair(
-        snapshot, previous_plan, options, started, progress_callback
+    result = (
+        None
+        if event["event_type"] == "demand.added"
+        else _try_local_repair(
+            snapshot, previous_plan, options, started, progress_callback
+        )
     )
     if result is None:
         spent = time.perf_counter() - started

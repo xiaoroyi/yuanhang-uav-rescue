@@ -37,7 +37,7 @@ import {
   TriangleAlert,
   Zap,
 } from 'lucide-react'
-import { api, ApiError, downloadJson, type Scenario } from './api/client'
+import { api, ApiError, downloadJson, type Scenario, type Event } from './api/client'
 import { Badge, Button, Empty, Modal, Toasts, type ToastMessage } from './components/ui'
 import { RescueMap } from './components/RescueMap'
 import { ResourceTimeline } from './components/ResourceTimeline'
@@ -45,6 +45,7 @@ import { CommunicationPanel } from './components/CommunicationPanel'
 import { ScenarioEditor } from './pages/ScenarioEditor'
 import { ResourceAnalysis } from './pages/ResourceAnalysis'
 import { PartitionAnalysis } from './pages/PartitionAnalysis'
+import { UrgentDemandForm, type UrgentPayload } from './pages/UrgentDemandForm'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
 
 type Page = 'workspace' | 'scenario' | 'events'
@@ -73,7 +74,7 @@ export default function App() {
     [eventBusy, setEventBusy] = useState(false),
     [playTime, setPlayTime] = useState<number | null>(null),
     [playing, setPlaying] = useState(false)
-  const [failureKind, setFailureKind] = useState<'drone' | 'battery'>('drone')
+  const [failureKind, setFailureKind] = useState<'drone' | 'battery' | 'urgent'>('drone')
   const initialized = useRef(false),
     seenJobs = useRef(new Set<string>())
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: api.scenarios })
@@ -341,37 +342,34 @@ export default function App() {
       setSubmitting(false)
     }
   }
-  async function injectFailure() {
-    if (!scenario || !plan || !failureId || isBusy) return
+  function eventCommon() {
+    const when = new Date().toISOString()
+    return {
+      schema_version: scenario!.schema_version,
+      event_id: 'EVT-' + crypto.randomUUID().slice(0, 16),
+      scenario_id: scenario!.scenario_id,
+      expected_state_version: scenario!.state_version,
+      occurred_at: when,
+      received_at: when,
+      effective_time_s: 0,
+      actor: 'simulation' as const,
+    }
+  }
+  async function applyAndReplan(request: Event, label: string): Promise<boolean> {
+    if (
+      !scenario ||
+      !plan ||
+      isBusy ||
+      stale ||
+      bindingUnavailable ||
+      scenario.data_origin === 'mock'
+    )
+      return false
     setEventBusy(true)
+    let applied = false
     try {
-      const when = new Date().toISOString(),
-        eventId = 'EVT-' + crypto.randomUUID().slice(0, 16)
-      const common = {
-        schema_version: scenario.schema_version,
-        event_id: eventId,
-        scenario_id: scenario.scenario_id,
-        expected_state_version: scenario.state_version,
-        occurred_at: when,
-        received_at: when,
-        effective_time_s: 0,
-        actor: 'simulation' as const,
-      }
-      const event = await api.event(
-        failureKind === 'drone'
-          ? {
-              ...common,
-              event_type: 'drone.unavailable',
-              reason: '模拟演练：未起飞机体退出',
-              payload: { drone_id: failureId },
-            }
-          : {
-              ...common,
-              event_type: 'battery.unavailable',
-              reason: '模拟演练：运输电池退出',
-              payload: { battery_id: failureId },
-            },
-      )
+      const event = await api.event(request)
+      applied = true
       const updated = await api.scenario(scenarioId)
       query.setQueryData(['scenario', scenarioId], updated)
       void query.invalidateQueries({ queryKey: ['scenarios'] })
@@ -390,15 +388,42 @@ export default function App() {
       )
       setJobId(newJob.job_id)
       query.setQueryData(['job', newJob.job_id], newJob)
-      notify(
-        `${failureKind === 'battery' ? '运输电池 ' : '机体 '}${failureId}已退出，新版本正在真实重规划。`,
-      )
+      notify(label + '，新版本正在真实重规划。')
       setFailureId('')
+      return true
     } catch (e) {
-      notify((e as Error).message, true)
+      notify((applied ? '事件已保存，请按新版本重新求解。' : '') + (e as Error).message, true)
+      return applied
     } finally {
       setEventBusy(false)
     }
+  }
+  async function injectFailure() {
+    if (!scenario || !failureId || failureKind === 'urgent') return
+    const common = eventCommon()
+    await applyAndReplan(
+      failureKind === 'drone'
+        ? {
+            ...common,
+            event_type: 'drone.unavailable',
+            reason: '模拟演练：未起飞机体退出',
+            payload: { drone_id: failureId },
+          }
+        : {
+            ...common,
+            event_type: 'battery.unavailable',
+            reason: '模拟演练：运输电池退出',
+            payload: { battery_id: failureId },
+          },
+      `${failureKind === 'battery' ? '运输电池 ' : '机体 '}${failureId}已退出`,
+    )
+  }
+  async function insertUrgent(payload: UrgentPayload, reason: string) {
+    if (!scenario) return false
+    return applyAndReplan(
+      { ...eventCommon(), event_type: 'demand.added', payload, reason },
+      `已新增${payload.demand.required_quantity}箱紧急需求`,
+    )
   }
   async function confirm() {
     if (!plan || !scenario) return
@@ -461,7 +486,10 @@ export default function App() {
   const changedCargo =
     plan && oldPlan
       ? plan.sorties.reduce(
-          (n, r) => n + r.cargo_ids.filter((c) => oldAssignments.get(c) !== r.drone_id).length,
+          (n, r) =>
+            n +
+            r.cargo_ids.filter((c) => oldAssignments.has(c) && oldAssignments.get(c) !== r.drone_id)
+              .length,
           0,
         )
       : 0
@@ -474,7 +502,10 @@ export default function App() {
     plan && oldPlan
       ? plan.sorties.reduce(
           (n, r) =>
-            n + r.cargo_ids.filter((c) => oldBatteryAssignments.get(c) !== r.battery_id).length,
+            n +
+            r.cargo_ids.filter(
+              (c) => oldBatteryAssignments.has(c) && oldBatteryAssignments.get(c) !== r.battery_id,
+            ).length,
           0,
         )
       : 0
@@ -805,7 +836,7 @@ export default function App() {
                         onClick={() => setEventTab('events')}
                       >
                         <Activity size={15} />
-                        故障事件
+                        动态事件
                       </button>
                       <button
                         className={eventTab === 'analysis' ? 'active' : ''}
@@ -984,64 +1015,87 @@ export default function App() {
                               aria-label="故障事件类型"
                               value={failureKind}
                               onChange={(e) => {
-                                setFailureKind(e.target.value as 'drone' | 'battery')
+                                setFailureKind(e.target.value as 'drone' | 'battery' | 'urgent')
                                 setFailureId('')
                               }}
                             >
                               <option value="drone">未起飞机体退出</option>
                               <option value="battery">运输电池退出</option>
+                              <option value="urgent">紧急需求插入</option>
                             </select>
                           </label>
-                          <label className="field">
-                            <span>{failureKind === 'drone' ? '受影响机体' : '受影响运输电池'}</span>
-                            <select
-                              aria-label={failureKind === 'drone' ? '故障机体' : '故障运输电池'}
-                              value={failureId}
-                              onChange={(e) => setFailureId(e.target.value)}
-                            >
-                              <option value="">
-                                {failureKind === 'drone' ? '请选择可用机体' : '请选择可退出电池'}
-                              </option>
-                              {failureKind === 'drone' &&
-                                scenario.drones
-                                  .filter((d) => d.status === 'available')
-                                  .map((d) => (
-                                    <option key={d.drone_id} value={d.drone_id}>
-                                      {d.drone_id} · {d.type_id}型
-                                    </option>
-                                  ))}
-                              {failureKind === 'drone' &&
-                                scenario.policy.requires_communication &&
-                                scenario.communication?.relay_drones
-                                  .filter((d) => d.status === 'available')
-                                  .map((d) => (
-                                    <option key={d.drone_id} value={d.drone_id}>
-                                      {d.drone_id} · 中继机
-                                    </option>
-                                  ))}
-                              {failureKind === 'battery' &&
-                                scenario.batteries
-                                  .filter((b) => ['available', 'charging'].includes(b.status))
-                                  .map((b) => (
-                                    <option key={b.battery_id} value={b.battery_id}>
-                                      {b.battery_id} · {b.compatible_type_id}型 · {percent(b.soc)}
-                                    </option>
-                                  ))}
-                            </select>
-                          </label>
-                          <div className="callout amber">
-                            <TriangleAlert size={16} />
-                            仅支持尚未执行场景。事件保存新版本并保留原计划，只改变指定资源的可用状态。
-                          </div>
-                          <Button
-                            variant="primary"
-                            busy={eventBusy || isBusy}
-                            disabled={!plan || !failureId || stale}
-                            onClick={() => void injectFailure()}
-                          >
-                            <RefreshCw size={15} />
-                            记录故障并重规划
-                          </Button>
+                          {failureKind === 'urgent' ? (
+                            <UrgentDemandForm
+                              key={scenarioId}
+                              scenario={scenario}
+                              disabled={
+                                !plan ||
+                                stale ||
+                                bindingUnavailable ||
+                                scenario.data_origin === 'mock'
+                              }
+                              busy={eventBusy || isBusy}
+                              onSubmit={insertUrgent}
+                            />
+                          ) : (
+                            <>
+                              <label className="field">
+                                <span>
+                                  {failureKind === 'drone' ? '受影响机体' : '受影响运输电池'}
+                                </span>
+                                <select
+                                  aria-label={failureKind === 'drone' ? '故障机体' : '故障运输电池'}
+                                  value={failureId}
+                                  onChange={(e) => setFailureId(e.target.value)}
+                                >
+                                  <option value="">
+                                    {failureKind === 'drone'
+                                      ? '请选择可用机体'
+                                      : '请选择可退出电池'}
+                                  </option>
+                                  {failureKind === 'drone' &&
+                                    scenario.drones
+                                      .filter((d) => d.status === 'available')
+                                      .map((d) => (
+                                        <option key={d.drone_id} value={d.drone_id}>
+                                          {d.drone_id} · {d.type_id}型
+                                        </option>
+                                      ))}
+                                  {failureKind === 'drone' &&
+                                    scenario.policy.requires_communication &&
+                                    scenario.communication?.relay_drones
+                                      .filter((d) => d.status === 'available')
+                                      .map((d) => (
+                                        <option key={d.drone_id} value={d.drone_id}>
+                                          {d.drone_id} · 中继机
+                                        </option>
+                                      ))}
+                                  {failureKind === 'battery' &&
+                                    scenario.batteries
+                                      .filter((b) => ['available', 'charging'].includes(b.status))
+                                      .map((b) => (
+                                        <option key={b.battery_id} value={b.battery_id}>
+                                          {b.battery_id} · {b.compatible_type_id}型 ·{' '}
+                                          {percent(b.soc)}
+                                        </option>
+                                      ))}
+                                </select>
+                              </label>
+                              <div className="callout amber">
+                                <TriangleAlert size={16} />
+                                仅支持尚未执行场景。事件保存新版本并保留原计划，只改变指定资源的可用状态。
+                              </div>
+                              <Button
+                                variant="primary"
+                                busy={eventBusy || isBusy}
+                                disabled={!plan || !failureId || stale}
+                                onClick={() => void injectFailure()}
+                              >
+                                <RefreshCw size={15} />
+                                记录故障并重规划
+                              </Button>
+                            </>
+                          )}
                         </div>
                         <div className="event-history">
                           <h4>
@@ -1053,10 +1107,11 @@ export default function App() {
                                 <i />
                                 <div>
                                   <strong>
-                                    {e.event_type === 'drone.unavailable'
-                                      ? `机体 ${e.payload.drone_id}`
-                                      : `运输电池 ${e.payload.battery_id}`}{' '}
-                                    退出
+                                    {e.event_type === 'demand.added'
+                                      ? `新增需求 ${e.payload.demand.demand_id} · ${e.payload.demand.required_quantity}箱`
+                                      : e.event_type === 'drone.unavailable'
+                                        ? `机体 ${e.payload.drone_id} 退出`
+                                        : `运输电池 ${e.payload.battery_id} 退出`}
                                   </strong>
                                   <p>{e.reason}</p>
                                   <small>
@@ -1128,6 +1183,26 @@ export default function App() {
                                 </strong>
                               </div>
                             </div>
+                            {plan.sorties.some((r) =>
+                              r.cargo_ids.some((c) => !oldAssignments.has(c)),
+                            ) && (
+                              <div className="callout" aria-label="新增需求安排">
+                                <Package size={18} />
+                                <span>
+                                  新增已安排箱件{' '}
+                                  <b>
+                                    {plan.sorties.reduce(
+                                      (n, r) =>
+                                        n +
+                                        r.cargo_ids.filter((c) => !oldAssignments.has(c)).length,
+                                      0,
+                                    )}{' '}
+                                    箱
+                                  </b>{' '}
+                                  · 改派统计仅比较两版共有箱件。
+                                </span>
+                              </div>
+                            )}
                             {oldPlan.joint_metrics && plan.joint_metrics && (
                               <div className="callout joint-event-diff" aria-label="中继方案变化">
                                 <RadioTower size={18} />

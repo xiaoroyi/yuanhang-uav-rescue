@@ -523,14 +523,6 @@ class BatteryUnavailableEvent(BaseModel):
     payload: Payload1
 
 
-class Event(RootModel[DroneUnavailableEvent | BatteryUnavailableEvent]):
-    root: DroneUnavailableEvent | BatteryUnavailableEvent = Field(
-        ...,
-        description="Implementation draft 0.1.0-draft; additive zero-time battery withdrawal, RFC-010; pending A/B review.",
-        title="Event",
-    )
-
-
 class DataOrigin(Enum):
     mock = "mock"
     solver = "solver"
@@ -1157,6 +1149,91 @@ class JointSearchModel(BaseModel):
     coverage_atom_count: conint(ge=0)
     relay_slot_limit: conint(ge=0)
     stages: list[Stage]
+
+
+class Status8(Enum):
+    available = "available"
+    reserved = "reserved"
+    loaded = "loaded"
+    in_transit = "in_transit"
+    delivered = "delivered"
+    unavailable = "unavailable"
+
+
+class Items(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    cargo_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    demand_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    type: constr(min_length=1)
+    mass_kg: PositiveFloat
+    volume_l: PositiveFloat
+    status: Status8
+    location_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+
+
+class ItemsModel(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    demand_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    site_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    cargo_type: constr(min_length=1)
+    required_quantity: conint(ge=1)
+    priority: conint(ge=1)
+    expected_deadline_s: confloat(ge=0.0) | None
+    hard_deadline_s: confloat(ge=0.0) | None
+    mandatory: bool
+
+
+class Payload2(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    demand: ItemsModel
+    cargo_items: list[Items] = Field(..., max_length=32, min_length=1)
+
+
+class DemandAddedEvent(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    schema_version: Literal["0.1.0-draft"]
+    event_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    scenario_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    expected_state_version: conint(ge=1)
+    event_type: Literal["demand.added"]
+    occurred_at: AwareDatetime
+    received_at: AwareDatetime
+    effective_time_s: confloat(ge=0.0)
+    actor: Actor
+    reason: constr(min_length=1)
+    payload: Payload2
+
+
+class Event(
+    RootModel[DroneUnavailableEvent | BatteryUnavailableEvent | DemandAddedEvent]
+):
+    root: DroneUnavailableEvent | BatteryUnavailableEvent | DemandAddedEvent = Field(
+        ...,
+        description="Implementation draft: additive zero-time demand insertion RFC-012, preserving withdrawal event JSON; pending A/B review.",
+        title="Event",
+    )
 
 
 class SolverOutcome(BaseModel):
