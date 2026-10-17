@@ -1603,9 +1603,16 @@ export default function App() {
                       onSelect={setSelected}
                     />
                   )}
-                  {plan?.communication_report && !(page === 'events' && eventTab !== 'events') && (
-                    <CommunicationPanel plan={plan} />
-                  )}
+                  {plan?.communication_report &&
+                    viewScenario &&
+                    !(page === 'events' && eventTab !== 'events') && (
+                      <CommunicationPanel
+                        plan={plan}
+                        scenario={viewScenario}
+                        selected={selected}
+                        onSelect={setSelected}
+                      />
+                    )}
                   <div className="workspace-footer">
                     <div>
                       <ShieldCheck size={15} />
@@ -1747,7 +1754,7 @@ export default function App() {
             </h3>
             <p>
               导入或编辑场景 → 固定快照 → 独立进程真实求解 → 查看地图、箱件和资源时间轴 → 确认或导出
-              → 注入未起飞机体退出并重新规划。
+              → 记录未执行场景的资源退出或紧急需求，再按新版本重新规划。
             </p>
           </section>
           <section>
@@ -1765,7 +1772,7 @@ export default function App() {
               当前模型
             </h3>
             <p>
-              整箱、质量/容积、实体机体和电池、两段充电、硬截止、载荷相关能耗与返航储备。题设DEM提供时做闭像元航段净空检查；启发式结果不宣称全局最优。
+              整箱、质量/容积、实体机体和电池、两段充电、硬截止、载荷相关能耗与返航储备。支持有限地面工位/端口及启用后的通信联合规划；强制DEM按闭像元检查净空，启发式结果不宣称全局最优。
             </p>
           </section>
           <section>

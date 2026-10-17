@@ -469,7 +469,9 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
               {Object.entries(a.charge_peak_by_type)
                 .map(([id, count]) => `${id}型 ${count}`)
                 .join(' · ')}
-              。端口容量尚未约束排程。
+              {a.resource_limits
+                ? `。排程受${a.resource_limits.prep_slots}个准备工位、${a.resource_limits.charging_ports}个充电端口约束，等待期间仍占用能源资源。`
+                : '。当前未设置端口上限，充电峰值表示并发需求。'}
             </p>
           </section>
           <section className="panel delivery-analysis">

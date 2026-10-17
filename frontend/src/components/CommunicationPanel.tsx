@@ -1,10 +1,21 @@
 import { useState } from 'react'
 import { ArrowDownToLine, BatteryCharging, RadioTower } from 'lucide-react'
-import { api, type Plan } from '../api/client'
+import { api, type Plan, type Scenario } from '../api/client'
 import { clock, number, percent } from '../lib/format'
 import { Badge } from './ui'
+import { CommunicationEvidence } from './CommunicationEvidence'
 
-export function CommunicationPanel({ plan }: { plan: Plan }) {
+export function CommunicationPanel({
+  plan,
+  scenario,
+  selected,
+  onSelect,
+}: {
+  plan: Plan
+  scenario: Scenario
+  selected: string | null
+  onSelect: (id: string) => void
+}) {
   const [mode, setMode] = useState<'drone' | 'energy'>('drone')
   const report = plan.communication_report
   const joint = plan.joint_metrics
@@ -203,6 +214,12 @@ export function CommunicationPanel({ plan }: { plan: Plan }) {
           </div>
         </>
       )}
+      <CommunicationEvidence
+        plan={plan}
+        scenario={scenario}
+        selected={selected}
+        onSelect={onSelect}
+      />
       <div className="communication-footer">
         <p>
           投影DEM有限几何与链路预算模型；规划覆盖不等于现场无线可靠性。既有工作台指标仍单独统计运输。

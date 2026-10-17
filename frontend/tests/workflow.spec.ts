@@ -10,6 +10,8 @@ async function solve(page: Page) {
 }
 
 test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景', async ({ page, request }) => {
+  // Several real analyses and four viewport captures; keep individual assertions bounded.
+  test.setTimeout(180000)
   const errors: string[] = []
   const snapshots: string[] = []
   page.on('pageerror', (e) => errors.push(e.message))
@@ -39,6 +41,7 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
   )
   await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
   await dialog.screenshot({
+    animations: 'disabled',
     path: path.resolve('../evidence/browser/verified/nominal-capacity-1440.png'),
   })
   await page.getByLabel('诊断需求点').selectOption('S006')
@@ -51,6 +54,7 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
     18,
   )
   await dialog.screenshot({
+    animations: 'disabled',
     path: path.resolve('../evidence/browser/verified/nominal-batches-1440.png'),
   })
   await page.getByLabel('诊断返航余量').selectOption('0.3')
@@ -86,6 +90,7 @@ test('单点诊断按快照重算32箱与80箱，余量敏感性和导出不修�
     await dialog.getByRole('table', { name: '返航余量敏感性' }).scrollIntoViewIfNeeded()
     await expect(dialog.locator('.nominal-footer')).toBeInViewport()
     await dialog.screenshot({
+      animations: 'disabled',
       path: path.resolve(`../evidence/browser/verified/nominal-sensitivity-${width}.png`),
     })
   }
@@ -367,6 +372,118 @@ for (const joint of [false, true]) {
     expect(errors).toEqual([])
   })
 }
+
+test('点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照', async ({ page, request }) => {
+  test.setTimeout(150000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const scene = await (await request.get(`/api/v1/scenarios/${sid}`)).json()
+  scene.communication = await (
+    await request.get(`/api/v1/scenarios/${sid}/communication-template`)
+  ).json()
+  scene.policy.requires_communication = true
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 1, scenario: scene },
+      })
+    ).ok(),
+  ).toBe(true)
+  await page.reload()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 90000 })
+  const plan = await (
+    await request.get(
+      `/api/v1/plans/${(await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0].plan_id}`,
+    )
+  ).json()
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()
+  const relayWindow = plan.communication_report.windows.find(
+    (w: { source: string }) => w.source === 'relay',
+  )
+  expect(relayWindow).toBeTruthy()
+  const index = plan.sorties.findIndex(
+    (r: { sortie_id: string }) => r.sortie_id === relayWindow.sortie_id,
+  )
+  await page.getByTestId('sortie-card').nth(index).click()
+  const evidence = page.getByRole('region', { name: '通信来源证据' })
+  await expect(page.getByLabel('通信来源架次')).toHaveValue(relayWindow.sortie_id)
+  await evidence.locator('.coverage-window-button[data-source=relay]').first().click()
+  const download = page.waitForEvent('download')
+  await evidence.getByRole('button', { name: '导出所选窗口', exact: true }).click()
+  const exported = JSON.parse(await fs.readFile((await (await download).path())!, 'utf8'))
+  expect(exported.plan_id).toBe(plan.plan_id)
+  expect(exported.snapshot_id).toBe(plan.snapshot_id)
+  expect(plan.communication_report.windows).toContainEqual(exported.window)
+  const relay = plan.relay_sorties.find(
+    (r: { relay_sortie_id: string }) => r.relay_sortie_id === exported.window.relay_sortie_id,
+  )
+  expect(exported.relay_sortie).toEqual(relay)
+  expect(exported.gateway_at_base).toEqual(snapshot.scenario.base)
+  await expect(evidence.getByLabel('通信链路来源')).toContainText(relay.drone_id)
+  await expect(evidence.getByLabel('通信链路来源')).toContainText(relay.component_id)
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await evidence.scrollIntoViewIfNeeded()
+    await evidence.screenshot({
+      path: path.resolve(`../evidence/browser/verified/communication-source-${width}.png`),
+    })
+  }
+  await page.setViewportSize({ width: 390, height: 844 })
+  await evidence.scrollIntoViewIfNeeded()
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    ),
+  ).toBeLessThanOrEqual(2)
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/communication-source-mobile.png'),
+  })
+  await evidence.getByLabel('通信链路来源').scrollIntoViewIfNeeded()
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/communication-source-detail-mobile.png'),
+  })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  const direct = plan.sorties.find((r: { sortie_id: string }) =>
+    plan.communication_report.windows
+      .filter((w: { sortie_id: string }) => w.sortie_id === r.sortie_id)
+      .every((w: { source: string }) => w.source === 'gateway'),
+  )
+  expect(direct).toBeTruthy()
+  await page.getByLabel('通信来源架次').selectOption(direct.sortie_id)
+  await expect(page.locator('.sortie-detail .mono')).toHaveText(direct.sortie_id)
+  await expect(evidence.getByLabel('通信链路来源')).toContainText('地面直连')
+  await expect(evidence.locator('.coverage-link-chain')).toHaveClass(/direct-chain/)
+  const changed = structuredClone(snapshot.scenario)
+  changed.communication.frequency_mhz = 5800
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 2, scenario: changed },
+      })
+    ).ok(),
+  ).toBe(true)
+  await page.reload()
+  await expect(page.getByLabel('通信来源架次')).toBeVisible()
+  await expect(evidence.getByLabel('通信链路来源')).toContainText('2,400 MHz')
+  await expect(evidence.getByLabel('通信链路来源')).not.toContainText('5,800 MHz')
+  await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  expect(await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()).toEqual(
+    snapshot,
+  )
+  expect(await (await request.get(`/api/v1/plans/${plan.plan_id}`)).json()).toEqual(plan)
+  await fs.writeFile(
+    path.resolve('../evidence/browser/communication-source.json'),
+    JSON.stringify({ snapshot, plan, exported_window: exported, page_errors: errors }, null, 2) +
+      '\n',
+  )
+  expect(errors).toEqual([])
+})
 
 test('连续通信联合调度、真实中继地图与资源窗口、确认及报告', async ({ page, request }) => {
   test.setTimeout(120000)
