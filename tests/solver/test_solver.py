@@ -84,6 +84,37 @@ def test_two_objectives_compute_independently(case):
     validate_outcome(energy_result, snapshot)
 
 
+def test_extra_inventory_can_replace_an_oversized_first_id(case):
+    snapshot, options = case
+    s = snapshot["scenario"]
+    oversized = s["cargo_items"][0]
+    replacement = {**oversized, "cargo_id": "ZZZ-FITTING-ALTERNATIVE"}
+    oversized["mass_kg"] = 1000
+    s["cargo_items"].append(replacement)
+    snapshot["content_hash"] = content_hash(s)
+    result = solve(snapshot, options)
+    assert result["plan"], result
+    loaded = {cid for r in result["plan"]["sorties"] for cid in r["cargo_ids"]}
+    assert replacement["cargo_id"] in loaded
+    assert oversized["cargo_id"] not in loaded
+    validate_outcome(result, snapshot)
+
+
+def test_completed_strategy_portfolio_keeps_common_priority_goal(case):
+    from solver.metrics import objective_score
+
+    snapshot, options = case
+    options = {**options, "time_limit_s": 20}
+    timed = solve(snapshot, options)
+    energy = solve(snapshot, {**options, "objective": "energy"})
+    assert timed["stop_reason"] == energy["stop_reason"] == "finished"
+    assert timed["candidate_count"] == energy["candidate_count"]
+    tscore = objective_score(snapshot["scenario"], timed["plan"], "energy")
+    escore = objective_score(snapshot["scenario"], energy["plan"], "energy")
+    assert escore[0] == pytest.approx(tscore[0])
+    assert escore[1] <= tscore[1] + 1e-7
+
+
 def test_unstarted_drone_failure_replans_new_version(case):
     snapshot, options = case
     old = solve(snapshot, options)["plan"]

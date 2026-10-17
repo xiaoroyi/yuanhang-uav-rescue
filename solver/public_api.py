@@ -90,19 +90,53 @@ def diagnostic(code, message, object_id=None):
     }
 
 
-def _required_cargos(s):
+def _required_cargos(s, seed=0):
     by_demand = defaultdict(list)
     for box in s["cargo_items"]:
         if box["status"] == "available" and box["location_id"] == s["base"]["id"]:
-            by_demand[box["demand_id"]].append(box["cargo_id"])
+            by_demand[box["demand_id"]].append(box)
+    active = {
+        d["type_id"]
+        for d in s["drones"]
+        if d["status"] == "available" and d["location_id"] == s["base"]["id"]
+    }
+    equipped = {
+        b["compatible_type_id"]
+        for b in s["batteries"]
+        if b["status"] in ("available", "charging")
+        and b["soh"] > 0
+        and b["location_id"] == s["base"]["id"]
+    }
+    types = [t for t in s["drone_types"] if t["type_id"] in active & equipped]
+
+    def rank(box):
+        compatible = [
+            t
+            for t in types
+            if box["mass_kg"] <= t["max_payload_kg"]
+            and box["volume_l"] <= t["max_volume_l"]
+        ]
+        # Extra inventory is a choice, not a requirement to load the first ID.
+        # Different starts explore the mass/volume trade-off; no infeasibility proof.
+        weight = (0.25, 1.0, 4.0)[seed % 3]
+        cost = min(
+            (
+                weight * box["mass_kg"] / t["max_payload_kg"]
+                + box["volume_l"] / t["max_volume_l"]
+                for t in compatible
+            ),
+            default=math.inf,
+        )
+        return not bool(compatible), cost, box["cargo_id"]
+
     selected = []
     for d in s["demands"]:
-        available = sorted(by_demand[d["demand_id"]])
+        available = sorted(by_demand[d["demand_id"]], key=rank)
         if len(available) < d["required_quantity"]:
             raise InputNotReady(
                 f"库存不足：{d['demand_id']}需要{d['required_quantity']}箱，可用{len(available)}箱。"
             )
-        selected += available[: d["required_quantity"]]
+        selected += [b["cargo_id"] for b in available[: d["required_quantity"]]]
     return selected
 
 
@@ -121,7 +155,9 @@ def _construct(
     demands = {d["demand_id"]: d for d in s["demands"]}
     types = {t["type_id"]: t for t in s["drone_types"]}
     sites = {n["id"]: n for n in s["sites"]}
-    remaining = set(_required_cargos(s) if target_cargos is None else target_cargos)
+    remaining = set(
+        _required_cargos(s, seed) if target_cargos is None else target_cargos
+    )
     reserved = defaultdict(list)
     for fixed in fixed_routes:
         for kind, identity, end in [
@@ -579,11 +615,16 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
             count = 1
         progress("计算航段与箱件插入")
         non_improving = 0
+        primary_best = best[0][0] if best else math.inf
         for iteration in range(48):
             if time.perf_counter() >= deadline:
                 break
             schedule = _construct(
-                s, options["objective"], options["seed"] + iteration, deadline, cache
+                s,
+                ("time", "energy", "balanced")[iteration % 3],
+                options["seed"] + iteration,
+                deadline,
+                cache,
             )
             if schedule is None:
                 non_improving += 1
@@ -614,11 +655,15 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
             score = objective_score(s, candidate, options["objective"])
             if best is None or score < best[0]:
                 best = (score, candidate)
+            # The construction portfolio and its early stop use the common
+            # primary goal, so strategy comparisons explore the same sequence.
+            if score[0] < primary_best - 1e-7:
+                primary_best = score[0]
                 non_improving = 0
             else:
                 non_improving += 1
             progress("改进已验证方案")
-            if non_improving >= 8:
+            if non_improving >= 12:
                 break
         deep_limited = False
         if best and options["mode"] == "improve":
