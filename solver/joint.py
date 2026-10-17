@@ -31,7 +31,17 @@ def floor_tick(value):
     return math.floor(value * SCALE + 1e-8)
 
 
-def schedule(s, transport, options, deadline, progress=None):
+def schedule(
+    s,
+    transport,
+    options,
+    deadline,
+    progress=None,
+    *,
+    station_ids=None,
+    max_relay_sorties=None,
+    coverage_block_s=60,
+):
     def report(message):
         if progress:
             progress(message)
@@ -51,6 +61,8 @@ def schedule(s, transport, options, deadline, progress=None):
     report("检查中继候选飞行净空与双向回传")
     stations = []
     for candidate in config["candidate_stations"]:
+        if station_ids is not None and candidate["station_id"] not in station_ids:
+            continue
         radio.check_time()
         try:
             station = station_physics(s, candidate, radio)
@@ -60,7 +72,28 @@ def schedule(s, transport, options, deadline, progress=None):
             stations.append(station)
     report("构造连续直连缺口与中继覆盖区间")
     atoms = build_atoms(s, transport["sorties"], stations, radio)
+    if coverage_block_s > 60:
+        # A common station must cover every merged gap. Spanning a direct-only
+        # interval imposes extra relay service; it never removes a coverage need.
+        merged_routes = []
+        for route_atoms in atoms:
+            merged = []
+            for atom in route_atoms:
+                common = (
+                    sorted(set(merged[-1]["stations"]) & set(atom["stations"]))
+                    if merged
+                    else []
+                )
+                if common and atom["end_s"] - merged[-1]["start_s"] <= coverage_block_s:
+                    merged[-1]["end_s"] = atom["end_s"]
+                    merged[-1]["stations"] = common
+                else:
+                    merged.append(copy.deepcopy(atom))
+            merged_routes.append(merged)
+        atoms = merged_routes
     if not any(atoms):
+        if transport.get("pattern_only"):
+            raise InputNotReady("私有分组没有通信缺口，改用已验证运输候选。")
         routes = copy.deepcopy(transport["sorties"])
         for route in routes:
             route["communication_status"] = "passed"
@@ -107,6 +140,36 @@ def schedule(s, transport, options, deadline, progress=None):
     types = {t["type_id"]: t for t in s["drone_types"]}
     cargos = {b["cargo_id"]: b for b in s["cargo_items"]}
     demands = {d["demand_id"]: d for d in s["demands"]}
+    transport_drone_pools, transport_battery_pools, battery_minimum = {}, {}, {}
+    for type_id, typ in types.items():
+        vehicles = [d for d in drones.values() if d["type_id"] == type_id]
+        energy = [b for b in batteries.values() if b["compatible_type_id"] == type_id]
+        if vehicles:
+            transport_drone_pools[type_id] = InterchangeablePool(
+                model,
+                vehicles,
+                "drone_id",
+                "transport_" + type_id,
+                horizon + ceil_tick(typ["turnaround_duration_s"]),
+                SCALE,
+            )
+        if energy:
+            minimum = min(b["capacity_kwh"] * b["soh"] for b in energy)
+            if all(
+                math.isclose(
+                    b["capacity_kwh"] * b["soh"], minimum, rel_tol=1e-9, abs_tol=1e-9
+                )
+                for b in energy
+            ):
+                battery_minimum[type_id] = minimum
+                transport_battery_pools[type_id] = InterchangeablePool(
+                    model,
+                    energy,
+                    "battery_id",
+                    "transport_energy_" + type_id,
+                    horizon,
+                    SCALE,
+                )
     u_windows, b_windows = defaultdict(list), defaultdict(list)
     prep_windows, charge_windows = [], []
     starts, finishes, assignments, lateness = [], [], [], []
@@ -124,63 +187,71 @@ def schedule(s, transport, options, deadline, progress=None):
         prep_windows.append(
             model.new_fixed_size_interval_var(start, prep_duration, f"tp{i}")
         )
-        us, bs = [], []
-        for uid, u in drones.items():
-            if u["type_id"] != typ["type_id"]:
-                continue
-            chosen = model.new_bool_var(f"tu{i}_{uid}")
-            model.add(start >= ceil_tick(u["available_after_s"])).only_enforce_if(
-                chosen
-            )
-            u_windows[uid].append(
-                model.new_optional_fixed_size_interval_var(
-                    start,
-                    ceil_tick(duration + typ["turnaround_duration_s"]),
-                    chosen,
-                    f"tui{i}_{uid}",
-                )
-            )
-            us.append((uid, chosen))
-        for bid, b in batteries.items():
-            usable = b["capacity_kwh"] * b["soh"]
+        type_id = typ["type_id"]
+        if type_id not in transport_drone_pools:
+            raise InputNotReady("运输组批所需机型没有可用机体。")
+        transport_drone_pools[type_id].add(
+            start, start + ceil_tick(duration + typ["turnaround_duration_s"]), 1, str(i)
+        )
+        bs, pooled_charge, pooled_release = [], None, None
+        if type_id in transport_battery_pools:
+            usable = battery_minimum[type_id]
             if (
-                b["compatible_type_id"] != typ["type_id"]
-                or route["energy_kwh"]
+                route["energy_kwh"]
                 > (1 - s["policy"]["min_return_soc"]) * usable + 1e-9
             ):
-                continue
-            chosen = model.new_bool_var(f"tb{i}_{bid}")
-            charging = model.new_int_var(0, horizon, f"tbc{i}_{bid}")
-            release = model.new_int_var(0, horizon, f"tbr{i}_{bid}")
+                raise InputNotReady("运输组批超过当前同型能源池的安全容量。")
+            pooled_charge = model.new_int_var(0, horizon, f"tbc{i}")
+            pooled_release = model.new_int_var(0, horizon, f"tbr{i}")
             charge_duration = ceil_tick(
                 charge_seconds(typ, 1 - route["energy_kwh"] / usable)
             )
-            model.add(charging >= end if limits else charging == end).only_enforce_if(
-                chosen
-            )
-            model.add(release == charging + charge_duration).only_enforce_if(chosen)
-            model.add(start >= ceil_tick(b["available_after_s"])).only_enforce_if(
-                chosen
-            )
-            size = model.new_int_var(0, horizon, f"tbz{i}_{bid}")
-            model.add(size == release - start).only_enforce_if(chosen)
-            b_windows[bid].append(
-                model.new_optional_interval_var(
-                    start, size, release, chosen, f"tbi{i}_{bid}"
-                )
-            )
+            model.add(pooled_charge >= end if limits else pooled_charge == end)
+            model.add(pooled_release == pooled_charge + charge_duration)
+            transport_battery_pools[type_id].add(start, pooled_release, 1, str(i))
             charge_windows.append(
-                model.new_optional_fixed_size_interval_var(
-                    charging, charge_duration, chosen, f"tci{i}_{bid}"
+                model.new_fixed_size_interval_var(
+                    pooled_charge, charge_duration, f"tci{i}"
                 )
             )
-            bs.append((bid, chosen, charging))
-        if not us or not bs:
-            raise InputNotReady(
-                "当前联合分解中的运输组批没有可用实体；需改变组批或补充资源。"
-            )
-        model.add_exactly_one([v for _, v in us])
-        model.add_exactly_one([v for _, v, _ in bs])
+        else:
+            for bid, b in batteries.items():
+                usable = b["capacity_kwh"] * b["soh"]
+                if (
+                    b["compatible_type_id"] != typ["type_id"]
+                    or route["energy_kwh"]
+                    > (1 - s["policy"]["min_return_soc"]) * usable + 1e-9
+                ):
+                    continue
+                chosen = model.new_bool_var(f"tb{i}_{bid}")
+                charging = model.new_int_var(0, horizon, f"tbc{i}_{bid}")
+                release = model.new_int_var(0, horizon, f"tbr{i}_{bid}")
+                charge_duration = ceil_tick(
+                    charge_seconds(typ, 1 - route["energy_kwh"] / usable)
+                )
+                model.add(
+                    charging >= end if limits else charging == end
+                ).only_enforce_if(chosen)
+                model.add(release == charging + charge_duration).only_enforce_if(chosen)
+                model.add(start >= ceil_tick(b["available_after_s"])).only_enforce_if(
+                    chosen
+                )
+                size = model.new_int_var(0, horizon, f"tbz{i}_{bid}")
+                model.add(size == release - start).only_enforce_if(chosen)
+                b_windows[bid].append(
+                    model.new_optional_interval_var(
+                        start, size, release, chosen, f"tbi{i}_{bid}"
+                    )
+                )
+                charge_windows.append(
+                    model.new_optional_fixed_size_interval_var(
+                        charging, charge_duration, chosen, f"tci{i}_{bid}"
+                    )
+                )
+                bs.append((bid, chosen, charging))
+            if not bs:
+                raise InputNotReady("运输组批没有满足返航余量的兼容电池。")
+            model.add_exactly_one([v for _, v, _ in bs])
         for visit in route["visits"]:
             delivery = start + ceil_tick(
                 visit["delivery_complete_s"] - route["prepare_start_s"]
@@ -197,11 +268,21 @@ def schedule(s, transport, options, deadline, progress=None):
                     lateness.append(demand["priority"] * late)
         starts.append(start)
         finishes.append(end)
-        assignments.append((us, bs))
-        model.add_hint(start, ceil_tick(route["prepare_start_s"]))
+        assignments.append(
+            {
+                "type_id": type_id,
+                "batteries": bs,
+                "charge": pooled_charge,
+                "release": pooled_release,
+            }
+        )
     for intervals in [*u_windows.values(), *b_windows.values()]:
         model.add_no_overlap(intervals)
+    for pool in [*transport_drone_pools.values(), *transport_battery_pools.values()]:
+        pool.constrain()
     slots = min(12, max(4, len(transport["sorties"])))
+    if max_relay_sorties is not None:
+        slots = min(slots, max_relay_sorties)
     relay_vars, relay_u, relay_b = [], defaultdict(list), defaultdict(list)
     drone_pool = InterchangeablePool(
         model, relay_drones, "drone_id", "relay_aircraft", horizon, SCALE
@@ -465,7 +546,10 @@ def schedule(s, transport, options, deadline, progress=None):
         )
     solved = chosen_solver
     routes = []
-    for i, original in enumerate(transport["sorties"]):
+    for i in sorted(
+        range(len(transport["sorties"])), key=lambda k: (solved.value(starts[k]), k)
+    ):
+        original = transport["sorties"][i]
         route = copy.deepcopy(original)
         start = solved.value(starts[i]) / SCALE
         shift = start - original["prepare_start_s"]
@@ -473,12 +557,23 @@ def schedule(s, transport, options, deadline, progress=None):
             route[key] += shift
         for visit in route["visits"]:
             visit["delivery_complete_s"] += shift
-        us, bs = assignments[i]
-        route["drone_id"] = next(uid for uid, chosen in us if solved.value(chosen))
-        bid, _, charge = next(row for row in bs if solved.value(row[1]))
+        assignment = assignments[i]
+        type_id = assignment["type_id"]
+        typ = types[type_id]
+        route["drone_id"] = transport_drone_pools[type_id].assign(
+            start, route["drone_released_s"]
+        )
+        if assignment["charge"] is not None:
+            charge = assignment["charge"]
+            bid = transport_battery_pools[type_id].assign(
+                start, solved.value(assignment["release"]) / SCALE
+            )
+        else:
+            bid, _, charge = next(
+                row for row in assignment["batteries"] if solved.value(row[1])
+            )
         route["battery_id"] = bid
         b = batteries[bid]
-        typ = types[drones[route["drone_id"]]["type_id"]]
         route["return_soc"] = 1 - route["energy_kwh"] / (b["capacity_kwh"] * b["soh"])
         charge_start = solved.value(charge) / SCALE if limits else route["return_s"]
         route["battery_released_s"] = charge_start + charge_seconds(

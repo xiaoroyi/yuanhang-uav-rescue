@@ -583,7 +583,9 @@
         "solver/joint.py",
         "tests/solver/test_radio.py",
         "evidence/solver/joint-compact.json",
-        "evidence/solver/joint-contest.json"
+        "evidence/solver/joint-contest.json",
+        "tests/solver/test_joint_patterns.py",
+        "evidence/solver/joint-contest-recomputed.json"
       ]
     },
     {

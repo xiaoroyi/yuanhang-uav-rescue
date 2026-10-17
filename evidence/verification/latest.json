@@ -1,52 +1,46 @@
 {
-  "at_utc": "2026-10-17T19:47:22.004488+00:00",
-  "head": "b569ad2c180ac164651d4143e64179402c05a31c",
+  "at_utc": "2026-10-17T20:36:24.764066+00:00",
+  "head": "e355a693a23bd399ab1551a3a109a478e04c6498",
   "branch": "feat/solo-fullstack-v0",
-  "working_tree_diff_sha256": "4d3fee627786c028203b225a2225a71e95eefbdb0e6205faec9abcf42c4aa9ee",
+  "working_tree_diff_sha256": "cfafdfdf9b213980d1a2c998e1c6b1e26e0231c19619975961e3d7f08602e422",
   "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
-  "status": " M backend/app/analytics.py\n M backend/app/generated/domain.py\n M backend/app/imports.py\n M backend/app/main.py\n M backend/app/reports.py\n M contracts/common.schema.json\n M contracts/http/openapi.generated.json\n M contracts/plan.schema.json\n M contracts/scenario.schema.json\n M evidence/browser/e2e-results.json\n M evidence/browser/e2e-targeted-results.json\n M evidence/browser/verified/ground-calendars-1440.png\n M evidence/browser/verified/initial-charge-1440.png\n M evidence/browser/verified/initial-charge-report.pdf\n M evidence/browser/verified/print-report-screen.png\n M evidence/browser/verified/print-report.pdf\n M evidence/browser/verified/replan-1440.png\n M evidence/browser/verified/scenario-1440.png\n M evidence/browser/verified/stress-history-1440.png\n M evidence/browser/verified/terrain-assets-1280.png\n M evidence/browser/verified/terrain-assets-1440.png\n M evidence/browser/verified/terrain-bound-workspace-1440.png\n M evidence/browser/verified/workspace-1280.png\n M evidence/browser/verified/zone-detour-1440.png\n M evidence/browser/verified/zone-editor-1440.png\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/check-07.txt\n M frontend/src/App.tsx\n M frontend/src/api/client.ts\n M frontend/src/api/generated/http.d.ts\n M frontend/src/components/RescueMap.tsx\n M frontend/src/pages/ResourceAnalysis.tsx\n M frontend/src/pages/ScenarioEditor.tsx\n M frontend/src/styles.css\n M frontend/tests/workflow.spec.ts\n M requirements.lock.txt\n M shared/contracts.py\n M solver/__main__.py\n M solver/adapters/contest.py\n M solver/analysis.py\n M solver/metrics.py\n M solver/public_api.py\n M solver/validation.py\n?? docs/COMMUNICATION.md\n?? docs/CONTRACT_RFC_006.md\n?? evidence/browser/joint-report-page-qa.json\n?? evidence/browser/verified/communication-config-1280.png\n?? evidence/browser/verified/joint-report-page-1.png\n?? evidence/browser/verified/joint-report-page-2.png\n?? evidence/browser/verified/joint-report-page-3.png\n?? evidence/browser/verified/joint-report-page-4.png\n?? evidence/browser/verified/joint-report-page-5.png\n?? evidence/browser/verified/joint-report-page-6.png\n?? evidence/browser/verified/joint-report-page-7.png\n?? evidence/browser/verified/joint-report.pdf\n?? evidence/browser/verified/joint-resource-windows-1440.png\n?? evidence/browser/verified/joint-workspace-1280.png\n?? evidence/browser/verified/joint-workspace-1440.png\n?? evidence/solver/joint-compact.json\n?? evidence/solver/joint-contest.json\n?? frontend/src/components/CommunicationPanel.tsx\n?? frontend/src/pages/CommunicationManager.tsx\n?? solver/joint.py\n?? solver/radio.py\n?? solver/relay.py\n?? tests/backend/test_joint_api.py\n?? tests/solver/test_radio.py\n",
+  "status": " M README.md\n M docs/08-TASK-BOARD.md\n M docs/COMMUNICATION.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/task-board.json\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/github-ci.json\n M solver/AGENTS.md\n M solver/adapters/contest.py\n M solver/joint.py\n M solver/public_api.py\n M tests/solver/test_radio.py\n?? evidence/solver/joint-contest-recomputed.json\n?? solver/adapters/joint_patterns.py\n?? solver/data/\n?? tests/solver/test_joint_patterns.py\n",
   "checks": [
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
       "exit_code": 0,
-      "elapsed_s": 132.846,
+      "elapsed_s": 141.424,
       "output": "evidence/verification/check-01.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
       "exit_code": 0,
-      "elapsed_s": 0.472,
+      "elapsed_s": 0.528,
       "output": "evidence/verification/check-02.txt"
     },
     {
       "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
       "exit_code": 0,
-      "elapsed_s": 0.563,
+      "elapsed_s": 0.522,
       "output": "evidence/verification/check-03.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
       "exit_code": 0,
-      "elapsed_s": 2.836,
+      "elapsed_s": 2.898,
       "output": "evidence/verification/check-04.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
       "exit_code": 0,
-      "elapsed_s": 0.608,
+      "elapsed_s": 0.566,
       "output": "evidence/verification/check-05.txt"
     },
     {
       "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
       "exit_code": 0,
-      "elapsed_s": 4.48,
+      "elapsed_s": 4.502,
       "output": "evidence/verification/check-06.txt"
-    },
-    {
-      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:e2e",
-      "exit_code": 0,
-      "elapsed_s": 307.561,
-      "output": "evidence/verification/check-07.txt"
     }
   ],
   "passed": true

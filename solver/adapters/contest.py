@@ -61,6 +61,16 @@ def contest_communication(scenario):
             "agl_m": 300,
         }
     )
+    # Full original case also retains the three historical high-ground candidates.
+    # These are coordinates/heights only; all links and flight physics are rebuilt.
+    if {n["id"] for n in scenario["sites"]} == {f"S{i:03}" for i in range(1, 16)}:
+        from solver.adapters.joint_patterns import archived_stations
+
+        stations = [
+            *archived_stations(), stations[-1],
+            *[st for st in stations[:-1] if st["agl_m"] == 300],
+            *[st for st in stations[:-1] if st["agl_m"] == 150],
+        ]
     return {
         "model_id": "projected_dem_radio_v1",
         "frequency_mhz": float(values["传播参数", "f"]),

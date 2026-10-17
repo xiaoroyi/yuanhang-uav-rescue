@@ -838,58 +838,89 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
             code for code in options["requested_model_scope"] if code != "communication"
         ],
     }
-    seed = solve(relaxed, seed_options)
+    from solver.adapters.joint_patterns import transport_pattern
+
     candidate = None
+    seed = {"plan": None, "candidate_count": 0, "diagnostics": []}
     details = {"status": "NO_TRANSPORT_SEED"}
-    if seed["plan"]:
-        try:
-            routes, relays, communication, details = schedule(
-                s, seed["plan"], options, deadline, progress
-            )
-            if routes:
-                candidate = _make_plan(snapshot, options, routes)
-                candidate["model_scope"].append("communication")
-                candidate["relay_sorties"] = relays
-                relay_energy = sum(r["energy_kwh"] for r in relays)
-                candidate["joint_metrics"] = {
-                    "relay_energy_kwh": relay_energy,
-                    "joint_energy_kwh": candidate["metrics"]["energy_kwh"]
-                    + relay_energy,
-                    "joint_makespan_s": max(
-                        [
-                            candidate["metrics"]["makespan_s"],
-                            *[r["return_s"] for r in relays],
-                        ]
-                    ),
-                    "relay_sortie_count": len(relays),
-                }
-                candidate["communication_report"] = communication
-                candidate["joint_search"] = _joint_search_evidence(details)
-                candidate["solver_notes"] = [
-                    note
-                    for note in candidate["solver_notes"]
-                    if not note.startswith("通信未评估")
-                ]
-                candidate["solver_notes"].extend(
-                    [
-                        "有限运输组批/访问顺序与悬停候选上的联合排程；解析连续覆盖，未证明原问题全局最优。",
-                        "projected_dem_radio_v1：UTM闭四边形DEM、最多250m运动弦、2mm像元数值外扩；不是实际无线电覆盖认证。",
-                        "既有metrics仅统计运输，joint_metrics统计运输与中继；中继CP采用全充电时长上界，输出与独立检查使用实际两阶段补能。",
-                        f"有限联合候选：{details.get('stations', 0)}个悬停位置、{details.get('atoms', 0)}段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
-                    ]
+    for family in ["archive", "heuristic"]:
+        if candidate is not None or time.perf_counter() >= deadline - 0.2:
+            break
+        schedule_options = {}
+        attempt_deadline = deadline
+        if family == "archive":
+            if budget < 20:
+                continue
+            pattern = transport_pattern(s, _required_cargos(s, options["seed"]))
+            if pattern is None:
+                continue
+            seed = {"plan": pattern[0], "candidate_count": 0, "diagnostics": []}
+            schedule_options = {
+                "station_ids": pattern[1], "max_relay_sorties": 3,
+                "coverage_block_s": 600,
+            }
+            attempt_deadline = min(deadline, time.perf_counter() + min(40, budget * 0.6))
+            progress("重算历史分组候选的全部物理，搜索新的联合排程")
+        else:
+            remaining = deadline - time.perf_counter()
+            if remaining <= 0.2:
+                break
+            seed_options["time_limit_s"] = min(seed_options["time_limit_s"], remaining * 0.2)
+            seed = solve(relaxed, seed_options)
+        if seed["plan"]:
+            try:
+                routes, relays, communication, details = schedule(
+                    s, seed["plan"], options, attempt_deadline, progress, **schedule_options
                 )
-                progress("独立复算中继物理、实体占用和全阶段通信")
-                candidate["validation"] = validate(snapshot, candidate)
-                if candidate["validation"]["status"] != "passed":
-                    details = {
-                        "status": "VALIDATION_FAILED",
-                        "checks": candidate["validation"]["checks"],
+                if routes:
+                    candidate = _make_plan(snapshot, options, routes)
+                    candidate["model_scope"].append("communication")
+                    candidate["relay_sorties"] = relays
+                    relay_energy = sum(r["energy_kwh"] for r in relays)
+                    candidate["joint_metrics"] = {
+                        "relay_energy_kwh": relay_energy,
+                        "joint_energy_kwh": candidate["metrics"]["energy_kwh"]
+                        + relay_energy,
+                        "joint_makespan_s": max(
+                            [
+                                candidate["metrics"]["makespan_s"],
+                                *[r["return_s"] for r in relays],
+                            ]
+                        ),
+                        "relay_sortie_count": len(relays),
                     }
-                    candidate = None
-                elif first_verified is None:
-                    first_verified = time.perf_counter() - started
-        except (InputNotReady, TimeoutError) as exc:
-            details = {"status": "LIMITED_CANDIDATES_OR_BUDGET", "message": str(exc)}
+                    candidate["communication_report"] = communication
+                    candidate["joint_search"] = _joint_search_evidence(details)
+                    candidate["solver_notes"] = [
+                        note
+                        for note in candidate["solver_notes"]
+                        if not note.startswith("通信未评估")
+                    ]
+                    candidate["solver_notes"].extend(
+                        [
+                            "有限运输组批/访问顺序与悬停候选上的联合排程；解析连续覆盖，未证明原问题全局最优。",
+                            "projected_dem_radio_v1：UTM闭四边形DEM、最多250m运动弦、2mm像元数值外扩；不是实际无线电覆盖认证。",
+                            "既有metrics仅统计运输，joint_metrics统计运输与中继；中继CP采用全充电时长上界，输出与独立检查使用实际两阶段补能。",
+                            f"有限联合候选：{details.get('stations', 0)}个悬停位置、{details.get('atoms', 0)}段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
+                        ]
+                    )
+                    progress("独立复算中继物理、实体占用和全阶段通信")
+                    candidate["validation"] = validate(snapshot, candidate)
+                    if candidate["validation"]["status"] != "passed":
+                        details = {
+                            "status": "VALIDATION_FAILED",
+                            "checks": candidate["validation"]["checks"],
+                        }
+                        candidate = None
+                    else:
+                        if first_verified is None:
+                            first_verified = time.perf_counter() - started
+                        if family == "archive":
+                            candidate["solver_notes"].append(
+                                "历史分组仅作候选；箱件、飞行物理、排程、实体和连续通信均按当前快照重新计算，未复用历史时刻或能耗。"
+                            )
+            except (InputNotReady, TimeoutError) as exc:
+                details = {"status": "LIMITED_CANDIDATES_OR_BUDGET", "message": str(exc)}
     if incumbent is not None and (
         candidate is None
         or objective_score(s, incumbent, options["objective"])

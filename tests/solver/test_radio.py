@@ -258,3 +258,15 @@ def test_heterogeneous_relay_components_keep_individual_energy_physics(joint_cas
     assert outcome["plan"], outcome
     validate_outcome(outcome, changed)
     assert validate(changed, outcome["plan"])["status"] == "passed"
+
+
+def test_transport_pools_keep_release_times_and_heterogeneous_batteries(joint_case):
+    snap, _ = joint_case
+    changed = copy.deepcopy(snap)
+    changed["scenario"]["drones"][0]["available_after_s"] = 120
+    changed["scenario"]["batteries"][0].update(soh=0.8, available_after_s=900)
+    changed["content_hash"] = content_hash(changed["scenario"])
+    outcome = solve(changed, _options_for(changed, "PLAN-JOINT-TRANSPORT-POOLS"))
+    assert outcome["plan"], outcome
+    validate_outcome(outcome, changed)
+    assert validate(changed, outcome["plan"])["status"] == "passed"
