@@ -2,7 +2,7 @@
 
 由 `docs/task-board.json` 生成。两人：A 算法兼项目负责人，B 同一人负责前端、后端与集成。C-* 只是后端任务编号。
 
-阶段表示依赖，不按日期排期。P0/P1/P2 全部保留；done 需要真实验收证据。当前 G0 尚待共同评审，不自动进入业务开发。
+阶段表示依赖，不按日期排期。P0/P1/P2 全部保留；done 需要真实验收证据。当前用户已授权单人全栈实现分支，契约仍待团队复核；详见 SOLO_EXECUTION。
 
 ## G0
 
@@ -20,53 +20,53 @@
 
 ## G1
 
-阶段状态：`not_started`。
+阶段状态：`implemented_verifying`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| A-01 | P0 | A | G0-03, G0-05 | 原题 Q1/Q2 物理与装载适配，纯 Python 入口；验收：非 Mock 小场景真实运行 | todo | — |
-| A-02 | P0 | A | A-01, G0-03 | 机体/电池快速可行初解、时间限制与独立检查；验收：Plan 含逐箱、逐机、电池、验证与约束口径 | todo | — |
-| C-01 | P0 | B | G0-03, G0-04 | JSON/CSV 场景导入、Pydantic 语义校验、业务错误；验收：更换场景不用改源码；逐行错误可见 | todo | — |
-| C-02 | P0 | B | C-01 | state_version、不可变 snapshot/hash、SQLite；验收：编辑后旧 Snapshot 不变 | todo | — |
-| C-03 | P0 | B | A-02, C-02 | 独立 Worker 调 solve/validate，Job 轮询、保存历史 Plan；提供 X-01 所需最小 JSON/CSV/GeoJSON 导出；验收：从 HTTP 得到真实验算 Plan，无请求阻塞 | todo | — |
-| B-01 | P0 | B | G0-03, G0-04, G0-06 | 前端基建与三页路由、API Provider 与 Mock 分离；验收：Mock 明显提示，正式接口切换无大改 | todo | — |
-| B-02 | P0 | B | B-01, C-01 | 场景导入/资源/需求表与地图点位联动；验收：用户编辑看得到版本变更 | todo | — |
-| B-03 | P0 | B | B-01, C-03 | 地图/架次表/摘要指标、真实 Job 状态；验收：用同一 sortie_id 联动，不二次估能耗 | todo | — |
-| X-01 | P0 | A+B | A-02, C-03, B-03 | 首个端到端验收：新数据→真实 Plan→地图→导出；验收：E2E 记录+请求/响应+Git SHA，Mock 不计 | todo | — |
+| A-01 | P0 | A | G0-03, G0-05 | 原题 Q1/Q2 物理与装载适配，纯 Python 入口；验收：非 Mock 小场景真实运行 | done | feat/solo-fullstack-v0; evidence/solver/first-compact.json; solver/physics.py |
+| A-02 | P0 | A | A-01, G0-03 | 机体/电池快速可行初解、时间限制与独立检查；验收：Plan 含逐箱、逐机、电池、验证与约束口径 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; evidence/solver/first-contest.json |
+| C-01 | P0 | B | G0-03, G0-04 | JSON/CSV 场景导入、Pydantic 语义校验、业务错误；验收：更换场景不用改源码；逐行错误可见 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| C-02 | P0 | B | C-01 | state_version、不可变 snapshot/hash、SQLite；验收：编辑后旧 Snapshot 不变 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
+| C-03 | P0 | B | A-02, C-02 | 独立 Worker 调 solve/validate，Job 轮询、保存历史 Plan；提供 X-01 所需最小 JSON/CSV/GeoJSON 导出；验收：从 HTTP 得到真实验算 Plan，无请求阻塞 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
+| B-01 | P0 | B | G0-03, G0-04, G0-06 | 前端基建与三页路由、API Provider 与 Mock 分离；验收：Mock 明显提示，正式接口切换无大改 | done | feat/solo-fullstack-v0; frontend/src/App.tsx; frontend/playwright.config.ts |
+| B-02 | P0 | B | B-01, C-01 | 场景导入/资源/需求表与地图点位联动；验收：用户编辑看得到版本变更 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| B-03 | P0 | B | B-01, C-03 | 地图/架次表/摘要指标、真实 Job 状态；验收：用同一 sortie_id 联动，不二次估能耗 | done | feat/solo-fullstack-v0; frontend/tests/workflow.spec.ts; evidence/browser/e2e-results.json |
+| X-01 | P0 | A+B | A-02, C-03, B-03 | 首个端到端验收：新数据→真实 Plan→地图→导出；验收：E2E 记录+请求/响应+Git SHA，Mock 不计 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 
 ## G2
 
-阶段状态：`not_started`。
+阶段状态：`implemented_verifying`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| A-03 | P0 | A | A-02 | `time`/`energy` 两策略、硬截止与统一保障要求；验收：同 Snapshot 两次真实计算，指标口径一致 | todo | — |
-| A-04 | P0 | A | A-02 | 电池两段充电、逐实体释放时刻、甘特占用验证；验收：不重复占用，充电后再复用 | todo | — |
-| C-04 | P0 | B | C-03, A-03 | 方案版本、比较、计划确认事务、冲突码；验收：过期/Mock/验证失败都无法确认 | todo | — |
-| B-04 | P0 | B | B-03, A-04 | 机体+电池甘特、资源/架次联动、方案比较卡；验收：相同方案也诚实显示，不造差异 | todo | — |
-| X-02 | P0 | A+B | A-03, A-04, C-04, B-04 | 资源/时间验收（重叠、硬截止、空值显示、费用禁用）；验收：自动化负例全部通过 | todo | — |
+| A-03 | P0 | A | A-02 | `time`/`energy` 两策略、硬截止与统一保障要求；验收：同 Snapshot 两次真实计算，指标口径一致 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; evidence/browser/e2e-results.json |
+| A-04 | P0 | A | A-02 | 电池两段充电、逐实体释放时刻、甘特占用验证；验收：不重复占用，充电后再复用 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py |
+| C-04 | P0 | B | C-03, A-03 | 方案版本、比较、计划确认事务、冲突码；验收：过期/Mock/验证失败都无法确认 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
+| B-04 | P0 | B | B-03, A-04 | 机体+电池甘特、资源/架次联动、方案比较卡；验收：相同方案也诚实显示，不造差异 | done | feat/solo-fullstack-v0; frontend/src/components/ResourceTimeline.tsx; evidence/browser/e2e-results.json |
+| X-02 | P0 | A+B | A-03, A-04, C-04, B-04 | 资源/时间验收（重叠、硬截止、空值显示、费用禁用）；验收：自动化负例全部通过 | done | feat/solo-fullstack-v0; tests/solver/test_solver.py; tests/backend/test_api.py |
 
 ## G3
 
-阶段状态：`not_started`。
+阶段状态：`in_progress`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| C-05 | P0 | B | C-02 | 事件幂等、事件时刻/版本、状态更新与新 Snapshot；验收：event_id 重试只有一次状态变化 | todo | — |
-| A-05 | P0 | A | A-02, C-05 | 尚未起飞机体退出→replan；保留旧版本及已执行事实；验收：无故障机未来架次、前后验证均通过 | todo | — |
-| A-06 | P0 | A | A-05 | 依赖图传播、变更代价、限时修复/全量回退；验收：输出 changed/preserved，可对照修复范围 | todo | — |
-| B-05 | P0 | B | B-04, C-05 | 事件输入、旧新地图叠加、差异清单、时间轴；验收：可清楚定位受影响任务和未完成原因 | todo | — |
-| X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | todo | — |
+| C-05 | P0 | B | C-02 | 事件幂等、事件时刻/版本、状态更新与新 Snapshot；验收：event_id 重试只有一次状态变化 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
+| A-05 | P0 | A | A-02, C-05 | 尚未起飞机体退出→replan；保留旧版本及已执行事实；验收：无故障机未来架次、前后验证均通过 | done | feat/solo-fullstack-v0; tests/backend/test_api.py; evidence/browser/e2e-results.json |
+| A-06 | P0 | A | A-05 | 依赖图传播、变更代价、限时修复/全量回退；验收：输出 changed/preserved，可对照修复范围 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| B-05 | P0 | B | B-04, C-05 | 事件输入、旧新地图叠加、差异清单、时间轴；验收：可清楚定位受影响任务和未完成原因 | done | feat/solo-fullstack-v0; evidence/browser/e2e-results.json |
+| X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 
 ## G4
 
-阶段状态：`not_started`。
+阶段状态：`in_progress`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | todo | — |
-| B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | todo | — |
-| A-07 | P1 | A | A-02, C-06 | 绕行候选 A* 或可见图、净空预检、缓存键与失效；验收：禁入更新后候选重算且有验证 | todo | — |
+| C-06 | P1 | B | C-01, X-01 | CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列；验收：文件来源与 CRS、有效覆盖、版本可追溯 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| B-06 | P1 | B | C-06 | 地形/禁入/洪水/通信图层与绘制工具；验收：标注效果与约束校验分开展示 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| A-07 | P1 | A | A-02, C-06 | 绕行候选 A* 或可见图、净空预检、缓存键与失效；验收：禁入更新后候选重算且有验证 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | A-08 | P1 | A | A-02, G0-03 | Q3 中继/两跳链路与时间窗/能源组件完整建模；验收：启用强制通信时无空白认证 | todo | — |
 | C-07 | P1 | B | A-08 | 中继资源、传播参数、通信检查结果持久化与 API 升级；验收：协议扩展通过版本迁移测试 | todo | — |
 | B-07 | P1 | B | C-07 | 中继点/服务时间轴、通信来源与缺口高亮；验收：点击航段显示接入/回传来源与证据 | todo | — |
@@ -99,18 +99,18 @@
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| Q-01 | P0 | A | A-02, A-08, A-12 | 原题回归：Q1 18架次、Q2 23架次/时间/能耗、Q3 运输+中继基准作结构/约束核查；验收：版本、输入、模型口径、预算一致；不强制相同的可行分配序列 | todo | — |
-| Q-02 | P0 | A | A-06, A-13 | 多场景/多随机种子、算法 baseline、动态全量/局部对照、消融与性能；验收：`evidence/` 保存数据 hash、commit、配置、原始运行记录 | todo | — |
-| Q-03 | P0 | B | C-03, C-04, C-05 | 自动契约/数据库/HTTP/并发/重启/导出/离线/安全测试；验收：CI + 本地复现命令 | todo | — |
-| Q-04 | P0 | B | B-03, B-04, B-05 | UI 交互/响应/颜色可读性/异常态/地图离线显示；验收：实测截图与操作验收 | todo | — |
-| Q-05 | P0 | A+B | X-01, X-02, X-03, Q-03, Q-04 | 端到端回归脚本与最小真实演示包；验收：任一队友可重新安装并完成全部关键流程 | todo | — |
+| Q-01 | P0 | A | A-02, A-08, A-12 | 原题回归：Q1 18架次、Q2 23架次/时间/能耗、Q3 运输+中继基准作结构/约束核查；验收：版本、输入、模型口径、预算一致；不强制相同的可行分配序列 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| Q-02 | P0 | A | A-06, A-13 | 多场景/多随机种子、算法 baseline、动态全量/局部对照、消融与性能；验收：`evidence/` 保存数据 hash、commit、配置、原始运行记录 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| Q-03 | P0 | B | C-03, C-04, C-05 | 自动契约/数据库/HTTP/并发/重启/导出/离线/安全测试；验收：CI + 本地复现命令 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| Q-04 | P0 | B | B-03, B-04, B-05 | UI 交互/响应/颜色可读性/异常态/地图离线显示；验收：实测截图与操作验收 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| Q-05 | P0 | A+B | X-01, X-02, X-03, Q-03, Q-04 | 端到端回归脚本与最小真实演示包；验收：任一队友可重新安装并完成全部关键流程 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | S-01 | P0 | B | X-01 | 项目简表（官方模板）和项目说明书；验收：每条宣称对应代码与试验证据，按字数上限 | todo | — |
 | S-02 | P0 | B | X-03 | 演示视频、系统截图、答辩 PPT（可选但建议）；验收：真实操作镜头，标注加速/历史回放 | todo | — |
 | S-03 | P0 | B | — | 商业计划书（可选）、竞品对比/用户访谈；验收：实际验证与假设分开，无虚构合同/收入 | todo | — |
 | S-04 | P0 | A+B | S-01, Q-05 | 匿名、许可证、原创新增贡献、源代码与原型证明；取得官方指南/模板与最新通知，核对截止及复用条款；验收：不透露培养单位/导师/身份信息，除官方必须实名栏目 | todo | — |
 
-## 首张可执行任务卡
+## 当前执行入口
 
-- A：A-01，先完成来源、依赖、物理参数和无副作用适配核验；真实 API 开发依赖 G0-03 人工冻结。验收详见 LEGACY_BASELINE_AUDIT。
-- B：C-01/C-02 与 B-01 作为一个系统任务组，先对照草案设计字段映射与三页骨架；冻结后实现类型生成、导入/错误、快照、Mock/HTTP Provider。
-- 共同：对 RFC-001 六项决策留确认记录，B 提供 GitHub 用户名，A 审核合并规范分支。
+- 先读 IMPLEMENTATION_STATUS 与 SOLO_EXECUTION，沿用 feat/solo-fullstack-v0 的已验证结果。
+- 优先完成当前 in_progress 任务的剩余验收，再推进下一项依赖。不同任务的部分实现不能自动算 done。
+- 两人接手前共同复核 RFC-001/RFC-002、现有运行接口、测试证据和 Git 差异；不伪造契约批准记录。

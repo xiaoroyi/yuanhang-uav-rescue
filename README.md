@@ -1,58 +1,67 @@
-# 援航
+# 援航 · 无人机救援调度
 
-面向灾害应急的无人机运输与通信协同调度系统。根据需求、逐箱库存和实际机队状态，生成任务安排、比较取舍、处理动态事件并解释资源缺口。首期用于模拟和规划辅助。
+本地运行的灾害应急运输规划系统。编辑逐箱物资、需求与实际机队，真实求解，查看离线地图与资源甘特，比较时间/能耗策略，并模拟机体故障后重新规划。默认5点32箱动态演练，保留原题15点80箱入口。
 
-**当前状态：G0 规范初始化。尚无可运行的 Solver、后端或前端。契约版本为 `0.1.0-draft`，等待 A/B 共同评审，不能当作已批准 V1。**
+当前实现位于 `feat/solo-fullstack-v0`，仍在持续完善。范围、测试与未完成功能以 [真实实现状态](docs/IMPLEMENTATION_STATUS.md) 为准。输出是在声明模型内的规划辅助，不发送飞控指令。
 
-## 新成员与无记忆 Codex 从这里开始
+## 本机直接使用
 
-1. 阅读 [AGENTS.md](AGENTS.md)，确认本次工作属于 A 或 B。
-2. 阅读 [完整开发总纲](docs/CODEX_MASTER_HANDOFF.md)、[接口细则](docs/INTEGRATION_PACT.md)。
-3. 查看 [决策与待确认项](docs/DECISIONS.md)、[真实实现状态](docs/IMPLEMENTATION_STATUS.md)、[任务板](docs/08-TASK-BOARD.md)。
-4. 阅读 [数据契约](docs/03-DATA-CONTRACT.md)、[HTTP 契约](docs/04-API-CONTRACT.md)、[算法接口](docs/05-SOLVER-CONTRACT.md) 和模块 AGENTS。
-5. 按任务 ID 开分支，每次完成一张或一组相关任务；记录测试证据再提 PR。
+Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已有依赖和构建时无需联网，不需登录。关闭服务窗口停止运行；数据保存在项目 runtime/，重启保留。
 
-## 两人分工
+演示顺序：生成真实方案 → 点击架次/甘特联动 → 计算能耗策略 → 检查报告/确认/导出 → 事件复盘选择机体 → 记录故障并重规划。场景页可编辑物资重量、电池SOC/SOH或导入JSON/CSV/XLSX，再重新计算。
 
-| 人员 | 目录与职责 | 启动提示词 |
-|---|---|---|
-| A：算法兼项目负责人 | `solver/`、算法实验、模型与最终合并 | [算法入口](prompts/01_SOLVER_A.md) |
-| B：同一位前后端同学 | `frontend/`、`backend/`、数据、Worker、部署与系统集成 | [系统入口](prompts/02_SYSTEM_B.md) |
+新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
-`B-*` 为前端任务编号，`C-*` 为保留的后端任务编号；两类均由 B 负责，没有第三位开发人员。共享契约 A/B 共同评审。
+## 开发和验收
 
-## 目录
+在仓库根目录执行；Windows用 npm.cmd 避免PowerShell脚本策略问题。Linux/macOS将 `.venv\Scripts\python` 换为 `.venv/bin/python`，npm.cmd 换为 npm。
+
+```powershell
+# 开发模式，分别在两个终端运行
+.venv\Scripts\python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
+npm.cmd --prefix frontend run dev
+# 开发界面 http://127.0.0.1:5173/
+
+# 业务与契约回归
+.venv\Scripts\python -m pytest tests -q
+.venv\Scripts\python scripts/check_contracts.py
+.venv\Scripts\python scripts/check_governance.py
+npm.cmd --prefix frontend run lint
+npm.cmd --prefix frontend run test:unit
+npm.cmd --prefix frontend run build
+
+# 浏览器验收：首次需安装项目内Chromium
+.venv\Scripts\python scripts/setup.py --with-browser
+npm.cmd --prefix frontend run test:e2e
+```
+
+E2E使用独立8011/5174端口与 .local/e2e-runtime/ 数据库，不覆盖演示数据。报告和截图在 evidence/browser/。日志、依赖环境、缓存和数据库不提交。
+
+修改共享契约或HTTP接口后重新生成：
+
+```powershell
+.venv\Scripts\python scripts/generate_models.py
+.venv\Scripts\python scripts/export_openapi.py
+node frontend/scripts/generate-types.mjs
+```
+
+算法可独立执行：`.venv\Scripts\python -m solver --example compact --seconds 15 --output evidence/solver/run.json`。`--example contest` 为原题完整运输实例；没有HTTP或数据库依赖。
+
+## 无前置记忆的协作入口
+
+先读 [AGENTS.md](AGENTS.md)、[完整开发总纲](docs/CODEX_MASTER_HANDOFF.md)、[接口细则](docs/INTEGRATION_PACT.md)、[真实实现状态](docs/IMPLEMENTATION_STATUS.md)、[任务板](docs/08-TASK-BOARD.md)。然后读模块AGENTS、数据/HTTP/算法契约和相关RFC。
+
+长期两人分工：A算法和最终合并；B同一人负责前端、后端、数据与集成。B-*是前端任务号，C-*是后端任务号。今晚用户已授权单人跨模块开发，见 [实施记录](docs/SOLO_EXECUTION.md)；未把草案契约标为团队已批准。
 
 | 目录 | 内容 |
 |---|---|
-| `docs/` | 全量需求、接口、任务、决策、测试与 G0 报告 |
-| `contracts/` | JSON Schema 草案、版本清单、HTTP 设计草案 |
-| `fixtures/` | 明确标为 mock 的开发样例，无真实算法成功样例 |
-| `solver/`、`backend/`、`frontend/` | 当前只有模块约定，业务实现待开发 |
-| `references/source/` | 原开发方案、初步讨论、原始对接 ZIP |
-| `references/modeling/` | 原题、论文、答案、精选源码、5 张输入表与 DEM、发布依据 |
-| `scripts/`、`tests/contracts/` | 契约及规范检查、负例回归 |
-| `evidence/` | 本项目实际检查与未来实验记录 |
-| `submission/` | 未来匿名交付，不直接复制含身份的原数模材料 |
+| solver/ | 纯Python物理、调度、独立验证、只读展示数据 |
+| backend/ | FastAPI、SQLite、版本/Job/Worker/确认/事件/导出 |
+| frontend/ | React/TypeScript、离线地图、表格、甘特与交互 |
+| shared/、contracts/ | 同一套Schema检查、生成类型、HTTP实际快照与历史设计草案 |
+| fixtures/ | 明确标为mock的开发样例，不冒充算法结果 |
+| tests/、evidence/ | 自动化回归与真实运行证据 |
+| references/ | 原方案、讨论、论文/答案/题设数据与只读源码，含来源hash |
+| docs/、prompts/ | 全量任务、决策、规范和两人接手提示词 |
 
-原文与导入来源见 [资料索引](references/README.md) 和 [SHA-256 清单](references/SOURCES.json)。旧算法是参考源码，不属于新系统已实现能力。
-
-## 当前可执行的检查
-
-Python 3.11 或 3.12，使用项目独立环境：
-
-```powershell
-python -m venv .venv
-.venv\Scripts\python -m pip install -r requirements-dev.txt
-.venv\Scripts\python scripts/check_contracts.py
-.venv\Scripts\python -m unittest discover -s tests/contracts -v
-.venv\Scripts\python scripts/check_governance.py
-```
-
-需要保存本轮检查日志时，执行 `.venv\Scripts\python scripts/run_checks.py`。它检查暂存区空白并更新 evidence/governance；提交前应重新暂存这些证据。
-
-Linux/macOS 将 `.venv\Scripts\python` 换成 `.venv/bin/python`。这些命令检查草案与仓库规范，**不启动业务系统，也不证明物理可行性**。当前没有 `npm run dev` 或 `uvicorn` 启动入口；由 B 在相应任务完成后补充实测命令。
-
-## 协作与确认
-
-遵循 [CONTRIBUTING.md](CONTRIBUTING.md)。`main` 保持可运行或可验证，功能分支通过 PR 合并，A 负责最终合并。当前 G0 评审清单见 [CONTRACT_RFC_001.md](docs/CONTRACT_RFC_001.md) 和 [初始化报告](docs/G0_REPORT.md)。评审前先做源码核验、界面设计等不依赖冻结字段的准备，暂不大规模实现业务。
+原数模历史结果不是当前优化器输出。资料来源见 [索引](references/README.md)；Git协作见 [CONTRIBUTING.md](CONTRIBUTING.md)。使用功能分支和PR，保留 main，不force push。

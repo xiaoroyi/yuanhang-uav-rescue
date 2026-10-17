@@ -1,0 +1,1 @@
+"""Yuanhang FastAPI application."""

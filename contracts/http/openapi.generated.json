@@ -1,0 +1,3862 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "援航 · 应急调度API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/meta/capabilities": {
+      "get": {
+        "summary": "Meta",
+        "operationId": "meta_api_v1_meta_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Capabilities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/terrain": {
+      "get": {
+        "summary": "Map Terrain",
+        "operationId": "map_terrain_api_v1_map_terrain_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/map/terrain.png": {
+      "get": {
+        "summary": "Map Terrain Image",
+        "operationId": "map_terrain_image_api_v1_map_terrain_png_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios": {
+      "get": {
+        "summary": "List Scenarios",
+        "operationId": "list_scenarios_api_v1_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioSummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Scenarios Api V1 Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/examples": {
+      "post": {
+        "summary": "Load Example",
+        "operationId": "load_example_api_v1_scenarios_examples_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/import": {
+      "post": {
+        "summary": "Import Scenario",
+        "operationId": "import_scenario_api_v1_scenarios_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Scenario"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}/playback": {
+      "get": {
+        "summary": "Plan Playback",
+        "operationId": "plan_playback_api_v1_plans__plan_id__playback_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Playback"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/import-file": {
+      "post": {
+        "summary": "Import File",
+        "operationId": "import_file_api_v1_scenarios_import_file_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario Id"
+            }
+          },
+          {
+            "name": "entity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Entity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_file_api_v1_scenarios_import_file_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportPreview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/template": {
+      "get": {
+        "summary": "Template",
+        "operationId": "template_api_v1_scenarios__scenario_id__template_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "csv",
+                "xlsx"
+              ],
+              "type": "string",
+              "default": "xlsx",
+              "title": "Format"
+            }
+          },
+          {
+            "name": "entity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "cargo_items",
+              "title": "Entity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}": {
+      "get": {
+        "summary": "Get Scenario",
+        "operationId": "get_scenario_api_v1_scenarios__scenario_id__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Scenario",
+        "operationId": "update_scenario_api_v1_scenarios__scenario_id__put",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScenarioUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/copy": {
+      "post": {
+        "summary": "Copy Scenario",
+        "operationId": "copy_scenario_api_v1_scenarios__scenario_id__copy_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CopyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/validate": {
+      "post": {
+        "summary": "Validate Input",
+        "operationId": "validate_input_api_v1_scenarios__scenario_id__validate_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Validation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/snapshots": {
+      "post": {
+        "summary": "Make Snapshot",
+        "operationId": "make_snapshot_api_v1_scenarios__scenario_id__snapshots_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Snapshot"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/snapshots/{snapshot_id}": {
+      "get": {
+        "summary": "Get Snapshot",
+        "operationId": "get_snapshot_api_v1_snapshots__snapshot_id__get",
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Snapshot"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/solve-jobs": {
+      "post": {
+        "summary": "Create Job",
+        "operationId": "create_job_api_v1_solve_jobs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolveRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SolveJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/solve-jobs/{job_id}": {
+      "get": {
+        "summary": "Get Job",
+        "operationId": "get_job_api_v1_solve_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SolveJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/solve-jobs/{job_id}/progress": {
+      "get": {
+        "summary": "Get Progress",
+        "operationId": "get_progress_api_v1_solve_jobs__job_id__progress_get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Progress"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/solve-jobs/{job_id}/diagnostics": {
+      "get": {
+        "summary": "Get Job Diagnostics",
+        "operationId": "get_job_diagnostics_api_v1_solve_jobs__job_id__diagnostics_get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/solve-jobs/{job_id}/cancel": {
+      "post": {
+        "summary": "Cancel Job",
+        "operationId": "cancel_job_api_v1_solve_jobs__job_id__cancel_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SolveJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/plans": {
+      "get": {
+        "summary": "List Plans",
+        "operationId": "list_plans_api_v1_scenarios__scenario_id__plans_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlanSummary"
+                  },
+                  "title": "Response List Plans Api V1 Scenarios  Scenario Id  Plans Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}": {
+      "get": {
+        "summary": "Get Plan",
+        "operationId": "get_plan_api_v1_plans__plan_id__get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}/comparison": {
+      "get": {
+        "summary": "Compare",
+        "operationId": "compare_api_v1_plans__plan_id__comparison_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "other_plan_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Other Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comparison"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}/confirm": {
+      "post": {
+        "summary": "Confirm",
+        "operationId": "confirm_api_v1_plans__plan_id__confirm_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Confirmation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events": {
+      "post": {
+        "summary": "Apply Event",
+        "operationId": "apply_event_api_v1_events_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventReceipt"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/events": {
+      "get": {
+        "summary": "List Events",
+        "operationId": "list_events_api_v1_scenarios__scenario_id__events_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  },
+                  "title": "Response List Events Api V1 Scenarios  Scenario Id  Events Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}/export": {
+      "get": {
+        "summary": "Export Plan",
+        "operationId": "export_plan_api_v1_plans__plan_id__export_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "json",
+                "csv",
+                "geojson"
+              ],
+              "type": "string",
+              "default": "json",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/export": {
+      "get": {
+        "summary": "Export Scenario",
+        "operationId": "export_scenario_api_v1_scenarios__scenario_id__export_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/bundle": {
+      "get": {
+        "summary": "Export Bundle",
+        "operationId": "export_bundle_api_v1_scenarios__scenario_id__bundle_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Actor": {
+        "type": "string",
+        "enum": [
+          "simulation",
+          "operator"
+        ],
+        "title": "Actor"
+      },
+      "AddedSortieId": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "AddedSortieId"
+      },
+      "Base": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          },
+          "ground_elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ground Elevation M"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "coordinates",
+          "ground_elevation_m",
+          "available"
+        ],
+        "title": "Base"
+      },
+      "Battery": {
+        "properties": {
+          "battery_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Battery Id"
+          },
+          "compatible_type_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Compatible Type Id"
+          },
+          "capacity_kwh": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Capacity Kwh"
+          },
+          "soc": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Soc"
+          },
+          "soh": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Soh"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status5"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Available After S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "battery_id",
+          "compatible_type_id",
+          "capacity_kwh",
+          "soc",
+          "soh",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "title": "Battery"
+      },
+      "Body_import_file_api_v1_scenarios_import_file_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_file_api_v1_scenarios_import_file_post"
+      },
+      "Capabilities": {
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "const": "v1",
+            "title": "Api Version"
+          },
+          "schema_versions": {
+            "items": {
+              "$ref": "#/components/schemas/SchemaVersion"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Schema Versions"
+          },
+          "solver_ready": {
+            "type": "boolean",
+            "title": "Solver Ready"
+          },
+          "supported_objectives": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedObjective"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Supported Objectives"
+          },
+          "supported_events": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedEvent"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Supported Events"
+          },
+          "supported_model_scope": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedModelScopeEnum"
+            },
+            "type": "array",
+            "title": "Supported Model Scope"
+          },
+          "supported_energy_models": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedEnergyModel"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Supported Energy Models"
+          },
+          "supported_charge_models": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedChargeModel"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Supported Charge Models"
+          },
+          "features": {
+            "$ref": "#/components/schemas/Features"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "api_version",
+          "schema_versions",
+          "solver_ready",
+          "supported_objectives",
+          "supported_events",
+          "supported_model_scope",
+          "supported_energy_models",
+          "supported_charge_models",
+          "features"
+        ],
+        "title": "Capabilities"
+      },
+      "CargoId": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "CargoId"
+      },
+      "CargoItem": {
+        "properties": {
+          "cargo_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Cargo Id"
+          },
+          "demand_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Demand Id"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Type"
+          },
+          "mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Mass Kg"
+          },
+          "volume_l": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Volume L"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status3"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cargo_id",
+          "demand_id",
+          "type",
+          "mass_kg",
+          "volume_l",
+          "status",
+          "location_id"
+        ],
+        "title": "CargoItem"
+      },
+      "ChangeSummary": {
+        "properties": {
+          "preserved_sortie_ids": {
+            "items": {
+              "$ref": "#/components/schemas/PreservedSortieId"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Preserved Sortie Ids"
+          },
+          "removed_sortie_ids": {
+            "items": {
+              "$ref": "#/components/schemas/RemovedSortieId"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Removed Sortie Ids"
+          },
+          "added_sortie_ids": {
+            "items": {
+              "$ref": "#/components/schemas/AddedSortieId"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Added Sortie Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "preserved_sortie_ids",
+          "removed_sortie_ids",
+          "added_sortie_ids"
+        ],
+        "title": "ChangeSummary"
+      },
+      "ChargeModel": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Model Id"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Parameters"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "parameters"
+        ],
+        "title": "ChargeModel"
+      },
+      "Check": {
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status1"
+          },
+          "object_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Object Id"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "status",
+          "object_id",
+          "message"
+        ],
+        "title": "Check"
+      },
+      "Code": {
+        "type": "string",
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication"
+        ],
+        "title": "Code"
+      },
+      "Code1": {
+        "type": "string",
+        "enum": [
+          "SCHEMA_INVALID",
+          "REFERENCE_INVALID",
+          "RESOURCE_CONFLICT",
+          "STATE_VERSION_CONFLICT",
+          "SNAPSHOT_STALE",
+          "UNSUPPORTED_SCOPE",
+          "INPUT_NOT_READY",
+          "NO_VALIDATED_PLAN",
+          "UNSUPPORTED_EVENT_STATE",
+          "SOLVER_BUSY",
+          "CANCELED",
+          "EXTERNAL_ASSET_UNAVAILABLE",
+          "INTERNAL_ERROR"
+        ],
+        "title": "Code1"
+      },
+      "CommunicationStatus": {
+        "type": "string",
+        "enum": [
+          "passed",
+          "failed",
+          "not_evaluated"
+        ],
+        "title": "CommunicationStatus"
+      },
+      "Comparison": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "other_plan_id": {
+            "type": "string",
+            "title": "Other Plan Id"
+          },
+          "same_snapshot": {
+            "type": "boolean",
+            "title": "Same Snapshot"
+          },
+          "comparable": {
+            "type": "boolean",
+            "title": "Comparable"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "differences": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Differences"
+          },
+          "preserved_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preserved Sortie Ids"
+          },
+          "removed_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Removed Sortie Ids"
+          },
+          "added_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Added Sortie Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "other_plan_id",
+          "same_snapshot",
+          "comparable",
+          "warnings",
+          "differences",
+          "preserved_sortie_ids",
+          "removed_sortie_ids",
+          "added_sortie_ids"
+        ],
+        "title": "Comparison"
+      },
+      "ConfirmRequest": {
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_state_version",
+          "idempotency_key"
+        ],
+        "title": "ConfirmRequest"
+      },
+      "Confirmation": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "state_version": {
+            "type": "integer",
+            "title": "State Version"
+          },
+          "confirmation_state": {
+            "type": "string",
+            "const": "confirmed",
+            "title": "Confirmation State"
+          },
+          "confirmed_at": {
+            "type": "string",
+            "title": "Confirmed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "scenario_id",
+          "state_version",
+          "confirmation_state",
+          "confirmed_at"
+        ],
+        "title": "Confirmation"
+      },
+      "Coordinate": {
+        "type": "number",
+        "maximum": 180.0,
+        "minimum": -180.0,
+        "title": "Coordinate"
+      },
+      "Coordinate1": {
+        "type": "number",
+        "maximum": 90.0,
+        "minimum": -90.0,
+        "title": "Coordinate1"
+      },
+      "Coordinates": {
+        "prefixItems": [
+          {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          {
+            "$ref": "#/components/schemas/Coordinate1"
+          }
+        ],
+        "type": "array",
+        "maxItems": 2,
+        "minItems": 2,
+        "title": "Coordinates"
+      },
+      "CopyRequest": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "CopyRequest"
+      },
+      "DataOrigin": {
+        "type": "string",
+        "enum": [
+          "mock",
+          "solver",
+          "imported_historical"
+        ],
+        "title": "DataOrigin"
+      },
+      "DataOrigin1": {
+        "type": "string",
+        "enum": [
+          "mock",
+          "user_input",
+          "verified_dataset"
+        ],
+        "title": "DataOrigin1"
+      },
+      "Demand": {
+        "properties": {
+          "demand_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Demand Id"
+          },
+          "site_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Site Id"
+          },
+          "cargo_type": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Cargo Type"
+          },
+          "required_quantity": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Required Quantity"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Priority"
+          },
+          "expected_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Deadline S"
+          },
+          "hard_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hard Deadline S"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "title": "Mandatory"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demand_id",
+          "site_id",
+          "cargo_type",
+          "required_quantity",
+          "priority",
+          "expected_deadline_s",
+          "hard_deadline_s",
+          "mandatory"
+        ],
+        "title": "Demand"
+      },
+      "Drone": {
+        "properties": {
+          "drone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Drone Id"
+          },
+          "type_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Type Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status4"
+          },
+          "location_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Location Id"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Available After S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "drone_id",
+          "type_id",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "title": "Drone"
+      },
+      "DroneType": {
+        "properties": {
+          "type_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Type Id"
+          },
+          "max_payload_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Max Payload Kg"
+          },
+          "max_volume_l": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Max Volume L"
+          },
+          "cruise_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Cruise Speed Mps"
+          },
+          "climb_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Climb Speed Mps"
+          },
+          "descent_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Descent Speed Mps"
+          },
+          "prepare_duration_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Prepare Duration S"
+          },
+          "turnaround_duration_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Turnaround Duration S"
+          },
+          "handover_fixed_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Handover Fixed S"
+          },
+          "handover_per_box_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Handover Per Box S"
+          },
+          "empty_mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Empty Mass Kg"
+          },
+          "energy_model": {
+            "$ref": "#/components/schemas/EnergyModel"
+          },
+          "charge_model": {
+            "$ref": "#/components/schemas/ChargeModel"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type_id",
+          "max_payload_kg",
+          "max_volume_l",
+          "cruise_speed_mps",
+          "climb_speed_mps",
+          "descent_speed_mps",
+          "prepare_duration_s",
+          "turnaround_duration_s",
+          "handover_fixed_s",
+          "handover_per_box_s",
+          "empty_mass_kg",
+          "energy_model",
+          "charge_model"
+        ],
+        "title": "DroneType"
+      },
+      "EnergyModel": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Model Id"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Parameters"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "parameters"
+        ],
+        "title": "EnergyModel"
+      },
+      "Error1": {
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code1"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Message"
+          },
+          "field_path": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field Path"
+          },
+          "details": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Details"
+          },
+          "request_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "field_path",
+          "details",
+          "request_id"
+        ],
+        "title": "Error1"
+      },
+      "Event": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "event_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Event Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "event_type": {
+            "type": "string",
+            "const": "drone.unavailable",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "effective_time_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Effective Time S"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/Actor"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/Payload"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "event_id",
+          "scenario_id",
+          "expected_state_version",
+          "event_type",
+          "occurred_at",
+          "received_at",
+          "effective_time_s",
+          "actor",
+          "reason",
+          "payload"
+        ],
+        "title": "Event"
+      },
+      "EventReceipt": {
+        "properties": {
+          "event": {
+            "$ref": "#/components/schemas/Event"
+          },
+          "state_version_after": {
+            "type": "integer",
+            "title": "State Version After"
+          },
+          "applied": {
+            "type": "boolean",
+            "title": "Applied"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event",
+          "state_version_after",
+          "applied"
+        ],
+        "title": "EventReceipt"
+      },
+      "ExampleRequest": {
+        "properties": {
+          "example": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "contest"
+            ],
+            "title": "Example",
+            "default": "compact"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "ExampleRequest"
+      },
+      "Features": {
+        "properties": {
+          "partial_service": {
+            "type": "boolean",
+            "title": "Partial Service"
+          },
+          "relay_coordination": {
+            "type": "boolean",
+            "title": "Relay Coordination"
+          },
+          "execution_state": {
+            "type": "boolean",
+            "title": "Execution State"
+          },
+          "dem_validation": {
+            "type": "boolean",
+            "title": "Dem Validation"
+          },
+          "what_if": {
+            "type": "boolean",
+            "title": "What If"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "partial_service",
+          "relay_coordination",
+          "execution_state",
+          "dem_validation",
+          "what_if"
+        ],
+        "title": "Features"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "const": "yuanhang-rescue",
+            "title": "Service Id",
+            "default": "yuanhang-rescue"
+          },
+          "workspace_id": {
+            "type": "string",
+            "title": "Workspace Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "service_version": {
+            "type": "string",
+            "title": "Service Version"
+          },
+          "solver_ready": {
+            "type": "boolean",
+            "title": "Solver Ready"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "workspace_id",
+          "status",
+          "service_version",
+          "solver_ready"
+        ],
+        "title": "Health"
+      },
+      "ImportPreview": {
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/Scenario"
+          },
+          "row_count": {
+            "type": "integer",
+            "title": "Row Count"
+          },
+          "issues": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Issues"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario",
+          "row_count",
+          "issues"
+        ],
+        "title": "ImportPreview"
+      },
+      "JobState": {
+        "type": "string",
+        "enum": [
+          "queued",
+          "running",
+          "completed",
+          "failed",
+          "canceled"
+        ],
+        "title": "JobState"
+      },
+      "Metrics": {
+        "properties": {
+          "last_delivery_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Delivery S"
+          },
+          "makespan_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Makespan S"
+          },
+          "energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Kwh"
+          },
+          "cost_cny": {
+            "type": "null",
+            "title": "Cost Cny"
+          },
+          "sortie_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Sortie Count"
+          },
+          "unserved_demand_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unserved Demand Count"
+          },
+          "mandatory_served_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Mandatory Served Count"
+          },
+          "mandatory_total_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Mandatory Total Count"
+          },
+          "min_return_soc": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Return Soc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "last_delivery_s",
+          "makespan_s",
+          "energy_kwh",
+          "cost_cny",
+          "sortie_count",
+          "unserved_demand_count",
+          "mandatory_served_count",
+          "mandatory_total_count",
+          "min_return_soc"
+        ],
+        "title": "Metrics"
+      },
+      "Mode": {
+        "type": "string",
+        "enum": [
+          "simulation",
+          "planning_assist"
+        ],
+        "title": "Mode"
+      },
+      "ModelScopeEnum": {
+        "type": "string",
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication"
+        ],
+        "title": "ModelScopeEnum"
+      },
+      "Objective": {
+        "type": "string",
+        "enum": [
+          "time",
+          "energy",
+          "balanced"
+        ],
+        "title": "Objective"
+      },
+      "Payload": {
+        "properties": {
+          "drone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Drone Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "drone_id"
+        ],
+        "title": "Payload"
+      },
+      "Plan": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "plan_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Plan Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Snapshot Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Scenario State Version"
+          },
+          "data_origin": {
+            "$ref": "#/components/schemas/DataOrigin"
+          },
+          "objective": {
+            "$ref": "#/components/schemas/Objective"
+          },
+          "solver_status": {
+            "$ref": "#/components/schemas/SolverStatus"
+          },
+          "has_validated_plan": {
+            "type": "boolean",
+            "title": "Has Validated Plan"
+          },
+          "model_scope": {
+            "items": {
+              "$ref": "#/components/schemas/ModelScopeEnum"
+            },
+            "type": "array",
+            "title": "Model Scope"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/Metrics"
+          },
+          "sorties": {
+            "items": {
+              "$ref": "#/components/schemas/Sortie"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Sorties"
+          },
+          "unserved_demand_ids": {
+            "items": {
+              "$ref": "#/components/schemas/UnservedDemandId"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Unserved Demand Ids"
+          },
+          "validation": {
+            "$ref": "#/components/schemas/Validation"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "solver_notes": {
+            "items": {
+              "$ref": "#/components/schemas/SolverNote"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Solver Notes"
+          },
+          "parent_plan_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Plan Id"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "change_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChangeSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "plan_id",
+          "scenario_id",
+          "snapshot_id",
+          "scenario_state_version",
+          "data_origin",
+          "objective",
+          "solver_status",
+          "has_validated_plan",
+          "model_scope",
+          "metrics",
+          "sorties",
+          "unserved_demand_ids",
+          "validation",
+          "generated_at",
+          "solver_notes",
+          "parent_plan_id",
+          "event_id",
+          "change_summary"
+        ],
+        "title": "Plan"
+      },
+      "PlanSummary": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "objective": {
+            "type": "string",
+            "title": "Objective"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "solver_status": {
+            "type": "string",
+            "title": "Solver Status"
+          },
+          "metrics": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "snapshot_id",
+          "scenario_id",
+          "scenario_state_version",
+          "objective",
+          "generated_at",
+          "solver_status",
+          "metrics",
+          "confirmed_at"
+        ],
+        "title": "PlanSummary"
+      },
+      "Playback": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "position_semantics": {
+            "type": "string",
+            "const": "schematic_linear_interpolation",
+            "title": "Position Semantics"
+          },
+          "is_execution_fact": {
+            "type": "boolean",
+            "const": false,
+            "title": "Is Execution Fact"
+          },
+          "phases": {
+            "items": {
+              "$ref": "#/components/schemas/PlaybackPhase"
+            },
+            "type": "array",
+            "title": "Phases"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "snapshot_id",
+          "position_semantics",
+          "is_execution_fact",
+          "phases"
+        ],
+        "title": "Playback"
+      },
+      "PlaybackPhase": {
+        "properties": {
+          "sortie_id": {
+            "type": "string",
+            "title": "Sortie Id"
+          },
+          "drone_id": {
+            "type": "string",
+            "title": "Drone Id"
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "prepare",
+              "flight",
+              "handover",
+              "return"
+            ],
+            "title": "Phase"
+          },
+          "start_s": {
+            "type": "number",
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "title": "End S"
+          },
+          "from_coordinates": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "From Coordinates"
+          },
+          "to_coordinates": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "To Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sortie_id",
+          "drone_id",
+          "phase",
+          "start_s",
+          "end_s",
+          "from_coordinates",
+          "to_coordinates"
+        ],
+        "title": "PlaybackPhase"
+      },
+      "Policy": {
+        "properties": {
+          "min_return_soc": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Min Return Soc"
+          },
+          "requires_terrain": {
+            "type": "boolean",
+            "title": "Requires Terrain"
+          },
+          "requires_communication": {
+            "type": "boolean",
+            "title": "Requires Communication"
+          },
+          "delivery_time_policy": {
+            "type": "string",
+            "const": "station_end",
+            "title": "Delivery Time Policy"
+          },
+          "cost_model_available": {
+            "type": "boolean",
+            "const": false,
+            "title": "Cost Model Available"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "min_return_soc",
+          "requires_terrain",
+          "requires_communication",
+          "delivery_time_policy",
+          "cost_model_available"
+        ],
+        "title": "Policy"
+      },
+      "PreservedSortieId": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "PreservedSortieId"
+      },
+      "Progress": {
+        "properties": {
+          "stage": {
+            "type": "string",
+            "title": "Stage"
+          },
+          "elapsed_s": {
+            "type": "number",
+            "title": "Elapsed S"
+          },
+          "candidate_count": {
+            "type": "integer",
+            "title": "Candidate Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "stage",
+          "elapsed_s",
+          "candidate_count"
+        ],
+        "title": "Progress"
+      },
+      "RemovedSortieId": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "RemovedSortieId"
+      },
+      "RouteGeometry": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "LineString",
+            "title": "Type"
+          },
+          "coordinates": {
+            "items": {
+              "$ref": "#/components/schemas/Coordinates"
+            },
+            "type": "array",
+            "minItems": 2,
+            "title": "Coordinates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "title": "RouteGeometry"
+      },
+      "Scenario": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "State Version"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/Mode"
+          },
+          "data_origin": {
+            "$ref": "#/components/schemas/DataOrigin1"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Time"
+          },
+          "timezone": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Timezone"
+          },
+          "coordinate_system": {
+            "type": "string",
+            "const": "EPSG:4326",
+            "title": "Coordinate System"
+          },
+          "terrain": {
+            "$ref": "#/components/schemas/Terrain"
+          },
+          "base": {
+            "$ref": "#/components/schemas/Base"
+          },
+          "sites": {
+            "items": {
+              "$ref": "#/components/schemas/Site"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Sites"
+          },
+          "demands": {
+            "items": {
+              "$ref": "#/components/schemas/Demand"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Demands"
+          },
+          "cargo_items": {
+            "items": {
+              "$ref": "#/components/schemas/CargoItem"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Cargo Items"
+          },
+          "drone_types": {
+            "items": {
+              "$ref": "#/components/schemas/DroneType"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Drone Types"
+          },
+          "drones": {
+            "items": {
+              "$ref": "#/components/schemas/Drone"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Drones"
+          },
+          "batteries": {
+            "items": {
+              "$ref": "#/components/schemas/Battery"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Batteries"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/Policy"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "scenario_id",
+          "name",
+          "state_version",
+          "mode",
+          "data_origin",
+          "start_time",
+          "timezone",
+          "coordinate_system",
+          "terrain",
+          "base",
+          "sites",
+          "demands",
+          "cargo_items",
+          "drone_types",
+          "drones",
+          "batteries",
+          "policy"
+        ],
+        "title": "Scenario"
+      },
+      "ScenarioSummary": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "state_version": {
+            "type": "integer",
+            "title": "State Version"
+          },
+          "data_origin": {
+            "type": "string",
+            "title": "Data Origin"
+          },
+          "site_count": {
+            "type": "integer",
+            "title": "Site Count"
+          },
+          "cargo_count": {
+            "type": "integer",
+            "title": "Cargo Count"
+          },
+          "drone_count": {
+            "type": "integer",
+            "title": "Drone Count"
+          },
+          "battery_count": {
+            "type": "integer",
+            "title": "Battery Count"
+          },
+          "active_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Plan Id"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "name",
+          "state_version",
+          "data_origin",
+          "site_count",
+          "cargo_count",
+          "drone_count",
+          "battery_count",
+          "active_plan_id",
+          "updated_at"
+        ],
+        "title": "ScenarioSummary"
+      },
+      "ScenarioUpdate": {
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "scenario": {
+            "$ref": "#/components/schemas/Scenario"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_state_version",
+          "scenario"
+        ],
+        "title": "ScenarioUpdate"
+      },
+      "SchemaVersion": {
+        "type": "string",
+        "minLength": 1,
+        "title": "SchemaVersion"
+      },
+      "Site": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name"
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          },
+          "ground_elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ground Elevation M"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "coordinates",
+          "ground_elevation_m",
+          "available"
+        ],
+        "title": "Site"
+      },
+      "Snapshot": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Snapshot Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Scenario State Version"
+          },
+          "content_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Content Hash"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "scenario": {
+            "$ref": "#/components/schemas/Scenario"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "snapshot_id",
+          "scenario_id",
+          "scenario_state_version",
+          "content_hash",
+          "created_at",
+          "scenario"
+        ],
+        "title": "Snapshot"
+      },
+      "SolveJob": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "0.1.0-draft",
+            "title": "Schema Version"
+          },
+          "job_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Job Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Scenario Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Snapshot Id"
+          },
+          "reserved_plan_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Reserved Plan Id"
+          },
+          "job_state": {
+            "$ref": "#/components/schemas/JobState"
+          },
+          "solver_status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SolverStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "plan_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Id"
+          },
+          "has_validated_plan": {
+            "type": "boolean",
+            "title": "Has Validated Plan"
+          },
+          "runtime_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Runtime S"
+          },
+          "stop_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stop Reason"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Error1"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "job_id",
+          "scenario_id",
+          "snapshot_id",
+          "reserved_plan_id",
+          "job_state",
+          "solver_status",
+          "plan_id",
+          "has_validated_plan",
+          "runtime_s",
+          "stop_reason",
+          "created_at",
+          "started_at",
+          "finished_at",
+          "error"
+        ],
+        "title": "SolveJob"
+      },
+      "SolveRequest": {
+        "properties": {
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "time",
+              "energy",
+              "balanced"
+            ],
+            "title": "Objective",
+            "default": "time"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "quick",
+              "improve",
+              "replan"
+            ],
+            "title": "Mode",
+            "default": "quick"
+          },
+          "time_limit_s": {
+            "type": "number",
+            "maximum": 300.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Time Limit S",
+            "default": 15
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 42
+          },
+          "parent_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Plan Id"
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          },
+          "requested_model_scope": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Model Scope"
+          },
+          "allow_partial_service": {
+            "type": "boolean",
+            "const": false,
+            "title": "Allow Partial Service",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "snapshot_id"
+        ],
+        "title": "SolveRequest"
+      },
+      "SolverNote": {
+        "type": "string",
+        "minLength": 1,
+        "title": "SolverNote"
+      },
+      "SolverStatus": {
+        "type": "string",
+        "enum": [
+          "OPTIMAL",
+          "FEASIBLE",
+          "INFEASIBLE",
+          "UNKNOWN",
+          "ERROR"
+        ],
+        "title": "SolverStatus"
+      },
+      "Sortie": {
+        "properties": {
+          "sortie_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Sortie Id"
+          },
+          "kind": {
+            "type": "string",
+            "const": "transport",
+            "title": "Kind"
+          },
+          "drone_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Drone Id"
+          },
+          "battery_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Battery Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "$ref": "#/components/schemas/CargoId"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Cargo Ids"
+          },
+          "visits": {
+            "items": {
+              "$ref": "#/components/schemas/Visit"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Visits"
+          },
+          "route_geometry": {
+            "$ref": "#/components/schemas/RouteGeometry"
+          },
+          "prepare_start_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Prepare Start S"
+          },
+          "takeoff_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Takeoff S"
+          },
+          "return_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Return S"
+          },
+          "drone_released_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Drone Released S"
+          },
+          "battery_released_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Battery Released S"
+          },
+          "energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Energy Kwh"
+          },
+          "return_soc": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Return Soc"
+          },
+          "terrain_status": {
+            "$ref": "#/components/schemas/TerrainStatus"
+          },
+          "communication_status": {
+            "$ref": "#/components/schemas/CommunicationStatus"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sortie_id",
+          "kind",
+          "drone_id",
+          "battery_id",
+          "cargo_ids",
+          "visits",
+          "route_geometry",
+          "prepare_start_s",
+          "takeoff_s",
+          "return_s",
+          "drone_released_s",
+          "battery_released_s",
+          "energy_kwh",
+          "return_soc",
+          "terrain_status",
+          "communication_status"
+        ],
+        "title": "Sortie"
+      },
+      "Status": {
+        "type": "string",
+        "enum": [
+          "passed",
+          "failed",
+          "partial",
+          "not_run"
+        ],
+        "title": "Status"
+      },
+      "Status1": {
+        "type": "string",
+        "enum": [
+          "passed",
+          "failed",
+          "not_evaluated"
+        ],
+        "title": "Status1"
+      },
+      "Status2": {
+        "type": "string",
+        "enum": [
+          "not_evaluated",
+          "available",
+          "invalid"
+        ],
+        "title": "Status2"
+      },
+      "Status3": {
+        "type": "string",
+        "enum": [
+          "available",
+          "reserved",
+          "loaded",
+          "in_transit",
+          "delivered",
+          "unavailable"
+        ],
+        "title": "Status3"
+      },
+      "Status4": {
+        "type": "string",
+        "enum": [
+          "available",
+          "reserved",
+          "loaded",
+          "in_flight",
+          "unavailable"
+        ],
+        "title": "Status4"
+      },
+      "Status5": {
+        "type": "string",
+        "enum": [
+          "available",
+          "reserved",
+          "in_use",
+          "charging",
+          "unavailable"
+        ],
+        "title": "Status5"
+      },
+      "SupportedChargeModel": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "SupportedChargeModel"
+      },
+      "SupportedEnergyModel": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "SupportedEnergyModel"
+      },
+      "SupportedEvent": {
+        "type": "string",
+        "minLength": 1,
+        "title": "SupportedEvent"
+      },
+      "SupportedModelScopeEnum": {
+        "type": "string",
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication"
+        ],
+        "title": "SupportedModelScopeEnum"
+      },
+      "SupportedObjective": {
+        "type": "string",
+        "enum": [
+          "time",
+          "energy",
+          "balanced"
+        ],
+        "title": "SupportedObjective"
+      },
+      "Terrain": {
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status2"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sha256"
+          },
+          "horizontal_crs": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horizontal Crs"
+          },
+          "vertical_datum": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vertical Datum"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "asset_id",
+          "sha256",
+          "horizontal_crs",
+          "vertical_datum"
+        ],
+        "title": "Terrain"
+      },
+      "TerrainStatus": {
+        "type": "string",
+        "enum": [
+          "passed",
+          "failed",
+          "not_evaluated"
+        ],
+        "title": "TerrainStatus"
+      },
+      "UnservedDemandId": {
+        "type": "string",
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "title": "UnservedDemandId"
+      },
+      "Validation": {
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "checks": {
+            "items": {
+              "$ref": "#/components/schemas/Check"
+            },
+            "type": "array",
+            "minItems": 0,
+            "title": "Checks"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "checks"
+        ],
+        "title": "Validation"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VersionRequest": {
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_state_version"
+        ],
+        "title": "VersionRequest"
+      },
+      "Visit": {
+        "properties": {
+          "site_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "title": "Site Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "$ref": "#/components/schemas/CargoId"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Cargo Ids"
+          },
+          "delivery_complete_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Delivery Complete S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "site_id",
+          "cargo_ids",
+          "delivery_complete_s"
+        ],
+        "title": "Visit"
+      }
+    }
+  }
+}

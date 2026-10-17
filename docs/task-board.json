@@ -1,19 +1,19 @@
 {
-  "updated": "2026-10-17",
+  "updated": "2026-10-18",
   "team": {
     "A": "算法与项目负责人",
     "B": "同一人负责前端、后端与集成"
   },
   "gate_status": {
     "G0": "awaiting_review",
-    "G1": "not_started",
-    "G2": "not_started",
-    "G3": "not_started",
-    "G4": "not_started",
+    "G1": "implemented_verifying",
+    "G2": "implemented_verifying",
+    "G3": "in_progress",
+    "G4": "in_progress",
     "G5": "not_started",
     "G6": "not_started"
   },
-  "note": "C-* is a historical backend task prefix, owned by B. Dependencies are explicit task IDs; human contract approval remains required.",
+  "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。",
   "tasks": [
     {
       "id": "G0-01",
@@ -144,10 +144,13 @@
         "G0-03",
         "G0-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/solver/first-compact.json",
+        "solver/physics.py"
+      ]
     },
     {
       "id": "A-02",
@@ -160,10 +163,13 @@
         "A-01",
         "G0-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/solver/test_solver.py",
+        "evidence/solver/first-contest.json"
+      ]
     },
     {
       "id": "C-01",
@@ -176,10 +182,12 @@
         "G0-03",
         "G0-04"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "C-02",
@@ -191,10 +199,12 @@
       "dependencies": [
         "C-01"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/backend/test_api.py"
+      ]
     },
     {
       "id": "C-03",
@@ -207,10 +217,12 @@
         "A-02",
         "C-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/backend/test_api.py"
+      ]
     },
     {
       "id": "B-01",
@@ -224,10 +236,13 @@
         "G0-04",
         "G0-06"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "frontend/src/App.tsx",
+        "frontend/playwright.config.ts"
+      ]
     },
     {
       "id": "B-02",
@@ -240,10 +255,12 @@
         "B-01",
         "C-01"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "B-03",
@@ -256,10 +273,13 @@
         "B-01",
         "C-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "frontend/tests/workflow.spec.ts",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "X-01",
@@ -273,10 +293,12 @@
         "C-03",
         "B-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "A-03",
@@ -288,10 +310,13 @@
       "dependencies": [
         "A-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/solver/test_solver.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-04",
@@ -303,10 +328,12 @@
       "dependencies": [
         "A-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/solver/test_solver.py"
+      ]
     },
     {
       "id": "C-04",
@@ -319,10 +346,12 @@
         "C-03",
         "A-03"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/backend/test_api.py"
+      ]
     },
     {
       "id": "B-04",
@@ -335,10 +364,13 @@
         "B-03",
         "A-04"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "frontend/src/components/ResourceTimeline.tsx",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "X-02",
@@ -353,10 +385,13 @@
         "C-04",
         "B-04"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/solver/test_solver.py",
+        "tests/backend/test_api.py"
+      ]
     },
     {
       "id": "C-05",
@@ -368,10 +403,12 @@
       "dependencies": [
         "C-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/backend/test_api.py"
+      ]
     },
     {
       "id": "A-05",
@@ -384,10 +421,13 @@
         "A-02",
         "C-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "tests/backend/test_api.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-06",
@@ -399,10 +439,12 @@
       "dependencies": [
         "A-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "B-05",
@@ -415,10 +457,12 @@
         "B-04",
         "C-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "done",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "X-03",
@@ -434,10 +478,12 @@
         "B-05",
         "X-02"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "C-06",
@@ -450,10 +496,12 @@
         "C-01",
         "X-01"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "B-06",
@@ -465,10 +513,12 @@
       "dependencies": [
         "C-06"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "A-07",
@@ -481,10 +531,12 @@
         "A-02",
         "C-06"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "A-08",
@@ -785,10 +837,12 @@
         "A-08",
         "A-12"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "Q-02",
@@ -801,10 +855,12 @@
         "A-06",
         "A-13"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "Q-03",
@@ -818,10 +874,12 @@
         "C-04",
         "C-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "Q-04",
@@ -835,10 +893,12 @@
         "B-04",
         "B-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "Q-05",
@@ -854,10 +914,12 @@
         "Q-03",
         "Q-04"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/IMPLEMENTATION_STATUS.md"
+      ]
     },
     {
       "id": "S-01",

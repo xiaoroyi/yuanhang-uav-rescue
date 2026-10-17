@@ -1,0 +1,135 @@
+import { test, expect, type Page } from '@playwright/test'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+
+async function solve(page: Page) {
+  await page.getByRole('button', { name: /^(生成真实方案|重新求解)$/ }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+}
+
+async function screenshot(page: Page, name: string) {
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  await page.mouse.move(1100, 50)
+  await page.evaluate(() => document.fonts.ready)
+  await fs.mkdir(path.resolve('../evidence/browser/verified'), { recursive: true })
+  await page.screenshot({ path: path.resolve(`../evidence/browser/verified/${name}.png`) })
+}
+
+test.beforeEach(async ({ request, page }) => {
+  const response = await request.post('/api/v1/scenarios/examples', {
+    data: { example: 'compact' },
+  })
+  expect(response.status()).toBe(201)
+  const scene = await response.json()
+  await page.addInitScript((id) => localStorage.setItem('yuanhang-scenario', id), scene.scenario_id)
+  await page.goto('/')
+  await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeVisible()
+})
+
+test('真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  page.on('console', (e) => {
+    if (e.type() === 'error') errors.push(e.text())
+  })
+  await solve(page)
+  await expect(page.locator('.map-mode')).toHaveText('题设DEM · 离线')
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  const plan = await (await request.get(`/api/v1/plans/${plans[0].plan_id}`)).json()
+  expect(new Set(plan.sorties.flatMap((s: { cargo_ids: string[] }) => s.cargo_ids)).size).toBe(32)
+  await page.getByTestId('sortie-card').nth(1).click()
+  await expect(page.locator('.sortie-detail .mono')).toHaveText(plan.sorties[1].sortie_id)
+  await expect(page.locator('.timeline-bar.is-selected').first()).toBeVisible()
+  await page.getByRole('button', { name: '播放计划回放', exact: true }).click()
+  await expect(page.locator('.planned-aircraft').first()).toBeVisible()
+  await page.getByRole('button', { name: '暂停计划回放', exact: true }).click()
+  await screenshot(page, 'workspace-1440')
+  await page.getByRole('button', { name: '真实计算此策略', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.locator('.strategy-metrics')).toHaveCount(2)
+  const compared = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  expect(compared.length).toBe(2)
+  expect(compared[0].snapshot_id).toBe(compared[1].snapshot_id)
+  await page.getByRole('button', { name: '检查报告', exact: true }).click()
+  await expect(page.getByRole('dialog')).toContainText('声明范围内检查通过')
+  await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗' }).click()
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: '计划JSON', exact: true }).click()
+  expect((await download).suggestedFilename()).toMatch(/\.json$/)
+  await page.reload()
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'workspace-1280')
+  expect(errors).toEqual([])
+})
+
+test('编辑输入使旧方案失效，导入预览创建新场景', async ({ page, request }) => {
+  await solve(page)
+  const originalId = await page.getByLabel('选择场景').inputValue()
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.getByRole('button', { name: /^编辑S001-MED-01$/ }).click()
+  await page.getByLabel('质量 / kg', { exact: true }).fill('5.5')
+  await page.getByRole('button', { name: '保存修改', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await screenshot(page, 'scenario-1440')
+  await page.getByRole('button', { name: '调度工作台', exact: true }).click()
+  await expect(page.locator('.alert-amber')).toContainText('场景已更新为 v2')
+  await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  const scene = await (await request.get(`/api/v1/scenarios/${originalId}`)).json()
+  expect(scene.cargo_items[0].mass_kg).toBe(5.5)
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await page.locator('input[type=file]').setInputFiles({
+    name: 'scene.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(scene)),
+  })
+  await expect(page.getByRole('dialog')).toContainText('导入预览')
+  await page.getByRole('button', { name: '确认导入为新场景', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await expect(page.getByLabel('选择场景')).not.toHaveValue(originalId)
+  const imported = await (
+    await request.get('/api/v1/scenarios/' + (await page.getByLabel('选择场景').inputValue()))
+  ).json()
+  expect(imported.data_origin).toBe('user_input')
+  expect(imported.cargo_items[0].mass_kg).toBe(5.5)
+})
+
+test('真实故障重规划保留旧方案，展示新旧变化', async ({ page, request }) => {
+  await solve(page)
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const initial = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByLabel('故障机体').selectOption('U01')
+  await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.locator('.comparison-cards')).toBeVisible()
+  await expect(page.locator('.event-history')).toContainText('U01 退出')
+  const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
+  expect(plans.length).toBe(2)
+  const latest = await (await request.get(`/api/v1/plans/${plans[0].plan_id}`)).json()
+  expect(latest.sorties.every((r: { drone_id: string }) => r.drone_id !== 'U01')).toBe(true)
+  expect(latest.parent_plan_id).toBe(initial[0].plan_id)
+  expect((await request.get(`/api/v1/plans/${initial[0].plan_id}`)).ok()).toBe(true)
+  await screenshot(page, 'replan-1440')
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'replan-1280')
+})
+
+test('手机窄屏仍可切页和运行计算', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await solve(page)
+  await page.getByRole('button', { name: '打开导航', exact: true }).click()
+  await page.getByRole('button', { name: '场景与资源', exact: true }).click()
+  await expect(page.locator('.resource-panel')).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
+    true,
+  )
+  await screenshot(page, 'scenario-mobile')
+})

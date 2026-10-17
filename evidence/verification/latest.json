@@ -1,0 +1,47 @@
+{
+  "at_utc": "2026-10-17T16:40:22.841430+00:00",
+  "head": "3319ad5c80f60b1a1fc0eae566b7df33f18048a7",
+  "branch": "feat/solo-fullstack-v0",
+  "working_tree_diff_sha256": "9d47a95501ac477f58262f690ebb6a046b153f1eb22728d23bffa0a2d5c843c8",
+  "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
+  "status": " M .gitignore\n M AGENTS.md\n M README.md\n M backend/AGENTS.md\n M docs/03-DATA-CONTRACT.md\n M docs/08-TASK-BOARD.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/task-board.json\n M frontend/AGENTS.md\n M scripts/check_contracts.py\n M scripts/check_governance.py\n M scripts/render_task_board.py\n M solver/AGENTS.md\n?? .github/workflows/application.yml\n?? backend/__init__.py\n?? backend/app/\n?? contracts/http/openapi.generated.json\n?? docs/CONTRACT_RFC_002.md\n?? docs/SOLO_EXECUTION.md\n?? evidence/browser/\n?? evidence/solver/\n?? evidence/verification/\n?? frontend/.npmrc\n?? frontend/.prettierignore\n?? frontend/.prettierrc.json\n?? frontend/eslint.config.js\n?? frontend/index.html\n?? frontend/package-lock.json\n?? frontend/package.json\n?? frontend/playwright.config.ts\n?? frontend/scripts/\n?? frontend/src/\n?? frontend/tests/\n?? frontend/tsconfig.json\n?? frontend/vite.config.ts\n?? prompts/05_SOLO_FULLSTACK_IMPLEMENTATION.md\n?? requirements.lock.txt\n?? scripts/e2e_service.py\n?? scripts/export_openapi.py\n?? scripts/generate_models.py\n?? scripts/launch.py\n?? scripts/setup.py\n?? scripts/verify.py\n?? setup.cmd\n?? shared/\n?? solver/__init__.py\n?? solver/__main__.py\n?? solver/adapters/\n?? solver/physics.py\n?? solver/presentation.py\n?? solver/public_api.py\n?? solver/validation.py\n?? start.cmd\n?? tests/backend/\n?? tests/solver/\n",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
+      "exit_code": 0,
+      "elapsed_s": 20.552,
+      "output": "evidence/verification/check-01.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
+      "exit_code": 0,
+      "elapsed_s": 0.58,
+      "output": "evidence/verification/check-02.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
+      "exit_code": 0,
+      "elapsed_s": 1.845,
+      "output": "evidence/verification/check-03.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
+      "exit_code": 0,
+      "elapsed_s": 3.802,
+      "output": "evidence/verification/check-04.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
+      "exit_code": 0,
+      "elapsed_s": 0.876,
+      "output": "evidence/verification/check-05.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
+      "exit_code": 0,
+      "elapsed_s": 4.37,
+      "output": "evidence/verification/check-06.txt"
+    }
+  ],
+  "passed": true
+}

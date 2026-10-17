@@ -57,6 +57,8 @@ def main():
     for folder in ['docs','prompts','templates','solver','backend','frontend','fixtures','submission']:
         active.extend((ROOT / folder).rglob('*.md'))
     for p in active:
+        if any(part in {'node_modules','dist','test-results','playwright-report','.local'} for part in p.relative_to(ROOT).parts):
+            continue
         text = p.read_text(encoding='utf-8')
         stale_rule = any(re.search(r'三人团队|三人协作|三位 Codex|三个 Codex|三方确认', line)
                          and not re.search(r'历史|原文|原始|旧版', line) for line in text.splitlines())

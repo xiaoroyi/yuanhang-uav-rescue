@@ -29,6 +29,8 @@ Schema 是完整字段清单，本页解释语义，不维护另一套缩减 DTO
 
 接收后要求 scenario_id、scenario_state_version 与嵌入 Scenario 一致。将来有地图/执行事实时，把它们纳入版本化快照与 hash 范围，不能原地替换资产内容或沿用旧 hash。
 
+实现分支在入库前先经生成的Scenario模型规范化数字与带时区时间，然后对同一HTTP可见表示计算hash，避免int/float或UTC日期序列化导致服务端与客户端快照不同。
+
 ## P0 数据资格
 
 - 单基地，整箱不可拆；需求 required_quantity 是箱数，与库存箱件数分开。

@@ -1,6 +1,6 @@
 # HTTP 对接草案
 
-设计草案为 `contracts/http/openapi.draft.json`，当前没有 FastAPI 应用或真实 `/openapi.json`。所有路径前缀 `/api/v1`，snake_case。B 一人负责前后端适配，A 审算法语义。
+历史设计草案为 `contracts/http/openapi.draft.json`。当前feat/solo-fullstack-v0已有FastAPI应用，真实 `/openapi.json` 固定到 `contracts/http/openapi.generated.json`，前端TS由实际快照生成。兼容补充见RFC-002；实现状态见IMPLEMENTATION_STATUS。所有路径前缀 `/api/v1`，snake_case。B一人负责前后端适配，A审算法语义。
 
 ## 路由与返回
 

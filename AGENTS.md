@@ -2,6 +2,12 @@
 
 本文件适用于整个仓库。默认中文沟通。项目名称、范围和当前状态以本仓库文件为准，不依赖聊天记忆。
 
+## 当前单人全栈授权 2026-10-17
+
+用户已明确授权在 `feat/solo-fullstack-v0` 跨 solver/backend/frontend 持续实现并验证完整候选版本，普通项目依赖可自行安装，禁止改写main。此次授权覆盖下文G0停止条款和仅限单模块的限制，长期两人所有权不变。现有0.1草案作为本分支实施基线，不伪造A/B批准；需要扩展时记录RFC、保持旧例回归，并留待团队复核。用户选择本机离线演示、默认较小场景突出动态调度，保留原题入口。
+
+本次目标持续窗口从北京时间2026-10-17 23:40起约12小时；开始半小时内可询问信息，之后优先自主完成可执行选择。任务与证据持续落盘，详见 prompts/05_SOLO_FULLSTACK_IMPLEMENTATION.md 和 docs/SOLO_EXECUTION.md。
+
 ## 先读后做
 
 1. `README.md`、`docs/DECISIONS.md`、`docs/IMPLEMENTATION_STATUS.md`。

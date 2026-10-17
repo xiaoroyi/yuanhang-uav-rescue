@@ -1,0 +1,19 @@
+
+> yuanhang-rescue-console@0.1.0 build
+> tsc -b && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2030 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.87 kB │ gzip:   0.46 kB
+dist/assets/maplibre-gl-worker-DxGNRm0a.mjs    508.31 kB
+dist/assets/index-DUsHeRki.css                  52.98 kB │ gzip:  12.07 kB
+dist/assets/map-DBE96hFo.css                    82.93 kB │ gzip:  10.72 kB
+dist/assets/rolldown-runtime-WkwZ5CU-.js         0.59 kB │ gzip:   0.36 kB
+dist/assets/index-BKRzRbbT.js                  141.00 kB │ gzip:  43.88 kB
+dist/assets/react-B3GV2P_Y.js                  229.74 kB │ gzip:  72.14 kB
+dist/assets/map-B8_xo0QL.js                  1,041.81 kB │ gzip: 283.11 kB
+
+✓ built in 678ms

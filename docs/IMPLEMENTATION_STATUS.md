@@ -1,30 +1,34 @@
 # 真实实现状态
 
-截至本次 G0 初始化，**完整系统不能启动**。两人分工：A 算法兼负责人，B 同一人负责前后端/集成。逐任务状态以 task-board.json 为准。
+当前在 `feat/solo-fullstack-v0` 持续开发。已有可运行的本地全栈系统，**本轮授权尚未结束**；本文件是续跑入口。长期两人：A 算法兼负责人，B 同一人负责前后端与集成。契约仍为 `0.1.0-draft`，用户授权作为实现基线，未伪造 A/B 正式批准。
 
-| 项目 | Owner | 状态 | 实际证据 | 限制 |
-|---|---|---|---|---|
-| 仓库库存、分工、Git规则、模块约定 | A/B | done | README、AGENTS、CONTRIBUTING、模块AGENTS | GitHub分支保护未配置；B账号待补 |
-| 原文/数模必要资料归档 | A | done | references/SOURCES.json，42份原件hash | 只是复制与静态核对 |
-| 原数模可运行性及适配 | A | in_progress | LEGACY_BASELINE_AUDIT，18份源码AST | 没有跑Q1–Q4；业务依赖和路径未适配 |
-| 公共Schema与样例 | A/B | in_progress | 10份Schema、12份Mock、契约检查 | proposed；未获A/B冻结确认 |
-| HTTP接口规范 | B | in_progress | openapi.draft.json，16项操作 | 设计草案，无运行服务器 |
-| Pydantic/TS业务类型与OpenAPI生成 | B | todo | docs/04规定C-01/B-01交付 | 尚无生成物或漂移测试 |
-| 页面/视觉/交互验收规格 | B | done | UI_ACCEPTANCE、总纲第6章 | 只有设计规格，无React页面 |
-| G0检查与CI | A/B | in_progress | 本地检查日志，contracts.yml | 本地Python3.13通过；GitHub3.11/3.12待跑 |
-| Solver public API/初解/独立验证 | A | todo | docs/05与A-01/A-02任务 | 没有public_api.py |
-| Solver重规划/中继/稳健/学习 | A | todo | A-05–A-15完整保留 | 无本项目算法运行证据 |
-| 后端导入/快照/Job/确认/事件/导出 | B | todo | C-01–C-11，owner均B | 无FastAPI、数据库或Worker |
-| 前端三页/地图/甘特/复盘 | B | todo | B-01–B-10，owner均B | 无package.json，未运行build/typecheck |
-| 真实端到端及离线演示 | A/B | todo | X-01–X-03、Q-05 | 不能把Mock检查当E2E |
-| 正式参赛材料与条款核验 | A/B | todo | S-01–S-04 | 未取得官方指南原件、模板及最新通知 |
+## 已运行能力
 
-## 当前运行能力
+| 模块 | 实际实现与证据 | 当前边界 |
+|---|---|---|
+| 物理与调度 | solver/physics.py、public_api.py；题设载荷能耗、DEM闭像元净空、实体SOC/SOH、两段充电、整箱多站插入、限时多起点搜索 | FEASIBLE启发式，未证明全局最优；默认充电端口无限 |
+| 独立检查 | solver/validation.py 重建路线载荷、时间、能耗、充电与硬截止；有错误能耗/SOC/占用/重复箱件负例 | 未支持通信或实飞认证 |
+| 输入 | 5点32箱原题子集默认，原题15点80箱入口；原件只读归档 | 子集不是整个原题；新输入需正确坐标、高程和物理模型 |
+| 后端 | FastAPI、生成Pydantic、SQLite WAL、不可变版本/快照/hash、独立Worker、真实取消/异常恢复、计划历史、确认事务、事件幂等、CSV/JSON/GeoJSON | 本机监听；无多用户权限与真实执行事实 |
+| 导入编辑 | JSON/CSV/XLSX预览、Excel/CSV模板、6类实体增改删、场景设置 | 复杂字段映射和错误面板仍需深化；引用错误会阻止保存 |
+| 前端 | React/TS strict、三页、MapLibre离线底图+原始DEM预览、真实路线、箱件/任务/资源联动、双甘特、双策略、计划示意回放 | 无外部瓦片依赖；回放按计划分段匀速插值，不是遥测 |
+| 动态事件 | 未执行场景机体退出→版本+1→新快照真实重算→新旧航线和改派箱件 | 当前完整重算；依赖图局部修复尚未实现 |
+| 工程 | 锁依赖、实际OpenAPI和TS生成、ESLint、生产构建、项目内浏览器、独立E2E数据库 | 远程CI和新电脑完整安装仍需实际验收 |
 
-仅可运行契约与规范检查。capabilities Mock 的 solver_ready=false，功能标记全部false；当前没有已批准的模型检查能力。七项P0检查范围只是实现要求，不代表已经验证过真实飞行物理。
+## 当前验证记录
 
-## 阻塞与下一步
+- Python全套：`python -m pytest tests -q`，45 passed、8 subtests passed；Starlette测试客户端有httpx弃用提示，测试通过。
+- 契约：10 schemas、12 mock fixtures、16项历史HTTP设计草案检查通过。该检查不代替业务求解。
+- 前端：TypeScript strict + Vite生产构建通过；ESLint通过；时间格式2项回归通过。
+- 浏览器：已检查1440×900、1280×720，second-pass控制台错误为空。完整E2E 4项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
+- 初次算法证据：evidence/solver/first-compact.json：32/32箱、7架次，最后返航7640.19秒、23.3102kWh；first-contest.json：80/80箱、22架次、10644.61秒、74.4591kWh。参数、种子、耗时及完整Plan都在文件中。当前快速基线不等于历史论文最优值。
 
-1. A/B 人工评审 RFC-001，决定正式字段与状态；manifest不自动改approved。
-2. A-01 核验物理模型、依赖与旧算法适配，产出真实小场景；B按同一契约开展C-01/C-02/B-01。
-3. B账号、依赖工具版本、正式类型生成/运行OpenAPI及远程CI需后续实际落实。完整P1/P2仍为todo，不删除、不预报完成。
+## 运行与续跑
+
+Windows双击根目录 `start.cmd`；使用已构建前端和 `.venv` 启动单服务 http://127.0.0.1:8000/ 。首次新电脑需Python3.11/3.12、Node24，运行 `setup.cmd`。当前电脑已安装依赖，日常启动无需联网。运行数据在 runtime/；测试数据在 .local/e2e-runtime/；均不提交，重启不重置。
+
+下一步优先：已完成浏览器回归与截图复查；接下来提交可运行核心检查点 → 资源诊断/增配试算、稳健压力测试、调度质量与局部修复 → 按RFC深化限制区/通信等高级能力 → 最终离线演示、交接与提交。
+
+## 未完成范围
+
+全部P1/P2仍保留。连续双跳通信与中继能源组件、通用DEM/限制区导入、起降/充电位容量、执行中实际状态、依赖图局部修复、资源增配界面、稳健实验界面、自动建图、AI辅助搜索、真机/仿真、完整参赛说明书/视频/PPT尚不能标记已验收。没有费率不显示人民币；未评估项不标通过。原数模代码未原地运行或修改。
