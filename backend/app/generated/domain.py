@@ -1109,6 +1109,18 @@ class StopReason(Enum):
     exception = "exception"
 
 
+class JointSearchModel(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    method: Literal["fixed_grouping_joint_cp_v1"]
+    status: str
+    station_count: conint(ge=0)
+    coverage_atom_count: conint(ge=0)
+    relay_slot_limit: conint(ge=0)
+    stages: list[Stage]
+
+
 class SolverOutcome(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -1125,6 +1137,7 @@ class SolverOutcome(BaseModel):
     stop_reason: StopReason
     validation: Validation
     diagnostics: list[Diagnostic] = Field(..., min_length=0)
+    joint_search: JointSearchModel | None = None
 
 
 class DomainContracts(BaseModel):

@@ -62,6 +62,9 @@ export function RescueMap({
     })
   }, [])
   useEffect(() => {
+    if (ready && plan?.relay_sorties?.length) fit()
+  }, [ready, plan, fit])
+  useEffect(() => {
     const m = map.current
     if (!m || !ready) return
     let canceled = false
@@ -208,6 +211,8 @@ export function RescueMap({
       m.on('mouseleave', 'routes', () => {
         m.getCanvas().style.cursor = ''
       })
+      m.moveLayer('relay-routes')
+      m.moveLayer('relay-backhaul')
       setReady(true)
     })
     const observer = new ResizeObserver(() => m.resize())

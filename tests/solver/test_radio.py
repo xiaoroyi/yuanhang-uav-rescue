@@ -1,5 +1,6 @@
 import copy
 import math
+import json
 
 import numpy as np
 import pytest
@@ -9,6 +10,7 @@ from shared.contracts import content_hash, validate_outcome
 from solver.adapters.contest import compact_scenario, contest_communication
 from solver.public_api import solve, validate
 from solver.radio import Radio, bad_intervals
+from solver.errors import InputNotReady
 
 
 def synthetic_radio():
@@ -50,7 +52,12 @@ def test_worst_obstruction_radius_and_point_contacts_are_checked():
         [0.0, 1.0]
     ]
     point = np.array([101.0, 0.0, 5.0])
-    with pytest.raises(Exception, match="DEM"):
+    assert bad_intervals(radio.profile(anchor, point, point, "direct"), 0, 1) == [
+        [0.0, 1.0]
+    ]
+    radio.domain = Polygon([[-5, -5], [5, -5], [5, 5], [-5, 5]])
+    point = np.array([9.0, 0.0, 5.0])
+    with pytest.raises(InputNotReady, match="DEM"):
         radio.profile(anchor, point, point, "direct")
 
 
@@ -92,7 +99,7 @@ def joint_case():
         "allow_partial_service": False,
     }
     result = solve(snap, options)
-    assert result["plan"], result
+    assert result["plan"], json.dumps(result, ensure_ascii=False, indent=2)
     return snap, result
 
 
@@ -176,3 +183,78 @@ def test_insufficient_relay_inventory_is_unknown_not_false_infeasible(joint_case
     }
     outcome = solve(changed, options)
     assert outcome["solver_status"] == "UNKNOWN" and outcome["plan"] is None
+    validate_outcome(outcome, changed)
+
+
+def test_bad_joint_optimizer_candidate_is_an_error_not_unknown(joint_case, monkeypatch):
+    import solver.joint
+
+    snap, result = joint_case
+    bad = copy.deepcopy(result["plan"])
+    bad["relay_sorties"][0]["energy_kwh"] = 0
+    monkeypatch.setattr(
+        solver.joint,
+        "schedule",
+        lambda *a, **kw: (
+            bad["sorties"],
+            bad["relay_sorties"],
+            bad["communication_report"],
+            {"status": "FEASIBLE"},
+        ),
+    )
+    options = _options_for(snap, "PLAN-JOINT-BAD")
+    outcome = solve(snap, options)
+    assert outcome["solver_status"] == "ERROR" and outcome["plan"] is None
+    assert outcome["stop_reason"] == "validation_failed"
+    validate_outcome(outcome, snap)
+
+
+def _options_for(snap, identity):
+    return {
+        "schema_version": snap["schema_version"],
+        "snapshot_id": snap["snapshot_id"],
+        "plan_id": identity,
+        "objective": "time",
+        "mode": "quick",
+        "time_limit_s": 45,
+        "seed": 42,
+        "parent_plan_id": None,
+        "event_id": None,
+        "requested_model_scope": [
+            "cargo_unique",
+            "capacity",
+            "inventory",
+            "aircraft",
+            "battery",
+            "time_window",
+            "energy",
+            "terrain",
+            "communication",
+        ],
+        "allow_partial_service": False,
+    }
+
+
+def test_warm_joint_first_feasible_records_baseline_validation_time(joint_case):
+    snap, result = joint_case
+    options = {
+        **_options_for(snap, "PLAN-JOINT-WARM"),
+        "mode": "improve",
+        "time_limit_s": 0.05,
+    }
+    progress = []
+    outcome = solve(snap, options, progress.append, initial_plan=result["plan"])
+    assert outcome["plan"] and outcome["plan"]["plan_id"] == options["plan_id"]
+    assert outcome["first_feasible_s"] <= progress[0]["elapsed_s"]
+    validate_outcome(outcome, snap)
+
+
+def test_heterogeneous_relay_components_keep_individual_energy_physics(joint_case):
+    snap, _ = joint_case
+    changed = copy.deepcopy(snap)
+    changed["scenario"]["communication"]["relay_energy"][0]["soh"] = 0.8
+    changed["content_hash"] = content_hash(changed["scenario"])
+    outcome = solve(changed, _options_for(changed, "PLAN-JOINT-HETERO"))
+    assert outcome["plan"], outcome
+    validate_outcome(outcome, changed)
+    assert validate(changed, outcome["plan"])["status"] == "passed"

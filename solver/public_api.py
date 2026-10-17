@@ -64,6 +64,7 @@ def _outcome(
     first=None,
     count=0,
     validation=None,
+    joint_search=None,
 ):
     return {
         "schema_version": "0.1.0-draft",
@@ -78,6 +79,7 @@ def _outcome(
         "stop_reason": reason,
         "validation": validation or {"status": "not_run", "checks": []},
         "diagnostics": diagnostics or [],
+        **({"joint_search": joint_search} if joint_search is not None else {}),
     }
 
 
@@ -767,6 +769,17 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         )
 
 
+def _joint_search_evidence(details):
+    return {
+        "method": "fixed_grouping_joint_cp_v1",
+        "status": details["status"],
+        "station_count": details.get("stations", 0),
+        "coverage_atom_count": details.get("atoms", 0),
+        "relay_slot_limit": details.get("relay_slots", 0),
+        "stages": details.get("stages", []),
+    }
+
+
 def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
     """Build a private transport relaxation, then independently check the joint plan."""
     import hashlib
@@ -777,6 +790,7 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
     budget = max(0.01, min(float(options["time_limit_s"]), 3600))
     deadline = started + budget * 0.90
     incumbent = None
+    first_verified = None
     if initial_plan is not None:
         fresh_validation = validate(snapshot, initial_plan)
         if (
@@ -791,6 +805,7 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
         incumbent = copy.deepcopy(initial_plan)
         incumbent["validation"] = fresh_validation
         incumbent["solver_status"] = "FEASIBLE"
+        first_verified = time.perf_counter() - started
 
     def progress(message):
         if progress_callback:
@@ -849,14 +864,7 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
                     "relay_sortie_count": len(relays),
                 }
                 candidate["communication_report"] = communication
-                candidate["joint_search"] = {
-                    "method": "fixed_grouping_joint_cp_v1",
-                    "status": details["status"],
-                    "station_count": details.get("stations", 0),
-                    "coverage_atom_count": details.get("atoms", 0),
-                    "relay_slot_limit": details.get("relay_slots", 0),
-                    "stages": details.get("stages", []),
-                }
+                candidate["joint_search"] = _joint_search_evidence(details)
                 candidate["solver_notes"] = [
                     note
                     for note in candidate["solver_notes"]
@@ -878,6 +886,8 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
                         "checks": candidate["validation"]["checks"],
                     }
                     candidate = None
+                elif first_verified is None:
+                    first_verified = time.perf_counter() - started
         except (InputNotReady, TimeoutError) as exc:
             details = {"status": "LIMITED_CANDIDATES_OR_BUDGET", "message": str(exc)}
     if incumbent is not None and (
@@ -894,26 +904,53 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
             "联合深入优化保留已验算基线；有限分解内未找到严格改善。"
         )
     if candidate is None:
+        if details["status"] == "VALIDATION_FAILED":
+            return _outcome(
+                "ERROR",
+                options,
+                started,
+                reason="validation_failed",
+                count=seed["candidate_count"],
+                validation={"status": "failed", "checks": details["checks"]},
+                diagnostics=[
+                    diagnostic(
+                        "VALIDATION_FAILED", "联合候选未通过独立重算，已阻止发布。"
+                    )
+                ],
+                joint_search=_joint_search_evidence(details),
+            )
+        message = details.get("message") or (
+            seed["diagnostics"][0]["message"]
+            if seed["diagnostics"]
+            else f"有限模型状态{details['status']}，检查了{details.get('stations', 0)}个悬停位置。"
+        )
         return _outcome(
             "UNKNOWN",
             options,
             started,
-            reason="time_limit" if time.perf_counter() >= deadline else "finished",
+            reason=(
+                "time_limit"
+                if time.perf_counter() >= deadline
+                or details["status"] in ("UNKNOWN", "BUDGET")
+                else "finished"
+            ),
             count=seed["candidate_count"],
             diagnostics=[
                 diagnostic(
                     "JOINT_CANDIDATE_NOT_FOUND",
-                    "有限联合候选尚未产生通过独立检查的方案：" + str(details),
+                    "当前候选与预算内未得到可验证的联合方案。"
+                    + message
+                    + "这不证明原问题不可行。",
                 )
             ],
+            joint_search=_joint_search_evidence(details),
         )
-    elapsed = time.perf_counter() - started
     return _outcome(
         "FEASIBLE",
         options,
         started,
         plan=candidate,
-        first=elapsed,
+        first=first_verified,
         count=seed["candidate_count"] + 1,
         validation=candidate["validation"],
         reason="time_limit" if time.perf_counter() >= deadline else "finished",

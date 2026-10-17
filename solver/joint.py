@@ -18,6 +18,7 @@ from solver.identities import sortie_id
 from solver.physics import charge_seconds
 from solver.radio import Radio
 from solver.relay import build_atoms, coverage_report, relay_sortie, station_physics
+from solver.resource_pool import InterchangeablePool
 
 SCALE = 100
 
@@ -37,6 +38,7 @@ def schedule(s, transport, options, deadline, progress=None):
 
     config = s["communication"]
     rm = config["relay_model"]
+    limits = s.get("resource_limits")
     if any(
         b["status"] == "charging"
         or (b["status"] == "available" and b["soc"] < 1 - 1e-9)
@@ -153,7 +155,9 @@ def schedule(s, transport, options, deadline, progress=None):
             charge_duration = ceil_tick(
                 charge_seconds(typ, 1 - route["energy_kwh"] / usable)
             )
-            model.add(charging >= end).only_enforce_if(chosen)
+            model.add(charging >= end if limits else charging == end).only_enforce_if(
+                chosen
+            )
             model.add(release == charging + charge_duration).only_enforce_if(chosen)
             model.add(start >= ceil_tick(b["available_after_s"])).only_enforce_if(
                 chosen
@@ -199,6 +203,23 @@ def schedule(s, transport, options, deadline, progress=None):
         model.add_no_overlap(intervals)
     slots = min(12, max(4, len(transport["sorties"])))
     relay_vars, relay_u, relay_b = [], defaultdict(list), defaultdict(list)
+    drone_pool = InterchangeablePool(
+        model, relay_drones, "drone_id", "relay_aircraft", horizon, SCALE
+    )
+    minimum_usable = min(b["capacity_kwh"] * b["soh"] for b in components)
+    uniform_energy = all(
+        math.isclose(
+            b["capacity_kwh"] * b["soh"], minimum_usable, rel_tol=1e-9, abs_tol=1e-9
+        )
+        for b in components
+    )
+    component_pool = (
+        InterchangeablePool(
+            model, components, "component_id", "relay_energy", horizon, SCALE
+        )
+        if uniform_energy
+        else None
+    )
     ready_offsets = [0, *[ceil_tick(st["ready_offset_s"]) for st in stations]]
     arrival_offsets = [0, *[floor_tick(st["arrival_offset_s"]) for st in stations]]
     backs = [0, *[ceil_tick(st["back_s"]) for st in stations]]
@@ -234,7 +255,7 @@ def schedule(s, transport, options, deadline, progress=None):
         model.add(ready == begin + off_ready)
         model.add(finish >= ready)
         model.add(returned == finish + off_back)
-        model.add(charging >= returned)
+        model.add(charging >= returned if limits else charging == returned)
         model.add(component_end == charging + ceil_tick(rm["full_charge_s"]) * used)
         nano = model.new_int_var(
             0,
@@ -246,44 +267,39 @@ def schedule(s, transport, options, deadline, progress=None):
         model.add_division_equality(energy_unit, nano + 999999, 1000000)
         relay_energy_units.append(energy_unit)
         us, bs = [], []
-        for u in relay_drones:
-            chosen = model.new_bool_var(f"ru{j}_{u['drone_id']}")
-            model.add(begin >= ceil_tick(u["available_after_s"])).only_enforce_if(
-                chosen
-            )
-            end_u = model.new_int_var(0, horizon, f"rue{j}_{u['drone_id']}")
-            size = model.new_int_var(0, horizon, f"ruz{j}_{u['drone_id']}")
+        drone_end = model.new_int_var(0, horizon, f"rue{j}")
+        model.add(drone_end == returned + ceil_tick(rm["turnaround_duration_s"]) * used)
+        drone_pool.add(begin, drone_end, used, str(j))
+        if component_pool is not None:
             model.add(
-                end_u == returned + ceil_tick(rm["turnaround_duration_s"])
-            ).only_enforce_if(chosen)
-            model.add(size == end_u - begin).only_enforce_if(chosen)
-            relay_u[u["drone_id"]].append(
-                model.new_optional_interval_var(
-                    begin, size, end_u, chosen, f"rui{j}_{u['drone_id']}"
+                nano <= math.floor((1 - rm["min_return_soc"]) * minimum_usable * 1e9)
+            ).only_enforce_if(used)
+            component_pool.add(begin, component_end, used, str(j))
+        else:
+            for b in components:
+                chosen = model.new_bool_var(f"rk{j}_{b['component_id']}")
+                model.add(begin >= ceil_tick(b["available_after_s"])).only_enforce_if(
+                    chosen
                 )
-            )
-            us.append((u["drone_id"], chosen))
-        for b in components:
-            chosen = model.new_bool_var(f"rk{j}_{b['component_id']}")
-            model.add(begin >= ceil_tick(b["available_after_s"])).only_enforce_if(
-                chosen
-            )
-            model.add(
-                nano
-                <= math.floor(
-                    (1 - rm["min_return_soc"]) * b["capacity_kwh"] * b["soh"] * 1e9
+                model.add(
+                    nano
+                    <= math.floor(
+                        (1 - rm["min_return_soc"]) * b["capacity_kwh"] * b["soh"] * 1e9
+                    )
+                ).only_enforce_if(chosen)
+                size = model.new_int_var(0, horizon, f"rkz{j}_{b['component_id']}")
+                model.add(size == component_end - begin).only_enforce_if(chosen)
+                relay_b[b["component_id"]].append(
+                    model.new_optional_interval_var(
+                        begin,
+                        size,
+                        component_end,
+                        chosen,
+                        f"rki{j}_{b['component_id']}",
+                    )
                 )
-            ).only_enforce_if(chosen)
-            size = model.new_int_var(0, horizon, f"rkz{j}_{b['component_id']}")
-            model.add(size == component_end - begin).only_enforce_if(chosen)
-            relay_b[b["component_id"]].append(
-                model.new_optional_interval_var(
-                    begin, size, component_end, chosen, f"rki{j}_{b['component_id']}"
-                )
-            )
-            bs.append((b, chosen))
-        model.add(sum(v for _, v in us) == used)
-        model.add(sum(v for _, v in bs) == used)
+                bs.append((b, chosen))
+            model.add(sum(v for _, v in bs) == used)
         prep_windows.append(
             model.new_optional_fixed_size_interval_var(
                 begin, ceil_tick(rm["prepare_duration_s"]), used, f"rp{j}"
@@ -312,16 +328,25 @@ def schedule(s, transport, options, deadline, progress=None):
         )
     for intervals in [*relay_u.values(), *relay_b.values()]:
         model.add_no_overlap(intervals)
+    drone_pool.constrain()
+    if component_pool is not None:
+        component_pool.constrain()
     used_by_slot = [[] for _ in relay_vars]
+    allowed_cache = {}
     for i, route_atoms in enumerate(atoms):
         for k, atom in enumerate(route_atoms):
             selections = []
             for j, relay in enumerate(relay_vars):
                 chosen = model.new_bool_var(f"cover{i}_{k}_{j}")
                 model.add(chosen <= relay["used"])
-                model.add_allowed_assignments(
-                    [relay["loc"]], [[index + 1] for index in atom["stations"]]
-                ).only_enforce_if(chosen)
+                signature = j, tuple(atom["stations"])
+                if signature not in allowed_cache:
+                    allowed = model.new_bool_var(f"allowed{len(allowed_cache)}")
+                    model.add_allowed_assignments(
+                        [relay["loc"]], [[index + 1] for index in atom["stations"]]
+                    ).only_enforce_if(allowed)
+                    allowed_cache[signature] = allowed
+                model.add(chosen <= allowed_cache[signature])
                 model.add(
                     relay["ready"] <= starts[i] + floor_tick(atom["start_s"])
                 ).only_enforce_if(chosen)
@@ -476,11 +501,23 @@ def schedule(s, transport, options, deadline, progress=None):
         if not solved.value(v["used"]):
             continue
         station = stations[solved.value(v["loc"]) - 1]
-        uid = next(uid for uid, chosen in v["us"] if solved.value(chosen))
-        component = next(b for b, chosen in v["bs"] if solved.value(chosen))
         start, finish, charge_start = [
             solved.value(v[key]) / SCALE for key in ["begin", "finish", "charging"]
         ]
+        uid = drone_pool.assign(
+            start, finish + station["back_s"] + rm["turnaround_duration_s"]
+        )
+        if not limits:
+            charge_start = finish + station["back_s"]
+        if component_pool is not None:
+            # CP used the full-charge upper bound; actual two-stage release is
+            # earlier. Coloring the conservative envelope remains exact/safe.
+            component_id = component_pool.assign(
+                start, charge_start + rm["full_charge_s"]
+            )
+            component = next(b for b in components if b["component_id"] == component_id)
+        else:
+            component = next(b for b, chosen in v["bs"] if solved.value(chosen))
         identity = (
             "RLY-"
             + hashlib.sha256(

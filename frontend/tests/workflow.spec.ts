@@ -57,6 +57,11 @@ test('连续通信联合调度、真实中继地图与资源窗口、确认及�
     preferCSSPageSize: true,
   })
   await report.close()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await page.getByRole('button', { name: '中继能源', exact: true }).click()
+  await expect(page.locator('.analysis-resource-scroll')).toContainText('R-COMP-01')
+  await screenshot(page, 'joint-resource-analysis-1440')
   await page.reload()
   await expect(page.getByRole('region', { name: '通信协同结果' })).toContainText('模型内无通信缺口')
   await page.setViewportSize({ width: 1280, height: 720 })

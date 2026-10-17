@@ -90,6 +90,9 @@
         "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/diagnostic"
       },
       "minItems": 0
+    },
+    "joint_search": {
+      "$ref": "https://yuanhang.example/contracts/plan.schema.json#/properties/joint_search"
     }
   },
   "required": [

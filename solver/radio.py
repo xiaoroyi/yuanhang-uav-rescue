@@ -287,18 +287,24 @@ class Radio:
         key = (*a, *p0, *p1, kind)
         if key in self.cache:
             return self.cache[key]
+        rb, rc = self.radii[kind]
+        v, w = p1 - p0, p0 - a
+        aa, bb, cc = np.dot(v, v), 2 * np.dot(w, v), np.dot(w, w)
+        u = np.clip(-bb / (2 * aa), 0, 1) if aa > 1e-18 else 0
+        if np.linalg.norm(w + u * v) > rc:
+            # Free-space loss alone already exceeds the threshold. This can
+            # reject a link without terrain, but can never certify availability.
+            result = {"pieces": [[0.0, 1.0, False]], "events": [0.0, 1.0]}
+            self.cache[key] = result
+            return result
         if not self.domain.covers(MultiPoint([a[:2], p0[:2], p1[:2]]).convex_hull):
             raise InputNotReady(
                 "通信视线扫掠范围超出投影DEM，不能用范围外未知高程认证。"
             )
-        rb, rc = self.radii[kind]
-        v, w = p1 - p0, p0 - a
-        aa, bb, cc = np.dot(v, v), 2 * np.dot(w, v), np.dot(w, w)
         if max(np.linalg.norm(w), np.linalg.norm(p1 - a)) <= rb:
-            return {"pieces": [[0.0, 1.0, True]], "events": []}
-        u = np.clip(-bb / (2 * aa), 0, 1) if aa > 1e-18 else 0
-        if np.linalg.norm(w + u * v) > rc:
-            return {"pieces": [[0.0, 1.0, False]], "events": [0.0, 1.0]}
+            result = {"pieces": [[0.0, 1.0, True]], "events": []}
+            self.cache[key] = result
+            return result
         vertices, heights = self.cells(a, p0, p1)
         blocked = merge(swept_blocked(a, p0, p1, vertices, heights))
         cuts = [0.0, 1.0, *[u for pair in blocked for u in pair]]

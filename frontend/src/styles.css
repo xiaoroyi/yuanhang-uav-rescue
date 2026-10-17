@@ -4060,6 +4060,13 @@ input[type='checkbox'] {
   margin-top: 20px;
   overflow: hidden;
 }
+.utilization-panel .panel-heading {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.utilization-panel .segmented {
+  flex-wrap: wrap;
+}
 .map-marker-relay .map-marker-dot {
   background: #8970ae;
   color: white;

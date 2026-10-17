@@ -11,6 +11,7 @@ import {
   LoaderCircle,
   PackagePlus,
   Plane,
+  RadioTower,
   ShieldCheck,
   TriangleAlert,
   X,
@@ -108,7 +109,7 @@ function UtilizationChart({ data }: { data: PlanAnalysis['resources'] }) {
 
 export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Props) {
   const query = useQueryClient()
-  const [kind, setKind] = useState<'drone' | 'battery'>('drone'),
+  const [kind, setKind] = useState<PlanAnalysis['resources'][number]['kind']>('drone'),
     [filter, setFilter] = useState<'all' | 'late' | 'hard'>('all')
   const [type, setType] = useState(
     () =>
@@ -157,8 +158,12 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
     enabled: !!jobId && job.data?.job_state === 'completed' && !job.data.plan_id,
   })
   const rows = useMemo(
-    () => analysis.data?.resources.filter((r) => r.kind === kind) || [],
-    [analysis.data, kind],
+    () =>
+      analysis.data?.resources.filter(
+        (r) =>
+          r.kind === (plan?.communication_report || !kind.startsWith('relay') ? kind : 'drone'),
+      ) || [],
+    [analysis.data, kind, plan?.communication_report],
   )
   const running =
     submitting || historyBusy || !!(job.data && ['queued', 'running'].includes(job.data.job_state))
@@ -308,7 +313,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
           </span>
           <strong>
             {a.charge_peak}
-            <em>块电池</em>
+            <em>{plan.communication_report ? '个能源资源' : '块电池'}</em>
           </strong>
           <small>
             {a.resource_limits
@@ -323,11 +328,15 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
             <div className="panel-heading">
               <div>
                 <h3>计划资源占用</h3>
-                <p>占用包括准备与执行；电池额外包含本次补能</p>
+                <p>占用包括准备、执行与周转；能源资源另含等待和补能</p>
               </div>
               <div className="segmented">
                 <button
-                  className={kind === 'drone' ? 'active' : ''}
+                  className={
+                    kind === 'drone' || (!plan.communication_report && kind.startsWith('relay'))
+                      ? 'active'
+                      : ''
+                  }
                   onClick={() => setKind('drone')}
                 >
                   <Plane size={14} />
@@ -340,6 +349,24 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   <BatteryCharging size={14} />
                   电池
                 </button>
+                {plan.communication_report && (
+                  <>
+                    <button
+                      className={kind === 'relay_drone' ? 'active' : ''}
+                      onClick={() => setKind('relay_drone')}
+                    >
+                      <RadioTower size={14} />
+                      中继机
+                    </button>
+                    <button
+                      className={kind === 'relay_energy' ? 'active' : ''}
+                      onClick={() => setKind('relay_energy')}
+                    >
+                      <BatteryCharging size={14} />
+                      中继能源
+                    </button>
+                  </>
+                )}
               </div>
             </div>
             <UtilizationChart data={rows} />

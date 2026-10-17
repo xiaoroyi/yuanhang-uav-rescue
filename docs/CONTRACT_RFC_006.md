@@ -13,3 +13,5 @@ Plan可选joint_metrics记录relay_energy_kwh、joint_energy_kwh、joint_makespa
 第一版联合求解是有限运输组批/访问顺序与有限悬停位置上的分解调度：先生成运输候选，再联合调整开始时刻与两类实体资源。未找到解只表示当前分解/候选/预算内未找到，不能称原问题不可行。只支持初始满SOC、基地未执行状态；动态机体故障采用完整联合重算，暂不承诺局部保留中继方案或执行中调度。
 
 本RFC必须与生成类型、独立负例、后端任务、地图/时间轴、指标和导出共同落地，未接通前capabilities不宣称relay_coordination已可用。
+
+实现补充：joint_search在Plan及无解SolverOutcome中可选提供，用于保存有限候选数量和各阶段状态；缺省旧Outcome不追加该字段。独立校验失败返回ERROR/validation_failed，不能降格为普通UNKNOWN；继承基线的first_feasible_s记录重新验证基线的时刻。CLI使用实际UTC创建时间和唯一ID。

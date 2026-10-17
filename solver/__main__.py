@@ -1,6 +1,8 @@
 import argparse
 import json
 from pathlib import Path
+from datetime import datetime, timezone
+import uuid
 
 from shared.contracts import content_hash
 from solver.adapters.contest import (
@@ -37,11 +39,11 @@ def main():
         s["policy"]["requires_communication"] = True
     snapshot = {
         "schema_version": s["schema_version"],
-        "snapshot_id": "SNAP-CLI-001",
+        "snapshot_id": "SNAP-CLI-" + uuid.uuid4().hex[:16].upper(),
         "scenario_id": s["scenario_id"],
         "scenario_state_version": s["state_version"],
         "content_hash": content_hash(s),
-        "created_at": "2026-10-17T08:00:00+08:00",
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "scenario": s,
     }
     scope = [
@@ -58,7 +60,7 @@ def main():
     scope += ["ground_resource"] if s.get("resource_limits") else []
     options = {
         "schema_version": s["schema_version"],
-        "plan_id": "PLAN-CLI-001",
+        "plan_id": "PLAN-CLI-" + uuid.uuid4().hex[:16].upper(),
         "snapshot_id": snapshot["snapshot_id"],
         "objective": args.objective,
         "mode": "quick",
