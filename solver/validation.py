@@ -41,6 +41,8 @@ def validate(snapshot, plan):
         add("cargo_unique", "failed", str(exc))
         return {"status": "failed", "checks": checks}
     s = snapshot["scenario"]
+    if not s["base"]["available"]:
+        add("inventory", "failed", "调度基地不可用，不能发布运输方案")
     types = {t["type_id"]: t for t in s["drone_types"]}
     drones = {d["drone_id"]: d for d in s["drones"]}
     batteries = {b["battery_id"]: b for b in s["batteries"]}
@@ -219,9 +221,13 @@ def validate(snapshot, plan):
         ),
     )
     add("communication", "not_evaluated", "当前运输求解未接入连续无线链路认证")
-    required = BASE_SCOPE + [
-        d for d in ["terrain", "communication"] if s["policy"]["requires_" + d]
-    ]
+    required = sorted(
+        set(
+            BASE_SCOPE
+            + plan["model_scope"]
+            + [d for d in ["terrain", "communication"] if s["policy"]["requires_" + d]]
+        )
+    )
     failed = any(c["status"] == "failed" for c in checks)
     complete = all(
         any(c["code"] == code and c["status"] == "passed" for c in checks)

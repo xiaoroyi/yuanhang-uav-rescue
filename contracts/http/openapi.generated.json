@@ -210,6 +210,182 @@
         }
       }
     },
+    "/api/v1/plans/{plan_id}/analysis": {
+      "get": {
+        "summary": "Plan Analysis",
+        "operationId": "plan_analysis_api_v1_plans__plan_id__analysis_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanAnalysis"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/what-if": {
+      "post": {
+        "summary": "What If",
+        "operationId": "what_if_api_v1_scenarios__scenario_id__what_if_post",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WhatIfRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhatIfReceipt"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "What If History",
+        "operationId": "what_if_history_api_v1_scenarios__scenario_id__what_if_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WhatIfHistory"
+                  },
+                  "title": "Response What If History Api V1 Scenarios  Scenario Id  What If Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/origin": {
+      "get": {
+        "summary": "Scenario Origin",
+        "operationId": "scenario_origin_api_v1_scenarios__scenario_id__origin_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ScenarioOrigin"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Scenario Origin Api V1 Scenarios  Scenario Id  Origin Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/scenarios/import-file": {
       "post": {
         "summary": "Import File",
@@ -1534,6 +1710,52 @@
         ],
         "title": "ChargeModel"
       },
+      "ChargeWindow": {
+        "properties": {
+          "battery_id": {
+            "type": "string",
+            "title": "Battery Id"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "start_s": {
+            "type": "number",
+            "title": "Start S"
+          },
+          "end_s": {
+            "type": "number",
+            "title": "End S"
+          },
+          "is_initial": {
+            "type": "boolean",
+            "title": "Is Initial"
+          },
+          "sortie_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sortie Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "battery_id",
+          "type_id",
+          "start_s",
+          "end_s",
+          "is_initial",
+          "sortie_id"
+        ],
+        "title": "ChargeWindow"
+      },
       "Check": {
         "properties": {
           "code": {
@@ -1801,6 +2023,43 @@
         ],
         "title": "DataOrigin1"
       },
+      "DeliveryAnalysis": {
+        "properties": {
+          "demands": {
+            "items": {
+              "$ref": "#/components/schemas/DemandDelivery"
+            },
+            "type": "array",
+            "title": "Demands"
+          },
+          "weighted_box_delay_s": {
+            "type": "number",
+            "title": "Weighted Box Delay S"
+          },
+          "late_demand_count": {
+            "type": "integer",
+            "title": "Late Demand Count"
+          },
+          "expected_demand_count": {
+            "type": "integer",
+            "title": "Expected Demand Count"
+          },
+          "hard_violation_count": {
+            "type": "integer",
+            "title": "Hard Violation Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demands",
+          "weighted_box_delay_s",
+          "late_demand_count",
+          "expected_demand_count",
+          "hard_violation_count"
+        ],
+        "title": "DeliveryAnalysis"
+      },
       "Demand": {
         "properties": {
           "demand_id": {
@@ -1874,6 +2133,95 @@
           "mandatory"
         ],
         "title": "Demand"
+      },
+      "DemandDelivery": {
+        "properties": {
+          "demand_id": {
+            "type": "string",
+            "title": "Demand Id"
+          },
+          "site_id": {
+            "type": "string",
+            "title": "Site Id"
+          },
+          "required_quantity": {
+            "type": "integer",
+            "title": "Required Quantity"
+          },
+          "served_quantity": {
+            "type": "integer",
+            "title": "Served Quantity"
+          },
+          "complete_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Complete S"
+          },
+          "expected_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Deadline S"
+          },
+          "hard_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hard Deadline S"
+          },
+          "delay_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delay S"
+          },
+          "hard_satisfied": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hard Satisfied"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "demand_id",
+          "site_id",
+          "required_quantity",
+          "served_quantity",
+          "complete_s",
+          "expected_deadline_s",
+          "hard_deadline_s",
+          "delay_s",
+          "hard_satisfied"
+        ],
+        "title": "DemandDelivery"
       },
       "Drone": {
         "properties": {
@@ -2600,6 +2948,91 @@
         ],
         "title": "Plan"
       },
+      "PlanAnalysis": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "model_scope": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Model Scope"
+          },
+          "delivery": {
+            "$ref": "#/components/schemas/DeliveryAnalysis"
+          },
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceUsage"
+            },
+            "type": "array",
+            "title": "Resources"
+          },
+          "charge_windows": {
+            "items": {
+              "$ref": "#/components/schemas/ChargeWindow"
+            },
+            "type": "array",
+            "title": "Charge Windows"
+          },
+          "charge_peak": {
+            "type": "integer",
+            "title": "Charge Peak"
+          },
+          "charge_peak_by_type": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Charge Peak By Type"
+          },
+          "min_hard_slack_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Hard Slack S"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "snapshot_id",
+          "scenario_state_version",
+          "model_scope",
+          "delivery",
+          "resources",
+          "charge_windows",
+          "charge_peak",
+          "charge_peak_by_type",
+          "min_hard_slack_s",
+          "notes"
+        ],
+        "title": "PlanAnalysis"
+      },
       "PlanSummary": {
         "properties": {
           "plan_id": {
@@ -2847,6 +3280,104 @@
         "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
         "title": "RemovedSortieId"
       },
+      "ResourceAddition": {
+        "properties": {
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "drones": {
+            "type": "integer",
+            "maximum": 4.0,
+            "minimum": 0.0,
+            "title": "Drones",
+            "default": 0
+          },
+          "batteries": {
+            "type": "integer",
+            "maximum": 8.0,
+            "minimum": 0.0,
+            "title": "Batteries",
+            "default": 0
+          },
+          "battery_capacity_kwh": {
+            "anyOf": [
+              {
+                "type": "number",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Battery Capacity Kwh"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type_id"
+        ],
+        "title": "ResourceAddition"
+      },
+      "ResourceUsage": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "drone",
+              "battery"
+            ],
+            "title": "Kind"
+          },
+          "resource_id": {
+            "type": "string",
+            "title": "Resource Id"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "sortie_count": {
+            "type": "integer",
+            "title": "Sortie Count"
+          },
+          "occupied_s": {
+            "type": "number",
+            "title": "Occupied S"
+          },
+          "flight_s": {
+            "type": "number",
+            "title": "Flight S"
+          },
+          "energy_kwh": {
+            "type": "number",
+            "title": "Energy Kwh"
+          },
+          "horizon_s": {
+            "type": "number",
+            "title": "Horizon S"
+          },
+          "utilization": {
+            "type": "number",
+            "title": "Utilization"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "resource_id",
+          "type_id",
+          "sortie_count",
+          "occupied_s",
+          "flight_s",
+          "energy_kwh",
+          "horizon_s",
+          "utilization"
+        ],
+        "title": "ResourceUsage"
+      },
       "RouteGeometry": {
         "properties": {
           "type": {
@@ -2997,6 +3528,66 @@
           "policy"
         ],
         "title": "Scenario"
+      },
+      "ScenarioOrigin": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "what_if",
+            "title": "Kind",
+            "default": "what_if"
+          },
+          "source_scenario_id": {
+            "type": "string",
+            "title": "Source Scenario Id"
+          },
+          "source_state_version": {
+            "type": "integer",
+            "title": "Source State Version"
+          },
+          "source_content_hash": {
+            "type": "string",
+            "title": "Source Content Hash"
+          },
+          "source_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Plan Id"
+          },
+          "transformation_version": {
+            "type": "string",
+            "const": "what_if_v1",
+            "title": "Transformation Version",
+            "default": "what_if_v1"
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/WhatIfRequest"
+          },
+          "changes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Changes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_scenario_id",
+          "source_state_version",
+          "source_content_hash",
+          "source_plan_id",
+          "parameters",
+          "changes"
+        ],
+        "title": "ScenarioOrigin"
       },
       "ScenarioSummary": {
         "properties": {
@@ -3856,6 +4447,155 @@
           "delivery_complete_s"
         ],
         "title": "Visit"
+      },
+      "WhatIfHistory": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/ScenarioOrigin"
+          },
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SolveJob"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Plan"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "name",
+          "scenario_state_version",
+          "origin",
+          "job",
+          "plan"
+        ],
+        "title": "WhatIfHistory"
+      },
+      "WhatIfReceipt": {
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/Scenario"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/ScenarioOrigin"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario",
+          "origin"
+        ],
+        "title": "WhatIfReceipt"
+      },
+      "WhatIfRequest": {
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected State Version"
+          },
+          "source_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Plan Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "default": "资源与余量试算"
+          },
+          "additions": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceAddition"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Additions"
+          },
+          "energy_multiplier": {
+            "type": "number",
+            "maximum": 4.0,
+            "minimum": 0.25,
+            "title": "Energy Multiplier",
+            "default": 1
+          },
+          "flight_time_multiplier": {
+            "type": "number",
+            "maximum": 4.0,
+            "minimum": 0.25,
+            "title": "Flight Time Multiplier",
+            "default": 1
+          },
+          "battery_soh_multiplier": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.1,
+            "title": "Battery Soh Multiplier",
+            "default": 1
+          },
+          "min_return_soc": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Return Soc"
+          },
+          "noncritical_deadline_multiplier": {
+            "type": "number",
+            "maximum": 3.0,
+            "minimum": 1.0,
+            "title": "Noncritical Deadline Multiplier",
+            "default": 1
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_state_version"
+        ],
+        "title": "WhatIfRequest"
       }
     }
   }

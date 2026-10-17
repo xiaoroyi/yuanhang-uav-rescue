@@ -122,12 +122,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 15101,
+                  "duration": 15302,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T16:37:12.682Z",
+                  "startTime": "2026-10-17T17:08:53.768Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,7 +137,7 @@
           ],
           "id": "c601ceb5ecfc8efa4a14-a41c63e0a00922aa52a5",
           "file": "workflow.spec.ts",
-          "line": 31,
+          "line": 34,
           "column": 1
         },
         {
@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8075,
+                  "duration": 12748,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T16:37:28.243Z",
+                  "startTime": "2026-10-17T17:09:09.416Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -171,7 +171,7 @@
           ],
           "id": "c601ceb5ecfc8efa4a14-a0f07487d34ef4a7e114",
           "file": "workflow.spec.ts",
-          "line": 72,
+          "line": 75,
           "column": 1
         },
         {
@@ -190,12 +190,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 13050,
+                  "duration": 13165,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T16:37:36.329Z",
+                  "startTime": "2026-10-17T17:09:22.173Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -205,7 +205,7 @@
           ],
           "id": "c601ceb5ecfc8efa4a14-b0f31ad25e71986fd6fd",
           "file": "workflow.spec.ts",
-          "line": 103,
+          "line": 108,
           "column": 1
         },
         {
@@ -224,12 +224,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 9113,
+                  "duration": 9320,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T16:37:49.388Z",
+                  "startTime": "2026-10-17T17:09:35.347Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -239,7 +239,75 @@
           ],
           "id": "c601ceb5ecfc8efa4a14-ff30d1760fb0d6ce1884",
           "file": "workflow.spec.ts",
-          "line": 125,
+          "line": 130,
+          "column": 1
+        },
+        {
+          "title": "资源分析绑定基线快照，增配试算创建独立场景并真实求解",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11964,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T17:09:44.678Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-4c4fddffa3ced1dae6ea",
+          "file": "workflow.spec.ts",
+          "line": 142,
+          "column": 1
+        },
+        {
+          "title": "三档压力测试分别真实计算，刷新后保留各情景历史",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12279,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T17:09:56.653Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-4cd69db5ce0f464e5774",
+          "file": "workflow.spec.ts",
+          "line": 171,
           "column": 1
         }
       ]
@@ -247,9 +315,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T16:37:11.975Z",
-    "duration": 46785.902,
-    "expected": 4,
+    "startTime": "2026-10-17T17:08:53.342Z",
+    "duration": 75858.089,
+    "expected": 6,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

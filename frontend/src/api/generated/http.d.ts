@@ -135,6 +135,58 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/plans/{plan_id}/analysis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Plan Analysis */
+        get: operations["plan_analysis_api_v1_plans__plan_id__analysis_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/what-if": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** What If History */
+        get: operations["what_if_history_api_v1_scenarios__scenario_id__what_if_get"];
+        put?: never;
+        /** What If */
+        post: operations["what_if_api_v1_scenarios__scenario_id__what_if_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/origin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scenario Origin */
+        get: operations["scenario_origin_api_v1_scenarios__scenario_id__origin_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/scenarios/import-file": {
         parameters: {
             query?: never;
@@ -598,6 +650,21 @@ export interface components {
                 [key: string]: number;
             };
         };
+        /** ChargeWindow */
+        ChargeWindow: {
+            /** Battery Id */
+            battery_id: string;
+            /** Type Id */
+            type_id: string;
+            /** Start S */
+            start_s: number;
+            /** End S */
+            end_s: number;
+            /** Is Initial */
+            is_initial: boolean;
+            /** Sortie Id */
+            sortie_id: string | null;
+        };
         /** Check */
         Check: {
             code: components["schemas"]["Code"];
@@ -692,6 +759,19 @@ export interface components {
          * @enum {string}
          */
         DataOrigin1: "mock" | "user_input" | "verified_dataset";
+        /** DeliveryAnalysis */
+        DeliveryAnalysis: {
+            /** Demands */
+            demands: components["schemas"]["DemandDelivery"][];
+            /** Weighted Box Delay S */
+            weighted_box_delay_s: number;
+            /** Late Demand Count */
+            late_demand_count: number;
+            /** Expected Demand Count */
+            expected_demand_count: number;
+            /** Hard Violation Count */
+            hard_violation_count: number;
+        };
         /** Demand */
         Demand: {
             /** Demand Id */
@@ -710,6 +790,27 @@ export interface components {
             hard_deadline_s: number | null;
             /** Mandatory */
             mandatory: boolean;
+        };
+        /** DemandDelivery */
+        DemandDelivery: {
+            /** Demand Id */
+            demand_id: string;
+            /** Site Id */
+            site_id: string;
+            /** Required Quantity */
+            required_quantity: number;
+            /** Served Quantity */
+            served_quantity: number;
+            /** Complete S */
+            complete_s: number | null;
+            /** Expected Deadline S */
+            expected_deadline_s: number | null;
+            /** Hard Deadline S */
+            hard_deadline_s: number | null;
+            /** Delay S */
+            delay_s: number | null;
+            /** Hard Satisfied */
+            hard_satisfied: boolean | null;
         };
         /** Drone */
         Drone: {
@@ -957,6 +1058,32 @@ export interface components {
             event_id: string | null;
             change_summary: components["schemas"]["ChangeSummary"] | null;
         };
+        /** PlanAnalysis */
+        PlanAnalysis: {
+            /** Plan Id */
+            plan_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            /** Model Scope */
+            model_scope: string[];
+            delivery: components["schemas"]["DeliveryAnalysis"];
+            /** Resources */
+            resources: components["schemas"]["ResourceUsage"][];
+            /** Charge Windows */
+            charge_windows: components["schemas"]["ChargeWindow"][];
+            /** Charge Peak */
+            charge_peak: number;
+            /** Charge Peak By Type */
+            charge_peak_by_type: {
+                [key: string]: number;
+            };
+            /** Min Hard Slack S */
+            min_hard_slack_s: number | null;
+            /** Notes */
+            notes: string[];
+        };
         /** PlanSummary */
         PlanSummary: {
             /** Plan Id */
@@ -1057,6 +1184,47 @@ export interface components {
         };
         /** RemovedSortieId */
         RemovedSortieId: string;
+        /** ResourceAddition */
+        ResourceAddition: {
+            /** Type Id */
+            type_id: string;
+            /**
+             * Drones
+             * @default 0
+             */
+            drones: number;
+            /**
+             * Batteries
+             * @default 0
+             */
+            batteries: number;
+            /** Battery Capacity Kwh */
+            battery_capacity_kwh?: number | null;
+        };
+        /** ResourceUsage */
+        ResourceUsage: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "drone" | "battery";
+            /** Resource Id */
+            resource_id: string;
+            /** Type Id */
+            type_id: string;
+            /** Sortie Count */
+            sortie_count: number;
+            /** Occupied S */
+            occupied_s: number;
+            /** Flight S */
+            flight_s: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Horizon S */
+            horizon_s: number;
+            /** Utilization */
+            utilization: number;
+        };
         /** RouteGeometry */
         RouteGeometry: {
             /**
@@ -1109,6 +1277,32 @@ export interface components {
             /** Batteries */
             batteries: components["schemas"]["Battery"][];
             policy: components["schemas"]["Policy"];
+        };
+        /** ScenarioOrigin */
+        ScenarioOrigin: {
+            /**
+             * Kind
+             * @default what_if
+             * @constant
+             */
+            kind: "what_if";
+            /** Source Scenario Id */
+            source_scenario_id: string;
+            /** Source State Version */
+            source_state_version: number;
+            /** Source Content Hash */
+            source_content_hash: string;
+            /** Source Plan Id */
+            source_plan_id: string | null;
+            /**
+             * Transformation Version
+             * @default what_if_v1
+             * @constant
+             */
+            transformation_version: "what_if_v1";
+            parameters: components["schemas"]["WhatIfRequest"];
+            /** Changes */
+            changes: string[];
         };
         /** ScenarioSummary */
         ScenarioSummary: {
@@ -1390,6 +1584,59 @@ export interface components {
             /** Delivery Complete S */
             delivery_complete_s: number;
         };
+        /** WhatIfHistory */
+        WhatIfHistory: {
+            /** Scenario Id */
+            scenario_id: string;
+            /** Name */
+            name: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            origin: components["schemas"]["ScenarioOrigin"];
+            job: components["schemas"]["SolveJob"] | null;
+            plan: components["schemas"]["Plan"] | null;
+        };
+        /** WhatIfReceipt */
+        WhatIfReceipt: {
+            scenario: components["schemas"]["Scenario"];
+            origin: components["schemas"]["ScenarioOrigin"];
+        };
+        /** WhatIfRequest */
+        WhatIfRequest: {
+            /** Expected State Version */
+            expected_state_version: number;
+            /** Source Plan Id */
+            source_plan_id?: string | null;
+            /**
+             * Name
+             * @default 资源与余量试算
+             */
+            name: string;
+            /** Additions */
+            additions?: components["schemas"]["ResourceAddition"][];
+            /**
+             * Energy Multiplier
+             * @default 1
+             */
+            energy_multiplier: number;
+            /**
+             * Flight Time Multiplier
+             * @default 1
+             */
+            flight_time_multiplier: number;
+            /**
+             * Battery Soh Multiplier
+             * @default 1
+             */
+            battery_soh_multiplier: number;
+            /** Min Return Soc */
+            min_return_soc?: number | null;
+            /**
+             * Noncritical Deadline Multiplier
+             * @default 1
+             */
+            noncritical_deadline_multiplier: number;
+        };
     };
     responses: never;
     parameters: never;
@@ -1583,6 +1830,134 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Playback"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    plan_analysis_api_v1_plans__plan_id__analysis_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    what_if_history_api_v1_scenarios__scenario_id__what_if_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WhatIfHistory"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    what_if_api_v1_scenarios__scenario_id__what_if_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WhatIfRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WhatIfReceipt"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scenario_origin_api_v1_scenarios__scenario_id__origin_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioOrigin"] | null;
                 };
             };
             /** @description Validation Error */

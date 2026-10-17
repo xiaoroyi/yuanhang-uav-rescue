@@ -31,6 +31,12 @@ class VersionRow(Base):
     content_hash: Mapped[str] = mapped_column(String)
 
 
+class ScenarioForkRow(Base):
+    __tablename__ = "scenario_forks"
+    scenario_id: Mapped[str] = mapped_column(String, primary_key=True)
+    origin: Mapped[dict] = mapped_column(JSON)
+
+
 class SnapshotRow(Base):
     __tablename__ = "snapshots"
     id: Mapped[str] = mapped_column(String, primary_key=True)

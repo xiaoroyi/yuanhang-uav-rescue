@@ -18,6 +18,6 @@
   "type_generation": {
     "python": "JSON Schema -> generated Pydantic in backend; solver uses JSON mappings",
     "typescript": "JSON Schema -> shared domain types; implemented OpenAPI -> HTTP types",
-    "status": "planned_not_generated"
+    "status": "generated_on_implementation_branch_pending_team_review"
   }
 }

@@ -41,6 +41,7 @@ import { Badge, Button, Empty, Modal, Toasts, type ToastMessage } from './compon
 import { RescueMap } from './components/RescueMap'
 import { ResourceTimeline } from './components/ResourceTimeline'
 import { ScenarioEditor } from './pages/ScenarioEditor'
+import { ResourceAnalysis } from './pages/ResourceAnalysis'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
 
 type Page = 'workspace' | 'scenario' | 'events'
@@ -49,6 +50,7 @@ const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced
 export default function App() {
   const query = useQueryClient()
   const [page, setPage] = useState<Page>('workspace'),
+    [eventTab, setEventTab] = useState<'events' | 'analysis'>('events'),
     [scenarioId, setScenarioId] = useState(() => localStorage.getItem('yuanhang-scenario') || ''),
     [planId, setPlanId] = useState(''),
     [jobId, setJobId] = useState(''),
@@ -90,6 +92,11 @@ export default function App() {
     queryKey: ['plan', previousId],
     queryFn: () => api.plan(previousId),
     enabled: !!previousId,
+  })
+  const planSnapshot = useQuery({
+    queryKey: ['snapshot', planQuery.data?.snapshot_id],
+    queryFn: () => api.getSnapshot(planQuery.data!.snapshot_id),
+    enabled: !!planQuery.data,
   })
   const events = useQuery({
     queryKey: ['events', scenarioId],
@@ -134,6 +141,7 @@ export default function App() {
   const scenario = sceneQuery.data,
     plan = planQuery.data?.scenario_id === scenarioId ? planQuery.data : null,
     oldPlan = oldQuery.data
+  const viewScenario = plan ? planSnapshot.data?.scenario || scenario : scenario
   const isBusy = !!(
     submitting ||
     (job.data &&
@@ -269,7 +277,7 @@ export default function App() {
   }, [playing, plan])
 
   async function runSolver(objective: 'time' | 'energy' | 'balanced') {
-    if (!scenario || isBusy) return
+    if (!scenario || isBusy || scenario.data_origin === 'mock') return
     setSubmitting(true)
     try {
       const snap =
@@ -339,38 +347,41 @@ export default function App() {
     }
   }
 
-  const stats = scenario
-    ? [
-        {
-          label: '已安排箱件',
-          value: plan ? number(plan.sorties.reduce((n, r) => n + r.cargo_ids.length, 0)) : '待计算',
-          unit: plan ? `/ ${scenario.cargo_items.length} 箱` : '',
-          icon: Package,
-          note: plan ? '完整服务 · 箱件唯一分配' : '库存与需求分别管理',
-        },
-        {
-          label: '最后交付',
-          value: duration(plan?.metrics.last_delivery_s),
-          unit: '',
-          icon: Clock3,
-          note: plan ? `最后返航 ${duration(plan.metrics.makespan_s)}` : '以整站交接完成计时',
-        },
-        {
-          label: '预计总能耗',
-          value: number(plan?.metrics.energy_kwh, 2),
-          unit: 'kWh',
-          icon: Zap,
-          note: plan ? `${plan.metrics.sortie_count} 架次 · 已含返航` : '题设物理模型估计',
-        },
-        {
-          label: '最低返航电量',
-          value: percent(plan?.metrics.min_return_soc),
-          unit: '',
-          icon: BatteryCharging,
-          note: `策略下限 ${percent(scenario.policy.min_return_soc)}`,
-        },
-      ]
-    : []
+  const stats =
+    scenario && viewScenario
+      ? [
+          {
+            label: '已安排箱件',
+            value: plan
+              ? number(plan.sorties.reduce((n, r) => n + r.cargo_ids.length, 0))
+              : '待计算',
+            unit: plan ? `/ ${viewScenario.cargo_items.length} 箱` : '',
+            icon: Package,
+            note: plan ? '完整服务 · 箱件唯一分配' : '库存与需求分别管理',
+          },
+          {
+            label: '最后交付',
+            value: duration(plan?.metrics.last_delivery_s),
+            unit: '',
+            icon: Clock3,
+            note: plan ? `最后返航 ${duration(plan.metrics.makespan_s)}` : '以整站交接完成计时',
+          },
+          {
+            label: '预计总能耗',
+            value: number(plan?.metrics.energy_kwh, 2),
+            unit: 'kWh',
+            icon: Zap,
+            note: plan ? `${plan.metrics.sortie_count} 架次 · 已含返航` : '题设物理模型估计',
+          },
+          {
+            label: '最低返航电量',
+            value: percent(plan?.metrics.min_return_soc),
+            unit: '',
+            icon: BatteryCharging,
+            note: `策略下限 ${percent(viewScenario.policy.min_return_soc)}`,
+          },
+        ]
+      : []
   const cargoAssignments = new Map<string, string>(
     plan?.sorties.flatMap((r) => r.cargo_ids.map((c) => [c, r.sortie_id] as [string, string])) ||
       [],
@@ -631,13 +642,17 @@ export default function App() {
                       </div>
                       <h1>
                         {page === 'events'
-                          ? '面对变化，让救援继续前行'
+                          ? eventTab === 'analysis'
+                            ? '看清资源，让每次增配都有依据'
+                            : '面对变化，让救援继续前行'
                           : '每一份物资，都有清晰的下一程'}
                         <span>{page === 'events' ? 'EVENT REVIEW' : 'LIVE WORKSPACE'}</span>
                       </h1>
                       <p>
                         {page === 'events'
-                          ? '保留原计划与事件事实，在新快照上重新计算未来任务。'
+                          ? eventTab === 'analysis'
+                            ? '从计划占用和时限余量出发，真实比较增配与压力情景。'
+                            : '保留原计划与事件事实，在新快照上重新计算未来任务。'
                           : '从真实输入出发，统筹箱件、机体与电池，生成可核对的运输方案。'}
                       </p>
                     </div>
@@ -666,6 +681,7 @@ export default function App() {
                         <Button
                           variant="primary"
                           busy={isBusy}
+                          disabled={scenario.data_origin === 'mock'}
                           onClick={() => void runSolver('time')}
                         >
                           <Play size={14} /> {plan ? '重新求解' : '生成真实方案'}
@@ -673,6 +689,30 @@ export default function App() {
                       )}
                     </div>
                   </div>
+                  {page === 'events' && (
+                    <div className="page-tabs" aria-label="复盘工作模式">
+                      <button
+                        className={eventTab === 'events' ? 'active' : ''}
+                        onClick={() => setEventTab('events')}
+                      >
+                        <Activity size={15} />
+                        故障事件
+                      </button>
+                      <button
+                        className={eventTab === 'analysis' ? 'active' : ''}
+                        onClick={() => setEventTab('analysis')}
+                      >
+                        <Database size={15} />
+                        资源分析与试算
+                      </button>
+                    </div>
+                  )}
+                  {scenario.data_origin === 'mock' && (
+                    <div className="alert alert-amber">
+                      <TriangleAlert size={17} />
+                      当前为Mock开发样例，仅供结构预览，不能发布已验证方案或确认计划。
+                    </div>
+                  )}
                   {stale && (
                     <div className="alert alert-amber">
                       <TriangleAlert size={17} />
@@ -734,25 +774,39 @@ export default function App() {
                         </div>
                       </div>
                     )}
-                  <div className="stats-grid">
-                    {stats.map((s, i) => (
-                      <div className="stat-card" key={s.label}>
-                        <div className="stat-label">
-                          {s.label}
-                          <s.icon size={17} />
+                  {!(page === 'events' && eventTab === 'analysis') && (
+                    <div className="stats-grid">
+                      {stats.map((s, i) => (
+                        <div className="stat-card" key={s.label}>
+                          <div className="stat-label">
+                            {s.label}
+                            <s.icon size={17} />
+                          </div>
+                          <div className="stat-value">
+                            {s.value}
+                            <span>{s.unit}</span>
+                          </div>
+                          <div className="stat-note">
+                            <i className={i === 0 && plan ? 'teal' : ''} />
+                            {s.note}
+                          </div>
                         </div>
-                        <div className="stat-value">
-                          {s.value}
-                          <span>{s.unit}</span>
-                        </div>
-                        <div className="stat-note">
-                          <i className={i === 0 && plan ? 'teal' : ''} />
-                          {s.note}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  {page === 'events' ? (
+                      ))}
+                    </div>
+                  )}
+                  {page === 'events' && eventTab === 'analysis' ? (
+                    <ResourceAnalysis
+                      key={scenario.scenario_id}
+                      scenario={scenario}
+                      plan={plan}
+                      stale={stale}
+                      onOpen={(scene) => {
+                        created(scene)
+                        setPage('workspace')
+                      }}
+                      notify={notify}
+                    />
+                  ) : page === 'events' ? (
                     <div className="events-layout">
                       <aside className="panel event-input">
                         <div className="panel-heading">
@@ -837,7 +891,7 @@ export default function App() {
                             {oldPlan && <Badge tone="amber">不同快照</Badge>}
                           </div>
                           <RescueMap
-                            scenario={scenario}
+                            scenario={viewScenario || scenario}
                             plan={plan}
                             oldPlan={oldPlan && oldPlan.plan_id !== plan?.plan_id ? oldPlan : null}
                             selected={selected}
@@ -976,7 +1030,7 @@ export default function App() {
                               />
                             )
                           ) : listMode === 'demands' ? (
-                            scenario.demands
+                            (viewScenario || scenario).demands
                               .filter((d) =>
                                 JSON.stringify(d).toLowerCase().includes(search.toLowerCase()),
                               )
@@ -984,8 +1038,9 @@ export default function App() {
                                 const r = plan?.sorties.find((r) =>
                                   r.cargo_ids.some(
                                     (cid) =>
-                                      scenario.cargo_items.find((c) => c.cargo_id === cid)
-                                        ?.demand_id === d.demand_id,
+                                      (viewScenario || scenario).cargo_items.find(
+                                        (c) => c.cargo_id === cid,
+                                      )?.demand_id === d.demand_id,
                                   ),
                                 )
                                 return (
@@ -1013,7 +1068,7 @@ export default function App() {
                                 )
                               })
                           ) : (
-                            scenario.cargo_items
+                            (viewScenario || scenario).cargo_items
                               .filter((c) =>
                                 JSON.stringify(c).toLowerCase().includes(search.toLowerCase()),
                               )
@@ -1049,7 +1104,7 @@ export default function App() {
                       </section>
                       <section className="panel map-panel">
                         <RescueMap
-                          scenario={scenario}
+                          scenario={viewScenario || scenario}
                           plan={plan}
                           selected={route?.sortie_id || null}
                           onSelect={setSelected}
@@ -1207,9 +1262,9 @@ export default function App() {
                       </aside>
                     </div>
                   )}
-                  {plan && (
+                  {plan && !(page === 'events' && eventTab === 'analysis') && (
                     <ResourceTimeline
-                      scenario={scenario}
+                      scenario={viewScenario || scenario}
                       plan={plan}
                       selected={route?.sortie_id || null}
                       onSelect={setSelected}

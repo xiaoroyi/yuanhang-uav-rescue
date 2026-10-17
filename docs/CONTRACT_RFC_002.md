@@ -13,3 +13,5 @@
 增加只读 GET /plans/{plan_id}/playback：独立DTO返回prepare/flight/handover/return阶段、端点坐标与相对秒，is_execution_fact=false、position_semantics=schematic_linear_interpolation。前端仅作分段位置示意，不产生实际交付或遥测；核心Plan/Scenario保持原样。
 
 Health增加service_id/workspace_id，用于本地启动器识别同一仓库服务；workspace_id为仓库路径摘要，不返回原路径。
+
+资源分析、what-if和来源记录使用独立HTTP DTO，见RESOURCE_ANALYSIS。分析严格绑定Plan的Snapshot；what-if新建Scenario并另存origin元数据，新表为增量创建，不改写既有Scenario/Plan字段。输入与原始文件保持完整回归，仍待团队复核。

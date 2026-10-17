@@ -26,6 +26,9 @@ from solver.physics import (
 )
 from solver.validation import BASE_SCOPE, validate
 from solver.presentation import playback
+from solver.dependencies import affected_closure
+from solver.metrics import objective_score
+from solver.analysis import analyze
 
 
 def capabilities():
@@ -101,13 +104,29 @@ def _required_cargos(s):
     return selected
 
 
-def _construct(s, objective, seed, deadline, cache, start_floor=0.0):
+def _construct(
+    s,
+    objective,
+    seed,
+    deadline,
+    cache,
+    start_floor=0.0,
+    target_cargos=None,
+    fixed_routes=(),
+):
     rng = random.Random(seed)
     cargos = {c["cargo_id"]: c for c in s["cargo_items"]}
     demands = {d["demand_id"]: d for d in s["demands"]}
     types = {t["type_id"]: t for t in s["drone_types"]}
     sites = {n["id"]: n for n in s["sites"]}
-    remaining = set(_required_cargos(s))
+    remaining = set(_required_cargos(s) if target_cargos is None else target_cargos)
+    reserved = defaultdict(list)
+    for fixed in fixed_routes:
+        for kind, identity, end in [
+            ("drone", fixed["drone_id"], fixed["drone_released_s"]),
+            ("battery", fixed["battery_id"], fixed["battery_released_s"]),
+        ]:
+            reserved[kind, identity].append((fixed["prepare_start_s"], end))
     drones = {
         d["drone_id"]: {**d, "ready": max(start_floor, d["available_after_s"])}
         for d in s["drones"]
@@ -128,7 +147,12 @@ def _construct(s, objective, seed, deadline, cache, start_floor=0.0):
             (
                 d["hard_deadline_s"]
                 if d["hard_deadline_s"] is not None
-                else (d["expected_deadline_s"] or 1e12) + 20000
+                else (
+                    d["expected_deadline_s"]
+                    if d["expected_deadline_s"] is not None
+                    else 1e12
+                )
+                + 20000
             ),
             -d["priority"],
             cid,
@@ -165,6 +189,31 @@ def _construct(s, objective, seed, deadline, cache, start_floor=0.0):
                     ready += charge_seconds(typ, soc)
                     soc = 1.0
                 start = max(u["ready"], ready)
+                return_soc = soc - route["energy_kwh"] / usable
+                for _ in range(len(fixed_routes) * 2 + 1):
+                    occupied = []
+                    for kind, identity, release in [
+                        (
+                            "drone",
+                            uid,
+                            start + route["duration_s"] + typ["turnaround_duration_s"],
+                        ),
+                        (
+                            "battery",
+                            bid,
+                            start
+                            + route["duration_s"]
+                            + charge_seconds(typ, return_soc),
+                        ),
+                    ]:
+                        occupied.extend(
+                            end
+                            for begin, end in reserved[kind, identity]
+                            if start < end - 1e-8 and begin < release - 1e-8
+                        )
+                    if not occupied:
+                        break
+                    start = max(occupied)
                 if any(
                     demands[cargos[c]["demand_id"]]["hard_deadline_s"] is not None
                     and start + v["delivery_complete_s"]
@@ -367,7 +416,9 @@ def solve(snapshot, options, progress_callback=None):
         validate_snapshot(snapshot)
         validate_options(options, snapshot)
         s = snapshot["scenario"]
-        if s["policy"]["requires_communication"]:
+        if set(options["requested_model_scope"]) - set(
+            capabilities()["supported_model_scope"]
+        ):
             return _outcome(
                 "UNKNOWN",
                 options,
@@ -377,7 +428,10 @@ def solve(snapshot, options, progress_callback=None):
                     diagnostic("UNSUPPORTED_SCOPE", "当前引擎尚不支持连续通信认证。")
                 ],
             )
-        if s["policy"]["requires_terrain"] and s["terrain"]["status"] != "available":
+        if (
+            "terrain" in options["requested_model_scope"]
+            and s["terrain"]["status"] != "available"
+        ):
             return _outcome(
                 "UNKNOWN",
                 options,
@@ -394,6 +448,18 @@ def solve(snapshot, options, progress_callback=None):
         cargo_ids = _required_cargos(s)
         if not cargo_ids:
             raise InputNotReady("没有可调度的需求箱件。")
+        if not s["base"]["available"]:
+            return _outcome(
+                "INFEASIBLE",
+                options,
+                started,
+                diagnostics=[
+                    diagnostic(
+                        "BASE_UNAVAILABLE",
+                        "当前单基地模型的调度基地不可用，无法执行运输。",
+                    )
+                ],
+            )
         available = [
             d
             for d in s["drones"]
@@ -457,34 +523,7 @@ def solve(snapshot, options, progress_callback=None):
             candidate["validation"] = report
             if first is None:
                 first = time.perf_counter() - started
-            deliveries = {
-                c: v["delivery_complete_s"]
-                for r in routes
-                for v in r["visits"]
-                for c in v["cargo_ids"]
-            }
-            cargos = {c["cargo_id"]: c for c in s["cargo_items"]}
-            demands = {d["demand_id"]: d for d in s["demands"]}
-            late = sum(
-                max(
-                    0,
-                    delivery
-                    - (
-                        demands[cargos[c]["demand_id"]]["expected_deadline_s"]
-                        if demands[cargos[c]["demand_id"]]["expected_deadline_s"]
-                        is not None
-                        else math.inf
-                    ),
-                )
-                * demands[cargos[c]["demand_id"]]["priority"]
-                for c, delivery in deliveries.items()
-            )
-            m = candidate["metrics"]
-            score = (
-                (late, m["energy_kwh"], m["makespan_s"])
-                if options["objective"] == "energy"
-                else (late, m["makespan_s"], m["energy_kwh"])
-            )
+            score = objective_score(s, candidate, options["objective"])
             if best is None or score < best[0]:
                 best = (score, candidate)
                 non_improving = 0
@@ -527,12 +566,123 @@ def solve(snapshot, options, progress_callback=None):
         )
 
 
+def _try_local_repair(snapshot, previous_plan, options, started, progress_callback):
+    """Keep complete validated reservations, expanding through resource successors if needed."""
+    try:
+        validate_snapshot(snapshot)
+        validate_options(options, snapshot)
+        s = snapshot["scenario"]
+        if s["data_origin"] == "mock" or not s["base"]["available"]:
+            return None
+        if set(options["requested_model_scope"]) - set(
+            capabilities()["supported_model_scope"]
+        ):
+            return None
+        if (
+            "terrain" in options["requested_model_scope"]
+            and s["terrain"]["status"] != "available"
+        ):
+            return None
+        # Retaining old battery return SOC is exact only for these initial full-charge states.
+        # Other initial SOC/charging states use the independently verified full solver.
+        if any(
+            abs(b["soc"] - 1) > 1e-9 or b["status"] == "charging"
+            for b in s["batteries"]
+        ):
+            return None
+        available = {d["drone_id"] for d in s["drones"] if d["status"] == "available"}
+        direct = {
+            r["sortie_id"]
+            for r in previous_plan["sorties"]
+            if r["drone_id"] not in available
+        }
+        expanded, edges = affected_closure(previous_plan["sorties"], direct)
+        neighborhoods = [direct] + ([expanded] if expanded != direct else [])
+        budget = min(6.0, float(options["time_limit_s"]) * 0.45)
+        cache = {}
+        count = 0
+        first = None
+        for stage, removed in enumerate(neighborhoods):
+            deadline = started + budget * (stage + 1) / len(neighborhoods)
+            fixed = [
+                copy.deepcopy(r)
+                for r in previous_plan["sorties"]
+                if r["sortie_id"] not in removed
+            ]
+            targets = [
+                cid
+                for r in previous_plan["sorties"]
+                if r["sortie_id"] in removed
+                for cid in r["cargo_ids"]
+            ]
+            best = None
+            for seed in range(5):
+                if time.perf_counter() >= deadline:
+                    break
+                if progress_callback:
+                    progress_callback(
+                        {
+                            "stage": (
+                                "保留任务并局部修复"
+                                if stage == 0
+                                else "沿资源依赖扩大修复"
+                            ),
+                            "elapsed_s": time.perf_counter() - started,
+                            "candidate_count": count,
+                        }
+                    )
+                changed = _construct(
+                    s,
+                    options["objective"],
+                    options["seed"] + seed,
+                    deadline,
+                    cache,
+                    target_cargos=targets,
+                    fixed_routes=fixed,
+                )
+                if changed is None:
+                    continue
+                routes = sorted(
+                    [*fixed, *changed],
+                    key=lambda r: (r["prepare_start_s"], r["sortie_id"]),
+                )
+                candidate = _make_plan(snapshot, options, routes)
+                report = validate(snapshot, candidate)
+                count += 1
+                if report["status"] != "passed":
+                    continue
+                candidate["validation"] = report
+                if first is None:
+                    first = time.perf_counter() - started
+                score = objective_score(s, candidate, options["objective"])
+                if best is None or score < best[0]:
+                    best = score, candidate
+            if best:
+                best[1]["solver_notes"].append(
+                    f"依赖图局部修复：{len(edges)}条机体/电池前序边，直接影响{len(direct)}架次，传播范围{len(expanded)}架次，本轮保留{len(fixed)}个原架次及原时间。启发式未证明最小改动。"
+                )
+                return _outcome(
+                    "FEASIBLE",
+                    options,
+                    started,
+                    plan=best[1],
+                    validation=best[1]["validation"],
+                    first=first,
+                    count=count,
+                )
+    except (ContractError, InputNotReady, KeyError, ValueError):
+        return None
+    return None
+
+
 def replan(snapshot, previous_plan, event, options, progress_callback=None):
     started = time.perf_counter()
     if (
         options.get("mode") != "replan"
         or options.get("parent_plan_id") != previous_plan["plan_id"]
         or options.get("event_id") != event["event_id"]
+        or previous_plan["scenario_id"] != snapshot["scenario_id"]
+        or previous_plan["scenario_state_version"] >= snapshot["scenario_state_version"]
     ):
         return _outcome(
             "UNKNOWN",
@@ -551,6 +701,19 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
                 diagnostic("UNSUPPORTED_SCOPE", "当前只支持未执行场景的机体退出。")
             ],
         )
+    if event.get("effective_time_s", 0) != 0:
+        return _outcome(
+            "UNKNOWN",
+            options,
+            started,
+            reason="unsupported_scope",
+            diagnostics=[
+                diagnostic(
+                    "UNSUPPORTED_EVENT_STATE",
+                    "当前重规划只支持尚未执行场景的零时刻机体退出。",
+                )
+            ],
+        )
     s = snapshot["scenario"]
     if any(
         c["status"] not in ("available", "unavailable") for c in s["cargo_items"]
@@ -567,7 +730,31 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
                 )
             ],
         )
-    result = solve(snapshot, options, progress_callback)
+    result = _try_local_repair(
+        snapshot, previous_plan, options, started, progress_callback
+    )
+    if result is None:
+        spent = time.perf_counter() - started
+        remaining = max(0.001, float(options["time_limit_s"]) - spent)
+
+        def report_full(value):
+            if progress_callback:
+                progress_callback(
+                    {
+                        **value,
+                        "stage": "全量回退 · " + value["stage"],
+                        "elapsed_s": value["elapsed_s"] + spent,
+                    }
+                )
+
+        result = solve(snapshot, {**options, "time_limit_s": remaining}, report_full)
+        result["runtime_s"] = time.perf_counter() - started
+        if result["first_feasible_s"] is not None:
+            result["first_feasible_s"] += spent
+        if result["plan"]:
+            result["plan"]["solver_notes"].append(
+                "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
+            )
     if result["plan"]:
         old = {r["sortie_id"] for r in previous_plan["sorties"]}
         new = {r["sortie_id"] for r in result["plan"]["sorties"]}
@@ -576,7 +763,4 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
             "removed_sortie_ids": sorted(old - new),
             "added_sortie_ids": sorted(new - old),
         }
-        result["plan"]["solver_notes"].append(
-            "本版在事件后新快照重新求解；稳定ID识别保持架次，尚未声称依赖图局部修复已实现。"
-        )
     return result

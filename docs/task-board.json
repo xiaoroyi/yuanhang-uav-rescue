@@ -6,12 +6,12 @@
   },
   "gate_status": {
     "G0": "awaiting_review",
-    "G1": "implemented_verifying",
-    "G2": "implemented_verifying",
-    "G3": "in_progress",
+    "G1": "core_verified",
+    "G2": "core_verified",
+    "G3": "core_verified",
     "G4": "in_progress",
-    "G5": "not_started",
-    "G6": "not_started"
+    "G5": "in_progress",
+    "G6": "in_progress"
   },
   "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。",
   "tasks": [
@@ -293,11 +293,12 @@
         "C-03",
         "B-03"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/CHECKPOINT_001.md",
+        "evidence/browser/e2e-results.json"
       ]
     },
     {
@@ -439,11 +440,13 @@
       "dependencies": [
         "A-05"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/CHECKPOINT_001.md",
+        "evidence/browser/e2e-results.json",
+        "evidence/solver/replan-comparison.json"
       ]
     },
     {
@@ -478,11 +481,12 @@
         "B-05",
         "X-02"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
-        "docs/IMPLEMENTATION_STATUS.md"
+        "docs/CHECKPOINT_001.md",
+        "evidence/browser/e2e-results.json"
       ]
     },
     {
@@ -661,10 +665,14 @@
         "A-07",
         "A-08"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/RESOURCE_ANALYSIS.md",
+        "tests/backend/test_analytics.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-12",
@@ -692,10 +700,14 @@
         "A-11",
         "C-04"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/RESOURCE_ANALYSIS.md",
+        "tests/backend/test_analytics.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "B-09",
@@ -708,10 +720,14 @@
         "C-09",
         "B-05"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/RESOURCE_ANALYSIS.md",
+        "tests/backend/test_analytics.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-13",
@@ -725,10 +741,14 @@
         "A-08",
         "A-09"
       ],
-      "status": "todo",
-      "branch": null,
+      "status": "in_progress",
+      "branch": "feat/solo-fullstack-v0",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/RESOURCE_ANALYSIS.md",
+        "tests/backend/test_analytics.py",
+        "evidence/browser/e2e-results.json"
+      ]
     },
     {
       "id": "A-14",

@@ -10,6 +10,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 演示顺序：生成真实方案 → 点击架次/甘特联动 → 计算能耗策略 → 检查报告/确认/导出 → 事件复盘选择机体 → 记录故障并重规划。场景页可编辑物资重量、电池SOC/SOH或导入JSON/CSV/XLSX，再重新计算。
 
+事件复盘中的“资源分析与试算”提供真实占用图、期望延期/硬截止余量、增配与能耗/SOH情景、三档压力测试和可恢复历史；每个试算均保存独立输入并真实计算，见 [统计口径](docs/RESOURCE_ANALYSIS.md)。
+
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
 ## 开发和验收

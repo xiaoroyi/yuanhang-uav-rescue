@@ -6,6 +6,7 @@ from shared.contracts import content_hash, validate_outcome
 from solver.adapters.contest import compact_scenario, contest_scenario
 from solver.physics import charge_seconds, supercover_cells
 from solver.public_api import replan, solve, validate
+from solver.dependencies import affected_closure
 
 
 @pytest.fixture
@@ -174,3 +175,119 @@ def test_charging_batteries_finish_initial_charge_before_assignment(case):
                 min(r["prepare_start_s"] for r in uses)
                 >= charge_seconds(types[b["compatible_type_id"]], 0.9) - 1e-7
             )
+
+
+def test_explicit_requested_scope_is_never_silently_dropped(case):
+    snap, options = case
+    options["requested_model_scope"].append("communication")
+    result = solve(snap, options)
+    assert result["solver_status"] == "UNKNOWN" and result["plan"] is None
+    assert result["stop_reason"] == "unsupported_scope"
+
+
+def test_closed_base_is_infeasible_and_forged_plan_cannot_validate(case):
+    snap, options = case
+    plan = solve(snap, options)["plan"]
+    assert plan
+    snap["scenario"]["base"]["available"] = False
+    snap["content_hash"] = content_hash(snap["scenario"])
+    assert solve(snap, options)["solver_status"] == "INFEASIBLE"
+    assert validate(snap, plan)["status"] == "failed"
+
+
+def test_dependency_closure_crosses_shared_battery_then_aircraft():
+    def r(identity, u, b, start):
+        return {
+            "sortie_id": identity,
+            "drone_id": u,
+            "battery_id": b,
+            "prepare_start_s": start,
+        }
+
+    closure, edges = affected_closure(
+        [
+            r("R1", "U1", "B1", 0),
+            r("R2", "U2", "B1", 100),
+            r("R3", "U2", "B2", 200),
+            r("R4", "U3", "B3", 300),
+        ],
+        {"R1"},
+    )
+    assert closure == {"R1", "R2", "R3"}
+    assert {edge["resource_kind"] for edge in edges} == {"drone", "battery"}
+
+
+def test_local_repair_retains_unaffected_reservations_when_deadlines_have_slack(case):
+    snap, options = case
+    for d in snap["scenario"]["demands"]:
+        d.update(expected_deadline_s=None, hard_deadline_s=None)
+    snap["content_hash"] = content_hash(snap["scenario"])
+    options["time_limit_s"] = 10
+    old = solve(snap, options)["plan"]
+    assert old
+    failed = "U01"
+    assert any(r["drone_id"] == failed for r in old["sorties"])
+    previous = copy.deepcopy(old)
+    next(d for d in snap["scenario"]["drones"] if d["drone_id"] == failed)[
+        "status"
+    ] = "unavailable"
+    snap["scenario"]["state_version"] = 2
+    snap.update(
+        snapshot_id="SNAP-REPAIR",
+        scenario_state_version=2,
+        content_hash=content_hash(snap["scenario"]),
+    )
+    options.update(
+        mode="replan",
+        snapshot_id=snap["snapshot_id"],
+        plan_id="PLAN-REPAIR",
+        parent_plan_id=old["plan_id"],
+        event_id="EVT-REPAIR",
+    )
+    result = replan(
+        snap,
+        old,
+        {"event_id": "EVT-REPAIR", "event_type": "drone.unavailable"},
+        options,
+    )
+    assert result["plan"], result
+    validate_outcome(result, snap)
+    expected = {r["sortie_id"] for r in old["sorties"] if r["drone_id"] != failed}
+    assert expected <= set(result["plan"]["change_summary"]["preserved_sortie_ids"])
+    assert any("依赖图局部修复" in note for note in result["plan"]["solver_notes"])
+    assert old == previous
+
+
+def test_partial_initial_soc_uses_verified_full_fallback(case):
+    snap, options = case
+    for b in snap["scenario"]["batteries"]:
+        b["soc"] = 0.98
+    snap["content_hash"] = content_hash(snap["scenario"])
+    options["time_limit_s"] = 10
+    old = solve(snap, options)["plan"]
+    assert old
+    next(d for d in snap["scenario"]["drones"] if d["drone_id"] == "U01")[
+        "status"
+    ] = "unavailable"
+    snap["scenario"]["state_version"] = 2
+    snap.update(
+        snapshot_id="SNAP-FALLBACK",
+        scenario_state_version=2,
+        content_hash=content_hash(snap["scenario"]),
+    )
+    options.update(
+        mode="replan",
+        snapshot_id=snap["snapshot_id"],
+        plan_id="PLAN-FALLBACK",
+        parent_plan_id=old["plan_id"],
+        event_id="EVT-FALLBACK",
+    )
+    result = replan(
+        snap,
+        old,
+        {"event_id": "EVT-FALLBACK", "event_type": "drone.unavailable"},
+        options,
+    )
+    assert result["plan"], result
+    assert any("全量回退" in note for note in result["plan"]["solver_notes"])
+    validate_outcome(result, snap)

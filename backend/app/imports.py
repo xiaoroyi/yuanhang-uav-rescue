@@ -118,7 +118,8 @@ def preview(filename, data, current=None, entity=None):
         raise ValueError("仅支持JSON、UTF-8 CSV和XLSX。")
     if not isinstance(s, dict):
         raise ValueError("场景必须为JSON对象。")
-    s["data_origin"] = "user_input"
+    if s.get("data_origin") != "mock":
+        s["data_origin"] = "user_input"
     normalized = Scenario.model_validate(s).model_dump(mode="json")
     validate_scenario(normalized)
     return {

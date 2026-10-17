@@ -31,6 +31,14 @@ from backend.app.generated.domain import (
     SolveJob,
     Validation,
 )
+from backend.app.analytics import (
+    PlanAnalysis,
+    ScenarioOrigin,
+    WhatIfReceipt,
+    WhatIfRequest,
+    WhatIfHistory,
+    transform,
+)
 from backend.app.jobs import JobManager, now
 from backend.app.imports import GROUPS, csv_template, excel_template, preview
 from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
@@ -42,6 +50,7 @@ from backend.app.storage import (
     PlanRow,
     ReservationRow,
     ScenarioRow,
+    ScenarioForkRow,
     SnapshotRow,
     VersionRow,
 )
@@ -55,7 +64,7 @@ from shared.contracts import (
 )
 from solver.adapters.contest import compact_scenario, contest_scenario
 from solver.physics import InputNotReady, parameters
-from solver.public_api import capabilities, validate, playback
+from solver.public_api import capabilities, validate, playback, analyze
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -297,7 +306,7 @@ def create_app(runtime_dir: Path | None = None):
                 {"expected": expected, "actual": row.version},
             )
 
-    def save_new(s):
+    def save_new(s, origin=None):
         s = copy.deepcopy(s)
         s.update(scenario_id=new_id("SCN"), state_version=1)
         # Persist exactly the typed representation emitted over HTTP before computing hashes.
@@ -322,6 +331,10 @@ def create_app(runtime_dir: Path | None = None):
                     content_hash=content_hash(s),
                 )
             )
+            if origin is not None:
+                session.add(
+                    ScenarioForkRow(scenario_id=s["scenario_id"], origin=origin)
+                )
         return s
 
     def snapshot_for(session, row):
@@ -417,6 +430,108 @@ def create_app(runtime_dir: Path | None = None):
             plan = require_row(session, PlanRow, plan_id).content
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
             return playback(plan, snap)
+
+    @app.get("/api/v1/plans/{plan_id}/analysis", response_model=PlanAnalysis)
+    def plan_analysis(plan_id: str):
+        with database.session() as session:
+            plan = require_row(session, PlanRow, plan_id).content
+            snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+            return analyze(snap, plan)
+
+    @app.post(
+        "/api/v1/scenarios/{scenario_id}/what-if",
+        response_model=WhatIfReceipt,
+        status_code=201,
+    )
+    def what_if(scenario_id: str, body: WhatIfRequest):
+        with database.session() as session:
+            row = require_row(session, ScenarioRow, scenario_id)
+            require_version(row, body.expected_state_version)
+            source = copy.deepcopy(row.content)
+            if source["data_origin"] == "mock":
+                raise AppError(
+                    422, "NO_VALIDATED_PLAN", "Mock场景不能作为真实试算基线。"
+                )
+            if body.source_plan_id:
+                plan = require_row(session, PlanRow, body.source_plan_id)
+                if plan.scenario_id != scenario_id or plan.version != row.version:
+                    raise AppError(
+                        409, "SNAPSHOT_STALE", "基线计划与当前场景版本不一致。"
+                    )
+        try:
+            derived, changes = transform(source, body)
+        except ValueError as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc)) from exc
+        origin = ScenarioOrigin(
+            source_scenario_id=scenario_id,
+            source_state_version=source["state_version"],
+            source_content_hash=content_hash(source),
+            source_plan_id=body.source_plan_id,
+            parameters=body,
+            changes=changes,
+        ).model_dump(mode="json")
+        return {"scenario": save_new(derived, origin), "origin": origin}
+
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/origin", response_model=ScenarioOrigin | None
+    )
+    def scenario_origin(scenario_id: str):
+        with database.session() as session:
+            require_row(session, ScenarioRow, scenario_id)
+            row = session.get(ScenarioForkRow, scenario_id)
+            return row.origin if row else None
+
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/what-if", response_model=list[WhatIfHistory]
+    )
+    def what_if_history(scenario_id: str):
+        with database.session() as session:
+            require_row(session, ScenarioRow, scenario_id)
+            forks = list(
+                session.scalars(
+                    select(ScenarioForkRow).where(
+                        ScenarioForkRow.origin["source_scenario_id"].as_string()
+                        == scenario_id
+                    )
+                )
+            )
+            result = []
+            for fork in forks:
+                scene = require_row(session, ScenarioRow, fork.scenario_id)
+                jobs = list(
+                    session.scalars(
+                        select(JobRow).where(JobRow.scenario_id == fork.scenario_id)
+                    )
+                )
+                jobs = [
+                    job
+                    for job in jobs
+                    if require_row(
+                        session, SnapshotRow, job.content["snapshot_id"]
+                    ).version
+                    == 1
+                ]
+                job = max(jobs, key=lambda j: j.content["created_at"], default=None)
+                plans = list(
+                    session.scalars(
+                        select(PlanRow).where(
+                            PlanRow.scenario_id == fork.scenario_id,
+                            PlanRow.version == 1,
+                        )
+                    )
+                )
+                plan = max(plans, key=lambda p: p.content["generated_at"], default=None)
+                result.append(
+                    {
+                        "scenario_id": scene.id,
+                        "name": scene.name,
+                        "scenario_state_version": scene.version,
+                        "origin": fork.origin,
+                        "job": job.content if job else None,
+                        "plan": plan.content if plan else None,
+                    }
+                )
+            return list(reversed(result))
 
     @app.post("/api/v1/scenarios/import-file", response_model=ImportPreview)
     async def import_file(

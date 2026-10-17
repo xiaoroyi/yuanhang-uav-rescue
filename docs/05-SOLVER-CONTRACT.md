@@ -1,6 +1,6 @@
 # 算法与后端 Python 接口草案
 
-A 维护 `solver/public_api.py`，B 的 Worker 通过该入口调用。目前文件尚未实现，本页代码仅为签名契约。
+A维护 `solver/public_api.py`，B的Worker通过该入口调用。目前已实现并有真实回归；本页规定稳定边界，实际范围见IMPLEMENTATION_STATUS与capabilities。只读playback辅助接口见RFC-002。
 
 ```python
 def solve(snapshot, options, progress_callback=None) -> dict: ...
@@ -17,7 +17,7 @@ Snapshot 必须完整嵌入 Scenario 并通过 hash/版本检查，SolverOptions
 
 time_limit_s 是从函数入口到返回的墙钟总预算，包含本次预处理和独立检查。预处理、缓存命中、首个已验证候选、总运行时分别记录。A 应预留检查时间；Worker 可设置独立硬超时并清理子进程。多线程不可完全复现时记录版本、种子、线程数及边界，不承诺逐位相同。
 
-progress_callback 接受 `{"stage": str, "elapsed_s": number, "candidate_count": int}`，这是进程内进度通知，不是 Plan，不做虚假百分比。业务实现时 A/B 在公共契约 PR 固定回调类型与可取消机制；G0 不声称回调、取消令牌已工作。
+progress_callback接受 `{"stage": str, "elapsed_s": number, "candidate_count": int}`，这是进程内通知，不是Plan，不做虚假百分比。当前Worker原子写入进度文件，Windows短暂读取竞争有界重试；取消由后端终止独立子进程并等待退出，再标canceled。
 
 ## 结果不变量
 

@@ -12,6 +12,9 @@ async function solve(page: Page) {
 async function screenshot(page: Page, name: string) {
   await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
   await page.mouse.move(1100, 50)
+  await page.locator('.main-content').evaluate((element) => {
+    element.scrollTop = 0
+  })
   await page.evaluate(() => document.fonts.ready)
   await fs.mkdir(path.resolve('../evidence/browser/verified'), { recursive: true })
   await page.screenshot({ path: path.resolve(`../evidence/browser/verified/${name}.png`) })
@@ -81,6 +84,8 @@ test('编辑输入使旧方案失效，导入预览创建新场景', async ({ pa
   await page.getByRole('button', { name: '调度工作台', exact: true }).click()
   await expect(page.locator('.alert-amber')).toContainText('场景已更新为 v2')
   await expect(page.getByRole('button', { name: '确认方案', exact: true })).toBeDisabled()
+  await page.getByRole('button', { name: '箱件', exact: true }).click()
+  await expect(page.locator('.cargo-row').filter({ hasText: 'S001-MED-01' })).toContainText('3 kg')
   const scene = await (await request.get(`/api/v1/scenarios/${originalId}`)).json()
   expect(scene.cargo_items[0].mass_kg).toBe(5.5)
   await page.getByRole('button', { name: '场景与资源', exact: true }).click()
@@ -132,4 +137,84 @@ test('手机窄屏仍可切页和运行计算', async ({ page }) => {
     true,
   )
   await screenshot(page, 'scenario-mobile')
+})
+
+test('资源分析绑定基线快照，增配试算创建独立场景并真实求解', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await solve(page)
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  const before = await (await request.get('/api/v1/scenarios/' + sceneId)).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await expect(page.locator('.utilization-chart canvas')).toBeVisible()
+  await expect(page.locator('.analysis-kpis')).toContainText('硬截止检查')
+  const receiptResponse = page.waitForResponse(
+    (response) => response.url().endsWith('/what-if') && response.request().method() === 'POST',
+  )
+  await page.getByRole('button', { name: '创建场景并真实试算', exact: true }).click()
+  const receipt = await (await receiptResponse).json()
+  expect(receipt.scenario.scenario_id).not.toBe(sceneId)
+  await expect(page.locator('.trial-result')).toContainText('已真实计算', { timeout: 45000 })
+  expect(await (await request.get('/api/v1/scenarios/' + sceneId)).json()).toEqual(before)
+  expect(receipt.scenario.drones.length).toBe(before.drones.length + 1)
+  expect(receipt.scenario.batteries.length).toBe(before.batteries.length + 1)
+  await screenshot(page, 'resource-analysis-1440')
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await screenshot(page, 'resource-analysis-1280')
+  await page.getByRole('button', { name: '打开试算场景', exact: true }).click()
+  await expect(page.getByLabel('选择场景')).toHaveValue(receipt.scenario.scenario_id)
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+  expect(errors).toEqual([])
+})
+
+test('三档压力测试分别真实计算，刷新后保留各情景历史', async ({ page, request }) => {
+  await solve(page)
+  const sourceId = await page.getByLabel('选择场景').inputValue()
+  const before = await (await request.get('/api/v1/scenarios/' + sourceId)).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await page.getByRole('button', { name: '运行3档压力测试', exact: true }).click()
+  await expect(page.getByTestId('experiment-row')).toHaveCount(3, { timeout: 30000 })
+  await expect
+    .poll(
+      async () => {
+        const rows = await (await request.get(`/api/v1/scenarios/${sourceId}/what-if`)).json()
+        return (
+          rows.length === 3 &&
+          rows.every(
+            (r: { job: { job_state: string } | null }) =>
+              r.job && ['completed', 'failed', 'canceled'].includes(r.job.job_state),
+          )
+        )
+      },
+      { timeout: 45000 },
+    )
+    .toBe(true)
+  const history = await (await request.get(`/api/v1/scenarios/${sourceId}/what-if`)).json()
+  expect(new Set(history.map((r: { scenario_id: string }) => r.scenario_id)).size).toBe(3)
+  expect(
+    history
+      .map(
+        (r: { origin: { parameters: { energy_multiplier: number } } }) =>
+          r.origin.parameters.energy_multiplier,
+      )
+      .sort(),
+  ).toEqual([1, 1.1, 1.2])
+  expect(
+    history.every(
+      (r: { job: { job_state: string }; plan: { data_origin: string } | null }) =>
+        r.job.job_state === 'completed' && (!r.plan || r.plan.data_origin === 'solver'),
+    ),
+  ).toBe(true)
+  expect(await (await request.get('/api/v1/scenarios/' + sourceId)).json()).toEqual(before)
+  await page.locator('.experiment-history').scrollIntoViewIfNeeded()
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  await page.screenshot({
+    path: path.resolve('../evidence/browser/verified/stress-history-1440.png'),
+  })
+  await page.reload()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await expect(page.getByTestId('experiment-row')).toHaveCount(3)
 })

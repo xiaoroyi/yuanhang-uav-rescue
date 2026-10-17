@@ -12,6 +12,10 @@ export type Comparison = components['schemas']['Comparison']
 export type Capabilities = components['schemas']['Capabilities']
 export type Progress = components['schemas']['Progress']
 export type Playback = components['schemas']['Playback']
+export type PlanAnalysis = components['schemas']['PlanAnalysis']
+export type WhatIfRequest = components['schemas']['WhatIfRequest']
+export type WhatIfReceipt = components['schemas']['WhatIfReceipt']
+export type WhatIfHistory = components['schemas']['WhatIfHistory']
 
 export class ApiError extends Error {
   code: string
@@ -77,6 +81,12 @@ export const api = {
   cancel: (id: string) => request<SolveJob>(`/solve-jobs/${id}/cancel`, undefined, 'POST'),
   plan: (id: string) => request<Plan>(`/plans/${id}`),
   playback: (id: string) => request<Playback>(`/plans/${id}/playback`),
+  analysis: (id: string) => request<PlanAnalysis>(`/plans/${id}/analysis`),
+  whatIf: (id: string, body: WhatIfRequest) =>
+    request<WhatIfReceipt>(`/scenarios/${id}/what-if`, body),
+  origin: (id: string) =>
+    request<components['schemas']['ScenarioOrigin'] | null>(`/scenarios/${id}/origin`),
+  whatIfHistory: (id: string) => request<WhatIfHistory[]>(`/scenarios/${id}/what-if`),
   plans: (scenario: string) => request<PlanSummary[]>(`/scenarios/${scenario}/plans`),
   confirm: (p: Plan, version: number) =>
     request<components['schemas']['Confirmation']>(`/plans/${p.plan_id}/confirm`, {

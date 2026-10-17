@@ -20,7 +20,7 @@
 
 ## G1
 
-阶段状态：`implemented_verifying`。
+阶段状态：`core_verified`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
@@ -32,11 +32,11 @@
 | B-01 | P0 | B | G0-03, G0-04, G0-06 | 前端基建与三页路由、API Provider 与 Mock 分离；验收：Mock 明显提示，正式接口切换无大改 | done | feat/solo-fullstack-v0; frontend/src/App.tsx; frontend/playwright.config.ts |
 | B-02 | P0 | B | B-01, C-01 | 场景导入/资源/需求表与地图点位联动；验收：用户编辑看得到版本变更 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
 | B-03 | P0 | B | B-01, C-03 | 地图/架次表/摘要指标、真实 Job 状态；验收：用同一 sortie_id 联动，不二次估能耗 | done | feat/solo-fullstack-v0; frontend/tests/workflow.spec.ts; evidence/browser/e2e-results.json |
-| X-01 | P0 | A+B | A-02, C-03, B-03 | 首个端到端验收：新数据→真实 Plan→地图→导出；验收：E2E 记录+请求/响应+Git SHA，Mock 不计 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| X-01 | P0 | A+B | A-02, C-03, B-03 | 首个端到端验收：新数据→真实 Plan→地图→导出；验收：E2E 记录+请求/响应+Git SHA，Mock 不计 | done | feat/solo-fullstack-v0; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json |
 
 ## G2
 
-阶段状态：`implemented_verifying`。
+阶段状态：`core_verified`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
@@ -48,15 +48,15 @@
 
 ## G3
 
-阶段状态：`in_progress`。
+阶段状态：`core_verified`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
 | C-05 | P0 | B | C-02 | 事件幂等、事件时刻/版本、状态更新与新 Snapshot；验收：event_id 重试只有一次状态变化 | done | feat/solo-fullstack-v0; tests/backend/test_api.py |
 | A-05 | P0 | A | A-02, C-05 | 尚未起飞机体退出→replan；保留旧版本及已执行事实；验收：无故障机未来架次、前后验证均通过 | done | feat/solo-fullstack-v0; tests/backend/test_api.py; evidence/browser/e2e-results.json |
-| A-06 | P0 | A | A-05 | 依赖图传播、变更代价、限时修复/全量回退；验收：输出 changed/preserved，可对照修复范围 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| A-06 | P0 | A | A-05 | 依赖图传播、变更代价、限时修复/全量回退；验收：输出 changed/preserved，可对照修复范围 | done | feat/solo-fullstack-v0; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json; evidence/solver/replan-comparison.json |
 | B-05 | P0 | B | B-04, C-05 | 事件输入、旧新地图叠加、差异清单、时间轴；验收：可清楚定位受影响任务和未完成原因 | done | feat/solo-fullstack-v0; evidence/browser/e2e-results.json |
-| X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | in_progress | feat/solo-fullstack-v0; docs/IMPLEMENTATION_STATUS.md |
+| X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | done | feat/solo-fullstack-v0; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json |
 
 ## G4
 
@@ -74,18 +74,18 @@
 | A-10 | P1 | A | A-05, A-07, C-05 | 电池退出、紧急插单、落点变更、未来封控事件；验收：作用范围、发生/接收时间、旧事实可追踪 | todo | — |
 | C-08 | P1 | B | A-10, C-05 | 地图/资源新增事件 API 与一致性事务；验收：版本冲突返回结构化错误 | todo | — |
 | B-08 | P1 | B | A-10, C-08 | 动态图层与复盘/故障明细页面；验收：失败、未评估、已验证状态可区分 | todo | — |
-| A-11 | P1 | A | A-03, A-07, A-08 | 部分保障、资源缺口/增配试算、可证明下界；验收：明确“证明无解”与“预算未找到” | todo | — |
+| A-11 | P1 | A | A-03, A-07, A-08 | 部分保障、资源缺口/增配试算、可证明下界；验收：明确“证明无解”与“预算未找到” | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
 | A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | todo | — |
-| C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | todo | — |
-| B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | todo | — |
+| C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
+| B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
 
 ## G5
 
-阶段状态：`not_started`。
+阶段状态：`in_progress`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
-| A-13 | P1 | A | A-07, A-08, A-09 | 能耗/时间/通信情景压力；多情景优化/风险指标；验收：同数据同预算对照，情景说明清楚 | todo | — |
+| A-13 | P1 | A | A-07, A-08, A-09 | 能耗/时间/通信情景压力；多情景优化/风险指标；验收：同数据同预算对照，情景说明清楚 | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
 | A-14 | P2 | A | A-06, A-13 | 学习辅助邻域算子；训练集、种子、无泄漏划分；验收：随机/规则/学习同预算消融与泛化实验；真实数据/日志资格门槛不满足则记录 blocked，不伪造训练或精度 | todo | — |
 | A-15 | P2 | A | A-13 | 有真实日志后物理+学习能耗误差补偿；验收：训练/校准/独立测试，不能从模拟宣称真机精度；真实数据/日志资格门槛不满足则记录 blocked，不伪造训练或精度 | todo | — |
 | C-10 | P2 | B | C-06 | ODM/NodeODM 航摄影像异步建图/质量审批；验收：产生版本化地图，不自动进入安全计算 | todo | — |
@@ -95,7 +95,7 @@
 
 ## G6
 
-阶段状态：`not_started`。
+阶段状态：`in_progress`。
 
 | ID | 优先级 | Owner | 依赖 | 任务与验收 | 状态 | 分支/PR/证据 |
 |---|---|---|---|---|---|---|
