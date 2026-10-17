@@ -14,14 +14,15 @@
 | 前端 | React/TS strict、三页、MapLibre离线底图+原始DEM预览、真实路线、箱件/任务/资源联动、双甘特、双策略、计划示意回放 | 无外部瓦片依赖；回放按计划分段匀速插值，不是遥测 |
 | 动态事件 | 未执行场景机体退出→版本+1→新快照真实重算→新旧航线和改派箱件 | 机体/电池依赖图、保留任务的区间插入修复、后继扩展与全量回退；仅零时刻未执行状态 |
 | 资源与情景 | 真实占用图/表、硬截止余量、期望延期、充电峰值；独立增配/倍率试算、三档压力、来源与原始v1历史，刷新保留 | 峰值是无限端口模型需求；未证明最少增配、未声称成功概率 |
+| 打印报告 | 自包含HTML、真实航线/任务/需求/资源/逐箱追踪；浏览器生成PDF并逐页渲染检查 | 默认32箱样例6页；不发送飞控指令 |
 | 工程 | 锁依赖、实际OpenAPI和TS生成、ESLint、生产构建、项目内浏览器、独立E2E数据库 | 远程CI和新电脑完整安装仍需实际验收 |
 
 ## 当前验证记录
 
-- Python全套：`python -m pytest tests -q`，53 passed、8 subtests passed；Starlette测试客户端有httpx弃用提示，测试通过。
+- Python全套：`python -m pytest tests -q`，56 passed、8 subtests passed；Starlette测试客户端有httpx弃用提示，测试通过。
 - 契约：10 schemas、12 mock fixtures、16项历史HTTP设计草案检查通过。该检查不代替业务求解。
 - 前端：TypeScript strict + Vite生产构建通过；ESLint通过；时间格式2项回归通过。
-- 浏览器：已检查1440×900、1280×720，second-pass控制台错误为空。完整E2E 6项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏、资源增配、三档压力与历史恢复；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
+- 浏览器：已检查1440×900、1280×720，second-pass控制台错误为空。完整E2E 8项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏、资源增配、三档压力与历史恢复、任务刷新恢复、打印PDF；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
 - 初次算法证据：evidence/solver/first-compact.json：32/32箱、7架次，最后返航7640.19秒、23.3102kWh；first-contest.json：80/80箱、22架次、10644.61秒、74.4591kWh。参数、种子、耗时及完整Plan都在文件中。当前快速基线不等于历史论文最优值。
 
 ## 运行与续跑
@@ -35,3 +36,5 @@ Windows双击根目录 `start.cmd`；使用已构建前端和 `.venv` 启动单�
 全部P1/P2仍保留。连续双跳通信与中继能源组件、通用DEM/限制区导入、起降/充电位容量、执行中实际状态、自动建图、AI辅助搜索、真机/仿真、完整参赛说明书/视频/PPT尚不能标记已验收。没有费率不显示人民币；未评估项不标通过。原数模代码未原地运行或修改。
 
 局部/全量同预算6组对照见evidence/solver/replan-comparison.json；资源与试算口径见RESOURCE_ANALYSIS.md。新功能仍保留任务的部分未完范围，不把HTTP扩展伪称为契约正式批准。
+
+新补：按场景恢复排队/运行任务，刷新不重复提交；服务重启未完成任务标失败并保留快照。NaN/Infinity模型参数在保存前结构化拒绝。验证记录见evidence/verification；打印版见evidence/browser/verified/print-report.pdf。

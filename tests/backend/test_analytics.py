@@ -156,3 +156,29 @@ def test_what_if_rejects_stale_version_and_missing_resources_without_side_effect
         )
         assert invalid.status_code == 422
         assert len(client.get("/api/v1/scenarios").json()) == 1
+
+
+def test_printable_report_escapes_user_metadata_and_contains_snapshot_identity(
+    tmp_path,
+):
+    with TestClient(create_app(tmp_path / "runtime")) as client:
+        scene = client.post(
+            "/api/v1/scenarios/examples", json={"example": "compact"}
+        ).json()
+        malicious = "<img src=x onerror=alert(1)> & 临时基地"
+        scene["name"] = malicious
+        scene = client.put(
+            "/api/v1/scenarios/" + scene["scenario_id"],
+            json={"expected_state_version": 1, "scenario": scene},
+        ).json()
+        plan, snap = real_plan(client, scene)
+        response = client.get(f"/api/v1/plans/{plan['plan_id']}/report")
+        assert response.status_code == 200, response.text
+        assert response.headers["content-type"].startswith("text/html")
+        assert malicious not in response.text
+        assert "&lt;img src=x onerror=alert(1)&gt; &amp;" in response.text
+        assert (
+            snap["content_hash"] in response.text and plan["plan_id"] in response.text
+        )
+        assert "@media print" in response.text and "window.print()" in response.text
+        assert 'src="http' not in response.text

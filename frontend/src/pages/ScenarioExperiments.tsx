@@ -54,7 +54,7 @@ export function ScenarioExperiments({
           energy_multiplier: item.energy,
           flight_time_multiplier: item.time,
           battery_soh_multiplier: item.soh,
-          noncritical_deadline_multiplier:1,
+          noncritical_deadline_multiplier: 1,
         })
         const snap = await api.snapshot(fork.scenario)
         await api.solve(snap.snapshot_id, plan.objective as 'time' | 'energy' | 'balanced')

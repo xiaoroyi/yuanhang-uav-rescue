@@ -218,3 +218,37 @@ test('三档压力测试分别真实计算，刷新后保留各情景历史', as
   await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
   await expect(page.getByTestId('experiment-row')).toHaveCount(3)
 })
+
+test('任务刷新恢复，重新载入页面不重复提交求解', async ({ page, request }) => {
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await page.reload()
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible({ timeout: 45000 })
+  const jobs = await (await request.get(`/api/v1/scenarios/${sceneId}/solve-jobs`)).json()
+  expect(jobs.length).toBe(1)
+  expect(jobs[0].job_state).toBe('completed')
+  expect(jobs[0].has_validated_plan).toBe(true)
+})
+
+test('打印报告包含真实任务并可离线保存PDF', async ({ page }) => {
+  await solve(page)
+  const popup = page.waitForEvent('popup')
+  await page.getByRole('link', { name: '打印报告', exact: true }).click()
+  const report = await popup
+  await expect(report.getByRole('heading', { level: 1 })).toHaveText('援航 · 运输调度与资源报告')
+  await expect(report.locator('table')).toHaveCount(4)
+  await expect(report.locator('body')).toContainText('逐箱物资追踪')
+  await expect(report.locator('.identity')).toContainText('输入Hash')
+  await report.screenshot({
+    path: path.resolve('../evidence/browser/verified/print-report-screen.png'),
+  })
+  await report.pdf({
+    path: path.resolve('../evidence/browser/verified/print-report.pdf'),
+    format: 'A4',
+    landscape: true,
+    printBackground: true,
+    preferCSSPageSize: true,
+  })
+  await report.close()
+})

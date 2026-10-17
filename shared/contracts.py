@@ -82,7 +82,19 @@ REGISTRY = Registry().with_resources(
 )
 
 
+def finite_json(value, path="$"):
+    if isinstance(value, float):
+        require(math.isfinite(value), f"non-finite JSON number at {path}")
+    elif isinstance(value, dict):
+        for key, child in value.items():
+            finite_json(child, path + "." + str(key))
+    elif isinstance(value, (list, tuple)):
+        for index, child in enumerate(value):
+            finite_json(child, f"{path}[{index}]")
+
+
 def validate_schema(name, data):
+    finite_json(data)
     errors = sorted(
         Draft202012Validator(
             SCHEMAS[name], registry=REGISTRY, format_checker=FORMAT

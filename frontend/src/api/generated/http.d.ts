@@ -152,6 +152,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/plans/{plan_id}/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Plan Report */
+        get: operations["plan_report_api_v1_plans__plan_id__report_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/scenarios/{scenario_id}/what-if": {
         parameters: {
             query?: never;
@@ -333,6 +350,23 @@ export interface paths {
         };
         /** Get Job */
         get: operations["get_job_api_v1_solve_jobs__job_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/solve-jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scenario Jobs */
+        get: operations["scenario_jobs_api_v1_scenarios__scenario_id__solve_jobs_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1874,6 +1908,37 @@ export interface operations {
             };
         };
     };
+    plan_report_api_v1_plans__plan_id__report_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/html": string;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     what_if_history_api_v1_scenarios__scenario_id__what_if_get: {
         parameters: {
             query?: never;
@@ -2294,6 +2359,37 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SolveJob"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scenario_jobs_api_v1_scenarios__scenario_id__solve_jobs_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SolveJob"][];
                 };
             };
             /** @description Validation Error */

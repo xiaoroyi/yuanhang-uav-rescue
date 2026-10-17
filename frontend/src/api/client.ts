@@ -75,6 +75,7 @@ export const api = {
       ...options,
     }),
   job: (id: string) => request<SolveJob>(`/solve-jobs/${id}`),
+  jobs: (scene: string) => request<SolveJob[]>(`/scenarios/${scene}/solve-jobs`),
   progress: (id: string) => request<Progress>(`/solve-jobs/${id}/progress`),
   diagnostics: (id: string) =>
     request<{ diagnostics: { code: string; message: string }[] }>(`/solve-jobs/${id}/diagnostics`),
@@ -115,6 +116,7 @@ export const api = {
     }),
   exportUrl: (plan: string, format: 'json' | 'csv' | 'geojson') =>
     `/api/v1/plans/${plan}/export?format=${format}`,
+  reportUrl: (plan: string) => `/api/v1/plans/${plan}/report`,
 }
 
 export function downloadJson(value: unknown, name: string) {

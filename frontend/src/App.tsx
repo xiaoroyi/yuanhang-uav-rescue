@@ -83,6 +83,13 @@ export default function App() {
     queryFn: () => api.plans(scenarioId),
     enabled: !!scenarioId,
   })
+  const scenarioJobs = useQuery({
+    queryKey: ['jobs', scenarioId],
+    queryFn: () => api.jobs(scenarioId),
+    enabled: !!scenarioId,
+    refetchInterval: (q) =>
+      q.state.data?.some((j) => ['queued', 'running'].includes(j.job_state)) ? 1000 : false,
+  })
   const planQuery = useQuery({
     queryKey: ['plan', planId],
     queryFn: () => api.plan(planId),
@@ -237,6 +244,13 @@ export default function App() {
     if (!planId && sortedPlans.length) choosePlan(sortedPlans[0].plan_id)
   }, [planId, sortedPlans, choosePlan])
   useEffect(() => {
+    if (jobId || !scenarioJobs.data?.length) return
+    const active = scenarioJobs.data.find((j) => ['queued', 'running'].includes(j.job_state))
+    const latest = scenarioJobs.data[0]
+    if (active) setJobId(active.job_id)
+    else if (!latest.plan_id || !planId) setJobId(latest.job_id)
+  }, [jobId, planId, scenarioJobs.data])
+  useEffect(() => {
     const value = job.data
     if (
       !value ||
@@ -245,6 +259,7 @@ export default function App() {
     )
       return
     seenJobs.current.add(value.job_id)
+    void query.invalidateQueries({ queryKey: ['jobs', scenarioId] })
     if (value.plan_id) {
       choosePlan(value.plan_id)
       void query.invalidateQueries({ queryKey: ['plans', scenarioId] })
@@ -1303,6 +1318,15 @@ export default function App() {
                           >
                             <FileDown size={14} />
                             计划JSON
+                          </a>
+                          <a
+                            className="button button-default"
+                            href={api.reportUrl(plan.plan_id)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <FileDown size={14} />
+                            打印报告
                           </a>
                           <Button
                             variant="primary"

@@ -17,7 +17,7 @@ from typing import Literal
 from fastapi import FastAPI, File, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, Response, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import delete, select
@@ -42,6 +42,7 @@ from backend.app.analytics import (
 from backend.app.jobs import JobManager, now
 from backend.app.imports import GROUPS, csv_template, excel_template, preview
 from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
+from backend.app.reports import build_report
 from backend.app.storage import (
     ConfirmationRow,
     Database,
@@ -438,6 +439,18 @@ def create_app(runtime_dir: Path | None = None):
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
             return analyze(snap, plan)
 
+    @app.get("/api/v1/plans/{plan_id}/report", response_class=HTMLResponse)
+    def plan_report(plan_id: str):
+        with database.session() as session:
+            plan = require_row(session, PlanRow, plan_id).content
+            snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+        return HTMLResponse(
+            build_report(snap, plan, analyze(snap, plan)),
+            headers={
+                "Content-Disposition": f'inline; filename="{plan["plan_id"]}-report.html"'
+            },
+        )
+
     @app.post(
         "/api/v1/scenarios/{scenario_id}/what-if",
         response_model=WhatIfReceipt,
@@ -766,6 +779,22 @@ def create_app(runtime_dir: Path | None = None):
     def get_job(job_id: str):
         with database.session() as session:
             return require_row(session, JobRow, job_id).content
+
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/solve-jobs", response_model=list[SolveJob]
+    )
+    def scenario_jobs(scenario_id: str):
+        with database.session() as session:
+            require_row(session, ScenarioRow, scenario_id)
+            rows = list(
+                session.scalars(select(JobRow).where(JobRow.scenario_id == scenario_id))
+            )
+            return [
+                r.content
+                for r in sorted(
+                    rows, key=lambda r: r.content["created_at"], reverse=True
+                )
+            ]
 
     @app.get("/api/v1/solve-jobs/{job_id}/progress", response_model=Progress)
     def get_progress(job_id: str):

@@ -43,6 +43,7 @@ protobuf==6.33.6
 pydantic==2.14.1
 pydantic_core==2.50.1
 Pygments==2.21.0
+pymupdf==1.28.2
 pyparsing==3.3.3
 pyproj==3.7.2
 pytest==9.1.1

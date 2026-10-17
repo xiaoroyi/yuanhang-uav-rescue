@@ -250,17 +250,27 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
           <ShieldCheck size={16} />
           绑定方案快照 v{a.scenario_state_version} · 分析不修改任何输入
         </span>
-        <Button
-          onClick={() =>
-            downloadJson(
-              { analysis: a, trial: receipt, trial_plan: result.data || null },
-              'yuanhang-resource-analysis.json',
-            )
-          }
-        >
-          <Download size={14} />
-          导出分析JSON
-        </Button>
+        <div className="analysis-actions">
+          <Button
+            onClick={() =>
+              downloadJson(
+                { analysis: a, trial: receipt, trial_plan: result.data || null },
+                'yuanhang-resource-analysis.json',
+              )
+            }
+          >
+            <Download size={14} />
+            导出分析JSON
+          </Button>
+          <a
+            className="button button-default"
+            href={api.reportUrl(plan.plan_id)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            打印报告
+          </a>
+        </div>
       </div>
       <div className="analysis-kpis">
         <div className="panel">

@@ -76,8 +76,8 @@
 | B-08 | P1 | B | A-10, C-08 | 动态图层与复盘/故障明细页面；验收：失败、未评估、已验证状态可区分 | todo | — |
 | A-11 | P1 | A | A-03, A-07, A-08 | 部分保障、资源缺口/增配试算、可证明下界；验收：明确“证明无解”与“预算未找到” | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
 | A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | todo | — |
-| C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
-| B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | in_progress | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json |
+| C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
+| B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 
 ## G5
 

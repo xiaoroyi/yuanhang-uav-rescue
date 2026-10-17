@@ -7,7 +7,13 @@ export default defineConfig({
   expect: { timeout: 15000 },
   workers: 1,
   fullyParallel: false,
-  reporter: [['list'], ['json', { outputFile: '../evidence/browser/e2e-results.json' }]],
+  reporter: [
+    ['list'],
+    [
+      'json',
+      { outputFile: process.env.YUANHANG_E2E_REPORT || '../evidence/browser/e2e-results.json' },
+    ],
+  ],
   outputDir: 'test-results',
   use: {
     baseURL: 'http://127.0.0.1:5174',

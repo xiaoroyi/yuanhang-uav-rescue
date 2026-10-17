@@ -700,13 +700,14 @@
         "A-11",
         "C-04"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
         "docs/RESOURCE_ANALYSIS.md",
         "tests/backend/test_analytics.py",
-        "evidence/browser/e2e-results.json"
+        "evidence/browser/e2e-results.json",
+        "evidence/browser/print-report-qa.json"
       ]
     },
     {
@@ -720,13 +721,14 @@
         "C-09",
         "B-05"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/solo-fullstack-v0",
       "pr": null,
       "evidence": [
         "docs/RESOURCE_ANALYSIS.md",
         "tests/backend/test_analytics.py",
-        "evidence/browser/e2e-results.json"
+        "evidence/browser/e2e-results.json",
+        "evidence/browser/print-report-qa.json"
       ]
     },
     {

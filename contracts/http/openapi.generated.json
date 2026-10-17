@@ -249,6 +249,45 @@
         }
       }
     },
+    "/api/v1/plans/{plan_id}/report": {
+      "get": {
+        "summary": "Plan Report",
+        "operationId": "plan_report_api_v1_plans__plan_id__report_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/scenarios/{scenario_id}/what-if": {
       "post": {
         "summary": "What If",
@@ -851,6 +890,49 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SolveJob"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/solve-jobs": {
+      "get": {
+        "summary": "Scenario Jobs",
+        "operationId": "scenario_jobs_api_v1_scenarios__scenario_id__solve_jobs_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SolveJob"
+                  },
+                  "title": "Response Scenario Jobs Api V1 Scenarios  Scenario Id  Solve Jobs Get"
                 }
               }
             }
