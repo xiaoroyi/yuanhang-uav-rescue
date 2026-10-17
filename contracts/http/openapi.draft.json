@@ -1,0 +1,951 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "援航 G0 proposed API",
+    "version": "0.1.0-draft",
+    "description": "Design draft only. Actual FastAPI /openapi.json does not exist yet."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meta/capabilities": {
+      "get": {
+        "operationId": "capabilities",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/capabilities"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/import": {
+      "post": {
+        "operationId": "importScenario",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "201": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/scenario"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/scenario"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/{scenario_id}": {
+      "get": {
+        "operationId": "getScenario",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/scenario"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "replaceScenario",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/scenario"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "expected_state_version": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "scenario": {
+                    "$ref": "https://yuanhang.example/contracts/scenario.schema.json"
+                  }
+                },
+                "required": [
+                  "expected_state_version",
+                  "scenario"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/{scenario_id}/validate": {
+      "post": {
+        "operationId": "validateScenario",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/validation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/{scenario_id}/snapshots": {
+      "post": {
+        "operationId": "createSnapshot",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "201": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/snapshot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/snapshots/{snapshot_id}": {
+      "get": {
+        "operationId": "getSnapshot",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/snapshot"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/solve-jobs": {
+      "post": {
+        "operationId": "createSolveJob",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "202": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/solve-job"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolveRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/solve-jobs/{job_id}": {
+      "get": {
+        "operationId": "getSolveJob",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/solve-job"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/solve-jobs/{job_id}/cancel": {
+      "post": {
+        "operationId": "cancelSolveJob",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "202": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/solve-job"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/plans/{plan_id}": {
+      "get": {
+        "operationId": "getPlan",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/plan"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/plans/{plan_id}/confirm": {
+      "post": {
+        "operationId": "confirmPlan",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Confirmation"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "post": {
+        "operationId": "applyEvent",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventReceipt"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/event"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scenarios/{scenario_id}/events": {
+      "get": {
+        "operationId": "listEvents",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/event"
+                  },
+                  "minItems": 0
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          }
+        ]
+      }
+    },
+    "/plans/{plan_id}/export": {
+      "get": {
+        "operationId": "exportPlan",
+        "summary": "目标接口草案；尚未实现",
+        "responses": {
+          "200": {
+            "description": "Target response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "https://yuanhang.example/contracts/plan.schema.json"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/geo+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Structured error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "json",
+                "csv",
+                "geojson"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "scenario": {
+        "$ref": "https://yuanhang.example/contracts/scenario.schema.json"
+      },
+      "snapshot": {
+        "$ref": "https://yuanhang.example/contracts/snapshot.schema.json"
+      },
+      "plan": {
+        "$ref": "https://yuanhang.example/contracts/plan.schema.json"
+      },
+      "event": {
+        "$ref": "https://yuanhang.example/contracts/event.schema.json"
+      },
+      "solver-options": {
+        "$ref": "https://yuanhang.example/contracts/solver-options.schema.json"
+      },
+      "solver-outcome": {
+        "$ref": "https://yuanhang.example/contracts/solver-outcome.schema.json"
+      },
+      "solve-job": {
+        "$ref": "https://yuanhang.example/contracts/solve-job.schema.json"
+      },
+      "error": {
+        "$ref": "https://yuanhang.example/contracts/error.schema.json"
+      },
+      "capabilities": {
+        "$ref": "https://yuanhang.example/contracts/capabilities.schema.json"
+      },
+      "Health": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "not_ready"
+            ]
+          },
+          "service_version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "solver_ready": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "service_version",
+          "solver_ready"
+        ],
+        "additionalProperties": false
+      },
+      "VersionRequest": {
+        "type": "object",
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expected_state_version"
+        ],
+        "additionalProperties": false
+      },
+      "ConfirmRequest": {
+        "type": "object",
+        "properties": {
+          "expected_state_version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "idempotency_key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          }
+        },
+        "required": [
+          "expected_state_version",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "Confirmation": {
+        "type": "object",
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "scenario_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "state_version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "confirmation_state": {
+            "const": "confirmed"
+          },
+          "confirmed_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+          }
+        },
+        "required": [
+          "plan_id",
+          "scenario_id",
+          "state_version",
+          "confirmation_state",
+          "confirmed_at"
+        ],
+        "additionalProperties": false
+      },
+      "EventReceipt": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "$ref": "https://yuanhang.example/contracts/event.schema.json"
+          },
+          "state_version_after": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "applied": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "event",
+          "state_version_after",
+          "applied"
+        ],
+        "additionalProperties": false
+      },
+      "SolveRequest": {
+        "type": "object",
+        "properties": {
+          "snapshot_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "objective": {
+            "enum": [
+              "time",
+              "energy",
+              "balanced"
+            ]
+          },
+          "mode": {
+            "enum": [
+              "quick",
+              "improve",
+              "replan"
+            ]
+          },
+          "time_limit_s": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "parent_plan_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "requested_model_scope": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "cargo_unique",
+                "capacity",
+                "inventory",
+                "aircraft",
+                "battery",
+                "time_window",
+                "energy",
+                "terrain",
+                "communication"
+              ]
+            },
+            "uniqueItems": true
+          },
+          "allow_partial_service": {
+            "const": false
+          }
+        },
+        "required": [
+          "snapshot_id",
+          "objective",
+          "mode",
+          "time_limit_s",
+          "seed",
+          "parent_plan_id",
+          "event_id",
+          "requested_model_scope",
+          "allow_partial_service"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

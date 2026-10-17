@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "workbook": "outputs\\current_release_20260926_v4\\结果提交_原版模板_20260926_v4.xlsx",
+  "workbook_sha256": "4b76a8817c90ff765eb3604c472da20e57ceaf8dae76b49f64935514c50a7dbe",
+  "template": "review_runs\\20260924_v1\\data_archive\\raw_tables\\结果提交模板.xlsx",
+  "template_sha256": "16f521f29a7103c4ff7c3709ce1696bb9fffa18ce741895e45b7bc7afaf3320a",
+  "sheet_names_unchanged": true,
+  "original_style_cells_checked": 3214,
+  "filled_cells": 6364,
+  "sheet_rows": {
+    "Q1_单点组批": 18,
+    "Q2_运输架次": 23,
+    "Q2_逐箱交付": 80,
+    "Q3_中继架次": 3,
+    "Q3_通信保障": 935,
+    "Q4_分区配置": 5
+  },
+  "styles_xml_byte_identical": true,
+  "all_non_sheet_parts_byte_identical": true,
+  "headers_column_widths_row_styles_panes_merges_unchanged": true,
+  "typed_values_exact_readback": true,
+  "communication_intervals": 377,
+  "zero_duration_events": 558,
+  "authoring": "Artifact Tool values exported and merged into original worksheet cells; original formatting retained verbatim"
+}

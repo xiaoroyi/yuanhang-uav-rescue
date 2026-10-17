@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "STATE_VERSION_CONFLICT",
+    "message": "示例：版本已经变化",
+    "field_path": "expected_state_version",
+    "details": {
+      "expected": 1,
+      "actual": 2
+    },
+    "request_id": "REQ-MOCK-001"
+  }
+}

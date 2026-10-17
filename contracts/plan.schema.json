@@ -1,0 +1,524 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/plan.schema.json",
+  "title": "plan",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft"
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "scenario_state_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "data_origin": {
+      "enum": [
+        "mock",
+        "solver",
+        "imported_historical"
+      ]
+    },
+    "objective": {
+      "enum": [
+        "time",
+        "energy",
+        "balanced"
+      ]
+    },
+    "solver_status": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/solver_status"
+    },
+    "has_validated_plan": {
+      "type": "boolean"
+    },
+    "model_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "last_delivery_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "makespan_s": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "energy_kwh": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_cny": {
+          "type": "null"
+        },
+        "sortie_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unserved_demand_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mandatory_served_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mandatory_total_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "min_return_soc": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "last_delivery_s",
+        "makespan_s",
+        "energy_kwh",
+        "cost_cny",
+        "sortie_count",
+        "unserved_demand_count",
+        "mandatory_served_count",
+        "mandatory_total_count",
+        "min_return_soc"
+      ],
+      "additionalProperties": false
+    },
+    "sorties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sortie_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "kind": {
+            "const": "transport"
+          },
+          "drone_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "battery_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "cargo_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            "minItems": 1
+          },
+          "visits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "site_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                },
+                "cargo_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+                  },
+                  "minItems": 1
+                },
+                "delivery_complete_s": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": [
+                "site_id",
+                "cargo_ids",
+                "delivery_complete_s"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "route_geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "LineString"
+              },
+              "coordinates": {
+                "type": "array",
+                "items": {
+                  "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/coordinates"
+                },
+                "minItems": 2
+              }
+            },
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "additionalProperties": false
+          },
+          "prepare_start_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "takeoff_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "return_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "drone_released_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "battery_released_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "return_soc": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "terrain_status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not_evaluated"
+            ]
+          },
+          "communication_status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not_evaluated"
+            ]
+          }
+        },
+        "required": [
+          "sortie_id",
+          "kind",
+          "drone_id",
+          "battery_id",
+          "cargo_ids",
+          "visits",
+          "route_geometry",
+          "prepare_start_s",
+          "takeoff_s",
+          "return_s",
+          "drone_released_s",
+          "battery_released_s",
+          "energy_kwh",
+          "return_soc",
+          "terrain_status",
+          "communication_status"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "unserved_demand_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "minItems": 0
+    },
+    "validation": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/validation"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "solver_notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "parent_plan_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "event_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "change_summary": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "preserved_sortie_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "minItems": 0
+            },
+            "removed_sortie_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "minItems": 0
+            },
+            "added_sortie_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "minItems": 0
+            }
+          },
+          "required": [
+            "preserved_sortie_ids",
+            "removed_sortie_ids",
+            "added_sortie_ids"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "plan_id",
+    "scenario_id",
+    "snapshot_id",
+    "scenario_state_version",
+    "data_origin",
+    "objective",
+    "solver_status",
+    "has_validated_plan",
+    "model_scope",
+    "metrics",
+    "sorties",
+    "unserved_demand_ids",
+    "validation",
+    "generated_at",
+    "solver_notes",
+    "parent_plan_id",
+    "event_id",
+    "change_summary"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "has_validated_plan": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "data_origin": {
+            "const": "solver"
+          },
+          "solver_status": {
+            "enum": [
+              "FEASIBLE",
+              "OPTIMAL"
+            ]
+          },
+          "validation": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "data_origin": {
+            "enum": [
+              "mock",
+              "imported_historical"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "has_validated_plan": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "data_origin": {
+            "const": "solver"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "has_validated_plan": {
+            "const": true
+          },
+          "solver_status": {
+            "enum": [
+              "FEASIBLE",
+              "OPTIMAL"
+            ]
+          },
+          "validation": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,922 @@
+{
+  "updated": "2026-10-17",
+  "team": {
+    "A": "算法与项目负责人",
+    "B": "同一人负责前端、后端与集成"
+  },
+  "gate_status": {
+    "G0": "awaiting_review",
+    "G1": "not_started",
+    "G2": "not_started",
+    "G3": "not_started",
+    "G4": "not_started",
+    "G5": "not_started",
+    "G6": "not_started"
+  },
+  "note": "C-* is a historical backend task prefix, owned by B. Dependencies are explicit task IDs; human contract approval remains required.",
+  "tasks": [
+    {
+      "id": "G0-01",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "检查现有仓库；列已存在文件、代码与测试，记录何处缺失",
+      "acceptance": "`IMPLEMENTATION_STATUS.md` 有真实库存，未擅自覆盖",
+      "dependencies": [],
+      "status": "done",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "G0-02",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "确认 AGENTS、模块 owner、Git PR 规则、决定日志",
+      "acceptance": "两人各自 Codex 阅读相同文件，改变规则须 PR",
+      "dependencies": [
+        "G0-01"
+      ],
+      "status": "done",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "G0-03",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "评审并冻结首次Scenario/Plan/Event/SolveJob及Python options/outcome契约",
+      "acceptance": "schema/fixtures 校验绿；无歧义单位与状态；当前草案通过结构检查，待 A/B 人工确认冻结",
+      "dependencies": [
+        "G0-01"
+      ],
+      "status": "in_progress",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "G0-04",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "确认 `/api/v1` OpenAPI、错误状态、前端 TS 生成方式",
+      "acceptance": "`contracts tests` 覆盖 success/failure 样例；当前仅 HTTP 设计草案，真实生成类型与 OpenAPI 未具备",
+      "dependencies": [
+        "G0-03"
+      ],
+      "status": "in_progress",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "G0-05",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A",
+      "title": "排查原数模完整入口、数据/依赖许可及可跑程度",
+      "acceptance": "原件hash和18份源码AST通过；实际依赖探测缺6个业务包，明确旧路径与许可证待核验，当前不可直接运行；适配实跑归A-01，不宣称已跑通",
+      "dependencies": [
+        "G0-01"
+      ],
+      "status": "done",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/LEGACY_BASELINE_AUDIT.md",
+        "evidence/governance/legacy-audit.json"
+      ]
+    },
+    {
+      "id": "G0-06",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "B",
+      "title": "确定页面结构、Design Tokens、三页验收流程",
+      "acceptance": "页面清单每项有数据源、状态和交互目标",
+      "dependencies": [
+        "G0-01"
+      ],
+      "status": "done",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "G0-07",
+      "phase": "G0",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "CI 契约校验、lint、pytest、前端 build 基础",
+      "acceptance": "最小样例脚本本地和 CI 执行一致；当前有 CI 配置与本地检查，远程 CI 待实际运行",
+      "dependencies": [
+        "G0-03"
+      ],
+      "status": "in_progress",
+      "branch": "docs/g0-governance",
+      "pr": null,
+      "evidence": [
+        "docs/G0_REPORT.md"
+      ]
+    },
+    {
+      "id": "A-01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A",
+      "title": "原题 Q1/Q2 物理与装载适配，纯 Python 入口",
+      "acceptance": "非 Mock 小场景真实运行",
+      "dependencies": [
+        "G0-03",
+        "G0-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-02",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A",
+      "title": "机体/电池快速可行初解、时间限制与独立检查",
+      "acceptance": "Plan 含逐箱、逐机、电池、验证与约束口径",
+      "dependencies": [
+        "A-01",
+        "G0-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "JSON/CSV 场景导入、Pydantic 语义校验、业务错误",
+      "acceptance": "更换场景不用改源码；逐行错误可见",
+      "dependencies": [
+        "G0-03",
+        "G0-04"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-02",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "state_version、不可变 snapshot/hash、SQLite",
+      "acceptance": "编辑后旧 Snapshot 不变",
+      "dependencies": [
+        "C-01"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-03",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "独立 Worker 调 solve/validate，Job 轮询、保存历史 Plan；提供 X-01 所需最小 JSON/CSV/GeoJSON 导出",
+      "acceptance": "从 HTTP 得到真实验算 Plan，无请求阻塞",
+      "dependencies": [
+        "A-02",
+        "C-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "前端基建与三页路由、API Provider 与 Mock 分离",
+      "acceptance": "Mock 明显提示，正式接口切换无大改",
+      "dependencies": [
+        "G0-03",
+        "G0-04",
+        "G0-06"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-02",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "场景导入/资源/需求表与地图点位联动",
+      "acceptance": "用户编辑看得到版本变更",
+      "dependencies": [
+        "B-01",
+        "C-01"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-03",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "B",
+      "title": "地图/架次表/摘要指标、真实 Job 状态",
+      "acceptance": "用同一 sortie_id 联动，不二次估能耗",
+      "dependencies": [
+        "B-01",
+        "C-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "X-01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "首个端到端验收：新数据→真实 Plan→地图→导出",
+      "acceptance": "E2E 记录+请求/响应+Git SHA，Mock 不计",
+      "dependencies": [
+        "A-02",
+        "C-03",
+        "B-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-03",
+      "phase": "G2",
+      "priority": "P0",
+      "owner": "A",
+      "title": "`time`/`energy` 两策略、硬截止与统一保障要求",
+      "acceptance": "同 Snapshot 两次真实计算，指标口径一致",
+      "dependencies": [
+        "A-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-04",
+      "phase": "G2",
+      "priority": "P0",
+      "owner": "A",
+      "title": "电池两段充电、逐实体释放时刻、甘特占用验证",
+      "acceptance": "不重复占用，充电后再复用",
+      "dependencies": [
+        "A-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-04",
+      "phase": "G2",
+      "priority": "P0",
+      "owner": "B",
+      "title": "方案版本、比较、计划确认事务、冲突码",
+      "acceptance": "过期/Mock/验证失败都无法确认",
+      "dependencies": [
+        "C-03",
+        "A-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-04",
+      "phase": "G2",
+      "priority": "P0",
+      "owner": "B",
+      "title": "机体+电池甘特、资源/架次联动、方案比较卡",
+      "acceptance": "相同方案也诚实显示，不造差异",
+      "dependencies": [
+        "B-03",
+        "A-04"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "X-02",
+      "phase": "G2",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "资源/时间验收（重叠、硬截止、空值显示、费用禁用）",
+      "acceptance": "自动化负例全部通过",
+      "dependencies": [
+        "A-03",
+        "A-04",
+        "C-04",
+        "B-04"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-05",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "B",
+      "title": "事件幂等、事件时刻/版本、状态更新与新 Snapshot",
+      "acceptance": "event_id 重试只有一次状态变化",
+      "dependencies": [
+        "C-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-05",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A",
+      "title": "尚未起飞机体退出→replan；保留旧版本及已执行事实",
+      "acceptance": "无故障机未来架次、前后验证均通过",
+      "dependencies": [
+        "A-02",
+        "C-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-06",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A",
+      "title": "依赖图传播、变更代价、限时修复/全量回退",
+      "acceptance": "输出 changed/preserved，可对照修复范围",
+      "dependencies": [
+        "A-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-05",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "B",
+      "title": "事件输入、旧新地图叠加、差异清单、时间轴",
+      "acceptance": "可清楚定位受影响任务和未完成原因",
+      "dependencies": [
+        "B-04",
+        "C-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "X-03",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "事件端到端：原计划→事件→新快照→重算→复盘",
+      "acceptance": "旧 Plan 未覆盖，重复事件不重复预约",
+      "dependencies": [
+        "A-05",
+        "A-06",
+        "C-05",
+        "B-05",
+        "X-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-06",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "CSV/Excel 映射模板、GeoJSON/GeoTIFF/DEM 资产导入与预处理队列",
+      "acceptance": "文件来源与 CRS、有效覆盖、版本可追溯",
+      "dependencies": [
+        "C-01",
+        "X-01"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-06",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "地形/禁入/洪水/通信图层与绘制工具",
+      "acceptance": "标注效果与约束校验分开展示",
+      "dependencies": [
+        "C-06"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-07",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "绕行候选 A* 或可见图、净空预检、缓存键与失效",
+      "acceptance": "禁入更新后候选重算且有验证",
+      "dependencies": [
+        "A-02",
+        "C-06"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-08",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "Q3 中继/两跳链路与时间窗/能源组件完整建模",
+      "acceptance": "启用强制通信时无空白认证",
+      "dependencies": [
+        "A-02",
+        "G0-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-07",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "中继资源、传播参数、通信检查结果持久化与 API 升级",
+      "acceptance": "协议扩展通过版本迁移测试",
+      "dependencies": [
+        "A-08"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-07",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "中继点/服务时间轴、通信来源与缺口高亮",
+      "acceptance": "点击航段显示接入/回传来源与证据",
+      "dependencies": [
+        "C-07"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-09",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "充电端口、起降位与地面工位容量约束",
+      "acceptance": "同刻容量超限可检测",
+      "dependencies": [
+        "A-04",
+        "X-02"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-10",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "电池退出、紧急插单、落点变更、未来封控事件",
+      "acceptance": "作用范围、发生/接收时间、旧事实可追踪",
+      "dependencies": [
+        "A-05",
+        "A-07",
+        "C-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-08",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "地图/资源新增事件 API 与一致性事务",
+      "acceptance": "版本冲突返回结构化错误",
+      "dependencies": [
+        "A-10",
+        "C-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-08",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "动态图层与复盘/故障明细页面",
+      "acceptance": "失败、未评估、已验证状态可区分",
+      "dependencies": [
+        "A-10",
+        "C-08"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-11",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "部分保障、资源缺口/增配试算、可证明下界",
+      "acceptance": "明确“证明无解”与“预算未找到”",
+      "dependencies": [
+        "A-03",
+        "A-07",
+        "A-08"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-12",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A",
+      "title": "Q4 冻结任务分区、资源峰值与共享损失",
+      "acceptance": "分区不冒用可重新分配时的全局最优性",
+      "dependencies": [
+        "A-08"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-09",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "资源增配情景 API，独立分叉快照与打印/导出",
+      "acceptance": "增配单独建新场景/快照并真实求解",
+      "dependencies": [
+        "A-11",
+        "C-04"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-09",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "资源增配前端比较与打印任务单",
+      "acceptance": "增配单独建新场景/快照并真实求解",
+      "dependencies": [
+        "C-09",
+        "B-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-13",
+      "phase": "G5",
+      "priority": "P1",
+      "owner": "A",
+      "title": "能耗/时间/通信情景压力；多情景优化/风险指标",
+      "acceptance": "同数据同预算对照，情景说明清楚",
+      "dependencies": [
+        "A-07",
+        "A-08",
+        "A-09"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-14",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "A",
+      "title": "学习辅助邻域算子；训练集、种子、无泄漏划分",
+      "acceptance": "随机/规则/学习同预算消融与泛化实验；真实数据/日志资格门槛不满足则记录 blocked，不伪造训练或精度",
+      "dependencies": [
+        "A-06",
+        "A-13"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "A-15",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "A",
+      "title": "有真实日志后物理+学习能耗误差补偿",
+      "acceptance": "训练/校准/独立测试，不能从模拟宣称真机精度；真实数据/日志资格门槛不满足则记录 blocked，不伪造训练或精度",
+      "dependencies": [
+        "A-13"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-10",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "B",
+      "title": "ODM/NodeODM 航摄影像异步建图/质量审批",
+      "acceptance": "产生版本化地图，不自动进入安全计算",
+      "dependencies": [
+        "C-06"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "B-10",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "B",
+      "title": "地图资产处理进度、审批、正射/地形版本比较",
+      "acceptance": "数据新鲜度与限制清晰可见",
+      "dependencies": [
+        "C-10"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "C-11",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "B",
+      "title": "PX4 SITL/MAVSDK 仿真适配（可选）",
+      "acceptance": "仅宣称仿真任务支持与明确指令子集",
+      "dependencies": [
+        "X-03",
+        "C-07"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "X-12",
+      "phase": "G5",
+      "priority": "P2",
+      "owner": "A+B",
+      "title": "多基地、移动补给/补能、跨机构权限与审计；分别拆子任务，全部保留为P2",
+      "acceptance": "新约束、输入契约、行为验证独立立项",
+      "dependencies": [
+        "X-03",
+        "A-07",
+        "A-08",
+        "C-07"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "Q-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A",
+      "title": "原题回归：Q1 18架次、Q2 23架次/时间/能耗、Q3 运输+中继基准作结构/约束核查",
+      "acceptance": "版本、输入、模型口径、预算一致；不强制相同的可行分配序列",
+      "dependencies": [
+        "A-02",
+        "A-08",
+        "A-12"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "Q-02",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A",
+      "title": "多场景/多随机种子、算法 baseline、动态全量/局部对照、消融与性能",
+      "acceptance": "`evidence/` 保存数据 hash、commit、配置、原始运行记录",
+      "dependencies": [
+        "A-06",
+        "A-13"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "Q-03",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "自动契约/数据库/HTTP/并发/重启/导出/离线/安全测试",
+      "acceptance": "CI + 本地复现命令",
+      "dependencies": [
+        "C-03",
+        "C-04",
+        "C-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "Q-04",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "UI 交互/响应/颜色可读性/异常态/地图离线显示",
+      "acceptance": "实测截图与操作验收",
+      "dependencies": [
+        "B-03",
+        "B-04",
+        "B-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "Q-05",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "端到端回归脚本与最小真实演示包",
+      "acceptance": "任一队友可重新安装并完成全部关键流程",
+      "dependencies": [
+        "X-01",
+        "X-02",
+        "X-03",
+        "Q-03",
+        "Q-04"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "S-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "项目简表（官方模板）和项目说明书",
+      "acceptance": "每条宣称对应代码与试验证据，按字数上限",
+      "dependencies": [
+        "X-01"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "S-02",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "演示视频、系统截图、答辩 PPT（可选但建议）",
+      "acceptance": "真实操作镜头，标注加速/历史回放",
+      "dependencies": [
+        "X-03"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "S-03",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "商业计划书（可选）、竞品对比/用户访谈",
+      "acceptance": "实际验证与假设分开，无虚构合同/收入",
+      "dependencies": [],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "S-04",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "匿名、许可证、原创新增贡献、源代码与原型证明；取得官方指南/模板与最新通知，核对截止及复用条款",
+      "acceptance": "不透露培养单位/导师/身份信息，除官方必须实名栏目",
+      "dependencies": [
+        "S-01",
+        "Q-05"
+      ],
+      "status": "todo",
+      "branch": null,
+      "pr": null,
+      "evidence": []
+    }
+  ]
+}

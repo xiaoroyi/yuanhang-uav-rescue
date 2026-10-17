@@ -1,0 +1,15 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.docx binary
+*.xlsx binary
+*.pdf binary
+*.zip binary
+*.mat binary
+*.tif binary
+
+# Preserve source originals byte-for-byte, including historical CRLF/BOM/Markdown breaks.
+# Whitespace in immutable source documents is not a change to repair.
+references/** -text -whitespace

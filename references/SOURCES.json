@@ -1,0 +1,309 @@
+{
+  "import_date": "2026-10-17",
+  "legacy_release_id": "20260926_v4_excel1",
+  "note": "Copy and static inspection only; no legacy solver execution or license verification claimed.",
+  "excluded": [
+    "dependency trees",
+    "node_modules",
+    "caches",
+    "historical figures",
+    "unrelated personal files",
+    "full GIS dataset"
+  ],
+  "files": [
+    {
+      "path": "references/modeling/paper.pdf",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150.pdf",
+      "bytes": 5706037,
+      "sha256": "5bf6dc10dd64cb0a53a93036ed44b54aa2987c04dccbea2b9163d033f94f76d4",
+      "role": "historical_research"
+    },
+    {
+      "path": "references/modeling/answers.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_答案.xlsx",
+      "bytes": 52242,
+      "sha256": "4b76a8817c90ff765eb3604c472da20e57ceaf8dae76b49f64935514c50a7dbe",
+      "role": "historical_result"
+    },
+    {
+      "path": "references/modeling/problem.docx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\山区洪涝灾害下无人机运输与通信协同优化.docx",
+      "bytes": 6971534,
+      "sha256": "0a4f507b91a02a0ea4264973dd432cdcb5b8916c61c24214719665f326d57685",
+      "role": "problem_statement"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题1/src/bootstrap.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题1\\src\\bootstrap.py",
+      "bytes": 181,
+      "sha256": "d4bc70f831858dec1228c5d1672fc7a271707ea3dde80667beb9e2c7a9481d45",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题1/src/data_io.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题1\\src\\data_io.py",
+      "bytes": 5408,
+      "sha256": "c8ce66f33310c57b9859e006ee8d88cd100b1fb3e32b4d13241eba12abf1cbe7",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题1/src/flight_physics.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题1\\src\\flight_physics.py",
+      "bytes": 2173,
+      "sha256": "1ef368eabba80e722273d6ea253f58b2aedf18eacfdddf2204367054d8273397",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题1/src/solver.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题1\\src\\solver.py",
+      "bytes": 6278,
+      "sha256": "22115d7192821b8a620c566d344d80aa9fc31617e687356d02c5331ebce3db22",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题1/src/terrain.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题1\\src\\terrain.py",
+      "bytes": 3776,
+      "sha256": "72196ccde166417108c68ad7840d41c552142b5905cb40fd4368a7a96c0fe416",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题2/src/env.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题2\\src\\env.py",
+      "bytes": 256,
+      "sha256": "42ee83d903574f021e4ad4d6cd4508c6d07a0200ef4bbdf3696a07acfdede48a",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题2/src/master.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题2\\src\\master.py",
+      "bytes": 13840,
+      "sha256": "f5f855ba67bd301fe3cbc6b3d1041e94a5933d67d2dfe4a15efc8d1ef1bbf694",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题2/src/prepare.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题2\\src\\prepare.py",
+      "bytes": 3752,
+      "sha256": "b6ab70f5a47238ee57ccec327c79718739fbebcd928f014280a989e4e36cdb01",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题2/src/routes.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题2\\src\\routes.py",
+      "bytes": 9449,
+      "sha256": "940cf521ef218bf257a950eebbd48d3c617e213e1b1d95b927561e0675cba06e",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题2/src/validate.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题2\\src\\validate.py",
+      "bytes": 8853,
+      "sha256": "5642caa076a4a7e559c749cdc4aa7b3a50f3d77adc6a08ce4bddc2a79dee0109",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/atoms.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\atoms.py",
+      "bytes": 2418,
+      "sha256": "451c929e4039e2c8495f6836ce9ba0e9703678159ef2b90a66d18f9f861897f0",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/communication.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\communication.py",
+      "bytes": 8180,
+      "sha256": "158ae71398adea20dbc1315b8924862f8d18fd9f0a0be307f858e342daa80977",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/joint_batch.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\joint_batch.py",
+      "bytes": 16567,
+      "sha256": "948bbb4c957ca4faa62b8c12fb5a55fcb64cabb8e25ab64a5ffcea9432737546",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/setup_q3.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\setup_q3.py",
+      "bytes": 2757,
+      "sha256": "b94f55f622de0e038880e54ebfd08b89141478c70c40a270914e846d01a318c9",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/sites.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\sites.py",
+      "bytes": 4385,
+      "sha256": "4ab40f245616e3cdbc4dd8b9c7e9551cdda145cf5a62c79582fccf24c57767b4",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题3/src/validate_q3.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题3\\src\\validate_q3.py",
+      "bytes": 8992,
+      "sha256": "3b7629fc71d69c964bf5f83aea045d48405df5577dca79439871c5b92606d9ee",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题4/src/audit_q4.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题4\\src\\audit_q4.py",
+      "bytes": 4407,
+      "sha256": "ef6a5b40975bf9c657331554160b5381b1b6c883d565d7f491189420fe65dba7",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/submitted-code/问题4/src/solve_q4.py",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\提交材料完整版_D26106140150-------------------\\D26106140150_附件\\问题4\\src\\solve_q4.py",
+      "bytes": 15583,
+      "sha256": "ad81b1d8696f3c9cdc2c7aedcefb438b1986cb854337f52ecfa0e36e2ff627d7",
+      "role": "legacy_source_not_runtime"
+    },
+    {
+      "path": "references/modeling/data/tables/中继无人机数据.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\无人机应急物资运输基础数据\\中继无人机数据.xlsx",
+      "bytes": 11082,
+      "sha256": "be52643ff29419233e6a141dca03a04160a8af551cab36d8c49b51bb836bea04",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/tables/物资需求与配送时限.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\无人机应急物资运输基础数据\\物资需求与配送时限.xlsx",
+      "bytes": 17474,
+      "sha256": "5a3346159ceddcf585859d270b8f62114b388a1f737fbe64ffde0ee1fdc8170a",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/tables/调度中心与服务区.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\无人机应急物资运输基础数据\\调度中心与服务区.xlsx",
+      "bytes": 11017,
+      "sha256": "541a7af1ded08c9a3ff448480332cb5f6a54902f0afa6e9bcd50c1d2b2b34e38",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/tables/运输无人机数据.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\无人机应急物资运输基础数据\\运输无人机数据.xlsx",
+      "bytes": 11746,
+      "sha256": "9296a657c07e042afba6aeea7999665d9cd24e00b592fd6c269de6e338480dcb",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/tables/通信链路参数.xlsx",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\无人机应急物资运输基础数据\\通信链路参数.xlsx",
+      "bytes": 10485,
+      "sha256": "1860d153199e7ae460ba36e83b673374e640e19de91ea167f2877271001f5f81",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/terrain/镇龙乡及周边30米DEM.mat",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\数字高程模型数据（DEM）\\镇龙乡及周边30米DEM.mat",
+      "bytes": 6746494,
+      "sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/data/terrain/镇龙乡及周边30米DEM.tif",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\D题\\数据\\镇龙乡地理空间数据\\镇龙乡及周边地理数据\\数字高程模型数据（DEM）\\镇龙乡及周边30米DEM.tif",
+      "bytes": 7867096,
+      "sha256": "741fe6de0b2bcaffd0f4007f574ee698d46197094f52cc954b532c4f90fc7c03",
+      "role": "contest_input"
+    },
+    {
+      "path": "references/modeling/release/CURRENT_RELEASE.json",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\CURRENT_RELEASE.json",
+      "bytes": 5487,
+      "sha256": "0882e0b9a9d0aa80f5b4b92ac43e5fe407c96be4eca779fe4f509cbb53887f3b",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/当前版本与目录说明.md",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\当前版本与目录说明.md",
+      "bytes": 2549,
+      "sha256": "a4a6525cc71b2adf7c60fa3bb92e24100135be909b94110eb25dbbe85fde404a",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/selected_versions.json",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\review_runs\\20260926_release\\selected_versions.json",
+      "bytes": 2474,
+      "sha256": "bf30697b0a72bad4cbf70dc81b8224ba69a09d9f7a63e5f206693bb9b7a19d51",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/accepted_metrics.csv",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\review_runs\\20260926_release\\accepted_metrics.csv",
+      "bytes": 512,
+      "sha256": "39829ec3d8b7fb63518e4355a768dfc3d51e35dd968b2a895d436b75d4660379",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/delivery_audit.json",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\review_runs\\20260926_release\\delivery_audit.json",
+      "bytes": 893,
+      "sha256": "f4aed2a352d3b02a86fd6e3d230aecff9f203c7858b70534b8ec716f2e0e651a",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/新结果发布与论文更新说明.md",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\review_runs\\20260926_release\\新结果发布与论文更新说明.md",
+      "bytes": 6490,
+      "sha256": "a0906ceaf73ecae1184d829dc27edff2a1021b3af977b9ac01d12b9b5502d19d",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/excel_source_manifest.json",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\outputs\\current_release_20260926_v4\\excel_source_manifest.json",
+      "bytes": 2928,
+      "sha256": "1147ecb6d37d10893ab7e82aa8a7ff9abade667b49bac7d945664c367a1a4960",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/original_template_validation.json",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\outputs\\current_release_20260926_v4\\original_template_validation.json",
+      "bytes": 1077,
+      "sha256": "308a73a878e86514feb0aa4d66c3a8182f32b89b68c095072a04776ba457d73a",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/Q3_运输架次_配套明细.csv",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\outputs\\current_release_20260926_v4\\Q3_运输架次_配套明细.csv",
+      "bytes": 1860,
+      "sha256": "f2d1f6137bbd472d35b8627792faa976d7e3a73ee7c6ef1ccb9ec9e203e3ef1d",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/release/Q3_逐箱交付_配套明细.csv",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\outputs\\current_release_20260926_v4\\Q3_逐箱交付_配套明细.csv",
+      "bytes": 3615,
+      "sha256": "759d61887e842cc8b34f8546c88bc10cc361da2f0bdb234ab607fc2f06c828fd",
+      "role": "legacy_provenance"
+    },
+    {
+      "path": "references/modeling/verified-release-code-and-results.zip",
+      "source": "E:\\成电\\成电研一\\华为杯数学建模2026\\代码\\outputs\\current_release_20260926_v4\\问题1至4_详细代码与结果依据_20260926.zip",
+      "bytes": 3606541,
+      "sha256": "5b8bb6d0637e5f6ba190d8fe721e58ab6a2f9514cb66529d04a121fd97bd0d4a",
+      "role": "legacy_reproduction_archive"
+    },
+    {
+      "path": "references/source/development-plan.docx",
+      "source": "D:\\Desktop\\无人机救援调度系统设计与开发方案.docx",
+      "bytes": 550262,
+      "sha256": "1db25bbdd2b15a9840a57028ae4e348a33679d60156a0876f91b96e96aa029ca",
+      "role": "user_supplied_source"
+    },
+    {
+      "path": "references/source/product-discussion.txt",
+      "source": "C:\\Users\\26099\\.codex\\attachments\\928b7b0d-d0a3-4836-b5f6-111f93ca8b16\\已粘贴的文本.txt",
+      "bytes": 37570,
+      "sha256": "820380f5dcbc84d043d052d2e818b274205ae1f2a90db46448a9ea8440f15df5",
+      "role": "user_supplied_source"
+    },
+    {
+      "path": "references/source/original-handoff.zip",
+      "source": "D:\\Desktop\\%E6%8F%B4%E8%88%AA_Codex%E5%85%A8%E9%87%8F%E5%BC%80%E5%8F%91%E5%AF%B9%E6%8E%A5%E4%B8%8E%E8%A7%84%E8%8C%83%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%85.zip",
+      "bytes": 61602,
+      "sha256": "eef8064d033ba698fc492f33fda51ceae01a2e2aa7523df09fdf26922296356f",
+      "role": "user_supplied_source"
+    }
+  ]
+}

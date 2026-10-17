@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0-draft",
+  "status": "proposed",
+  "approved_by": [],
+  "rfc": "docs/CONTRACT_RFC_001.md",
+  "schemas": [
+    "common.schema.json",
+    "scenario.schema.json",
+    "snapshot.schema.json",
+    "plan.schema.json",
+    "event.schema.json",
+    "solver-options.schema.json",
+    "solver-outcome.schema.json",
+    "solve-job.schema.json",
+    "error.schema.json",
+    "capabilities.schema.json"
+  ],
+  "type_generation": {
+    "python": "JSON Schema -> generated Pydantic in backend; solver uses JSON mappings",
+    "typescript": "JSON Schema -> shared domain types; implemented OpenAPI -> HTTP types",
+    "status": "planned_not_generated"
+  }
+}

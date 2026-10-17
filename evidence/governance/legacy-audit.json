@@ -1,0 +1,17 @@
+{
+  "audit_type": "static_and_dependency_readiness_only",
+  "release": "20260926_v4_excel1",
+  "source_file_count": 18,
+  "ast_parse": "PASS",
+  "solver_execution": "NOT_RUN",
+  "dependency_probe": {
+    "numpy": false,
+    "scipy": false,
+    "openpyxl": false,
+    "pyproj": false,
+    "shapely": false,
+    "ortools": false
+  },
+  "runtime_readiness": "not_ready_in_current_interpreter",
+  "license_evidence": "not supplied with selected submission sources; review before distribution"
+}

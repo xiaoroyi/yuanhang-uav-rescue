@@ -1,0 +1,19 @@
+{
+  "api_version": "v1",
+  "schema_versions": [
+    "0.1.0-draft"
+  ],
+  "solver_ready": false,
+  "supported_objectives": [],
+  "supported_events": [],
+  "supported_model_scope": [],
+  "supported_energy_models": [],
+  "supported_charge_models": [],
+  "features": {
+    "partial_service": false,
+    "relay_coordination": false,
+    "execution_state": false,
+    "dem_validation": false,
+    "what_if": false
+  }
+}
