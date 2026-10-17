@@ -6,6 +6,7 @@ import pytest
 
 from backend.app.main import create_app
 from shared.contracts import content_hash, validate_job, validate_plan
+from solver.metrics import objective_score
 
 
 @pytest.fixture
@@ -225,3 +226,35 @@ def test_restart_keeps_scenarios_and_plan(tmp_path):
     with TestClient(create_app(tmp_path / "db")) as client:
         assert client.get("/api/v1/scenarios/" + s["scenario_id"]).json() == s
         assert client.get("/api/v1/plans/" + plan["plan_id"]).json() == plan
+
+
+def test_deep_job_binds_valid_incumbent_and_preserves_original(client):
+    scene = example(client)
+    snap = snapshot(client, scene)
+    _, old = solve(client, snap)
+    _, new = solve(client, snap, mode="improve", initial_plan_id=old["plan_id"])
+    assert new["plan_id"] != old["plan_id"]
+    assert objective_score(snap["scenario"], new, "time") <= objective_score(
+        snap["scenario"], old, "time"
+    )
+    assert client.get("/api/v1/plans/" + old["plan_id"]).json() == old
+    summary = client.get(f"/api/v1/scenarios/{scene['scenario_id']}/plans").json()[0]
+    assert summary["algorithm_mode"] == "improve"
+    assert summary["source_plan_id"] == old["plan_id"]
+    for changes, expected in [
+        ({"mode": "quick"}, 422),
+        ({"mode": "improve", "objective": "energy"}, 409),
+        (
+            {"mode": "improve", "snapshot_id": snapshot(client, scene)["snapshot_id"]},
+            409,
+        ),
+    ]:
+        rejected = client.post(
+            "/api/v1/solve-jobs",
+            json={
+                "snapshot_id": snap["snapshot_id"],
+                "initial_plan_id": old["plan_id"],
+                **changes,
+            },
+        )
+        assert rejected.status_code == expected, rejected.text

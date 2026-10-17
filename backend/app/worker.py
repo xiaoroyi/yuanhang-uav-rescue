@@ -48,7 +48,12 @@ def main():
                 callback,
             )
         else:
-            result = solve(data["snapshot"], data["options"], callback)
+            result = solve(
+                data["snapshot"],
+                data["options"],
+                callback,
+                initial_plan=data.get("initial_plan"),
+            )
         atomic_json(output, result)
     except Exception:
         traceback.print_exc()

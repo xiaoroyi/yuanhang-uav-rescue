@@ -49,6 +49,7 @@ from backend.app.storage import (
     EventRow,
     JobRow,
     PlanRow,
+    PlanRefinementRow,
     ReservationRow,
     ScenarioRow,
     ScenarioForkRow,
@@ -123,6 +124,7 @@ class SolveRequest(StrictModel):
         ]
     )
     allow_partial_service: Literal[False] = False
+    initial_plan_id: str | None = None
 
 
 class ConfirmRequest(VersionRequest):
@@ -160,6 +162,8 @@ class PlanSummary(StrictModel):
     solver_status: str
     metrics: dict
     confirmed_at: str | None
+    algorithm_mode: Literal["quick", "improve", "replan"] = "quick"
+    source_plan_id: str | None = None
 
 
 class Progress(StrictModel):
@@ -715,7 +719,7 @@ def create_app(runtime_dir: Path | None = None):
             options = {
                 "schema_version": snap["schema_version"],
                 "plan_id": plan_id,
-                **body.model_dump(),
+                **body.model_dump(exclude={"initial_plan_id"}),
             }
             if (
                 snap["scenario"]["policy"]["requires_terrain"]
@@ -727,6 +731,23 @@ def create_app(runtime_dir: Path | None = None):
             except ContractError as exc:
                 raise AppError(422, "SCHEMA_INVALID", str(exc)) from exc
             payload = {"snapshot": snap, "options": options}
+            if body.initial_plan_id:
+                if body.mode != "improve":
+                    raise AppError(
+                        422, "SCHEMA_INVALID", "initial_plan_id仅用于深入优化。"
+                    )
+                base = require_row(session, PlanRow, body.initial_plan_id)
+                if (
+                    base.snapshot_id != body.snapshot_id
+                    or base.content["objective"] != body.objective
+                ):
+                    raise AppError(
+                        409,
+                        "SNAPSHOT_STALE",
+                        "深入优化基线必须来自同一快照和相同目标。",
+                    )
+                payload["initial_plan"] = base.content
+                session.add(PlanRefinementRow(plan_id=plan_id, source_plan_id=base.id))
             if body.mode == "replan":
                 old = require_row(session, PlanRow, body.parent_plan_id).content
                 event = require_row(
@@ -824,6 +845,12 @@ def create_app(runtime_dir: Path | None = None):
     def list_plans(scenario_id: str):
         with database.session() as session:
             require_row(session, ScenarioRow, scenario_id)
+            modes = {
+                j.content["reserved_plan_id"]: j.options["mode"]
+                for j in session.scalars(
+                    select(JobRow).where(JobRow.scenario_id == scenario_id)
+                )
+            }
             rows = list(
                 session.scalars(
                     select(PlanRow).where(PlanRow.scenario_id == scenario_id)
@@ -844,7 +871,15 @@ def create_app(runtime_dir: Path | None = None):
                         "metrics",
                     ]
                 }
-                | {"confirmed_at": r.confirmed_at}
+                | {
+                    "confirmed_at": r.confirmed_at,
+                    "algorithm_mode": modes.get(r.id, "quick"),
+                    "source_plan_id": (
+                        refinement.source_plan_id
+                        if (refinement := session.get(PlanRefinementRow, r.id))
+                        else None
+                    ),
+                }
                 for r in rows
             ]
 

@@ -291,13 +291,17 @@ export default function App() {
     return () => clearInterval(timer)
   }, [playing, plan])
 
-  async function runSolver(objective: 'time' | 'energy' | 'balanced') {
+  async function runSolver(objective: 'time' | 'energy' | 'balanced', improve = false) {
     if (!scenario || isBusy || scenario.data_origin === 'mock') return
     setSubmitting(true)
     try {
       const snap =
         plan && !stale ? await api.getSnapshot(plan.snapshot_id) : await api.snapshot(scenario)
-      const created = await api.solve(snap.snapshot_id, objective)
+      const created = await api.solve(
+        snap.snapshot_id,
+        objective,
+        improve ? { mode: 'improve', time_limit_s: 30, initial_plan_id: plan?.plan_id } : {},
+      )
       setJobId(created.job_id)
       query.setQueryData(['job', created.job_id], created)
       notify('已提交真实求解，输入已固定为不可变快照。')
@@ -681,8 +685,13 @@ export default function App() {
                         >
                           {sortedPlans.map((p) => (
                             <option key={p.plan_id} value={p.plan_id}>
-                              {objectiveLabels[p.objective as keyof typeof objectiveLabels]} · v
-                              {p.scenario_state_version}
+                              {objectiveLabels[p.objective as keyof typeof objectiveLabels]} ·{' '}
+                              {p.algorithm_mode === 'improve'
+                                ? '深入'
+                                : p.algorithm_mode === 'replan'
+                                  ? '重规划'
+                                  : '快速'}{' '}
+                              · v{p.scenario_state_version}
                               {p.confirmed_at ? ' · 已确认' : ''}
                             </option>
                           ))}
@@ -692,6 +701,18 @@ export default function App() {
                         <ShieldCheck size={15} />
                         检查报告
                       </Button>
+                      {page === 'workspace' && plan && (
+                        <Button
+                          disabled={isBusy || stale || scenario.data_origin === 'mock'}
+                          title="同一快照上执行30秒限时路线池搜索；未找到更优方案时保留已验算基线。"
+                          onClick={() =>
+                            void runSolver(plan.objective as 'time' | 'energy' | 'balanced', true)
+                          }
+                        >
+                          <RefreshCw size={14} />
+                          深入优化30秒
+                        </Button>
+                      )}
                       {page === 'workspace' && (
                         <Button
                           variant="primary"
@@ -1203,7 +1224,7 @@ export default function App() {
                                   </>
                                 ) : (
                                   <button
-                                    disabled={isBusy}
+                                    disabled={isBusy || scenario.data_origin === 'mock'}
                                     onClick={() => void runSolver(objective)}
                                   >
                                     真实计算此策略 <ArrowRight size={12} />

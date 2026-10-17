@@ -3,7 +3,7 @@
 A维护 `solver/public_api.py`，B的Worker通过该入口调用。目前已实现并有真实回归；本页规定稳定边界，实际范围见IMPLEMENTATION_STATUS与capabilities。只读playback辅助接口见RFC-002。
 
 ```python
-def solve(snapshot, options, progress_callback=None) -> dict: ...
+def solve(snapshot, options, progress_callback=None, *, initial_plan=None) -> dict: ...
 def replan(snapshot, previous_plan, event, options, progress_callback=None) -> dict: ...
 def validate(snapshot, plan) -> dict: ...
 def capabilities() -> dict: ...
@@ -28,6 +28,14 @@ progress_callback接受 `{"stage": str, "elapsed_s": number, "candidate_count": 
 - 取消完成：内部 UNKNOWN/canceled；外部 Job canceled，solver_status=null，当前不保留可确认中间计划。
 
 first_feasible_s 表示首个**独立检查通过**的候选时间，不是优化器第一次报告布尔可行。无该候选则 null，不能用 0 冒充。diagnostics 至少有 code/message，可附 field_path/object_id。
+
+## 限时深入优化
+
+`mode=improve` 在快速构造后使用 OR-Tools CP-SAT 对有限路线池重分箱件并联合安排机体/电池。可选只读 `initial_plan` 必须为同一快照、相同目标的真实 Solver 方案，并重新通过独立检查。HTTP 使用独立 `SolveRequest.initial_plan_id` 加载它，不向核心 SolverOptions 暗加字段；旧三参数调用保持兼容。
+
+搜索采用10毫秒向上取整的资源占用时间网格、单线程和显式种子。共同目标先比较逐箱优先级加权期望延期，再比较所选时间/能耗/均衡目标；只有完整浮点物理重算通过且严格改善时才替换有效基线。有限池状态OPTIMAL仅说明该离散池模型；对外仍为FEASIBLE，不声称全路线空间全局最优。非满初始SOC、预算不足或整数范围过大时跳过该优化，保留快速方案。取消仍取消本次Job，旧Plan保持不变。
+
+实现和同预算真实输入证据见 `solver/cp_pool.py`、`evidence/solver/deep-compact.json`、`deep-contest.json`。间隔模型参考 [OR-Tools调度文档](https://developers.google.com/optimization/scheduling/job_shop)。
 
 ## 重规划
 

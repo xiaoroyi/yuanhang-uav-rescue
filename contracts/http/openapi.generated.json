@@ -3160,6 +3160,27 @@
               }
             ],
             "title": "Confirmed At"
+          },
+          "algorithm_mode": {
+            "type": "string",
+            "enum": [
+              "quick",
+              "improve",
+              "replan"
+            ],
+            "title": "Algorithm Mode",
+            "default": "quick"
+          },
+          "source_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Plan Id"
           }
         },
         "additionalProperties": false,
@@ -4082,6 +4103,17 @@
             "const": false,
             "title": "Allow Partial Service",
             "default": false
+          },
+          "initial_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Plan Id"
           }
         },
         "additionalProperties": false,

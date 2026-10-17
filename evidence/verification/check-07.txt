@@ -3,17 +3,18 @@
 > node scripts/run-e2e.mjs
 
 
-Running 8 tests using 1 worker
+Running 9 tests using 1 worker
 
-(node:31360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:32604) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ok 1 tests\workflow.spec.ts:34:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (21.8s)
-  ok 2 tests\workflow.spec.ts:75:1 › 编辑输入使旧方案失效，导入预览创建新场景 (12.8s)
-  ok 3 tests\workflow.spec.ts:108:1 › 真实故障重规划保留旧方案，展示新旧变化 (13.0s)
+  ok 1 tests\workflow.spec.ts:34:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (22.3s)
+  ok 2 tests\workflow.spec.ts:75:1 › 编辑输入使旧方案失效，导入预览创建新场景 (13.0s)
+  ok 3 tests\workflow.spec.ts:108:1 › 真实故障重规划保留旧方案，展示新旧变化 (13.9s)
   ok 4 tests\workflow.spec.ts:130:1 › 手机窄屏仍可切页和运行计算 (9.3s)
-  ok 5 tests\workflow.spec.ts:142:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (12.0s)
-  ok 6 tests\workflow.spec.ts:171:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (12.6s)
+  ok 5 tests\workflow.spec.ts:142:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (12.2s)
+  ok 6 tests\workflow.spec.ts:171:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (12.9s)
   ok 7 tests\workflow.spec.ts:222:1 › 任务刷新恢复，重新载入页面不重复提交求解 (4.1s)
-  ok 8 tests\workflow.spec.ts:234:1 › 打印报告包含真实任务并可离线保存PDF (6.2s)
+  ok 8 tests\workflow.spec.ts:234:1 › 打印报告包含真实任务并可离线保存PDF (6.6s)
+  ok 9 tests\workflow.spec.ts:256:1 › 深入优化保留同快照基线，刷新后继续真实计算 (41.4s)
 
-  8 passed (1.5m)
+  9 passed (2.3m)

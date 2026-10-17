@@ -395,7 +395,7 @@ def _make_plan(snapshot, options, routes):
     }
 
 
-def solve(snapshot, options, progress_callback=None):
+def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
     started = time.perf_counter()
     best = None
     first = None
@@ -490,7 +490,33 @@ def solve(snapshot, options, progress_callback=None):
                 ],
             )
         budget = max(0.01, min(float(options["time_limit_s"]), 3600.0))
-        deadline = started + budget * 0.9
+        deadline = started + (
+            min(5.0, budget * 0.3) if options["mode"] == "improve" else budget * 0.9
+        )
+        if initial_plan is not None:
+            if (
+                initial_plan["data_origin"] != "solver"
+                or not initial_plan["has_validated_plan"]
+            ):
+                raise InputNotReady("深入优化只能继承已发布的真实Solver方案。")
+            if (
+                options["mode"] != "improve"
+                or initial_plan["snapshot_id"] != snapshot["snapshot_id"]
+                or initial_plan["objective"] != options["objective"]
+            ):
+                raise InputNotReady("深入优化基线必须来自同一快照，且mode=improve。")
+            if validate(snapshot, initial_plan)["status"] != "passed":
+                raise InputNotReady("深入优化基线未通过当前快照的独立检查。")
+            base = _make_plan(snapshot, options, copy.deepcopy(initial_plan["sorties"]))
+            base["validation"] = validate(snapshot, base)
+            base["solver_notes"].append(
+                "深入优化继承已验算基线 "
+                + initial_plan["plan_id"]
+                + "；只有严格改善共同目标的候选才替换基线。"
+            )
+            best = (objective_score(s, base, options["objective"]), base)
+            first = time.perf_counter() - started
+            count = 1
         progress("计算航段与箱件插入")
         non_improving = 0
         for iteration in range(48):
@@ -532,6 +558,42 @@ def solve(snapshot, options, progress_callback=None):
             progress("改进已验证方案")
             if non_improving >= 8:
                 break
+        deep_limited = False
+        if best and options["mode"] == "improve":
+            remaining = started + budget * 0.96 - time.perf_counter()
+            if remaining > 0.25:
+                try:
+                    from solver.cp_pool import optimize
+
+                    routes, details = optimize(
+                        s,
+                        best[1],
+                        options["objective"],
+                        remaining,
+                        options["seed"],
+                        progress,
+                    )
+                except (ImportError, ValueError, OverflowError, RuntimeError) as exc:
+                    routes = None
+                    details = {
+                        "status": "ERROR_KEEP_INCUMBENT",
+                        "pool_size": 0,
+                        "error_type": type(exc).__name__,
+                    }
+                deep_limited = details["status"] in ("FEASIBLE", "UNKNOWN")
+                summary = f"有限路线池深入优化：{details['pool_size']}条候选，CP-SAT状态{details['status']}，10毫秒保守时间网格、单线程；未证明所有路线空间的全局最优。"
+                if routes:
+                    candidate = _make_plan(snapshot, options, routes)
+                    report = validate(snapshot, candidate)
+                    count += 1
+                    if report["status"] == "passed":
+                        candidate["validation"] = report
+                        score = objective_score(s, candidate, options["objective"])
+                        if score < best[0]:
+                            best = (score, candidate)
+                    else:
+                        summary += "深入候选未通过独立检查，已保留原可行方案。"
+                best[1]["solver_notes"].append(summary)
         if best:
             return _outcome(
                 "FEASIBLE",
@@ -541,7 +603,17 @@ def solve(snapshot, options, progress_callback=None):
                 first=first,
                 count=count,
                 validation=best[1]["validation"],
-                reason="time_limit" if time.perf_counter() >= deadline else "finished",
+                reason=(
+                    "time_limit"
+                    if deep_limited
+                    or time.perf_counter()
+                    >= (
+                        started + budget * 0.96
+                        if options["mode"] == "improve"
+                        else deadline
+                    )
+                    else "finished"
+                ),
             )
         return _outcome(
             "UNKNOWN",

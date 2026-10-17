@@ -6,7 +6,7 @@
 
 | 模块 | 实际实现与证据 | 当前边界 |
 |---|---|---|
-| 物理与调度 | solver/physics.py、public_api.py；题设载荷能耗、DEM闭像元净空、实体SOC/SOH、两段充电、整箱多站插入、限时多起点搜索 | FEASIBLE启发式，未证明全局最优；默认充电端口无限 |
+| 物理与调度 | solver/physics.py、public_api.py；题设载荷能耗、DEM闭像元净空、实体SOC/SOH、两段充电、整箱多站插入、限时多起点、可选30秒CP-SAT路线池深入优化 | FEASIBLE，未证明全路线空间全局最优；默认充电端口无限 |
 | 独立检查 | solver/validation.py 重建路线载荷、时间、能耗、充电与硬截止；有错误能耗/SOC/占用/重复箱件负例 | 未支持通信或实飞认证 |
 | 输入 | 5点32箱原题子集默认，原题15点80箱入口；原件只读归档 | 子集不是整个原题；新输入需正确坐标、高程和物理模型 |
 | 后端 | FastAPI、生成Pydantic、SQLite WAL、不可变版本/快照/hash、独立Worker、真实取消/异常恢复、计划历史、确认事务、事件幂等、CSV/JSON/GeoJSON | 本机监听；无多用户权限与真实执行事实 |
@@ -19,10 +19,10 @@
 
 ## 当前验证记录
 
-- Python全套：`python -m pytest tests -q`，56 passed、8 subtests passed；Starlette测试客户端有httpx弃用提示，测试通过。
+- Python全套：`python -m pytest tests -q`，62 passed、8 subtests passed；Starlette测试客户端有httpx弃用提示，测试通过。
 - 契约：10 schemas、12 mock fixtures、16项历史HTTP设计草案检查通过。该检查不代替业务求解。
 - 前端：TypeScript strict + Vite生产构建通过；ESLint通过；时间格式2项回归通过。
-- 浏览器：已检查1440×900、1280×720，second-pass控制台错误为空。完整E2E 8项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏、资源增配、三档压力与历史恢复、任务刷新恢复、打印PDF；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
+- 浏览器：已检查1440×900、1280×720，控制台错误为空。完整E2E 9项通过：双策略/回放/确认导出/历史恢复、编辑/导入、故障重规划、手机窄屏、资源增配、三档压力与历史恢复、任务刷新恢复、打印PDF、深入优化刷新恢复；报告见evidence/browser/e2e-results.json。已修复导入切换竞态、手机导航和Windows进度文件竞争。
 - 初次算法证据：evidence/solver/first-compact.json：32/32箱、7架次，最后返航7640.19秒、23.3102kWh；first-contest.json：80/80箱、22架次、10644.61秒、74.4591kWh。参数、种子、耗时及完整Plan都在文件中。当前快速基线不等于历史论文最优值。
 
 ## 运行与续跑
@@ -38,3 +38,5 @@ Windows双击根目录 `start.cmd`；使用已构建前端和 `.venv` 启动单�
 局部/全量同预算6组对照见evidence/solver/replan-comparison.json；资源与试算口径见RESOURCE_ANALYSIS.md。新功能仍保留任务的部分未完范围，不把HTTP扩展伪称为契约正式批准。
 
 新补：按场景恢复排队/运行任务，刷新不重复提交；服务重启未完成任务标失败并保留快照。NaN/Infinity模型参数在保存前结构化拒绝。验证记录见evidence/verification；打印版见evidence/browser/verified/print-report.pdf。
+
+深入优化已接通真实Worker、同快照基线、刷新恢复和来源历史，单项浏览器测试通过。30秒实测：32箱全部返航6210.60秒、21.8076kWh、加权期望延期0；80箱8091.62秒、89.9890kWh、加权期望延期28428.34秒。非满初始SOC时保持快速模型；不能把有限路线池最优当全局最优。见DEEP_OPTIMIZATION.md与evidence/solver/deep-*.json。

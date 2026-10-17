@@ -68,12 +68,19 @@ class PlanRow(Base):
 
 
 class EventRow(Base):
+
     __tablename__ = "events"
     scenario_id: Mapped[str] = mapped_column(String, primary_key=True)
     id: Mapped[str] = mapped_column(String, primary_key=True)
     request_hash: Mapped[str] = mapped_column(String)
     content: Mapped[dict] = mapped_column(JSON)
     version_after: Mapped[int] = mapped_column(Integer)
+
+
+class PlanRefinementRow(Base):
+    __tablename__ = "plan_refinements"
+    plan_id: Mapped[str] = mapped_column(String, primary_key=True)
+    source_plan_id: Mapped[str] = mapped_column(String)
 
 
 class ReservationRow(Base):

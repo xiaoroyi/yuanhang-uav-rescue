@@ -1140,6 +1140,14 @@ export interface components {
             };
             /** Confirmed At */
             confirmed_at: string | null;
+            /**
+             * Algorithm Mode
+             * @default quick
+             * @enum {string}
+             */
+            algorithm_mode: "quick" | "improve" | "replan";
+            /** Source Plan Id */
+            source_plan_id?: string | null;
         };
         /** Playback */
         Playback: {
@@ -1477,6 +1485,8 @@ export interface components {
              * @constant
              */
             allow_partial_service: false;
+            /** Initial Plan Id */
+            initial_plan_id?: string | null;
         };
         /** SolverNote */
         SolverNote: string;

@@ -15,3 +15,5 @@
 Health增加service_id/workspace_id，用于本地启动器识别同一仓库服务；workspace_id为仓库路径摘要，不返回原路径。
 
 资源分析、what-if和来源记录使用独立HTTP DTO，见RESOURCE_ANALYSIS。分析严格绑定Plan的Snapshot；what-if新建Scenario并另存origin元数据，新表为增量创建，不改写既有Scenario/Plan字段。输入与原始文件保持完整回归，仍待团队复核。
+
+深入优化：SolveRequest增加可选initial_plan_id（默认null），仅mode=improve允许，绑定同一Snapshot和objective；Worker调用兼容的solve(..., initial_plan=...)可选关键字参数。SolverOptions/Plan/SolveJob原Schema不变，PlanSummary独立DTO新增algorithm_mode/source_plan_id，来源另存增量表plan_refinements，不改变旧Plan与旧数据库字段。旧调用和旧快照可原样读取。有限路线池的离散最优不提升为全局OPTIMAL；候选独立检查后严格改善才替换已有可行基线。算法详情见05-SOLVER-CONTRACT。
