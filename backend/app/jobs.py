@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import json
+import math
 from pathlib import Path
 import subprocess
 import sys
@@ -30,6 +31,7 @@ class JobManager:
         self.processes = {}
         self.threads = []
         self.stopping = False
+        self.progress_cache = {}
 
     def recover(self):
         with self.db.session(immediate=True) as session:
@@ -236,9 +238,47 @@ class JobManager:
     def progress(self, job_id):
         path = self.db.directory / "jobs" / job_id / "progress.json"
         try:
-            return json.loads(path.read_text(encoding="utf-8"))
-        except (FileNotFoundError, ValueError):
-            return {"stage": "等待计算资源", "elapsed_s": 0, "candidate_count": 0}
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(raw, dict):
+                raise ValueError("Progress must be an object")
+            stage, elapsed, count = (
+                raw["stage"],
+                raw["elapsed_s"],
+                raw["candidate_count"],
+            )
+            if (
+                not isinstance(stage, str)
+                or not stage.strip()
+                or isinstance(elapsed, bool)
+                or not isinstance(elapsed, (int, float))
+                or not math.isfinite(elapsed)
+                or elapsed < 0
+                or isinstance(count, bool)
+                or not isinstance(count, int)
+                or count < 0
+            ):
+                raise ValueError("Invalid advisory progress sample")
+            value = {"stage": stage, "elapsed_s": elapsed, "candidate_count": count}
+        except (OSError, ValueError, TypeError, KeyError):
+            # Windows can briefly deny opening a file during atomic replacement.
+            # Progress is advisory: preserve the last real sample, never fail the solve.
+            with self.lock:
+                last = self.progress_cache.get(job_id)
+                if last:
+                    return {
+                        **last,
+                        "stage": last["stage"] + "（进度暂不可读，显示最近记录）",
+                    }
+            return {
+                "stage": "进度暂不可读，等待首条有效记录",
+                "elapsed_s": 0,
+                "candidate_count": 0,
+            }
+        with self.lock:
+            if job_id not in self.progress_cache and len(self.progress_cache) >= 128:
+                self.progress_cache.pop(next(iter(self.progress_cache)))
+            self.progress_cache[job_id] = value
+        return dict(value)
 
     def close(self):
         self.stopping = True
