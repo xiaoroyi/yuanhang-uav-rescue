@@ -25,14 +25,14 @@ export const category: Record<string, string> = {
   HYG: '卫生用品',
 }
 export const colors = [
-  '#0e8f85',
-  '#4f78c6',
-  '#d49b42',
-  '#9672bd',
-  '#5e9b58',
-  '#cb7485',
-  '#527f91',
-  '#a1845c',
+  '#42b8ed',
+  '#8299ed',
+  '#e4b76b',
+  '#ac8cea',
+  '#66baa2',
+  '#e88da5',
+  '#6bafc3',
+  '#ce9f7c',
 ]
 export const colorFor = (id: string) =>
   colors[[...id].reduce((n, c) => n + c.charCodeAt(0), 0) % colors.length]

@@ -2,10 +2,18 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { Crosshair, Layers, MapPinned, Minus, Plus } from 'lucide-react'
+import { Crosshair, Layers, MapPinned, Minus, Plus, Mountain, Satellite } from 'lucide-react'
 import type { FeatureCollection, LineString, Polygon } from 'geojson'
 import type { Plan, Scenario, Playback, TerrainMap } from '../api/client'
 import { colorFor } from '../lib/format'
+import {
+  loadTownContextMetadata,
+  loadTownContextData,
+  townContextApplies,
+  type TownContextMetadata,
+  type TownContextData,
+} from '../lib/map-context'
+import './rescue-map.css'
 
 maplibregl.setWorkerUrl(workerUrl)
 
@@ -36,6 +44,7 @@ export function RescueMap({
     markers = useRef<maplibregl.Marker[]>([])
   const aircraft = useRef<maplibregl.Marker[]>([])
   const relayMarkers = useRef<maplibregl.Marker[]>([])
+  const placeLabels = useRef<maplibregl.Marker[]>([])
   const latest = useRef({ scenario, plan, selected, onSelect, onSelectSite })
   latest.current = { scenario, plan, selected, onSelect, onSelectSite }
   const [ready, setReady] = useState(false),
@@ -48,6 +57,31 @@ export function RescueMap({
   const [terrainLabel, setTerrainLabel] = useState('')
   const [showZones, setShowZones] = useState(true)
   const [showRelays, setShowRelays] = useState(true)
+  const [townMetadata, setTownMetadata] = useState<TownContextMetadata | null>(null)
+  const [townData, setTownData] = useState<TownContextData | null>(null)
+  const [contextLoaded, setContextLoaded] = useState(false)
+  const [showContext, setShowContext] = useState(true)
+  const [showPlaceNames, setShowPlaceNames] = useState(true)
+  const [showBoundary, setShowBoundary] = useState(true)
+  const contextApplies = !!townMetadata && townContextApplies(scenario, townMetadata)
+  const contextVisible = contextLoaded && (showContext || showPlaceNames || showBoundary)
+  useEffect(() => {
+    let canceled = false
+    void loadTownContextMetadata()
+      .then((value) => {
+        if (!canceled) setTownMetadata(value)
+      })
+      .catch(() => {})
+    return () => {
+      canceled = true
+    }
+  }, [])
+  const [basemap, setBasemap] = useState<'offline' | 'satellite'>('offline')
+  const [satelliteState, setSatelliteState] = useState<'idle' | 'loading' | 'ready' | 'failed'>(
+    'idle',
+  )
+  const basemapRef = useRef(basemap)
+  basemapRef.current = basemap
   const fit = useCallback((duration = 500) => {
     const scenario = latest.current.scenario
     const bounds = new maplibregl.LngLatBounds()
@@ -55,9 +89,15 @@ export function RescueMap({
       bounds.extend(n.coordinates as [number, number])
     for (const r of latest.current.plan?.relay_sorties || [])
       bounds.extend(r.station_coordinates as [number, number])
+    const width = map.current?.getContainer().clientWidth || 1000
     map.current?.fitBounds(bounds, {
       // Keep the lowest site markers above the bottom legend and scale controls.
-      padding: { top: 70, bottom: 120, left: 55, right: 140 },
+      padding: {
+        top: 115,
+        bottom: basemapRef.current === 'satellite' ? 155 : 120,
+        left: width < 600 ? 38 : 55,
+        right: width < 600 ? 65 : 140,
+      },
       maxZoom: 13,
       duration,
     })
@@ -67,7 +107,7 @@ export function RescueMap({
   }, [ready, plan, fit])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready) return
+    if (!m || !ready || !m.getSource('grid')) return
     let canceled = false
     const controller = new AbortController()
     const clear = () => {
@@ -96,7 +136,7 @@ export function RescueMap({
               id: 'terrain-preview',
               type: 'raster',
               source: 'terrain-preview',
-              paint: { 'raster-opacity': 0.66, 'raster-saturation': -0.3 },
+              paint: { 'raster-opacity': 0.92, 'raster-saturation': -0.55 },
             },
             'grid',
           )
@@ -116,6 +156,9 @@ export function RescueMap({
   }, [ready, scenario.terrain])
   useEffect(() => {
     if (!container.current) return
+    // Fast Refresh can preserve React state while replacing the native Map instance.
+    // A fresh style has no sources yet, even when the previous instance was ready.
+    setReady(false)
     let m: maplibregl.Map
     try {
       m = new maplibregl.Map({
@@ -126,7 +169,7 @@ export function RescueMap({
         style: {
           version: 8,
           sources: {},
-          layers: [{ id: 'ground', type: 'background', paint: { 'background-color': '#e8efeb' } }],
+          layers: [{ id: 'ground', type: 'background', paint: { 'background-color': '#b8b9b7' } }],
         },
       })
     } catch {
@@ -134,14 +177,20 @@ export function RescueMap({
       return
     }
     map.current = m
+    const markOverview = () => {
+      m.getContainer().dataset.overview = String(m.getZoom() < 10.5)
+    }
+    markOverview()
+    m.on('zoomend', markOverview)
     m.addControl(new maplibregl.ScaleControl({ maxWidth: 90, unit: 'metric' }), 'bottom-left')
     m.on('load', () => {
+      if (map.current !== m) return
       m.addSource('grid', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       m.addLayer({
         id: 'grid',
         type: 'line',
         source: 'grid',
-        paint: { 'line-color': '#a5bdb2', 'line-width': 0.7, 'line-opacity': 0.35 },
+        paint: { 'line-color': '#7c8e9c', 'line-width': 0.7, 'line-opacity': 0.25 },
       })
       m.addSource('zones', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } })
       m.addLayer({
@@ -226,13 +275,278 @@ export function RescueMap({
       markers.current.forEach((x) => x.remove())
       aircraft.current.forEach((x) => x.remove())
       relayMarkers.current.forEach((x) => x.remove())
+      placeLabels.current.forEach((x) => x.remove())
       m.remove()
       map.current = null
     }
   }, [fit])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready) return
+    if (!m || !ready || !m.getLayer('zones-fill')) return
+    let canceled = false
+    const layers = [
+      'context-water',
+      'context-waterways',
+      'context-roads',
+      'context-places',
+      'context-boundary',
+    ]
+    const clear = () => {
+      if (map.current !== m) return
+      for (const id of layers) if (m.getLayer(id)) m.removeLayer(id)
+      if (m.getSource('town-context')) m.removeSource('town-context')
+    }
+    clear()
+    setContextLoaded(false)
+    if (!contextApplies) {
+      setTownData(null)
+      return
+    }
+    void loadTownContextData()
+      .then((value) => {
+        if (canceled || map.current !== m || !m.getLayer('zones-fill')) return
+        m.addSource('town-context', { type: 'geojson', data: value })
+        m.addLayer(
+          {
+            id: 'context-water',
+            type: 'fill',
+            source: 'town-context',
+            filter: ['==', ['get', 'context_kind'], 'water'],
+            paint: {
+              'fill-color': '#3287ba',
+              'fill-opacity': 0.5,
+              'fill-outline-color': '#126c9c',
+            },
+          },
+          'zones-fill',
+        )
+        m.addLayer(
+          {
+            id: 'context-waterways',
+            type: 'line',
+            source: 'town-context',
+            filter: ['==', ['get', 'context_kind'], 'waterway'],
+            paint: {
+              'line-color': '#2485bb',
+              'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.5, 14, 2],
+              'line-opacity': 0.85,
+            },
+          },
+          'zones-fill',
+        )
+        m.addLayer(
+          {
+            id: 'context-roads',
+            type: 'line',
+            source: 'town-context',
+            filter: ['==', ['get', 'context_kind'], 'road'],
+            paint: {
+              'line-color': '#475569',
+              'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.4, 14, 1.6],
+              'line-opacity': 0.5,
+            },
+          },
+          'zones-fill',
+        )
+        m.addLayer(
+          {
+            id: 'context-places',
+            type: 'circle',
+            source: 'town-context',
+            filter: ['==', ['get', 'context_kind'], 'place'],
+            paint: {
+              'circle-color': '#ba8150',
+              'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 1.5, 14, 3],
+              'circle-opacity': 0.8,
+              'circle-stroke-color': '#fff',
+              'circle-stroke-width': 0.6,
+            },
+          },
+          'zones-fill',
+        )
+        m.addLayer(
+          {
+            id: 'context-boundary',
+            type: 'line',
+            source: 'town-context',
+            filter: ['==', ['get', 'context_kind'], 'boundary'],
+            paint: {
+              'line-color': '#7961a7',
+              'line-width': 1.8,
+              'line-dasharray': [4, 3],
+              'line-opacity': 0.85,
+            },
+          },
+          'zones-fill',
+        )
+        setTownData(value)
+        setContextLoaded(true)
+      })
+      .catch(() => {
+        if (!canceled) setContextLoaded(false)
+      })
+    return () => {
+      canceled = true
+      clear()
+    }
+  }, [ready, contextApplies])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready || !contextLoaded || !m.getSource('town-context')) return
+    for (const id of ['context-water', 'context-waterways', 'context-roads'])
+      if (m.getLayer(id)) m.setLayoutProperty(id, 'visibility', showContext ? 'visible' : 'none')
+    if (m.getLayer('context-places'))
+      m.setLayoutProperty('context-places', 'visibility', showPlaceNames ? 'visible' : 'none')
+    if (m.getLayer('context-boundary'))
+      m.setLayoutProperty('context-boundary', 'visibility', showBoundary ? 'visible' : 'none')
+    if (m.getLayer('context-roads'))
+      m.setPaintProperty(
+        'context-roads',
+        'line-color',
+        basemap === 'satellite' ? '#e2e8f0' : '#475569',
+      )
+  }, [ready, contextLoaded, showContext, showPlaceNames, showBoundary, basemap])
+  useEffect(() => {
+    const m = map.current
+    const clear = () => {
+      placeLabels.current.forEach((marker) => marker.remove())
+      placeLabels.current = []
+    }
+    clear()
+    if (!m || !ready || !contextLoaded || !townData || !showPlaceNames) return
+    const update = () => {
+      clear()
+      if (map.current !== m || m.getZoom() < 10.5) return
+      const canvas = m.getContainer().getBoundingClientRect()
+      const occupied = markers.current
+        .map((marker) => marker.getElement().getBoundingClientRect())
+        .map((r) => ({
+          left: r.left - canvas.left - 5,
+          top: r.top - canvas.top - 5,
+          right: r.right - canvas.left + 5,
+          bottom: r.bottom - canvas.top + 5,
+        }))
+      const points = townData.features
+        .filter(
+          (f) =>
+            f.geometry.type === 'Point' &&
+            f.properties.context_name &&
+            f.properties.context_name !== '未记录',
+        )
+        .sort(
+          (a, b) =>
+            Number(b.properties['重点显示'] === true) - Number(a.properties['重点显示'] === true),
+        )
+      for (const feature of points) {
+        if (feature.geometry.type !== 'Point') continue
+        const coordinates = feature.geometry.coordinates as [number, number]
+        if (!m.getBounds().contains(coordinates)) continue
+        const point = m.project(coordinates),
+          width = Math.min(88, feature.properties.context_name.length * 10 + 10)
+        const box = {
+          left: point.x + 6,
+          top: point.y - 9,
+          right: point.x + 6 + width,
+          bottom: point.y + 9,
+        }
+        if (
+          box.left < 15 ||
+          box.top < 108 ||
+          box.right > canvas.width - 55 ||
+          box.bottom > canvas.height - 120 ||
+          occupied.some(
+            (b) =>
+              box.left < b.right && box.right > b.left && box.top < b.bottom && box.bottom > b.top,
+          )
+        )
+          continue
+        occupied.push(box)
+        const label = document.createElement('span')
+        label.className = 'context-place-label'
+        label.textContent = feature.properties.context_name
+        label.title = feature.properties.context_name + ' · 原题OSM背景资料'
+        placeLabels.current.push(
+          new maplibregl.Marker({ element: label, anchor: 'left', offset: [6, 0] })
+            .setLngLat(coordinates)
+            .addTo(m),
+        )
+        if (placeLabels.current.length >= 24) break
+      }
+    }
+    update()
+    m.on('moveend', update)
+    m.on('resize', update)
+    return () => {
+      clear()
+      m.off('moveend', update)
+      m.off('resize', update)
+    }
+  }, [ready, contextLoaded, townData, showPlaceNames, scenario])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready || !m.getSource('grid') || basemap !== 'satellite') return
+    let active = true
+    let loaded = false
+    setSatelliteState('loading')
+    const fail = () => {
+      if (!active) return
+      setSatelliteState('failed')
+      setBasemap('offline')
+    }
+    const onError = (event: maplibregl.ErrorEvent) => {
+      const sourceId = (event as { sourceId?: string }).sourceId
+      if (sourceId === 'satellite-imagery' || event.error.message.includes('arcgisonline.com'))
+        fail()
+    }
+    const onData = (event: maplibregl.MapSourceDataEvent) => {
+      if (event.sourceId === 'satellite-imagery' && event.sourceDataType === 'content') {
+        loaded = true
+        setSatelliteState('ready')
+      }
+    }
+    m.on('error', onError)
+    m.on('sourcedata', onData)
+    // Only this explicit selection creates a remote source. No prefetch/cache bundle.
+    m.addSource('satellite-imagery', {
+      type: 'raster',
+      tiles: [
+        'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      ],
+      tileSize: 256,
+      minzoom: 0,
+      maxzoom: 19,
+      attribution: 'Esri, Vantor, Earthstar Geographics, GIS User Community',
+    })
+    m.addLayer(
+      {
+        id: 'satellite-imagery',
+        type: 'raster',
+        source: 'satellite-imagery',
+        paint: { 'raster-opacity': 1 },
+      },
+      'grid',
+    )
+    const timer = window.setTimeout(() => {
+      if (!loaded) fail()
+    }, 12000)
+    return () => {
+      active = false
+      window.clearTimeout(timer)
+      m.off('error', onError)
+      m.off('sourcedata', onData)
+      if (m.getLayer('satellite-imagery')) m.removeLayer('satellite-imagery')
+      if (m.getSource('satellite-imagery')) m.removeSource('satellite-imagery')
+    }
+  }, [ready, basemap])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready || !m.getLayer('grid')) return
+    m.setLayoutProperty('grid', 'visibility', basemap === 'satellite' ? 'none' : 'visible')
+    fit()
+  }, [ready, basemap, fit])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready || !m.getSource('grid') || !m.getSource('zones')) return
     markers.current.forEach((x) => x.remove())
     markers.current = []
     const bounds = new maplibregl.LngLatBounds()
@@ -307,13 +621,19 @@ export function RescueMap({
     fit()
   }, [ready, scenario, fit])
   useEffect(() => {
-    if (!map.current || !ready) return
+    if (
+      !map.current ||
+      !ready ||
+      !map.current.getLayer('zones-fill') ||
+      !map.current.getLayer('zones-outline')
+    )
+      return
     for (const layer of ['zones-fill', 'zones-outline'])
       map.current.setLayoutProperty(layer, 'visibility', showZones ? 'visible' : 'none')
   }, [ready, showZones])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready) return
+    if (!m || !ready || !m.getSource('routes') || !m.getSource('old-routes')) return
     const collection = (p: Plan | null | undefined): FeatureCollection<LineString> => ({
       type: 'FeatureCollection',
       features: (p?.sorties || []).map((r) => ({
@@ -335,7 +655,7 @@ export function RescueMap({
   }, [ready, plan, oldPlan, selected, showRoutes, showOld])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready) return
+    if (!m || !ready || !m.getSource('relay-routes') || !m.getSource('relay-backhaul')) return
     const relays = plan?.relay_sorties || []
     relayMarkers.current.forEach((marker) => marker.remove())
     relayMarkers.current = []
@@ -399,11 +719,15 @@ export function RescueMap({
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !terrainShown || !m.getLayer('terrain-preview')) return
-    m.setLayoutProperty('terrain-preview', 'visibility', showTerrain ? 'visible' : 'none')
-  }, [ready, terrainShown, showTerrain])
+    m.setLayoutProperty(
+      'terrain-preview',
+      'visibility',
+      showTerrain && basemap === 'offline' ? 'visible' : 'none',
+    )
+  }, [ready, terrainShown, showTerrain, basemap])
   useEffect(() => {
     const m = map.current
-    if (!m || !ready) return
+    if (!m || !ready || !m.getSource('grid')) return
     aircraft.current.forEach((x) => x.remove())
     aircraft.current = []
     if (playTime == null || !playback) return
@@ -436,7 +760,11 @@ export function RescueMap({
     }
   }, [ready, playTime, playback])
   return (
-    <div className={`rescue-map ${compact ? 'map-compact' : ''}`}>
+    <div
+      className={`rescue-map ${compact ? 'map-compact' : ''}`}
+      data-basemap={basemap}
+      data-context={contextVisible}
+    >
       <div ref={container} className="map-canvas" />
       {error && (
         <div className="map-error">地图渲染不可用，点位与路线仍可在任务表和导出中查看。</div>
@@ -446,11 +774,38 @@ export function RescueMap({
           <MapPinned size={14} /> 场景地图 <i /> <b>WGS84</b>
         </span>
         <span className="map-mode">
-          {scenario.terrain.status === 'available' && terrainShown && showTerrain
-            ? terrainLabel
-            : '本地坐标底图'}
+          {basemap === 'satellite'
+            ? satelliteState === 'loading'
+              ? '正在加载在线影像…'
+              : '在线真实影像'
+            : scenario.terrain.status === 'available' && terrainShown && showTerrain
+              ? terrainLabel
+              : '本地坐标底图'}
         </span>
       </div>
+      <div className="map-basemap-switch" role="group" aria-label="地图底图">
+        <button
+          type="button"
+          aria-pressed={basemap === 'offline'}
+          onClick={() => setBasemap('offline')}
+        >
+          <Mountain size={14} />
+          离线地形
+        </button>
+        <button
+          type="button"
+          aria-pressed={basemap === 'satellite'}
+          onClick={() => setBasemap('satellite')}
+        >
+          <Satellite size={14} />
+          卫星影像<span>联网</span>
+        </button>
+      </div>
+      {satelliteState === 'failed' && basemap === 'offline' && (
+        <div className="map-satellite-warning" role="status">
+          在线影像暂不可用，已恢复离线地形。点位与计算不受影响。
+        </div>
+      )}
       <div className="map-controls">
         <button aria-label="放大地图" onClick={() => map.current?.zoomIn()}>
           <Plus size={17} />
@@ -471,6 +826,54 @@ export function RescueMap({
       </div>
       {layersOpen && (
         <div className="map-layers">
+          {contextLoaded && (
+            <>
+              <button
+                type="button"
+                className="map-context-fit"
+                onClick={() => {
+                  if (townMetadata)
+                    map.current?.fitBounds(
+                      [
+                        [townMetadata.bounds[0], townMetadata.bounds[1]],
+                        [townMetadata.bounds[2], townMetadata.bounds[3]],
+                      ],
+                      { padding: { top: 115, bottom: 125, left: 45, right: 65 }, duration: 500 },
+                    )
+                  setLayersOpen(false)
+                }}
+              >
+                查看地理背景全范围
+              </button>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showContext}
+                  onChange={(e) => setShowContext(e.target.checked)}
+                />
+                原题道路与水系背景
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showPlaceNames}
+                  onChange={(e) => setShowPlaceNames(e.target.checked)}
+                />
+                村镇点位与地名
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showBoundary}
+                  onChange={(e) => setShowBoundary(e.target.checked)}
+                />
+                镇龙乡参考边界
+              </label>
+              <p>
+                历史OSM背景，仅本区域显示；不参与障碍/空域求解，非灾后现势或正式行政界。缩放时地名自动避让任务点位。
+              </p>
+            </>
+          )}
           {terrainShown && (
             <label>
               <input
@@ -554,6 +957,26 @@ export function RescueMap({
         )}
       </div>
       <div className="map-attribution">
+        {contextVisible && (
+          <span className="map-context-credit">
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+              © OpenStreetMap contributors · ODbL
+            </a>{' '}
+            · 历史背景资料
+          </span>
+        )}
+        {basemap === 'satellite' && (
+          <span className="map-imagery-credit">
+            <a
+              href="https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Esri · Vantor · Earthstar · GIS Community
+            </a>
+            <span>拍摄日期未核验 · 非实时灾情/高程数据</span>
+          </span>
+        )}
         {playTime != null
           ? '计划位置为匀速插值示意 · 非实时遥测'
           : '离线可用 · 图上路线为任务级建议'}

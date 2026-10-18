@@ -67,6 +67,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/map/surface": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Map Surface */
+        get: operations["map_surface_api_v1_map_surface_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/map/terrain.png": {
         parameters: {
             query?: never;
@@ -76,6 +93,40 @@ export interface paths {
         };
         /** Map Terrain Image */
         get: operations["map_terrain_image_api_v1_map_terrain_png_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scenario Versions */
+        get: operations["scenario_versions_api_v1_scenarios__scenario_id__versions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/{scenario_id}/versions/{version}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Scenario Version */
+        get: operations["scenario_version_api_v1_scenarios__scenario_id__versions__version__get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -264,6 +315,23 @@ export interface paths {
         };
         /** Plan Analysis */
         get: operations["plan_analysis_api_v1_plans__plan_id__analysis_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/plans/{plan_id}/flight-profile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Plan Flight Profile */
+        get: operations["plan_flight_profile_api_v1_plans__plan_id__flight_profile_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1352,6 +1420,105 @@ export interface components {
             /** What If */
             what_if: boolean;
         };
+        /** FlightProfile */
+        FlightProfile: {
+            /** Plan Id */
+            plan_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Scenario State Version */
+            scenario_state_version: number;
+            /** Sortie Id */
+            sortie_id: string;
+            /** Drone Id */
+            drone_id: string;
+            /** Drone Type Id */
+            drone_type_id: string;
+            /** Terrain Asset Id */
+            terrain_asset_id: string | null;
+            /** Terrain Sha256 */
+            terrain_sha256: string | null;
+            /** Vertical Datum */
+            vertical_datum: string | null;
+            /** Total Distance M */
+            total_distance_m: number;
+            /** Total Climb M */
+            total_climb_m: number;
+            /** Total Descent M */
+            total_descent_m: number;
+            /** Flight Time S */
+            flight_time_s: number;
+            /** Modeled Energy Kwh */
+            modeled_energy_kwh: number;
+            /** Horizontal Energy Kwh */
+            horizontal_energy_kwh: number;
+            /** Climb Energy Kwh */
+            climb_energy_kwh: number;
+            /** Plan Sortie Energy Kwh */
+            plan_sortie_energy_kwh: number | null;
+            /** Legs */
+            legs: components["schemas"]["FlightProfileLeg"][];
+            /** Notice */
+            notice: string;
+        };
+        /** FlightProfileLeg */
+        FlightProfileLeg: {
+            /** Leg Index */
+            leg_index: number;
+            /** From Id */
+            from_id: string;
+            /** To Id */
+            to_id: string;
+            /** Distance M */
+            distance_m: number;
+            /** Start Distance M */
+            start_distance_m: number;
+            /** End Distance M */
+            end_distance_m: number;
+            /** Start Work Elevation M */
+            start_work_elevation_m: number;
+            /** End Work Elevation M */
+            end_work_elevation_m: number;
+            /** Cruise Elevation M */
+            cruise_elevation_m: number;
+            /** Climb M */
+            climb_m: number;
+            /** Descent M */
+            descent_m: number;
+            /** Clearance Required M */
+            clearance_required_m: number;
+            /** Payload Kg */
+            payload_kg: number;
+            /** Flight Time S */
+            flight_time_s: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Horizontal Energy Kwh */
+            horizontal_energy_kwh: number;
+            /** Climb Energy Kwh */
+            climb_energy_kwh: number;
+            /** Terrain Checked */
+            terrain_checked: boolean;
+            /** Terrain Maximum M */
+            terrain_maximum_m: number | null;
+            /** Cruise Clearance Margin M */
+            cruise_clearance_margin_m: number | null;
+            /** Samples */
+            samples: components["schemas"]["FlightProfileSample"][];
+        };
+        /** FlightProfileSample */
+        FlightProfileSample: {
+            /** Distance M */
+            distance_m: number;
+            /** Longitude */
+            longitude: number;
+            /** Latitude */
+            latitude: number;
+            /** Ground Elevation M */
+            ground_elevation_m: number | null;
+            /** Cruise Elevation M */
+            cruise_elevation_m: number;
+        };
         /** Geometry */
         Geometry: {
             /**
@@ -2427,6 +2594,29 @@ export interface components {
             expected_state_version: number;
             scenario: components["schemas"]["Scenario"];
         };
+        /** ScenarioVersionSummary */
+        ScenarioVersionSummary: {
+            /** Scenario Id */
+            scenario_id: string;
+            /** State Version */
+            state_version: number;
+            /** Name */
+            name: string;
+            /** Content Hash */
+            content_hash: string;
+            /** Created At */
+            created_at: string | null;
+            /** Data Origin */
+            data_origin: string;
+            /** Site Count */
+            site_count: number;
+            /** Cargo Count */
+            cargo_count: number;
+            /** Drone Count */
+            drone_count: number;
+            /** Battery Count */
+            battery_count: number;
+        };
         /** SchemaVersion */
         SchemaVersion: string;
         /** Site */
@@ -2769,6 +2959,36 @@ export interface components {
          * @enum {string}
          */
         TerrainStatus: "passed" | "failed" | "not_evaluated";
+        /** TerrainSurface */
+        TerrainSurface: {
+            /** Asset Id */
+            asset_id: string;
+            /** Name */
+            name: string;
+            /** Sha256 */
+            sha256: string;
+            /** Bounds */
+            bounds: [
+                number,
+                number,
+                number,
+                number
+            ];
+            /** Longitude */
+            longitude: number[];
+            /** Latitude */
+            latitude: number[];
+            /** Elevations M */
+            elevations_m: (number | null)[][];
+            /** Min Elevation M */
+            min_elevation_m: number;
+            /** Max Elevation M */
+            max_elevation_m: number;
+            /** Valid Fraction */
+            valid_fraction: number;
+            /** Notice */
+            notice: string;
+        };
         /** UnservedDemandId */
         UnservedDemandId: string;
         /** Validation */
@@ -2971,6 +3191,38 @@ export interface operations {
             };
         };
     };
+    map_surface_api_v1_map_surface_get: {
+        parameters: {
+            query: {
+                asset_id: string;
+                sha256: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TerrainSurface"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     map_terrain_image_api_v1_map_terrain_png_get: {
         parameters: {
             query?: never;
@@ -2987,6 +3239,69 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+        };
+    };
+    scenario_versions_api_v1_scenarios__scenario_id__versions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioVersionSummary"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    scenario_version_api_v1_scenarios__scenario_id__versions__version__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                scenario_id: string;
+                version: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Scenario"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -3344,6 +3659,39 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PlanAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    plan_flight_profile_api_v1_plans__plan_id__flight_profile_get: {
+        parameters: {
+            query: {
+                sortie_id: string;
+            };
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FlightProfile"];
                 };
             };
             /** @description Validation Error */

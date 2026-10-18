@@ -14,7 +14,15 @@ from pathlib import Path
 import uuid
 from typing import Literal
 
-from fastapi import FastAPI, File, Form, Query, Request, UploadFile
+from fastapi import (
+    FastAPI,
+    File,
+    Form,
+    Query,
+    Request,
+    UploadFile,
+    Path as PathParameter,
+)
 from starlette.concurrency import run_in_threadpool
 from rasterio.errors import RasterioError
 from fastapi.exceptions import RequestValidationError
@@ -45,7 +53,14 @@ from backend.app.analytics import (
 )
 from backend.app.jobs import JobManager, now
 from backend.app.imports import GROUPS, csv_template, excel_template, preview
-from backend.app.map_assets import image as terrain_image, metadata as terrain_metadata
+from backend.app.map_assets import (
+    image as terrain_image,
+    metadata as terrain_metadata,
+    surface as terrain_surface,
+)
+from backend.app.map_models import TerrainSurface
+from backend.app.flight_profiles import FlightProfile, flight_profile
+from backend.app.version_views import ScenarioVersionSummary
 from backend.app.reports import build_report
 from backend.app.partition_views import PartitionReport
 from backend.app.nominal_views import NominalReport
@@ -466,6 +481,18 @@ def create_app(runtime_dir: Path | None = None):
         except InputNotReady as exc:
             raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
 
+    @app.get("/api/v1/map/surface", response_model=TerrainSurface)
+    def map_surface(
+        asset_id: str = Query(
+            pattern="^(contest-dem-30m|DEM-[a-f0-9]{20})$", max_length=32
+        ),
+        sha256: str = Query(pattern="^[a-f0-9]{64}$", max_length=64),
+    ):
+        try:
+            return terrain_surface(asset_id, sha256)
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
+
     @app.get("/api/v1/map/terrain.png")
     def map_terrain_image():
         return FileResponse(
@@ -473,6 +500,43 @@ def create_app(runtime_dir: Path | None = None):
             media_type="image/png",
             headers={"Cache-Control": "public, max-age=86400"},
         )
+
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/versions",
+        response_model=list[ScenarioVersionSummary],
+    )
+    def scenario_versions(scenario_id: str):
+        with database.session() as session:
+            require_row(session, ScenarioRow, scenario_id)
+            rows = session.scalars(
+                select(VersionRow)
+                .where(VersionRow.scenario_id == scenario_id)
+                .order_by(VersionRow.version.desc())
+            ).all()
+            return [
+                {
+                    "scenario_id": row.scenario_id,
+                    "state_version": row.version,
+                    "name": row.content["name"],
+                    "content_hash": row.content_hash,
+                    # VersionRow never stored a timestamp. Current updated_at is not its date.
+                    "created_at": None,
+                    "data_origin": row.content["data_origin"],
+                    "site_count": len(row.content["sites"]),
+                    "cargo_count": len(row.content["cargo_items"]),
+                    "drone_count": len(row.content["drones"]),
+                    "battery_count": len(row.content["batteries"]),
+                }
+                for row in rows
+            ]
+
+    @app.get(
+        "/api/v1/scenarios/{scenario_id}/versions/{version}", response_model=Scenario
+    )
+    def scenario_version(scenario_id: str, version: int = PathParameter(ge=1)):
+        with database.session() as session:
+            require_row(session, ScenarioRow, scenario_id)
+            return require_row(session, VersionRow, (scenario_id, version)).content
 
     @app.get("/api/v1/scenarios", response_model=list[ScenarioSummary])
     def list_scenarios():
@@ -631,6 +695,25 @@ def create_app(runtime_dir: Path | None = None):
             plan = require_row(session, PlanRow, plan_id).content
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
             return analyze(snap, plan)
+
+    @app.get("/api/v1/plans/{plan_id}/flight-profile", response_model=FlightProfile)
+    def plan_flight_profile(
+        plan_id: str,
+        sortie_id: str = Query(
+            min_length=1, max_length=128, pattern="^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        ),
+    ):
+        with database.session() as session:
+            plan = require_row(session, PlanRow, plan_id).content
+            snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+        try:
+            return flight_profile(snap, plan, sortie_id)
+        except KeyError as exc:
+            raise AppError(
+                404, "REFERENCE_INVALID", "此方案不包含指定运输架次。", "sortie_id"
+            ) from exc
+        except InputNotReady as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "terrain") from exc
 
     @app.get("/api/v1/plans/{plan_id}/partition", response_model=PartitionReport)
     def plan_partition(plan_id: str):

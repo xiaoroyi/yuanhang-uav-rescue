@@ -149,6 +149,58 @@
         }
       }
     },
+    "/api/v1/map/surface": {
+      "get": {
+        "summary": "Map Surface",
+        "operationId": "map_surface_api_v1_map_surface_get",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 32,
+              "pattern": "^(contest-dem-30m|DEM-[a-f0-9]{20})$",
+              "title": "Asset Id"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Sha256"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TerrainSurface"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/map/terrain.png": {
       "get": {
         "summary": "Map Terrain Image",
@@ -159,6 +211,98 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/versions": {
+      "get": {
+        "summary": "Scenario Versions",
+        "operationId": "scenario_versions_api_v1_scenarios__scenario_id__versions_get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioVersionSummary"
+                  },
+                  "title": "Response Scenario Versions Api V1 Scenarios  Scenario Id  Versions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}/versions/{version}": {
+      "get": {
+        "summary": "Scenario Version",
+        "operationId": "scenario_version_api_v1_scenarios__scenario_id__versions__version__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Scenario Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
               }
             }
           }
@@ -600,6 +744,57 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlanAnalysis"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans/{plan_id}/flight-profile": {
+      "get": {
+        "summary": "Plan Flight Profile",
+        "operationId": "plan_flight_profile_api_v1_plans__plan_id__flight_profile_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "sortie_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "title": "Sortie Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlightProfile"
                 }
               }
             }
@@ -3779,6 +3974,317 @@
           "what_if"
         ],
         "title": "Features"
+      },
+      "FlightProfile": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "scenario_state_version": {
+            "type": "integer",
+            "title": "Scenario State Version"
+          },
+          "sortie_id": {
+            "type": "string",
+            "title": "Sortie Id"
+          },
+          "drone_id": {
+            "type": "string",
+            "title": "Drone Id"
+          },
+          "drone_type_id": {
+            "type": "string",
+            "title": "Drone Type Id"
+          },
+          "terrain_asset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Terrain Asset Id"
+          },
+          "terrain_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Terrain Sha256"
+          },
+          "vertical_datum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vertical Datum"
+          },
+          "total_distance_m": {
+            "type": "number",
+            "title": "Total Distance M"
+          },
+          "total_climb_m": {
+            "type": "number",
+            "title": "Total Climb M"
+          },
+          "total_descent_m": {
+            "type": "number",
+            "title": "Total Descent M"
+          },
+          "flight_time_s": {
+            "type": "number",
+            "title": "Flight Time S"
+          },
+          "modeled_energy_kwh": {
+            "type": "number",
+            "title": "Modeled Energy Kwh"
+          },
+          "horizontal_energy_kwh": {
+            "type": "number",
+            "title": "Horizontal Energy Kwh"
+          },
+          "climb_energy_kwh": {
+            "type": "number",
+            "title": "Climb Energy Kwh"
+          },
+          "plan_sortie_energy_kwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Sortie Energy Kwh"
+          },
+          "legs": {
+            "items": {
+              "$ref": "#/components/schemas/FlightProfileLeg"
+            },
+            "type": "array",
+            "maxItems": 120,
+            "minItems": 1,
+            "title": "Legs"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "snapshot_id",
+          "scenario_state_version",
+          "sortie_id",
+          "drone_id",
+          "drone_type_id",
+          "terrain_asset_id",
+          "terrain_sha256",
+          "vertical_datum",
+          "total_distance_m",
+          "total_climb_m",
+          "total_descent_m",
+          "flight_time_s",
+          "modeled_energy_kwh",
+          "horizontal_energy_kwh",
+          "climb_energy_kwh",
+          "plan_sortie_energy_kwh",
+          "legs",
+          "notice"
+        ],
+        "title": "FlightProfile"
+      },
+      "FlightProfileLeg": {
+        "properties": {
+          "leg_index": {
+            "type": "integer",
+            "title": "Leg Index"
+          },
+          "from_id": {
+            "type": "string",
+            "title": "From Id"
+          },
+          "to_id": {
+            "type": "string",
+            "title": "To Id"
+          },
+          "distance_m": {
+            "type": "number",
+            "title": "Distance M"
+          },
+          "start_distance_m": {
+            "type": "number",
+            "title": "Start Distance M"
+          },
+          "end_distance_m": {
+            "type": "number",
+            "title": "End Distance M"
+          },
+          "start_work_elevation_m": {
+            "type": "number",
+            "title": "Start Work Elevation M"
+          },
+          "end_work_elevation_m": {
+            "type": "number",
+            "title": "End Work Elevation M"
+          },
+          "cruise_elevation_m": {
+            "type": "number",
+            "title": "Cruise Elevation M"
+          },
+          "climb_m": {
+            "type": "number",
+            "title": "Climb M"
+          },
+          "descent_m": {
+            "type": "number",
+            "title": "Descent M"
+          },
+          "clearance_required_m": {
+            "type": "number",
+            "title": "Clearance Required M"
+          },
+          "payload_kg": {
+            "type": "number",
+            "title": "Payload Kg"
+          },
+          "flight_time_s": {
+            "type": "number",
+            "title": "Flight Time S"
+          },
+          "energy_kwh": {
+            "type": "number",
+            "title": "Energy Kwh"
+          },
+          "horizontal_energy_kwh": {
+            "type": "number",
+            "title": "Horizontal Energy Kwh"
+          },
+          "climb_energy_kwh": {
+            "type": "number",
+            "title": "Climb Energy Kwh"
+          },
+          "terrain_checked": {
+            "type": "boolean",
+            "title": "Terrain Checked"
+          },
+          "terrain_maximum_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Terrain Maximum M"
+          },
+          "cruise_clearance_margin_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cruise Clearance Margin M"
+          },
+          "samples": {
+            "items": {
+              "$ref": "#/components/schemas/FlightProfileSample"
+            },
+            "type": "array",
+            "maxItems": 240,
+            "minItems": 2,
+            "title": "Samples"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "leg_index",
+          "from_id",
+          "to_id",
+          "distance_m",
+          "start_distance_m",
+          "end_distance_m",
+          "start_work_elevation_m",
+          "end_work_elevation_m",
+          "cruise_elevation_m",
+          "climb_m",
+          "descent_m",
+          "clearance_required_m",
+          "payload_kg",
+          "flight_time_s",
+          "energy_kwh",
+          "horizontal_energy_kwh",
+          "climb_energy_kwh",
+          "terrain_checked",
+          "terrain_maximum_m",
+          "cruise_clearance_margin_m",
+          "samples"
+        ],
+        "title": "FlightProfileLeg"
+      },
+      "FlightProfileSample": {
+        "properties": {
+          "distance_m": {
+            "type": "number",
+            "title": "Distance M"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "ground_elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ground Elevation M"
+          },
+          "cruise_elevation_m": {
+            "type": "number",
+            "title": "Cruise Elevation M"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "distance_m",
+          "longitude",
+          "latitude",
+          "ground_elevation_m",
+          "cruise_elevation_m"
+        ],
+        "title": "FlightProfileSample"
       },
       "Geometry": {
         "properties": {
@@ -7081,6 +7587,72 @@
         ],
         "title": "ScenarioUpdate"
       },
+      "ScenarioVersionSummary": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "state_version": {
+            "type": "integer",
+            "title": "State Version"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "content_hash": {
+            "type": "string",
+            "title": "Content Hash"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "data_origin": {
+            "type": "string",
+            "title": "Data Origin"
+          },
+          "site_count": {
+            "type": "integer",
+            "title": "Site Count"
+          },
+          "cargo_count": {
+            "type": "integer",
+            "title": "Cargo Count"
+          },
+          "drone_count": {
+            "type": "integer",
+            "title": "Drone Count"
+          },
+          "battery_count": {
+            "type": "integer",
+            "title": "Battery Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "state_version",
+          "name",
+          "content_hash",
+          "created_at",
+          "data_origin",
+          "site_count",
+          "cargo_count",
+          "drone_count",
+          "battery_count"
+        ],
+        "title": "ScenarioVersionSummary"
+      },
       "SchemaVersion": {
         "type": "string",
         "minLength": 1,
@@ -8100,6 +8672,114 @@
           "not_evaluated"
         ],
         "title": "TerrainStatus"
+      },
+      "TerrainSurface": {
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "title": "Asset Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          },
+          "bounds": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Bounds"
+          },
+          "longitude": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 73,
+            "minItems": 2,
+            "title": "Longitude"
+          },
+          "latitude": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "maxItems": 73,
+            "minItems": 2,
+            "title": "Latitude"
+          },
+          "elevations_m": {
+            "items": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "maxItems": 73,
+            "minItems": 2,
+            "title": "Elevations M"
+          },
+          "min_elevation_m": {
+            "type": "number",
+            "title": "Min Elevation M"
+          },
+          "max_elevation_m": {
+            "type": "number",
+            "title": "Max Elevation M"
+          },
+          "valid_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Valid Fraction"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "asset_id",
+          "name",
+          "sha256",
+          "bounds",
+          "longitude",
+          "latitude",
+          "elevations_m",
+          "min_elevation_m",
+          "max_elevation_m",
+          "valid_fraction",
+          "notice"
+        ],
+        "title": "TerrainSurface"
       },
       "UnservedDemandId": {
         "type": "string",

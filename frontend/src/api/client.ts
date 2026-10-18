@@ -18,6 +18,9 @@ export type WhatIfReceipt = components['schemas']['WhatIfReceipt']
 export type WhatIfHistory = components['schemas']['WhatIfHistory']
 export type TerrainAsset = components['schemas']['TerrainAsset']
 export type TerrainMap = components['schemas']['TerrainMap']
+export type TerrainSurface = components['schemas']['TerrainSurface']
+export type FlightProfile = components['schemas']['FlightProfile']
+export type ScenarioVersionSummary = components['schemas']['ScenarioVersionSummary']
 export type Communication = NonNullable<Scenario['communication']>
 export type PartitionReport = components['schemas']['PartitionReport']
 export type NominalReport = components['schemas']['NominalReport']
@@ -49,6 +52,18 @@ async function request<T>(url: string, body?: unknown, method?: string): Promise
 }
 
 export const api = {
+  scenarioVersions: (id: string) =>
+    request<ScenarioVersionSummary[]>(`/scenarios/${encodeURIComponent(id)}/versions`),
+  scenarioVersion: (id: string, version: number) =>
+    request<Scenario>(`/scenarios/${encodeURIComponent(id)}/versions/${version}`),
+  terrainSurface: (asset: string, sha: string) =>
+    request<TerrainSurface>(
+      `/map/surface?asset_id=${encodeURIComponent(asset)}&sha256=${encodeURIComponent(sha)}`,
+    ),
+  flightProfile: (plan: string, sortie: string) =>
+    request<FlightProfile>(
+      `/plans/${encodeURIComponent(plan)}/flight-profile?sortie_id=${encodeURIComponent(sortie)}`,
+    ),
   terrainAssets: () => request<TerrainAsset[]>('/terrain-assets'),
   assignTerrain: (s: Scenario, asset: TerrainAsset, update_dem_elevations: boolean) =>
     request<Scenario>(`/scenarios/${s.scenario_id}/terrain`, {

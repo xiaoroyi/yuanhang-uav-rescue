@@ -1,5 +1,7 @@
 # B 系统线后端模块
 
+RFC-015新增只读map/surface、Plan flight-profile和Scenario版本读取。surface按原hash最多73×73且NoData=null；flight-profile只读绑定原Snapshot，复用已有leg/leg_values并核对历史路线，保留真实高程基准、全240采样上限和能耗分解。版本created_at未存则null，不借用updated_at；读取不恢复或写入。不可把采样/三维网格用于替换原闭像元认证。对应显式DTO在map_models.py、flight_profiles.py、version_views.py，实际OpenAPI/TS同次生成。
+
 RFC-010的Event由Schema生成RootModel联合，model_dump仍是原始JSON对象，不在HTTP增加root层；严格区分机体与运输电池负载。服务器先去重，再用自身received_at校验新事件；初次应用检查版本、执行事实与可退出状态。只修改指定资源status，保留能源/位置，并清除当前规划预约。Snapshot单点诊断见RFC-009，不持久化为Plan或Job。
 
 B 与 frontend owner 是同一人，C-* 为历史任务编号。遵守根 AGENTS，先读 docs/03、04、05。

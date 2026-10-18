@@ -37,6 +37,13 @@ import {
   ShieldAlert,
   TriangleAlert,
   Zap,
+  BarChart3,
+  BookOpen,
+  GitCompareArrows,
+  History,
+  Moon,
+  Sun,
+  Sparkles,
 } from 'lucide-react'
 import { api, ApiError, downloadJson, type Scenario, type Event } from './api/client'
 import { Badge, Button, Empty, Modal, Toasts, type ToastMessage } from './components/ui'
@@ -49,16 +56,56 @@ import { PartitionAnalysis } from './pages/PartitionAnalysis'
 import { UrgentDemandForm, type UrgentPayload } from './pages/UrgentDemandForm'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
 import './components/strategy-balance.css'
+import { VisualAnalysis } from './pages/VisualAnalysis'
+import { MapCenter } from './pages/MapCenter'
+import { HistoryCenter } from './pages/HistoryCenter'
+import { CompareCenter } from './pages/CompareCenter'
+import { GuidePage } from './pages/GuidePage'
+import { LocalProfileDialog, useLocalProfile } from './components/LocalProfile'
 
-type Page = 'workspace' | 'scenario' | 'events'
+type Page =
+  'workspace' | 'scenario' | 'events' | 'analysis' | 'maps' | 'history' | 'compare' | 'guide'
+const pageLabels: Record<Page, string> = {
+  workspace: '调度工作台',
+  scenario: '场景与资源',
+  events: '事件复盘',
+  analysis: '数据大屏',
+  maps: '地图与地形',
+  history: '历史档案',
+  compare: '方案对比',
+  guide: '新手教程',
+}
 const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced: '均衡策略' }
+function pageFromHash(): Page {
+  const value = location.hash.replace(/^#\/?/, '')
+  return Object.hasOwn(pageLabels, value) ? (value as Page) : 'workspace'
+}
 
 export default function App() {
   const query = useQueryClient()
-  const [page, setPage] = useState<Page>('workspace'),
+  const { profile, saveProfile } = useLocalProfile()
+  const [profileOpen, setProfileOpen] = useState(false)
+  const [theme, setTheme] = useState<'midnight' | 'light'>(() =>
+    localStorage.getItem('yuanhang-theme') === 'light' ? 'light' : 'midnight',
+  )
+  const [motion, setMotion] = useState(() => localStorage.getItem('yuanhang-motion') !== 'off')
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    localStorage.setItem('yuanhang-theme', theme)
+  }, [theme])
+  useEffect(() => {
+    document.documentElement.dataset.motion = motion ? 'on' : 'off'
+    localStorage.setItem('yuanhang-motion', motion ? 'on' : 'off')
+  }, [motion])
+  const [page, setPageState] = useState<Page>(pageFromHash),
     [eventTab, setEventTab] = useState<'events' | 'analysis' | 'partition'>('events'),
     [scenarioId, setScenarioId] = useState(() => localStorage.getItem('yuanhang-scenario') || ''),
-    [planId, setPlanId] = useState(''),
+    [planId, setPlanId] = useState(
+      () =>
+        localStorage.getItem(
+          'yuanhang-plan-' + (localStorage.getItem('yuanhang-scenario') || ''),
+        ) || '',
+    ),
     [jobId, setJobId] = useState(''),
     [selected, setSelected] = useState<string | null>(null),
     [previousId, setPreviousId] = useState(''),
@@ -76,6 +123,27 @@ export default function App() {
     [eventBusy, setEventBusy] = useState(false),
     [playTime, setPlayTime] = useState<number | null>(null),
     [playing, setPlaying] = useState(false)
+  const setPage = useCallback((target: Page) => {
+    setPageState(target)
+    if (location.hash !== `#/${target}`) history.pushState(null, '', `#/${target}`)
+  }, [])
+  useEffect(() => {
+    const restore = () => setPageState(pageFromHash())
+    addEventListener('popstate', restore)
+    addEventListener('hashchange', restore)
+    return () => {
+      removeEventListener('popstate', restore)
+      removeEventListener('hashchange', restore)
+    }
+  }, [])
+  useEffect(() => {
+    if (!mobileNav) return
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileNav(false)
+    }
+    addEventListener('keydown', close)
+    return () => removeEventListener('keydown', close)
+  }, [mobileNav])
   const [failureKind, setFailureKind] = useState<'drone' | 'battery' | 'relay_energy' | 'urgent'>(
     'drone',
   )
@@ -285,6 +353,11 @@ export default function App() {
   useEffect(() => {
     if (!planId && sortedPlans.length) choosePlan(sortedPlans[0].plan_id)
   }, [planId, sortedPlans, choosePlan])
+  useEffect(() => {
+    const missing = planQuery.error instanceof ApiError && planQuery.error.status === 404
+    const foreign = planQuery.data && planQuery.data.scenario_id !== scenarioId
+    if ((missing || foreign) && sortedPlans.length) choosePlan(sortedPlans[0].plan_id)
+  }, [planQuery.error, planQuery.data, scenarioId, sortedPlans, choosePlan])
   useEffect(() => {
     if (jobId || !scenarioJobs.data?.length) return
     const active = scenarioJobs.data.find((j) => ['queued', 'running'].includes(j.job_state))
@@ -542,6 +615,19 @@ export default function App() {
 
   return (
     <div className="app-shell">
+      <div className="ambient-background" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <div className="ambient-grid" />
+      </div>
+      {mobileNav && (
+        <button
+          className="mobile-nav-backdrop"
+          aria-label="关闭导航"
+          onClick={() => setMobileNav(false)}
+        />
+      )}
       <aside className={`sidebar ${mobileNav ? 'mobile-open' : ''}`}>
         <a
           className="brand"
@@ -563,8 +649,8 @@ export default function App() {
         <div className="workspace-switch">
           <span className="workspace-avatar">应</span>
           <span>
-            <strong>应急救援工作空间</strong>
-            <small>本地演练环境</small>
+            <strong>{profile.team}</strong>
+            <small>应急协同 · 本机工作空间</small>
           </span>
           <ChevronDown size={13} />
         </div>
@@ -572,14 +658,20 @@ export default function App() {
         <nav>
           {(
             [
+              { id: 'analysis', label: '数据大屏', icon: BarChart3 },
               { id: 'scenario', label: '场景与资源', icon: Database },
+              { id: 'maps', label: '地图与地形', icon: Globe2 },
               { id: 'workspace', label: '调度工作台', icon: MapIcon },
+              { id: 'compare', label: '方案对比', icon: GitCompareArrows },
               { id: 'events', label: '事件复盘', icon: Activity },
+              { id: 'history', label: '历史档案', icon: History },
+              { id: 'guide', label: '新手教程', icon: BookOpen },
             ] as const
           ).map((item) => (
             <button
               key={item.id}
               className={page === item.id ? 'active' : ''}
+              aria-current={page === item.id ? 'page' : undefined}
               onClick={() => {
                 setPage(item.id)
                 setMobileNav(false)
@@ -593,12 +685,12 @@ export default function App() {
         </nav>
         <div className="sidebar-card">
           <div>
-            <ShieldCheck size={18} />
-            <strong>有依据的调度</strong>
+            <Sparkles size={18} />
+            <strong>救援决策，从这里开始</strong>
           </div>
-          <p>每一箱、每一架次、每一块电池，都可以追溯。</p>
-          <button onClick={() => setScopeOpen(true)}>
-            了解模型与验证范围 <ArrowRight size={13} />
+          <p>准备数据、读取地形、生成方案。跟着教程完成第一次调度。</p>
+          <button onClick={() => setPage('guide')}>
+            打开上手指南 <ArrowRight size={13} />
           </button>
         </div>
         <div className="sidebar-bottom">
@@ -606,18 +698,24 @@ export default function App() {
             <span className="connection-dot" />
             本机服务 <Badge tone="teal">离线可用</Badge>
           </div>
-          <button onClick={() => setScopeOpen(true)}>
+          <button onClick={() => setPage('guide')}>
             <CircleHelp size={16} />
-            使用说明与模型边界
+            使用教程与常见问题
           </button>
-          <div className="profile">
-            <span>A</span>
+          <button
+            className="profile"
+            onClick={() => setProfileOpen(true)}
+            aria-label="账户与本机档案"
+          >
+            <span style={{ background: profile.color, color: '#fff' }}>
+              {Array.from(profile.displayName)[0]}
+            </span>
             <div>
-              <strong>调度负责人</strong>
-              <small>模拟 / 规划辅助</small>
+              <strong>{profile.displayName}</strong>
+              <small>{profile.role} · 本机档案</small>
             </div>
-            <ShieldCheck size={15} />
-          </div>
+            <Settings2 size={15} />
+          </button>
         </div>
       </aside>
       <div className="main-shell">
@@ -632,11 +730,26 @@ export default function App() {
             </button>
             <span>救援工作空间</span>
             <ChevronRight size={14} />
-            <strong>
-              {page === 'scenario' ? '场景与资源' : page === 'events' ? '事件复盘' : '调度工作台'}
-            </strong>
+            <strong>{pageLabels[page]}</strong>
           </div>
           <div className="topbar-actions">
+            <button
+              className="icon-button"
+              aria-label={theme === 'midnight' ? '切换浅色主题' : '切换深色主题'}
+              title={theme === 'midnight' ? '切换浅色主题' : '切换深色主题'}
+              onClick={() => setTheme(theme === 'midnight' ? 'light' : 'midnight')}
+            >
+              {theme === 'midnight' ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+            <button
+              className={`icon-button motion-toggle ${motion ? 'active' : ''}`}
+              aria-label={motion ? '暂停动态背景' : '启用动态背景'}
+              aria-pressed={motion}
+              title={motion ? '暂停动态背景' : '启用动态背景'}
+              onClick={() => setMotion(!motion)}
+            >
+              <Sparkles size={16} />
+            </button>
             <span className={`topbar-live ${health.isError ? 'disconnected' : ''}`}>
               <i />
               {health.isError
@@ -652,11 +765,25 @@ export default function App() {
             >
               <CircleHelp size={18} />
             </button>
-            <span className="header-avatar">A</span>
+            <button
+              className="header-avatar"
+              style={{ background: profile.color, color: '#fff' }}
+              aria-label="打开个人档案"
+              onClick={() => setProfileOpen(true)}
+            >
+              {Array.from(profile.displayName)[0]}
+            </button>
           </div>
         </header>
         <main className="main-content">
-          {!scenario ? (
+          {page === 'guide' ? (
+            <GuidePage
+              onNavigate={(target) => {
+                setPage(target)
+                setMobileNav(false)
+              }}
+            />
+          ) : !scenario ? (
             <div className="boot-screen">
               {scenarios.error || sceneQuery.error ? (
                 <Empty
@@ -770,7 +897,46 @@ export default function App() {
                   </div>
                 </div>
               </div>
-              {page === 'scenario' ? (
+              {page === 'maps' ? (
+                <MapCenter
+                  key={scenario.scenario_id}
+                  scenario={scenario}
+                  onAssigned={created}
+                  notify={notify}
+                />
+              ) : page === 'analysis' ? (
+                <VisualAnalysis
+                  scenario={scenario}
+                  plan={plan}
+                  onOpenMap={() => setPage('maps')}
+                  onOpenWorkspace={() => setPage('workspace')}
+                />
+              ) : page === 'history' ? (
+                <HistoryCenter
+                  key={scenario.scenario_id}
+                  scenario={scenario}
+                  onOpenPlan={(id) => {
+                    choosePlan(id)
+                    setPage('workspace')
+                  }}
+                  onOpenScene={(id) => {
+                    chooseScene(id)
+                    setPage('workspace')
+                  }}
+                  onCompare={() => setPage('compare')}
+                />
+              ) : page === 'compare' ? (
+                <CompareCenter
+                  key={scenario.scenario_id}
+                  scenario={scenario}
+                  selectedPlanId={planId}
+                  onOpenPlan={(id) => {
+                    choosePlan(id)
+                    setPage('workspace')
+                  }}
+                  onWorkspace={() => setPage('workspace')}
+                />
+              ) : page === 'scenario' ? (
                 <ScenarioEditor
                   scenario={scenario}
                   onSave={saveScene}
@@ -859,6 +1025,31 @@ export default function App() {
                       )}
                     </div>
                   </div>
+                  {page === 'workspace' && (
+                    <div className="workspace-quicklinks">
+                      <span>
+                        <i />
+                        当前方案 · 真实数据联动
+                      </span>
+                      <button onClick={() => setPage('analysis')}>
+                        <BarChart3 size={13} />
+                        三维与高度分析
+                        <ArrowRight size={12} />
+                      </button>
+                      <button onClick={() => setPage('maps')}>
+                        <Globe2 size={13} />
+                        卫星地图 / 导入DEM
+                      </button>
+                      <button onClick={() => setPage('compare')}>
+                        <GitCompareArrows size={13} />
+                        方案对比
+                      </button>
+                      <button onClick={() => setPage('history')}>
+                        <History size={13} />
+                        历史档案
+                      </button>
+                    </div>
+                  )}
                   {page === 'events' && (
                     <div className="page-tabs" aria-label="复盘工作模式">
                       <button
@@ -1762,6 +1953,15 @@ export default function App() {
           )}
         </main>
       </div>
+      <LocalProfileDialog
+        open={profileOpen}
+        onOpenChange={setProfileOpen}
+        profile={profile}
+        onSave={(p) => {
+          saveProfile(p)
+          notify('本机档案已保存。')
+        }}
+      />
       <Toasts
         messages={messages}
         dismiss={(id) => setMessages((items) => items.filter((t) => t.id !== id))}

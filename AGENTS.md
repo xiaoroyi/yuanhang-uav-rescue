@@ -10,6 +10,8 @@
 
 ## 先读后做
 
+用户2026-10-18再次明确要求完善前端、实用高度分析、数据大屏、卫星/地图输入、历史/对比、教程和简单账户；允许卫星联网。本轮在feat/experience-v1实施，最终同步已授权候选集成分支，仍不改写main。当前迭代入口为docs/EXPERIENCE_RELEASE.md及RFC-015；v0交接记录是历史证据，不代表新UI已经复验。新增只读分析沿用原Snapshot/资产/物理函数，不在前端编造业务指标。
+
 1. `README.md`、`docs/DECISIONS.md`、`docs/IMPLEMENTATION_STATUS.md`。
 2. `docs/CODEX_MASTER_HANDOFF.md`、`docs/INTEGRATION_PACT.md`。
 3. `docs/08-TASK-BOARD.md` 与 `docs/task-board.json`，确定任务、owner、依赖。
