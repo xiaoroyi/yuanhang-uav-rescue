@@ -120,6 +120,8 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
   )
   const [extraDrones, setExtraDrones] = useState(1),
     [extraBatteries, setExtraBatteries] = useState(1),
+    [extraPrepSlots, setExtraPrepSlots] = useState(0),
+    [extraChargingPorts, setExtraChargingPorts] = useState(0),
     [energy, setEnergy] = useState(1),
     [flightTime, setFlightTime] = useState(1),
     [soh, setSoh] = useState(1),
@@ -168,6 +170,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
   )
   const running =
     submitting || historyBusy || !!(job.data && ['queued', 'running'].includes(job.data.job_state))
+  const groundLimits = scenario.resource_limits
   const parametersValid =
     Number.isInteger(extraDrones) &&
     extraDrones >= 0 &&
@@ -182,7 +185,14 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
     soh >= 0.1 &&
     soh <= 1 &&
     reserve >= 0 &&
-    reserve <= 1
+    reserve <= 1 &&
+    (!groundLimits ||
+      (Number.isInteger(extraPrepSlots) &&
+        extraPrepSlots >= 0 &&
+        groundLimits.prep_slots + extraPrepSlots <= 32 &&
+        Number.isInteger(extraChargingPorts) &&
+        extraChargingPorts >= 0 &&
+        groundLimits.charging_ports + extraChargingPorts <= 64))
   async function trial() {
     if (!plan || running || stale || !parametersValid) return
     setSubmitting(true)
@@ -192,6 +202,9 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
         source_plan_id: plan.plan_id,
         name: '资源与余量试算',
         additions: [{ type_id: type, drones: extraDrones, batteries: extraBatteries }],
+        ...(groundLimits && (extraPrepSlots > 0 || extraChargingPorts > 0)
+          ? { ground_addition: { prep_slots: extraPrepSlots, charging_ports: extraChargingPorts } }
+          : {}),
         energy_multiplier: energy,
         flight_time_multiplier: flightTime,
         battery_soh_multiplier: soh,
@@ -648,6 +661,39 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   />
                 </label>
               </div>
+              <div className="form-grid">
+                <label className="field">
+                  <span>增加准备工位 / 个</span>
+                  <input
+                    aria-label="增加准备工位"
+                    type="number"
+                    min="0"
+                    step="1"
+                    max={groundLimits ? 32 - groundLimits.prep_slots : 0}
+                    disabled={!groundLimits}
+                    value={groundLimits ? extraPrepSlots : 0}
+                    onChange={(e) => setExtraPrepSlots(Number(e.target.value))}
+                  />
+                </label>
+                <label className="field">
+                  <span>增加充电端口 / 个</span>
+                  <input
+                    aria-label="增加充电端口"
+                    type="number"
+                    min="0"
+                    step="1"
+                    max={groundLimits ? 64 - groundLimits.charging_ports : 0}
+                    disabled={!groundLimits}
+                    value={groundLimits ? extraChargingPorts : 0}
+                    onChange={(e) => setExtraChargingPorts(Number(e.target.value))}
+                  />
+                </label>
+              </div>
+              <p className="ground-trial-note">
+                {groundLimits
+                  ? `基线：${groundLimits.prep_slots}个准备工位 / ${groundLimits.charging_ports}个充电端口。增量作用于运输与中继共享容量，上限32 / 64。`
+                  : '当前未设置地面容量上限。需要试算增配时，先到场景设置启用有限准备工位与充电端口，再重新求解基线。'}
+              </p>
               <label className="field">
                 <span>非关键需求期望时限</span>
                 <select

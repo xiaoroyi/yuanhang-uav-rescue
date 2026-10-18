@@ -177,6 +177,12 @@
   padding: 11px;
   line-height: 1.9;
 }
+.ground-trial-note {
+  margin: -3px 0 0;
+  color: #637b72;
+  font-size: 11px;
+  line-height: 1.8;
+}
 .what-if-form > .button {
   width: 100%;
 }

@@ -684,9 +684,17 @@ def create_app(runtime_dir: Path | None = None):
             source_state_version=source["state_version"],
             source_content_hash=content_hash(source),
             source_plan_id=body.source_plan_id,
+            transformation_version=(
+                "what_if_v2_ground_capacity"
+                if body.ground_addition is not None
+                else "what_if_v1"
+            ),
             parameters=body,
             changes=changes,
         ).model_dump(mode="json")
+        if body.ground_addition is None:
+            # Preserve the existing v1 wire shape for omitted/null extensions.
+            origin["parameters"].pop("ground_addition", None)
         return {"scenario": save_new(derived, origin), "origin": origin}
 
     @app.get(

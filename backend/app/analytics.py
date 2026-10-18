@@ -82,11 +82,17 @@ class ResourceAddition(DTO):
     battery_capacity_kwh: float | None = Field(default=None, gt=0)
 
 
+class GroundResourceAddition(DTO):
+    prep_slots: int = Field(default=0, strict=True, ge=0, le=31)
+    charging_ports: int = Field(default=0, strict=True, ge=0, le=63)
+
+
 class WhatIfRequest(DTO):
     expected_state_version: int = Field(ge=1)
     source_plan_id: str | None = None
     name: str = Field(default="资源与余量试算", min_length=1, max_length=120)
     additions: list[ResourceAddition] = Field(default_factory=list, max_length=3)
+    ground_addition: GroundResourceAddition | None = None
     energy_multiplier: float = Field(default=1, ge=0.25, le=4)
     flight_time_multiplier: float = Field(default=1, ge=0.25, le=4)
     battery_soh_multiplier: float = Field(default=1, ge=0.1, le=1)
@@ -100,7 +106,9 @@ class ScenarioOrigin(DTO):
     source_state_version: int
     source_content_hash: str
     source_plan_id: str | None
-    transformation_version: Literal["what_if_v1"] = "what_if_v1"
+    transformation_version: Literal["what_if_v1", "what_if_v2_ground_capacity"] = (
+        "what_if_v1"
+    )
     parameters: WhatIfRequest
     changes: list[str]
 
@@ -126,6 +134,25 @@ def transform(source, request: WhatIfRequest):
     s["data_origin"] = "user_input"
     types = {t["type_id"]: t for t in s["drone_types"]}
     changes = []
+    if request.ground_addition is not None:
+        original = s.get("resource_limits")
+        if not original:
+            raise ValueError(
+                "源场景未设置有限地面容量，请先在场景设置启用工位和充电端口上限。"
+            )
+        increased = {
+            "prep_slots": original["prep_slots"] + request.ground_addition.prep_slots,
+            "charging_ports": original["charging_ports"]
+            + request.ground_addition.charging_ports,
+        }
+        if increased["prep_slots"] > 32 or increased["charging_ports"] > 64:
+            raise ValueError("增配后最多32个准备工位、64个充电端口，请减少增量。")
+        s["resource_limits"] = increased
+        if increased != original:
+            changes.append(
+                f"准备工位由{original['prep_slots']}增至{increased['prep_slots']}个，"
+                f"充电端口由{original['charging_ports']}增至{increased['charging_ports']}个；运输与中继共享容量。"
+            )
     for addition in request.additions:
         if addition.type_id not in types:
             raise ValueError("增配引用了不存在的机型：" + addition.type_id)

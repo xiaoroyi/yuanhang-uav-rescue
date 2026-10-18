@@ -3805,6 +3805,27 @@
         ],
         "title": "Geometry"
       },
+      "GroundResourceAddition": {
+        "properties": {
+          "prep_slots": {
+            "type": "integer",
+            "maximum": 31.0,
+            "minimum": 0.0,
+            "title": "Prep Slots",
+            "default": 0
+          },
+          "charging_ports": {
+            "type": "integer",
+            "maximum": 63.0,
+            "minimum": 0.0,
+            "title": "Charging Ports",
+            "default": 0
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "GroundResourceAddition"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -6945,7 +6966,10 @@
           },
           "transformation_version": {
             "type": "string",
-            "const": "what_if_v1",
+            "enum": [
+              "what_if_v1",
+              "what_if_v2_ground_capacity"
+            ],
             "title": "Transformation Version",
             "default": "what_if_v1"
           },
@@ -8292,6 +8316,16 @@
             "type": "array",
             "maxItems": 3,
             "title": "Additions"
+          },
+          "ground_addition": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GroundResourceAddition"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "energy_multiplier": {
             "type": "number",

@@ -1362,6 +1362,19 @@ export interface components {
             /** Coordinates */
             coordinates: components["schemas"]["Coordinate5"][];
         };
+        /** GroundResourceAddition */
+        GroundResourceAddition: {
+            /**
+             * Prep Slots
+             * @default 0
+             */
+            prep_slots: number;
+            /**
+             * Charging Ports
+             * @default 0
+             */
+            charging_ports: number;
+        };
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -2378,9 +2391,9 @@ export interface components {
             /**
              * Transformation Version
              * @default what_if_v1
-             * @constant
+             * @enum {string}
              */
-            transformation_version: "what_if_v1";
+            transformation_version: "what_if_v1" | "what_if_v2_ground_capacity";
             parameters: components["schemas"]["WhatIfRequest"];
             /** Changes */
             changes: string[];
@@ -2821,6 +2834,7 @@ export interface components {
             name: string;
             /** Additions */
             additions?: components["schemas"]["ResourceAddition"][];
+            ground_addition?: components["schemas"]["GroundResourceAddition"] | null;
             /**
              * Energy Multiplier
              * @default 1

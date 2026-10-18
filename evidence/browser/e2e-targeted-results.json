@@ -5,7 +5,7 @@
       "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
       "test",
       "--grep",
-      "三种偏好共享|点击真实架次追溯通信来源"
+      "地面工位与端口增配|资源分析绑定基线"
     ],
     "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
     "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
@@ -109,12 +109,12 @@
       "line": 0,
       "specs": [
         {
-          "title": "点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照",
+          "title": "资源分析绑定基线快照，增配试算创建独立场景并真实求解",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 150000,
+              "timeout": 90000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "",
@@ -124,12 +124,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 19105,
+                  "duration": 15738,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T23:50:22.926Z",
+                  "startTime": "2026-10-18T00:54:37.756Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -137,18 +137,18 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-03851b37ea08382acaa3",
+          "id": "c601ceb5ecfc8efa4a14-4c4fddffa3ced1dae6ea",
           "file": "workflow.spec.ts",
-          "line": 376,
+          "line": 1137,
           "column": 1
         },
         {
-          "title": "三种偏好共享真实快照，保留硬截止并分别计算与恢复",
+          "title": "地面工位与端口增配建立独立情景，真实重算与刷新导出",
           "ok": true,
           "tags": [],
           "tests": [
             {
-              "timeout": 120000,
+              "timeout": 90000,
               "annotations": [],
               "expectedStatus": "passed",
               "projectId": "",
@@ -158,12 +158,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 20756,
+                  "duration": 16638,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-17T23:50:42.354Z",
+                  "startTime": "2026-10-18T00:54:53.830Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -171,9 +171,9 @@
               "status": "expected"
             }
           ],
-          "id": "c601ceb5ecfc8efa4a14-e9479269621fb28d173c",
+          "id": "c601ceb5ecfc8efa4a14-6dc58d916087552598a5",
           "file": "workflow.spec.ts",
-          "line": 1048,
+          "line": 1170,
           "column": 1
         }
       ]
@@ -181,8 +181,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-17T23:50:22.357Z",
-    "duration": 40941.178,
+    "startTime": "2026-10-18T00:54:37.153Z",
+    "duration": 33520.678,
     "expected": 2,
     "skipped": 0,
     "unexpected": 0,

@@ -1144,12 +1144,16 @@ test('资源分析绑定基线快照，增配试算创建独立场景并真实�
   await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
   await expect(page.locator('.utilization-chart canvas')).toBeVisible()
   await expect(page.locator('.analysis-kpis')).toContainText('硬截止检查')
+  await expect(page.getByLabel('增加准备工位', { exact: true })).toBeDisabled()
+  await expect(page.getByLabel('增加充电端口', { exact: true })).toBeDisabled()
   const receiptResponse = page.waitForResponse(
     (response) => response.url().endsWith('/what-if') && response.request().method() === 'POST',
   )
   await page.getByRole('button', { name: '创建场景并真实试算', exact: true }).click()
   const receipt = await (await receiptResponse).json()
   expect(receipt.scenario.scenario_id).not.toBe(sceneId)
+  expect(receipt.origin.transformation_version).toBe('what_if_v1')
+  expect(receipt.origin.parameters.ground_addition).toBeUndefined()
   await expect(page.locator('.trial-result')).toContainText('已真实计算', { timeout: 45000 })
   expect(await (await request.get('/api/v1/scenarios/' + sceneId)).json()).toEqual(before)
   expect(receipt.scenario.drones.length).toBe(before.drones.length + 1)
@@ -1161,6 +1165,113 @@ test('资源分析绑定基线快照，增配试算创建独立场景并真实�
   await expect(page.getByLabel('选择场景')).toHaveValue(receipt.scenario.scenario_id)
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
   expect(errors).toEqual([])
+})
+
+test('地面工位与端口增配建立独立情景，真实重算与刷新导出', async ({ page, request }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  const sceneId = await page.getByLabel('选择场景').inputValue()
+  let source = await (await request.get(`/api/v1/scenarios/${sceneId}`)).json()
+  source.resource_limits = { prep_slots: 1, charging_ports: 2 }
+  const saved = await request.put(`/api/v1/scenarios/${sceneId}`, {
+    data: { expected_state_version: 1, scenario: source },
+  })
+  expect(saved.ok()).toBe(true)
+  source = await saved.json()
+  await page.reload()
+  await solve(page)
+  const original = (await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json())[0]
+  const baseline = await (await request.get(`/api/v1/plans/${original.plan_id}`)).json()
+  const sourceSnapshot = await (
+    await request.get(`/api/v1/snapshots/${baseline.snapshot_id}`)
+  ).json()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  await page.getByLabel('增加机体', { exact: true }).fill('0')
+  await page.getByLabel('增加电池', { exact: true }).fill('0')
+  await expect(page.getByLabel('增加准备工位', { exact: true })).toBeEnabled()
+  await page.getByLabel('增加准备工位', { exact: true }).fill('32')
+  await expect(page.getByRole('button', { name: '创建场景并真实试算', exact: true })).toBeDisabled()
+  await page.getByLabel('增加准备工位', { exact: true }).fill('1')
+  await page.getByLabel('增加充电端口', { exact: true }).fill('2')
+  const response = page.waitForResponse(
+    (r) => r.url().endsWith('/what-if') && r.request().method() === 'POST',
+  )
+  await page.getByRole('button', { name: '创建场景并真实试算', exact: true }).click()
+  const receipt = await (await response).json()
+  expect(receipt.origin.transformation_version).toBe('what_if_v2_ground_capacity')
+  expect(receipt.scenario.resource_limits).toEqual({ prep_slots: 2, charging_ports: 4 })
+  expect(receipt.scenario.drones).toEqual(source.drones)
+  expect(receipt.scenario.batteries).toEqual(source.batteries)
+  await expect(page.locator('.trial-result')).toContainText('已真实计算', { timeout: 45000 })
+  await expect(page.locator('.trial-result')).toContainText('准备工位由1增至2个')
+  await expect(page.locator('.trial-result')).toContainText('充电端口由2增至4个')
+  const history = await (await request.get(`/api/v1/scenarios/${sceneId}/what-if`)).json()
+  expect(history).toHaveLength(1)
+  const plan = history[0].plan
+  expect(plan.validation.status).toBe('passed')
+  expect(plan.metrics.mandatory_served_count).toBe(32)
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plan.snapshot_id}`)).json()
+  const analysis = await (await request.get(`/api/v1/plans/${plan.plan_id}/analysis`)).json()
+  expect(snapshot.scenario.resource_limits).toEqual({ prep_slots: 2, charging_ports: 4 })
+  expect(analysis.prep_peak).toBeLessThanOrEqual(2)
+  expect(analysis.charge_peak).toBeLessThanOrEqual(4)
+  expect(await (await request.get(`/api/v1/scenarios/${sceneId}`)).json()).toEqual(source)
+  expect(await (await request.get(`/api/v1/plans/${baseline.plan_id}`)).json()).toEqual(baseline)
+  expect(await (await request.get(`/api/v1/snapshots/${baseline.snapshot_id}`)).json()).toEqual(
+    sourceSnapshot,
+  )
+  const download = page.waitForEvent('download')
+  await page.getByRole('button', { name: '导出分析JSON', exact: true }).click()
+  const file = await download
+  const exported = JSON.parse(await fs.readFile((await file.path())!, 'utf8'))
+  expect(exported.trial_plan.plan_id).toBe(plan.plan_id)
+  expect(exported.trial.origin.parameters.ground_addition).toEqual({
+    prep_slots: 1,
+    charging_ports: 2,
+  })
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await page.locator('.what-if-panel').screenshot({
+      path: path.resolve(`../evidence/browser/verified/ground-trial-form-${width}.png`),
+      animations: 'disabled',
+    })
+    const submit = page.getByRole('button', { name: '创建场景并真实试算', exact: true })
+    await submit.scrollIntoViewIfNeeded()
+    await expect(submit).toBeInViewport()
+    if (width === 1280)
+      await page.screenshot({
+        path: path.resolve('../evidence/browser/verified/ground-trial-form-footer-1280.png'),
+        animations: 'disabled',
+      })
+  }
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page
+    .locator('.trial-result')
+    .screenshot({ path: path.resolve('../evidence/browser/verified/ground-trial-result-1280.png') })
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.reload()
+  await page.getByRole('button', { name: '事件复盘', exact: true }).click()
+  await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+  const row = page.getByTestId('experiment-row')
+  await expect(row).toHaveCount(1)
+  await row.getByRole('button', { name: '打开场景', exact: true }).click()
+  await expect(page.getByLabel('选择场景')).toHaveValue(receipt.scenario.scenario_id)
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+  expect(errors).toEqual([])
+  await fs.writeFile(
+    path.resolve('../evidence/browser/ground-capacity-trial.json'),
+    JSON.stringify(
+      { sourceSnapshot, baseline, receipt, snapshot, plan, analysis, page_errors: errors },
+      null,
+      2,
+    ) + '\n',
+  )
 })
 
 test('三档压力测试分别真实计算，刷新后保留各情景历史', async ({ page, request }) => {

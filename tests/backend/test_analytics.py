@@ -102,6 +102,8 @@ def test_what_if_records_lineage_preserves_baseline_and_really_solves(tmp_path):
             )
             assert new["expected_deadline_s"] == pytest.approx(expected)
         assert receipt["origin"]["source_content_hash"] == content_hash(scene)
+        assert receipt["origin"]["transformation_version"] == "what_if_v1"
+        assert "ground_addition" not in receipt["origin"]["parameters"]
         assert client.get("/api/v1/scenarios/" + scene["scenario_id"]).json() == scene
         plan, _ = real_plan(client, derived)
         assert (
@@ -131,6 +133,126 @@ def test_what_if_records_lineage_preserves_baseline_and_really_solves(tmp_path):
         assert record["scenario_state_version"] == 2
         assert record["plan"]["scenario_state_version"] == 1
         assert record["plan"]["plan_id"] == plan["plan_id"]
+
+
+def test_ground_capacity_trial_really_solves_and_preserves_source_history(tmp_path):
+    directory = tmp_path / "runtime"
+    with TestClient(create_app(directory)) as client:
+        source = client.post(
+            "/api/v1/scenarios/examples", json={"example": "compact"}
+        ).json()
+        source["resource_limits"] = {"prep_slots": 1, "charging_ports": 2}
+        source = client.put(
+            "/api/v1/scenarios/" + source["scenario_id"],
+            json={"expected_state_version": 1, "scenario": source},
+        ).json()
+        baseline, original_snap = real_plan(client, source)
+        response = client.post(
+            f"/api/v1/scenarios/{source['scenario_id']}/what-if",
+            json={
+                "expected_state_version": 2,
+                "source_plan_id": baseline["plan_id"],
+                "ground_addition": {"prep_slots": 1, "charging_ports": 2},
+            },
+        )
+        assert response.status_code == 201, response.text
+        receipt = response.json()
+        derived, origin = receipt["scenario"], receipt["origin"]
+        assert origin["transformation_version"] == "what_if_v2_ground_capacity"
+        assert origin["parameters"]["ground_addition"] == {
+            "prep_slots": 1,
+            "charging_ports": 2,
+        }
+        assert derived["resource_limits"] == {"prep_slots": 2, "charging_ports": 4}
+        assert derived["demands"] == source["demands"]
+        assert derived["drones"] == source["drones"]
+        assert derived["batteries"] == source["batteries"]
+        current, snap = real_plan(client, derived)
+        assert current["validation"]["status"] == "passed"
+        assert "ground_resource" in current["model_scope"]
+        analysis = client.get(f"/api/v1/plans/{current['plan_id']}/analysis").json()
+        assert analysis["resource_limits"] == derived["resource_limits"]
+        assert analysis["prep_peak"] <= 2 and analysis["charge_peak"] <= 4
+        assert current["metrics"]["mandatory_served_count"] == 32
+        assert snap["snapshot_id"] != original_snap["snapshot_id"]
+        assert client.get(f"/api/v1/scenarios/{source['scenario_id']}").json() == source
+        assert client.get(f"/api/v1/plans/{baseline['plan_id']}").json() == baseline
+        assert (
+            client.get(f"/api/v1/snapshots/{original_snap['snapshot_id']}").json()
+            == original_snap
+        )
+    with TestClient(create_app(directory)) as client:
+        assert (
+            client.get(f"/api/v1/scenarios/{derived['scenario_id']}/origin").json()
+            == origin
+        )
+        history = client.get(
+            f"/api/v1/scenarios/{source['scenario_id']}/what-if"
+        ).json()
+        assert history[0]["origin"] == origin
+        assert history[0]["plan"]["plan_id"] == current["plan_id"]
+
+
+@pytest.mark.parametrize(
+    "limits,addition",
+    [
+        (None, {"prep_slots": 1}),
+        ({"prep_slots": 32, "charging_ports": 64}, {"prep_slots": 1}),
+        ({"prep_slots": 32, "charging_ports": 64}, {"charging_ports": 1}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"prep_slots": -1}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"prep_slots": 1.5}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"charging_ports": True}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"charging_ports": "2"}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"charging_ports": 2, "pads": 1}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"charging_ports": 64}),
+        ({"prep_slots": 1, "charging_ports": 2}, {"prep_slots": 32}),
+    ],
+)
+def test_ground_trial_rejects_invalid_additions_without_saving(
+    limits, addition, tmp_path
+):
+    with TestClient(create_app(tmp_path / "runtime")) as client:
+        source = client.post(
+            "/api/v1/scenarios/examples", json={"example": "compact"}
+        ).json()
+        if limits:
+            source["resource_limits"] = limits
+            source = client.put(
+                f"/api/v1/scenarios/{source['scenario_id']}",
+                json={"expected_state_version": 1, "scenario": source},
+            ).json()
+        response = client.post(
+            f"/api/v1/scenarios/{source['scenario_id']}/what-if",
+            json={
+                "expected_state_version": source["state_version"],
+                "ground_addition": addition,
+            },
+        )
+        assert response.status_code == 422, response.text
+        assert len(client.get("/api/v1/scenarios").json()) == 1
+        assert client.get(f"/api/v1/scenarios/{source['scenario_id']}").json() == source
+        assert (
+            client.get(f"/api/v1/scenarios/{source['scenario_id']}/what-if").json()
+            == []
+        )
+
+
+@pytest.mark.parametrize("extension", [{}, {"ground_addition": None}])
+def test_legacy_ground_omission_or_null_preserves_v1_origin(extension, tmp_path):
+    with TestClient(create_app(tmp_path / "runtime")) as client:
+        source = client.post(
+            "/api/v1/scenarios/examples", json={"example": "compact"}
+        ).json()
+        response = client.post(
+            f"/api/v1/scenarios/{source['scenario_id']}/what-if",
+            json={"expected_state_version": 1, **extension},
+        )
+        assert response.status_code == 201, response.text
+        result = response.json()
+        assert result["origin"]["transformation_version"] == "what_if_v1"
+        assert "ground_addition" not in result["origin"]["parameters"]
+        assert "resource_limits" not in result["scenario"]
+        assert client.get(f"/api/v1/scenarios/{source['scenario_id']}").json() == source
 
 
 def test_what_if_rejects_stale_version_and_missing_resources_without_side_effects(
