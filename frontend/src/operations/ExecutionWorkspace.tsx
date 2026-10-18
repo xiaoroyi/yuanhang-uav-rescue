@@ -22,6 +22,7 @@ import {
 import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
 import { ExecutionTimeline } from './ExecutionTimeline'
+import { ResourceTimeline } from '../components/ResourceTimeline'
 import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
 import { DeviceStatePanel } from './DeviceStatePanel'
@@ -49,6 +50,8 @@ export function ExecutionWorkspace({
   const [selected, setSelected] = useState<string | null>(null)
   const [eventOpen, setEventOpen] = useState(false)
   const [preview, setPreview] = useState<Repair | null>(null)
+  const [repairPolicy, setRepairPolicy] = useState<'dependency' | 'full'>('dependency')
+  const [candidateSortie, setCandidateSortie] = useState<string | null>(null)
   const [fault, setFault] = useState(false)
   const [communicationOpen, setCommunicationOpen] = useState(false)
   const [timelineOpen, setTimelineOpen] = useState(false)
@@ -95,10 +98,16 @@ export function ExecutionWorkspace({
     queryFn: () => api.getSnapshot(desiredPlan!.snapshot_id),
     enabled: !!desiredPlan,
   })
+  const latest = changes.data?.find((c) => c.change_id === preview?.change_id) || preview
   const candidate = useQuery({
-    queryKey: ['plan', preview?.candidate_plan_id],
-    queryFn: () => api.plan(preview!.candidate_plan_id!),
-    enabled: !!preview?.candidate_plan_id,
+    queryKey: ['plan', latest?.candidate_plan_id],
+    queryFn: () => api.plan(latest!.candidate_plan_id!),
+    enabled: !!latest?.candidate_plan_id,
+  })
+  const candidateSnapshot = useQuery({
+    queryKey: ['snapshot', candidate.data?.snapshot_id],
+    queryFn: () => api.getSnapshot(candidate.data!.snapshot_id),
+    enabled: !!candidate.data,
   })
   const baseScenario = snap.data?.scenario || scenario
   const refresh = () => {
@@ -152,7 +161,7 @@ export function ExecutionWorkspace({
     if (!e) return
     setBusy(true)
     try {
-      const change = await ops.repair(e)
+      const change = await ops.repair(e, repairPolicy)
       setPreview(change)
       refresh()
       notify('调整计算已提交；旧方案和已发生事实保留。')
@@ -162,7 +171,6 @@ export function ExecutionWorkspace({
       setBusy(false)
     }
   }
-  const latest = changes.data?.find((c) => c.change_id === preview?.change_id) || preview
   if (!id)
     return (
       <div className="v2-execution-start">
@@ -293,6 +301,15 @@ export function ExecutionWorkspace({
           <Plus size={14} />
           上报变化
         </Button>
+        <select
+          aria-label="剩余任务修复方法"
+          value={repairPolicy}
+          onChange={(event) => setRepairPolicy(event.target.value as typeof repairPolicy)}
+          disabled={busy || !['paused', 'ready'].includes(e.status)}
+        >
+          <option value="dependency">优先保留未来安排</option>
+          <option value="full">重排全部剩余任务</option>
+        </select>
         <Button
           disabled={
             (e.status !== 'paused' && e.status !== 'ready') || !pendingEvents.length || busy
@@ -643,6 +660,95 @@ export function ExecutionWorkspace({
               {clock(latest.future_not_before_s)}
             </div>
             <p>{latest.message}</p>
+            {latest.calculation_method && (
+              <p className="v2-repair-method">
+                实际计算：
+                {latest.calculation_method === 'dependency_local'
+                  ? '资源依赖局部修复'
+                  : '剩余任务全量重算'}
+                {latest.repair_policy === 'dependency' &&
+                latest.calculation_method === 'full_recompute'
+                  ? '（局部不适用或未得到可行结果，已回退）'
+                  : ''}
+              </p>
+            )}
+            {latest.diff && (
+              <div className="v2-repair-diff">
+                <div className="v2-metrics-line">
+                  <span>
+                    保留原未来架次 <b>{latest.diff.retained_future_sortie_count}</b>
+                  </span>
+                  <span>
+                    改派 <b>{latest.diff.drone_reassigned_quantity}</b> 箱
+                  </span>
+                  <span>
+                    换电池 <b>{latest.diff.battery_reassigned_quantity}</b> 箱
+                  </span>
+                  <span>
+                    时刻变化 <b>{latest.diff.time_shifted_quantity}</b> 箱
+                  </span>
+                  <span>
+                    新增 <b>{latest.diff.new_quantity}</b> 箱
+                  </span>
+                </div>
+                <details>
+                  <summary>逐箱核对变化（{latest.diff.rows.length} 箱）</summary>
+                  <div className="v2-repair-diff-table">
+                    <table className="v2-table">
+                      <thead>
+                        <tr>
+                          <th>箱件 / 变化</th>
+                          <th>原机体 / 电池</th>
+                          <th>候选机体 / 电池</th>
+                          <th>起飞变化 / s</th>
+                          <th>交付变化 / s</th>
+                          <th>架次</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {latest.diff.rows.map((row) => (
+                          <tr key={row.cargo_id}>
+                            <td>
+                              {row.cargo_id}
+                              <small>
+                                {
+                                  { new: '新增', unchanged: '保持原安排', modified: '有变化' }[
+                                    row.change_kind
+                                  ]
+                                }
+                              </small>
+                            </td>
+                            <td>
+                              {row.previous_drone_id || '无原安排'}
+                              <small>{row.previous_battery_id || '—'}</small>
+                            </td>
+                            <td>
+                              {row.candidate_drone_id}
+                              <small>{row.candidate_battery_id}</small>
+                            </td>
+                            <td>
+                              {row.takeoff_delta_s === null
+                                ? '无基线'
+                                : number(row.takeoff_delta_s, 1)}
+                            </td>
+                            <td>
+                              {row.delivery_delta_s === null
+                                ? '无基线'
+                                : number(row.delivery_delta_s, 1)}
+                            </td>
+                            <td>
+                              <Button onClick={() => setCandidateSortie(row.candidate_sortie_id)}>
+                                核对架次
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </div>
+            )}
             {!!latest.applications?.length && (
               <table className="v2-table">
                 <thead>
@@ -682,13 +788,33 @@ export function ExecutionWorkspace({
                 <div className="v2-repair-map">
                   <RescueMap
                     viewKey={mission.mission_id + ':repair'}
-                    scenario={baseScenario}
+                    scenario={candidateSnapshot.data?.scenario || baseScenario}
                     plan={candidate.data}
-                    oldPlan={initialPlan.data}
-                    selected={null}
-                    onSelect={() => {}}
+                    oldPlan={desiredPlan || initialPlan.data}
+                    selected={candidateSortie}
+                    onSelect={setCandidateSortie}
                   />
                 </div>
+                {candidateSnapshot.data && (
+                  <ResourceTimeline
+                    scenario={candidateSnapshot.data.scenario}
+                    plan={candidate.data}
+                    selected={candidateSortie}
+                    onSelect={setCandidateSortie}
+                  />
+                )}
+                {candidateSortie &&
+                  candidate.data.sorties
+                    .filter((r) => r.sortie_id === candidateSortie)
+                    .map((r) => (
+                      <p className="v2-repair-sortie" key={r.sortie_id}>
+                        {r.drone_id} / {r.battery_id} · {r.visits.map((v) => v.site_id).join(' → ')}
+                        <br />
+                        箱件：{r.cargo_ids.join(' · ')}
+                        <br />
+                        起飞 {clock(r.takeoff_s)} · 返航 {clock(r.return_s)}
+                      </p>
+                    ))}
               </>
             )}
             <details>
@@ -710,7 +836,11 @@ export function ExecutionWorkspace({
               </Button>
               <Button
                 variant="primary"
-                disabled={!['ready', 'no_remaining'].includes(latest.status) || busy}
+                disabled={
+                  !['ready', 'no_remaining'].includes(latest.status) ||
+                  busy ||
+                  (!!latest.candidate_plan_id && (!candidate.data || !candidateSnapshot.data))
+                }
                 onClick={() => {
                   setBusy(true)
                   void ops

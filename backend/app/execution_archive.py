@@ -167,6 +167,54 @@ def validate_bundle(model):
             raise ValueError("调整归属的执行不符。")
         if change["job"] and change["job"]["snapshot_id"] not in snapshots:
             raise ValueError("缺少调整Job原输入快照。")
+        if change.get("repair_reference_id"):
+            from backend.app.operation_models import ExecutionRepairReference
+
+            ref = docs.get(("repair_reference", change["repair_reference_id"]))
+            if ref is None:
+                raise ValueError("缺少残余修复原始引用。")
+            ExecutionRepairReference.model_validate(ref)
+            if (
+                ref["execution_id"] != e["execution_id"]
+                or ref["input_snapshot_id"] not in snapshots
+                or ref["facts_cursor"] != change["facts_cursor"]
+                or ref["execution_revision"] != change["execution_revision"]
+                or ref["committed_cargo_ids"] != change["committed_cargo_ids"]
+            ):
+                raise ValueError("修复引用的执行/输入/承诺与变更不一致。")
+            loaded = {
+                cid
+                for fact in e["facts"]
+                if fact["kind"] == "loaded" and fact["cursor"] <= ref["facts_cursor"]
+                for cid in fact["cargo_ids"]
+            }
+            if loaded != set(ref["committed_cargo_ids"]):
+                raise ValueError("修复承诺与该游标之前的装载事实不符。")
+            for item in ref["documents"]:
+                if (
+                    item["kind"] not in ("plan", "snapshot")
+                    or (item["kind"], item["document_id"]) not in docs
+                ):
+                    raise ValueError("缺少修复原文的领域文档。")
+                if (
+                    document(
+                        item["kind"],
+                        item["document_id"],
+                        docs[item["kind"], item["document_id"]],
+                    )
+                    != item
+                ):
+                    raise ValueError("修复原文与封装的领域文档不符。")
+            if change.get("diff") and change["candidate_plan_id"]:
+                from backend.app.repair_diff import reference_sorties, compare_future
+
+                expected = compare_future(
+                    reference_sorties(ref),
+                    plans[change["candidate_plan_id"]],
+                    change["committed_cargo_ids"],
+                )
+                if expected != change["diff"]:
+                    raise ValueError("修复差异与冻结的来源/候选不符。")
     for command in value["commands"]:
         if command["execution_id"] != e["execution_id"]:
             raise ValueError("指令归属的执行不符。")

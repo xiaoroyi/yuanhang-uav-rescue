@@ -27,6 +27,7 @@ from backend.app.operation_models import (
     OperationCapabilities,
     ExecutionBundle,
     DeviceMissionState,
+    ExecutionRepairReference,
 )
 from backend.app.storage import (
     MissionRow,
@@ -511,7 +512,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                             manual = True
             propagated, _ = affected_closure(all_sorties, direct)
             committed = [
-                r["sortie_id"] for r in all_sorties
+                r["sortie_id"]
+                for r in all_sorties
                 if (r["_plan_id"], r["sortie_id"]) in started
             ]
             value = {
@@ -737,7 +739,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             schedule = current_schedule(session, row)
             started = engine().started(session, execution_id)
             committed = [
-                item for item in schedule
+                item
+                for item in schedule
                 if (item[0]["plan_id"], item[2]["sortie_id"]) in started
             ]
             locked = {c for _, _, r, _ in committed for c in r["cargo_ids"]}
@@ -813,6 +816,9 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 "message": "保留所有已开始架次，剩余排程在承诺资源释放后开始；未重置在飞状态。",
                 "changed_cargo_ids": [],
                 "retained_cargo_ids": sorted(locked),
+                "repair_policy": body.repair_policy,
+                "calculation_method": None,
+                "repair_reference_id": None,
             }
             snap = None
             if s["demands"]:
@@ -842,6 +848,71 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     )
                 )
                 snap = snapshot_for(session, fork)
+                from backend.app.execution_archive import document
+
+                future_parts = []
+                for source_plan, _, route, _ in schedule:
+                    if (source_plan["plan_id"], route["sortie_id"]) in started:
+                        continue
+                    part = next(
+                        (
+                            p
+                            for p in future_parts
+                            if p["plan_id"] == source_plan["plan_id"]
+                        ),
+                        None,
+                    )
+                    if part is None:
+                        part = {
+                            "plan_id": source_plan["plan_id"],
+                            "sortie_ids": [],
+                            "role": "future",
+                        }
+                        future_parts.append(part)
+                    part["sortie_ids"].append(route["sortie_id"])
+                originals = {
+                    p["plan_id"]: (p, original) for p, original, _, _ in schedule
+                }
+                documents = [
+                    document("plan", pid, p)
+                    for pid, (p, _) in sorted(originals.items())
+                ]
+                original_snapshots = {
+                    original["snapshot_id"]: original
+                    for _, original in originals.values()
+                }
+                documents.extend(
+                    document("snapshot", sid, original)
+                    for sid, original in sorted(original_snapshots.items())
+                )
+                change["repair_reference_id"] = identity("RRF")
+                reference = {
+                    "reference_version": "execution-remaining-v1",
+                    "execution_id": execution_id,
+                    "execution_revision": row.content["revision"],
+                    "facts_cursor": row.content["facts_cursor"],
+                    "input_snapshot_id": snap["snapshot_id"],
+                    "repair_policy": body.repair_policy,
+                    "force_full": any(
+                        e["status"] != "withdrawn"
+                        and e["event_id"] not in row.content["applied_event_ids"]
+                        and e["event_type"]
+                        not in ("drone.unavailable", "battery.unavailable")
+                        for e in events
+                    ),
+                    "committed_cargo_ids": sorted(locked),
+                    "future_parts": future_parts,
+                    "documents": documents,
+                }
+                ExecutionRepairReference.model_validate(reference)
+                store(
+                    session,
+                    "solver.repair.reference",
+                    change["repair_reference_id"],
+                    execution_id,
+                    content_hash(reference),
+                    reference,
+                )
             store(
                 session,
                 "execution.change",
@@ -853,17 +924,28 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             session.flush()
         if snap:
             parent = require_plan(row.content["desired_plan_id"])
-            job = create_job(
-                solve_request(
-                    snapshot_id=snap["snapshot_id"],
-                    objective=body.objective,
-                    objective_policy=parent.get(
-                        "objective_policy", "deadline_first_v1"
-                    ),
-                    time_limit_s=body.time_limit_s,
+            try:
+                job = create_job(
+                    solve_request(
+                        snapshot_id=snap["snapshot_id"],
+                        objective=body.objective,
+                        objective_policy=parent.get(
+                            "objective_policy", "deadline_first_v1"
+                        ),
+                        time_limit_s=body.time_limit_s,
+                        repair_reference_id=change["repair_reference_id"],
+                    )
                 )
-            )
-            change["job"] = job
+                change["job"] = job
+            except Exception as exc:
+                change.update(
+                    status="failed",
+                    message=getattr(
+                        exc,
+                        "message",
+                        "剩余求解任务未能创建，输入与承诺保留，请稍后重试。",
+                    ),
+                )
         with database.session(immediate=True) as session:
             require(
                 session,
@@ -888,7 +970,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
     def change_view(session, record):
         v = copy.deepcopy(record.content)
         if v["job"]:
-            job = require(session, JobRow, v["job"]["job_id"], error).content
+            job_row = require(session, JobRow, v["job"]["job_id"], error)
+            job = job_row.content
             v["job"] = job
             if v["status"] == "computing" and job["job_state"] not in (
                 "queued",
@@ -896,6 +979,36 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             ):
                 v["candidate_plan_id"] = job["plan_id"]
                 v["status"] = "ready" if job["has_validated_plan"] else "failed"
+                codes = {
+                    d["code"] for d in (job_row.outcome or {}).get("diagnostics", [])
+                }
+                if "REPAIR_LOCAL_APPLIED" in codes:
+                    v["calculation_method"] = "dependency_local"
+                elif "REPAIR_FULL_RECOMPUTE" in codes:
+                    v["calculation_method"] = "full_recompute"
+                if job["has_validated_plan"] and v.get("repair_reference_id"):
+                    from backend.app.repair_diff import (
+                        reference_sorties,
+                        compare_future,
+                    )
+
+                    reference = require(
+                        session,
+                        OperationRecordRow,
+                        ("solver.repair.reference", v["repair_reference_id"]),
+                        error,
+                    ).content
+                    candidate = require(session, PlanRow, job["plan_id"], error).content
+                    v["diff"] = compare_future(
+                        reference_sorties(reference),
+                        candidate,
+                        v["committed_cargo_ids"],
+                    )
+                    v["message"] = (
+                        "依赖局部修复已通过残余任务独立检查；原承诺与事实保留。"
+                        if v["calculation_method"] == "dependency_local"
+                        else "剩余任务全量重算已通过独立检查；原承诺与事实保留。"
+                    )
                 if not job["has_validated_plan"]:
                     v["message"] = (
                         "当前预算未得到可验证剩余方案；原承诺和事实保留。请查看库存/资源缺口或增加预算。"
@@ -1643,7 +1756,23 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         )
                     )
                 ]
+                references = {
+                    c["repair_reference_id"]: require(
+                        session,
+                        OperationRecordRow,
+                        ("solver.repair.reference", c["repair_reference_id"]),
+                        error,
+                    ).content
+                    for c in changes
+                    if c.get("repair_reference_id")
+                }
                 plan_ids = {view["initial_plan_id"], view["desired_plan_id"]}
+                plan_ids.update(
+                    d["document_id"]
+                    for ref in references.values()
+                    for d in ref["documents"]
+                    if d["kind"] == "plan"
+                )
                 plan_ids.update(p["plan_id"] for p in view["schedule_parts"])
                 plan_ids.update(f["plan_id"] for f in view["facts"])
                 plan_ids.update(
@@ -1663,6 +1792,15 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 documents = [document("plan", p.id, p.content) for p in plans]
                 snapshot_ids = {p.snapshot_id for p in plans}
                 snapshot_ids.update(
+                    ref["input_snapshot_id"] for ref in references.values()
+                )
+                snapshot_ids.update(
+                    d["document_id"]
+                    for ref in references.values()
+                    for d in ref["documents"]
+                    if d["kind"] == "snapshot"
+                )
+                snapshot_ids.update(
                     c["job"]["snapshot_id"] for c in changes if c["job"]
                 )
                 for sid in sorted(snapshot_ids):
@@ -1673,6 +1811,10 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                             require(session, SnapshotRow, sid, error).content,
                         )
                     )
+                documents.extend(
+                    document("repair_reference", rid, ref)
+                    for rid, ref in references.items()
+                )
                 events = events_for(session, row.id)
                 for event in events:
                     eid = event["event_id"]

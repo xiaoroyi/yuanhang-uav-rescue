@@ -1080,7 +1080,9 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
     )
 
 
-def _try_local_repair(snapshot, previous_plan, options, started, progress_callback):
+def _try_local_repair(
+    snapshot, previous_sorties, options, started, progress_callback, *, stats=None
+):
     """Keep complete validated reservations, expanding through resource successors if needed."""
     try:
         validate_snapshot(snapshot)
@@ -1110,28 +1112,38 @@ def _try_local_repair(snapshot, previous_plan, options, started, progress_callba
         available_batteries = {
             b["battery_id"] for b in s["batteries"] if b["status"] == "available"
         }
+        drone_ready = {d["drone_id"]: d["available_after_s"] for d in s["drones"]}
+        battery_ready = {
+            b["battery_id"]: b["available_after_s"] for b in s["batteries"]
+        }
         direct = {
             r["sortie_id"]
-            for r in previous_plan["sorties"]
+            for r in previous_sorties
             if r["drone_id"] not in available
             or r["battery_id"] not in available_batteries
+            or r["prepare_start_s"] + 1e-8
+            < max(
+                drone_ready.get(r["drone_id"], 0), battery_ready.get(r["battery_id"], 0)
+            )
         }
-        expanded, edges = affected_closure(previous_plan["sorties"], direct)
+        expanded, edges = affected_closure(previous_sorties, direct)
         neighborhoods = [direct] + ([expanded] if expanded != direct else [])
         budget = min(6.0, float(options["time_limit_s"]) * 0.45)
         cache = {}
         count = 0
+        if stats is not None:
+            stats["candidate_count"] = 0
         first = None
         for stage, removed in enumerate(neighborhoods):
             deadline = started + budget * (stage + 1) / len(neighborhoods)
             fixed = [
                 copy.deepcopy(r)
-                for r in previous_plan["sorties"]
+                for r in previous_sorties
                 if r["sortie_id"] not in removed
             ]
             targets = [
                 cid
-                for r in previous_plan["sorties"]
+                for r in previous_sorties
                 if r["sortie_id"] in removed
                 for cid in r["cargo_ids"]
             ]
@@ -1171,6 +1183,8 @@ def _try_local_repair(snapshot, previous_plan, options, started, progress_callba
                 )
                 report = validate(snapshot, candidate)
                 count += 1
+                if stats is not None:
+                    stats["candidate_count"] = count
                 if report["status"] != "passed":
                     continue
                 candidate["validation"] = report
@@ -1241,7 +1255,7 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
         None
         if event["event_type"] == "demand.added"
         else _try_local_repair(
-            snapshot, previous_plan, options, started, progress_callback
+            snapshot, previous_plan["sorties"], options, started, progress_callback
         )
     )
     if result is None:
@@ -1275,3 +1289,10 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
             "added_sortie_ids": sorted(new - old),
         }
     return result
+
+
+def repair_remaining(snapshot, reference, options, progress_callback=None):
+    """Plan only the uncommitted suffix using frozen original source documents."""
+    from solver.execution_repair import repair_remaining as compute
+
+    return compute(snapshot, reference, options, progress_callback)

@@ -81,3 +81,15 @@ full-browser-results.json：完整42条，41 passed、1 failed，21.8m。唯一�
 检查MapLibre当前安装源代码发现content也会在影像元信息就绪时发出，不能等于已有瓦片。改为实际tile.state=loaded才标ready，挂起请求超过12秒自动离线回退。强制失败+真正挂起两项2 passed（23.8s），imagery-deadline-browser-results.json。lint零警告/strict TS/build通过。现有12项前端单元在地图检查点已过；没有把专项数量相加成当前全量。
 
 实际包EXPERIMENT_SMOKE/strategy-benchmark.json来自浏览器下载，含3个真实求解结果、2份输入原文、3份Plan原文和12个原始Worker文件，来源与字节哈希见同目录MANIFEST.json；不使用固定数据冒充新求解。
+
+## R15 / RFC-026：真实在途电池退出与残余局部修复
+
+新增纯Python repair_remaining、冻结原文Reference、资源释放依赖修复及同一残余快照全量基线。零时刻replan/Event兼容；局部失败在剩余预算全量回退。实际方法由Worker诊断而非请求偏好决定。候选轮询改读最新change，生成后即显示真实候选地图/甘特/逐箱差异，采纳前可以点箱件核对架次。
+
+- backend boundaries/readback + battery/demand Event：31 passed，96.87s。
+- 新dependency 3条 + execution/archive：10 passed，112.59s；含真正首架次在飞、备用电池退出、未来换电池延迟、原承诺位置/SOC/箱件不变、最终2箱交付；并发队列失败有明确失败/幂等回执，可真实重试。
+- 加强Reference/事实游标/原文校验后：4 passed，45.91s（新3条+archive），不是当前完整回归。
+- Playwright三流程3 passed，约1分钟：实际GUI电池退出→局部修复→逐箱/候选架次→采纳→原在飞来源保持→完成；在途新增需求明确全量/新箱件无旧基准；空白CSV输入。dependency-browser-results.json保留原报告，DEPENDENCY_SMOKE有完整原始包和SHA清单。
+- lint零警告、strict TypeScript/build通过。三张新截图实际查看，1440/1280差异表和地图可读；候选甘特与采纳位于弹窗滚动区，未用强制点击绕过。
+
+各批为独立专项，不相加冒充全量。当前R15依赖影响图与规划页条件有效性提示继续实施。原文日志位于dependency-validation；当时源码未提交，最终当前源码全量仍待执行。

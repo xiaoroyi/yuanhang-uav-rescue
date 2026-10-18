@@ -108,6 +108,15 @@ test('V2 in-flight insertion is adopted, reviewed and reloaded as an immutable m
   await expect(dialog.getByRole('button', { name: '确认采纳模拟调整', exact: true })).toBeEnabled({
     timeout: 60000,
   })
+  await expect(dialog.locator('.v2-repair-method')).toContainText('全量重算')
+  await expect(dialog.locator('.v2-metrics-line').filter({ hasText: '剩余架次' })).toBeVisible()
+  await dialog.getByText(/逐箱核对变化（/).click()
+  const inserted = dialog
+    .locator('.v2-repair-diff-table tr')
+    .filter({ hasText: 'BROWSER-URGENT-BOX' })
+  await expect(inserted).toContainText('无基线')
+  await inserted.getByRole('button', { name: '核对架次', exact: true }).click()
+  await expect(dialog.locator('.v2-repair-sortie')).toContainText('BROWSER-URGENT-BOX')
   await page.screenshot({
     path: '../evidence/redesign-v2/archive-event-diff-1440.png',
     fullPage: true,

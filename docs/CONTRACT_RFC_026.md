@@ -1,0 +1,11 @@
+# RFC-026：原文可追溯的执行残余局部修复
+
+状态：算法/后台/界面与档案专项已验，待最终全量；沿用业务仿真与已开始完整架次承诺边界。零时刻replan/Event含义不变。
+
+新增纯Python `repair_remaining(snapshot, reference, options, progress_callback=None)`。reference从服务器冻结的Plan/Snapshot原文、未来架次来源分段、已承诺箱件和执行版本/事实游标组成，独立Schema验证；不伪造旧Plan的scenario/snapshot身份来适配零时刻接口。旧原文SHA和原Snapshot哈希须匹配，原Plan先通过当前独立检查。新Plan只服务残余Snapshot，不能含已承诺箱件。
+
+满SOC运输机体/电池退出优先尝试保留未受影响未来任务及其原时间，沿资源后继扩展；资源释放下界进入直接影响集，所有候选仍完整独立验证。失败在剩余总预算内全量回退。新增需求、气象、落点变化、非满SOC或联合通信等不声称已局部支持：适用范围内明确全量，联合在途仍按现有UNSUPPORTED_SCOPE阻断。不能把局部成功称全局最小改动；统计实际保留/改派/时间变化，未来方法对照保持相同快照、承诺与预算。
+
+RepairRequest兼容增加repair_policy=dependency/full；旧请求省略采用dependency，结果RepairView用可空repair_policy/calculation_method显式报告，旧记录缺字段不伪造历史。SolveRequest新增可空repair_reference_id仅作为后端元数据，不进入SolverOptions；服务端核对solver.repair.reference原文工件及输入快照后，Worker才接收冻结reference。客户端不能注入任意Plan原文或文件路径。Job创建失败写明确失败调整与幂等回执，不能留下永远computing且job为空的记录。
+
+诊断码REPAIR_LOCAL_APPLIED/REPAIR_FULL_RECOMPUTE说明实际路径，保留真实候选数/首可行/总耗时；失败不退回旧Plan。对应操作Schema、OpenAPI、TS与测试同批同步。后续依赖图使用(plan_id,sortie_id)身份，不能靠最后一个冒号切分或合并重名架次。

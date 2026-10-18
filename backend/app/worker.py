@@ -7,7 +7,7 @@ import sys
 import traceback
 import time
 
-from solver.public_api import replan, solve
+from solver.public_api import replan, solve, repair_remaining
 from solver.assets import terrain_store
 
 
@@ -46,7 +46,11 @@ def run_job(data, output, progress):
             pass
 
     try:
-        if data["options"]["mode"] == "replan":
+        if "repair_reference" in data:
+            result = repair_remaining(
+                data["snapshot"], data["repair_reference"], data["options"], callback
+            )
+        elif data["options"]["mode"] == "replan":
             result = replan(
                 data["snapshot"],
                 data["previous_plan"],

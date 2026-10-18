@@ -80,6 +80,7 @@ from backend.app.storage import (
     Database,
     EventRow,
     JobRow,
+    OperationRecordRow,
     PlanRow,
     PlanRefinementRow,
     ReservationRow,
@@ -202,6 +203,7 @@ class SolveRequest(StrictModel):
     )
     allow_partial_service: Literal[False] = False
     initial_plan_id: str | None = None
+    repair_reference_id: str | None = None
 
 
 class ConfirmRequest(VersionRequest):
@@ -1038,7 +1040,7 @@ def create_app(runtime_dir: Path | None = None):
             options = {
                 "schema_version": snap["schema_version"],
                 "plan_id": plan_id,
-                **body.model_dump(exclude={"initial_plan_id"}),
+                **body.model_dump(exclude={"initial_plan_id", "repair_reference_id"}),
             }
             if (
                 snap["scenario"].get("resource_limits")
@@ -1070,6 +1072,26 @@ def create_app(runtime_dir: Path | None = None):
             except ContractError as exc:
                 raise AppError(422, "SCHEMA_INVALID", str(exc)) from exc
             payload = {"snapshot": snap, "options": options}
+            if body.repair_reference_id:
+                from backend.app.operation_models import ExecutionRepairReference
+
+                ref = require_row(
+                    session,
+                    OperationRecordRow,
+                    ("solver.repair.reference", body.repair_reference_id),
+                ).content
+                reference = ExecutionRepairReference.model_validate(ref)
+                if (
+                    reference.input_snapshot_id != body.snapshot_id
+                    or body.mode != "quick"
+                    or body.initial_plan_id
+                ):
+                    raise AppError(
+                        409, "REFERENCE_INVALID", "修复引用与输入快照/模式不匹配。"
+                    )
+                payload["repair_reference"] = reference.model_dump(
+                    mode="json", exclude_unset=True
+                )
             if body.initial_plan_id:
                 if body.mode != "improve":
                     raise AppError(

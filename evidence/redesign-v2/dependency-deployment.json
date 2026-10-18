@@ -1,0 +1,28 @@
+{
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "6beab990e1fc7962e2909116b29f17d09b7fe80b84ebc782888120636063f943",
+    "runtime_id": "23afa25c2bda"
+  },
+  "counts": {
+    "scenarios": 10,
+    "snapshots": 10,
+    "plans": 14,
+    "jobs": 15,
+    "missions": 0,
+    "executions": 0
+  },
+  "old_plan_snapshot_json_unchanged": true,
+  "frontend_source_sha256": "5dc381bd2b521a839a4a4c0bcb5e4577224353425654a14bfbc18d04b716c256",
+  "backup": {
+    "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\v2-before-dependency\\yuanhang-backup-20261018T130611Z-c592a08c.zip",
+    "sha256": "57e3850a0faf569cbf98bf125b6d40aa07682c84d93525355eba545f3ecd2569"
+  },
+  "backend_pid": 33876,
+  "backend_start_epoch_ms": 1792328787827,
+  "launcher_session": 54885
+}

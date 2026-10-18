@@ -1,3 +1,13 @@
+## 已部署并继续：RFC026检查点（21:07）
+
+8000现PID33876/start1792328787827/launcher54885，日志.local/v2-production-dependency-service.log。已保护原14Plan/10Snapshot/全部6表行数，SQLite一致备份且原JSON SHA未变。source6beab990e1fc7962e2909116b29f17d09b7fe80b84ebc782888120636063f943，dist source5dc381...c256与工作字节一致，dependency-deployment.json记录。下面“仍旧服务”为历史状态。提交推送后继续影响图/有效性和方法对照，不停止。
+
+## 最新继续点：R15真实局部修复专项通过（2026-10-18 21:06）
+
+V2已推26b3ec6。当前RFC026未提交检查点：pure repair_remaining +严格Reference(原Plan/Snapshot原文/承诺/未来分段)、局部依赖/释放边界→独立检查→剩余预算全量；backend Worker/job引用、diff/archive导入一致性、GUI实际方法/逐箱/候选地图甘特。31项兼容96.87s；新3+existing/archive10项112.59s；加强后4项45.91s；浏览器三流程3passed约1分钟；lint/build过。DEPENDENCY_SMOKE/MANIFEST和dependency-validation日志。1440/1280三张图已实际查看。
+
+当前8000仍PID62360/start1792325491757、launcher88473、source25c71f...1865(R16旧检查点)，dist已更新，不能当成R15配套部署。下一步先保护原14Plan/10Snapshot和无活动任务核对、SQLite备份，再同步重启并记录；提交推送RFC026检查点。继续R15命名空间依赖图/受影响对象点击与I1规划有效性；再R16同输入预算动态方法对照/R22可做研究，最后当前源码完整回归/双尺寸视觉/交付。不可在检查点停止，main/V1不变，无真机/SITL。
+
 ## 最新继续点：R16静态评测检查点通过，继续R15（2026-10-18 20:26）
 
 R16代码/模型/消费者/原始包已完成静态专项，准备提交此检查点：4后端44.19s、早先16组合105.95s、10浏览器组合全过约1.7m。首次区域camera v2修复、V2/legacy Portal UIContext隔离已测；MapLibre metadata不能代表瓦片，已改actual tile.loaded才ready，真实挂起12秒回退+50点故障2项23.8s通过。lint零警告/build通过。详细TEST_REPORT、EXPERIMENT_SMOKE/MANIFEST；动态/学习消融仍未完成，不把静态对照称贡献证明。

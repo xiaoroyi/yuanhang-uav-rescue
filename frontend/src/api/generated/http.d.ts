@@ -1617,6 +1617,38 @@ export interface components {
             /** Location Id */
             location_id: string;
         };
+        /** CargoRepairDifference */
+        CargoRepairDifference: {
+            /** Cargo Id */
+            cargo_id: string;
+            /** Previous Plan Id */
+            previous_plan_id: string | null;
+            /** Previous Sortie Id */
+            previous_sortie_id: string | null;
+            /** Previous Drone Id */
+            previous_drone_id: string | null;
+            /** Previous Battery Id */
+            previous_battery_id: string | null;
+            /** Candidate Sortie Id */
+            candidate_sortie_id: string;
+            /** Candidate Drone Id */
+            candidate_drone_id: string;
+            /** Candidate Battery Id */
+            candidate_battery_id: string;
+            /**
+             * Change Kind
+             * @enum {string}
+             */
+            change_kind: "new" | "unchanged" | "modified";
+            /** Drone Changed */
+            drone_changed: boolean | null;
+            /** Battery Changed */
+            battery_changed: boolean | null;
+            /** Takeoff Delta S */
+            takeoff_delta_s: number | null;
+            /** Delivery Delta S */
+            delivery_delta_s: number | null;
+        };
         /** ChangeSummary */
         ChangeSummary: {
             /** Preserved Sortie Ids */
@@ -2922,7 +2954,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "plan" | "snapshot" | "event_input" | "event_resolution";
+            kind: "plan" | "snapshot" | "event_input" | "event_resolution" | "repair_reference";
             /** Document Id */
             document_id: string;
             /** Payload Json */
@@ -4060,6 +4092,25 @@ export interface components {
         };
         /** RemovedSortieId */
         RemovedSortieId: string;
+        /** RepairDifference */
+        RepairDifference: {
+            /** Committed Quantity */
+            committed_quantity: number;
+            /** Retained Future Sortie Count */
+            retained_future_sortie_count: number;
+            /** Drone Reassigned Quantity */
+            drone_reassigned_quantity: number;
+            /** Battery Reassigned Quantity */
+            battery_reassigned_quantity: number;
+            /** Time Shifted Quantity */
+            time_shifted_quantity: number;
+            /** Unchanged Future Quantity */
+            unchanged_future_quantity: number;
+            /** New Quantity */
+            new_quantity: number;
+            /** Rows */
+            rows: components["schemas"]["CargoRepairDifference"][];
+        };
         /** RepairRequest */
         RepairRequest: {
             /** Expected Revision */
@@ -4077,6 +4128,12 @@ export interface components {
              * @default 10
              */
             time_limit_s: number;
+            /**
+             * Repair Policy
+             * @default dependency
+             * @enum {string}
+             */
+            repair_policy: "dependency" | "full";
         };
         /** RepairView */
         RepairView: {
@@ -4112,6 +4169,13 @@ export interface components {
             retained_cargo_ids: string[];
             /** Applications */
             applications?: components["schemas"]["DeviceApplication"][];
+            /** Repair Policy */
+            repair_policy?: ("dependency" | "full") | null;
+            /** Calculation Method */
+            calculation_method?: ("dependency_local" | "full_recompute") | null;
+            /** Repair Reference Id */
+            repair_reference_id?: string | null;
+            diff?: components["schemas"]["RepairDifference"] | null;
         };
         /** ResourceAddition */
         ResourceAddition: {
@@ -4451,6 +4515,8 @@ export interface components {
             allow_partial_service: false;
             /** Initial Plan Id */
             initial_plan_id?: string | null;
+            /** Repair Reference Id */
+            repair_reference_id?: string | null;
         };
         /** SolverNote */
         SolverNote: string;

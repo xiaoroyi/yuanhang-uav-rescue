@@ -130,11 +130,15 @@ export const ops = {
       action: 'withdraw_misreport',
       reason,
     }),
-  repair: (e: Execution) =>
+  repair: (
+    e: Execution,
+    repairPolicy: components['schemas']['RepairRequest']['repair_policy'] = 'dependency',
+  ) =>
     request<Repair>(`/executions/${e.execution_id}/replan-jobs`, {
       expected_revision: e.revision,
       idempotency_key: key(),
       time_limit_s: 10,
+      repair_policy: repairPolicy,
     }),
   changes: (id: string) => request<Repair[]>(`/executions/${id}/plan-changes`),
   apply: (e: Execution, change: Repair, faults: string[] = []) =>

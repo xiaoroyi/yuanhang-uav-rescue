@@ -1,0 +1,73 @@
+{
+  "source": "Actual isolated Playwright in-flight battery-exit workflow",
+  "artifact": "battery-exit-execution.json",
+  "artifact_sha256": "e74e88f1ca7b1164d912c2b51dd3d230f44a61fc363a07ef0c63e52a7fb35ad7",
+  "bundle_content_sha256": "a8c6f55e7010c0d40b7f40e36a933105ebc4e066f1b96f3646b235270799258c",
+  "execution_id": "EXE-53633A8F4F09439E",
+  "captured_at": "2026-10-18T12:57:30.852747Z",
+  "data_origin": "user_input",
+  "test_input": "Two real full-size 25kg/60L boxes, one type-A drone, two compatible batteries; deadlines explicitly removed in this isolated test scenario.",
+  "completed_deliveries": 2,
+  "facts": 12,
+  "documents": [
+    {
+      "kind": "plan",
+      "id": "PLAN-020CE35E1E074AA8",
+      "sha256": "9a1ce9c011bf74832f22303948b6758c540d04c1085edc6738cd79d7601c45ea"
+    },
+    {
+      "kind": "plan",
+      "id": "PLAN-20C3DBE3A4D74B3C",
+      "sha256": "2d18e2a8ec816ada1280ceb6e5094eb436bc2815ba441d6806fb342bcc096df9"
+    },
+    {
+      "kind": "snapshot",
+      "id": "SNAP-2680D2DC7E0C4D1F",
+      "sha256": "481e3c6515750803fc5826c142e53da892db0f351a25cbad8da6b6863b3e231d"
+    },
+    {
+      "kind": "snapshot",
+      "id": "SNAP-C0D124DC74804A7A",
+      "sha256": "9b5b35bfd69ce2bd13e43075a96b42c863c5ba5448365fffdda2f699aaefd661"
+    },
+    {
+      "kind": "repair_reference",
+      "id": "RRF-C895E6CAAA754FA3",
+      "sha256": "f1622611673f75ac31d1b5ef14696335ed6a3e61f78f9b2cc4c984aff832720d"
+    },
+    {
+      "kind": "event_input",
+      "id": "99238433-6fc4-44cf-a5b8-b900a890ac32",
+      "sha256": "126662f7bcad2adf875dfc726e99142e0c3d4c0a7bb1b317bd0c64fa7e0ed176"
+    }
+  ],
+  "repair_policy": "dependency",
+  "calculation_method": "dependency_local",
+  "diff": {
+    "committed_quantity": 1,
+    "retained_future_sortie_count": 0,
+    "drone_reassigned_quantity": 0,
+    "battery_reassigned_quantity": 1,
+    "time_shifted_quantity": 1,
+    "unchanged_future_quantity": 0,
+    "new_quantity": 0,
+    "rows": [
+      {
+        "cargo_id": "S001-MED-02",
+        "previous_plan_id": "PLAN-20C3DBE3A4D74B3C",
+        "previous_sortie_id": "SRT-0709c59e25dc",
+        "previous_drone_id": "U01",
+        "previous_battery_id": "BAT-A-02",
+        "candidate_sortie_id": "SRT-bb3d51031af8",
+        "candidate_drone_id": "U01",
+        "candidate_battery_id": "BAT-A-01",
+        "change_kind": "modified",
+        "drone_changed": false,
+        "battery_changed": true,
+        "takeoff_delta_s": 879.2296490945703,
+        "delivery_delta_s": 879.2296490945703
+      }
+    ]
+  },
+  "scope": "Business simulation evidence, not hardware flight or global minimum-change proof."
+}

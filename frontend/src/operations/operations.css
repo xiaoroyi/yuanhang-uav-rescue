@@ -1355,6 +1355,35 @@
 .v2-repair-preview > details {
   margin: 14px 0;
 }
+.v2-repair-method {
+  font-weight: 600;
+}
+.v2-repair-diff {
+  border: 1px solid var(--v2-border);
+  border-radius: 6px;
+  margin: 14px 0;
+}
+.v2-repair-diff > details {
+  padding: 10px 14px;
+}
+.v2-repair-diff summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+.v2-repair-diff-table {
+  max-height: 300px;
+  overflow: auto;
+  margin-top: 12px;
+}
+.v2-repair-diff-table table {
+  min-width: 700px;
+}
+.v2-repair-sortie {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
 .v2-fault-choice {
   display: flex;
   align-items: center;

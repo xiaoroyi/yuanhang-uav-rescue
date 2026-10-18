@@ -34,3 +34,9 @@ TelemetrySample新增可空availability/reason；当前阶段与未来资源可�
 ## RFC-025评测增量
 
 新增4个HTTP路径（创建/列表共一路径，详情、取消、导出），实际API共82路径/43严格操作模型。运行存OperationRecordRow的experiment.run/create，原领域表不改列。每轮从不可变源Snapshot复制独立分析Scenario/Snapshot，所有例共用，原任务状态/预约/事实不更新。后台协调器调用既有create_job/JobManager，保留UNKNOWN/ERROR/取消/派发未确定及原始日志。取消真实终止已派发Job，503暂退队列不算失败；完成例不因重启重发。输出Pydantic归一化后封装总SHA，原始文档/字节各自SHA。前端由实际OpenAPI生成，未用any。
+
+## RFC-026执行残余增量
+
+RepairRequest可选repair_policy=dependency/full，省略优先依赖修复；RepairView可选实际calculation_method、repair_reference_id和逐箱diff。SolveRequest可选repair_reference_id属于后端元数据，不进入SolverOptions；只允许服务端严格冻结Reference且input Snapshot匹配，客户端不可注入任意原文/路径。纯Python repair_remaining不导入后端。参考工件solver.repair.reference独立于change记录，含原Plan/Snapshot原文SHA与承诺/未来分段。
+
+操作Schema/实际OpenAPI/TS同批生成：82路径、46操作模型。完整v2执行包增加repair_reference冻结文档及其原文依赖，导入检查SHA、锁定箱件与事实游标、逐箱差异重建；旧包字段省略继续兼容。原Plan/Snapshot、零时刻Event和旧replan含义不变。

@@ -350,6 +350,7 @@ class RepairRequest(OperationDTO):
     idempotency_key: str = Field(min_length=1, max_length=128)
     objective: Literal["time", "energy", "balanced"] = "time"
     time_limit_s: float = Field(default=10, ge=1, le=120)
+    repair_policy: Literal["dependency", "full"] = "dependency"
 
 
 class DeviceApplication(OperationDTO):
@@ -362,6 +363,33 @@ class DeviceApplication(OperationDTO):
     activation_state: Literal["not_started", "active", "indeterminate"]
     command_id: str
     activation_command_id: str | None = None
+
+
+class CargoRepairDifference(OperationDTO):
+    cargo_id: str
+    previous_plan_id: str | None
+    previous_sortie_id: str | None
+    previous_drone_id: str | None
+    previous_battery_id: str | None
+    candidate_sortie_id: str
+    candidate_drone_id: str
+    candidate_battery_id: str
+    change_kind: Literal["new", "unchanged", "modified"]
+    drone_changed: bool | None
+    battery_changed: bool | None
+    takeoff_delta_s: float | None
+    delivery_delta_s: float | None
+
+
+class RepairDifference(OperationDTO):
+    committed_quantity: int = Field(ge=0)
+    retained_future_sortie_count: int = Field(ge=0)
+    drone_reassigned_quantity: int = Field(ge=0)
+    battery_reassigned_quantity: int = Field(ge=0)
+    time_shifted_quantity: int = Field(ge=0)
+    unchanged_future_quantity: int = Field(ge=0)
+    new_quantity: int = Field(ge=0)
+    rows: list[CargoRepairDifference]
 
 
 class RepairView(OperationDTO):
@@ -388,6 +416,10 @@ class RepairView(OperationDTO):
     changed_cargo_ids: list[str]
     retained_cargo_ids: list[str]
     applications: list[DeviceApplication] = Field(default_factory=list)
+    repair_policy: Literal["dependency", "full"] | None = None
+    calculation_method: Literal["dependency_local", "full_recompute"] | None = None
+    repair_reference_id: str | None = None
+    diff: RepairDifference | None = None
 
 
 class ApplyRepair(OperationDTO):
@@ -501,7 +533,9 @@ class OperationCapabilities(OperationDTO):
 
 
 class FrozenDocument(OperationDTO):
-    kind: Literal["plan", "snapshot", "event_input", "event_resolution"]
+    kind: Literal[
+        "plan", "snapshot", "event_input", "event_resolution", "repair_reference"
+    ]
     document_id: str = Field(min_length=1, max_length=256)
     # Exact UTF-8 JSON preserves absent fields and original Snapshot content hashes.
     payload_json: str = Field(max_length=4_000_000)
@@ -653,3 +687,16 @@ class ExperimentBundle(OperationDTO):
     artifacts: list[ExperimentArtifact]
     missing_artifacts: list[str]
     content_sha256: str
+
+
+class ExecutionRepairReference(OperationDTO):
+    reference_version: Literal["execution-remaining-v1"]
+    execution_id: str
+    execution_revision: int = Field(ge=1)
+    facts_cursor: int = Field(ge=0)
+    input_snapshot_id: str
+    repair_policy: Literal["dependency", "full"]
+    force_full: bool
+    committed_cargo_ids: list[str]
+    future_parts: list[ExecutionSchedulePart]
+    documents: list[FrozenDocument]

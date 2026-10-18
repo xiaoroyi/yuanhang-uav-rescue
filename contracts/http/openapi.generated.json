@@ -4414,6 +4414,141 @@
         ],
         "title": "CargoItem"
       },
+      "CargoRepairDifference": {
+        "properties": {
+          "cargo_id": {
+            "type": "string",
+            "title": "Cargo Id"
+          },
+          "previous_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Plan Id"
+          },
+          "previous_sortie_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Sortie Id"
+          },
+          "previous_drone_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Drone Id"
+          },
+          "previous_battery_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Battery Id"
+          },
+          "candidate_sortie_id": {
+            "type": "string",
+            "title": "Candidate Sortie Id"
+          },
+          "candidate_drone_id": {
+            "type": "string",
+            "title": "Candidate Drone Id"
+          },
+          "candidate_battery_id": {
+            "type": "string",
+            "title": "Candidate Battery Id"
+          },
+          "change_kind": {
+            "type": "string",
+            "enum": [
+              "new",
+              "unchanged",
+              "modified"
+            ],
+            "title": "Change Kind"
+          },
+          "drone_changed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drone Changed"
+          },
+          "battery_changed": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Battery Changed"
+          },
+          "takeoff_delta_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Takeoff Delta S"
+          },
+          "delivery_delta_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Delta S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cargo_id",
+          "previous_plan_id",
+          "previous_sortie_id",
+          "previous_drone_id",
+          "previous_battery_id",
+          "candidate_sortie_id",
+          "candidate_drone_id",
+          "candidate_battery_id",
+          "change_kind",
+          "drone_changed",
+          "battery_changed",
+          "takeoff_delta_s",
+          "delivery_delta_s"
+        ],
+        "title": "CargoRepairDifference"
+      },
       "ChangeSummary": {
         "properties": {
           "preserved_sortie_ids": {
@@ -8165,7 +8300,8 @@
               "plan",
               "snapshot",
               "event_input",
-              "event_resolution"
+              "event_resolution",
+              "repair_reference"
             ],
             "title": "Kind"
           },
@@ -11581,6 +11717,65 @@
         "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
         "title": "RemovedSortieId"
       },
+      "RepairDifference": {
+        "properties": {
+          "committed_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Committed Quantity"
+          },
+          "retained_future_sortie_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Retained Future Sortie Count"
+          },
+          "drone_reassigned_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Drone Reassigned Quantity"
+          },
+          "battery_reassigned_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Battery Reassigned Quantity"
+          },
+          "time_shifted_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Time Shifted Quantity"
+          },
+          "unchanged_future_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unchanged Future Quantity"
+          },
+          "new_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "New Quantity"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/CargoRepairDifference"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "committed_quantity",
+          "retained_future_sortie_count",
+          "drone_reassigned_quantity",
+          "battery_reassigned_quantity",
+          "time_shifted_quantity",
+          "unchanged_future_quantity",
+          "new_quantity",
+          "rows"
+        ],
+        "title": "RepairDifference"
+      },
       "RepairRequest": {
         "properties": {
           "expected_revision": {
@@ -11610,6 +11805,15 @@
             "minimum": 1.0,
             "title": "Time Limit S",
             "default": 10
+          },
+          "repair_policy": {
+            "type": "string",
+            "enum": [
+              "dependency",
+              "full"
+            ],
+            "title": "Repair Policy",
+            "default": "dependency"
           }
         },
         "additionalProperties": false,
@@ -11718,6 +11922,57 @@
             },
             "type": "array",
             "title": "Applications"
+          },
+          "repair_policy": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "dependency",
+                  "full"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repair Policy"
+          },
+          "calculation_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "dependency_local",
+                  "full_recompute"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Calculation Method"
+          },
+          "repair_reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repair Reference Id"
+          },
+          "diff": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RepairDifference"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -12738,6 +12993,17 @@
               }
             ],
             "title": "Initial Plan Id"
+          },
+          "repair_reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repair Reference Id"
           }
         },
         "additionalProperties": false,
