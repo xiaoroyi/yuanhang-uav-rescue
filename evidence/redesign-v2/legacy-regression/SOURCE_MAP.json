@@ -1,0 +1,17 @@
+{
+  "origin": "V2 checkpoint regression of legacy workflow; copied before restoring immutable V1 evidence",
+  "files": [
+    {
+      "original": "evidence/browser/map-visibility.json",
+      "copy": "evidence\\redesign-v2\\legacy-regression\\map-visibility.json"
+    },
+    {
+      "original": "evidence/browser/verified/workspace-1280.png",
+      "copy": "evidence\\redesign-v2\\legacy-regression\\workspace-1280.png"
+    },
+    {
+      "original": "evidence/browser/verified/workspace-1440.png",
+      "copy": "evidence\\redesign-v2\\legacy-regression\\workspace-1440.png"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 当前分支 feat/mission-workspace-v2，基线 d571853，首批审计/契约提交 606e16b。本轮仍在持续实施，不应因读到此文件宣布全量完成。
 
+更新：核心软件检查点已提交 `3f32c30`。其后10项核心/契约测试47.42s通过、2条浏览器49.7s通过、12单元/lint/build通过，见core-checkpoint.json；全量回归仍未跑。8000已切换到该检查点，owned backend PID4624（启动时间需查询）；原14份Plan、10份Snapshot的JSON字节哈希完全不变，仅增加3表，证据production-migration.json。下方“8000旧PID61624尚未切换”是更早记录，已被本段取代。下一工作优先R13中继阶段/仿真，然后R14/复盘重载与扩大验收，不重复初始化。
+
 ## 当前已落代码
 
 - Mission 草稿/完整输入发布、创建幂等、关联 V1、复制、归档；输入 CSV/JSON/XLSX 预览和带表头的模板；原 Scenario/Plan/Snapshot/Event 保留。

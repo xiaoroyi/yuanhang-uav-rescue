@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-18T09:36:46.644878+00:00",
+  "head": "3f32c30",
+  "passed": true,
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "472e003a19376e577fcd1a284052a9a6e8a585a7fefaa5a04651e73165fcf242",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "2788800cfb7d351fa4ac59ee54178a204599900fddba42b69577860b34b3fed1",
+  "preserved_objects": {
+    "plans": 14,
+    "snapshots": 10
+  },
+  "object_hashes": {
+    "plans": {
+      "PLAN-0AB2B00C23DB4451": "2644ddb8351356abfa5452e41d713d7c42f922685f7b604d391a33f5d7dcb02e",
+      "PLAN-CFA8E548B66E4458": "636c93f592b3553f7f9dc1325d099c46bec6ec15c0cadda9000767166b35a14a",
+      "PLAN-774E48A47E1A41BA": "7dcf49828062bb44577af6af7aba93d455ecf3092924072f246119c9c94c89e0",
+      "PLAN-0FD2E09A39124695": "510735d1b0babef5c6d330d2615719d0d8482903f83caf109ab2557af52e4814",
+      "PLAN-CFBBE739CAC54754": "6bba588998d5351e42713dd9c28026a53a0cb6c3673dec44bdd86be244792879",
+      "PLAN-3389B2571797458A": "02a5212add34d8c45a8c37d12dc3d849dafa0d0f4f7f518434313002bbae6f47",
+      "PLAN-601C0D535C3D48E3": "42447bed120f29ac9d90fe9874684363806253f17f2e384e2d3830fbf5f3bea7",
+      "PLAN-A762EB0DA38B4C30": "b08677d4cd39b4030e39d3ed083f90bc732c678d48d780bb5d8cca590c302ac8",
+      "PLAN-F00465BC90BA4FD4": "ea996461883f139c60eb9e052ec8ebe6f5bfde41e3549721c959a84a2d83fbdf",
+      "PLAN-B7D48A97624547EC": "1b4f49e178fd52f603ae145a8fea3779bce52c41cb05b41c9eff215a316696d9",
+      "PLAN-29E8BBB960484D73": "9f836d0eede1a69d436b84dbf4cf3ed93f6c05be9a922b817a7f4d5aa8881a43",
+      "PLAN-F988070C5F7A4DE3": "a9a740af1606177dfad476cdcfb7de4a18149316475ff181c655385b1dc2d4fe",
+      "PLAN-884DC93D6AFA4E71": "84b87d8f0ba9633cd690844d85b6d8b1ba9011b8329d9e8f32393760297a8cd8",
+      "PLAN-0D2E876E24B64FC8": "58ef6f3bca13df34f831ce5dc843ec93a563f49291717a3e1f7caa5c32a9a22f"
+    },
+    "snapshots": {
+      "SNAP-A8544E497E734264": "20d18a31c17154938ceb62e79453d5202b82c19c48c8096d93795acff0c37ef5",
+      "SNAP-67536D8E39034B21": "19b83b7108a22fa9639a63799c991df6fcbb05b4a1e6e278204a3c2675f8f103",
+      "SNAP-E26451023D90422D": "bfed67535e8dec23fb7f79baab0318c0e6478fa8a3dabca5ee25ef842cdf38a1",
+      "SNAP-B85F5E5D939C41B6": "d6fe69dc47909113ac871948f13bba8e09d676afe31e67614b0ad4cfb259baf9",
+      "SNAP-61392C16D6AC4D31": "52fa895af7f7c99305dbac0ac2dcb5c8892775528309c1ed259346b735bdbeca",
+      "SNAP-070EC637C66D45D4": "5735eec39ddf4d09e80b69070892cc9b689363a45d5af607535d18ada802d00b",
+      "SNAP-2E6781C120F84DD1": "5aa115bd54f078446b853621c46ef6d4a0362c2be86a50e2769c67e250b727c7",
+      "SNAP-B6089EDEDC5D454A": "03b342455c04f42c288f797e4fde572b1d38403a1e901348793aa6e44a778f22",
+      "SNAP-274BF27CA96843CE": "db6213fae9bf93c20ca16ae8835e01a1b893f6f5e67ffcab418ce1df0aa79b61",
+      "SNAP-722EC60297134A01": "b1c4bbcaa2b7bfc05040769983ec11b8cc14f513d70fe27367344f2e51e4d717"
+    }
+  },
+  "added_tables": [
+    "missions",
+    "executions",
+    "operation_records"
+  ],
+  "backup_sha256": "5a461890b2c0f854496269efa45583ae89cd817cd0bce2d20c045966abcec640",
+  "real_devices_connected": false
+}
