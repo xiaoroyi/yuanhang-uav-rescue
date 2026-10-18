@@ -150,6 +150,11 @@ def test_local_suffix_retains_future_rows_and_same_snapshot_full_baseline_is_rea
             )
 
         assert upload(bundle).status_code == 201
+        tampered_graph = copy.deepcopy(bundle)
+        tampered_graph["events"][0]["impact"]["nodes"][0]["committed"] = (
+            not tampered_graph["events"][0]["impact"]["nodes"][0]["committed"]
+        )
+        assert upload(seal(tampered_graph)).status_code == 422
         damaged = copy.deepcopy(bundle)
         damaged["changes"][0]["diff"]["rows"][0]["candidate_drone_id"] = "FORGED-DRONE"
         assert upload(seal(damaged)).status_code == 422
@@ -202,6 +207,14 @@ def test_actual_inflight_battery_exit_changes_future_assignment_and_preserves_li
             201,
         )
         assert event["status"] == "recorded"
+        impact = event["impact"]
+        assert impact["facts_cursor"] == e["facts_cursor"]
+        assert {n["sortie_id"] for n in impact["nodes"] if n["direct"]} == {
+            future["sortie_id"]
+        }
+        assert {n["sortie_id"] for n in impact["nodes"] if n["committed"]} == {
+            first["sortie_id"]
+        }
         e = c.get("/api/v1/executions/" + e["execution_id"]).json()
         fixed_facts = copy.deepcopy(e["facts"])
         result = change(c, e, "battery-local")
@@ -216,6 +229,12 @@ def test_actual_inflight_battery_exit_changes_future_assignment_and_preserves_li
         assert wait_applied(c, e, result)["status"] == "applied"
         after = c.get("/api/v1/executions/" + e["execution_id"]).json()
         assert after["facts"] == fixed_facts
+        persisted_event = c.get(
+            f"/api/v1/executions/{e['execution_id']}/events"
+        ).json()[0]
+        assert (
+            persisted_event["impact"] == impact
+        ), "Adoption must not rewrite event-time graph"
         for field in (
             "coordinates",
             "cargo_ids",

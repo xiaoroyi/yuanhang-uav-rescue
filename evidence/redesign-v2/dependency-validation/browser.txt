@@ -1,0 +1,17 @@
+node : Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+所在位置 行:2 字符: 85
++ ... ults.json'; node frontend/scripts/run-e2e.mjs --grep 'V2 in-flight ba ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Readiness still...th ECONNREFUSED:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Running 3 tests using 1 worker
+
+(node:6404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\archive-v2.spec.ts:8:1 › V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive (29.9s)
+  ok 2 tests\dependency-repair-v2.spec.ts:9:1 › V2 in-flight battery exit previews actual dependency repair differences before adopting the future program (14.6s)
+  ok 3 tests\redesign-v2.spec.ts:237:1 › V2 new user creates a non-contest task, imports CSV, fixes readiness and computes a real plan (14.2s)
+
+  3 passed (1.0m)

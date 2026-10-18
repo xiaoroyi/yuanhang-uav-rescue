@@ -1,0 +1,271 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "V2 in-flight battery exit|immutable multi-plan archive"
+    ],
+    "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
+    "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "snapshotDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:5174",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=swiftshader",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../evidence/redesign-v2/impact-browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "archive-v2.spec.ts",
+      "file": "archive-v2.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 181940,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 180000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\archive-v2.spec.ts",
+                        "column": 85,
+                        "line": 214
+                      },
+                      "message": "Error: locator.click: Test timeout of 180000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog').getByRole('button', { name: '关闭详情', exact: true })\u001b[22m\n\n\n  212 |   await expect(page.getByRole('dialog')).toContainText('预计起飞')\n  213 |   await expect(page.getByRole('dialog').locator('.rescue-map')).toBeVisible()\n> 214 |   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()\n      |                                                                                     ^\n  215 |   await page.getByLabel('档案事实时刻').focus()\n  216 |   await page.getByLabel('档案事实时刻').press('Home')\n  217 |   await expect(page.locator('.v2-archive-clock')).toContainText('此时模拟交付 0 箱')\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\archive-v2.spec.ts:214:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T13:16:42.454Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8d9ebbaeb4f613129d0f-9dd9e021fc7cba180183",
+          "file": "archive-v2.spec.ts",
+          "line": 8,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "dependency-repair-v2.spec.ts",
+      "file": "dependency-repair-v2.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "V2 in-flight battery exit previews actual dependency repair differences before adopting the future program",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 26552,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.ledger-selected').first()\nExpected: visible\nReceived: hidden\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.ledger-selected').first() with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.ledger-selected').first()\u001b[22m\n\u001b[2m    33 × locator resolved to <button class=\"ledger-prepare ledger-selected\" aria-label=\"U01 装载准备 SRT-0709c59e25dc\" title=\"装载准备 · 00:19:50—00:25:20↵PLAN-F69E2F588954442E / SRT-0709c59e25dc\">装载准备</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.ledger-selected').first()\nExpected: visible\nReceived: hidden\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.ledger-selected').first() with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.ledger-selected').first()\u001b[22m\n\u001b[2m    33 × locator resolved to <button class=\"ledger-prepare ledger-selected\" aria-label=\"U01 装载准备 SRT-0709c59e25dc\" title=\"装载准备 · 00:19:50—00:25:20↵PLAN-F69E2F588954442E / SRT-0709c59e25dc\">装载准备</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\dependency-repair-v2.spec.ts:134:58",
+                    "location": {
+                      "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\dependency-repair-v2.spec.ts",
+                      "column": 58,
+                      "line": 134
+                    },
+                    "snippet": "  132 |   await expect(futureInspector).toContainText('当前未来安排 · 尚无装载事实')\n  133 |   await expect(futureInspector).toContainText(future.cargo_ids[0])\n> 134 |   await expect(page.locator('.ledger-selected').first()).toBeVisible()\n      |                                                          ^\n  135 |   await futureInspector.getByRole('button', { name: '核对原文航线与高程分析' }).click()\n  136 |   await expect(page.getByRole('dialog')).toContainText('高程')\n  137 |   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\dependency-repair-v2.spec.ts",
+                        "column": 58,
+                        "line": 134
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.ledger-selected').first()\nExpected: visible\nReceived: hidden\nTimeout:  15000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.ledger-selected').first() with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.ledger-selected').first()\u001b[22m\n\u001b[2m    33 × locator resolved to <button class=\"ledger-prepare ledger-selected\" aria-label=\"U01 装载准备 SRT-0709c59e25dc\" title=\"装载准备 · 00:19:50—00:25:20↵PLAN-F69E2F588954442E / SRT-0709c59e25dc\">装载准备</button>\u001b[22m\n\u001b[2m       - unexpected value \"hidden\"\u001b[22m\n\n\n  132 |   await expect(futureInspector).toContainText('当前未来安排 · 尚无装载事实')\n  133 |   await expect(futureInspector).toContainText(future.cargo_ids[0])\n> 134 |   await expect(page.locator('.ledger-selected').first()).toBeVisible()\n      |                                                          ^\n  135 |   await futureInspector.getByRole('button', { name: '核对原文航线与高程分析' }).click()\n  136 |   await expect(page.getByRole('dialog')).toContainText('高程')\n  137 |   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\dependency-repair-v2.spec.ts:134:58"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T13:19:47.218Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\dependency-repair-v2.spec.ts",
+                    "column": 58,
+                    "line": 134
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "668275071e6d8e44a2ac-724fa547bf3ce93b1a23",
+          "file": "dependency-repair-v2.spec.ts",
+          "line": 9,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T13:16:40.956Z",
+    "duration": 213937.289,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

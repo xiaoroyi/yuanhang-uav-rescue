@@ -1614,7 +1614,10 @@
         "tests/backend/test_dependency_repair_v2.py",
         "frontend/tests/dependency-repair-v2.spec.ts",
         "evidence/redesign-v2/DEPENDENCY_SMOKE/MANIFEST.json",
-        "evidence/redesign-v2/dependency-browser-results.json"
+        "evidence/redesign-v2/dependency-browser-results.json",
+        "docs/CONTRACT_RFC_027.md",
+        "tests/backend/test_execution_impact_v2.py",
+        "evidence/redesign-v2/impact-browser-results.json"
       ]
     },
     {

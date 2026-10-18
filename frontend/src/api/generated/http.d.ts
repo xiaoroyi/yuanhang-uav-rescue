@@ -2506,6 +2506,7 @@ export interface components {
             resolved_at?: string | null;
             /** Resolution Reason */
             resolution_reason?: string | null;
+            impact?: components["schemas"]["ExecutionImpact"] | null;
         };
         /** ExecutionFact */
         ExecutionFact: {
@@ -2538,6 +2539,27 @@ export interface components {
              * @constant
              */
             source: "simulation";
+        };
+        /** ExecutionImpact */
+        ExecutionImpact: {
+            /**
+             * Scope
+             * @constant
+             */
+            scope: "frozen_transport_resource_precedence";
+            /** Time S */
+            time_s: number;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /**
+             * Ground Model
+             * @enum {string}
+             */
+            ground_model: "unlimited" | "conservative_common_release";
+            /** Nodes */
+            nodes: components["schemas"]["ImpactNode"][];
+            /** Edges */
+            edges: components["schemas"]["ImpactEdge"][];
         };
         /** ExecutionSchedulePart */
         ExecutionSchedulePart: {
@@ -3010,6 +3032,51 @@ export interface components {
             service_source_sha256: string;
             /** Runtime Id */
             runtime_id: string;
+        };
+        /** ImpactEdge */
+        ImpactEdge: {
+            /** From Node Id */
+            from_node_id: string;
+            /** To Node Id */
+            to_node_id: string;
+            /**
+             * Resource Kind
+             * @enum {string}
+             */
+            resource_kind: "drone" | "battery";
+            /** Resource Id */
+            resource_id: string;
+        };
+        /** ImpactNode */
+        ImpactNode: {
+            /** Node Id */
+            node_id: string;
+            /** Plan Id */
+            plan_id: string;
+            /** Sortie Id */
+            sortie_id: string;
+            /** Drone Id */
+            drone_id: string;
+            /** Battery Id */
+            battery_id: string;
+            /** Cargo Ids */
+            cargo_ids: string[];
+            /** Prepare Start S */
+            prepare_start_s: number;
+            /** Takeoff S */
+            takeoff_s: number;
+            /** Return S */
+            return_s: number;
+            /** Drone Released S */
+            drone_released_s: number;
+            /** Battery Released S */
+            battery_released_s: number;
+            /** Direct */
+            direct: boolean;
+            /** Affected */
+            affected: boolean;
+            /** Committed */
+            committed: boolean;
         };
         /** ImportPreview */
         ImportPreview: {

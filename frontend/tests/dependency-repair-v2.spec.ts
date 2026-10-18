@@ -100,6 +100,45 @@ test('V2 in-flight battery exit previews actual dependency repair differences be
   await page.getByLabel('变化原因').fill('备用电池无法继续使用；首架次正在飞行，保留当前在机物资')
   await page.getByRole('button', { name: '记录事件并分析影响', exact: true }).click()
   await expect(page.getByRole('dialog')).toHaveCount(0)
+  await page.getByRole('link', { name: /方案规划/ }).click()
+  await expect(page.locator('.v2-validity-notice')).toContainText('待处理 1 项')
+  await expect(page.getByRole('button', { name: '原快照检查 通过', exact: true })).toBeVisible()
+  await page
+    .locator('.v2-validity-notice')
+    .getByRole('link', { name: '查看受影响任务与调整' })
+    .click()
+  await page.getByRole('button', { name: '查看影响链与架次', exact: true }).click()
+  const impactDialog = page.getByRole('dialog')
+  await expect(impactDialog.getByRole('region', { name: '事件资源依赖影响图' })).toContainText(
+    '直接命中 1',
+  )
+  await impactDialog.getByLabel('显示全部架次').check()
+  await expect(impactDialog.locator('.v2-impact-node')).toHaveCount(2)
+  await expect(impactDialog.locator('.v2-impact-edge.drone')).toHaveCount(1)
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await page.screenshot({
+      path: `../evidence/redesign-v2/event-impact-${width}.png`,
+      fullPage: true,
+    })
+  }
+  await impactDialog
+    .getByRole('button', { name: `核对 ${plan.plan_id} ${future.sortie_id}`, exact: true })
+    .click()
+  const futureInspector = page.getByRole('complementary', { name: '执行架次安排详情' })
+  await expect(futureInspector).toContainText('当前未来安排 · 尚无装载事实')
+  await expect(futureInspector).toContainText(future.cargo_ids[0])
+  // Short screens deliberately collapse the bottom strip; use its explicit expanded view.
+  await page.getByRole('button', { name: '查看完整排程', exact: true }).click()
+  await expect(page.getByRole('dialog').locator('.ledger-selected').first()).toBeVisible()
+  await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()
+  await futureInspector.getByRole('button', { name: '核对原文航线与高程分析' }).click()
+  await expect(page.getByRole('dialog')).toContainText('高程')
+  await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()
+  await futureInspector.getByRole('button', { name: '关闭架次详情' }).click()
   await page.getByLabel('剩余任务修复方法').selectOption('dependency')
   await page.getByRole('button', { name: '生成调整', exact: true }).click()
   const dialog = page.getByRole('dialog')
@@ -145,6 +184,15 @@ test('V2 in-flight battery exit previews actual dependency repair differences be
   expect(e.telemetry[0].cargo_ids).toEqual(original.cargo_ids)
   expect(e.telemetry[0].active_plan_id).toBe(plan.plan_id)
   expect(e.desired_plan_id).not.toBe(plan.plan_id)
+  await page.getByRole('button', { name: '查看影响链与架次', exact: true }).click()
+  await page
+    .getByRole('dialog')
+    .getByRole('button', { name: `核对 ${plan.plan_id} ${future.sortie_id}`, exact: true })
+    .click()
+  await expect(page.getByRole('complementary', { name: '执行架次安排详情' })).toContainText(
+    '历史事件安排 · 已非当前生效任务',
+  )
+  await page.getByRole('button', { name: '关闭架次详情' }).click()
   await page.locator('.v2-object-scroll > button').first().click()
   await expect(page.locator('.v2-inspector')).toContainText('当前架次来源')
   await expect(page.getByRole('region', { name: '模拟设备程序核对', exact: true })).toContainText(

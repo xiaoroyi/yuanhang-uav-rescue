@@ -26,6 +26,8 @@ import { ResourceTimeline } from '../components/ResourceTimeline'
 import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
 import { DeviceStatePanel } from './DeviceStatePanel'
+import { DependencyImpactPanel, type ImpactSelection } from './DependencyImpactPanel'
+import { ExecutionRouteInspector } from './ExecutionRouteInspector'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { navigate } from './App'
@@ -48,6 +50,8 @@ export function ExecutionWorkspace({
   const [id, setId] = useState(mission.active_execution_id || '')
   const [busy, setBusy] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
+  const [routeSelection, setRouteSelection] = useState<ImpactSelection | null>(null)
+  const [impactEvent, setImpactEvent] = useState<ExecutionEvent | null>(null)
   const [eventOpen, setEventOpen] = useState(false)
   const [preview, setPreview] = useState<Repair | null>(null)
   const [repairPolicy, setRepairPolicy] = useState<'dependency' | 'full'>('dependency')
@@ -238,6 +242,35 @@ export function ExecutionWorkspace({
   const mapScenario = desiredSnapshot.data
     ? { ...baseScenario, weather: desiredSnapshot.data.scenario.weather }
     : baseScenario
+  const selectedRouteKey =
+    routeSelection &&
+    routeSets.some(
+      (s) =>
+        s.plan.plan_id === routeSelection.planId && s.sortieIds.includes(routeSelection.sortieId),
+    )
+      ? routeSelection.planId + ':' + routeSelection.sortieId
+      : null
+  const selectDevice = (device: string) => {
+    setSelected(device)
+    setRouteSelection(null)
+  }
+  const inspectRoute = (value: ImpactSelection) => {
+    setRouteSelection(value)
+    setSelected(null)
+  }
+  const selectRoute = (key: string) => {
+    const source = routeSets.find((s) => key.startsWith(s.plan.plan_id + ':'))
+    const sid = source ? key.slice(source.plan.plan_id.length + 1) : key
+    const owner = source || routeSets.find((s) => s.sortieIds.includes(sid))
+    if (owner?.plan.sorties.some((r) => r.sortie_id === sid))
+      inspectRoute({ planId: owner.plan.plan_id, sortieId: sid })
+    else {
+      const d = e.telemetry.find(
+        (t) => t.sortie_id === sid && (!source || t.active_plan_id === source.plan.plan_id),
+      )
+      if (d) selectDevice(d.device_id)
+    }
+  }
   return (
     <>
       <div className="v2-plan-toolbar">
@@ -359,7 +392,9 @@ export function ExecutionWorkspace({
         </span>
         <span>{e.connected ? '模拟遥测正常' : '遥测断流 · 保留最后位置'}</span>
       </div>
-      <div className={`v2-map-workspace ${selectedDevice ? 'inspector-open' : ''}`}>
+      <div
+        className={`v2-map-workspace ${selectedDevice || routeSelection ? 'inspector-open' : ''}`}
+      >
         <aside className="v2-object-list">
           <div className="v2-section-bar">
             <h3>机队状态</h3>
@@ -368,7 +403,7 @@ export function ExecutionWorkspace({
             {e.telemetry.map((d) => (
               <button
                 key={d.device_id}
-                onClick={() => setSelected(d.device_id)}
+                onClick={() => selectDevice(d.device_id)}
                 className={selected === d.device_id ? 'active' : ''}
               >
                 <strong>
@@ -409,9 +444,15 @@ export function ExecutionWorkspace({
                 <div key={event.event_id}>
                   <b>{event.reason}</b>
                   <small>
-                    {clock(event.time_s)} · 直接 {event.affected_sortie_ids.length} / 传播{' '}
-                    {event.propagated_sortie_ids.length} 架次
+                    {clock(event.time_s)} · 直接{' '}
+                    {event.impact?.nodes.filter((n) => n.direct).length ??
+                      event.affected_sortie_ids.length}{' '}
+                    / 影响合计{' '}
+                    {event.impact?.nodes.filter((n) => n.affected).length ??
+                      event.propagated_sortie_ids.length}{' '}
+                    架次
                   </small>
+                  <Button onClick={() => setImpactEvent(event)}>查看影响链与架次</Button>
                   {event.missing_inventory > 0 && <em>缺少 {event.missing_inventory} 箱库存</em>}
                   {event.status === 'requires_manual' && <em>涉及已开始承诺，需人工协调</em>}
                   {event.status === 'withdrawn' ? (
@@ -439,24 +480,25 @@ export function ExecutionWorkspace({
         <div className="v2-map-main">
           <RescueMap
             viewKey={mission.mission_id}
-            onSelectDevice={setSelected}
+            onSelectDevice={selectDevice}
             scenario={mapScenario}
             plan={initialPlan.data}
             routeSets={routeSets}
             telemetry={e.telemetry}
             playTime={e.time_s}
-            selected={null}
-            onSelect={(value) => {
-              const source = routeSets.find((set) => value.startsWith(set.plan.plan_id + ':'))
-              const sid = source ? value.slice(source.plan.plan_id.length + 1) : value
-              const d = e.telemetry.find(
-                (t) => t.sortie_id === sid && (!source || t.active_plan_id === source.plan.plan_id),
-              )
-              if (d) setSelected(d.device_id)
-            }}
+            selected={selectedRouteKey}
+            onSelect={selectRoute}
           />
         </div>
-        {selectedDevice && (
+        {routeSelection && (
+          <ExecutionRouteInspector
+            key={routeSelection.planId + ':' + routeSelection.sortieId}
+            selection={routeSelection}
+            execution={e}
+            onClose={() => setRouteSelection(null)}
+          />
+        )}
+        {selectedDevice && !routeSelection && (
           <aside className="v2-inspector">
             <div className="v2-section-bar">
               <h2>{selectedDevice.device_id}</h2>
@@ -539,12 +581,8 @@ export function ExecutionWorkspace({
           <ExecutionTimeline
             sources={routeSets}
             execution={e}
-            onSelect={(key) => {
-              const source = routeSets.find((s) => key.startsWith(s.plan.plan_id + ':'))
-              const sid = source ? key.slice(source.plan.plan_id.length + 1) : key
-              const d = e.telemetry.find((x) => x.sortie_id === sid)
-              if (d) setSelected(d.device_id)
-            }}
+            onSelect={selectRoute}
+            selected={selectedRouteKey}
           />
         )}
       </div>
@@ -574,8 +612,34 @@ export function ExecutionWorkspace({
         wide
       >
         <div className="v2-execution-arrangements">
-          <ExecutionTimeline sources={routeSets} execution={e} />
+          <ExecutionTimeline
+            sources={routeSets}
+            execution={e}
+            selected={selectedRouteKey}
+            onSelect={(key) => {
+              selectRoute(key)
+              setTimelineOpen(false)
+            }}
+          />
         </div>
+      </Modal>
+      <Modal
+        title="事件影响 · 资源依赖与原文安排"
+        description={impactEvent?.reason}
+        open={!!impactEvent}
+        onOpenChange={(open) => !open && setImpactEvent(null)}
+        wide
+      >
+        {impactEvent && (
+          <DependencyImpactPanel
+            key={impactEvent.event_id}
+            event={impactEvent}
+            onSelect={(value) => {
+              inspectRoute(value)
+              setImpactEvent(null)
+            }}
+          />
+        )}
       </Modal>
       <Modal
         title="核实并纠正误报"

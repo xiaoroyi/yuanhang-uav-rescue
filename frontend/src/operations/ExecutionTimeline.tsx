@@ -21,11 +21,13 @@ export function ExecutionTimeline({
   execution,
   onSelect,
   currentTime = execution.time_s,
+  selected,
 }: {
   sources: ExecutionSource[]
   execution: Execution
   onSelect?: (key: string) => void
   currentTime?: number
+  selected?: string | null
 }) {
   const [mode, setMode] = useState<'drone' | 'battery' | 'component'>('drone')
   const [expanded, setExpanded] = useState(false)
@@ -137,7 +139,11 @@ export function ExecutionTimeline({
               .map((s) => (
                 <button
                   key={s.key}
-                  className={'ledger-' + s.kind}
+                  className={
+                    'ledger-' +
+                    s.kind +
+                    (selected === s.planId + ':' + s.sortieId ? ' ledger-selected' : '')
+                  }
                   style={{
                     left: (100 * s.start) / horizon + '%',
                     width: (100 * (s.end - s.start)) / horizon + '%',

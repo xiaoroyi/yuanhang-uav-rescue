@@ -44,7 +44,7 @@ from backend.app.missions import identity, require, revision
 from backend.app.simulation import timestamp
 from shared.contracts import content_hash, validate_scenario, ContractError
 from solver.public_api import validate
-from solver.dependencies import affected_closure
+from backend.app.execution_impact import build_impact
 from backend.app.device_adapter import SimulationAdapter
 from backend.app.device_state import SimulationDeviceStore
 from solver.weather import eligible_types as weather_eligible_types
@@ -418,7 +418,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         r["return_s"] > tick
                         and r["return_s"] > probe["weather"]["valid_from_s"]
                     ):
-                        direct.add(r["sortie_id"])
+                        direct.add((r["_plan_id"], r["sortie_id"]))
                         if (r["_plan_id"], r["sortie_id"]) in started and (
                             types[r["drone_id"]] not in eligible
                             or r["return_s"] > probe["weather"]["valid_until_s"]
@@ -507,10 +507,24 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         else any(v["site_id"] == body.object_id for v in r["visits"])
                     )
                     if hit and r["drone_released_s"] > tick:
-                        direct.add(r["sortie_id"])
+                        direct.add((r["_plan_id"], r["sortie_id"]))
                         if (r["_plan_id"], r["sortie_id"]) in started:
                             manual = True
-            propagated, _ = affected_closure(all_sorties, direct)
+            impact = build_impact(
+                all_sorties,
+                direct,
+                started,
+                tick,
+                row.content["facts_cursor"],
+                (
+                    "conservative_common_release"
+                    if s.get("resource_limits")
+                    else "unlimited"
+                ),
+            )
+            propagated = {
+                (n["plan_id"], n["sortie_id"]) for n in impact["nodes"] if n["affected"]
+            }
             committed = [
                 r["sortie_id"]
                 for r in all_sorties
@@ -524,15 +538,17 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 "reason": body.reason,
                 "time_s": tick,
                 "facts_cursor": row.content["facts_cursor"],
-                "affected_sortie_ids": sorted(direct),
-                "propagated_sortie_ids": sorted(propagated),
+                # Legacy arrays are projections; precise identity lives in impact.nodes.
+                "affected_sortie_ids": sorted({sid for _, sid in direct}),
+                "propagated_sortie_ids": sorted({sid for _, sid in propagated}),
                 "preserved_sortie_ids": [
                     r["sortie_id"]
                     for r in all_sorties
-                    if r["sortie_id"] not in propagated
+                    if (r["_plan_id"], r["sortie_id"]) not in propagated
                 ],
                 "committed_sortie_ids": committed,
                 "missing_inventory": missing,
+                "impact": impact,
                 **(
                     {"weather": body.weather.model_dump(mode="json")}
                     if body.weather is not None
@@ -1741,6 +1757,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             ]
             view = engine().view(session, row)
             if version == 2:
+                events = events_for(session, row.id)
                 from backend.app.execution_archive import (
                     document,
                     seal,
@@ -1767,6 +1784,11 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     if c.get("repair_reference_id")
                 }
                 plan_ids = {view["initial_plan_id"], view["desired_plan_id"]}
+                plan_ids.update(
+                    n["plan_id"]
+                    for event in events
+                    for n in (event.get("impact") or {}).get("nodes", [])
+                )
                 plan_ids.update(
                     d["document_id"]
                     for ref in references.values()

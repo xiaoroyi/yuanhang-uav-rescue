@@ -6956,6 +6956,16 @@
               }
             ],
             "title": "Resolution Reason"
+          },
+          "impact": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExecutionImpact"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -7087,6 +7097,56 @@
           "cargo_ids"
         ],
         "title": "ExecutionFact"
+      },
+      "ExecutionImpact": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "const": "frozen_transport_resource_precedence",
+            "title": "Scope"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "ground_model": {
+            "type": "string",
+            "enum": [
+              "unlimited",
+              "conservative_common_release"
+            ],
+            "title": "Ground Model"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/ImpactNode"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/ImpactEdge"
+            },
+            "type": "array",
+            "title": "Edges"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scope",
+          "time_s",
+          "facts_cursor",
+          "ground_model",
+          "nodes",
+          "edges"
+        ],
+        "title": "ExecutionImpact"
       },
       "ExecutionSchedulePart": {
         "properties": {
@@ -8435,6 +8495,121 @@
           "runtime_id"
         ],
         "title": "Health"
+      },
+      "ImpactEdge": {
+        "properties": {
+          "from_node_id": {
+            "type": "string",
+            "title": "From Node Id"
+          },
+          "to_node_id": {
+            "type": "string",
+            "title": "To Node Id"
+          },
+          "resource_kind": {
+            "type": "string",
+            "enum": [
+              "drone",
+              "battery"
+            ],
+            "title": "Resource Kind"
+          },
+          "resource_id": {
+            "type": "string",
+            "title": "Resource Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "from_node_id",
+          "to_node_id",
+          "resource_kind",
+          "resource_id"
+        ],
+        "title": "ImpactEdge"
+      },
+      "ImpactNode": {
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "title": "Node Id"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "sortie_id": {
+            "type": "string",
+            "title": "Sortie Id"
+          },
+          "drone_id": {
+            "type": "string",
+            "title": "Drone Id"
+          },
+          "battery_id": {
+            "type": "string",
+            "title": "Battery Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cargo Ids"
+          },
+          "prepare_start_s": {
+            "type": "number",
+            "title": "Prepare Start S"
+          },
+          "takeoff_s": {
+            "type": "number",
+            "title": "Takeoff S"
+          },
+          "return_s": {
+            "type": "number",
+            "title": "Return S"
+          },
+          "drone_released_s": {
+            "type": "number",
+            "title": "Drone Released S"
+          },
+          "battery_released_s": {
+            "type": "number",
+            "title": "Battery Released S"
+          },
+          "direct": {
+            "type": "boolean",
+            "title": "Direct"
+          },
+          "affected": {
+            "type": "boolean",
+            "title": "Affected"
+          },
+          "committed": {
+            "type": "boolean",
+            "title": "Committed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "node_id",
+          "plan_id",
+          "sortie_id",
+          "drone_id",
+          "battery_id",
+          "cargo_ids",
+          "prepare_start_s",
+          "takeoff_s",
+          "return_s",
+          "drone_released_s",
+          "battery_released_s",
+          "direct",
+          "affected",
+          "committed"
+        ],
+        "title": "ImpactNode"
       },
       "ImportPreview": {
         "properties": {

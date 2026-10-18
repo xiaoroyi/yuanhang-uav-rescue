@@ -1,14 +1,17 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowLeft, Download, Upload } from 'lucide-react'
-import { ops } from '../api/operations'
-import { Button } from '../components/ui'
+import { ops, type ExecutionEvent } from '../api/operations'
+import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
 import { ExecutionTimeline } from './ExecutionTimeline'
 import { ExecutionInsights } from './ExecutionInsights'
 import { clock } from './format'
+import { DependencyImpactPanel, type ImpactSelection } from './DependencyImpactPanel'
 
 export function ArchiveCenter({ notify }: { notify: (message: string, error?: boolean) => void }) {
+  const [impact, setImpact] = useState<ExecutionEvent | null>(null)
+  const [frozenRoute, setFrozenRoute] = useState<ImpactSelection | null>(null)
   const [id, setId] = useState(''),
     [busy, setBusy] = useState(false),
     [search, setSearch] = useState(''),
@@ -44,6 +47,11 @@ export function ArchiveCenter({ notify }: { notify: (message: string, error?: bo
       initial = data.plans.find((p) => p.plan_id === e.initial_plan_id)
     const scene = data.snapshots.find((s) => s.snapshot_id === initial?.snapshot_id)?.scenario
     const time = at ?? e.time_s
+    const frozenPlan = data.plans.find((p) => p.plan_id === frozenRoute?.planId)
+    const frozenScene = data.snapshots.find(
+      (s) => s.snapshot_id === frozenPlan?.snapshot_id,
+    )?.scenario
+    const frozenSortie = frozenPlan?.sorties.find((r) => r.sortie_id === frozenRoute?.sortieId)
     const sources = e.schedule_parts.flatMap((part) => {
       const plan = data.plans.find((p) => p.plan_id === part.plan_id)
       return plan
@@ -161,6 +169,7 @@ export function ArchiveCenter({ notify }: { notify: (message: string, error?: bo
                   <th>变化</th>
                   <th>处理</th>
                   <th>核实依据</th>
+                  <th>冻结影响图</th>
                 </tr>
               </thead>
               <tbody>
@@ -178,12 +187,63 @@ export function ArchiveCenter({ notify }: { notify: (message: string, error?: bo
                             : '待处理'}
                     </td>
                     <td>{v.resolution_reason || '—'}</td>
+                    <td>
+                      <Button onClick={() => setImpact(v)}>查看原影响链</Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </section>
+        <Modal
+          title="档案中的事件影响"
+          description="只读查看事件记录时的资源关系，不推进执行或修改交付。"
+          open={!!impact}
+          onOpenChange={(open) => !open && setImpact(null)}
+          wide
+        >
+          {impact && (
+            <DependencyImpactPanel
+              key={impact.event_id}
+              event={impact}
+              onSelect={(value) => {
+                setFrozenRoute(value)
+                setImpact(null)
+              }}
+            />
+          )}
+        </Modal>
+        <Modal
+          title="档案原文架次"
+          description="从档案内Plan/Snapshot读取，不请求可控领域实例。"
+          open={!!frozenRoute}
+          onOpenChange={(open) => !open && setFrozenRoute(null)}
+          wide
+        >
+          {frozenPlan && frozenScene && frozenSortie ? (
+            <div className="v2-route-analysis">
+              <p>
+                {frozenPlan.plan_id} / {frozenSortie.sortie_id} · {frozenSortie.drone_id} /{' '}
+                {frozenSortie.battery_id}
+              </p>
+              <p>
+                预计起飞 {clock(frozenSortie.takeoff_s)} · 预计返航 {clock(frozenSortie.return_s)} ·
+                箱件 {frozenSortie.cargo_ids.join(' · ')}
+              </p>
+              <div className="v2-route-map">
+                <RescueMap
+                  scenario={frozenScene}
+                  plan={frozenPlan}
+                  selected={frozenSortie.sortie_id}
+                  onSelect={() => {}}
+                />
+              </div>
+            </div>
+          ) : (
+            <p>此档案缺少匹配的原文架次。</p>
+          )}
+        </Modal>
       </div>
     )
   }

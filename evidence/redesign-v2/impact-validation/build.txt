@@ -1,0 +1,35 @@
+
+> yuanhang-rescue-console@0.1.0 build
+> tsc -b && vite build && node scripts/build-info.mjs
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2691 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                  0.95 kB │ gzip:   0.47 kB
+dist/assets/maplibre-gl-worker-DxGNRm0a.mjs    508.31 kB
+dist/assets/map-DBE96hFo.css                    82.93 kB │ gzip:  10.72 kB
+dist/assets/index-CUQS6BN4.css                 224.52 kB │ gzip:  45.38 kB
+dist/assets/rolldown-runtime-XKyaHtl9.js         0.72 kB │ gzip:   0.42 kB
+dist/assets/OrbitControls-DVyBGYtA.js           19.91 kB │ gzip:   4.43 kB
+dist/assets/react-DW-uAbvl.js                  229.74 kB │ gzip:  72.14 kB
+dist/assets/index-Doo4DUfl.js                  529.68 kB │ gzip: 155.13 kB
+dist/assets/three.module-C8enonVg.js           736.44 kB │ gzip: 186.85 kB
+dist/assets/map-B8_xo0QL.js                  1,041.81 kB │ gzip: 283.11 kB
+dist/assets/charts-rDe6ybxf.js               1,117.20 kB │ gzip: 370.42 kB
+
+✓ built in 9.62s
+npm.cmd : [33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 930ms of this 9.6s build (10%).
+所在位置 行:2 字符: 78
++ ... DE -eq 0) { npm.cmd run build *> ../.local/v2-impact-build.log }; exi ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([33m[PLUGIN_TI...6s build (10%).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+1 callback is listed without a time. Its calls overlapped, so the time inside one call includes work from other calls. 
+To find its cost, profile the build with `node --cpu-prof`:
+  - plugin @tailwindcss/vite:generate:build transform (17 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+Recorded offline build identity (13 artifacts).

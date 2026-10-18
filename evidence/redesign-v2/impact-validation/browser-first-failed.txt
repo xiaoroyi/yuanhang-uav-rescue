@@ -1,0 +1,95 @@
+node : Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+所在位置 行:2 字符: 81
++ ... ults.json'; node frontend/scripts/run-e2e.mjs --grep 'V2 in-flight ba ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Readiness still...th ECONNREFUSED:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Readiness still pending http://127.0.0.1:5174 ECONNREFUSED
+
+Running 2 tests using 1 worker
+
+(node:52420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+21:19:28 [vite] (client) hmr update /src/styles.css
+21:19:30 [vite] (client) hmr update /src/styles.css
+  x  1 tests\archive-v2.spec.ts:8:1 › V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive (3.0m)
+(node:52712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 tests\dependency-repair-v2.spec.ts:9:1 › V2 in-flight battery exit previews actual dependency repair differences before adopting the future program (26.6s)
+
+
+  1) tests\archive-v2.spec.ts:8:1 › V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive 
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.click: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog').getByRole('button', { name: '关闭详情', exact: true })
+
+
+      212 |   await expect(page.getByRole('dialog')).toContainText('预计起飞')
+      213 |   await expect(page.getByRole('dialog').locator('.rescue-map')).toBeVisible()
+    > 214 |   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()
+          |                                                                                     ^
+      215 |   await page.getByLabel('档案事实时刻').focus()
+      216 |   await page.getByLabel('档案事实时刻').press('Home')
+      217 |   await expect(page.locator('.v2-archive-clock')).toContainText('此时模拟交付 0 箱')
+        at E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\frontend\tests\archive-v2.spec.ts:214:85
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\archive-v2-V2-in-flight-in-a7cc9-mmutable-multi-plan-archive\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests\dependency-repair-v2.spec.ts:9:1 › V2 in-flight battery exit previews actual dependency repair differences before adopting the future program 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('.ledger-selected').first()
+    Expected: visible
+    Received: hidden
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeVisible" locator('.ledger-selected').first() with timeout 15000ms
+      - waiting for locator('.ledger-selected').first()
+        33 × locator resolved to <button class="ledger-prepare ledger-selected" aria-label="U01 装载准备 SRT-0709c59e25dc" title="装载准备 · 00:19:50—00:25:20↵PLAN-F69E2F588954442E / SRT-0709c59e25dc">装载准备</button>
+           - unexpected value "hidden"
+
+
+      132 |   await expect(futureInspector).toContainText('当前未来安排 · 尚无装载事实')
+      133 |   await expect(futureInspector).toContainText(future.cargo_ids[0])
+    > 134 |   await expect(page.locator('.ledger-selected').first()).toBeVisible()
+          |                                                          ^
+      135 |   await futureInspector.getByRole('button', { name: '核对原文航线与高程分析' }).click()
+      136 |   await expect(page.getByRole('dialog')).toContainText('高程')
+      137 |   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗', exact: true }).click()
+        at E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\frontend\tests\dependency-repair-v2.spec.ts:134:58
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\dependency-repair-v2-V2-in-538e9-adopting-the-future-program\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests\archive-v2.spec.ts:8:1 › V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive 
+    tests\dependency-repair-v2.spec.ts:9:1 › V2 in-flight battery exit previews actual dependency repair differences before adopting the future program 

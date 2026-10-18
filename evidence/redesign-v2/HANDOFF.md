@@ -1,3 +1,9 @@
+## 最新继续点：RFC027专项通过（2026-10-18 21:23）
+
+6328f3b真实局部修复已推GitHub。新增冻结命名空间影响图/原快照有效性/未来架次map-gantt-inspector/profile/档案只读图已实施；12后端104.91s、2浏览器49.8s、lint/build过。首次测试selector/短屏折叠断言失败已保留并用真实入口重跑；不是产品强制点击。49操作模型/82路径。event-impact两图已查看。下一步R16动态依赖vs全量同输入预算对照与冻结事件证据，再I3无基线资源诊断、R22可做研究、最终当前源码完整验证/视觉/交付。不在检查点停工。
+
+当前8000仍上一RFC026 PID33876/start1792328787827/launcher54885，source6beab990...f943；当前dist已重建RFC027，最终要配套重启校验原14Plan/10Snapshot。未更改main/V1或连接设备。
+
 ## 已部署并继续：RFC026检查点（21:07）
 
 8000现PID33876/start1792328787827/launcher54885，日志.local/v2-production-dependency-service.log。已保护原14Plan/10Snapshot/全部6表行数，SQLite一致备份且原JSON SHA未变。source6beab990e1fc7962e2909116b29f17d09b7fe80b84ebc782888120636063f943，dist source5dc381...c256与工作字节一致，dependency-deployment.json记录。下面“仍旧服务”为历史状态。提交推送后继续影响图/有效性和方法对照，不停止。

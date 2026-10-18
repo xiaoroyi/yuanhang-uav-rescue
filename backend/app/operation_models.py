@@ -319,6 +319,39 @@ class ExecutionEventInput(OperationDTO):
     reason: str = Field(min_length=1, max_length=500)
 
 
+class ImpactNode(OperationDTO):
+    node_id: str
+    plan_id: str
+    sortie_id: str
+    drone_id: str
+    battery_id: str
+    cargo_ids: list[str]
+    prepare_start_s: float
+    takeoff_s: float
+    return_s: float
+    drone_released_s: float
+    battery_released_s: float
+    direct: bool
+    affected: bool
+    committed: bool
+
+
+class ImpactEdge(OperationDTO):
+    from_node_id: str
+    to_node_id: str
+    resource_kind: Literal["drone", "battery"]
+    resource_id: str
+
+
+class ExecutionImpact(OperationDTO):
+    scope: Literal["frozen_transport_resource_precedence"]
+    time_s: float
+    facts_cursor: int
+    ground_model: Literal["unlimited", "conservative_common_release"]
+    nodes: list[ImpactNode]
+    edges: list[ImpactEdge]
+
+
 class ExecutionEventView(OperationDTO):
     event_id: str
     execution_id: str
@@ -336,6 +369,7 @@ class ExecutionEventView(OperationDTO):
     weather: Weather | None = None
     resolved_at: AwareDatetime | None = None
     resolution_reason: str | None = None
+    impact: ExecutionImpact | None = None
 
 
 class EventResolution(OperationDTO):

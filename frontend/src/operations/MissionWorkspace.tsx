@@ -37,6 +37,7 @@ import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
 import { ExecutionTimeline } from './ExecutionTimeline'
 import { ExecutionInsights } from './ExecutionInsights'
+import { PlanValidityNotice } from './PlanValidityNotice'
 
 type Stage = 'prepare' | 'plans' | 'execute' | 'review'
 type Notify = (m: string, e?: boolean) => void
@@ -370,6 +371,7 @@ export function MissionWorkspace({
               此方案对应旧输入；保留查看，确认前请基于新条件重新计算。
             </div>
           )}
+          <PlanValidityNotice mission={m} plan={plan.data} />
           <div className="v2-metrics-line">
             {plan.data ? (
               <>
@@ -398,7 +400,7 @@ export function MissionWorkspace({
                   </b>
                 </span>
                 <button onClick={() => setDetails(!details)}>
-                  检查 {plan.data.validation.status === 'passed' ? '通过' : '待检查'}
+                  原快照检查 {plan.data.validation.status === 'passed' ? '通过' : '待检查'}
                 </button>
               </>
             ) : (

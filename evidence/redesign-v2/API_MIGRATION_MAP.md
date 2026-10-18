@@ -40,3 +40,7 @@ TelemetrySample新增可空availability/reason；当前阶段与未来资源可�
 RepairRequest可选repair_policy=dependency/full，省略优先依赖修复；RepairView可选实际calculation_method、repair_reference_id和逐箱diff。SolveRequest可选repair_reference_id属于后端元数据，不进入SolverOptions；只允许服务端严格冻结Reference且input Snapshot匹配，客户端不可注入任意原文/路径。纯Python repair_remaining不导入后端。参考工件solver.repair.reference独立于change记录，含原Plan/Snapshot原文SHA与承诺/未来分段。
 
 操作Schema/实际OpenAPI/TS同批生成：82路径、46操作模型。完整v2执行包增加repair_reference冻结文档及其原文依赖，导入检查SHA、锁定箱件与事实游标、逐箱差异重建；旧包字段省略继续兼容。原Plan/Snapshot、零时刻Event和旧replan含义不变。
+
+## RFC027影响图增量
+
+ExecutionEventView可空impact是记录时刻的运输资源图，节点同时保留Plan/Sortie身份，旧事件缺图不补造；旧原始ID数组仍兼容。图与引用原文随完整执行包保存，导入重建资源后继/闭包/事实承诺并核对直接事件目标。49严格操作模型、82HTTP路径，Schema/OpenAPI/TS同步。没有新增真机或控制权限。

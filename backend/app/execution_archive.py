@@ -288,6 +288,10 @@ def validate_bundle(model):
             raise ValueError("缺少匹配的事件原输入。")
         if event["facts_cursor"] > e["facts_cursor"] or event["time_s"] > e["time_s"]:
             raise ValueError("事件超出截取窗口。")
+        if event.get("impact") is not None:
+            from backend.app.execution_impact import validate_frozen_impact
+
+            validate_frozen_impact(event["impact"], event, plans, facts)
         if event["status"] == "withdrawn" and ("event_resolution", eid) not in docs:
             raise ValueError("缺少纠错审计。")
     if not set(e.get("applied_event_ids", [])).issubset(event_ids):

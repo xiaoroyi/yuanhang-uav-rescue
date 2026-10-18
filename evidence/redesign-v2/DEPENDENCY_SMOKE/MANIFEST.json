@@ -1,10 +1,10 @@
 {
   "source": "Actual isolated Playwright in-flight battery-exit workflow",
   "artifact": "battery-exit-execution.json",
-  "artifact_sha256": "e74e88f1ca7b1164d912c2b51dd3d230f44a61fc363a07ef0c63e52a7fb35ad7",
-  "bundle_content_sha256": "a8c6f55e7010c0d40b7f40e36a933105ebc4e066f1b96f3646b235270799258c",
-  "execution_id": "EXE-53633A8F4F09439E",
-  "captured_at": "2026-10-18T12:57:30.852747Z",
+  "artifact_sha256": "41041b52319bbddac040606b067966a5475a7fb3046c09720a45991ec819f40d",
+  "bundle_content_sha256": "d7f54d65399f5d33a5d4fc517ffc08ff9bbd8c803f11e15ec94543041a15c5cd",
+  "execution_id": "EXE-7FF7FC6DE36749FC",
+  "captured_at": "2026-10-18T13:21:56.677360Z",
   "data_origin": "user_input",
   "test_input": "Two real full-size 25kg/60L boxes, one type-A drone, two compatible batteries; deadlines explicitly removed in this isolated test scenario.",
   "completed_deliveries": 2,
@@ -12,33 +12,33 @@
   "documents": [
     {
       "kind": "plan",
-      "id": "PLAN-020CE35E1E074AA8",
-      "sha256": "9a1ce9c011bf74832f22303948b6758c540d04c1085edc6738cd79d7601c45ea"
+      "id": "PLAN-A2CE5223CB6248BF",
+      "sha256": "cb6b54a475a761a92589e58226e1e2b25d2975b5a5991c51f23d8193cc0f40b5"
     },
     {
       "kind": "plan",
-      "id": "PLAN-20C3DBE3A4D74B3C",
-      "sha256": "2d18e2a8ec816ada1280ceb6e5094eb436bc2815ba441d6806fb342bcc096df9"
+      "id": "PLAN-E5700E7247994A91",
+      "sha256": "2188b8dff0ffe3b8536ccbb07200bbb43b1172d7dcc2dae004e8d30c97b4a059"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-2680D2DC7E0C4D1F",
-      "sha256": "481e3c6515750803fc5826c142e53da892db0f351a25cbad8da6b6863b3e231d"
+      "id": "SNAP-18A86D5641054B6B",
+      "sha256": "1a47733127bc95efd54e36a93f562c3e4d7e692c65cde68489e373a9adbc24e1"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-C0D124DC74804A7A",
-      "sha256": "9b5b35bfd69ce2bd13e43075a96b42c863c5ba5448365fffdda2f699aaefd661"
+      "id": "SNAP-423B9B6D3B8A40E1",
+      "sha256": "fe7f551947e1f7c08ca80317bc8e4eeb9ec2960de95c52e34ff377cf0507212c"
     },
     {
       "kind": "repair_reference",
-      "id": "RRF-C895E6CAAA754FA3",
-      "sha256": "f1622611673f75ac31d1b5ef14696335ed6a3e61f78f9b2cc4c984aff832720d"
+      "id": "RRF-59CCE97CAC4A4C1D",
+      "sha256": "ce249a03afac5467a5ef6b87bcb66b956a51a56360f8dffe822435b31a77e0b1"
     },
     {
       "kind": "event_input",
-      "id": "99238433-6fc4-44cf-a5b8-b900a890ac32",
-      "sha256": "126662f7bcad2adf875dfc726e99142e0c3d4c0a7bb1b317bd0c64fa7e0ed176"
+      "id": "045fdf15-e6c7-4b02-9062-721b8e2e4ff4",
+      "sha256": "db10afd985d6948cfa31085602b5673f74f4d9803b516258b03edca7efe23dfa"
     }
   ],
   "repair_policy": "dependency",
@@ -54,7 +54,7 @@
     "rows": [
       {
         "cargo_id": "S001-MED-02",
-        "previous_plan_id": "PLAN-20C3DBE3A4D74B3C",
+        "previous_plan_id": "PLAN-E5700E7247994A91",
         "previous_sortie_id": "SRT-0709c59e25dc",
         "previous_drone_id": "U01",
         "previous_battery_id": "BAT-A-02",
