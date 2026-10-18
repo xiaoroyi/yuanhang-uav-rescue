@@ -859,7 +859,8 @@ export function RescueMap({
     aircraft.current = []
     if (telemetry) {
       for (const sample of telemetry) {
-        if (!sample.coordinates || sample.phase === 'available') continue
+        if (!sample.coordinates || ['available', 'ready', 'unavailable'].includes(sample.phase))
+          continue
         const button = document.createElement('button')
         button.className = `planned-aircraft simulated-aircraft ${sample.quality === 'stale' ? 'stale-aircraft' : ''}`
         button.textContent = '✈'
@@ -1127,9 +1128,11 @@ export function RescueMap({
             <span>拍摄日期未核验 · 非实时灾情/高程数据</span>
           </span>
         )}
-        {playTime != null
-          ? '计划位置为匀速插值示意 · 非实时遥测'
-          : '离线可用 · 图上路线为任务级建议'}
+        {telemetry
+          ? '服务器模拟观测 · 非真机遥测'
+          : playTime != null
+            ? '计划位置为匀速插值示意 · 非实时遥测'
+            : '离线可用 · 图上路线为任务级建议'}
       </div>
     </div>
   )

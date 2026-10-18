@@ -103,6 +103,7 @@ class SimulationEngine:
                         cargo_ids=[],
                         sortie_id=None,
                         battery_id=None,
+                        component_id=None,
                         soc=None,
                         soc_sample_time_s=None,
                     )
@@ -119,10 +120,15 @@ class SimulationEngine:
                 * value["speed"],
             )
         schedule = self.schedule(session, value)
+        relays = self.relay_schedule(session, value)
         horizon = max(
             [
                 max(r["drone_released_s"], r["battery_released_s"])
                 for _, _, r, _ in schedule
+            ]
+            + [
+                max(r["drone_released_s"], r["battery_released_s"])
+                for _, _, r, _ in relays
             ]
             + [0]
         )
@@ -142,6 +148,18 @@ class SimulationEngine:
             ]:
                 if t <= tick + 1e-8:
                     events.append((t, p["plan_id"], r, kind, ids))
+        for p, _, r, _ in relays:
+            for kind, t in [
+                ("relay_started", r["prepare_start_s"]),
+                ("relay_arrived", r["arrival_s"]),
+                ("relay_service_started", r["service_start_s"]),
+                ("relay_service_ended", r["service_end_s"]),
+                ("relay_returned", r["return_s"]),
+                ("relay_released", r["drone_released_s"]),
+                ("relay_energy_ready", r["component_released_s"]),
+            ]:
+                if t <= tick + 1e-8:
+                    events.append((t, p["plan_id"], r, kind, []))
         for t, pid, r, kind, ids in sorted(
             events, key=lambda e: (e[0], e[1], e[2]["sortie_id"], e[3])
         ):
@@ -157,6 +175,11 @@ class SimulationEngine:
                     "sortie_id": r["sortie_id"],
                     "drone_id": r["drone_id"],
                     "battery_id": r["battery_id"],
+                    **(
+                        {"component_id": r["component_id"]}
+                        if r.get("component_id")
+                        else {}
+                    ),
                     "cargo_ids": ids,
                     "source": "simulation",
                 }
@@ -194,8 +217,12 @@ class SimulationEngine:
             if e["event_type"] == "drone.unavailable"
         }
         initial, snapshot, _ = self.plan_data(session, value["initial_plan_id"])
+        schedule = [*schedule, *self.relay_schedule(session, value)]
         result = []
-        for drone in snapshot["scenario"]["drones"]:
+        for drone in [
+            *snapshot["scenario"]["drones"],
+            *snapshot["scenario"].get("communication", {}).get("relay_drones", []),
+        ]:
             uses = [
                 item for item in schedule if item[2]["drone_id"] == drone["drone_id"]
             ]
@@ -214,6 +241,7 @@ class SimulationEngine:
             soc_time = None
             sid = None
             bid = None
+            component = None
             loaded = []
             pid = initial["plan_id"]
             if active:
@@ -221,6 +249,7 @@ class SimulationEngine:
                 pid = p["plan_id"]
                 sid = r["sortie_id"]
                 bid = r["battery_id"]
+                component = r.get("component_id")
                 segment = next(
                     (x for x in stages if x["start_s"] <= tick < x["end_s"]), None
                 )
@@ -260,11 +289,47 @@ class SimulationEngine:
                     "phase": phase,
                     "sortie_id": sid,
                     "battery_id": bid,
+                    "component_id": component,
                     "cargo_ids": loaded,
                     "quality": "simulated",
                     "active_plan_id": pid,
                 }
             )
+        return result
+
+    def relay_schedule(self, session, value):
+        result = []
+        for part in value["schedule_parts"]:
+            p, snap, stages = self.plan_data(session, part["plan_id"])
+            allowed = part.get(
+                "relay_sortie_ids",
+                (
+                    [r["relay_sortie_id"] for r in p.get("relay_sorties", [])]
+                    if part["role"] == "initial"
+                    else []
+                ),
+            )
+            for r in p.get("relay_sorties", []):
+                if r["relay_sortie_id"] in allowed:
+                    projection = {
+                        **r,
+                        "sortie_id": r["relay_sortie_id"],
+                        "battery_id": None,
+                        "battery_released_s": r["component_released_s"],
+                        "cargo_ids": [],
+                    }
+                    result.append(
+                        (
+                            p,
+                            snap,
+                            projection,
+                            [
+                                x
+                                for x in stages["trajectory_segments"]
+                                if x["sortie_id"] == r["relay_sortie_id"]
+                            ],
+                        )
+                    )
         return result
 
     def view(self, session, row, advance=True):

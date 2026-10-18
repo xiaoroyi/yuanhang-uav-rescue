@@ -15,6 +15,8 @@ const phaseLabel = {
   turnaround: '周转',
   charge_wait: '待充',
   charge: '充电',
+  relay_link: '中继建链',
+  relay_service: '中继服务',
 }
 export function StageCharts({ plan, selected }: { plan: Plan; selected: string }) {
   const [mode, setMode] = useState<'height' | 'soc' | 'energy' | 'phases'>('height')

@@ -148,6 +148,8 @@ class TrajectorySegment(OperationDTO):
         "turnaround",
         "charge_wait",
         "charge",
+        "relay_link",
+        "relay_service",
     ]
     start_s: float
     end_s: float
@@ -219,11 +221,19 @@ class ExecutionFact(OperationDTO):
         "released",
         "battery_ready",
         "plan_adopted",
+        "relay_started",
+        "relay_arrived",
+        "relay_service_started",
+        "relay_service_ended",
+        "relay_returned",
+        "relay_released",
+        "relay_energy_ready",
     ]
     plan_id: str
     sortie_id: str | None
     drone_id: str | None
     battery_id: str | None
+    component_id: str | None = None
     cargo_ids: list[str]
     source: Literal["simulation"] = "simulation"
 
@@ -243,6 +253,7 @@ class TelemetrySample(OperationDTO):
     phase: str
     sortie_id: str | None
     battery_id: str | None = None
+    component_id: str | None = None
     cargo_ids: list[str]
     quality: Literal["simulated", "stale", "missing"]
     active_plan_id: str
@@ -251,6 +262,7 @@ class TelemetrySample(OperationDTO):
 class ExecutionSchedulePart(OperationDTO):
     plan_id: str
     sortie_ids: list[str]
+    relay_sortie_ids: list[str] = Field(default_factory=list)
     role: Literal["initial", "commitment", "future"]
 
 
@@ -431,7 +443,7 @@ class OperationCapabilities(OperationDTO):
     commitment_repair: Literal["transport_committed_prefix_future_only"] = (
         "transport_committed_prefix_future_only"
     )
-    relay_simulation: Literal[False] = False
+    relay_simulation: Literal[True] = True
     weather_information: Literal[False] = False
     weather_thresholds: Literal[False] = False
     weather_energy: Literal[False] = False

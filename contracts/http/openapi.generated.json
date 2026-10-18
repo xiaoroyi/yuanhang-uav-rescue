@@ -6019,7 +6019,14 @@
               "returned",
               "released",
               "battery_ready",
-              "plan_adopted"
+              "plan_adopted",
+              "relay_started",
+              "relay_arrived",
+              "relay_service_started",
+              "relay_service_ended",
+              "relay_returned",
+              "relay_released",
+              "relay_energy_ready"
             ],
             "title": "Kind"
           },
@@ -6059,6 +6066,17 @@
               }
             ],
             "title": "Battery Id"
+          },
+          "component_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Component Id"
           },
           "cargo_ids": {
             "items": {
@@ -6101,6 +6119,13 @@
             },
             "type": "array",
             "title": "Sortie Ids"
+          },
+          "relay_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Relay Sortie Ids"
           },
           "role": {
             "type": "string",
@@ -8035,9 +8060,9 @@
           },
           "relay_simulation": {
             "type": "boolean",
-            "const": false,
+            "const": true,
             "title": "Relay Simulation",
-            "default": false
+            "default": true
           },
           "weather_information": {
             "type": "boolean",
@@ -11693,6 +11718,17 @@
             ],
             "title": "Battery Id"
           },
+          "component_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Component Id"
+          },
           "cargo_ids": {
             "items": {
               "type": "string"
@@ -12195,7 +12231,9 @@
               "handover",
               "turnaround",
               "charge_wait",
-              "charge"
+              "charge",
+              "relay_link",
+              "relay_service"
             ],
             "title": "Phase"
           },

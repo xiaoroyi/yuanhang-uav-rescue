@@ -1449,7 +1449,14 @@
             "returned",
             "released",
             "battery_ready",
-            "plan_adopted"
+            "plan_adopted",
+            "relay_started",
+            "relay_arrived",
+            "relay_service_started",
+            "relay_service_ended",
+            "relay_returned",
+            "relay_released",
+            "relay_energy_ready"
           ],
           "title": "Kind",
           "type": "string"
@@ -1491,6 +1498,18 @@
           ],
           "title": "Battery Id"
         },
+        "component_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Component Id"
+        },
         "cargo_ids": {
           "items": {
             "type": "string"
@@ -1531,6 +1550,13 @@
             "type": "string"
           },
           "title": "Sortie Ids",
+          "type": "array"
+        },
+        "relay_sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Relay Sortie Ids",
           "type": "array"
         },
         "role": {
@@ -2105,8 +2131,8 @@
           "type": "string"
         },
         "relay_simulation": {
-          "const": false,
-          "default": false,
+          "const": true,
+          "default": true,
           "title": "Relay Simulation",
           "type": "boolean"
         },
@@ -3378,6 +3404,18 @@
           "default": null,
           "title": "Battery Id"
         },
+        "component_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Component Id"
+        },
         "cargo_ids": {
           "items": {
             "type": "string"
@@ -3511,7 +3549,9 @@
             "handover",
             "turnaround",
             "charge_wait",
-            "charge"
+            "charge",
+            "relay_link",
+            "relay_service"
           ],
           "title": "Phase",
           "type": "string"

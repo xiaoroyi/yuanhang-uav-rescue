@@ -109,12 +109,6 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         "该任务已有活动演练，请继续原记录或复制输入。",
                     )
             snap = require(session, SnapshotRow, p.snapshot_id, error).content
-            if p.content.get("relay_sorties"):
-                raise error(
-                    422,
-                    "UNSUPPORTED_SCOPE",
-                    "联合方案的中继执行阶段尚在实现，可查看完整通信规划与分析；当前不能以仅运输仿真冒充联合执行。",
-                )
             if validate(snap, p.content)["status"] != "passed":
                 raise error(422, "VALIDATION_FAILED", "方案未通过启动前独立复核。")
             eid = identity("EXE")
@@ -135,6 +129,10 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     {
                         "plan_id": p.id,
                         "sortie_ids": [r["sortie_id"] for r in p.content["sorties"]],
+                        "relay_sortie_ids": [
+                            r["relay_sortie_id"]
+                            for r in p.content.get("relay_sorties", [])
+                        ],
                         "role": "initial",
                     }
                 ],

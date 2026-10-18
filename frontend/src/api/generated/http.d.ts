@@ -2172,7 +2172,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "loaded" | "takeoff" | "delivered" | "returned" | "released" | "battery_ready" | "plan_adopted";
+            kind: "loaded" | "takeoff" | "delivered" | "returned" | "released" | "battery_ready" | "plan_adopted" | "relay_started" | "relay_arrived" | "relay_service_started" | "relay_service_ended" | "relay_returned" | "relay_released" | "relay_energy_ready";
             /** Plan Id */
             plan_id: string;
             /** Sortie Id */
@@ -2181,6 +2181,8 @@ export interface components {
             drone_id: string | null;
             /** Battery Id */
             battery_id: string | null;
+            /** Component Id */
+            component_id?: string | null;
             /** Cargo Ids */
             cargo_ids: string[];
             /**
@@ -2196,6 +2198,8 @@ export interface components {
             plan_id: string;
             /** Sortie Ids */
             sortie_ids: string[];
+            /** Relay Sortie Ids */
+            relay_sortie_ids?: string[];
             /**
              * Role
              * @enum {string}
@@ -2846,10 +2850,10 @@ export interface components {
             commitment_repair: "transport_committed_prefix_future_only";
             /**
              * Relay Simulation
-             * @default false
+             * @default true
              * @constant
              */
-            relay_simulation: false;
+            relay_simulation: true;
             /**
              * Weather Information
              * @default false
@@ -4101,6 +4105,8 @@ export interface components {
             sortie_id: string | null;
             /** Battery Id */
             battery_id?: string | null;
+            /** Component Id */
+            component_id?: string | null;
             /** Cargo Ids */
             cargo_ids: string[];
             /**
@@ -4257,7 +4263,7 @@ export interface components {
              * Phase
              * @enum {string}
              */
-            phase: "prepare" | "climb" | "cruise" | "descent" | "handover" | "turnaround" | "charge_wait" | "charge";
+            phase: "prepare" | "climb" | "cruise" | "descent" | "handover" | "turnaround" | "charge_wait" | "charge" | "relay_link" | "relay_service";
             /** Start S */
             start_s: number;
             /** End S */

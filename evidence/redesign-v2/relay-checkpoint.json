@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-18T09:46:53.456710+00:00",
+  "service_source_sha256": "27d06f605be2e9da2796d245593c17e4c54c4705285f32f626284fa1c3bd41d4",
+  "frontend_source_sha256": "e1e73347716bbe895443499bb8e493fa04fac7ccd95999b3d5ab7d4448d3cdd4",
+  "verification_source_sha256": "3accee66ad31ef3eecc40093be8335226b30176e56111f694dd202fece71210d",
+  "command": ".venv/Scripts/python -m pytest tests/backend/test_operations.py tests/backend/test_execution_v2.py tests/backend/test_relay_execution_v2.py tests/test_operation_contracts.py -q",
+  "passed": 11,
+  "duration_s": 53.71,
+  "lint": true,
+  "typescript_build": true,
+  "scope": "new mission/execution core plus current independent revalidation and simulation of saved joint compact candidate",
+  "full_regression": false,
+  "browser_for_this_increment": false,
+  "real_devices": false
+}

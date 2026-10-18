@@ -18,7 +18,7 @@ R00—R24唯一状态源为docs/task-board.json；本表是迁移索引。复用
 | F12 导出启动 | 原export/report/launch + 执行export | 原导出恢复已验；执行包重载待做 |
 | F13 限制区 | 原routing/ZoneManager；准备区域 | 保留静态约束，时高扩展未具备 |
 | F14 DEM资产 | terrain-assets/TerrainManager | 生产/maps修复，高级3D迁移继续 |
-| F15 通信协同 | 原joint/radio/CommunicationPanel | 静态保留；中继模拟尚未实现，启动阻断 |
+| F15 通信协同 | 原joint/radio + RFC018阶段/账本/模拟 | 静态联合模拟11项组合已验；联合在途窗口修复待做 |
 | F16 多事件 | 旧4分支 + 执行退出/需求/落点 | 新库存/承诺阻断已测，气象事件待做 |
 | F17 依赖修复 | affected_closure + 承诺前缀 | 实际剩余求解，未证明最小改动 |
 | F18 地面容量 | 原resource_limits/what-if | 有限地面在途模型保守冻结，专项待验 |

@@ -16,6 +16,7 @@ import { ops, type Execution, type Mission, type Repair } from '../api/operation
 import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
 import { ResourceTimeline } from '../components/ResourceTimeline'
+import { CommunicationPanel } from '../components/CommunicationPanel'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { navigate } from './App'
@@ -41,6 +42,7 @@ export function ExecutionWorkspace({
   const [eventOpen, setEventOpen] = useState(false)
   const [preview, setPreview] = useState<Repair | null>(null)
   const [fault, setFault] = useState(false)
+  const [communicationOpen, setCommunicationOpen] = useState(false)
   const execution = useQuery({
     queryKey: ['execution', id],
     queryFn: () => ops.execution(id),
@@ -328,6 +330,8 @@ export function ExecutionWorkspace({
                           available: '待命',
                           ready: '待开始',
                           unavailable: '停用',
+                          relay_link: '中继建链',
+                          relay_service: '中继服务',
                         }[d.phase] || d.phase}
                   </span>
                 </strong>
@@ -365,6 +369,7 @@ export function ExecutionWorkspace({
             plan={initialPlan.data}
             routeSets={routeSets}
             telemetry={e.telemetry}
+            playTime={e.time_s}
             selected={null}
             onSelect={(value) => {
               const sid = value.includes(':') ? value.split(':').at(-1) : value
@@ -404,6 +409,12 @@ export function ExecutionWorkspace({
               </dd>
               <dt>在机箱件</dt>
               <dd>{selectedDevice.cargo_ids.join(' · ') || '无'}</dd>
+              <dt>能源实体</dt>
+              <dd>
+                {selectedDevice.component_id
+                  ? `中继组件 ${selectedDevice.component_id}`
+                  : selectedDevice.battery_id || '未装载 / 未观测'}
+              </dd>
               <dt>采用计划</dt>
               <dd>
                 <code>{selectedDevice.active_plan_id}</code>
@@ -417,6 +428,9 @@ export function ExecutionWorkspace({
       <div className="v2-execution-bottom">
         <div className="v2-section-bar">
           <h3>初始计划排程 · 用于与模拟事实核对</h3>
+          {!!initialPlan.data?.communication_report && (
+            <Button onClick={() => setCommunicationOpen(true)}>通信与中继时序</Button>
+          )}
           <a href={`#/missions/${mission.mission_id}/review`}>
             查看复盘
             <ArrowRight size={13} />
@@ -434,6 +448,24 @@ export function ExecutionWorkspace({
           />
         )}
       </div>
+      <Modal
+        title="通信与中继时序"
+        open={communicationOpen}
+        onOpenChange={setCommunicationOpen}
+        wide
+      >
+        {initialPlan.data && (
+          <CommunicationPanel
+            plan={initialPlan.data}
+            scenario={baseScenario}
+            selected={null}
+            onSelect={(sid) => {
+              const d = e.telemetry.find((t) => t.sortie_id === sid)
+              if (d) setSelected(d.device_id)
+            }}
+          />
+        )}
+      </Modal>
       {!!changes.data?.length && (
         <div className="v2-change-list">
           {changes.data.map((change) => (
