@@ -82,4 +82,7 @@ def verification_fingerprint(root):
         if p.suffix in (".py", ".json") and "__pycache__" not in p.parts
     ]
     files += list(root.glob("requirements*.txt")) + list(root.glob("*.cmd"))
+    # These published input examples are consumed by real browser acceptance tests.
+    # Generated solve-result artifacts remain outside the verification identity.
+    files += list((root / "submission/examples").glob("scenario-*.json"))
     return hash_files(root, files)

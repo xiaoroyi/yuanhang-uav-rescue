@@ -61,3 +61,7 @@ $env:YUANHANG_RUNTIME = (Resolve-Path .local/restored-data).Path
 tests/engineering覆盖有效构建不调用Node/npm、源码/产物变化、资源路径限制、旧服务与其他数据目录拒绝复用、离线重建、相对数据路径、运行中WAL内容备份、原方案/快照HTTP恢复、资产字节、重复备份不递归、已有目录不覆盖、损坏/穿越/重复/清单外归档拒绝。
 
 evidence/engineering/startup-smoke.json记录实际8000服务的启动身份与重复启动复用；backup-smoke.json记录当前演示库2个场景/3份方案恢复至新目录，原始JSON记录和HTTP输出都一致。evidence/browser/production-offline.json记录生产构建在仅允许本机HTTP(S)请求时的求解、确认、故障重规划和导出，外网请求与控制台错误均为空。
+
+Solver与单点诊断CLI拒绝输入/输出为同一解析路径，并用共享严格JSON读取器拒绝重复键，避免覆盖场景或静默选取重名字段。相应真实子进程负例与原单点诊断共24项专项通过，原输入字节保持，见tests/solver/test_cli_inputs.py。
+
+完整验收身份另包含submission/examples/scenario-*.json，因为真实浏览器用例读取这些输入；生成的solve-result等输出不纳入身份，避免产物更新冒充源码变化。相应工程回归验证了输入变化会使身份失效、运行输出不会。

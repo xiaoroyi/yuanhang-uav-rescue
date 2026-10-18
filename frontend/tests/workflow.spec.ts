@@ -424,6 +424,7 @@ test('点击真实架次追溯通信来源，窗口导出与地图联动保持�
   expect(exported.gateway_at_base).toEqual(snapshot.scenario.base)
   await expect(evidence.getByLabel('通信链路来源')).toContainText(relay.drone_id)
   await expect(evidence.getByLabel('通信链路来源')).toContainText(relay.component_id)
+  await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
   for (const [width, height] of [
     [1440, 900],
     [1280, 720],
@@ -433,6 +434,13 @@ test('点击真实架次追溯通信来源，窗口导出与地图联动保持�
     await evidence.screenshot({
       path: path.resolve(`../evidence/browser/verified/communication-source-${width}.png`),
     })
+    if (width === 1280) {
+      await evidence.locator('.coverage-source-detail').scrollIntoViewIfNeeded()
+      await expect(evidence.locator('.coverage-source-provenance')).toBeInViewport()
+      await page.screenshot({
+        path: path.resolve('../evidence/browser/verified/communication-source-detail-1280.png'),
+      })
+    }
   }
   await page.setViewportSize({ width: 390, height: 844 })
   await evidence.scrollIntoViewIfNeeded()
@@ -551,6 +559,11 @@ async function screenshot(page: Page, name: string) {
   await page.locator('.main-content').evaluate((element) => {
     element.scrollTop = 0
   })
+  await page.locator('.strategy-column').evaluateAll((elements) =>
+    elements.forEach((e) => {
+      e.scrollTop = 0
+    }),
+  )
   await page.evaluate(() => document.fonts.ready)
   await fs.mkdir(path.resolve('../evidence/browser/verified'), { recursive: true })
   await page.screenshot({ path: path.resolve(`../evidence/browser/verified/${name}.png`) })
@@ -1030,6 +1043,97 @@ test('手机窄屏仍可切页和运行计算', async ({ page }) => {
     true,
   )
   await screenshot(page, 'scenario-mobile')
+})
+
+test('三种偏好共享真实快照，保留硬截止并分别计算与恢复', async ({ page, request }) => {
+  test.setTimeout(120000)
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(e.message))
+  const sid = await page.getByLabel('选择场景').inputValue()
+  const scene = JSON.parse(
+    await fs.readFile(path.resolve('../submission/examples/scenario-preferences.json'), 'utf8'),
+  )
+  scene.scenario_id = sid
+  expect(
+    (
+      await request.put(`/api/v1/scenarios/${sid}`, {
+        data: { expected_state_version: 1, scenario: scene },
+      })
+    ).ok(),
+  ).toBe(true)
+  await page.reload()
+  await solve(page)
+  await page.getByRole('button', { name: '真实计算此策略', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.locator('.strategy-metrics')).toHaveCount(2)
+  await page.getByRole('button', { name: '真实计算均衡策略', exact: true }).click()
+  await expect(page.locator('.job-banner')).toBeVisible()
+  await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect(page.getByRole('button', { name: '当前均衡方案', exact: true })).toBeVisible()
+  await expect(page.locator('.strategy-metrics')).toHaveCount(2)
+  const summaries = await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()
+  expect(summaries).toHaveLength(3)
+  const plans = await Promise.all(
+    summaries.map(async (p: { plan_id: string }) =>
+      (await request.get(`/api/v1/plans/${p.plan_id}`)).json(),
+    ),
+  )
+  expect(new Set(plans.map((p) => p.snapshot_id)).size).toBe(1)
+  expect(new Set(plans.map((p) => p.objective))).toEqual(new Set(['time', 'energy', 'balanced']))
+  const snapshot = await (await request.get(`/api/v1/snapshots/${plans[0].snapshot_id}`)).json()
+  expect(
+    snapshot.scenario.demands.every(
+      (d: { expected_deadline_s: number | null }) => d.expected_deadline_s === null,
+    ),
+  ).toBe(true)
+  expect(
+    snapshot.scenario.demands.map((d: { hard_deadline_s: number | null }) => d.hard_deadline_s),
+  ).toEqual(scene.demands.map((d: { hard_deadline_s: number | null }) => d.hard_deadline_s))
+  for (const p of plans) {
+    expect(p.validation.status).toBe('passed')
+    expect(new Set(p.sorties.flatMap((r: { cargo_ids: string[] }) => r.cargo_ids)).size).toBe(32)
+    const analysis = await (await request.get(`/api/v1/plans/${p.plan_id}/analysis`)).json()
+    expect(analysis.delivery.weighted_box_delay_s).toBe(0)
+  }
+  const time = plans.find((p) => p.objective === 'time'),
+    energy = plans.find((p) => p.objective === 'energy'),
+    balanced = plans.find((p) => p.objective === 'balanced')
+  expect(time.metrics.makespan_s).toBeLessThanOrEqual(energy.metrics.makespan_s + 1e-6)
+  expect(energy.metrics.energy_kwh).toBeLessThanOrEqual(time.metrics.energy_kwh + 1e-6)
+  const score = (p: typeof time) => p.metrics.makespan_s + 300 * p.metrics.energy_kwh
+  expect(score(balanced)).toBeLessThanOrEqual(Math.min(score(time), score(energy)) + 1e-6)
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await page.locator('.strategy-panel').scrollIntoViewIfNeeded()
+    await screenshot(page, `three-preferences-${width}`)
+    if (width === 390) {
+      await page.locator('.strategy-panel').scrollIntoViewIfNeeded()
+      await page
+        .locator('.strategy-panel')
+        .screenshot({
+          path: path.resolve('../evidence/browser/verified/three-preferences-panel-390.png'),
+        })
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      ),
+    ).toBeLessThanOrEqual(2)
+  }
+  await page.reload()
+  await expect(page.getByRole('button', { name: '当前均衡方案', exact: true })).toBeVisible()
+  await expect(page.locator('.strategy-metrics')).toHaveCount(2)
+  expect((await (await request.get(`/api/v1/scenarios/${sid}/solve-jobs`)).json()).length).toBe(3)
+  await fs.writeFile(
+    path.resolve('../evidence/browser/three-preferences.json'),
+    JSON.stringify({ snapshot, plans, page_errors: errors }, null, 2) + '\n',
+  )
+  expect(errors).toEqual([])
 })
 
 test('资源分析绑定基线快照，增配试算创建独立场景并真实求解', async ({ page, request }) => {

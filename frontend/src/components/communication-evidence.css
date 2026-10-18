@@ -166,6 +166,9 @@
   margin: 10px 0;
   overflow-wrap: anywhere;
 }
+.coverage-scroll-hint {
+  display: none;
+}
 .coverage-source-provenance {
   font:
     10px/1.8 ui-monospace,
@@ -199,6 +202,12 @@
   }
 }
 @media (max-width: 600px) {
+  .coverage-scroll-hint {
+    display: block;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #6b8177;
+  }
   .communication-evidence {
     padding: 18px 12px 0;
   }

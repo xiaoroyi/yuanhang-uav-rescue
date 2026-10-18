@@ -1,0 +1,20 @@
+{
+  "source": "solver.adapters.contest.compact_scenario; subset of provided contest data",
+  "changes": [
+    "Scenario identity and visible location names replaced; no personal author data",
+    "data_origin=user_input",
+    {
+      "cargo_id": "S001-MED-01",
+      "before": {
+        "mass_kg": 3.0,
+        "volume_l": 12.0
+      },
+      "after": {
+        "mass_kg": 4,
+        "volume_l": 15
+      }
+    }
+  ],
+  "scenario_content_hash": "7f50261f687386450448e543e4c31afd38bae9818da8c5f0db114ab40ec0a2e2",
+  "notice": "Personal identifiers excluded from this example; geographic coordinates and supplied DEM remain. This is not a formal contest anonymity/compliance certification."
+}

@@ -170,6 +170,9 @@ export function CommunicationEvidence({
           </tbody>
         </table>
       </div>
+      {windows.length > 0 && (
+        <p className="coverage-scroll-hint">窄屏表格可左右滑动，查看时长与来源任务。</p>
+      )}
       {!windows.length && (
         <p className="coverage-source-note">
           该架次没有可展示的来源窗口，请查看原始Plan和独立检查报告。

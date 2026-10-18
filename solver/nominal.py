@@ -12,7 +12,12 @@ import hashlib
 import math
 import time
 
-from shared.contracts import content_hash, has_execution_facts, validate_snapshot
+from shared.contracts import (
+    content_hash,
+    has_execution_facts,
+    validate_snapshot,
+    read_json,
+)
 from solver.errors import InputNotReady
 from solver.physics import evaluate_route, leg, leg_values, parameters
 
@@ -551,11 +556,14 @@ def main():
     args = parser.parse_args()
     if args.scenario and args.scenario.resolve() == args.output.resolve():
         parser.error("输出路径不能覆盖输入场景。")
-    s = (
-        json.loads(args.scenario.read_text(encoding="utf-8"))
-        if args.scenario
-        else (contest_scenario if args.example == "contest" else compact_scenario)()
-    )
+    try:
+        s = (
+            read_json(args.scenario)
+            if args.scenario
+            else (contest_scenario if args.example == "contest" else compact_scenario)()
+        )
+    except (OSError, ValueError) as exc:
+        parser.error("无法读取场景JSON：" + str(exc))
     snapshot = dict(
         schema_version=s["schema_version"],
         snapshot_id="SNAP-NOM-" + uuid.uuid4().hex[:16].upper(),

@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import uuid
 
-from shared.contracts import content_hash
+from shared.contracts import content_hash, read_json
 from solver.adapters.contest import (
     compact_scenario,
     contest_scenario,
@@ -29,11 +29,18 @@ def main():
     )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    s = (
-        json.loads(args.scenario.read_text(encoding="utf-8"))
-        if args.scenario
-        else (compact_scenario() if args.example == "compact" else contest_scenario())
-    )
+    if args.scenario and args.scenario.resolve() == args.output.resolve():
+        parser.error("输出路径不能覆盖输入场景。")
+    try:
+        s = (
+            read_json(args.scenario)
+            if args.scenario
+            else (
+                compact_scenario() if args.example == "compact" else contest_scenario()
+            )
+        )
+    except (OSError, ValueError) as exc:
+        parser.error("无法读取场景JSON：" + str(exc))
     if args.communication:
         s["communication"] = s.get("communication") or contest_communication(s)
         s["policy"]["requires_communication"] = True

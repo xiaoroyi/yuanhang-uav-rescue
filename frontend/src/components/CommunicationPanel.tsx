@@ -67,7 +67,7 @@ export function CommunicationPanel({
           <strong>
             {joint.relay_sortie_count} <em>/ {report.windows.length}</em>
           </strong>
-          <span>全阶段活动 {clock(report.transport_active_s)}</span>
+          <span>起飞至返航累计 {clock(report.transport_active_s)}</span>
         </div>
       </div>
       {relays.length > 0 && (

@@ -1,0 +1,1190 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: workflow.spec.ts >> 单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景
+- Location: tests/workflow.spec.ts:12:1
+
+# Error details
+
+```
+Test timeout of 90000ms exceeded.
+```
+
+# Page snapshot
+
+```yaml
+- generic:
+  - generic:
+    - generic:
+      - generic [aria-hidden]:
+        - banner:
+          - generic:
+            - button
+            - generic: 救援工作空间
+            - strong: 场景与资源
+          - generic:
+            - button
+            - generic: A
+        - main:
+          - generic:
+            - generic:
+              - generic:
+                - combobox
+                - generic: 15 个需求点 80 箱物资 场景起点 00:00
+            - generic:
+              - button: 新建演练
+              - generic:
+                - button
+          - generic:
+            - generic:
+              - generic:
+                - generic: SCENARIO & RESOURCES
+                - heading [level=1]: 让每一份现场信息，都有据可依
+                - paragraph: 管理需求、逐箱库存与机队状态，保存后生成新的可追溯版本。
+            - generic:
+              - generic:
+                - generic:
+                  - generic: 场景数据
+                  - strong:
+                    - text: 题设数据
+                    - generic: v1
+              - generic:
+                - generic:
+                  - generic: 救援需求点
+                  - strong:
+                    - text: "15"
+                    - emphasis: 处
+              - generic:
+                - generic:
+                  - generic: 实际箱件库存
+                  - strong:
+                    - text: "80"
+                    - emphasis: 箱
+              - generic:
+                - generic:
+                  - generic: 当前可用运输机
+                  - strong:
+                    - text: "8"
+                    - emphasis: 架
+              - button: 场景设置
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 资源清单
+                  - generic:
+                    - button: 单点运输诊断
+                    - button: 导入
+                    - link:
+                      - /url: /api/v1/scenarios/SCN-C424406137E24213/template?format=xlsx
+                      - text: Excel模板
+                    - button
+                - generic:
+                  - button:
+                    - text: 需求点
+                    - generic: "15"
+                  - button:
+                    - text: 救援需求
+                    - generic: "80"
+                  - button:
+                    - text: 箱件库存
+                    - generic: "80"
+                  - button:
+                    - text: 运输机
+                    - generic: "8"
+                  - button:
+                    - text: 电池
+                    - generic: "14"
+                  - button:
+                    - text: 机型参数
+                    - generic: "3"
+                - generic:
+                  - generic:
+                    - textbox:
+                      - /placeholder: 搜索箱件库存编号或属性…
+                  - generic:
+                    - button: 添加箱件库存
+                - generic:
+                  - table:
+                    - rowgroup:
+                      - row:
+                        - columnheader: 箱件编号
+                        - columnheader: 物资类型
+                        - columnheader: 质量 / kg
+                        - columnheader: 体积 / L
+                        - columnheader: 当前状态
+                        - columnheader: 操作
+                    - rowgroup:
+                      - row:
+                        - cell: S001-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-MED-02
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-04
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-05
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-06
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-07
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-WAT-08
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-FOD-02
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-FOD-03
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S001-HYG-02
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-WAT-04
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-FOD-02
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S002-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-WAT-04
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-FOD-02
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S003-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S004-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S005-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-WAT-03
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S006-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S007-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S007-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S007-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S007-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S007-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S008-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S008-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S008-WAT-02
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S008-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S008-HYG-01
+                        - cell: 卫生用品
+                        - cell: "6"
+                        - cell: "35"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S009-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S009-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S009-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S010-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S010-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S010-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S011-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S011-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S011-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S012-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S012-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S012-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S013-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S013-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S013-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S014-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S014-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S014-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S015-MED-01
+                        - cell: 医疗物资
+                        - cell: "3"
+                        - cell: "12"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S015-WAT-01
+                        - cell: 饮用水
+                        - cell: "14"
+                        - cell: "27"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                      - row:
+                        - cell: S015-FOD-01
+                        - cell: 应急食品
+                        - cell: "8"
+                        - cell: "28"
+                        - cell:
+                          - generic: 可用
+                        - cell:
+                          - generic:
+                            - button
+                            - button
+                - generic: 共 80 条箱件库存记录
+              - complementary:
+                - generic:
+                  - generic:
+                    - heading [level=3]: 地形资产
+                    - generic: 已绑定
+                  - paragraph: 原题30米DEM · 只读归档
+                  - code: SHA256 c68703e0cc8f94f4bd52…
+                  - button: 管理DEM资产
+                - generic:
+                  - generic:
+                    - heading [level=3]: 限制区与缓冲
+                    - generic: 0 处
+                  - paragraph: 静态区域全时禁止穿越。路线、能耗和计划回放随绕行重新计算。
+                  - button: 管理限制区
+                - generic:
+                  - generic:
+                    - heading [level=3]: 通信与中继
+                    - generic: 仅运输
+                  - paragraph: 需要连续通信时，联合安排中继位置、服务时窗与能源组件。
+                  - button: 配置通信资源
+                - generic:
+                  - generic:
+                    - generic:
+                      - region
+                      - button:
+                        - generic: O
+                      - button:
+                        - generic: "1"
+                      - button:
+                        - generic: "2"
+                      - button:
+                        - generic: "3"
+                      - button:
+                        - generic: "4"
+                      - button:
+                        - generic: "5"
+                      - button:
+                        - generic: "6"
+                      - button:
+                        - generic: "7"
+                      - button:
+                        - generic: "8"
+                      - button:
+                        - generic: "9"
+                      - button:
+                        - generic: "10"
+                      - button:
+                        - generic: "11"
+                      - button:
+                        - generic: "12"
+                      - button:
+                        - generic: "13"
+                      - button:
+                        - generic: "14"
+                      - button:
+                        - generic: "15"
+                      - generic: 5 km
+                    - generic:
+                      - generic:
+                        - text: 场景地图
+                        - generic: WGS84
+                      - generic: 题设DEM · 离线
+                    - generic:
+                      - button
+                      - button
+                      - button
+                      - button
+                    - generic:
+                      - text: "N"
+                      - generic: ↑
+                    - generic:
+                      - generic: 调度中心
+                      - generic: 需求点
+                      - generic: 运输航线
+                    - generic: 离线可用 · 图上路线为任务级建议
+                  - generic: 凤丹村无人机调度中心 → 15 个需求点
+  - dialog [active] [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - heading "单点运输能力诊断" [level=2] [ref=e6]
+        - paragraph [ref=e7]: 基于当前不可变快照，重新计算安全载重、整箱组合与返航余量敏感性。
+      - button "关闭弹窗" [ref=e8] [cursor=pointer]
+    - generic "单点运输诊断结果" [ref=e12]:
+      - generic [ref=e16]:
+        - strong [ref=e17]: 额定满电 · SOH 100% · 单点往返
+        - paragraph [ref=e18]: 检验机型能力与整箱组批。机体数量、电池、充电、时限与通信由正式调度另行评估。
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - text: 输入已冻结
+          - generic [ref=e25]: v1
+        - generic [ref=e26]:
+          - text: 诊断返航余量
+          - combobox "诊断返航余量" [ref=e27]:
+            - option "0.0%"
+            - option "10.0%"
+            - option "20.0%"
+            - option "30.0%" [selected]
+            - option "40.0%"
+            - option "50.0%"
+            - option "60.0%"
+            - option "70.0%"
+            - option "80.0%"
+            - option "90.0%"
+            - option "100.0%"
+        - button "导出诊断" [ref=e28] [cursor=pointer]
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - generic [ref=e34]: 有限单点模型 · 最少架次
+            - strong [ref=e35]:
+              - text: "20"
+              - emphasis [ref=e36]: 架次
+            - generic [ref=e37]: 完整需求 80 箱 · 15 站
+          - generic [ref=e38]:
+            - generic [ref=e39]: 额定运输总能耗
+            - strong [ref=e40]:
+              - text: "67.23"
+              - emphasis [ref=e41]: kWh
+            - generic [ref=e42]: 逐航段重建，保留返航余量
+          - generic [ref=e43]:
+            - generic [ref=e44]: 累计作业时长
+            - strong [ref=e45]: 10时09分
+            - generic [ref=e46]: 各批次相加，不是完工时间
+        - generic "组批基线比较" [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: 单箱一架次
+            - generic [ref=e50]: 80 架次
+            - generic [ref=e51]: 138.05 kWh
+          - generic [ref=e52]:
+            - generic [ref=e53]: 确定性贪心组批
+            - generic [ref=e54]: 21 架次
+            - generic [ref=e55]: 70.11 kWh
+          - generic [ref=e56]:
+            - generic [ref=e57]: 完整计数动态规划
+            - generic [ref=e58]: 20 架次
+            - generic [ref=e59]: 67.23 kWh
+        - generic "诊断内容" [ref=e61]:
+          - button "安全载重" [ref=e62] [cursor=pointer]
+          - button "整箱组批" [ref=e63] [cursor=pointer]
+          - button "敏感性与核查" [ref=e64] [cursor=pointer]
+        - generic [ref=e65]:
+          - heading "返航余量敏感性" [level=3] [ref=e66]
+          - paragraph [ref=e67]: 使用同一快照和完整模式库重新组批。提高余量会缩小可行模式集，最少架次不会因此降低。
+          - table "返航余量敏感性" [ref=e69]:
+            - rowgroup [ref=e70]:
+              - row [ref=e71]:
+                - columnheader "诊断余量" [ref=e72]
+                - columnheader "最少架次" [ref=e73]
+                - columnheader "总能耗" [ref=e74]
+                - columnheader "累计作业时长" [ref=e75]
+                - columnheader "状态" [ref=e76]
+            - rowgroup [ref=e77]:
+              - row [ref=e78]:
+                - cell "20.0%" [ref=e79]
+                - cell "18" [ref=e80]
+                - cell "59.131 kWh" [ref=e81]
+                - cell "9时06分" [ref=e82]
+                - cell "完整计算" [ref=e83]
+              - row [ref=e85]:
+                - cell "30.0%" [ref=e86]
+                - cell "20" [ref=e87]
+                - cell "67.228 kWh" [ref=e88]
+                - cell "10时09分" [ref=e89]
+                - cell "完整计算" [ref=e90]
+              - row [ref=e92]:
+                - cell "40.0%" [ref=e93]
+                - cell "—" [ref=e94]
+                - cell "— kWh" [ref=e95]
+                - cell "—" [ref=e96]
+                - cell "部分评估" [ref=e97]
+          - heading "独立核查与适用范围" [level=3] [ref=e99]
+          - generic [ref=e100]:
+            - generic [ref=e101]: 箱件唯一与完整覆盖
+            - generic [ref=e105]: 单站点归属
+            - generic [ref=e109]: 质量与体积
+            - generic [ref=e113]: 航段能耗与额定SOC
+            - generic [ref=e117]: 累计作业时长
+            - generic [ref=e121]: 当前地形与静态路径模型
+          - paragraph [ref=e125]: 额定满电、SOH=100%的单点运输物理诊断，不是实际实体调度Plan。
+          - paragraph [ref=e126]: 不考虑机体/电池数量、充电、并发、物资时限与通信；确认方案仍须正式求解。
+          - paragraph [ref=e127]: 每批只服务一个站点；目标依次为最少架次、最小能耗、最小累计作业时长。
+          - paragraph [ref=e128]: 体积约束单独参与整箱组批，不用未知密度换算最大安全质量。
+          - paragraph [ref=e129]: 切换诊断余量不会修改场景策略；有限模型最少架次不代表多站调度全局最优。
+          - group [ref=e130]:
+            - generic "来源与复现标识" [ref=e131] [cursor=pointer]
+      - generic [ref=e132]: 本次诊断不改变场景策略，也不生成可执行 Plan。
+```

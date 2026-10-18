@@ -39,7 +39,7 @@
 - 经纬度 WGS84 `[longitude, latitude]`；kg、L、m、m/s、kWh、相对秒；SOC/SOH 为 `[0,1]`；绝对时间带时区。缺失值用 `null`，不可拿 0 代替。
 - A 提供纯 Python `solve/replan/validate/capabilities`，不访问 HTTP/SQLite，不修改快照。B 后端只通过稳定入口调用，B 前端只消费 HTTP/Provider。
 - 后端分配场景、快照、Job、Plan ID，算法回显；实体 ID 不得重新编号。Snapshot 不变，Plan 不覆盖，Event 幂等，确认与预约在同一事务。
-- 需求与逐箱库存分离。计划、仿真、实际事实分离；回放不写真实交付。动态事件支持整个场景尚未执行时的零时刻机体或运输电池退出；后续执行状态须单独升级契约。Event为严格类型联合，见RFC-010，不混用drone_id/battery_id。
+- 需求与逐箱库存分离。计划、仿真、实际事实分离；回放不写真实交付。动态事件限整个场景尚未执行的零时刻，支持机体/运输电池/中继能源退出及已有点位新增需求+实物库存；执行中状态须另行升级。Event严格联合见RFC-010/012/013，drone_id/battery_id/component_id各自独立。
 - 资源区间左闭右开。机体释放与电池充电完成不同；显式 `drone_released_s`、`battery_released_s`。
 - Mock 永不算已验证；历史结果永不冒充当前计算。UNKNOWN 不等于 INFEASIBLE；有限模型 OPTIMAL 不等于原题或现实全局最优。
 - 强制地形/通信未评估时，不得发布已验证方案。未知费率不输出人民币；费用、部分保障与在途状态需要后续 RFC，不暗加字段。

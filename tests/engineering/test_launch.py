@@ -87,7 +87,9 @@ def test_source_changes_and_incomplete_or_invalid_builds_are_detected(project, p
     assert not launch.current_frontend()
 
 
-def test_data_and_evidence_do_not_invalidate_source_but_tests_are_tracked(project):
+def test_runtime_outputs_are_ignored_but_acceptance_inputs_and_tests_are_tracked(
+    project,
+):
     initial = (
         service_fingerprint(project),
         frontend_fingerprint(project),
@@ -100,10 +102,22 @@ def test_data_and_evidence_do_not_invalidate_source_but_tests_are_tracked(projec
         frontend_fingerprint(project),
         verification_fingerprint(project),
     )
+    examples = project / "submission/examples"
+    examples.mkdir(parents=True)
+    (examples / "solve-result.json").write_text(
+        '{"plan_id":"GENERATED"}', encoding="utf-8"
+    )
+    assert verification_fingerprint(project) == initial[2]
+    (examples / "scenario-demo.json").write_text(
+        '{"scenario_id":"INPUT"}', encoding="utf-8"
+    )
+    before_tests = verification_fingerprint(project)
+    assert before_tests != initial[2]
+    assert service_fingerprint(project) == initial[0]
     (project / "tests/new_test.py").write_text(
         "def test_case(): pass\n", encoding="utf-8"
     )
-    assert verification_fingerprint(project) != initial[2]
+    assert verification_fingerprint(project) != before_tests
     assert service_fingerprint(project) == initial[0]
     (project / "solver/example.py").write_text("VALUE = 2\n", encoding="utf-8")
     assert service_fingerprint(project) != initial[0]

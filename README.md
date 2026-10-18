@@ -86,4 +86,6 @@ node frontend/scripts/generate-types.mjs
 
 资源分析现提供[运输架次容量必要下界](docs/CAPACITY_BOUNDS.md)，绑定原快照并导出精确比值与箱件见证；它不能用于推算最少机体/电池数量。
 
-实际[操作录像](deliverables/walkthrough.html)包含真实生产构建的求解、策略对照、电池退出重规划和导出，附中文章节与字幕。原始视频为WebM，模型内规划演示，不是实飞记录。
+实际[操作录像说明](deliverables/README.md)包含真实生产构建的求解、策略对照、电池退出重规划和导出，附中文章节与字幕。原始视频为WebM，模型内规划演示，不是实飞记录。
+
+工作台另有“均衡偏好”，与时间/能耗方案共用当前快照。可导入submission/examples/scenario-preferences.json演示清空软截止但保留硬截止的取舍，实际原始结果与范围见 [策略实验](docs/EXPERIMENT_RESULTS.md)。完整接手信息见 [全栈交接报告](docs/SOLO_DELIVERY.md)。

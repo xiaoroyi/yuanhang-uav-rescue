@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Activity,
   ArrowDownToLine,
@@ -31,6 +31,7 @@ import {
   RefreshCw,
   RadioTower,
   Search,
+  Scale,
   Settings2,
   ShieldCheck,
   ShieldAlert,
@@ -47,6 +48,7 @@ import { ResourceAnalysis } from './pages/ResourceAnalysis'
 import { PartitionAnalysis } from './pages/PartitionAnalysis'
 import { UrgentDemandForm, type UrgentPayload } from './pages/UrgentDemandForm'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
+import './components/strategy-balance.css'
 
 type Page = 'workspace' | 'scenario' | 'events'
 const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced: '均衡策略' }
@@ -175,6 +177,7 @@ export default function App() {
   const viewScenario = plan ? planSnapshot.data!.scenario : scenario
   const isBusy = !!(
     submitting ||
+    eventBusy ||
     (job.data &&
       job.data.scenario_id === scenarioId &&
       ['queued', 'running'].includes(job.data.job_state))
@@ -185,15 +188,26 @@ export default function App() {
     () => [...(plans.data || [])].sort((a, b) => b.generated_at.localeCompare(a.generated_at)),
     [plans.data],
   )
-  const otherSummary = sortedPlans.find(
-    (p) => p.snapshot_id === plan?.snapshot_id && p.objective !== plan.objective,
-  )
-  const otherQuery = useQuery({
-    queryKey: ['plan', otherSummary?.plan_id],
-    queryFn: () => api.plan(otherSummary!.plan_id),
-    enabled: !!otherSummary,
+  const comparisonIds = ['time', 'energy', 'balanced']
+    .filter((objective) => objective !== plan?.objective)
+    .map(
+      (objective) =>
+        sortedPlans.find((p) => p.snapshot_id === plan?.snapshot_id && p.objective === objective)
+          ?.plan_id,
+    )
+    .filter((id): id is string => !!id)
+  const comparisonQueries = useQueries({
+    queries: comparisonIds.map((id) => ({ queryKey: ['plan', id], queryFn: () => api.plan(id) })),
   })
-  const otherPlan = otherQuery.data
+  const comparisonPlans = comparisonQueries.map((q) => q.data)
+  const comparisonLoading = comparisonQueries.some((q) => q.isFetching)
+  const comparisonError = comparisonQueries.some((q) => q.isError)
+  const balancedPlan =
+    plan?.objective === 'balanced'
+      ? plan
+      : comparisonPlans.find(
+          (p) => p?.snapshot_id === plan?.snapshot_id && p?.objective === 'balanced',
+        ) || null
 
   const notify = useCallback((message: string, error = false) => {
     const id = Date.now() + Math.random()
@@ -275,7 +289,11 @@ export default function App() {
     const active = scenarioJobs.data.find((j) => ['queued', 'running'].includes(j.job_state))
     const latest = scenarioJobs.data[0]
     if (active) setJobId(active.job_id)
-    else if (!latest.plan_id || !planId) setJobId(latest.job_id)
+    else if (!latest.plan_id || !planId) {
+      // Loading a completed historical job restores state; it is not a new completion.
+      seenJobs.current.add(latest.job_id)
+      setJobId(latest.job_id)
+    }
   }, [jobId, planId, scenarioJobs.data])
   useEffect(() => {
     const value = job.data
@@ -1480,9 +1498,11 @@ export default function App() {
                             const p =
                               plan?.objective === objective
                                 ? plan
-                                : otherPlan?.objective === objective
-                                  ? otherPlan
-                                  : null
+                                : comparisonPlans.find(
+                                    (p) =>
+                                      p?.snapshot_id === plan?.snapshot_id &&
+                                      p?.objective === objective,
+                                  ) || null
                             return (
                               <div
                                 className={`strategy-card ${plan?.objective === objective ? 'strategy-active' : ''}`}
@@ -1520,18 +1540,82 @@ export default function App() {
                                     disabled={
                                       isBusy ||
                                       bindingUnavailable ||
+                                      stale ||
+                                      comparisonLoading ||
+                                      comparisonError ||
                                       scenario.data_origin === 'mock'
                                     }
                                     onClick={() => void runSolver(objective)}
                                   >
-                                    真实计算此策略 <ArrowRight size={12} />
+                                    {objective === 'time' ? '真实计算时间策略' : '真实计算此策略'}{' '}
+                                    <ArrowRight size={12} />
                                   </button>
                                 )}
                               </div>
                             )
                           })}
+                          <div
+                            className={`balanced-strategy ${plan?.objective === 'balanced' ? 'is-active' : ''}`}
+                            title="延期相同后，比较最后返航秒数 + 300 × 能耗(kWh)；启用通信时使用联合指标"
+                          >
+                            <div>
+                              <Scale size={15} />
+                              <strong>均衡偏好</strong>
+                              <small>同样先减期望延期</small>
+                            </div>
+                            {balancedPlan ? (
+                              <>
+                                <span>
+                                  {balancedPlan.joint_metrics ? '联合 · ' : ''}
+                                  {duration(
+                                    balancedPlan.joint_metrics?.joint_makespan_s ??
+                                      balancedPlan.metrics.makespan_s,
+                                  )}{' '}
+                                  ·{' '}
+                                  {number(
+                                    balancedPlan.joint_metrics?.joint_energy_kwh ??
+                                      balancedPlan.metrics.energy_kwh,
+                                    2,
+                                  )}{' '}
+                                  kWh
+                                </span>
+                                <button onClick={() => choosePlan(balancedPlan.plan_id)}>
+                                  {plan?.plan_id === balancedPlan.plan_id
+                                    ? '当前均衡方案'
+                                    : '查看均衡方案'}
+                                  <ChevronRight size={12} />
+                                </button>
+                              </>
+                            ) : (
+                              <button
+                                disabled={
+                                  isBusy ||
+                                  bindingUnavailable ||
+                                  stale ||
+                                  comparisonLoading ||
+                                  comparisonError ||
+                                  scenario.data_origin === 'mock'
+                                }
+                                onClick={() => void runSolver('balanced')}
+                              >
+                                真实计算均衡策略
+                                <ArrowRight size={12} />
+                              </button>
+                            )}
+                          </div>
+                          {comparisonLoading && (
+                            <p className="strategy-footnote">正在读取同快照保存的策略方案…</p>
+                          )}
+                          {comparisonError && (
+                            <button
+                              className="strategy-read-retry"
+                              onClick={() => comparisonQueries.forEach((q) => void q.refetch())}
+                            >
+                              保存方案读取失败，点击重试
+                            </button>
+                          )}
                           <p className="strategy-footnote">
-                            费用未配置，当前不显示人民币。两种策略也可能得到相同结果。
+                            费用未配置，不显示人民币。共同延期目标优先，三种偏好可能得到相同方案。
                           </p>
                         </section>
                         {route && (
