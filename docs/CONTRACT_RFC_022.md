@@ -1,6 +1,6 @@
 # RFC-022：Windows求解进度的暂态读取容错
 
-状态：隔离工作副本实施并专项验证，合入V2后复测。进度仍是原3字段HTTP合同，不改结果/Job终态，也不修改Snapshot/Plan。
+状态：已合入V2并复测，API故障注入3 passed，5.63s；隔离副本3 passed，7.05s。进度仍是原3字段HTTP合同，不改结果/Job终态，也不修改Snapshot/Plan。
 
 全量浏览器真实捕获进度文件atomic replace期间PermissionError造成HTTP500。JobManager现在捕获读取OSError、缺失和不完整/非法JSON，保留最近一次已验证进度样本；阶段文字明确“暂不可读，显示最近记录”。还没有有效样本时显示等待首条有效记录，不把暂态文件错误称作求解失败。
 

@@ -4,6 +4,29 @@ import type { Mission, Execution } from '../src/api/operations'
 
 test.setTimeout(180000)
 
+test('V2 and legacy routes preserve independent theme and motion preferences', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('yuanhang-v2-theme', 'midnight')
+    localStorage.setItem('yuanhang-theme', 'light')
+    localStorage.setItem('yuanhang-motion', 'on')
+  })
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('/')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'midnight')
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'off')
+  await page.goto('/#/workspace')
+  await expect(page.getByRole('button', { name: '暂停动态背景', exact: true })).toBeVisible()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'on')
+  await page.getByRole('link', { name: '返回新版首页', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '救援工作首页', exact: true })).toBeVisible()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'midnight')
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'off')
+  expect(await page.evaluate(() => localStorage.getItem('yuanhang-motion'))).toBe('on')
+  await page.goto('/#/workspace')
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'on')
+})
+
 test('V2 pending events freeze manual advance and an audited misreport correction restores the simulation', async ({
   page,
   request,

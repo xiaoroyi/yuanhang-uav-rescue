@@ -1,0 +1,569 @@
+{
+  "reason": "V2 complete browser regression uses legacy test output paths; preserve V1 evidence bytes and copy actual new run outputs here",
+  "files": [
+    {
+      "generated_source": "evidence/browser/capacity-bound.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/capacity-bound.json",
+      "v2_sha256": "b5c3ccb25b4654c52939af22773f925f9ce301eafc28d492b90fb9aae2b173db",
+      "restored_original_sha256": "c5f89ba568584399349f6a5ddb02ed16c72b883a9d7b4d7c815c8ac6dcf081e5"
+    },
+    {
+      "generated_source": "evidence/browser/communication-source.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/communication-source.json",
+      "v2_sha256": "33562370c4c84c6426b0a720f5da4959eda51d0fdd5569c269b9f93186ee8681",
+      "restored_original_sha256": "a9905a660a672923f4e3f90e3af4582f2e7fc31dd39faa731ae4395f37190eda"
+    },
+    {
+      "generated_source": "evidence/browser/ground-capacity-trial.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/ground-capacity-trial.json",
+      "v2_sha256": "7db2ce352352e3d700d7468265db5018a33dbe747102e38cb51f63b6459b9bba",
+      "restored_original_sha256": "caaaa9b376c9c1e0c6d5334c89d60381f0b754feefbb3a49c988c872966a0a2d"
+    },
+    {
+      "generated_source": "evidence/browser/map-visibility.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/map-visibility.json",
+      "v2_sha256": "698752936ef4642dd0ae8905f5681fc231752af8e3a13fd586bae370cd3eedda",
+      "restored_original_sha256": "426f2b1c4ad7a940cded8422d73d9099bca83d9ea48440a6867888e116dfe5f3"
+    },
+    {
+      "generated_source": "evidence/browser/nominal-diagnostic.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/nominal-diagnostic.json",
+      "v2_sha256": "7bb6ebff461b7a0d9e9e669043bc4ad1f6b53956e49edce0c61a3dc3db08e88f",
+      "restored_original_sha256": "cbd7cfc4841bdbc524cf8e64a0c57ad56e51458f9f62b011cbdfed337c3d9fe4"
+    },
+    {
+      "generated_source": "evidence/browser/production-offline.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/production-offline.json",
+      "v2_sha256": "5d7db2f830f70725779ac8a11eb60887fb66b9bf2e81629c200eb31447c5e4b8",
+      "restored_original_sha256": "47e1d03271b28a208530cebca11508f18c7248236cf30be9974139af9f2c650e"
+    },
+    {
+      "generated_source": "evidence/browser/three-preferences.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/three-preferences.json",
+      "v2_sha256": "641a9043a77fb6bb9407a299935a0dcae21af2611ece26e821aa3bd38a9d2228",
+      "restored_original_sha256": "7cedb3a6e1f78f04cfbc5a31924326858a143b73058f33b9ad42637740fae521"
+    },
+    {
+      "generated_source": "evidence/browser/urgent-demand.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/urgent-demand.json",
+      "v2_sha256": "eee1562baa9dad4911af3ccd16a41d47d64e8e29d89657792ab43ba5cd1fc2b9",
+      "restored_original_sha256": "71529f49894cc41c1ab7ab7233ecd85f1e1fc5b6e9f271de86375d207501c61b"
+    },
+    {
+      "generated_source": "evidence/browser/verified/battery-fault-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/battery-fault-1280.png",
+      "v2_sha256": "0389adafeb12890dfaea5c35e6bb2632d28d505135dc633e1aac9725eb9fc400",
+      "restored_original_sha256": "009ccf6ec46477ef83b88590dc2bfb20b81765348920dd078a0a59b1ca8f6dfb"
+    },
+    {
+      "generated_source": "evidence/browser/verified/battery-fault-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/battery-fault-1440.png",
+      "v2_sha256": "b234352486d9dea2a8326b43a4e15e82b54d523e188f93af76398c1c60b505a1",
+      "restored_original_sha256": "d79b0795e7142fb24e610cd15e62ec41227c69483b577258418de2a3ef7bb3af"
+    },
+    {
+      "generated_source": "evidence/browser/verified/battery-fault-changes-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/battery-fault-changes-1280.png",
+      "v2_sha256": "c37507446a42040c9ce799face78cafb0532e331b58e081e6a353bb6f477461e",
+      "restored_original_sha256": "3302e51f69180a414bf3caeadd7ec2837db5b36ec896bbfb60393efc1a9aed11"
+    },
+    {
+      "generated_source": "evidence/browser/verified/battery-fault-changes-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/battery-fault-changes-390.png",
+      "v2_sha256": "0b262607cc653124bec612f3fdba43067e37f930fbc6cd8d07e70e24dce34069",
+      "restored_original_sha256": "39693dcad9d42d04df7e452db49aac50a3a014b9ce7d8914325bad6be021e2d3"
+    },
+    {
+      "generated_source": "evidence/browser/verified/capacity-bound-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/capacity-bound-1280.png",
+      "v2_sha256": "55c106992123b460bd6c74745af2fc6f8a7485f9f5f85b167afeba3346751228",
+      "restored_original_sha256": "02ac6541d50afd6e52791c98b69863dc56e73e540d71541bf21253515da5c88c"
+    },
+    {
+      "generated_source": "evidence/browser/verified/capacity-bound-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/capacity-bound-1440.png",
+      "v2_sha256": "5a4aa18a00d9618e707e1a7b1c3a0cde959b93ceb9f97aee442f2b7d9580ef29",
+      "restored_original_sha256": "bdddb233355a00f2383f3a674a7eec966bc27fe431ea42127e90226f349ad88a"
+    },
+    {
+      "generated_source": "evidence/browser/verified/capacity-bound-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/capacity-bound-390.png",
+      "v2_sha256": "e8521ff09abda491a32d394c12e9e3feb19f216f56fd9e3884e0d149dae3a11f",
+      "restored_original_sha256": "567518e2998ec0c29a112be40c2014b50d3a454c6022cf1845dff68e8e3a548e"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-config-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-config-1280.png",
+      "v2_sha256": "67a03c993c6955c47e1a03f715aeec281cffa12a77f4d06364cbf829fb764b01",
+      "restored_original_sha256": "1a95a9967f4f14823b90849b440cd069043344b8f50c27a0cf5dbf44b81d0175"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-source-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-source-1280.png",
+      "v2_sha256": "a55d525879627a323ca1b8a3831cf4052d1084ebe1dd7ec821437b2223a9dd82",
+      "restored_original_sha256": "4e9789be86e66a4668d4aa3b43f1c94810452fa9a54d811962a237e80d50a146"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-source-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-source-1440.png",
+      "v2_sha256": "6dee5aa58abb9feb5ccede8c16f67500505c508b4cf60afc366171a43f113cce",
+      "restored_original_sha256": "9ea9799c215c00ac8c7c6b47d581b4d3294465bc8cd17f0716539051a5c00bb5"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-source-detail-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-source-detail-1280.png",
+      "v2_sha256": "4fd45f50276381938c36f55809286b8722d9a151fa113050263335f298a8025e",
+      "restored_original_sha256": "bceaa48298ffd3f0442a2e9a78be9e505878b596b4d7deeead7f46f830fa42cc"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-source-detail-mobile.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-source-detail-mobile.png",
+      "v2_sha256": "a0e5eadfdce66a48b8316e26fedfe248c146bccdd133a0b827140c1ad425fdf8",
+      "restored_original_sha256": "4df081451004a256df3be917f17fa44c343643b7d77411abe594720fefd01dd8"
+    },
+    {
+      "generated_source": "evidence/browser/verified/communication-source-mobile.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/communication-source-mobile.png",
+      "v2_sha256": "8b8e007a804a3c643a2c9ca256c2ae1ef4f3064da502f37ad7e34af59944a753",
+      "restored_original_sha256": "73730f8d6acffe957a027e98887c27a0a2ac97f9b2bebd81c35dfa8f4f750643"
+    },
+    {
+      "generated_source": "evidence/browser/verified/deep-optimization-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/deep-optimization-1440.png",
+      "v2_sha256": "90014c8bfd9a766bd9149c79d0a0733090b15011b5f858469f9b92059f9eb77d",
+      "restored_original_sha256": "5d0758f1b9581d0c81a58820e93c69f398f361841db64dbbd52770f4558ffb03"
+    },
+    {
+      "generated_source": "evidence/browser/verified/frozen-partition-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/frozen-partition-1440.png",
+      "v2_sha256": "0cd0693bc4dfae64fd816208772696ee6c8a8573479f3e57c18889d49cd8ffc2",
+      "restored_original_sha256": "3deea1cc43321eeab8647aa87b200c8fb8aaabea83dc86842aa12fb8cecf39b3"
+    },
+    {
+      "generated_source": "evidence/browser/verified/frozen-partition-groups-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/frozen-partition-groups-1440.png",
+      "v2_sha256": "e65d5e93a89e6344e6e8b8370a62b72929971e0c38c527c13b56893958c01ac1",
+      "restored_original_sha256": "2b7432241cdb1edd9cdc1d516667d99a1cad02ada404f47f1f1ba7495eac2e0f"
+    },
+    {
+      "generated_source": "evidence/browser/verified/frozen-partition-mobile.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/frozen-partition-mobile.png",
+      "v2_sha256": "e3c5244243e88b73b627246a78a5c93a9fa51df2180ad6202e19623b148c5014",
+      "restored_original_sha256": "3a9cd249aeca892ae418dc8baf22fd92517f4ed0ff600c09216b6ff76da9d22c"
+    },
+    {
+      "generated_source": "evidence/browser/verified/frozen-partition-resources-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/frozen-partition-resources-1280.png",
+      "v2_sha256": "55c30e8c5dcc7d027ee10d8c7be504c38b81406997c83675aadc010a7b0aaa63",
+      "restored_original_sha256": "716c16e026142a9d19c5df43a00746a971ca78a47bce8dfbcf2d1a8818793d8b"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-calendars-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-calendars-1440.png",
+      "v2_sha256": "97bad2e4fa5c78b32aa37391e7087f74edffcfc168bc721c2a12c10b6b8d3777",
+      "restored_original_sha256": "728e2c51ef1b1d25f5ea8e2361d52e7ccafbb2676d8fb2a39d1e3ea59f6405c0"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-timeline-expanded-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-timeline-expanded-1440.png",
+      "v2_sha256": "5818c20cc56eda06e156a3ee13a9c00e8888a63c0b1a2dafa5353b190554ea2b",
+      "restored_original_sha256": "b125b673be119eee7c0b37b09b8dbd95b9c9d163585702fbbb74ab003a1a46fb"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-trial-form-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-trial-form-1280.png",
+      "v2_sha256": "3796e3b944ebd5b93c8aa6f29ac83334a3a8b136022af54dd9bbc76720f9fc32",
+      "restored_original_sha256": "4cde8c9aa11a8eb05df07bbff4f243db092b5850fa8ef6d0c96e6938d723dcbe"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-trial-form-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-trial-form-1440.png",
+      "v2_sha256": "3e2a81d4453517368a4dfdb1a1126cadf9a4276dd1d229a2342f699b54e258aa",
+      "restored_original_sha256": "d7117cb08a41cda6261f8952d81efebd94a693b60a66f2c97907fae5d452a596"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-trial-form-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-trial-form-390.png",
+      "v2_sha256": "5ef8ec7453fbb5f12f589df90bf6c899490151ba68b147ae9ecc3edec43896ef",
+      "restored_original_sha256": "efe2cc9e72e4e4835b01b616edd008b739fb3454212675480d118087a54d73e7"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-trial-form-footer-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-trial-form-footer-1280.png",
+      "v2_sha256": "37041bc5b62ce65cf89ebc1b37735d8d7316612850ae9a0c065e1efbd0d6b36f",
+      "restored_original_sha256": "d4d8c78b507cfc4839f2b501559aeaf31d6123ab2542842687fc0aa902480260"
+    },
+    {
+      "generated_source": "evidence/browser/verified/ground-trial-result-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/ground-trial-result-1280.png",
+      "v2_sha256": "42bb620101d2338e15b74929d022f4383f42f6a44a333a9b24c6bc38ba2e763c",
+      "restored_original_sha256": "b4535e3a1aaf7a6478e3dbbbda5c0e0eb752ef8bc07ff8c58ec88a697c882633"
+    },
+    {
+      "generated_source": "evidence/browser/verified/initial-charge-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/initial-charge-1440.png",
+      "v2_sha256": "af73f48f60d14d10cf82c43e61746a921c71f487a7c42d3293a1c845552ef44e",
+      "restored_original_sha256": "9405aa992ab7e54e06df8c50ff8b0add9f2ff41269f715b9ca0434f19b278cf1"
+    },
+    {
+      "generated_source": "evidence/browser/verified/initial-charge-report.pdf",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/initial-charge-report.pdf",
+      "v2_sha256": "ec79a0fbd8cd6ea147237c2c99a61a9603334962d4814f7c370632f97ad7f500",
+      "restored_original_sha256": "ce6e11c81cab52e79958178dc47949b29ce1bc1726eeb3282699f798df91fe64"
+    },
+    {
+      "generated_source": "evidence/browser/verified/initial-charge-timeline-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/initial-charge-timeline-1440.png",
+      "v2_sha256": "9e37048a9cb00fd2a46d6929511db1f848eeedfe77b2077f33b3fe79df18a491",
+      "restored_original_sha256": "462a9920eedfd9520f0766612429c3a40ef0c3199b2d19dc86659a35882c18d6"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-battery-fault-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-battery-fault-1280.png",
+      "v2_sha256": "0a21ea55925bb0823195239ad2bb2a2344950ac2f8d4794bd57e9818436dd364",
+      "restored_original_sha256": "1835c1ebc924f3093bdcae1e8c6155917852e98251051fe1b31e7526b02bf3c2"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-battery-fault-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-battery-fault-1440.png",
+      "v2_sha256": "53ba4ba119e5d10b2d51f3391c79429248e279a1238b4d903d5f1b9c565fb5e8",
+      "restored_original_sha256": "da911434778025f177708408a37c62559d31ab68dbd40003fcdd5573a28e8b34"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-battery-fault-changes-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-battery-fault-changes-1280.png",
+      "v2_sha256": "0827cca2d58f6d1274bfd927eb0d6877408461deb986eec03fcebdfb334a9d42",
+      "restored_original_sha256": "8b22096aa733dbb37b0c2d692b3b252124a54335f6d88137b0e5df9732b99cff"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-battery-fault-changes-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-battery-fault-changes-390.png",
+      "v2_sha256": "2cab576d46bcb3470087dfd42d7e4a8eec203cfdfdc7dd53acdc42b6b3302c82",
+      "restored_original_sha256": "b13672a8f697ac11d2c4682c7304247be374990d4a50949a16910728b097bcb1"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-report.pdf",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-report.pdf",
+      "v2_sha256": "4189a14c84d59f51f7bbd37e417edf8ca8abc980669735256129fbd01b86bfdd",
+      "restored_original_sha256": "d251cab4f2e5e0164b6c2f2ffd081ef85bac647743007a75171c70a9e48570c2"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-resource-analysis-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-resource-analysis-1440.png",
+      "v2_sha256": "6bb5e37ec54de375bb07b06bb181060c367e09b3bb4eec6ad6448eb755862fc4",
+      "restored_original_sha256": "eaebefac691a24b6d21f2fdd17270077f3202944bbfcb717ff6ab7a06ffdd95f"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-resource-windows-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-resource-windows-1440.png",
+      "v2_sha256": "76097548a4996bb3486384e5c813eea9c393047939613d26cd272d0d4cf60e95",
+      "restored_original_sha256": "5ba3f4c53f4e7ea8cd1f95ba4c38f519e0ed7d3d750d367970b679a3d1d0bfae"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-workspace-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-workspace-1280.png",
+      "v2_sha256": "a0e2e49ec7ad1ca8da7c8c8bb0186178dac9bc6e6e4ca53a79cc7f368d5e4b96",
+      "restored_original_sha256": "999aa169b3c83990ce5baab86fef92aca7344141d2c5f51fe30d6ae74cec5b5a"
+    },
+    {
+      "generated_source": "evidence/browser/verified/joint-workspace-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/joint-workspace-1440.png",
+      "v2_sha256": "e222e2d74a7837ebbbde7fc9dc4f51ade5526426ed4efeee1a009de2fff6affb",
+      "restored_original_sha256": "90497fb809ee986438172cc0e8e4f49adc5e2d078a392a5603556f2e9138a3eb"
+    },
+    {
+      "generated_source": "evidence/browser/verified/nominal-batches-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/nominal-batches-1440.png",
+      "v2_sha256": "2c5926169f1fe6a73576ee2b60828c09670f161f99c3b9b5c03db239ac5f7528",
+      "restored_original_sha256": "85fc91546c814daf361f5d116edc3b92fa501b474f58295027efdbede015dccb"
+    },
+    {
+      "generated_source": "evidence/browser/verified/nominal-capacity-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/nominal-capacity-1440.png",
+      "v2_sha256": "88c4256e4c9d439ed9ee922943701255cd691f9b14149e95020cf5553f55b22e",
+      "restored_original_sha256": "da2e2c9e257af46123a7636d4e9ac2929dd7ed638f76c60fbd7c36120d182b90"
+    },
+    {
+      "generated_source": "evidence/browser/verified/nominal-sensitivity-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/nominal-sensitivity-1280.png",
+      "v2_sha256": "8c43492d6d9f4bedb929943cf4b757b59f69d435b34fd7783f503b240ddb289c",
+      "restored_original_sha256": "86042ca1e0da205ce07f39046b68ae10099038401b0404731c40ba153fd2d1f0"
+    },
+    {
+      "generated_source": "evidence/browser/verified/nominal-sensitivity-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/nominal-sensitivity-390.png",
+      "v2_sha256": "201bb91e72983c2fa0245bf1530760efd6d90e989472e1fe904b1c21c4058e46",
+      "restored_original_sha256": "25cc85873e74176c8a3ca04f27136426befce2f17346012a8213dc812bb8ad9a"
+    },
+    {
+      "generated_source": "evidence/browser/verified/print-report-screen.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/print-report-screen.png",
+      "v2_sha256": "abecd420ecfcf803f044cbc6595421fa267ca1672a4869555ca0478d34894c38",
+      "restored_original_sha256": "e47d08c8f62e2d698e1bd3657437600a6a307054dd11015286846b15acc86dd9"
+    },
+    {
+      "generated_source": "evidence/browser/verified/print-report.pdf",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/print-report.pdf",
+      "v2_sha256": "86ebd7cb7b906ab6295758f8725cb15c0a23e1fb60e3093fbb547f17aa9c4022",
+      "restored_original_sha256": "d6f0698094288b9fd4bf2924592562353ebc9be34de4907354889e981e552f38"
+    },
+    {
+      "generated_source": "evidence/browser/verified/production-offline-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/production-offline-1280.png",
+      "v2_sha256": "091850f471d04c921bba17a9af58d3a3c053c613a98e8fdb1be1d9b72ff183ab",
+      "restored_original_sha256": "b4a6505027948bd82c0bbaf2ce4a42fe54311762d65c2933db4a368bbd4099d9"
+    },
+    {
+      "generated_source": "evidence/browser/verified/production-offline-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/production-offline-1440.png",
+      "v2_sha256": "32b89675fbedf8eb5d8aae5a6ad98583641f2bb62895ea4eb2fac5e05c10cf36",
+      "restored_original_sha256": "1c6a184cffd8678c92ec06bf3ed60840dd63551034e197c85018d34bd9947aaa"
+    },
+    {
+      "generated_source": "evidence/browser/verified/relay-energy-fault-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/relay-energy-fault-1280.png",
+      "v2_sha256": "feb84ad97ebdc00621f2f1949ab32d3d7bf59a6f4172f94f3c921b6bdc533236",
+      "restored_original_sha256": "7ca94c50561973e8d5eb4307012876eb255984f6d010869644c652cdb07cb1c6"
+    },
+    {
+      "generated_source": "evidence/browser/verified/relay-energy-fault-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/relay-energy-fault-1440.png",
+      "v2_sha256": "899fcf6f5c41781bf0ce31cb69c65f6ef62f8a18a2a2cd2cd1589dbc99a38f59",
+      "restored_original_sha256": "f60e51b659a2624178a2687363277e252c8061f72638b4da438aee102ad5e8d9"
+    },
+    {
+      "generated_source": "evidence/browser/verified/relay-energy-windows-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/relay-energy-windows-1280.png",
+      "v2_sha256": "80739a51c135ad5b0e5a4c6078e6caaf4823be15ae8fbaa6488082843253ecec",
+      "restored_original_sha256": "8d3d2debb46e0b1f60d91263ee4a0732cf3653a6f63ccca6eaa2f41d832b08a7"
+    },
+    {
+      "generated_source": "evidence/browser/verified/relay-fault-differences-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/relay-fault-differences-1440.png",
+      "v2_sha256": "7e9fab88d1d883e8549dd2fd9e9ee43a4e5a01d93a59988ba652f30dfcaa03e4",
+      "restored_original_sha256": "2fc5b737dfe84efdf8968597aec3f16e80f640e2d51c0923a543f6d7b10dffbe"
+    },
+    {
+      "generated_source": "evidence/browser/verified/relay-fault-replan-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/relay-fault-replan-1440.png",
+      "v2_sha256": "02ef413d6de96d01ef6a8fda7d5c3074e294ea1440625e16d21406c3b34a4ce3",
+      "restored_original_sha256": "97404c92a1b2c4b745ee54927c5c2df9b0bf50a19825127fc18240402e7e974c"
+    },
+    {
+      "generated_source": "evidence/browser/verified/replan-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/replan-1280.png",
+      "v2_sha256": "18353fdd757af20d265824e8f7ec29b491f016ff92c0fb4d4589b945177d0603",
+      "restored_original_sha256": "5ea2657f20f43dafce28523b357013bd542b36a53fccba087723309815092926"
+    },
+    {
+      "generated_source": "evidence/browser/verified/replan-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/replan-1440.png",
+      "v2_sha256": "468963d938958c7881ad40eb8b6c5a55d23dc76185fa1ec104c9e7d335ab3583",
+      "restored_original_sha256": "8262a31b8ede6c3e7ff7039c4d2d5f4e4c84e94a797cd940b7127f887d172a86"
+    },
+    {
+      "generated_source": "evidence/browser/verified/resource-analysis-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/resource-analysis-1280.png",
+      "v2_sha256": "576441fc3230266d644456baa357976067b3c0275eccfd3d6bc33dae1108291d",
+      "restored_original_sha256": "bc872ed38d988b88792a6e2e60faf47f4f146e027a65d533781d30a905aa85d3"
+    },
+    {
+      "generated_source": "evidence/browser/verified/resource-analysis-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/resource-analysis-1440.png",
+      "v2_sha256": "67105f25d14076ce99a624f64ff204a7d52e348c6e58c87759b91244a62258da",
+      "restored_original_sha256": "ff425d0989b768ef17929db9a7bc140651300fd12d471a2e3892a9c923c5c41b"
+    },
+    {
+      "generated_source": "evidence/browser/verified/scenario-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/scenario-1440.png",
+      "v2_sha256": "7c17ec93c3e2f495d03f61b1404eb777fb36c6f1a6d60ea42321310678d646bb",
+      "restored_original_sha256": "8c010a41aaf188da9bb9d272b1140fe3c9c3a6e943ce8da09d94ba724d4b4897"
+    },
+    {
+      "generated_source": "evidence/browser/verified/scenario-mobile.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/scenario-mobile.png",
+      "v2_sha256": "5d5d068b784fde647fe86fd4f7662cf7e49048e412d36a92cb84049cb7a654eb",
+      "restored_original_sha256": "4895b6d5fe353d86e621d0b9f991b4aa275bc4c5f4080b5dbd06abead0353357"
+    },
+    {
+      "generated_source": "evidence/browser/verified/scenario-with-nominal-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/scenario-with-nominal-1440.png",
+      "v2_sha256": "84ca74dc420f1bbcb8937c669cbb5252cd4f87ac36122be16c435e313611d178",
+      "restored_original_sha256": "e5808dd73acc0bec539ad396de43fcdafd6e8e248b52b6e8932f1de3cac93649"
+    },
+    {
+      "generated_source": "evidence/browser/verified/stress-history-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/stress-history-1440.png",
+      "v2_sha256": "a968f29b1565c1ff291ba90028828187ec3213722a356430288e5de22395880e",
+      "restored_original_sha256": "c3a4abf60ebde4d770918f23bc27b4b640b3db0075f4f8fcd356ea0814d3a880"
+    },
+    {
+      "generated_source": "evidence/browser/verified/terrain-assets-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/terrain-assets-1280.png",
+      "v2_sha256": "14a658a7fbf68574607a7a93b7611e71725bd0a53883ebe546e3f09aa4376c79",
+      "restored_original_sha256": "f039ad1a6a5d3aa4aaa7bb53124f26179f9b4adb82841a0ade20fe909782b027"
+    },
+    {
+      "generated_source": "evidence/browser/verified/terrain-assets-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/terrain-assets-1440.png",
+      "v2_sha256": "f30441dcbdc27f46ca888bb6f7a5265f8e8da33eb60fef43ce4211f960581215",
+      "restored_original_sha256": "ed72c772e187b3f1c1bb533abfe3d4923c34e6609dcab05ec0b9c5a812151f2c"
+    },
+    {
+      "generated_source": "evidence/browser/verified/terrain-bound-workspace-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/terrain-bound-workspace-1440.png",
+      "v2_sha256": "4ed066b1bb394c2a0caf329dfbe1b1d57afda893a328c2b66745760a42e5f4d3",
+      "restored_original_sha256": "d28382fb375d52228a9fcdb80102b0fd82d32bb3504fa866a2465201fe501f03"
+    },
+    {
+      "generated_source": "evidence/browser/verified/three-preferences-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/three-preferences-1280.png",
+      "v2_sha256": "06ded33211935cb99d5af443cb8fc4523ae559e66ec29dae748bcb09c2636f75",
+      "restored_original_sha256": "d9127a2040976d98267d2b91478822b05ecb786f95f1ee0c8aa963f290cb9c6b"
+    },
+    {
+      "generated_source": "evidence/browser/verified/three-preferences-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/three-preferences-1440.png",
+      "v2_sha256": "8781b945ea603ec13b428c03d4130fc7db59385d40615a6e547c10b224015cc6",
+      "restored_original_sha256": "e7babb68d8a69ccc371e99a8a1821746552716a38df3dc90b8e414e48c43b1b7"
+    },
+    {
+      "generated_source": "evidence/browser/verified/three-preferences-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/three-preferences-390.png",
+      "v2_sha256": "87f508aed038165749fce7fe87c55c702abb8d276085720196e2e6d8eb597071",
+      "restored_original_sha256": "bd4019cabea044916b902a5d6e1b17e693b9c3fd5433f5589efcec431dd9e4f9"
+    },
+    {
+      "generated_source": "evidence/browser/verified/three-preferences-panel-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/three-preferences-panel-390.png",
+      "v2_sha256": "19fe6a505e81ce46d942782662d2fd099574e2d5ab80c894ddfe4a6f6902e3ea",
+      "restored_original_sha256": "9a1ace141bca51f64161fc0ee51a27b191a333f12b98c5e8717f66ca80ffed15"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-form-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-form-1280.png",
+      "v2_sha256": "c55d659f86400580d753ebe0f7021fbaae4aa443ba6eef642eefa503213795cc",
+      "restored_original_sha256": "ef99e49e5cb7e81a01fb1dd03e6491eaf08030f4c24f454e3b498a7b8097eb8f"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-form-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-form-1440.png",
+      "v2_sha256": "ce7875edad46703b652a9066692681204b7288339f80cebd56e33bcb6b989cda",
+      "restored_original_sha256": "9bcaa5650614c183d9453d5328ab773abf7715f4d522391f6f8e62625041aa58"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-form-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-form-390.png",
+      "v2_sha256": "5d1801f39e35b32cce88dc41ec319be016f507eb480a8f76b43c0f74932675fa",
+      "restored_original_sha256": "970bafd6d5310710b6b59de51c2398ded6ebdc1837f895bab74f9da9b2c50876"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-form-footer-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-form-footer-390.png",
+      "v2_sha256": "81c952d5e9341871ae313ea217d9db7ceb845f4bf6b217f00a284068c2257b1d",
+      "restored_original_sha256": "8d4fc7d2cd77bc7bcd668c467a2d3b4776c71da51f00870afa4193c3b1efce2f"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-no-result-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-no-result-1440.png",
+      "v2_sha256": "26579a41dbd9c6049ea56641923967f2607ee9be1dc5449caebf9ae5ae46dc7f",
+      "restored_original_sha256": "9238efbfbe055bf2f5302496e2c0e3019bb8085f0c8d23e4612a5b8481e9da96"
+    },
+    {
+      "generated_source": "evidence/browser/verified/urgent-demand-result-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/urgent-demand-result-1440.png",
+      "v2_sha256": "afc0c9830651e29caa28d2eee77ccf3748becc30d7d62cc3cb048237fb59add5",
+      "restored_original_sha256": "964b152e2b5ddf99356803737fa5f99ee72069a9aae0196aacda5022add759f9"
+    },
+    {
+      "generated_source": "evidence/browser/verified/workspace-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/workspace-1280.png",
+      "v2_sha256": "38e5b9494c4bb9ae81c67b0926847d66187fe107b98780a9730f31ff7cf47869",
+      "restored_original_sha256": "cfb5476b0abf45cedd8bc37be095c6449b323a5c53082d630eb80c95ba0d72c4"
+    },
+    {
+      "generated_source": "evidence/browser/verified/workspace-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/workspace-1440.png",
+      "v2_sha256": "5dbb21e842afa8edbf3f8243aa29a0b4639e331c21bf3b3fbfcc67fb7c0dccf1",
+      "restored_original_sha256": "69395eaf4a687115614c49325d10148e14dd49f1444bc9e024602898d5fb0dce"
+    },
+    {
+      "generated_source": "evidence/browser/verified/zone-detour-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/zone-detour-1440.png",
+      "v2_sha256": "0297b9bdd359324e41a97dbaa5e5b957a09f53b2cf341955d5fdb506380f2c78",
+      "restored_original_sha256": "9cf3d50965f5d918e559d6a2837f045252b934144fd8e9662ea0b423925c3b3b"
+    },
+    {
+      "generated_source": "evidence/browser/verified/zone-editor-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/browser/verified/zone-editor-1440.png",
+      "v2_sha256": "362653c64824f5b86648c3955975104708d6afe0b62632f60127e001b7aed263",
+      "restored_original_sha256": "59cd40f321a39dfd626148baeea02b6ca5ef277e6a1637546adf81301bb85586"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/browser-solve.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/browser-solve.json",
+      "v2_sha256": "f9a970ca8657f411c12c3dd0d4d41609f9739801d7d6e24583a1d4d49c8b8821",
+      "restored_original_sha256": "1b03db70a457321c1b51e95af84070dcdd6d7f31ca6d7e15bcae47e7bb12d67e"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/schedule-1280.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/schedule-1280.png",
+      "v2_sha256": "29ae70872db6a62fdc52cc67102b7e9ca4af1cef2396918fc1d4396734ea5b48",
+      "restored_original_sha256": "5e44d4a3e7708b1908f978f0399b9402604703b674382c8e0aeedc48d4f44d3e"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/schedule-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/schedule-1440.png",
+      "v2_sha256": "2c10b9e06374b95157bb8ed527c3fcd08b9cc92e0bb95c1121acb87630da003d",
+      "restored_original_sha256": "f4e0160c994f6b66f15a655fe4712d8e5165abb7bc1d5c98cfeef3133cfc83ee"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/schedule-390.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/schedule-390.png",
+      "v2_sha256": "8fa66aa025ce670eab87d4652a5ba07f00b9c53eeec3c34835cd5c78d7fcbc70",
+      "restored_original_sha256": "29de053f29c0282196efd9cd69b93ea0c501613f01f8f98f3cbf4379f6c30217"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/strategies-1440.png",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/strategies-1440.png",
+      "v2_sha256": "cb1f0ee79967706e565904c7ab6b87291bae030219901a36b817626890cfc49f",
+      "restored_original_sha256": "6e070fe3507c48bbec931b056cb49bb2fd2b2215ca9db1dfadb40d745fb937b2"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/trial-policy-v1.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/trial-policy-v1.json",
+      "v2_sha256": "3b8de50a6214c05a9ec299e6b5fbd8adaeb16b8ea87832b1b17d47e08bcf7710",
+      "restored_original_sha256": "1c8e619d9120ac6df8f4bd2f7c50b06c0a110da9c48e6cdd1697b826d14ac71f"
+    },
+    {
+      "generated_source": "evidence/strategy-v2/trial-policy-v2.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/strategy-v2/trial-policy-v2.json",
+      "v2_sha256": "f469aec9ac2eac43543782988b3dfca696653f75f15dfc839d3e7bdc0af1320b",
+      "restored_original_sha256": "fac6d8473419fb7007bc7c1e730deec21c82145957c1c9a5d33a360b568d366b"
+    },
+    {
+      "generated_source": "evidence/solver/battery-replan.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/solver/battery-replan.json",
+      "v2_sha256": "fd484df72f1b582694efa011805e34320df1fc566489601b0bf067e7e1ecef30",
+      "restored_original_sha256": "4abccd9f0c13469e785fd7da62861ac6309933a45b08c7f3696d9b255e5ce371"
+    },
+    {
+      "generated_source": "evidence/solver/joint-battery-replan.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/solver/joint-battery-replan.json",
+      "v2_sha256": "3014b1371bffb6c76d3cd7e957dd0ac54335ee5fbe4137f75afde5fbeeffe0ff",
+      "restored_original_sha256": "9c40002864982be880230e1b4c254a6348231464f617600aa82709ece587267e"
+    },
+    {
+      "generated_source": "evidence/solver/relay-energy-replan.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/solver/relay-energy-replan.json",
+      "v2_sha256": "672c8d72915c53acf1e1ab0cdc80a9b76c458267d429665547a169985d028fd7",
+      "restored_original_sha256": "e8501862d9e78310e2d450b4ef871ea291c804a5a9d507274a512cc48ea9938d"
+    },
+    {
+      "generated_source": "evidence/solver/joint-replan.json",
+      "v2_copy": "evidence/redesign-v2/legacy-regression-full/solver/joint-replan.json",
+      "v2_sha256": "3b1a7959919366d9e2921b12f8ff5872181a570dabff4c133d151e3be99c1966",
+      "restored_original_sha256": "117ad9af7a18f667b903323009b39732e94b60b1662a42bc8c76498f1331fa51"
+    }
+  ]
+}

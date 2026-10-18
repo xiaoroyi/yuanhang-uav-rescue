@@ -1,0 +1,25 @@
+{
+  "source_run": "full-browser-results.json",
+  "complete_browser_result": {
+    "passed": 41,
+    "failed": 1,
+    "total": 42,
+    "duration": "21.8m"
+  },
+  "observed_server_issue": {
+    "exception": "PermissionError",
+    "source_file": "backend/app/jobs.py",
+    "source_line": 239,
+    "operation": "read progress.json during atomic replacement on Windows",
+    "effect": "advisory progress HTTP 500 while the solver continued",
+    "reproduction_test": "tests/backend/test_progress_resilience_v2.py",
+    "fix_commit": "7fde248",
+    "root_specialized_passed": 3
+  },
+  "legacy_ui_issue": {
+    "cause": "V2 parent setup overwrote legacy data-motion/theme on mount",
+    "targeted_browser_passed": 1,
+    "route_preference_isolation_passed": 1
+  },
+  "not_claimed": "These separate runs are not a single all-green 42-case run on the later source."
+}

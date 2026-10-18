@@ -50,3 +50,10 @@ V2新增测试全组合19 passed，92.33s（日志.local/v2-archive-regression.l
 
 full-verification/latest.json：passed=true、source_unchanged=true，前后验证源码指纹均`2c58b9d8c6b55e851138a03b2872e2e5fbbdaed808ea814c6ebb6439bf913086`。全部Python 298 passed、8 subtests，830.85s；契约、治理、lint、12单元、strict TS/build共6条命令退出码全0。原题与原接口回归包含在此轮，不再以V1计数代替。完整浏览器仍在运行，已发现旧兼容入口动态设置隔离问题，不能将本段解释为全部浏览器通过。
 
+## 完整浏览器与回归修复
+
+full-browser-results.json：完整42条，41 passed、1 failed，21.8m。唯一失败是旧兼容入口动态背景，V2父组件首次挂载覆盖了旧页面data-motion；将主题/动态设置限定到对应路由后，原失败用例1 passed（32.6s，含文件初始化），新加跨新旧路由偏好隔离用例1 passed（7.1s），见legacy-motion-fix-results.json及preference-isolation-results.json。不能将分开的复测写成同一轮42 passed。
+
+同轮服务器日志真实捕获Windows进度文件暂态PermissionError。RFC-022在隔离副本和主V2分支分别通过3项HTTP故障注入；保留最后有效样本、不重置Job状态、恢复读取通过。完整298 Python/8子测试是在此修复前的已保存检查点；新增3项和此后改动分别记录，不能直接加总伪造新一轮全量计数。
+
+全浏览器写入旧目录的94个实际输出已另存legacy-regression-full/，SOURCE_MAP.json保存映射和新旧哈希，原V1字节恢复；旧策略专项后续2个输出另存legacy-motion-fix/。未重置源码、删除业务数据或覆盖V1验证报告。

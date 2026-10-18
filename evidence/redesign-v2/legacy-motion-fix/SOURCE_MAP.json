@@ -1,0 +1,12 @@
+[
+  {
+    "legacy_path": "evidence/strategy-v2/ambient-on.png",
+    "new_evidence": "evidence/redesign-v2/legacy-motion-fix/ambient-on.png",
+    "sha256": "2118dfc1cf7360080c1858f4227b0a35969e46a92f885b23f50dabf8a5263ebe"
+  },
+  {
+    "legacy_path": "evidence/strategy-v2/browser-solve.json",
+    "new_evidence": "evidence/redesign-v2/legacy-motion-fix/browser-solve.json",
+    "sha256": "c07a7846c4bd55b515bffa05e1721e9ad1463ccc787f43c51cf024b7f9e5fd47"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "origin": "http://127.0.0.1:8011",
+  "policy": "Block all non-loopback HTTP(S) requests in the browser context.",
+  "scenario_id": "SCN-665B8D69EEE74CC4",
+  "plan_id": "PLAN-92871F859B1A4F0D",
+  "parent_plan_id": "PLAN-D39277B790844AE1",
+  "snapshot_id": "SNAP-F3D388D24E124453",
+  "validation": "passed",
+  "external_requests": [],
+  "console_errors": []
+}

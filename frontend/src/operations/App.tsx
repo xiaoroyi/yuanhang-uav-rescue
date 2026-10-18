@@ -49,9 +49,21 @@ const actionLabel = {
 function route() {
   return location.hash.replace(/^#\/?/, '') || 'home'
 }
+const legacyRoutes = [
+  'workspace',
+  'scenario',
+  'events',
+  'analysis',
+  'maps',
+  'history',
+  'compare',
+  'guide',
+  'schedule',
+]
 
 export default function OperationsApp() {
   const [path, setPath] = useState(route)
+  const inLegacy = legacyRoutes.includes(path)
   const [createOpen, setCreateOpen] = useState(false)
   const [template, setTemplate] = useState<'blank' | 'compact' | 'contest'>('blank')
   const [name, setName] = useState('')
@@ -73,10 +85,11 @@ export default function OperationsApp() {
     return () => removeEventListener('hashchange', read)
   }, [])
   useEffect(() => {
+    if (inLegacy) return
     document.documentElement.dataset.theme = theme
     document.documentElement.dataset.motion = 'off'
     localStorage.setItem('yuanhang-v2-theme', theme)
-  }, [theme])
+  }, [theme, inLegacy])
   const notify = (message: string, error = false) =>
     setMessages((m) => [
       ...m.slice(-3),
@@ -138,19 +151,7 @@ export default function OperationsApp() {
     setTemplate(t)
     setCreateOpen(true)
   }
-  if (
-    [
-      'workspace',
-      'scenario',
-      'events',
-      'analysis',
-      'maps',
-      'history',
-      'compare',
-      'guide',
-      'schedule',
-    ].includes(path)
-  )
+  if (inLegacy)
     return (
       <>
         <a className="v2-return" href="#/home">
