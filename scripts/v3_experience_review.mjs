@@ -8,7 +8,8 @@ const {chromium,expect}=require('@playwright/test')
 const base='http://127.0.0.1:5176', backend='http://127.0.0.1:8014/api/v1'
 const out=path.join(root,'evidence/experience-v3/screenshots'),media=path.join(root,'frontend/public/help/v3')
 await fs.mkdir(out,{recursive:true});await fs.mkdir(media,{recursive:true})
-const demo=JSON.parse(await fs.readFile('.local/v3/demo.json','utf8'))
+let demo
+try{demo=JSON.parse(await fs.readFile('.local/v3/demo.json','utf8'))}catch{demo={}}
 const browser=await chromium.launch({args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']})
 const context=await browser.newContext({viewport:{width:1440,height:900},recordVideo:{dir:path.join(root,'.local/v3/video'),size:{width:1152,height:720}}})
 const page=await context.newPage(),video=page.video(),errors=[],failed=[],shots=[],geometry=[],cues=[],began=Date.now()
@@ -22,6 +23,19 @@ const api=async(p,body)=>{const r=await fetch(backend+p,{method:body?'POST':'GET
 const go=async route=>{await page.goto(base+'/#/'+route);await page.waitForTimeout(500)}
 let mission,plan,execution,passed=false
 try{
+ // A fresh clone has no private .local fixtures: create a real isolated joint
+ // input and solve it instead of substituting historical or mocked results.
+ let seedExists=false
+ if(demo.compact_joint?.mission){try{await api('/missions/'+encodeURIComponent(demo.compact_joint.mission));seedExists=true}catch{}}
+ if(!seedExists){
+  const m=await api('/missions',{name:'V3 通信协同验收案例',template:'compact_joint',mode:'simulation',idempotency_key:crypto.randomUUID()})
+  const s=await api('/scenarios/'+m.current_scenario_id),snap=await api('/scenarios/'+s.scenario_id+'/snapshots',{expected_state_version:s.state_version})
+  let job=await api('/solve-jobs',{snapshot_id:snap.snapshot_id,objective:'time',objective_policy:'tradeoff_v2',time_limit_s:90,seed:42})
+  for(let n=0;n<120&&['queued','running'].includes(job.job_state);n++){await new Promise(r=>setTimeout(r,1500));job=await api('/solve-jobs/'+job.job_id)}
+  if(!job.has_validated_plan)throw Error('Joint seed did not produce a validated plan: '+JSON.stringify(job))
+  demo.compact_joint={mission:m.mission_id,scenario:s.scenario_id,snapshot:snap.snapshot_id,plan:job.plan_id,job:job.job_id}
+  await fs.mkdir('.local/v3',{recursive:true});await fs.writeFile('.local/v3/demo.json',JSON.stringify(demo,null,2))
+ }
  mark('从首页创建一份独立的小规模救援任务。')
  await go('home');await expect(page.getByRole('heading',{level:1})).toContainText('让救援物资抵达')
  await shot('home-1440')
@@ -94,6 +108,7 @@ try{
  await video.saveAs(path.join(media,'walkthrough.webm'))
  const stamp=s=>new Date(Math.round(s*1000)).toISOString().slice(11,23)
  await fs.writeFile(path.join(media,'walkthrough.vtt'),'WEBVTT\n\n'+cues.map((c,i)=>`${i+1}\n${stamp(c.seconds)} --> ${stamp(cues[i+1]?.seconds||c.seconds+5)}\n${c.text}\n`).join('\n'))
+ if(process.env.V3_RECORD_ONLY!=='1'){
  const qa=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce'}),q=await qa.newPage();q.on('pageerror',e=>errors.push(e.message))
  const capture=async(route,name)=>{await q.goto(base+'/#/'+route);await q.waitForTimeout(1600);await q.screenshot({path:path.join(out,name+'.png'),animations:'disabled'});shots.push(name+'.png')}
  for(const [w,h] of [[1440,900],[1280,720]]){
@@ -115,9 +130,10 @@ try{
  await q.keyboard.press('Control+k');await expect(q.getByLabel('搜索功能或任务')).toBeFocused();await q.getByLabel('搜索功能或任务').fill('调度安排');await q.keyboard.press('Enter');await expect(q).toHaveURL(/schedule/)
  await qa.close()
  passed=errors.length===0&&geometry.every(g=>g.pageWidth<=g.viewport[0]&&(!g.firstRowBottom||g.firstRowBottom<g.viewport[1])&&(!g.mapHeight||g.mapHeight>=300))
+ }else passed=errors.length===0
 }catch(error){try{await page.screenshot({path:path.join(out,'failure.png')})}catch{}console.error(error);failed.push({error:String(error)});process.exitCode=1}
 finally{
- await fs.writeFile(path.join(root,'evidence/experience-v3/browser-review.json'),JSON.stringify({at:new Date().toISOString(),passed,mission,plan,execution,errors,failed,geometry,shots,cues,video:'frontend/public/help/v3/walkthrough.webm'},null,2)+'\n')
+ await fs.writeFile(path.join(root,process.env.V3_RECORD_ONLY==='1'?'evidence/experience-v3/tutorial-recording.json':'evidence/experience-v3/browser-review.json'),JSON.stringify({at:new Date().toISOString(),scope:process.env.V3_RECORD_ONLY==='1'?'actual workflow and tutorial recording':'workflow and responsive visual review',passed,mission,plan,execution,errors,failed,geometry,shots,cues,video:'frontend/public/help/v3/walkthrough.webm'},null,2)+'\n')
  await browser.close()
  console.log(JSON.stringify({passed,mission,plan,execution,errors,failed,geometry,shots},null,2));if(!passed)process.exitCode=1
 }

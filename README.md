@@ -1,12 +1,12 @@
 # 援航 · 无人机救援调度
 
-当前版本位于 [`feat/mission-workspace-v2`](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/mission-workspace-v2)。根地址进入救援工作首页，主导航为首页、救援任务、资源中心、演练评测；任务内部依次为准备、规划、执行和复盘。两人分工：A负责算法及项目，B一人负责前后端；main保持原状态。
+当前体验版本位于 [`feat/mission-experience-v3`](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/mission-experience-v3)。独立首页展示应用与算法；任务内按准备、规划、执行、复盘推进，规划下有地图、独立调度安排、真实地形航迹、通信协同和数据分析。资源先按任务归属，帮助有实际截图、视频与术语。两人分工：A负责算法及项目，B一人负责前后端；main/V2保留。
 
 Windows本机双击 **start.cmd**，打开 **http://127.0.0.1:8000/**。当前电脑已安装依赖；离线可计算和展示路线。新电脑先安装Python3.11/3.12与Node24并联网运行setup.cmd。数据保存在runtime/，用backup.cmd作一致备份。
 
-首次使用点“运行示例演练”，按准备→条件检查→真实计算→核对地图/箱件/双资源排程→确认→创建并启动模拟→暂停上报变化→核对影响链及差异→采纳→复盘操作。没有可行基线时，规划页的“资源诊断与增配”可真实计算独立反事实；演练评测可比较静态策略或同冻结执行输入下的修复方法。
+首次使用可新建小规模任务，或点首页“体验协同演练”。准备→条件检查→真实计算→调度安排/地图/地形/通信核对→确认→创建并开始模拟→暂停上报变化→核对差异并采纳→复盘。安排表可导出六页Excel；机队运输看板显示已交付、载货/返航、目的地、下一任务、电量模型估计与速度。旧输入可在任务列表接入，原方案与数据不删除。
 
-完整步骤见 [V2操作指南](evidence/redesign-v2/DEMO_GUIDE.md)，功能边界见 [当前限制](evidence/redesign-v2/KNOWN_LIMITATIONS.md)。继续开发先读 [V2索引](evidence/redesign-v2/INDEX.md)、[准确交接](evidence/redesign-v2/HANDOFF.md)和[唯一任务板](docs/08-TASK-BOARD.md)。本版仅进行服务器业务仿真，尚未连接真机/SITL，未把研究任务或外部依赖标为完成。实际验收记录见 [测试报告](evidence/redesign-v2/TEST_REPORT.md)。
+完整步骤见 [V3操作指南](evidence/experience-v3/DEMO_GUIDE.md)，继续开发先读 [V3索引](evidence/experience-v3/INDEX.md)、[交接](evidence/experience-v3/HANDOFF.md)和[唯一任务板](docs/08-TASK-BOARD.md)。[实际检查](evidence/experience-v3/TEST_REPORT.md)、[视觉复核](evidence/experience-v3/VISUAL_REVIEW.md)、[论文约束对照](docs/experience-v3/CONSTRAINT_TRACEABILITY.md)与[当前边界](evidence/experience-v3/KNOWN_LIMITATIONS.md)已记录；没有把本机仿真当真机、有限搜索当现实全局最优，研究与外部依赖仍保留原任务。
 
 <details>
 <summary>V1历史发布与旧九页面使用说明（保留追溯）</summary>

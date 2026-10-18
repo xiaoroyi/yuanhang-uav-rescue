@@ -1,6 +1,6 @@
 {
-  "at": "2026-10-18T17:48:55.084Z",
-  "passed": false,
+  "at": "2026-10-18T18:00:55.607Z",
+  "passed": true,
   "errors": [],
   "geometry": [
     {
@@ -38,9 +38,9 @@
         "tracks": 1
       }
     },
-    {
-      "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '恢复遥测', exact: true })\u001b[22m\n"
-    }
+    "实际点击断流/恢复：在已打开菜单中寻找按钮；恢复后服务器状态正常，33箱总数保留",
+    "任务数据分析首屏、真实图表及只读全屏大屏可见",
+    "通信演练入口预选联合模板，术语链接和ACK说明可用"
   ],
   "shots": [
     "plans-1440.png",
@@ -68,6 +68,12 @@
     "schedule-dark-1440.png",
     "resource-dark-1440.png",
     "execution-disconnected-1440.png",
-    "finish-failure.png"
-  ]
+    "data-screen-1440.png",
+    "missions-1440.png"
+  ],
+  "initial_failure": {
+    "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '恢复遥测', exact: true })\u001b[22m\n"
+  },
+  "initial_failure_explanation": "复核脚本重复切换已打开的更多操作菜单导致恢复按钮被隐藏；产品断流/恢复已在本次实际点击复核。",
+  "followup_errors": []
 }

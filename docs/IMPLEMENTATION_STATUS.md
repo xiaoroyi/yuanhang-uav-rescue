@@ -1,8 +1,10 @@
-# V3体验候选正在收尾（2026-10-19）
+# 当前交付：援航V3体验候选（2026-10-19）
 
-当前开发分支为 `feat/mission-experience-v3`，基于58e81df。已实现独立精致首页/动态协同背景、四阶段导航、独立调度安排与六页Excel、真实三维升降与地形剖面、联合通信案例/空间采样、任务资源分组、机队运输看板、图文教程/真实录屏、快速导航和任务内数据分析。入口 [V3索引](experience-v3/README.md)、[论文约束对照](experience-v3/CONSTRAINT_TRACEABILITY.md)。
+当前分支 `feat/mission-experience-v3`，基于V2的58e81df。独立精致首页/动态协同背景、四阶段与子菜单、独立调度表/六页Excel、真实三维升降/剖面、通信联合模板/空间采样、任务资源空间、运输机队看板、图文教程/实际录屏、快速导航与任务数据分析已接入。整体复核额外修复在途总量遗漏、执行确认覆盖预约、生产媒体路由/MIME。
 
-关键演练已经实际贯通；复核发现并修正了调整后总量遗漏在途承诺的问题。最终视觉复核/构建/本机发布和交接仍在进行，当前8000服务未因开发而覆盖。本段不是最终交付或全量测试通过声明。
+本机8000已运行新版；29份方案/26份快照原文Hash一致，3个暂停实例保留。准确检查范围见 [TEST_REPORT](../evidence/experience-v3/TEST_REPORT.md)，截图与交互见 [VISUAL_REVIEW](../evidence/experience-v3/VISUAL_REVIEW.md)，使用 [DEMO_GUIDE](../evidence/experience-v3/DEMO_GUIDE.md)，交接 [HANDOFF](../evidence/experience-v3/HANDOFF.md)。按用户要求做专项与基础复核，未重跑全部长回归，不把历史计数称为本轮全部通过。
+
+原main/V2、算法接口与原题材料保留；正式契约仍proposed，真机/SITL、训练、外部建图、多基地等未完成任务保留，边界见 [KNOWN_LIMITATIONS](../evidence/experience-v3/KNOWN_LIMITATIONS.md)。
 
 ---
 

@@ -1,0 +1,9 @@
+{
+  "service_id": "yuanhang-rescue",
+  "workspace_id": "860bc839513f",
+  "status": "ok",
+  "service_version": "0.1.0",
+  "solver_ready": true,
+  "service_source_sha256": "857e745d371106ebee42e78fc565081bc1e824092febf769ba241f83388abcc1",
+  "runtime_id": "23afa25c2bda"
+}

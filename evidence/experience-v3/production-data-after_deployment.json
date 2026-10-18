@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-18T18:20:27.096708+00:00",
+  "phase": "after_deployment",
+  "baseline_counts": {
+    "scenarios": 13,
+    "snapshots": 26,
+    "plans": 29,
+    "jobs": 30,
+    "missions": 3,
+    "executions": 3
+  },
+  "current_counts": {
+    "scenarios": 13,
+    "snapshots": 26,
+    "plans": 29,
+    "jobs": 30,
+    "missions": 3,
+    "executions": 3
+  },
+  "original_payloads_preserved": {
+    "plans": 29,
+    "snapshots": 26
+  },
+  "mismatches": [],
+  "execution_statuses": [
+    "paused",
+    "paused",
+    "paused"
+  ],
+  "backup": ".local/v3/production-backup/yuanhang-backup-20261018T181024Z-fe5600cc.zip",
+  "backup_verified": true,
+  "backup_sha256": "1ad1975aaadfe6307bd9c65431f6797e4350329c386ade19426897ce6ada2a38",
+  "backup_table_counts": {
+    "scenarios": 13,
+    "scenario_versions": 16,
+    "snapshots": 26,
+    "jobs": 30,
+    "plans": 29,
+    "events": 0,
+    "reservations": 230,
+    "confirmations": 3,
+    "scenario_forks": 0,
+    "plan_refinements": 0,
+    "missions": 3,
+    "operation_records": 193,
+    "executions": 3
+  }
+}

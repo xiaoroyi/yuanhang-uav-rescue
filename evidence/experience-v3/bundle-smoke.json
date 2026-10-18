@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-18T18:10:24.729Z",
+  "base": "http://127.0.0.1:5178",
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "production bundle offline home",
+    "real joint schedule 7 transport / 2 relay",
+    "active execution confirmation disabled",
+    "repaired mission conserves 33 cargo items",
+    {
+      "actual_tutorial": {
+        "duration": 37.68,
+        "tracks": 1
+      }
+    }
+  ],
+  "shots": [
+    "release-home-1440.png",
+    "release-fleet-1440.png",
+    "release-insights-1440.png",
+    "release-terrain-1440.png",
+    "release-help-1440.png"
+  ]
+}

@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 import hashlib
 import io
 import json
+import mimetypes
 import os
 from pathlib import Path
 import uuid
@@ -80,6 +81,8 @@ from backend.app.storage import (
     ConfirmationRow,
     Database,
     EventRow,
+    MissionRow,
+    ExecutionRow,
     JobRow,
     OperationRecordRow,
     PlanRow,
@@ -306,6 +309,13 @@ class Playback(StrictModel):
 
 
 def create_app(runtime_dir: Path | None = None):
+    # Windows registry MIME mappings vary; declare bundled formats locally.
+    for extension, media_type in [
+        (".webp", "image/webp"),
+        (".webm", "video/webm"),
+        (".vtt", "text/vtt"),
+    ]:
+        mimetypes.add_type(media_type, extension)
     directory = runtime_dir or Path(
         os.environ.get("YUANHANG_RUNTIME", str(ROOT / "runtime"))
     )
@@ -1347,6 +1357,25 @@ def create_app(runtime_dir: Path | None = None):
             snap = require_row(session, SnapshotRow, row.snapshot_id).content
             if content_hash(scenario.content) != snap["content_hash"]:
                 raise AppError(409, "SNAPSHOT_STALE", "当前输入与方案快照不同。")
+            # Confirmation owns static reservations only. An existing simulation
+            # must keep its ledger/commitments and use the repair adoption path.
+            for mission_row in session.scalars(
+                select(MissionRow).where(MissionRow.scenario_id == scenario.id)
+            ):
+                execution_id = mission_row.content.get("active_execution_id")
+                execution_row = (
+                    session.get(ExecutionRow, execution_id) if execution_id else None
+                )
+                if execution_row is not None and execution_row.content["status"] in {
+                    "ready",
+                    "running",
+                    "paused",
+                }:
+                    raise AppError(
+                        409,
+                        "RESOURCE_CONFLICT",
+                        "此任务已建立模拟实例；请到执行跟踪比较并采纳调整，或创建新的演练副本。",
+                    )
             if (
                 plan["data_origin"] != "solver"
                 or not plan["has_validated_plan"]
@@ -1355,7 +1384,7 @@ def create_app(runtime_dir: Path | None = None):
                 raise AppError(
                     422, "NO_VALIDATED_PLAN", "方案未通过本次模型范围的独立检查。"
                 )
-            # P0 has no actual execution facts; switch reservations atomically in this scenario only.
+            # Switch static reservations atomically in this scenario only.
             session.execute(
                 delete(ReservationRow).where(ReservationRow.scenario_id == scenario.id)
             )
@@ -1753,6 +1782,15 @@ def create_app(runtime_dir: Path | None = None):
         assets = frontend / "assets"
         if assets.is_dir():
             app.mount("/assets", StaticFiles(directory=assets), name="ui-assets")
+        help_media = frontend / "help"
+        if help_media.is_dir():
+            app.mount("/help", StaticFiles(directory=help_media), name="ui-help-media")
+        notices = frontend / "THIRD_PARTY_NOTICES.txt"
+        if notices.is_file():
+
+            @app.get("/THIRD_PARTY_NOTICES.txt", include_in_schema=False)
+            def frontend_notices():
+                return FileResponse(notices, media_type="text/plain; charset=utf-8")
 
         @app.get("/{path:path}", include_in_schema=False)
         def frontend_index(path: str):

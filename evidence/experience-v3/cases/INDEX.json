@@ -1,0 +1,38 @@
+{
+  "compact": {
+    "plan_id": "PLAN-66A0A900F9FD4914",
+    "snapshot_id": "SNAP-83F0518FC6AC4A5C",
+    "snapshot_content_hash": "e388e84515ff9b99a7b9ea2edee242c1f1537b7c822f102129d101c11ef56b57",
+    "case_sha256": "e8fd16254937ec4ea7903cebce740d576d6d677811dcc5a159ffbcfd5b7ea271",
+    "validation": "passed",
+    "cargo": 32,
+    "transport_sorties": 7,
+    "relay_sorties": 0,
+    "coverage_gap_s": null,
+    "relative_case": "evidence/experience-v3/cases/compact.json"
+  },
+  "compact_joint": {
+    "plan_id": "PLAN-17404D188A2A45F3",
+    "snapshot_id": "SNAP-88E11B299A68445A",
+    "snapshot_content_hash": "cd92dd92daa02dd3f39a656b21640fd1c095bb89d032c4ddb92de97d06b34f39",
+    "case_sha256": "79fba358451b51bb5fb15a521b73f5347d6836ae529c8065b4aba8157394f5b8",
+    "validation": "passed",
+    "cargo": 32,
+    "transport_sorties": 7,
+    "relay_sorties": 2,
+    "coverage_gap_s": 0.0,
+    "relative_case": "evidence/experience-v3/cases/compact_joint.json"
+  },
+  "contest_joint": {
+    "plan_id": "PLAN-200988544CA14127",
+    "snapshot_id": "SNAP-EBEA5FA930734E24",
+    "snapshot_content_hash": "b09024909ec0bea926752e06d7609f69ce8ade6573a1500892c9f2e99b80e1a7",
+    "case_sha256": "9d308947a70f3279c12a1d3fce5f860b18a5631f1a1b746e49c9d441f3bd12c9",
+    "validation": "passed",
+    "cargo": 80,
+    "transport_sorties": 23,
+    "relay_sorties": 3,
+    "coverage_gap_s": 0.0,
+    "relative_case": "evidence/experience-v3/cases/contest_joint.json"
+  }
+}

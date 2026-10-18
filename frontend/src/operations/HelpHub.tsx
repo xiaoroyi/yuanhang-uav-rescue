@@ -195,6 +195,11 @@ const glossary = [
     text: '模拟写入独立仿真账本；回放只读已有记录；真实设备需要许可和单独适配。本版本不会把模拟当真机。',
     icon: ShieldCheck,
   },
+  {
+    name: '设备回执 / ACK',
+    text: '表示设备或模拟适配器收到指令。服务器受理请求、收到回执、动作真正完成是三个状态；收到回执不等于已经完成任务。',
+    icon: RadioTower,
+  },
 ]
 export function HelpHub({
   missions,
@@ -206,9 +211,10 @@ export function HelpHub({
   const [active, setActive] = useState('start'),
     [search, setSearch] = useState(''),
     [expanded, setExpanded] = useState(false)
+  const openTerms = location.hash.endsWith('/terms')
   useEffect(() => {
-    if (location.hash.endsWith('/terms')) document.getElementById('v3-glossary')?.scrollIntoView()
-  }, [])
+    if (openTerms) document.getElementById('v3-glossary')?.scrollIntoView()
+  }, [openTerms])
   const chapter = chapters.find((c) => c.id === active) || chapters[0],
     m = missions.find((m) => m.lifecycle !== 'archived')
   const link = (route: string) => (m ? `#/missions/${m.mission_id}/${route}` : '#/missions')

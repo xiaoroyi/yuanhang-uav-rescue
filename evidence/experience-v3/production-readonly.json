@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-18T18:20:23.751Z",
+  "passed": true,
+  "errors": [],
+  "checks": [
+    {
+      "mission": "MIS-9BBDB8F2F5844B77",
+      "schedule_rows": 7,
+      "execution": "EXE-FADA1D0FE62141A4",
+      "mode": "read_only"
+    },
+    {
+      "mission": "MIS-A3A29DC9024A478B",
+      "schedule_rows": 29,
+      "execution": "EXE-2BBF023ECDE343F1",
+      "mode": "read_only"
+    },
+    {
+      "mission": "MIS-0597A337CA54482F",
+      "schedule_rows": 7,
+      "execution": "EXE-279601A3687941D4",
+      "mode": "read_only"
+    },
+    {
+      "video_and_captions": {
+        "duration": 37.68,
+        "cues": 9
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-18T18:14:26.102Z",
+  "base": "http://127.0.0.1:8000",
+  "passed": false,
+  "errors": [],
+  "checks": [
+    "production bundle offline home",
+    "existing production missions remain available",
+    {
+      "error": "Error: expect(received).toBeTruthy()\n\nReceived: false"
+    }
+  ],
+  "shots": [
+    "release-home-1440.png",
+    "release-missions-1440.png"
+  ]
+}

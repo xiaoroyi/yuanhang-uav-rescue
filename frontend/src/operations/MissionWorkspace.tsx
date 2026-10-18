@@ -397,7 +397,20 @@ export function MissionWorkspace({
               </>
             )}
             <Button
-              disabled={!plan.data || stale || pending}
+              disabled={
+                !plan.data ||
+                stale ||
+                pending ||
+                m.active_plan_id === planId ||
+                (!!m.active_execution_id && m.lifecycle !== 'completed')
+              }
+              title={
+                m.active_execution_id && m.lifecycle !== 'completed'
+                  ? '已建立模拟实例；请在执行跟踪中处理调整。'
+                  : m.active_plan_id === planId
+                    ? '方案已确认，可进入执行跟踪。'
+                    : undefined
+              }
               onClick={() => {
                 if (plan.data && scene.data)
                   void api
@@ -410,7 +423,7 @@ export function MissionWorkspace({
               }}
             >
               <CheckCircle2 size={14} />
-              确认方案
+              {m.active_plan_id === planId ? '方案已确认' : '确认方案'}
             </Button>
           </div>
           {pending && (

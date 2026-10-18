@@ -1,6 +1,8 @@
 # 可复现证据
 
-V3体验完善正在 `feat/mission-experience-v3` 收尾，入口 [工作记录](../docs/experience-v3/WORKLOG.md)、[论文约束](../docs/experience-v3/CONSTRAINT_TRACEABILITY.md)、[真实数据检查](experience-v3/live-check.json)、[浏览器流程](experience-v3/browser-review.json)。最后视觉/构建与发布仍待最终记录；下方V2数字是历史证据。
+当前V3见 [交付索引](experience-v3/INDEX.md)、[操作指南](experience-v3/DEMO_GUIDE.md)、[交接](experience-v3/HANDOFF.md)、[实际检查](experience-v3/TEST_REPORT.md)和[视觉复核](experience-v3/VISUAL_REVIEW.md)。本机服务已更新，生产数据与源码/运行身份有单独校验记录。
+
+以下为V2及更早历史证据，不替代V3结果。
 
 援航V2当前入口为[实施索引](redesign-v2/INDEX.md)、[使用教程](redesign-v2/DEMO_GUIDE.md)和[交接记录](redesign-v2/HANDOFF.md)。最后按用户要求完成基础检查后交付；准确检查范围在[测试记录](redesign-v2/TEST_REPORT.md)，不能把历史整轮结果称为最新源码全部通过。
 

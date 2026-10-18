@@ -16,6 +16,7 @@ import { StageCharts } from './StageCharts'
 import { InfoHint } from './ExperienceUI'
 import { number } from '../lib/format'
 import { orderedSorties } from '../pages/schedule-data'
+import { datumLabel } from './format'
 
 export function TerrainWorkspace({
   scenario,
@@ -152,7 +153,7 @@ export function TerrainWorkspace({
                     : '部分航段未完成真实地形检查'}
                   <small>
                     图形使用采样网格；净空检查使用原始高程数据。高度基准：
-                    {p.vertical_datum || '未声明'}。
+                    {datumLabel(p.vertical_datum)}。
                   </small>
                 </p>
               </div>

@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-18T18:18:23.991Z",
+  "base": "http://127.0.0.1:8000",
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "production bundle offline home",
+    "existing production missions remain available",
+    {
+      "actual_tutorial": {
+        "duration": 37.68,
+        "tracks": 1
+      }
+    }
+  ],
+  "shots": [
+    "release-home-1440.png",
+    "release-missions-1440.png",
+    "release-help-1440.png"
+  ]
+}
