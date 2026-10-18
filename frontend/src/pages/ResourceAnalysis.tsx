@@ -31,6 +31,7 @@ import {
 } from '../api/client'
 import { Badge, Button, Empty } from '../components/ui'
 import { colorFor, duration, number, percent, statusLabel } from '../lib/format'
+import { policyOf, policyLabel } from '../lib/strategies'
 import './resource-analysis.css'
 import { ScenarioExperiments } from './ScenarioExperiments'
 
@@ -218,7 +219,10 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
       const task = await api.solve(
         snap.snapshot_id,
         plan.objective as 'time' | 'energy' | 'balanced',
-        { time_limit_s: fork.scenario.policy.requires_communication ? 60 : 15 },
+        {
+          time_limit_s: fork.scenario.policy.requires_communication ? 60 : 15,
+          objective_policy: policyOf(plan),
+        },
       )
       setJobId(task.job_id)
       query.setQueryData(['job', task.job_id], task)
@@ -764,6 +768,15 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
               </div>
               {result.data ? (
                 <>
+                  <p className="analysis-caption">
+                    基线：{baseline.data ? policyLabel(baseline.data) : '读取中'} → 试算：
+                    {policyLabel(result.data)}
+                  </p>
+                  {baseline.data && policyOf(baseline.data) !== policyOf(result.data) && (
+                    <p className="trial-error">
+                      目标规则版本不同：数值变化不能归因于资源变化，请按基线规则重新试算。
+                    </p>
+                  )}
                   <div className="trial-comparison">
                     <div>
                       <span>全部返航</span>

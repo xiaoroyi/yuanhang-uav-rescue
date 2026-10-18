@@ -12,7 +12,7 @@ Plan、SolverOptions新增可选字符串objective_policy，枚举deadline_first
 
 旧例：`{"objective":"energy", ...}`。新例：`{"objective":"energy","objective_policy":"tradeoff_v2", ...}`。旧fixtures保留，新增两个标记为mock的v2开发示例；真实验收结果另外保存，不能混淆。
 
-纯Solver和HTTP请求省略字段仍按v1，避免改变现有调用方语义；新版前端的新计算显式发送v2。深入优化与事件重规划从选中的原Plan继承规则版本。深入优化若版本不一致，后端拒绝409，纯Solver返回UNKNOWN/input_not_ready，不重新解释旧基线。读取与导出不迁移数据库。
+纯Solver和HTTP请求省略字段仍按v1，避免改变现有调用方语义；新版前端的新计算显式发送v2。深入优化、事件重规划、资源试算和压力测试从选中的原Plan继承规则版本；试算显示基线/结果规则，若历史记录混合规则则明确不能把指标变化归因于资源变化。深入优化若版本不一致，后端拒绝409，纯Solver返回UNKNOWN/input_not_ready，不重新解释旧基线。读取与导出不迁移数据库。
 
 ## 精确目标
 

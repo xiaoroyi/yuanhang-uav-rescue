@@ -1,0 +1,63 @@
+{
+  "at_utc": "2026-10-18T07:33:38.716446+00:00",
+  "full_regression_checkpoint": "dc6e8f54457b6b80c1f3dd47ace19bf6bdefff8c",
+  "full_regression_source_sha256": "ddc69e6ce2d18a038106b11c0b400c51d79e036a369a3f88d4cf3fd993cb401b",
+  "changed_since_full_regression": [
+    "frontend/src/pages/GuidePage.tsx",
+    "frontend/src/pages/ResourceAnalysis.tsx",
+    "frontend/src/pages/ScenarioExperiments.tsx",
+    "frontend/tests/strategy-manifest.spec.ts"
+  ],
+  "scope": "Frontend-only inheritance/copy follow-up. Solver/backend/contracts/Python tests and shared code unchanged from the complete 279 Python + 8 subtests + 36 browser checkpoint. New and affected real browser paths rerun below.",
+  "source_before_sha256": "36337465efc7bf2ec0c5175e10483f172433612e09ab29b9f02ba612b2f8fcc3",
+  "source_after_sha256": "36337465efc7bf2ec0c5175e10483f172433612e09ab29b9f02ba612b2f8fcc3",
+  "source_unchanged": true,
+  "service_unchanged_since_full_regression": true,
+  "service_source_sha256": "9d828caeb54a2b70c3fe7b122fd90adeba2136ee4fe682701e3d509f831a76e4",
+  "frontend_source_sha256": "9a909b2a56a6d8d280e060a281e12243c63d0ff83999474bd19ea189749eee16",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/generate_models.py",
+      "exit_code": 0,
+      "elapsed_s": 2.526,
+      "output": "evidence/strategy-v2/followup-check-01.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/export_openapi.py",
+      "exit_code": 0,
+      "elapsed_s": 5.361,
+      "output": "evidence/strategy-v2/followup-check-02.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\node.EXE\" frontend/scripts/generate-types.mjs",
+      "exit_code": 0,
+      "elapsed_s": 0.991,
+      "output": "evidence/strategy-v2/followup-check-03.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
+      "exit_code": 0,
+      "elapsed_s": 7.26,
+      "output": "evidence/strategy-v2/followup-check-04.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
+      "exit_code": 0,
+      "elapsed_s": 1.0,
+      "output": "evidence/strategy-v2/followup-check-05.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
+      "exit_code": 0,
+      "elapsed_s": 12.204,
+      "output": "evidence/strategy-v2/followup-check-06.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\node.EXE\" frontend/scripts/run-e2e.mjs --grep 资源试算与压力测试继承|资源分析绑定基线|地面工位与端口增配|压力|新手教程|新规则真实取舍|调度安排完整覆盖|背景光流和粒子",
+      "exit_code": 0,
+      "elapsed_s": 283.643,
+      "output": "evidence/strategy-v2/followup-check-07.txt"
+    }
+  ],
+  "passed": true
+}

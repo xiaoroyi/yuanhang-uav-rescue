@@ -4,6 +4,7 @@ import { Download, FlaskConical, LoaderCircle, X } from 'lucide-react'
 import { api, downloadJson, type Plan, type Scenario } from '../api/client'
 import { Badge, Button } from '../components/ui'
 import { duration, number, percent, statusLabel } from '../lib/format'
+import { policyOf, policyLabel } from '../lib/strategies'
 
 type Props = {
   scenario: Scenario
@@ -57,7 +58,9 @@ export function ScenarioExperiments({
           noncritical_deadline_multiplier: 1,
         })
         const snap = await api.snapshot(fork.scenario)
-        await api.solve(snap.snapshot_id, plan.objective as 'time' | 'energy' | 'balanced')
+        await api.solve(snap.snapshot_id, plan.objective as 'time' | 'energy' | 'balanced', {
+          objective_policy: policyOf(plan),
+        })
       }
       notify('已提交3个独立压力情景，按同一策略真实计算。')
     } catch (error) {
@@ -75,7 +78,7 @@ export function ScenarioExperiments({
           <h3>
             情景记录与压力检查 <Badge>{history.data?.length || 0}</Badge>
           </h3>
-          <p>重启后仍保留各情景原始v1输入对应的任务与可行结果</p>
+          <p>重启后仍保留各情景原始快照与结果；新试算沿用{policyLabel(plan)}</p>
         </div>
         <Button disabled={disabled || pending} busy={submitting} onClick={() => void stress()}>
           <FlaskConical size={14} />
@@ -149,7 +152,10 @@ export function ScenarioExperiments({
                         </button>
                       )}
                     </td>
-                    <td>{duration(row.plan?.metrics.makespan_s)}</td>
+                    <td>
+                      {duration(row.plan?.metrics.makespan_s)}
+                      {row.plan && <small>{policyLabel(row.plan)}</small>}
+                    </td>
                     <td>
                       {number(row.plan?.metrics.energy_kwh, 2)}
                       {row.plan ? ' kWh' : ''}

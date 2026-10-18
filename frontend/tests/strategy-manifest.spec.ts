@@ -182,3 +182,68 @@ test('背景光流和粒子实际运动，开关与系统减少动态效果有�
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await expect(particle).toHaveCSS('animation-name', 'none')
 })
+
+for (const [label, index] of [
+  ['v1', 3],
+  ['v2', 0],
+] as const) {
+  test(`资源试算与压力测试继承${label}基线目标规则`, async ({ page, request }) => {
+    test.setTimeout(180000)
+    const base = plans[index]
+    const expected = base.objective_policy
+    const sent: { objective_policy?: string; snapshot_id: string }[] = []
+    const jobs: string[] = []
+    page.on('request', (r) => {
+      if (r.method() === 'POST' && new URL(r.url()).pathname === '/api/v1/solve-jobs')
+        sent.push(r.postDataJSON())
+    })
+    page.on('response', async (r) => {
+      if (
+        r.request().method() === 'POST' &&
+        new URL(r.url()).pathname === '/api/v1/solve-jobs' &&
+        r.status() === 202
+      )
+        jobs.push((await r.json()).job_id)
+    })
+    await open(page, base, 'events')
+    await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
+    await page.getByLabel('增加机体', { exact: true }).fill('0')
+    await page.getByLabel('增加电池', { exact: true }).fill('1')
+    await page.getByRole('button', { name: '创建场景并真实试算', exact: true }).click()
+    await expect(page.locator('.trial-result')).toContainText('已真实计算', { timeout: 45000 })
+    await expect(page.locator('.trial-result .trial-error')).toHaveCount(0)
+    await expect.poll(() => jobs.length).toBe(1)
+    await page.getByRole('button', { name: '运行3档压力测试', exact: true }).click()
+    await expect.poll(() => sent.length, { timeout: 15000 }).toBe(4)
+    await expect.poll(() => jobs.length).toBe(4)
+    expect(sent.every((s) => s.objective_policy === expected)).toBe(true)
+    const terminal: SolveJob[] = []
+    for (const id of jobs) {
+      let job: SolveJob
+      await expect
+        .poll(
+          async () => {
+            job = await (await request.get(`/api/v1/solve-jobs/${id}`)).json()
+            return job.job_state
+          },
+          { timeout: 60000, intervals: [500, 1000] },
+        )
+        .toBe('completed')
+      terminal.push(job!)
+      if (job!.plan_id) {
+        const trial: Plan = await (await request.get(`/api/v1/plans/${job!.plan_id}`)).json()
+        expect(trial.objective_policy).toBe(expected)
+        expect(trial.validation.status).toBe('passed')
+      } else expect(['UNKNOWN', 'INFEASIBLE']).toContain(job!.solver_status)
+    }
+    expect(await (await request.get(`/api/v1/plans/${base.plan_id}`)).json()).toEqual(base)
+    await fs.writeFile(
+      path.resolve(`../evidence/strategy-v2/trial-policy-${label}.json`),
+      JSON.stringify(
+        { baseline_plan_id: base.plan_id, expected, requests: sent, jobs: terminal },
+        null,
+        2,
+      ) + '\n',
+    )
+  })
+}

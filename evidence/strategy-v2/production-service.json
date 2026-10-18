@@ -8,9 +8,11 @@
     "service_source_sha256": "9d828caeb54a2b70c3fe7b122fd90adeba2136ee4fe682701e3d509f831a76e4",
     "runtime_id": "23afa25c2bda"
   },
-  "frontend_source_sha256": "63269312d69804ad1b1bbabb68ceaa4271d0f6bb0fed12690649a182f4312044",
+  "verification_source_sha256": "36337465efc7bf2ec0c5175e10483f172433612e09ab29b9f02ba612b2f8fcc3",
+  "frontend_source_sha256": "9a909b2a56a6d8d280e060a281e12243c63d0ff83999474bd19ea189749eee16",
   "historical_plan_count": 12,
   "historical_snapshot_count": 9,
   "historical_content_unchanged": true,
-  "note": "Actual owned localhost service restarted; source/build identities verified. No database migration or old Plan/Snapshot overwrite."
+  "browser_report": "evidence/strategy-v2/production-browser.json",
+  "note": "Actual localhost service and current final build match. Existing 12 Plans and 9 Snapshots retain original content; no database migration or overwrite. Read-only production browser check passed at 1440/1280/390 with no page errors/external requests."
 }

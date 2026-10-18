@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-2B434A030410486D",
-    "scenario_id": "SCN-946DBF229BCC44D0",
+    "snapshot_id": "SNAP-4BDF840EF3A74C67",
+    "scenario_id": "SCN-8A6B8C44B8E24C97",
     "scenario_state_version": 1,
-    "content_hash": "eb2ffef04137451bfc7a6cc3ba4edd81ad5bbc49d9fe11fd8866068dc49f32af",
-    "created_at": "2026-10-18T07:06:14.789223Z",
+    "content_hash": "f39059b5bd1e43146fd5a85582c34f3a59d8eea78e432e4148ce2786febf120b",
+    "created_at": "2026-10-18T07:29:01.165456Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-946DBF229BCC44D0",
+      "scenario_id": "SCN-8A6B8C44B8E24C97",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 1,
       "mode": "simulation",
@@ -895,9 +895,9 @@
   "plans": [
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-40AB7FE311A04F2A",
-      "scenario_id": "SCN-946DBF229BCC44D0",
-      "snapshot_id": "SNAP-2B434A030410486D",
+      "plan_id": "PLAN-855E8244FD1B4DB0",
+      "scenario_id": "SCN-8A6B8C44B8E24C97",
+      "snapshot_id": "SNAP-4BDF840EF3A74C67",
       "scenario_state_version": 1,
       "data_origin": "solver",
       "objective": "time",
@@ -1394,7 +1394,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T07:06:17.148665Z",
+      "generated_at": "2026-10-18T07:29:03.713429Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
@@ -1409,9 +1409,9 @@
     },
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-4B2723CEACDD469B",
-      "scenario_id": "SCN-946DBF229BCC44D0",
-      "snapshot_id": "SNAP-2B434A030410486D",
+      "plan_id": "PLAN-7136B22D3517492C",
+      "scenario_id": "SCN-8A6B8C44B8E24C97",
+      "snapshot_id": "SNAP-4BDF840EF3A74C67",
       "scenario_state_version": 1,
       "data_origin": "solver",
       "objective": "energy",
@@ -2046,7 +2046,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T07:06:20.587779Z",
+      "generated_at": "2026-10-18T07:29:07.042370Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
@@ -2061,9 +2061,9 @@
     },
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-8B1B73762BAA4688",
-      "scenario_id": "SCN-946DBF229BCC44D0",
-      "snapshot_id": "SNAP-2B434A030410486D",
+      "plan_id": "PLAN-7A5AD518EAFC4451",
+      "scenario_id": "SCN-8A6B8C44B8E24C97",
+      "snapshot_id": "SNAP-4BDF840EF3A74C67",
       "scenario_state_version": 1,
       "data_origin": "solver",
       "objective": "balanced",
@@ -2560,7 +2560,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T07:06:24.981312Z",
+      "generated_at": "2026-10-18T07:29:11.609027Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
@@ -2575,9 +2575,9 @@
     },
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-5A98035B2147438A",
-      "scenario_id": "SCN-946DBF229BCC44D0",
-      "snapshot_id": "SNAP-2B434A030410486D",
+      "plan_id": "PLAN-4C5B391C1D514CFF",
+      "scenario_id": "SCN-8A6B8C44B8E24C97",
+      "snapshot_id": "SNAP-4BDF840EF3A74C67",
       "scenario_state_version": 1,
       "data_origin": "solver",
       "objective": "time",
@@ -3084,7 +3084,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T07:06:27.916964Z",
+      "generated_at": "2026-10-18T07:29:14.893982Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "deadline_first_v1：先减少优先级加权逐箱期望延期，再比较所选时间/能耗/折中目标。",

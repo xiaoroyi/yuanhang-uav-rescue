@@ -1,14 +1,14 @@
 {
   "sourceSnapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-0C4D912A95DB4DC9",
-    "scenario_id": "SCN-CA05C9F1AFBA4534",
+    "snapshot_id": "SNAP-E9561F489E874C44",
+    "scenario_id": "SCN-1332D129A69A48B1",
     "scenario_state_version": 2,
-    "content_hash": "29795c3662090aa6f9204cb1b4e689be0528fdb05d61128a20a9f5c8949104a8",
-    "created_at": "2026-10-18T07:20:22.418816Z",
+    "content_hash": "c4940c70978d9954b11babd926d68732a1784a09ef7b349dd28850b038b1183f",
+    "created_at": "2026-10-18T07:31:56.941098Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-CA05C9F1AFBA4534",
+      "scenario_id": "SCN-1332D129A69A48B1",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -898,9 +898,9 @@
   },
   "baseline": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-4237D96DACE844D2",
-    "scenario_id": "SCN-CA05C9F1AFBA4534",
-    "snapshot_id": "SNAP-0C4D912A95DB4DC9",
+    "plan_id": "PLAN-2841C637F285454A",
+    "scenario_id": "SCN-1332D129A69A48B1",
+    "snapshot_id": "SNAP-E9561F489E874C44",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1454,7 +1454,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T07:20:27.087249Z",
+    "generated_at": "2026-10-18T07:32:02.778211Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
@@ -1471,7 +1471,7 @@
   "receipt": {
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-3183B7B3C559471C",
+      "scenario_id": "SCN-3D32A50373CD4B5B",
       "name": "镇龙乡 · 应急运输演练 · 资源与余量试算",
       "state_version": 1,
       "mode": "simulation",
@@ -2360,14 +2360,14 @@
     },
     "origin": {
       "kind": "what_if",
-      "source_scenario_id": "SCN-CA05C9F1AFBA4534",
+      "source_scenario_id": "SCN-1332D129A69A48B1",
       "source_state_version": 2,
-      "source_content_hash": "29795c3662090aa6f9204cb1b4e689be0528fdb05d61128a20a9f5c8949104a8",
-      "source_plan_id": "PLAN-4237D96DACE844D2",
+      "source_content_hash": "c4940c70978d9954b11babd926d68732a1784a09ef7b349dd28850b038b1183f",
+      "source_plan_id": "PLAN-2841C637F285454A",
       "transformation_version": "what_if_v2_ground_capacity",
       "parameters": {
         "expected_state_version": 2,
-        "source_plan_id": "PLAN-4237D96DACE844D2",
+        "source_plan_id": "PLAN-2841C637F285454A",
         "name": "资源与余量试算",
         "additions": [
           {
@@ -2395,14 +2395,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-A5EB23A5D94C4D53",
-    "scenario_id": "SCN-3183B7B3C559471C",
+    "snapshot_id": "SNAP-338B2FD2870846D9",
+    "scenario_id": "SCN-3D32A50373CD4B5B",
     "scenario_state_version": 1,
-    "content_hash": "5fc205fdcb0a8ccf208295d912bb2e9be30f7aad59d89a26a7916a9f8a2e0bdc",
-    "created_at": "2026-10-18T07:20:36.033154Z",
+    "content_hash": "7e64e8f2ec7d5ba6018ca25ac63487cc888d1ac3787c8f504499b619f430afae",
+    "created_at": "2026-10-18T07:32:13.784171Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-3183B7B3C559471C",
+      "scenario_id": "SCN-3D32A50373CD4B5B",
       "name": "镇龙乡 · 应急运输演练 · 资源与余量试算",
       "state_version": 1,
       "mode": "simulation",
@@ -3292,9 +3292,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-E8C9D40514A04F62",
-    "scenario_id": "SCN-3183B7B3C559471C",
-    "snapshot_id": "SNAP-A5EB23A5D94C4D53",
+    "plan_id": "PLAN-65F9AEBC08A94157",
+    "scenario_id": "SCN-3D32A50373CD4B5B",
+    "snapshot_id": "SNAP-338B2FD2870846D9",
     "scenario_state_version": 1,
     "data_origin": "solver",
     "objective": "time",
@@ -3805,7 +3805,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T07:20:41.989446Z",
+    "generated_at": "2026-10-18T07:32:22.180936Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
@@ -3820,8 +3820,8 @@
     "objective_policy": "tradeoff_v2"
   },
   "analysis": {
-    "plan_id": "PLAN-E8C9D40514A04F62",
-    "snapshot_id": "SNAP-A5EB23A5D94C4D53",
+    "plan_id": "PLAN-65F9AEBC08A94157",
+    "snapshot_id": "SNAP-338B2FD2870846D9",
     "scenario_state_version": 1,
     "model_scope": [
       "cargo_unique",
@@ -3838,9 +3838,9 @@
       "model_id": "transport_capacity_relaxation_v1",
       "status": "ready",
       "reason": null,
-      "snapshot_id": "SNAP-A5EB23A5D94C4D53",
+      "snapshot_id": "SNAP-338B2FD2870846D9",
       "scenario_state_version": 1,
-      "snapshot_content_hash": "5fc205fdcb0a8ccf208295d912bb2e9be30f7aad59d89a26a7916a9f8a2e0bdc",
+      "snapshot_content_hash": "7e64e8f2ec7d5ba6018ca25ac63487cc888d1ac3787c8f504499b619f430afae",
       "required_box_count": 32,
       "eligible_type_ids": [
         "A",
