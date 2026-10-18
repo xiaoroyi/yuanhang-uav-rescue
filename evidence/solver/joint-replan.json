@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-A0C864C0E58C484F",
-    "scenario_id": "SCN-590BE74C89BE4B17",
+    "snapshot_id": "SNAP-536813972E094261",
+    "scenario_id": "SCN-6552391FBF824D72",
     "scenario_state_version": 3,
-    "content_hash": "1bdb82ac32893daaef9623c593dfba535a25775671f06621f56c1a28daff0464",
-    "created_at": "2026-10-18T01:29:16.118194Z",
+    "content_hash": "81cdd6ed00bbb3d5c3786fd8af3a7ae81d1598ad115c528b2f1ab002969b13a9",
+    "created_at": "2026-10-18T03:30:56.956821Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-590BE74C89BE4B17",
+      "scenario_id": "SCN-6552391FBF824D72",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 3,
       "mode": "simulation",
@@ -1135,12 +1135,12 @@
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-0627ec41-efbc-4c",
-    "scenario_id": "SCN-590BE74C89BE4B17",
+    "event_id": "EVT-9d110223-01ea-49",
+    "scenario_id": "SCN-6552391FBF824D72",
     "expected_state_version": 2,
     "event_type": "drone.unavailable",
-    "occurred_at": "2026-10-18T01:29:16.053000Z",
-    "received_at": "2026-10-18T01:29:16.060948Z",
+    "occurred_at": "2026-10-18T03:30:56.779000Z",
+    "received_at": "2026-10-18T03:30:56.785353Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：未起飞机体退出",
@@ -1150,9 +1150,9 @@
   },
   "previous_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-38996F37C02144EB",
-    "scenario_id": "SCN-590BE74C89BE4B17",
-    "snapshot_id": "SNAP-8E636BF166C041D3",
+    "plan_id": "PLAN-C252766510874E13",
+    "scenario_id": "SCN-6552391FBF824D72",
+    "snapshot_id": "SNAP-FF9715AD9AF5412F",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1660,7 +1660,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T01:29:13.629673Z",
+    "generated_at": "2026-10-18T03:30:52.919828Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1914,13 +1914,13 @@
         {
           "stage": "priority_delay",
           "status": "OPTIMAL",
-          "seconds": 0.7314342,
+          "seconds": 1.1217286,
           "objective": 7832256
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.5176236000000001,
+          "seconds": 0.8194939,
           "objective": 764021
         }
       ]
@@ -1928,9 +1928,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-F5F72061AC354DEE",
-    "scenario_id": "SCN-590BE74C89BE4B17",
-    "snapshot_id": "SNAP-A0C864C0E58C484F",
+    "plan_id": "PLAN-FFF23CCE90214072",
+    "scenario_id": "SCN-6552391FBF824D72",
+    "snapshot_id": "SNAP-536813972E094261",
     "scenario_state_version": 3,
     "data_origin": "solver",
     "objective": "time",
@@ -2438,7 +2438,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T01:29:48.369220Z",
+    "generated_at": "2026-10-18T03:31:31.475802Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -2450,8 +2450,8 @@
       "有限联合候选：16个悬停位置、94段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
       "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
     ],
-    "parent_plan_id": "PLAN-38996F37C02144EB",
-    "event_id": "EVT-0627ec41-efbc-4c",
+    "parent_plan_id": "PLAN-C252766510874E13",
+    "event_id": "EVT-9d110223-01ea-49",
     "change_summary": {
       "preserved_sortie_ids": [
         "SRT-08c16e45e379",
@@ -2723,13 +2723,13 @@
         {
           "stage": "priority_delay",
           "status": "FEASIBLE",
-          "seconds": 25.7467495,
-          "objective": 8383224
+          "seconds": 24.2440865,
+          "objective": 8412088
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.6562031,
+          "seconds": 1.0341690000000001,
           "objective": 764021
         }
       ]

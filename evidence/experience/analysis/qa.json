@@ -1,0 +1,33 @@
+{
+  "origin": "http://127.0.0.1:5178",
+  "requested_saved_plan": "PLAN-CF0B791A1FF84F05",
+  "actual_plan_ids": [
+    "PLAN-CF0B791A1FF84F05"
+  ],
+  "charts": 8,
+  "initial": "航程11.54 km\n累计爬升407 m\n水平能耗4.609 kWh\n爬升能耗0.153 kWh",
+  "changed": "航程9.07 km\n累计爬升548 m\n水平能耗1.609 kWh\n爬升能耗0.171 kWh",
+  "full": {
+    "css": true,
+    "native": true
+  },
+  "fullscreenFallback": {
+    "css": true,
+    "native": false
+  },
+  "viewports": [
+    {
+      "width": 1280,
+      "document": 1280,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "document": 390,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "visual_review": "pending"
+}

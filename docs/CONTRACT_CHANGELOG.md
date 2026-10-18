@@ -24,5 +24,6 @@
 - RFC-013：Event新增relay_energy.unavailable分支，仅component_id，与运输battery_id区分。仅退出中继能源可用性，不改SOC/SOH/位置，联合全量重算并独立拒绝引用退出组件。
 
 - RFC-014：WhatIfRequest增加可选ground_addition，有限准备工位/充电端口仅增配且保留原输入；ScenarioOrigin新增what_if_v2_ground_capacity标签，旧缺省/null保持v1。只扩展HTTP DTO并同步实际OpenAPI/TS，不改核心Scenario/Plan Schema；严格整数、无限容量/越界拒绝、真实重算/导出/刷新已有专项检查。
+- [RFC-015](CONTRACT_RFC_015.md)：新增四个只读HTTP路径：绑定资产ID/hash的DEM表面、绑定原Plan/Snapshot的架次高度剖面、输入版本列表及版本明细。真实OpenAPI由43增至47路径并生成前端TS；不改核心Scenario/Snapshot/Plan、Solver边界或数据库结构。NoData/未知值保留null，高度区分地面、模型作业/巡航高程及显示倍率；历史版本无创建时间时不编造时间。卫星底图与本机档案不进入求解或认证契约。专项检查及最终统一验收范围见 [体验迭代交接](EXPERIENCE_RELEASE.md)，不沿用v0计数宣称新UI通过。状态为adopted_for_branch，正式批准仍待A/B。
 
 上述扩展在本功能分支按影响范围同步Schema/fixture、生成类型、实际OpenAPI/TS、消费者和测试。Event严格联合和新的变换版本标签需要A/B共同升级消费者；不能因JSON结构向后可读就假定旧客户端具备新增处理能力。所有RFC仍待团队复核，未代填approved_by。

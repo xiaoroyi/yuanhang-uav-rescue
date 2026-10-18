@@ -2,6 +2,8 @@
 
 历史设计草案为 `contracts/http/openapi.draft.json`。当前feat/solo-fullstack-v0已有FastAPI应用，真实 `/openapi.json` 固定到 `contracts/http/openapi.generated.json`，前端TS由实际快照生成。兼容补充见RFC-002；实现状态见IMPLEMENTATION_STATUS。所有路径前缀 `/api/v1`，snake_case。B一人负责前后端适配，A审算法语义。
 
+2026-10-18体验迭代见[RFC-015](CONTRACT_RFC_015.md)：新增只读`/map/surface`、`/plans/{plan_id}/flight-profile`、`/scenarios/{scenario_id}/versions`及`/scenarios/{scenario_id}/versions/{version}`，实际OpenAPI共有47个路径。高度分析绑定Plan原Snapshot/资产，输入版本读取不回滚、不创建新版本；新增显示DTO由实际OpenAPI生成，不增加另一套手写领域Schema。运行和验收见[体验交接](EXPERIENCE_RELEASE.md)。
+
 ## 路由与返回
 
 | 方法与路径 | 请求 | 成功返回 |
@@ -23,9 +25,9 @@
 | GET /scenarios/{scenario_id}/events | ID | 200 Event[] |
 | GET /plans/{plan_id}/export?format=json\|csv\|geojson | 格式 | JSON 为 Plan；CSV/GeoJSON 包含身份与来源 |
 
-原 Word `/planning/jobs` 与 `/planning/replan` 是背景示意；当前选择统一 solve-jobs，不增加别名。上表只定义 P0，全部 P1/P2 API 在任务板，不假装已上线。
+原 Word `/planning/jobs` 与 `/planning/replan` 是背景示意；当前选择统一 solve-jobs，不增加别名。上表保留G0的P0设计；后续已实现接口见下方RFC、实际生成快照和IMPLEMENTATION_STATUS，其余P1/P2仍在任务板。
 
-CSV 文件、字段映射、错误报告与预览确认是 C-01 的验收要求，但本轮 HTTP 草案只冻结 JSON 形态。B 在 C-01 同一 PR 中补 `/scenarios/import-file` multipart 设计、映射表 DTO、预览令牌和逐行报告（A 复核单位/含义）；Excel 为 C-06。不能给 JSON 路由直接塞另一种含糊的文件请求。
+G0最初仅确定JSON草案形态。当前JSON/CSV/XLSX导入、字段映射、错误报告及预览确认已有实际实现：文件预览使用`POST /scenarios/import-file` multipart，确认保存使用生成协议；具体字段与错误形态以实际OpenAPI、ImportPreview及IMPLEMENTATION_STATUS为准。文件上传与完整JSON导入保持独立接口，单位/物理含义由A复核。
 
 ## 求解请求
 
@@ -72,7 +74,7 @@ GET /plans/{plan_id}/partition返回绑定原Snapshot的PartitionReport，独立
 
 ## 单点诊断接口（RFC-009）
 
-GET /snapshots/{snapshot_id}/single-site-analysis?min_return_soc=0.2，返回严格NominalReport，绑定不可变Snapshot。诊断参数不改场景策略，省略时使用快照策略。complete表示额定单点有限模型完成，不是Plan验证状态；partial/limited不给出完整场景metrics。报告没有实际机体、电池或执行时刻，不能传给确认API。实际OpenAPI统一生成TS，当前43个路径。模型边界与CLI见NOMINAL_ANALYSIS.md。
+GET /snapshots/{snapshot_id}/single-site-analysis?min_return_soc=0.2，返回严格NominalReport，绑定不可变Snapshot。诊断参数不改场景策略，省略时使用快照策略。complete表示额定单点有限模型完成，不是Plan验证状态；partial/limited不给出完整场景metrics。报告没有实际机体、电池或执行时刻，不能传给确认API。实际OpenAPI统一生成TS，当前路径数量见本文顶部与生成快照。模型边界与CLI见NOMINAL_ANALYSIS.md。
 
 ## 退出事件扩展（RFC-010）
 

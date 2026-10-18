@@ -1,0 +1,21 @@
+
+> yuanhang-rescue-console@0.1.0 test:unit
+> node --test tests/unit/*.test.mjs
+
+✔ rounding carries seconds into the next minute and hour (0.4775ms)
+✔ zero is data, missing values remain unknown (9.3852ms)
+✔ archived map context has exact provenance hash, feature counts and finite WGS84 geometry (13.7949ms)
+✔ foreign input coordinates do not inherit the archived town background (0.1927ms)
+✔ imported entity IDs stay inert inside an HTML chart tooltip (0.5206ms)
+✔ numeric tooltips distinguish unknown samples from an actual zero (9.53ms)
+✔ analysis preserves demand versus actual stock and unknown energy without changing inputs (2.0467ms)
+✔ empty Plan keeps real input totals and does not invent result series (0.4799ms)
+✔ a missing DEM sample removes every touching cell, including an internal hole (0.1508ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 145.4354

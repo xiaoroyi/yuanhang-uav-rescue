@@ -1130,6 +1130,144 @@
       "branch": null,
       "pr": null,
       "evidence": []
+    },
+    {
+      "id": "UX-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "夜蓝/浅色视觉体系、动态背景与本机档案",
+      "acceptance": "主题和动态偏好可持久化；档案修改/刷新/坏JSON/跨标签同步；手机导航可关闭且姓名可读",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "evidence/experience/onboarding/browser-qa.json",
+        "evidence/experience/onboarding/navigation-versions-final.json"
+      ]
+    },
+    {
+      "id": "UX-02",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "真实地图、地形导入与离线地理背景",
+      "acceptance": "独立地图入口；真实GeoTIFF/包绑定、覆盖统计、原题道路水系村镇边界来源；卫星显式启用与失败降级，不批量缓存",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "evidence/experience/map/context-source.json",
+        "evidence/experience/map/context-browser-check.json"
+      ]
+    },
+    {
+      "id": "UX-03",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "真实DEM三维与高度/能源数据大屏",
+      "acceptance": "原Snapshot与资产绑定，NoData孔洞、真实航段高度与能耗分解；八图六KPI综合看板、精确数据、全屏与小屏/WebGL降级",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "evidence/experience/analysis/overview-qa.json",
+        "evidence/experience/analysis/flight-profile-responses.json",
+        "evidence/experience/analysis/fallback-qa.json",
+        "evidence/experience/final-review/analysis-review.json",
+        "frontend/tests/chart-null.spec.ts",
+        "evidence/experience/production/visual-review.json"
+      ]
+    },
+    {
+      "id": "UX-04",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "历史档案、输入版本与方案比较",
+      "acceptance": "真实Plan/Job/Event/版本可查；旧版本只读预览下载；同快照可比性、交换、时间/能量分轴和延期指标，历史选择刷新保留",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "frontend/tests/experience.spec.ts",
+        "tests/backend/test_scenario_versions.py",
+        "evidence/experience/onboarding/comparison-export.json"
+      ]
+    },
+    {
+      "id": "UX-05",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "新手教程与创新能力说明",
+      "acceptance": "六步跳转、地图数据区别、FAQ搜索与键盘可达；创新点标明当前依据和边界，不伪造优越性/实飞能力",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "frontend/src/pages/GuidePage.tsx",
+        "evidence/experience/onboarding/browser-qa.json"
+      ]
+    },
+    {
+      "id": "UX-06",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "体验迭代的完整集成回归",
+      "acceptance": "新专项与原工作流统一回归；实际生成接口类型无漂移；固定源码指纹、截图、可用启动和远端CI分别留证",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "frontend/tests/experience.spec.ts",
+        "docs/EXPERIENCE_RELEASE.md",
+        "evidence/experience/qa-finish/results.json",
+        "evidence/experience/release-audit.json",
+        "evidence/experience/production/browser-check.json",
+        "evidence/verification/latest.json",
+        "evidence/browser/e2e-results.json",
+        "evidence/experience/handoff-audit.json"
+      ]
+    },
+    {
+      "id": "UX-07",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "地图/论文追溯与候选版本交接",
+      "acceptance": "只读参考论文图形语义，当前图只用真实输入结果；明确卫星联网限制/未知日期、旧材料归档、两人交接与剩余范围",
+      "dependencies": [
+        "Q-04"
+      ],
+      "status": "done",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "docs/CONTRACT_RFC_015.md",
+        "docs/EXPERIENCE_RELEASE.md",
+        "evidence/experience/map/source-review.json"
+      ]
     }
   ]
 }

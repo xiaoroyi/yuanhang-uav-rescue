@@ -1,0 +1,36 @@
+{
+  "reviewed_at": "2026-10-18T10:34:30.997970+08:00",
+  "reference_html": {
+    "name": "镇龙乡地理空间详情地图.html",
+    "bytes": 4701273,
+    "sha256": "5bb8082f4f5913e6787f86fa9dd3b6f8cbcfa309359f222f57355d1ae991b452",
+    "format": "self-contained D3 SVG with embedded DEM image and OSM vector data",
+    "satellite_tiles_present": false,
+    "datasets": {
+      "boundary": 1,
+      "roads": 1829,
+      "settlements": 166,
+      "waterSurfaces": 95,
+      "waterways": 101,
+      "services": 15,
+      "elevationGrid": 159
+    }
+  },
+  "online_imagery": {
+    "service": "Esri World Imagery",
+    "service_url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer?f=pjson",
+    "copyright_observed": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community",
+    "coordinate_system": "EPSG:3857",
+    "tile_check": {
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/12/1778/3290",
+      "status": 200,
+      "mime": "image/jpeg",
+      "bytes": 13410
+    },
+    "capture_date": "not verified",
+    "mode": "explicit opt-in, current viewport only, no offline bundle or bulk harvesting",
+    "terms_url": "https://www.esri.com/en-us/legal/terms/web-site-service",
+    "attribution_guidance": "https://support.esri.com/en-us/knowledge-base/what-is-the-correct-way-to-cite-an-arcgis-online-basema-000012040",
+    "note": "Online availability does not certify unrestricted redistribution or a complete commercial license audit."
+  }
+}

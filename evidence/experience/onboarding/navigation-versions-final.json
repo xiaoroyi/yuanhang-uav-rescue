@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-10-18T02:49:26.537Z",
+  "base_url": "http://127.0.0.1:5178",
+  "scope": "Read-only shared preview; hash/back/refresh, corrected mobile drawer, saved older Plan, input version preview/download. No scenario edits.",
+  "checks": [
+    {
+      "name": "hash-deep-link-refresh-and-browser-back",
+      "passed": true,
+      "details": {
+        "refresh_preserves_hash": true,
+        "browser_back": true
+      }
+    },
+    {
+      "name": "mobile-final-drawer-solid-profile-escape-backdrop",
+      "passed": true,
+      "details": {
+        "dark_background": "rgb(11, 21, 38)",
+        "light_background": "rgb(247, 250, 255)",
+        "profile_visible": true,
+        "escape": true,
+        "backdrop": true,
+        "mobile_account_footer_reachable": true
+      }
+    },
+    {
+      "name": "fifth-history-tab-original-version-readonly-export",
+      "passed": true,
+      "details": {
+        "versions": 1,
+        "preview_version": 1,
+        "current_unchanged": true,
+        "export": "input-version-export.json",
+        "known_created_at": null
+      }
+    },
+    {
+      "name": "nonlatest-plan-selection-survives-refresh-and-back",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(plans.length>=2)\n\n    at file:///E:/%E6%88%90%E7%94%B5/%E6%88%90%E7%94%B5%E7%A0%94%E4%B8%80/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8C%BA/yuanhang-uav-rescue/.local/experience/qa-navigation-v2.mjs:10:296\n    at async check (file:///E:/%E6%88%90%E7%94%B5/%E6%88%90%E7%94%B5%E7%A0%94%E4%B8%80/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8C%BA/yuanhang-uav-rescue/.local/experience/qa-navigation-v2.mjs:6:1106)\n    at async file:///E:/%E6%88%90%E7%94%B5/%E6%88%90%E7%94%B5%E7%A0%94%E4%B8%80/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8C%BA/yuanhang-uav-rescue/.local/experience/qa-navigation-v2.mjs:10:1"
+    },
+    {
+      "name": "stale-saved-plan-404-falls-back-to-real-current-scene-plan",
+      "passed": false,
+      "error": "Error: Timeout 15000ms exceeded while waiting on the predicate\n    at captureRawStack (E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\playwright-core\\lib\\coreBundle.js:9282:17)\n    at callMatcherAsStep (E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\playwright\\lib\\matchers\\expect.js:13316:57)\n    at Object.toBe (E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\playwright\\lib\\matchers\\expect.js:13308:23)\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\experience\\qa-navigation-v2.mjs:11:426\n    at async check (E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\experience\\qa-navigation-v2.mjs:6:1106)\n    at async file:///E:/%E6%88%90%E7%94%B5/%E6%88%90%E7%94%B5%E7%A0%94%E4%B8%80/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8C%BA/yuanhang-uav-rescue/.local/experience/qa-navigation-v2.mjs:11:1"
+    },
+    {
+      "name": "no-errors-or-backend-mutations",
+      "passed": true,
+      "details": {
+        "page_errors": 0,
+        "api_writes": 0
+      }
+    }
+  ],
+  "screenshots": [
+    "mobile-navigation-390.png",
+    "mobile-navigation-390-light-final.png",
+    "account-390-light-final.png",
+    "input-version-1280-final.png"
+  ],
+  "page_errors": [],
+  "mutating_requests": [],
+  "source": {
+    "frontend/src/App.tsx": "b936bcf0b8cbd9f8d0ef80fd6fbe0d4ad3867dab69e94c8d2e93e4b212e1e3ad",
+    "frontend/src/experience.css": "03d1a264b935cbd5f3cb57a2fa98d2021af5dda152edea6d9432f7fb86a4a025",
+    "frontend/src/pages/HistoryCenter.tsx": "57af01882e98b0db7a8e54c691494803ce91be0f7b8546a2e87993538c48eb01",
+    "frontend/src/pages/CompareCenter.tsx": "1d061f30fe3e076e6d32bb360c1e6e6e980e2cc2bb31bfd0d0e8301eff5e6fa4"
+  },
+  "scenario_id": "SCN-3264F73F62F647A9",
+  "finished_at": "2026-10-18T02:49:44.918Z",
+  "passed": false
+}

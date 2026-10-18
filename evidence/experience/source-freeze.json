@@ -1,0 +1,8 @@
+{
+  "frozen_at_utc": "2026-10-18T03:19:23.833462+00:00",
+  "head": "0f9e17b88b91d1ad7157e9ff9101c90cd0aa408a",
+  "verification_source_sha256": "d95f0d2e09503544e72961a6ef659a7e3b787444c45743394cb78188d56b913b",
+  "frontend_source_sha256": "fc30a7841a727df6041bde78d5c10ca3c2743809cd764c1f9ac44953f22d9256",
+  "service_source_sha256": "ebd999da9fa9c62e65730ca38bd977e159c71f54723cb6ba542caec68eec0fd6",
+  "note": "Final unified verification is running on this frozen source. This identity record is not a test-pass claim. Later changes are documentation/evidence only."
+}

@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-895E38D00404477F",
-    "scenario_id": "SCN-600CEDFA3290420F",
+    "snapshot_id": "SNAP-083176841E684C7C",
+    "scenario_id": "SCN-A9EEA1FFB1794334",
     "scenario_state_version": 2,
-    "content_hash": "68a8bda7fb0c91e24143e4d444357ca4b329b34105812d04d0d4c34c9c8b1c85",
-    "created_at": "2026-10-18T01:27:45.419093Z",
+    "content_hash": "89160d5c65813ab91c3f487ba847e12062758a7e630fd2605c4751454883551e",
+    "created_at": "2026-10-18T03:28:43.021946Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-600CEDFA3290420F",
+      "scenario_id": "SCN-A9EEA1FFB1794334",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -1135,9 +1135,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-93F9384113174D8E",
-    "scenario_id": "SCN-600CEDFA3290420F",
-    "snapshot_id": "SNAP-895E38D00404477F",
+    "plan_id": "PLAN-3C99728B066141B1",
+    "scenario_id": "SCN-A9EEA1FFB1794334",
+    "snapshot_id": "SNAP-083176841E684C7C",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1645,7 +1645,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T01:27:52.801463Z",
+    "generated_at": "2026-10-18T03:28:56.956383Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1899,21 +1899,21 @@
         {
           "stage": "priority_delay",
           "status": "OPTIMAL",
-          "seconds": 0.6260767,
+          "seconds": 1.0379661,
           "objective": 7832256
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.5055509,
+          "seconds": 0.8949533000000001,
           "objective": 764021
         }
       ]
     }
   },
   "exported_window": {
-    "plan_id": "PLAN-93F9384113174D8E",
-    "snapshot_id": "SNAP-895E38D00404477F",
+    "plan_id": "PLAN-3C99728B066141B1",
+    "snapshot_id": "SNAP-083176841E684C7C",
     "scenario_state_version": 2,
     "model_id": "projected_dem_radio_v1",
     "sortie_id": "SRT-0effebcce24d",

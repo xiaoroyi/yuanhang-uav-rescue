@@ -1,0 +1,164 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/chart-null.spec.ts",
+      "--output",
+      "../.local/final-review-test-results"
+    ],
+    "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
+    "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/.local/final-review-test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\final-review-test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "snapshotDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:5174",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=swiftshader",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\..\\evidence\\experience\\final-review\\tooltip-regression.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "chart-null.spec.ts",
+      "file": "chart-null.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "analysis axis tooltip keeps missing DEM unknown beside a valid cruise series",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 834,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T02:57:39.843Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "analysis-unknown-versus-zero-tooltip",
+                      "contentType": "application/json",
+                      "body": "ewogICJtaXNzaW5nIjogIjAuMDAwXG5ERU3lnLDpnaLph4fmoLdcbuacquefpVxu5qih5Z6L5beh6Iiq6auY56iLXG4xMDAgbSIsCiAgInplcm8iOiAiMS4wMDBcbkRFTeWcsOmdoumHh+agt1xuMCBtXG7mqKHlnovlt6HoiKrpq5jnqItcbjEwMCBtIiwKICAic2VlbiI6IFsKICAgIG51bGwsCiAgICAxMDAsCiAgICAwLAogICAgMTAwCiAgXSwKICAiZ3JvdW5kIjogWwogICAgWwogICAgICAwLAogICAgICBudWxsCiAgICBdLAogICAgWwogICAgICAxLAogICAgICAwCiAgICBdLAogICAgWwogICAgICAyLAogICAgICAzMAogICAgXQogIF0KfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fb3c0358bbc601321c69-d3cf8db40d048a658d4b",
+          "file": "chart-null.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T02:57:39.418Z",
+    "duration": 1617.528,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

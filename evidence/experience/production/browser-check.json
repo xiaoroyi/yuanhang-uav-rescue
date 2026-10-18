@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-18T03:02:58.177Z",
+  "origin": "http://127.0.0.1:8000",
+  "scenarioId": "SCN-20D3489349CB498B",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "ebd999da9fa9c62e65730ca38bd977e159c71f54723cb6ba542caec68eec0fd6",
+    "runtime_id": "23afa25c2bda"
+  },
+  "screenshots": [
+    "evidence/experience/production/workspace-1440.png",
+    "evidence/experience/production/workspace-1280.png",
+    "evidence/experience/production/map-1440.png",
+    "evidence/experience/production/history-1440.png",
+    "evidence/experience/production/guide-1440.png",
+    "evidence/experience/production/analysis-1440.png",
+    "evidence/experience/production/overview-1440.png",
+    "evidence/experience/production/analysis-390.png"
+  ],
+  "dimensions": [
+    {
+      "hash": "#/workspace",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/workspace",
+      "width": 1280,
+      "height": 720,
+      "bodyWidth": 1280,
+      "viewportWidth": 1280
+    },
+    {
+      "hash": "#/maps",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/history",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/guide",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/analysis",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/analysis",
+      "width": 1440,
+      "height": 900,
+      "bodyWidth": 1440,
+      "viewportWidth": 1440
+    },
+    {
+      "hash": "#/analysis",
+      "width": 390,
+      "height": 844,
+      "bodyWidth": 390,
+      "viewportWidth": 390
+    }
+  ],
+  "overview": {
+    "clientHeight": 900,
+    "scrollHeight": 900,
+    "visibleCharts": [],
+    "canvases": 9
+  },
+  "pageErrors": [],
+  "externalRequests": [],
+  "readonlySceneAndPlansUnchanged": true,
+  "passed": true
+}

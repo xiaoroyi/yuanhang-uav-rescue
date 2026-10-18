@@ -1,0 +1,77 @@
+{
+  "at_utc": "2026-10-18T03:41:06.441501+00:00",
+  "verified_head": "0f9e17b88b91d1ad7157e9ff9101c90cd0aa408a",
+  "verification_source_sha256": "d95f0d2e09503544e72961a6ef659a7e3b787444c45743394cb78188d56b913b",
+  "source_unchanged": true,
+  "passed": true,
+  "counts": {
+    "python": 273,
+    "python_subtests": 8,
+    "frontend_units": 9,
+    "browser": 33
+  },
+  "browser_stats": {
+    "startTime": "2026-10-18T03:25:29.115Z",
+    "duration": 891330.632,
+    "expected": 33,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "task_status_counts": {
+    "done": 39,
+    "in_progress": 16,
+    "todo": 8
+  },
+  "post_document_governance_exit": 0,
+  "artifacts": [
+    {
+      "path": "evidence/verification/latest.json",
+      "sha256": "00296d405758fbf3716a448b839745f924402505acd97890404ac49a02ce2ff1"
+    },
+    {
+      "path": "evidence/browser/e2e-results.json",
+      "sha256": "da7a8f0d940668b67a633e9a6cdf15735acff4a69733b01fb64e094eacacf00e"
+    },
+    {
+      "path": "evidence/experience/source-freeze.json",
+      "sha256": "4e493d6942d3505c62c1d531512633d45d7c4a396d44eb1931a028ee1448bb95"
+    },
+    {
+      "path": "evidence/experience/production/visual-review.json",
+      "sha256": "d5160b99e0222cf606b04054b7ee37a7d68e0db0643f15c3aa571475d68f96aa"
+    },
+    {
+      "path": "evidence/verification/check-01.txt",
+      "sha256": "0954005e92af75a728daf1de9923b7f34eb834375f85de6a643c4e3103a7062f"
+    },
+    {
+      "path": "evidence/verification/check-02.txt",
+      "sha256": "8a620bfc9d9b38a85c9f93ad15d76df6de3151581f59e98e19acd499cabc935f"
+    },
+    {
+      "path": "evidence/verification/check-03.txt",
+      "sha256": "b132883839b458fe6d7b1ed1f870498dd2cf0696c1d646bfb2b543901887277b"
+    },
+    {
+      "path": "evidence/verification/check-04.txt",
+      "sha256": "e3ce1b0282018d381dad75511658c693b61d424463832ce36cfd15ffe7e34b78"
+    },
+    {
+      "path": "evidence/verification/check-05.txt",
+      "sha256": "9a5ea19c7c2acea9df671547794e9be7eb74ee76a93751286d4d633896522040"
+    },
+    {
+      "path": "evidence/verification/check-06.txt",
+      "sha256": "2dfbd827610cc5a0cc4eb0102f14c4c506bceeffe801354abd6a871f93a30185"
+    },
+    {
+      "path": "evidence/verification/check-07.txt",
+      "sha256": "0c6b09e3e338c02446b494e9193c4cb39fa8e35552ffe4a6f32c760aadc8086a"
+    }
+  ],
+  "limits": [
+    "Satellite browser success remains unverified under environment external-network policy; explicit switch and failure fallback are tested.",
+    "Local profile is browser-only. P2 research tasks and main merge are not marked complete."
+  ]
+}

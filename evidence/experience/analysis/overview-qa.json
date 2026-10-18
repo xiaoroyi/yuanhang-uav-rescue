@@ -1,0 +1,100 @@
+{
+  "overview": {
+    "native": true,
+    "overview": true,
+    "clientHeight": 900,
+    "scrollHeight": 900,
+    "kpis": 6,
+    "charts": [
+      {
+        "title": "基地与服务点地面高程",
+        "x": 726.5,
+        "y": 192,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "DEM地貌高程分布",
+        "x": 1078.25,
+        "y": 192,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "航段地形与巡航高程剖面",
+        "x": 726.5,
+        "y": 464.328125,
+        "width": 338.75,
+        "height": 173.328125,
+        "inside": true
+      },
+      {
+        "title": "站点 × 物资需求",
+        "x": 1078.25,
+        "y": 437.328125,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "物资保障构成",
+        "x": 23,
+        "y": 682.65625,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "机体工作量分解",
+        "x": 374.75,
+        "y": 682.65625,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "架次时长与能源画像",
+        "x": 726.5,
+        "y": 682.65625,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      },
+      {
+        "title": "返航能源安全余量",
+        "x": 1078.25,
+        "y": 682.65625,
+        "width": 338.75,
+        "height": 200.328125,
+        "inside": true
+      }
+    ]
+  },
+  "friendly_notice": "按绑定地形与原方案重建，高程基准为题设提供的高程参考。 紫线表示分段模型巡航高程，点标表示节点作业高程；采样展示不替代完整净空检查，也不是实飞记录。",
+  "small_viewport_fallback": [
+    {
+      "width": 1280,
+      "height": 720,
+      "clientWidth": 1280,
+      "scrollWidth": 1280,
+      "clientHeight": 720,
+      "scrollHeight": 3478,
+      "display": "block",
+      "horizontal_overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "clientHeight": 844,
+      "scrollHeight": 6475,
+      "display": "block",
+      "horizontal_overflow": false
+    }
+  ],
+  "errors": [],
+  "visual_review": "pending"
+}

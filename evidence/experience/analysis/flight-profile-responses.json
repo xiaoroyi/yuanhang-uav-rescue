@@ -1,0 +1,3526 @@
+[
+  {
+    "plan_id": "PLAN-CF0B791A1FF84F05",
+    "snapshot_id": "SNAP-BC3CF3E36D004A19",
+    "scenario_state_version": 1,
+    "sortie_id": "SRT-6396ff71573f",
+    "drone_id": "U07",
+    "drone_type_id": "C",
+    "terrain_asset_id": "contest-dem-30m",
+    "terrain_sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+    "vertical_datum": "contest_provided_elevation_reference",
+    "total_distance_m": 11536.354878729724,
+    "total_climb_m": 406.590087890625,
+    "total_descent_m": 406.590087890625,
+    "flight_time_s": 1135.021404350211,
+    "modeled_energy_kwh": 4.762303120150357,
+    "horizontal_energy_kwh": 4.608894604107012,
+    "climb_energy_kwh": 0.15340851604334527,
+    "plan_sortie_energy_kwh": 4.762303120150357,
+    "legs": [
+      {
+        "leg_index": 0,
+        "from_id": "O01",
+        "to_id": "S001",
+        "distance_m": 3053.9788435184996,
+        "start_distance_m": 0,
+        "end_distance_m": 3053.9788435184996,
+        "start_work_elevation_m": 127.7,
+        "end_work_elevation_m": 184,
+        "cruise_elevation_m": 273.0566101074219,
+        "climb_m": 145.3566101074219,
+        "descent_m": 89.05661010742188,
+        "clearance_required_m": 50,
+        "payload_kg": 79,
+        "flight_time_s": 306.26953866457967,
+        "energy_kwh": 2.0744506824965026,
+        "horizontal_energy_kwh": 1.9925356714650972,
+        "climb_energy_kwh": 0.0819150110314053,
+        "terrain_checked": true,
+        "terrain_maximum_m": 223.05661010742188,
+        "cruise_clearance_margin_m": 0,
+        "samples": [
+          {
+            "distance_m": 0,
+            "longitude": 109.2308517,
+            "latitude": 23.008509500000002,
+            "ground_elevation_m": 128.7255401611328,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 38.65796004453797,
+            "longitude": 109.23100838278079,
+            "latitude": 23.008827015406673,
+            "ground_elevation_m": 132.31642150878906,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 77.31592008907595,
+            "longitude": 109.23116506629484,
+            "latitude": 23.00914453064559,
+            "ground_elevation_m": 133.5413055419922,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 115.97388013361392,
+            "longitude": 109.23132175054216,
+            "latitude": 23.009462045716738,
+            "ground_elevation_m": 140.24159240722656,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 154.6318401781519,
+            "longitude": 109.23147843552277,
+            "latitude": 23.009779560620114,
+            "ground_elevation_m": 144.3026123046875,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 193.28980022268985,
+            "longitude": 109.23163512123669,
+            "latitude": 23.010097075355727,
+            "ground_elevation_m": 142.67367553710938,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 231.94776026722784,
+            "longitude": 109.23179180768393,
+            "latitude": 23.01041458992356,
+            "ground_elevation_m": 141.5878448486328,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 270.6057203117658,
+            "longitude": 109.23194849486451,
+            "latitude": 23.010732104323615,
+            "ground_elevation_m": 138.46737670898438,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 309.2636803563038,
+            "longitude": 109.23210518277844,
+            "latitude": 23.011049618555898,
+            "ground_elevation_m": 139.03878784179688,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 347.92164040084174,
+            "longitude": 109.23226187142572,
+            "latitude": 23.01136713262039,
+            "ground_elevation_m": 142.09059143066406,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 386.5796004453797,
+            "longitude": 109.2324185608064,
+            "latitude": 23.011684646517097,
+            "ground_elevation_m": 146.45533752441406,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 425.2375604899177,
+            "longitude": 109.23257525092045,
+            "latitude": 23.012002160246016,
+            "ground_elevation_m": 153.67835998535156,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 463.89552053445567,
+            "longitude": 109.23273194176791,
+            "latitude": 23.012319673807134,
+            "ground_elevation_m": 156.9326629638672,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 502.55348057899363,
+            "longitude": 109.2328886333488,
+            "latitude": 23.012637187200465,
+            "ground_elevation_m": 161.6325225830078,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 541.2114406235316,
+            "longitude": 109.23304532566311,
+            "latitude": 23.01295470042599,
+            "ground_elevation_m": 165.66754150390625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 579.8694006680696,
+            "longitude": 109.23320201871088,
+            "latitude": 23.013272213483717,
+            "ground_elevation_m": 163.1529083251953,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 618.5273607126076,
+            "longitude": 109.23335871249212,
+            "latitude": 23.013589726373638,
+            "ground_elevation_m": 166.9786834716797,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 657.1853207571455,
+            "longitude": 109.23351540700682,
+            "latitude": 23.01390723909574,
+            "ground_elevation_m": 176.50196838378906,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 695.8432808016835,
+            "longitude": 109.23367210225503,
+            "latitude": 23.01422475165004,
+            "ground_elevation_m": 186.74330139160156,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 734.5012408462214,
+            "longitude": 109.23382879823674,
+            "latitude": 23.014542264036518,
+            "ground_elevation_m": 199.0145263671875,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 773.1592008907594,
+            "longitude": 109.23398549495197,
+            "latitude": 23.014859776255186,
+            "ground_elevation_m": 205.36367797851562,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 811.8171609352975,
+            "longitude": 109.23414219240074,
+            "latitude": 23.015177288306017,
+            "ground_elevation_m": 205.8351593017578,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 850.4751209798354,
+            "longitude": 109.23429889058305,
+            "latitude": 23.015494800189032,
+            "ground_elevation_m": 196.81793212890625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 889.1330810243734,
+            "longitude": 109.23445558949894,
+            "latitude": 23.015812311904217,
+            "ground_elevation_m": 181.01292419433594,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 927.7910410689113,
+            "longitude": 109.2346122891484,
+            "latitude": 23.016129823451568,
+            "ground_elevation_m": 157.11402893066406,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 966.4490011134493,
+            "longitude": 109.23476898953145,
+            "latitude": 23.01644733483108,
+            "ground_elevation_m": 138.3493194580078,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1005.1069611579873,
+            "longitude": 109.2349256906481,
+            "latitude": 23.016764846042758,
+            "ground_elevation_m": 139.77549743652344,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1043.7649212025253,
+            "longitude": 109.23508239249838,
+            "latitude": 23.017082357086597,
+            "ground_elevation_m": 155.73793029785156,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1082.4228812470633,
+            "longitude": 109.2352390950823,
+            "latitude": 23.017399867962585,
+            "ground_elevation_m": 187.85836791992188,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1121.0808412916012,
+            "longitude": 109.23539579839986,
+            "latitude": 23.017717378670728,
+            "ground_elevation_m": 198.900634765625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1159.7388013361392,
+            "longitude": 109.2355525024511,
+            "latitude": 23.018034889211027,
+            "ground_elevation_m": 182.73458862304688,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1198.3967613806772,
+            "longitude": 109.23570920723601,
+            "latitude": 23.01835239958346,
+            "ground_elevation_m": 160.85816955566406,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1237.0547214252151,
+            "longitude": 109.23586591275462,
+            "latitude": 23.018669909788038,
+            "ground_elevation_m": 153.74887084960938,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1275.712681469753,
+            "longitude": 109.23602261900693,
+            "latitude": 23.018987419824757,
+            "ground_elevation_m": 163.2061004638672,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1314.370641514291,
+            "longitude": 109.23617932599296,
+            "latitude": 23.019304929693607,
+            "ground_elevation_m": 164.8919219970703,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1353.028601558829,
+            "longitude": 109.23633603371273,
+            "latitude": 23.0196224393946,
+            "ground_elevation_m": 196.0955810546875,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1391.686561603367,
+            "longitude": 109.23649274216626,
+            "latitude": 23.01993994892771,
+            "ground_elevation_m": 189.86671447753906,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1430.344521647905,
+            "longitude": 109.23664945135354,
+            "latitude": 23.02025745829295,
+            "ground_elevation_m": 164.6157684326172,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1469.0024816924429,
+            "longitude": 109.23680616127461,
+            "latitude": 23.020574967490315,
+            "ground_elevation_m": 143.9332733154297,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1507.6604417369808,
+            "longitude": 109.23696287192948,
+            "latitude": 23.020892476519798,
+            "ground_elevation_m": 148.27027893066406,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1546.3184017815188,
+            "longitude": 109.23711958331815,
+            "latitude": 23.021209985381397,
+            "ground_elevation_m": 159.90310668945312,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1584.976361826057,
+            "longitude": 109.23727629544064,
+            "latitude": 23.02152749407511,
+            "ground_elevation_m": 160.89425659179688,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1623.634321870595,
+            "longitude": 109.23743300829696,
+            "latitude": 23.021845002600934,
+            "ground_elevation_m": 164.92095947265625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1662.292281915133,
+            "longitude": 109.23758972188715,
+            "latitude": 23.022162510958857,
+            "ground_elevation_m": 170.78465270996094,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1700.9502419596708,
+            "longitude": 109.2377464362112,
+            "latitude": 23.02248001914889,
+            "ground_elevation_m": 180.53103637695312,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1739.6082020042088,
+            "longitude": 109.23790315126912,
+            "latitude": 23.022797527171022,
+            "ground_elevation_m": 185.40367126464844,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1778.2661620487468,
+            "longitude": 109.23805986706094,
+            "latitude": 23.023115035025253,
+            "ground_elevation_m": 207.7728729248047,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1816.9241220932847,
+            "longitude": 109.23821658358668,
+            "latitude": 23.023432542711575,
+            "ground_elevation_m": 196.93614196777344,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1855.5820821378227,
+            "longitude": 109.23837330084633,
+            "latitude": 23.02375005022999,
+            "ground_elevation_m": 191.4572296142578,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1894.2400421823606,
+            "longitude": 109.23853001883992,
+            "latitude": 23.024067557580487,
+            "ground_elevation_m": 219.9192657470703,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1932.8980022268986,
+            "longitude": 109.23868673756746,
+            "latitude": 23.024385064763067,
+            "ground_elevation_m": 223.05661010742188,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 1971.5559622714366,
+            "longitude": 109.23884345702898,
+            "latitude": 23.024702571777734,
+            "ground_elevation_m": 209.37196350097656,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2010.2139223159745,
+            "longitude": 109.23900017722447,
+            "latitude": 23.02502007862448,
+            "ground_elevation_m": 197.9749755859375,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2048.8718823605127,
+            "longitude": 109.23915689815395,
+            "latitude": 23.025337585303294,
+            "ground_elevation_m": 181.29310607910156,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2087.5298424050507,
+            "longitude": 109.23931361981745,
+            "latitude": 23.02565509181418,
+            "ground_elevation_m": 189.44052124023438,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2126.1878024495886,
+            "longitude": 109.23947034221497,
+            "latitude": 23.025972598157143,
+            "ground_elevation_m": 212.2935333251953,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2164.8457624941266,
+            "longitude": 109.23962706534654,
+            "latitude": 23.02629010433216,
+            "ground_elevation_m": 207.915771484375,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2203.5037225386645,
+            "longitude": 109.23978378921214,
+            "latitude": 23.026607610339244,
+            "ground_elevation_m": 196.9198760986328,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2242.1616825832025,
+            "longitude": 109.23994051381182,
+            "latitude": 23.026925116178376,
+            "ground_elevation_m": 186.66009521484375,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2280.8196426277404,
+            "longitude": 109.24009723914558,
+            "latitude": 23.027242621849574,
+            "ground_elevation_m": 182.56399536132812,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2319.4776026722784,
+            "longitude": 109.24025396521344,
+            "latitude": 23.027560127352817,
+            "ground_elevation_m": 176.91641235351562,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2358.1355627168164,
+            "longitude": 109.2404106920154,
+            "latitude": 23.027877632688114,
+            "ground_elevation_m": 181.5545196533203,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2396.7935227613543,
+            "longitude": 109.2405674195515,
+            "latitude": 23.02819513785545,
+            "ground_elevation_m": 184.3134765625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2435.4514828058923,
+            "longitude": 109.24072414782172,
+            "latitude": 23.02851264285483,
+            "ground_elevation_m": 194.59690856933594,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2474.1094428504302,
+            "longitude": 109.2408808768261,
+            "latitude": 23.028830147686254,
+            "ground_elevation_m": 184.76614379882812,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2512.767402894968,
+            "longitude": 109.24103760656465,
+            "latitude": 23.02914765234971,
+            "ground_elevation_m": 186.42477416992188,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2551.425362939506,
+            "longitude": 109.24119433703738,
+            "latitude": 23.029465156845202,
+            "ground_elevation_m": 192.69046020507812,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2590.083322984044,
+            "longitude": 109.24135106824431,
+            "latitude": 23.02978266117271,
+            "ground_elevation_m": 194.8701934814453,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2628.741283028582,
+            "longitude": 109.24150780018545,
+            "latitude": 23.030100165332254,
+            "ground_elevation_m": 194.1124725341797,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2667.39924307312,
+            "longitude": 109.24166453286081,
+            "latitude": 23.03041766932382,
+            "ground_elevation_m": 146.75933837890625,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2706.057203117658,
+            "longitude": 109.24182126627042,
+            "latitude": 23.030735173147406,
+            "ground_elevation_m": 150.22930908203125,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2744.715163162196,
+            "longitude": 109.24197800041428,
+            "latitude": 23.031052676803007,
+            "ground_elevation_m": 154.8434295654297,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2783.373123206734,
+            "longitude": 109.2421347352924,
+            "latitude": 23.03137018029062,
+            "ground_elevation_m": 158.7278289794922,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2822.031083251272,
+            "longitude": 109.2422914709048,
+            "latitude": 23.031687683610244,
+            "ground_elevation_m": 158.96871948242188,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2860.68904329581,
+            "longitude": 109.24244820725151,
+            "latitude": 23.032005186761868,
+            "ground_elevation_m": 156.3206329345703,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2899.347003340348,
+            "longitude": 109.24260494433253,
+            "latitude": 23.032322689745506,
+            "ground_elevation_m": 149.48812866210938,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2938.0049633848857,
+            "longitude": 109.24276168214787,
+            "latitude": 23.032640192561136,
+            "ground_elevation_m": 156.43264770507812,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 2976.6629234294237,
+            "longitude": 109.24291842069756,
+            "latitude": 23.032957695208765,
+            "ground_elevation_m": 154.0418243408203,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 3015.3208834739617,
+            "longitude": 109.24307515998159,
+            "latitude": 23.033275197688386,
+            "ground_elevation_m": 151.58099365234375,
+            "cruise_elevation_m": 273.0566101074219
+          },
+          {
+            "distance_m": 3053.9788435184996,
+            "longitude": 109.2432319,
+            "latitude": 23.0335927,
+            "ground_elevation_m": 153.96136474609375,
+            "cruise_elevation_m": 273.0566101074219
+          }
+        ]
+      },
+      {
+        "leg_index": 1,
+        "from_id": "S001",
+        "to_id": "S006",
+        "distance_m": 5296.16785679757,
+        "start_distance_m": 3053.9788435184996,
+        "end_distance_m": 8350.146700316069,
+        "start_work_elevation_m": 184,
+        "end_work_elevation_m": 314.8,
+        "cruise_elevation_m": 393.9356384277344,
+        "climb_m": 209.93563842773438,
+        "descent_m": 79.13563842773436,
+        "clearance_required_m": 50,
+        "payload_kg": 3,
+        "flight_time_s": 476.6199317047989,
+        "energy_kwh": 1.6939097401776653,
+        "horizontal_energy_kwh": 1.6359871854377133,
+        "climb_energy_kwh": 0.057922554739952004,
+        "terrain_checked": true,
+        "terrain_maximum_m": 343.9356384277344,
+        "cruise_clearance_margin_m": 0,
+        "samples": [
+          {
+            "distance_m": 3053.9788435184996,
+            "longitude": 109.2432319,
+            "latitude": 23.0335927,
+            "ground_elevation_m": 153.96136474609375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3121.0189429716334,
+            "longitude": 109.24268181787819,
+            "latitude": 23.033265196593952,
+            "ground_elevation_m": 150.55526733398438,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3188.059042424767,
+            "longitude": 109.24213173841487,
+            "latitude": 23.0329376912619,
+            "ground_elevation_m": 150.19261169433594,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3255.099141877901,
+            "longitude": 109.24158166160998,
+            "latitude": 23.03261018400387,
+            "ground_elevation_m": 177.2075653076172,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3322.139241331035,
+            "longitude": 109.24103158746347,
+            "latitude": 23.032282674819903,
+            "ground_elevation_m": 161.62969970703125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3389.1793407841687,
+            "longitude": 109.24048151597532,
+            "latitude": 23.031955163710048,
+            "ground_elevation_m": 149.9001922607422,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3456.2194402373025,
+            "longitude": 109.23993144714548,
+            "latitude": 23.031627650674338,
+            "ground_elevation_m": 148.2441864013672,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3523.259539690436,
+            "longitude": 109.23938138097391,
+            "latitude": 23.03130013571281,
+            "ground_elevation_m": 159.0668487548828,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3590.29963914357,
+            "longitude": 109.23883131746057,
+            "latitude": 23.030972618825505,
+            "ground_elevation_m": 149.65516662597656,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3657.3397385967037,
+            "longitude": 109.23828125660542,
+            "latitude": 23.030645100012464,
+            "ground_elevation_m": 143.75048828125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3724.3798380498374,
+            "longitude": 109.23773119840843,
+            "latitude": 23.03031757927374,
+            "ground_elevation_m": 146.815673828125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3791.419937502971,
+            "longitude": 109.23718114286956,
+            "latitude": 23.02999005660934,
+            "ground_elevation_m": 165.65158081054688,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3858.460036956105,
+            "longitude": 109.23663108998875,
+            "latitude": 23.02966253201933,
+            "ground_elevation_m": 168.841064453125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3925.5001364092386,
+            "longitude": 109.23608103976599,
+            "latitude": 23.029335005503743,
+            "ground_elevation_m": 152.3483123779297,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 3992.540235862373,
+            "longitude": 109.2355309922012,
+            "latitude": 23.029007477062613,
+            "ground_elevation_m": 145.29579162597656,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4059.5803353155065,
+            "longitude": 109.2349809472944,
+            "latitude": 23.02867994669599,
+            "ground_elevation_m": 167.989501953125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4126.62043476864,
+            "longitude": 109.23443090504551,
+            "latitude": 23.0283524144039,
+            "ground_elevation_m": 167.6265869140625,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4193.660534221774,
+            "longitude": 109.2338808654545,
+            "latitude": 23.0280248801864,
+            "ground_elevation_m": 147.11148071289062,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4260.700633674907,
+            "longitude": 109.2333308285213,
+            "latitude": 23.02769734404351,
+            "ground_elevation_m": 144.21646118164062,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4327.740733128042,
+            "longitude": 109.23278079424593,
+            "latitude": 23.02736980597528,
+            "ground_elevation_m": 145.40658569335938,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4394.780832581176,
+            "longitude": 109.2322307626283,
+            "latitude": 23.027042265981756,
+            "ground_elevation_m": 184.9424591064453,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4461.820932034309,
+            "longitude": 109.2316807336684,
+            "latitude": 23.026714724062963,
+            "ground_elevation_m": 167.25537109375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4528.861031487443,
+            "longitude": 109.23113070736616,
+            "latitude": 23.026387180218947,
+            "ground_elevation_m": 151.92172241210938,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4595.901130940577,
+            "longitude": 109.23058068372158,
+            "latitude": 23.026059634449744,
+            "ground_elevation_m": 143.90737915039062,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4662.941230393711,
+            "longitude": 109.23003066273459,
+            "latitude": 23.025732086755404,
+            "ground_elevation_m": 139,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4729.981329846844,
+            "longitude": 109.22948064440517,
+            "latitude": 23.025404537135955,
+            "ground_elevation_m": 152.26580810546875,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4797.021429299978,
+            "longitude": 109.22893062873328,
+            "latitude": 23.02507698559145,
+            "ground_elevation_m": 144.616943359375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4864.061528753112,
+            "longitude": 109.22838061571885,
+            "latitude": 23.02474943212191,
+            "ground_elevation_m": 143.92185974121094,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4931.101628206246,
+            "longitude": 109.22783060536189,
+            "latitude": 23.024421876727388,
+            "ground_elevation_m": 145.86488342285156,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 4998.141727659379,
+            "longitude": 109.22728059766231,
+            "latitude": 23.02409431940792,
+            "ground_elevation_m": 147.54824829101562,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5065.181827112514,
+            "longitude": 109.2267305926201,
+            "latitude": 23.02376676016354,
+            "ground_elevation_m": 151.79774475097656,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5132.221926565648,
+            "longitude": 109.22618059023522,
+            "latitude": 23.023439198994296,
+            "ground_elevation_m": 144.3558349609375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5199.262026018781,
+            "longitude": 109.22563059050762,
+            "latitude": 23.02311163590023,
+            "ground_elevation_m": 164.286376953125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5266.302125471915,
+            "longitude": 109.22508059343727,
+            "latitude": 23.022784070881368,
+            "ground_elevation_m": 187.5702362060547,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5333.342224925049,
+            "longitude": 109.22453059902413,
+            "latitude": 23.022456503937754,
+            "ground_elevation_m": 190.9076690673828,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5400.382324378183,
+            "longitude": 109.22398060726815,
+            "latitude": 23.022128935069436,
+            "ground_elevation_m": 217.3341827392578,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5467.422423831316,
+            "longitude": 109.22343061816929,
+            "latitude": 23.02180136427645,
+            "ground_elevation_m": 203.656982421875,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5534.46252328445,
+            "longitude": 109.22288063172752,
+            "latitude": 23.02147379155883,
+            "ground_elevation_m": 181.60342407226562,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5601.502622737584,
+            "longitude": 109.22233064794281,
+            "latitude": 23.021146216916616,
+            "ground_elevation_m": 165.13209533691406,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5668.5427221907175,
+            "longitude": 109.22178066681509,
+            "latitude": 23.02081864034985,
+            "ground_elevation_m": 180.3793487548828,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5735.582821643851,
+            "longitude": 109.22123068834435,
+            "latitude": 23.020491061858575,
+            "ground_elevation_m": 186.5838623046875,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5802.622921096985,
+            "longitude": 109.22068071253054,
+            "latitude": 23.02016348144283,
+            "ground_elevation_m": 170.36151123046875,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5869.663020550119,
+            "longitude": 109.22013073937362,
+            "latitude": 23.019835899102645,
+            "ground_elevation_m": 181.1907958984375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 5936.7031200032525,
+            "longitude": 109.21958076887356,
+            "latitude": 23.019508314838074,
+            "ground_elevation_m": 183.40452575683594,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6003.743219456386,
+            "longitude": 109.21903080103029,
+            "latitude": 23.01918072864914,
+            "ground_elevation_m": 206.5673065185547,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6070.78331890952,
+            "longitude": 109.21848083584379,
+            "latitude": 23.0188531405359,
+            "ground_elevation_m": 212.21771240234375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6137.823418362654,
+            "longitude": 109.21793087331405,
+            "latitude": 23.018525550498378,
+            "ground_elevation_m": 242.13511657714844,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6204.863517815787,
+            "longitude": 109.21738091344096,
+            "latitude": 23.018197958536618,
+            "ground_elevation_m": 228.01974487304688,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6271.903617268921,
+            "longitude": 109.21683095622456,
+            "latitude": 23.01787036465067,
+            "ground_elevation_m": 233.0597381591797,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6338.943716722055,
+            "longitude": 109.21628100166477,
+            "latitude": 23.017542768840563,
+            "ground_elevation_m": 241.80703735351562,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6405.983816175189,
+            "longitude": 109.21573104976153,
+            "latitude": 23.017215171106326,
+            "ground_elevation_m": 238.78382873535156,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6473.023915628322,
+            "longitude": 109.21518110051484,
+            "latitude": 23.016887571448027,
+            "ground_elevation_m": 233.24452209472656,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6540.064015081456,
+            "longitude": 109.21463115392464,
+            "latitude": 23.016559969865675,
+            "ground_elevation_m": 208.44139099121094,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6607.104114534591,
+            "longitude": 109.21408120999091,
+            "latitude": 23.016232366359343,
+            "ground_elevation_m": 227.6708221435547,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6674.1442139877245,
+            "longitude": 109.21353126871358,
+            "latitude": 23.015904760929036,
+            "ground_elevation_m": 223.88450622558594,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6741.184313440858,
+            "longitude": 109.21298133009263,
+            "latitude": 23.015577153574817,
+            "ground_elevation_m": 241.19566345214844,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6808.224412893992,
+            "longitude": 109.21243139412803,
+            "latitude": 23.015249544296708,
+            "ground_elevation_m": 231.33885192871094,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6875.264512347126,
+            "longitude": 109.21188146081971,
+            "latitude": 23.01492193309477,
+            "ground_elevation_m": 240.59634399414062,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 6942.304611800259,
+            "longitude": 109.21133153016764,
+            "latitude": 23.014594319969017,
+            "ground_elevation_m": 204.8330841064453,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7009.344711253393,
+            "longitude": 109.2107816021718,
+            "latitude": 23.01426670491951,
+            "ground_elevation_m": 203.5275421142578,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7076.384810706528,
+            "longitude": 109.21023167683215,
+            "latitude": 23.013939087946277,
+            "ground_elevation_m": 211.95782470703125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7143.4249101596615,
+            "longitude": 109.20968175414863,
+            "latitude": 23.01361146904936,
+            "ground_elevation_m": 225.46241760253906,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7210.465009612795,
+            "longitude": 109.20913183412121,
+            "latitude": 23.013283848228802,
+            "ground_elevation_m": 213.2263641357422,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7277.505109065929,
+            "longitude": 109.20858191674985,
+            "latitude": 23.012956225484636,
+            "ground_elevation_m": 219.72280883789062,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7344.545208519063,
+            "longitude": 109.2080320020345,
+            "latitude": 23.012628600816907,
+            "ground_elevation_m": 218.38697814941406,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7411.5853079721965,
+            "longitude": 109.20748208997514,
+            "latitude": 23.01230097422565,
+            "ground_elevation_m": 220.12802124023438,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7478.62540742533,
+            "longitude": 109.20693218057173,
+            "latitude": 23.01197334571091,
+            "ground_elevation_m": 239.68777465820312,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7545.665506878464,
+            "longitude": 109.2063822738242,
+            "latitude": 23.011645715272724,
+            "ground_elevation_m": 252.20257568359375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7612.705606331598,
+            "longitude": 109.20583236973256,
+            "latitude": 23.01131808291113,
+            "ground_elevation_m": 261.78009033203125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7679.745705784731,
+            "longitude": 109.20528246829673,
+            "latitude": 23.010990448626167,
+            "ground_elevation_m": 277.3272705078125,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7746.785805237865,
+            "longitude": 109.20473256951668,
+            "latitude": 23.010662812417873,
+            "ground_elevation_m": 312.7969055175781,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7813.825904690999,
+            "longitude": 109.20418267339238,
+            "latitude": 23.010335174286293,
+            "ground_elevation_m": 343.9356384277344,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7880.866004144133,
+            "longitude": 109.20363277992378,
+            "latitude": 23.010007534231466,
+            "ground_elevation_m": 330.7238464355469,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 7947.906103597266,
+            "longitude": 109.20308288911085,
+            "latitude": 23.009679892253427,
+            "ground_elevation_m": 330.8762512207031,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8014.9462030504,
+            "longitude": 109.20253300095354,
+            "latitude": 23.009352248352222,
+            "ground_elevation_m": 285.16888427734375,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8081.986302503534,
+            "longitude": 109.20198311545181,
+            "latitude": 23.009024602527873,
+            "ground_elevation_m": 305.42041015625,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8149.0264019566675,
+            "longitude": 109.20143323260564,
+            "latitude": 23.00869695478045,
+            "ground_elevation_m": 290.99908447265625,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8216.066501409801,
+            "longitude": 109.20088335241498,
+            "latitude": 23.008369305109966,
+            "ground_elevation_m": 282.9866027832031,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8283.106600862935,
+            "longitude": 109.20033347487978,
+            "latitude": 23.00804165351647,
+            "ground_elevation_m": 286.0913391113281,
+            "cruise_elevation_m": 393.9356384277344
+          },
+          {
+            "distance_m": 8350.146700316069,
+            "longitude": 109.1997836,
+            "latitude": 23.007714,
+            "ground_elevation_m": 275.1272277832031,
+            "cruise_elevation_m": 393.9356384277344
+          }
+        ]
+      },
+      {
+        "leg_index": 2,
+        "from_id": "S006",
+        "to_id": "O01",
+        "distance_m": 3186.208178413656,
+        "start_distance_m": 8350.146700316069,
+        "end_distance_m": 11536.354878729724,
+        "start_work_elevation_m": 314.8,
+        "end_work_elevation_m": 127.7,
+        "cruise_elevation_m": 366.09783935546875,
+        "climb_m": 51.29783935546874,
+        "descent_m": 238.39783935546876,
+        "clearance_required_m": 50,
+        "payload_kg": 0,
+        "flight_time_s": 352.1319339808323,
+        "energy_kwh": 0.9939426974761897,
+        "horizontal_energy_kwh": 0.9803717472042017,
+        "climb_energy_kwh": 0.013570950271987958,
+        "terrain_checked": true,
+        "terrain_maximum_m": 316.09783935546875,
+        "cruise_clearance_margin_m": 0,
+        "samples": [
+          {
+            "distance_m": 8350.146700316069,
+            "longitude": 109.1997836,
+            "latitude": 23.007714000000004,
+            "ground_elevation_m": 275.1272277832031,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8390.478449409913,
+            "longitude": 109.20017686480954,
+            "latitude": 23.007724107710594,
+            "ground_elevation_m": 287.0384216308594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8430.810198503756,
+            "longitude": 109.20057012967764,
+            "latitude": 23.007734214444536,
+            "ground_elevation_m": 278.5697326660156,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8471.1419475976,
+            "longitude": 109.20096339460433,
+            "latitude": 23.00774432020181,
+            "ground_elevation_m": 288.1715087890625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8511.473696691444,
+            "longitude": 109.20135665958959,
+            "latitude": 23.007754424982426,
+            "ground_elevation_m": 301.5110168457031,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8551.805445785287,
+            "longitude": 109.2017499246334,
+            "latitude": 23.00776452878638,
+            "ground_elevation_m": 307.1275634765625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8592.137194879131,
+            "longitude": 109.20214318973579,
+            "latitude": 23.007774631613675,
+            "ground_elevation_m": 315.56744384765625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8632.468943972975,
+            "longitude": 109.20253645489673,
+            "latitude": 23.0077847334643,
+            "ground_elevation_m": 311.59368896484375,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8672.800693066818,
+            "longitude": 109.20292972011622,
+            "latitude": 23.00779483433827,
+            "ground_elevation_m": 309.5765686035156,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8713.132442160662,
+            "longitude": 109.20332298539425,
+            "latitude": 23.007804934235576,
+            "ground_elevation_m": 316.09783935546875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8753.464191254507,
+            "longitude": 109.2037162507308,
+            "latitude": 23.00781503315621,
+            "ground_elevation_m": 310.1711120605469,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8793.79594034835,
+            "longitude": 109.20410951612591,
+            "latitude": 23.007825131100184,
+            "ground_elevation_m": 269.6336975097656,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8834.127689442194,
+            "longitude": 109.20450278157954,
+            "latitude": 23.007835228067496,
+            "ground_elevation_m": 247.19395446777344,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8874.459438536038,
+            "longitude": 109.20489604709168,
+            "latitude": 23.007845324058135,
+            "ground_elevation_m": 240.7816925048828,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8914.79118762988,
+            "longitude": 109.20528931266233,
+            "latitude": 23.007855419072104,
+            "ground_elevation_m": 259.8458557128906,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8955.122936723725,
+            "longitude": 109.2056825782915,
+            "latitude": 23.007865513109408,
+            "ground_elevation_m": 284.077880859375,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 8995.454685817569,
+            "longitude": 109.20607584397918,
+            "latitude": 23.00787560617005,
+            "ground_elevation_m": 300.7074890136719,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9035.786434911413,
+            "longitude": 109.20646910972535,
+            "latitude": 23.007885698254018,
+            "ground_elevation_m": 287.7576599121094,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9076.118184005256,
+            "longitude": 109.20686237553001,
+            "latitude": 23.007895789361317,
+            "ground_elevation_m": 259.4498596191406,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9116.4499330991,
+            "longitude": 109.20725564139316,
+            "latitude": 23.00790587949195,
+            "ground_elevation_m": 265.33172607421875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9156.781682192945,
+            "longitude": 109.20764890731479,
+            "latitude": 23.007915968645904,
+            "ground_elevation_m": 256.73223876953125,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9197.113431286787,
+            "longitude": 109.20804217329488,
+            "latitude": 23.007926056823194,
+            "ground_elevation_m": 250.14610290527344,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9237.445180380631,
+            "longitude": 109.20843543933347,
+            "latitude": 23.00793614402381,
+            "ground_elevation_m": 255.19651794433594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9277.776929474476,
+            "longitude": 109.2088287054305,
+            "latitude": 23.007946230247747,
+            "ground_elevation_m": 266.4388122558594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9318.108678568318,
+            "longitude": 109.209221971586,
+            "latitude": 23.00795631549502,
+            "ground_elevation_m": 254.95713806152344,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9358.440427662163,
+            "longitude": 109.20961523779995,
+            "latitude": 23.007966399765614,
+            "ground_elevation_m": 231.1177520751953,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9398.772176756007,
+            "longitude": 109.21000850407235,
+            "latitude": 23.007976483059533,
+            "ground_elevation_m": 229.49798583984375,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9439.10392584985,
+            "longitude": 109.2104017704032,
+            "latitude": 23.007986565376783,
+            "ground_elevation_m": 239.32872009277344,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9479.435674943694,
+            "longitude": 109.21079503679246,
+            "latitude": 23.00799664671735,
+            "ground_elevation_m": 226.2247772216797,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9519.767424037538,
+            "longitude": 109.21118830324016,
+            "latitude": 23.008006727081245,
+            "ground_elevation_m": 205.75662231445312,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9560.09917313138,
+            "longitude": 109.2115815697463,
+            "latitude": 23.00801680646846,
+            "ground_elevation_m": 203.8896484375,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9600.430922225225,
+            "longitude": 109.21197483631084,
+            "latitude": 23.008026884879,
+            "ground_elevation_m": 219.12185668945312,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9640.76267131907,
+            "longitude": 109.21236810293382,
+            "latitude": 23.008036962312865,
+            "ground_elevation_m": 242.67794799804688,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9681.094420412912,
+            "longitude": 109.2127613696152,
+            "latitude": 23.008047038770044,
+            "ground_elevation_m": 243.23948669433594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9721.426169506756,
+            "longitude": 109.21315463635496,
+            "latitude": 23.008057114250548,
+            "ground_elevation_m": 239.96255493164062,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9761.7579186006,
+            "longitude": 109.21354790315313,
+            "latitude": 23.008067188754374,
+            "ground_elevation_m": 229.88739013671875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9802.089667694443,
+            "longitude": 109.21394117000969,
+            "latitude": 23.008077262281514,
+            "ground_elevation_m": 220.79759216308594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9842.421416788287,
+            "longitude": 109.21433443692464,
+            "latitude": 23.008087334831973,
+            "ground_elevation_m": 200.0556640625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9882.753165882132,
+            "longitude": 109.21472770389796,
+            "latitude": 23.008097406405756,
+            "ground_elevation_m": 189.31707763671875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9923.084914975974,
+            "longitude": 109.21512097092968,
+            "latitude": 23.00810747700285,
+            "ground_elevation_m": 171.91259765625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 9963.416664069819,
+            "longitude": 109.21551423801974,
+            "latitude": 23.008117546623268,
+            "ground_elevation_m": 178.83950805664062,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10003.748413163663,
+            "longitude": 109.21590750516818,
+            "latitude": 23.008127615266993,
+            "ground_elevation_m": 179.7963409423828,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10044.080162257505,
+            "longitude": 109.21630077237496,
+            "latitude": 23.00813768293404,
+            "ground_elevation_m": 180.70370483398438,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10084.41191135135,
+            "longitude": 109.2166940396401,
+            "latitude": 23.008147749624403,
+            "ground_elevation_m": 196.06790161132812,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10124.743660445194,
+            "longitude": 109.21708730696359,
+            "latitude": 23.008157815338077,
+            "ground_elevation_m": 187.7624053955078,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10165.075409539037,
+            "longitude": 109.21748057434542,
+            "latitude": 23.008167880075067,
+            "ground_elevation_m": 181.0680694580078,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10205.407158632881,
+            "longitude": 109.21787384178558,
+            "latitude": 23.00817794383537,
+            "ground_elevation_m": 172.136474609375,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10245.738907726725,
+            "longitude": 109.21826710928407,
+            "latitude": 23.008188006618983,
+            "ground_elevation_m": 169.40370178222656,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10286.070656820568,
+            "longitude": 109.21866037684089,
+            "latitude": 23.00819806842591,
+            "ground_elevation_m": 174.4071044921875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10326.402405914412,
+            "longitude": 109.21905364445603,
+            "latitude": 23.008208129256147,
+            "ground_elevation_m": 173.74441528320312,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10366.734155008256,
+            "longitude": 109.21944691212947,
+            "latitude": 23.008218189109694,
+            "ground_elevation_m": 180.56549072265625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10407.065904102099,
+            "longitude": 109.21984017986122,
+            "latitude": 23.008228247986555,
+            "ground_elevation_m": 193.1706085205078,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10447.397653195943,
+            "longitude": 109.22023344765128,
+            "latitude": 23.008238305886724,
+            "ground_elevation_m": 198.9639434814453,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10487.729402289788,
+            "longitude": 109.22062671549963,
+            "latitude": 23.0082483628102,
+            "ground_elevation_m": 183.64474487304688,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10528.06115138363,
+            "longitude": 109.22101998340626,
+            "latitude": 23.008258418756984,
+            "ground_elevation_m": 180.96160888671875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10568.392900477475,
+            "longitude": 109.22141325137119,
+            "latitude": 23.008268473727078,
+            "ground_elevation_m": 178.18260192871094,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10608.724649571319,
+            "longitude": 109.22180651939439,
+            "latitude": 23.00827852772048,
+            "ground_elevation_m": 181.01544189453125,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10649.056398665161,
+            "longitude": 109.22219978747587,
+            "latitude": 23.008288580737187,
+            "ground_elevation_m": 180.94863891601562,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10689.388147759006,
+            "longitude": 109.2225930556156,
+            "latitude": 23.0082986327772,
+            "ground_elevation_m": 196.69044494628906,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10729.71989685285,
+            "longitude": 109.22298632381361,
+            "latitude": 23.008308683840518,
+            "ground_elevation_m": 214.98760986328125,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10770.051645946693,
+            "longitude": 109.22337959206988,
+            "latitude": 23.00831873392714,
+            "ground_elevation_m": 204.63194274902344,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10810.383395040537,
+            "longitude": 109.22377286038439,
+            "latitude": 23.008328783037065,
+            "ground_elevation_m": 192.89871215820312,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10850.715144134381,
+            "longitude": 109.22416612875715,
+            "latitude": 23.008338831170295,
+            "ground_elevation_m": 204.7967071533203,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10891.046893228224,
+            "longitude": 109.22455939718813,
+            "latitude": 23.008348878326824,
+            "ground_elevation_m": 209.4669647216797,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10931.378642322068,
+            "longitude": 109.22495266567736,
+            "latitude": 23.008358924506663,
+            "ground_elevation_m": 189.67369079589844,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 10971.710391415912,
+            "longitude": 109.22534593422482,
+            "latitude": 23.008368969709796,
+            "ground_elevation_m": 172.709228515625,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11012.042140509755,
+            "longitude": 109.2257392028305,
+            "latitude": 23.00837901393623,
+            "ground_elevation_m": 169.12513732910156,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11052.3738896036,
+            "longitude": 109.2261324714944,
+            "latitude": 23.008389057185965,
+            "ground_elevation_m": 185.36456298828125,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11092.705638697444,
+            "longitude": 109.2265257402165,
+            "latitude": 23.008399099459,
+            "ground_elevation_m": 196.47735595703125,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11133.037387791288,
+            "longitude": 109.22691900899682,
+            "latitude": 23.008409140755344,
+            "ground_elevation_m": 203.8802947998047,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11173.36913688513,
+            "longitude": 109.22731227783532,
+            "latitude": 23.008419181074974,
+            "ground_elevation_m": 193.21873474121094,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11213.700885978975,
+            "longitude": 109.22770554673204,
+            "latitude": 23.008429220417902,
+            "ground_elevation_m": 177.32321166992188,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11254.03263507282,
+            "longitude": 109.22809881568693,
+            "latitude": 23.008439258784133,
+            "ground_elevation_m": 173.8037567138672,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11294.364384166662,
+            "longitude": 109.22849208470001,
+            "latitude": 23.00844929617366,
+            "ground_elevation_m": 154.62913513183594,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11334.696133260506,
+            "longitude": 109.22888535377126,
+            "latitude": 23.00845933258648,
+            "ground_elevation_m": 138.79013061523438,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11375.02788235435,
+            "longitude": 109.2292786229007,
+            "latitude": 23.008469368022602,
+            "ground_elevation_m": 136.7021942138672,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11415.359631448193,
+            "longitude": 109.22967189208828,
+            "latitude": 23.008479402482006,
+            "ground_elevation_m": 137.30633544921875,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11455.691380542037,
+            "longitude": 109.23006516133404,
+            "latitude": 23.008489435964712,
+            "ground_elevation_m": 130.71424865722656,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11496.023129635882,
+            "longitude": 109.23045843063794,
+            "latitude": 23.00849946847071,
+            "ground_elevation_m": 126.96179962158203,
+            "cruise_elevation_m": 366.09783935546875
+          },
+          {
+            "distance_m": 11536.354878729724,
+            "longitude": 109.2308517,
+            "latitude": 23.0085095,
+            "ground_elevation_m": 128.7255401611328,
+            "cruise_elevation_m": 366.09783935546875
+          }
+        ]
+      }
+    ],
+    "notice": "按原Snapshot和现有leg/leg_values物理模型重建；高程按资产声明的垂直基准。巡航高程是模型水平航段高度，起终作业点另列；不是遥测或可执行飞控轨迹。沿线最多240个DEM显示采样保留未知，不能代替逐像元净空检查。净空余量只指水平巡航包络，不认证起降走廊；下降不计能量回收，飞行时间不含准备与交接。"
+  },
+  {
+    "plan_id": "PLAN-CF0B791A1FF84F05",
+    "snapshot_id": "SNAP-BC3CF3E36D004A19",
+    "scenario_state_version": 1,
+    "sortie_id": "SRT-493807468ae3",
+    "drone_id": "U05",
+    "drone_type_id": "B",
+    "terrain_asset_id": "contest-dem-30m",
+    "terrain_sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+    "vertical_datum": "contest_provided_elevation_reference",
+    "total_distance_m": 9068.921133632148,
+    "total_climb_m": 547.7463500976562,
+    "total_descent_m": 547.7463500976562,
+    "flight_time_s": 1006.2753989804244,
+    "modeled_energy_kwh": 1.7800228341026476,
+    "horizontal_energy_kwh": 1.6089142475592464,
+    "climb_energy_kwh": 0.17110858654340122,
+    "plan_sortie_energy_kwh": 1.7800228341026476,
+    "legs": [
+      {
+        "leg_index": 0,
+        "from_id": "O01",
+        "to_id": "S007",
+        "distance_m": 4534.460566816074,
+        "start_distance_m": 0,
+        "end_distance_m": 4534.460566816074,
+        "start_work_elevation_m": 127.7,
+        "end_work_elevation_m": 348.5,
+        "cruise_elevation_m": 511.9731750488281,
+        "climb_m": 384.27317504882814,
+        "descent_m": 163.47317504882812,
+        "clearance_required_m": 50,
+        "payload_kg": 25,
+        "flight_time_s": 495.7776994902122,
+        "energy_kwh": 1.0920272168365286,
+        "horizontal_energy_kwh": 0.9611341665855214,
+        "climb_energy_kwh": 0.13089305025100717,
+        "terrain_checked": true,
+        "terrain_maximum_m": 461.9731750488281,
+        "cruise_clearance_margin_m": 0,
+        "samples": [
+          {
+            "distance_m": 0,
+            "longitude": 109.2308517,
+            "latitude": 23.0085095,
+            "ground_elevation_m": 128.7255401611328,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 38.10471064551323,
+            "longitude": 109.23053214717028,
+            "latitude": 23.008685245016114,
+            "ground_elevation_m": 126.96179962158203,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 76.20942129102646,
+            "longitude": 109.23021259351282,
+            "latitude": 23.008860989383457,
+            "ground_elevation_m": 129.99810791015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 114.3141319365397,
+            "longitude": 109.2298930390276,
+            "latitude": 23.009036733102032,
+            "ground_elevation_m": 130.1841583251953,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 152.41884258205292,
+            "longitude": 109.22957348371463,
+            "latitude": 23.009212476171832,
+            "ground_elevation_m": 132.83932495117188,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 190.52355322756614,
+            "longitude": 109.22925392757391,
+            "latitude": 23.00938821859285,
+            "ground_elevation_m": 145.2404022216797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 228.6282638730794,
+            "longitude": 109.22893437060542,
+            "latitude": 23.00956396036507,
+            "ground_elevation_m": 148.91098022460938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 266.7329745185926,
+            "longitude": 109.22861481280916,
+            "latitude": 23.009739701488503,
+            "ground_elevation_m": 161.32106018066406,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 304.83768516410584,
+            "longitude": 109.2282952541851,
+            "latitude": 23.00991544196312,
+            "ground_elevation_m": 166.52967834472656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 342.9423958096191,
+            "longitude": 109.22797569473327,
+            "latitude": 23.01009118178893,
+            "ground_elevation_m": 165.9195556640625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 381.0471064551323,
+            "longitude": 109.22765613445364,
+            "latitude": 23.010266920965922,
+            "ground_elevation_m": 157.43710327148438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 419.15181710064553,
+            "longitude": 109.22733657334622,
+            "latitude": 23.010442659494085,
+            "ground_elevation_m": 143.95896911621094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 457.2565277461588,
+            "longitude": 109.227017011411,
+            "latitude": 23.010618397373417,
+            "ground_elevation_m": 146.14663696289062,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 495.361238391672,
+            "longitude": 109.22669744864795,
+            "latitude": 23.010794134603906,
+            "ground_elevation_m": 161.46713256835938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 533.4659490371852,
+            "longitude": 109.2263778850571,
+            "latitude": 23.010969871185544,
+            "ground_elevation_m": 176.7745819091797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 571.5706596826984,
+            "longitude": 109.22605832063843,
+            "latitude": 23.01114560711833,
+            "ground_elevation_m": 158.15907287597656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 609.6753703282117,
+            "longitude": 109.22573875539194,
+            "latitude": 23.01132134240225,
+            "ground_elevation_m": 162.18984985351562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 647.7800809737249,
+            "longitude": 109.2254191893176,
+            "latitude": 23.011497077037305,
+            "ground_elevation_m": 182.08265686035156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 685.8847916192382,
+            "longitude": 109.22509962241543,
+            "latitude": 23.011672811023477,
+            "ground_elevation_m": 203.7430419921875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 723.9895022647513,
+            "longitude": 109.2247800546854,
+            "latitude": 23.01184854436077,
+            "ground_elevation_m": 209.6676025390625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 762.0942129102646,
+            "longitude": 109.22446048612754,
+            "latitude": 23.01202427704917,
+            "ground_elevation_m": 208.8633575439453,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 800.1989235557778,
+            "longitude": 109.22414091674179,
+            "latitude": 23.012200009088676,
+            "ground_elevation_m": 192.64358520507812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 838.3036342012911,
+            "longitude": 109.2238213465282,
+            "latitude": 23.01237574047928,
+            "ground_elevation_m": 161.73837280273438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 876.4083448468043,
+            "longitude": 109.22350177548672,
+            "latitude": 23.012551471220963,
+            "ground_elevation_m": 160.8779754638672,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 914.5130554923176,
+            "longitude": 109.22318220361737,
+            "latitude": 23.01272720131373,
+            "ground_elevation_m": 186.37742614746094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 952.6177661378307,
+            "longitude": 109.22286263092015,
+            "latitude": 23.012902930757573,
+            "ground_elevation_m": 189.74961853027344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 990.722476783344,
+            "longitude": 109.22254305739501,
+            "latitude": 23.013078659552473,
+            "ground_elevation_m": 168.97406005859375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1028.827187428857,
+            "longitude": 109.222223483042,
+            "latitude": 23.013254387698435,
+            "ground_elevation_m": 170.637939453125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1066.9318980743703,
+            "longitude": 109.22190390786108,
+            "latitude": 23.013430115195455,
+            "ground_elevation_m": 178.90408325195312,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1105.0366087198836,
+            "longitude": 109.22158433185226,
+            "latitude": 23.013605842043518,
+            "ground_elevation_m": 195.21719360351562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1143.1413193653968,
+            "longitude": 109.22126475501551,
+            "latitude": 23.013781568242614,
+            "ground_elevation_m": 212.17733764648438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1181.24603001091,
+            "longitude": 109.22094517735084,
+            "latitude": 23.013957293792746,
+            "ground_elevation_m": 226.2900390625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1219.3507406564233,
+            "longitude": 109.22062559885825,
+            "latitude": 23.0141330186939,
+            "ground_elevation_m": 215.2989959716797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1257.4554513019366,
+            "longitude": 109.22030601953773,
+            "latitude": 23.014308742946067,
+            "ground_elevation_m": 210.9347381591797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1295.5601619474498,
+            "longitude": 109.21998643938926,
+            "latitude": 23.014484466549252,
+            "ground_elevation_m": 221.61328125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1333.664872592963,
+            "longitude": 109.21966685841285,
+            "latitude": 23.014660189503427,
+            "ground_elevation_m": 251.39613342285156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1371.7695832384763,
+            "longitude": 109.2193472766085,
+            "latitude": 23.0148359118086,
+            "ground_elevation_m": 265.2869873046875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1409.8742938839896,
+            "longitude": 109.21902769397619,
+            "latitude": 23.015011633464766,
+            "ground_elevation_m": 258.24676513671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1447.9790045295026,
+            "longitude": 109.2187081105159,
+            "latitude": 23.015187354471905,
+            "ground_elevation_m": 245.685791015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1486.0837151750159,
+            "longitude": 109.21838852622766,
+            "latitude": 23.01536307483002,
+            "ground_elevation_m": 233.57510375976562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1524.1884258205291,
+            "longitude": 109.21806894111141,
+            "latitude": 23.015538794539104,
+            "ground_elevation_m": 217.4547882080078,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1562.2931364660424,
+            "longitude": 109.21774935516721,
+            "latitude": 23.015714513599146,
+            "ground_elevation_m": 212.4820556640625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1600.3978471115556,
+            "longitude": 109.21742976839501,
+            "latitude": 23.01589023201014,
+            "ground_elevation_m": 206.08413696289062,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1638.5025577570689,
+            "longitude": 109.21711018079482,
+            "latitude": 23.01606594977208,
+            "ground_elevation_m": 217.37686157226562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1676.6072684025821,
+            "longitude": 109.21679059236662,
+            "latitude": 23.01624166688495,
+            "ground_elevation_m": 237.0565643310547,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1714.7119790480954,
+            "longitude": 109.21647100311043,
+            "latitude": 23.016417383348756,
+            "ground_elevation_m": 230.9061279296875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1752.8166896936086,
+            "longitude": 109.21615141302621,
+            "latitude": 23.016593099163487,
+            "ground_elevation_m": 221.7059326171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1790.9214003391219,
+            "longitude": 109.21583182211398,
+            "latitude": 23.016768814329133,
+            "ground_elevation_m": 227.83653259277344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1829.0261109846351,
+            "longitude": 109.21551223037372,
+            "latitude": 23.016944528845688,
+            "ground_elevation_m": 239.84555053710938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1867.1308216301481,
+            "longitude": 109.21519263780543,
+            "latitude": 23.017120242713148,
+            "ground_elevation_m": 231.08547973632812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1905.2355322756614,
+            "longitude": 109.21487304440912,
+            "latitude": 23.017295955931495,
+            "ground_elevation_m": 216.20437622070312,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1943.3402429211746,
+            "longitude": 109.21455345018474,
+            "latitude": 23.017471668500733,
+            "ground_elevation_m": 221.98622131347656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 1981.444953566688,
+            "longitude": 109.21423385513232,
+            "latitude": 23.017647380420854,
+            "ground_elevation_m": 226.73587036132812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2019.5496642122012,
+            "longitude": 109.21391425925184,
+            "latitude": 23.01782309169184,
+            "ground_elevation_m": 229.56056213378906,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2057.654374857714,
+            "longitude": 109.2135946625433,
+            "latitude": 23.017998802313706,
+            "ground_elevation_m": 240.77804565429688,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2095.7590855032277,
+            "longitude": 109.2132750650067,
+            "latitude": 23.01817451228642,
+            "ground_elevation_m": 244.8872528076172,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2133.8637961487407,
+            "longitude": 109.21295546664201,
+            "latitude": 23.018350221609992,
+            "ground_elevation_m": 260.59991455078125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2171.968506794254,
+            "longitude": 109.21263586744925,
+            "latitude": 23.018525930284405,
+            "ground_elevation_m": 262.9217834472656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2210.073217439767,
+            "longitude": 109.2123162674284,
+            "latitude": 23.018701638309654,
+            "ground_elevation_m": 279.40521240234375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2248.1779280852807,
+            "longitude": 109.21199666657945,
+            "latitude": 23.018877345685738,
+            "ground_elevation_m": 286.2146301269531,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2286.2826387307937,
+            "longitude": 109.21167706490242,
+            "latitude": 23.01905305241264,
+            "ground_elevation_m": 296.4427795410156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2324.387349376307,
+            "longitude": 109.21135746239727,
+            "latitude": 23.019228758490364,
+            "ground_elevation_m": 300.6283874511719,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2362.49206002182,
+            "longitude": 109.21103785906402,
+            "latitude": 23.01940446391889,
+            "ground_elevation_m": 300.2721862792969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2400.5967706673337,
+            "longitude": 109.21071825490264,
+            "latitude": 23.019580168698226,
+            "ground_elevation_m": 283.49725341796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2438.7014813128467,
+            "longitude": 109.21039864991315,
+            "latitude": 23.01975587282835,
+            "ground_elevation_m": 268.11962890625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2476.8061919583597,
+            "longitude": 109.21007904409551,
+            "latitude": 23.01993157630926,
+            "ground_elevation_m": 287.6309509277344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2514.910902603873,
+            "longitude": 109.20975943744975,
+            "latitude": 23.020107279140962,
+            "ground_elevation_m": 297.717041015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2553.015613249386,
+            "longitude": 109.20943982997584,
+            "latitude": 23.02028298132343,
+            "ground_elevation_m": 289.5295715332031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2591.1203238948997,
+            "longitude": 109.20912022167379,
+            "latitude": 23.020458682856656,
+            "ground_elevation_m": 274.01348876953125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2629.2250345404127,
+            "longitude": 109.20880061254357,
+            "latitude": 23.020634383740653,
+            "ground_elevation_m": 282.9241943359375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2667.329745185926,
+            "longitude": 109.2084810025852,
+            "latitude": 23.020810083975398,
+            "ground_elevation_m": 278.9745788574219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2705.434455831439,
+            "longitude": 109.20816139179865,
+            "latitude": 23.020985783560885,
+            "ground_elevation_m": 302.2382507324219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2743.5391664769527,
+            "longitude": 109.20784178018395,
+            "latitude": 23.02116148249711,
+            "ground_elevation_m": 294.4189758300781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2781.6438771224657,
+            "longitude": 109.20752216774106,
+            "latitude": 23.02133718078407,
+            "ground_elevation_m": 293.3496398925781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2819.748587767979,
+            "longitude": 109.20720255446999,
+            "latitude": 23.021512878421753,
+            "ground_elevation_m": 294.96942138671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2857.853298413492,
+            "longitude": 109.2068829403707,
+            "latitude": 23.021688575410145,
+            "ground_elevation_m": 308.11175537109375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2895.9580090590052,
+            "longitude": 109.20656332544326,
+            "latitude": 23.02186427174925,
+            "ground_elevation_m": 323.5376281738281,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2934.0627197045187,
+            "longitude": 109.20624370968758,
+            "latitude": 23.022039967439056,
+            "ground_elevation_m": 340.8309631347656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 2972.1674303500317,
+            "longitude": 109.2059240931037,
+            "latitude": 23.02221566247956,
+            "ground_elevation_m": 329.6239013671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3010.272140995545,
+            "longitude": 109.20560447569162,
+            "latitude": 23.02239135687075,
+            "ground_elevation_m": 331.5557556152344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3048.3768516410582,
+            "longitude": 109.20528485745129,
+            "latitude": 23.02256705061262,
+            "ground_elevation_m": 346.2642517089844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3086.4815622865717,
+            "longitude": 109.20496523838275,
+            "latitude": 23.02274274370516,
+            "ground_elevation_m": 372.2557067871094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3124.5862729320847,
+            "longitude": 109.20464561848598,
+            "latitude": 23.022918436148366,
+            "ground_elevation_m": 390.1824951171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3162.690983577598,
+            "longitude": 109.20432599776095,
+            "latitude": 23.023094127942233,
+            "ground_elevation_m": 404.7940368652344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3200.7956942231112,
+            "longitude": 109.20400637620767,
+            "latitude": 23.023269819086753,
+            "ground_elevation_m": 428.02972412109375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3238.9004048686247,
+            "longitude": 109.20368675382615,
+            "latitude": 23.02344550958192,
+            "ground_elevation_m": 432.1819152832031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3277.0051155141377,
+            "longitude": 109.20336713061639,
+            "latitude": 23.02362119942772,
+            "ground_elevation_m": 441.88934326171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3315.1098261596508,
+            "longitude": 109.20304750657833,
+            "latitude": 23.023796888624155,
+            "ground_elevation_m": 448.04412841796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3353.2145368051642,
+            "longitude": 109.20272788171202,
+            "latitude": 23.023972577171207,
+            "ground_elevation_m": 447.3362121582031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3391.3192474506773,
+            "longitude": 109.20240825601742,
+            "latitude": 23.024148265068877,
+            "ground_elevation_m": 432.5866394042969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3429.4239580961907,
+            "longitude": 109.20208862949454,
+            "latitude": 23.02432395231716,
+            "ground_elevation_m": 447.202880859375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3467.5286687417038,
+            "longitude": 109.20176900214338,
+            "latitude": 23.024499638916033,
+            "ground_elevation_m": 437.24468994140625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3505.6333793872172,
+            "longitude": 109.20144937396391,
+            "latitude": 23.024675324865516,
+            "ground_elevation_m": 405.326416015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3543.7380900327303,
+            "longitude": 109.20112974495615,
+            "latitude": 23.02485101016558,
+            "ground_elevation_m": 412.5296936035156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3581.8428006782437,
+            "longitude": 109.20081011512008,
+            "latitude": 23.025026694816223,
+            "ground_elevation_m": 428.2510070800781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3619.9475113237568,
+            "longitude": 109.20049048445568,
+            "latitude": 23.02520237881744,
+            "ground_elevation_m": 422.83807373046875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3658.0522219692702,
+            "longitude": 109.20017085296297,
+            "latitude": 23.02537806216922,
+            "ground_elevation_m": 408.1235656738281,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3696.1569326147833,
+            "longitude": 109.19985122064195,
+            "latitude": 23.02555374487156,
+            "ground_elevation_m": 423.2332458496094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3734.2616432602963,
+            "longitude": 109.19953158749257,
+            "latitude": 23.025729426924457,
+            "ground_elevation_m": 411.8524169921875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3772.36635390581,
+            "longitude": 109.19921195351486,
+            "latitude": 23.025905108327894,
+            "ground_elevation_m": 408.9008483886719,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3810.471064551323,
+            "longitude": 109.1988923187088,
+            "latitude": 23.02608078908187,
+            "ground_elevation_m": 401.5870056152344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3848.5757751968363,
+            "longitude": 109.1985726830744,
+            "latitude": 23.02625646918638,
+            "ground_elevation_m": 394.4211730957031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3886.6804858423493,
+            "longitude": 109.19825304661164,
+            "latitude": 23.0264321486414,
+            "ground_elevation_m": 407.2957763671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3924.785196487863,
+            "longitude": 109.19793340932051,
+            "latitude": 23.026607827446952,
+            "ground_elevation_m": 396.4049072265625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 3962.889907133376,
+            "longitude": 109.19761377120102,
+            "latitude": 23.026783505603,
+            "ground_elevation_m": 400.1630554199219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4000.9946177788893,
+            "longitude": 109.19729413225313,
+            "latitude": 23.026959183109554,
+            "ground_elevation_m": 378.3106689453125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4039.0993284244023,
+            "longitude": 109.19697449247688,
+            "latitude": 23.02713485996661,
+            "ground_elevation_m": 374.475341796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4077.2040390699153,
+            "longitude": 109.19665485187224,
+            "latitude": 23.027310536174138,
+            "ground_elevation_m": 386.7020568847656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4115.308749715428,
+            "longitude": 109.1963352104392,
+            "latitude": 23.02748621173216,
+            "ground_elevation_m": 380.736328125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4153.413460360942,
+            "longitude": 109.19601556817776,
+            "latitude": 23.027661886640654,
+            "ground_elevation_m": 377.43255615234375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4191.518171006455,
+            "longitude": 109.19569592508792,
+            "latitude": 23.02783756089961,
+            "ground_elevation_m": 385.7431945800781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4229.622881651969,
+            "longitude": 109.19537628116966,
+            "latitude": 23.028013234509025,
+            "ground_elevation_m": 361.6812744140625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4267.727592297481,
+            "longitude": 109.19505663642298,
+            "latitude": 23.02818890746889,
+            "ground_elevation_m": 361.9118957519531,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4305.832302942995,
+            "longitude": 109.19473699084787,
+            "latitude": 23.0283645797792,
+            "ground_elevation_m": 358.6803894042969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4343.937013588508,
+            "longitude": 109.19441734444435,
+            "latitude": 23.02854025143995,
+            "ground_elevation_m": 356.8807678222656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4382.041724234022,
+            "longitude": 109.19409769721237,
+            "latitude": 23.028715922451124,
+            "ground_elevation_m": 362.7779235839844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4420.146434879534,
+            "longitude": 109.19377804915196,
+            "latitude": 23.02889159281273,
+            "ground_elevation_m": 351.7755126953125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4458.251145525048,
+            "longitude": 109.19345840026308,
+            "latitude": 23.02906726252475,
+            "ground_elevation_m": 341.7681579589844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4496.355856170561,
+            "longitude": 109.19313875054577,
+            "latitude": 23.029242931587174,
+            "ground_elevation_m": 335.8194885253906,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4534.460566816074,
+            "longitude": 109.1928191,
+            "latitude": 23.0294186,
+            "ground_elevation_m": 314.2220458984375,
+            "cruise_elevation_m": 511.9731750488281
+          }
+        ]
+      },
+      {
+        "leg_index": 1,
+        "from_id": "S007",
+        "to_id": "O01",
+        "distance_m": 4534.460566816074,
+        "start_distance_m": 4534.460566816074,
+        "end_distance_m": 9068.921133632148,
+        "start_work_elevation_m": 348.5,
+        "end_work_elevation_m": 127.7,
+        "cruise_elevation_m": 511.9731750488281,
+        "climb_m": 163.47317504882812,
+        "descent_m": 384.27317504882814,
+        "clearance_required_m": 50,
+        "payload_kg": 0,
+        "flight_time_s": 510.4976994902122,
+        "energy_kwh": 0.6879956172661189,
+        "horizontal_energy_kwh": 0.6477800809737249,
+        "climb_energy_kwh": 0.04021553629239405,
+        "terrain_checked": true,
+        "terrain_maximum_m": 461.9731750488281,
+        "cruise_clearance_margin_m": 0,
+        "samples": [
+          {
+            "distance_m": 4534.460566816074,
+            "longitude": 109.1928191,
+            "latitude": 23.029418599999996,
+            "ground_elevation_m": 314.2220458984375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4572.565277461587,
+            "longitude": 109.19313875054577,
+            "latitude": 23.029242931587174,
+            "ground_elevation_m": 335.8194885253906,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4610.6699881071,
+            "longitude": 109.1934584002631,
+            "latitude": 23.029067262524745,
+            "ground_elevation_m": 341.7681579589844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4648.774698752613,
+            "longitude": 109.19377804915197,
+            "latitude": 23.028891592812727,
+            "ground_elevation_m": 351.7755126953125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4686.879409398127,
+            "longitude": 109.19409769721238,
+            "latitude": 23.028715922451124,
+            "ground_elevation_m": 362.7779235839844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4724.98412004364,
+            "longitude": 109.19441734444436,
+            "latitude": 23.028540251439946,
+            "ground_elevation_m": 356.8807678222656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4763.088830689153,
+            "longitude": 109.19473699084789,
+            "latitude": 23.0283645797792,
+            "ground_elevation_m": 358.6803894042969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4801.193541334666,
+            "longitude": 109.19505663642299,
+            "latitude": 23.028188907468888,
+            "ground_elevation_m": 361.9118957519531,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4839.29825198018,
+            "longitude": 109.19537628116966,
+            "latitude": 23.028013234509025,
+            "ground_elevation_m": 361.6812744140625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4877.402962625693,
+            "longitude": 109.19569592508793,
+            "latitude": 23.027837560899606,
+            "ground_elevation_m": 385.7431945800781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4915.507673271206,
+            "longitude": 109.19601556817777,
+            "latitude": 23.02766188664065,
+            "ground_elevation_m": 377.43255615234375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4953.612383916719,
+            "longitude": 109.1963352104392,
+            "latitude": 23.027486211732164,
+            "ground_elevation_m": 380.736328125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 4991.717094562233,
+            "longitude": 109.19665485187224,
+            "latitude": 23.027310536174145,
+            "ground_elevation_m": 386.7020568847656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5029.8218052077455,
+            "longitude": 109.1969744924769,
+            "latitude": 23.02713485996661,
+            "ground_elevation_m": 374.475341796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5067.926515853259,
+            "longitude": 109.19729413225315,
+            "latitude": 23.026959183109554,
+            "ground_elevation_m": 378.3106689453125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5106.031226498772,
+            "longitude": 109.19761377120102,
+            "latitude": 23.026783505603,
+            "ground_elevation_m": 400.1630554199219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5144.135937144286,
+            "longitude": 109.19793340932051,
+            "latitude": 23.02660782744695,
+            "ground_elevation_m": 396.4049072265625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5182.2406477897985,
+            "longitude": 109.19825304661164,
+            "latitude": 23.026432148641398,
+            "ground_elevation_m": 407.2957763671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5220.345358435312,
+            "longitude": 109.1985726830744,
+            "latitude": 23.026256469186375,
+            "ground_elevation_m": 394.4211730957031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5258.450069080825,
+            "longitude": 109.19889231870881,
+            "latitude": 23.026080789081867,
+            "ground_elevation_m": 401.5870056152344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5296.554779726339,
+            "longitude": 109.19921195351488,
+            "latitude": 23.02590510832789,
+            "ground_elevation_m": 408.9008483886719,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5334.6594903718515,
+            "longitude": 109.19953158749257,
+            "latitude": 23.025729426924453,
+            "ground_elevation_m": 411.8524169921875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5372.764201017365,
+            "longitude": 109.19985122064195,
+            "latitude": 23.02555374487156,
+            "ground_elevation_m": 423.2332458496094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5410.868911662878,
+            "longitude": 109.20017085296297,
+            "latitude": 23.02537806216922,
+            "ground_elevation_m": 408.1235656738281,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5448.973622308391,
+            "longitude": 109.20049048445568,
+            "latitude": 23.025202378817443,
+            "ground_elevation_m": 422.83807373046875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5487.0783329539045,
+            "longitude": 109.20081011512008,
+            "latitude": 23.025026694816223,
+            "ground_elevation_m": 428.2510070800781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5525.183043599418,
+            "longitude": 109.20112974495615,
+            "latitude": 23.02485101016558,
+            "ground_elevation_m": 412.5296936035156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5563.287754244931,
+            "longitude": 109.20144937396391,
+            "latitude": 23.024675324865516,
+            "ground_elevation_m": 405.326416015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5601.392464890444,
+            "longitude": 109.20176900214338,
+            "latitude": 23.024499638916037,
+            "ground_elevation_m": 437.24468994140625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5639.4971755359575,
+            "longitude": 109.20208862949455,
+            "latitude": 23.024323952317157,
+            "ground_elevation_m": 447.202880859375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5677.601886181471,
+            "longitude": 109.20240825601742,
+            "latitude": 23.024148265068874,
+            "ground_elevation_m": 432.5866394042969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5715.7065968269835,
+            "longitude": 109.20272788171202,
+            "latitude": 23.023972577171207,
+            "ground_elevation_m": 447.3362121582031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5753.811307472497,
+            "longitude": 109.20304750657834,
+            "latitude": 23.023796888624148,
+            "ground_elevation_m": 448.04412841796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5791.9160181180105,
+            "longitude": 109.20336713061639,
+            "latitude": 23.023621199427716,
+            "ground_elevation_m": 441.88934326171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5830.020728763524,
+            "longitude": 109.20368675382616,
+            "latitude": 23.02344550958192,
+            "ground_elevation_m": 432.1819152832031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5868.125439409037,
+            "longitude": 109.20400637620769,
+            "latitude": 23.023269819086753,
+            "ground_elevation_m": 428.02972412109375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5906.23015005455,
+            "longitude": 109.20432599776095,
+            "latitude": 23.023094127942233,
+            "ground_elevation_m": 404.7940368652344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5944.3348607000635,
+            "longitude": 109.20464561848597,
+            "latitude": 23.022918436148366,
+            "ground_elevation_m": 390.1824951171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 5982.439571345576,
+            "longitude": 109.20496523838275,
+            "latitude": 23.02274274370516,
+            "ground_elevation_m": 372.2557067871094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6020.5442819910895,
+            "longitude": 109.2052848574513,
+            "latitude": 23.022567050612615,
+            "ground_elevation_m": 346.2642517089844,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6058.648992636603,
+            "longitude": 109.20560447569162,
+            "latitude": 23.022391356870745,
+            "ground_elevation_m": 331.5557556152344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6096.7537032821165,
+            "longitude": 109.20592409310372,
+            "latitude": 23.022215662479557,
+            "ground_elevation_m": 329.6239013671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6134.85841392763,
+            "longitude": 109.20624370968758,
+            "latitude": 23.022039967439056,
+            "ground_elevation_m": 340.8309631347656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6172.9631245731425,
+            "longitude": 109.20656332544326,
+            "latitude": 23.021864271749255,
+            "ground_elevation_m": 323.5376281738281,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6211.067835218656,
+            "longitude": 109.20688294037072,
+            "latitude": 23.02168857541014,
+            "ground_elevation_m": 308.11175537109375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6249.1725458641695,
+            "longitude": 109.20720255446999,
+            "latitude": 23.021512878421746,
+            "ground_elevation_m": 294.96942138671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6287.277256509682,
+            "longitude": 109.20752216774106,
+            "latitude": 23.02133718078407,
+            "ground_elevation_m": 293.3496398925781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6325.3819671551955,
+            "longitude": 109.20784178018395,
+            "latitude": 23.02116148249711,
+            "ground_elevation_m": 294.4189758300781,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6363.486677800709,
+            "longitude": 109.20816139179867,
+            "latitude": 23.020985783560885,
+            "ground_elevation_m": 302.2382507324219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6401.5913884462225,
+            "longitude": 109.2084810025852,
+            "latitude": 23.020810083975395,
+            "ground_elevation_m": 278.9745788574219,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6439.696099091735,
+            "longitude": 109.20880061254357,
+            "latitude": 23.02063438374065,
+            "ground_elevation_m": 282.9241943359375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6477.8008097372485,
+            "longitude": 109.20912022167379,
+            "latitude": 23.02045868285666,
+            "ground_elevation_m": 274.01348876953125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6515.905520382762,
+            "longitude": 109.20943982997585,
+            "latitude": 23.020282981323426,
+            "ground_elevation_m": 289.5295715332031,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6554.010231028275,
+            "longitude": 109.20975943744975,
+            "latitude": 23.020107279140955,
+            "ground_elevation_m": 297.717041015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6592.114941673788,
+            "longitude": 109.21007904409552,
+            "latitude": 23.01993157630926,
+            "ground_elevation_m": 287.6309509277344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6630.2196523193015,
+            "longitude": 109.21039864991315,
+            "latitude": 23.01975587282835,
+            "ground_elevation_m": 268.11962890625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6668.324362964815,
+            "longitude": 109.21071825490264,
+            "latitude": 23.019580168698226,
+            "ground_elevation_m": 283.49725341796875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6706.4290736103285,
+            "longitude": 109.21103785906402,
+            "latitude": 23.019404463918892,
+            "ground_elevation_m": 300.2721862792969,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6744.533784255841,
+            "longitude": 109.21135746239727,
+            "latitude": 23.01922875849036,
+            "ground_elevation_m": 300.6283874511719,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6782.6384949013545,
+            "longitude": 109.21167706490243,
+            "latitude": 23.01905305241264,
+            "ground_elevation_m": 296.4427795410156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6820.743205546867,
+            "longitude": 109.21199666657947,
+            "latitude": 23.01887734568573,
+            "ground_elevation_m": 286.2146301269531,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6858.847916192381,
+            "longitude": 109.2123162674284,
+            "latitude": 23.018701638309654,
+            "ground_elevation_m": 279.40521240234375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6896.952626837894,
+            "longitude": 109.21263586744926,
+            "latitude": 23.0185259302844,
+            "ground_elevation_m": 262.9217834472656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6935.0573374834075,
+            "longitude": 109.21295546664201,
+            "latitude": 23.018350221609985,
+            "ground_elevation_m": 260.59991455078125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 6973.162048128921,
+            "longitude": 109.2132750650067,
+            "latitude": 23.018174512286418,
+            "ground_elevation_m": 244.8872528076172,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7011.266758774434,
+            "longitude": 109.21359466254331,
+            "latitude": 23.0179988023137,
+            "ground_elevation_m": 240.77804565429688,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7049.371469419947,
+            "longitude": 109.21391425925185,
+            "latitude": 23.017823091691845,
+            "ground_elevation_m": 229.56056213378906,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7087.47618006546,
+            "longitude": 109.21423385513233,
+            "latitude": 23.017647380420847,
+            "ground_elevation_m": 226.73587036132812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7125.580890710973,
+            "longitude": 109.21455345018474,
+            "latitude": 23.017471668500733,
+            "ground_elevation_m": 221.98622131347656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7163.685601356487,
+            "longitude": 109.21487304440912,
+            "latitude": 23.01729595593149,
+            "ground_elevation_m": 216.20437622070312,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7201.790312002,
+            "longitude": 109.21519263780544,
+            "latitude": 23.01712024271314,
+            "ground_elevation_m": 231.08547973632812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7239.8950226475135,
+            "longitude": 109.21551223037373,
+            "latitude": 23.016944528845684,
+            "ground_elevation_m": 239.84555053710938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7277.999733293027,
+            "longitude": 109.21583182211398,
+            "latitude": 23.016768814329133,
+            "ground_elevation_m": 227.83653259277344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7316.10444393854,
+            "longitude": 109.21615141302622,
+            "latitude": 23.016593099163483,
+            "ground_elevation_m": 221.7059326171875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7354.209154584053,
+            "longitude": 109.21647100311043,
+            "latitude": 23.01641738334876,
+            "ground_elevation_m": 230.9061279296875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7392.313865229566,
+            "longitude": 109.21679059236664,
+            "latitude": 23.016241666884948,
+            "ground_elevation_m": 237.0565643310547,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7430.418575875079,
+            "longitude": 109.21711018079483,
+            "latitude": 23.016065949772074,
+            "ground_elevation_m": 217.37686157226562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7468.523286520593,
+            "longitude": 109.21742976839502,
+            "latitude": 23.01589023201014,
+            "ground_elevation_m": 206.08413696289062,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7506.627997166106,
+            "longitude": 109.21774935516721,
+            "latitude": 23.015714513599146,
+            "ground_elevation_m": 212.4820556640625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7544.73270781162,
+            "longitude": 109.21806894111143,
+            "latitude": 23.015538794539104,
+            "ground_elevation_m": 217.4547882080078,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7582.837418457132,
+            "longitude": 109.21838852622766,
+            "latitude": 23.01536307483002,
+            "ground_elevation_m": 233.57510375976562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7620.942129102646,
+            "longitude": 109.2187081105159,
+            "latitude": 23.01518735447191,
+            "ground_elevation_m": 245.685791015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7659.046839748158,
+            "longitude": 109.21902769397619,
+            "latitude": 23.015011633464763,
+            "ground_elevation_m": 258.24676513671875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7697.151550393672,
+            "longitude": 109.2193472766085,
+            "latitude": 23.0148359118086,
+            "ground_elevation_m": 265.2869873046875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7735.256261039185,
+            "longitude": 109.21966685841286,
+            "latitude": 23.014660189503424,
+            "ground_elevation_m": 251.39613342285156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7773.360971684699,
+            "longitude": 109.21998643938927,
+            "latitude": 23.014484466549245,
+            "ground_elevation_m": 221.61328125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7811.465682330212,
+            "longitude": 109.22030601953773,
+            "latitude": 23.01430874294607,
+            "ground_elevation_m": 210.9347381591797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7849.570392975725,
+            "longitude": 109.22062559885826,
+            "latitude": 23.014133018693897,
+            "ground_elevation_m": 215.2989959716797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7887.675103621238,
+            "longitude": 109.22094517735086,
+            "latitude": 23.013957293792743,
+            "ground_elevation_m": 226.2900390625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7925.779814266751,
+            "longitude": 109.22126475501553,
+            "latitude": 23.01378156824261,
+            "ground_elevation_m": 212.17733764648438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 7963.884524912264,
+            "longitude": 109.22158433185226,
+            "latitude": 23.013605842043514,
+            "ground_elevation_m": 195.21719360351562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8001.989235557778,
+            "longitude": 109.22190390786109,
+            "latitude": 23.013430115195458,
+            "ground_elevation_m": 178.90408325195312,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8040.093946203291,
+            "longitude": 109.22222348304201,
+            "latitude": 23.013254387698435,
+            "ground_elevation_m": 170.637939453125,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8078.198656848805,
+            "longitude": 109.22254305739503,
+            "latitude": 23.013078659552473,
+            "ground_elevation_m": 168.97406005859375,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8116.303367494318,
+            "longitude": 109.22286263092015,
+            "latitude": 23.012902930757566,
+            "ground_elevation_m": 189.74961853027344,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8154.408078139831,
+            "longitude": 109.22318220361738,
+            "latitude": 23.012727201313723,
+            "ground_elevation_m": 186.37742614746094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8192.512788785345,
+            "longitude": 109.22350177548672,
+            "latitude": 23.01255147122096,
+            "ground_elevation_m": 160.8779754638672,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8230.617499430857,
+            "longitude": 109.2238213465282,
+            "latitude": 23.012375740479275,
+            "ground_elevation_m": 161.73837280273438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8268.72221007637,
+            "longitude": 109.2241409167418,
+            "latitude": 23.012200009088676,
+            "ground_elevation_m": 192.64358520507812,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8306.826920721884,
+            "longitude": 109.22446048612753,
+            "latitude": 23.01202427704917,
+            "ground_elevation_m": 208.8633575439453,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8344.931631367397,
+            "longitude": 109.22478005468541,
+            "latitude": 23.01184854436077,
+            "ground_elevation_m": 209.6676025390625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8383.03634201291,
+            "longitude": 109.22509962241544,
+            "latitude": 23.011672811023477,
+            "ground_elevation_m": 203.7430419921875,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8421.141052658422,
+            "longitude": 109.22541918931762,
+            "latitude": 23.0114970770373,
+            "ground_elevation_m": 182.08265686035156,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8459.245763303938,
+            "longitude": 109.22573875539194,
+            "latitude": 23.01132134240225,
+            "ground_elevation_m": 162.18984985351562,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8497.35047394945,
+            "longitude": 109.22605832063844,
+            "latitude": 23.01114560711833,
+            "ground_elevation_m": 158.15907287597656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8535.455184594963,
+            "longitude": 109.22637788505712,
+            "latitude": 23.010969871185544,
+            "ground_elevation_m": 176.7745819091797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8573.559895240476,
+            "longitude": 109.22669744864797,
+            "latitude": 23.0107941346039,
+            "ground_elevation_m": 161.46713256835938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8611.66460588599,
+            "longitude": 109.22701701141101,
+            "latitude": 23.01061839737341,
+            "ground_elevation_m": 146.14663696289062,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8649.769316531503,
+            "longitude": 109.22733657334622,
+            "latitude": 23.010442659494085,
+            "ground_elevation_m": 143.95896911621094,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8687.874027177015,
+            "longitude": 109.22765613445365,
+            "latitude": 23.01026692096592,
+            "ground_elevation_m": 157.43710327148438,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8725.97873782253,
+            "longitude": 109.22797569473327,
+            "latitude": 23.010091181788926,
+            "ground_elevation_m": 165.9195556640625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8764.083448468042,
+            "longitude": 109.2282952541851,
+            "latitude": 23.00991544196312,
+            "ground_elevation_m": 166.52967834472656,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8802.188159113555,
+            "longitude": 109.22861481280916,
+            "latitude": 23.009739701488495,
+            "ground_elevation_m": 161.32106018066406,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8840.292869759069,
+            "longitude": 109.22893437060542,
+            "latitude": 23.00956396036507,
+            "ground_elevation_m": 148.91098022460938,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8878.397580404582,
+            "longitude": 109.22925392757391,
+            "latitude": 23.009388218592843,
+            "ground_elevation_m": 145.2404022216797,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8916.502291050096,
+            "longitude": 109.22957348371465,
+            "latitude": 23.009212476171832,
+            "ground_elevation_m": 132.83932495117188,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8954.607001695607,
+            "longitude": 109.2298930390276,
+            "latitude": 23.009036733102032,
+            "ground_elevation_m": 130.1841583251953,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 8992.711712341123,
+            "longitude": 109.23021259351282,
+            "latitude": 23.008860989383454,
+            "ground_elevation_m": 129.99810791015625,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 9030.816422986634,
+            "longitude": 109.2305321471703,
+            "latitude": 23.008685245016107,
+            "ground_elevation_m": 126.96179962158203,
+            "cruise_elevation_m": 511.9731750488281
+          },
+          {
+            "distance_m": 9068.921133632148,
+            "longitude": 109.2308517,
+            "latitude": 23.0085095,
+            "ground_elevation_m": 128.7255401611328,
+            "cruise_elevation_m": 511.9731750488281
+          }
+        ]
+      }
+    ],
+    "notice": "按原Snapshot和现有leg/leg_values物理模型重建；高程按资产声明的垂直基准。巡航高程是模型水平航段高度，起终作业点另列；不是遥测或可执行飞控轨迹。沿线最多240个DEM显示采样保留未知，不能代替逐像元净空检查。净空余量只指水平巡航包络，不认证起降走廊；下降不计能量回收，飞行时间不含准备与交接。"
+  }
+]

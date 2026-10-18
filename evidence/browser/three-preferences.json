@@ -1,14 +1,14 @@
 {
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-3E9A59F3221342B3",
-    "scenario_id": "SCN-97F480BFE1D3431C",
+    "snapshot_id": "SNAP-62CD3DF91009472F",
+    "scenario_id": "SCN-C21AE91C8B684556",
     "scenario_state_version": 2,
-    "content_hash": "cc33d708f4bcf9a3c997dda32d2588f83abf5a0e967764ef09e44b9e5d872cb3",
-    "created_at": "2026-10-18T01:32:14.892706Z",
+    "content_hash": "43e4a602f050bd3bf43c5632d3228b387e7cec02403146023b3c2a91605dce07",
+    "created_at": "2026-10-18T03:35:14.479813Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-97F480BFE1D3431C",
+      "scenario_id": "SCN-C21AE91C8B684556",
       "name": "偏好取舍演练（保留硬截止）",
       "state_version": 2,
       "mode": "simulation",
@@ -895,9 +895,9 @@
   "plans": [
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-BE53F28093EA4DFE",
-      "scenario_id": "SCN-97F480BFE1D3431C",
-      "snapshot_id": "SNAP-3E9A59F3221342B3",
+      "plan_id": "PLAN-0E06C340F4EB4D98",
+      "scenario_id": "SCN-C21AE91C8B684556",
+      "snapshot_id": "SNAP-62CD3DF91009472F",
       "scenario_state_version": 2,
       "data_origin": "solver",
       "objective": "balanced",
@@ -1394,7 +1394,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T01:32:26.110749Z",
+      "generated_at": "2026-10-18T03:35:33.255128Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1408,9 +1408,9 @@
     },
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-DCF64A61AFA4458D",
-      "scenario_id": "SCN-97F480BFE1D3431C",
-      "snapshot_id": "SNAP-3E9A59F3221342B3",
+      "plan_id": "PLAN-C1E7F5B241B74B56",
+      "scenario_id": "SCN-C21AE91C8B684556",
+      "snapshot_id": "SNAP-62CD3DF91009472F",
       "scenario_state_version": 2,
       "data_origin": "solver",
       "objective": "energy",
@@ -2045,7 +2045,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T01:32:21.359190Z",
+      "generated_at": "2026-10-18T03:35:24.135370Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -2059,9 +2059,9 @@
     },
     {
       "schema_version": "0.1.0-draft",
-      "plan_id": "PLAN-0902D43A51B24CAC",
-      "scenario_id": "SCN-97F480BFE1D3431C",
-      "snapshot_id": "SNAP-3E9A59F3221342B3",
+      "plan_id": "PLAN-BDA4C95C4E3A405D",
+      "scenario_id": "SCN-C21AE91C8B684556",
+      "snapshot_id": "SNAP-62CD3DF91009472F",
       "scenario_state_version": 2,
       "data_origin": "solver",
       "objective": "time",
@@ -2558,7 +2558,7 @@
           }
         ]
       },
-      "generated_at": "2026-10-18T01:32:17.472294Z",
+      "generated_at": "2026-10-18T03:35:17.156703Z",
       "solver_notes": [
         "真实限时多起点插入启发式；未证明全局最优。",
         "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",

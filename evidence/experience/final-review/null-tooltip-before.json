@@ -1,0 +1,52 @@
+{
+  "reviewed_at": "2026-10-18T02:55:27.109Z",
+  "kind": "library-contract reproduction matching current source formatter, not a production Plan mutation",
+  "source_file": "frontend/src/pages/VisualAnalysis.tsx",
+  "source_sha256": "dedd853d94126a581027e958e72966bf68e83d9f6ab9b2f07a527fb0aa9b21a5",
+  "input": {
+    "ground": [
+      [
+        0,
+        null
+      ],
+      [
+        1,
+        30
+      ],
+      [
+        2,
+        40
+      ]
+    ],
+    "cruise": [
+      [
+        0,
+        100
+      ],
+      [
+        2,
+        100
+      ]
+    ],
+    "action": {
+      "type": "showTip",
+      "seriesIndex": 1,
+      "dataIndex": 0
+    }
+  },
+  "observation": {
+    "calls": [
+      {
+        "value": null,
+        "type": "object"
+      },
+      {
+        "value": 100,
+        "type": "number"
+      }
+    ],
+    "tooltip": "0.000\nground\n0 m\ncruise\n100 m"
+  },
+  "defect": "Null ground elevation is formatted as 0 m when another series at same x has a valid value",
+  "status": "reported_to_root"
+}

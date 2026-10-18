@@ -1,0 +1,75 @@
+{
+  "name": "镇龙乡地理背景资料",
+  "bounds": [
+    109.0328115,
+    22.8615453,
+    109.4450943,
+    23.2247021
+  ],
+  "counts": {
+    "road": 1829,
+    "water": 95,
+    "waterway": 101,
+    "place": 166,
+    "boundary": 1
+  },
+  "geometry_types": {
+    "road": [
+      "LineString"
+    ],
+    "water": [
+      "MultiPolygon",
+      "Polygon"
+    ],
+    "waterway": [
+      "LineString"
+    ],
+    "place": [
+      "Point"
+    ],
+    "boundary": [
+      "Polygon"
+    ]
+  },
+  "coordinate_system": "EPSG:4326",
+  "source_html": "镇龙乡地理空间详情地图.html",
+  "source_html_sha256": "5bb8082f4f5913e6787f86fa9dd3b6f8cbcfa309359f222f57355d1ae991b452",
+  "geojson_sha256": "a0c624b6993d1d5156b2f4a942c991c6e704c5256660c3a5f21c1952cdb9033b",
+  "geojson_bytes": 1330001,
+  "geojson_url": "/maps/town-context.geojson",
+  "notice": "原题历史资料，仅作空间参照；非灾后现势、正式行政界或求解障碍。",
+  "attribution": "© OpenStreetMap contributors",
+  "attribution_url": "https://www.openstreetmap.org/copyright",
+  "extracted_at": "2026-10-18T10:44:00.525038+08:00",
+  "method": "Strict JSONDecoder.raw_decode on named const values; no JavaScript or HTML execution. Geometry/properties preserved; added id/context_kind/context_name only. No DEM image/elevation grid/script/services duplicated.",
+  "coordinate_evidence": {
+    "source_explainer": "镇龙乡地理空间数据说明.pdf",
+    "source_explainer_sha256": "6d1522c6832a5d91a108dae0d07954845025c0dabd44af8ee78c7860d7c405e4",
+    "pdf_page_1": "DEM specifies WGS84 EPSG:4326; HTML D3 geoMercator interprets all layer coordinates as degrees.",
+    "service_points_identical_to_archived_scenario": [
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006",
+      "S007",
+      "S008",
+      "S009",
+      "S010",
+      "S011",
+      "S012",
+      "S013",
+      "S014",
+      "S015"
+    ],
+    "base_identical": true,
+    "all_positions_finite_geodetic_pairs": true,
+    "coordinate_transform": "none"
+  },
+  "licensing_note": "OSM-derived layers retain OSM IDs and notice/link to ODbL. Boundary supplied by contest HTML, not represented as official/current/legal boundary. This extraction is not a certification of all contest redistribution terms.",
+  "sources": [
+    "https://www.openstreetmap.org/copyright",
+    "https://osmfoundation.org/wiki/Licence/Attribution_Guidelines"
+  ]
+}

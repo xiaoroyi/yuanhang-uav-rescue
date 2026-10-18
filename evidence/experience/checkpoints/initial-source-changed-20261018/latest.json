@@ -1,0 +1,56 @@
+{
+  "at_utc": "2026-10-18T03:16:39.961439+00:00",
+  "head": "fac7f62658a92ef7b25565499b02914e973f5096",
+  "branch": "feat/experience-v1",
+  "working_tree_diff_sha256": "246e7aacba23d825fbd8abbd29261021d2f50a6e65dadf517aa01734254d85da",
+  "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
+  "status": " M README.md\n M deliverables/README.md\n M docs/08-TASK-BOARD.md\n M docs/CONTRACT_CHANGELOG.md\n M docs/DECISIONS.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/PR_DESCRIPTION.md\n M docs/SOLO_DELIVERY.md\n M docs/UI_ACCEPTANCE.md\n M docs/task-board.json\n M evidence/browser/capacity-bound.json\n M evidence/browser/communication-source.json\n M evidence/browser/e2e-results.json\n M evidence/browser/ground-capacity-trial.json\n M evidence/browser/map-visibility.json\n M evidence/browser/nominal-diagnostic.json\n M evidence/browser/production-offline.json\n M evidence/browser/three-preferences.json\n M evidence/browser/verified/battery-fault-1280.png\n M evidence/browser/verified/battery-fault-1440.png\n M evidence/browser/verified/battery-fault-changes-1280.png\n M evidence/browser/verified/battery-fault-changes-390.png\n M evidence/browser/verified/capacity-bound-1280.png\n M evidence/browser/verified/capacity-bound-1440.png\n M evidence/browser/verified/capacity-bound-390.png\n M evidence/browser/verified/communication-config-1280.png\n M evidence/browser/verified/communication-source-1280.png\n M evidence/browser/verified/communication-source-1440.png\n M evidence/browser/verified/communication-source-detail-1280.png\n M evidence/browser/verified/communication-source-detail-mobile.png\n M evidence/browser/verified/communication-source-mobile.png\n M evidence/browser/verified/deep-optimization-1440.png\n M evidence/browser/verified/frozen-partition-1440.png\n M evidence/browser/verified/frozen-partition-groups-1440.png\n M evidence/browser/verified/frozen-partition-mobile.png\n M evidence/browser/verified/frozen-partition-resources-1280.png\n M evidence/browser/verified/ground-calendars-1440.png\n M evidence/browser/verified/ground-timeline-expanded-1440.png\n M evidence/browser/verified/ground-trial-form-1280.png\n M evidence/browser/verified/ground-trial-form-1440.png\n M evidence/browser/verified/ground-trial-form-390.png\n M evidence/browser/verified/ground-trial-form-footer-1280.png\n M evidence/browser/verified/ground-trial-result-1280.png\n M evidence/browser/verified/initial-charge-1440.png\n M evidence/browser/verified/initial-charge-report.pdf\n M evidence/browser/verified/initial-charge-timeline-1440.png\n M evidence/browser/verified/joint-battery-fault-1280.png\n M evidence/browser/verified/joint-battery-fault-1440.png\n M evidence/browser/verified/joint-battery-fault-changes-1280.png\n M evidence/browser/verified/joint-battery-fault-changes-390.png\n M evidence/browser/verified/joint-report.pdf\n M evidence/browser/verified/joint-resource-analysis-1440.png\n M evidence/browser/verified/joint-resource-windows-1440.png\n M evidence/browser/verified/joint-workspace-1280.png\n M evidence/browser/verified/joint-workspace-1440.png\n M evidence/browser/verified/nominal-batches-1440.png\n M evidence/browser/verified/nominal-capacity-1440.png\n M evidence/browser/verified/nominal-sensitivity-1280.png\n M evidence/browser/verified/nominal-sensitivity-390.png\n M evidence/browser/verified/print-report-screen.png\n M evidence/browser/verified/print-report.pdf\n M evidence/browser/verified/production-offline-1280.png\n M evidence/browser/verified/production-offline-1440.png\n M evidence/browser/verified/relay-energy-fault-1280.png\n M evidence/browser/verified/relay-energy-fault-1440.png\n M evidence/browser/verified/relay-energy-windows-1280.png\n M evidence/browser/verified/relay-fault-differences-1440.png\n M evidence/browser/verified/relay-fault-replan-1440.png\n M evidence/browser/verified/replan-1280.png\n M evidence/browser/verified/replan-1440.png\n M evidence/browser/verified/resource-analysis-1280.png\n M evidence/browser/verified/resource-analysis-1440.png\n M evidence/browser/verified/scenario-1440.png\n M evidence/browser/verified/scenario-mobile.png\n M evidence/browser/verified/scenario-with-nominal-1440.png\n M evidence/browser/verified/stress-history-1440.png\n M evidence/browser/verified/terrain-assets-1280.png\n M evidence/browser/verified/terrain-assets-1440.png\n M evidence/browser/verified/terrain-bound-workspace-1440.png\n M evidence/browser/verified/three-preferences-1280.png\n M evidence/browser/verified/three-preferences-1440.png\n M evidence/browser/verified/three-preferences-390.png\n M evidence/browser/verified/three-preferences-panel-390.png\n M evidence/browser/verified/workspace-1280.png\n M evidence/browser/verified/workspace-1440.png\n M evidence/browser/verified/zone-detour-1440.png\n M evidence/browser/verified/zone-editor-1440.png\n M evidence/solver/battery-replan.json\n M evidence/solver/joint-battery-replan.json\n M evidence/solver/joint-replan.json\n M evidence/solver/relay-energy-replan.json\n M evidence/verification/check-01.txt\n M evidence/verification/check-03.txt\n M evidence/verification/check-05.txt\n M evidence/verification/check-06.txt\n M evidence/verification/check-07.txt\n M frontend/tests/workflow.spec.ts\n?? docs/EXPERIENCE_RELEASE.md\n?? evidence/experience/\n?? evidence/verification/github-browser-smoke-fac7f62-39092052081.json\n?? evidence/verification/github-browser-smoke-fac7f62.json\n?? evidence/verification/github-ci-fac7f62.json\n",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
+      "exit_code": 0,
+      "elapsed_s": 359.913,
+      "output": "evidence/verification/check-01.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
+      "exit_code": 0,
+      "elapsed_s": 0.656,
+      "output": "evidence/verification/check-02.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
+      "exit_code": 0,
+      "elapsed_s": 0.746,
+      "output": "evidence/verification/check-03.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
+      "exit_code": 0,
+      "elapsed_s": 3.331,
+      "output": "evidence/verification/check-04.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
+      "exit_code": 0,
+      "elapsed_s": 0.615,
+      "output": "evidence/verification/check-05.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
+      "exit_code": 0,
+      "elapsed_s": 8.452,
+      "output": "evidence/verification/check-06.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:e2e",
+      "exit_code": 1,
+      "elapsed_s": 946.117,
+      "output": "evidence/verification/check-07.txt"
+    }
+  ],
+  "verification_source_before_sha256": "b701649b6c113309fdd106f5a0f20aee4bb3feda27e998e83b067bba5c54db9f",
+  "verification_source_after_sha256": "d95f0d2e09503544e72961a6ef659a7e3b787444c45743394cb78188d56b913b",
+  "source_unchanged": false,
+  "passed": false
+}

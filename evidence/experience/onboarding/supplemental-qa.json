@@ -1,0 +1,18 @@
+{
+  "started_at": "2026-10-18T02:37:24.514Z",
+  "scope": "Supplement to ten groups: live cross-tab storage event and real workspace/maps/guide mount/unmount + refresh. No controlled HMR or server mutation.",
+  "page_errors": [],
+  "checks": [
+    {
+      "name": "live-open-tab-storage-event",
+      "passed": true
+    },
+    {
+      "name": "12-workspace-maps-guide-cycles-and-6-refreshes",
+      "passed": true
+    }
+  ],
+  "map_source_sha256": "59fd65b2dcbf2e925d99acbe3ad089e6dad6b9b9ce56834d1bf8cd9fa35b6747",
+  "passed": true,
+  "finished_at": "2026-10-18T02:37:38.747Z"
+}

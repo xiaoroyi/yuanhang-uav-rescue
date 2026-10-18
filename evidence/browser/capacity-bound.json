@@ -1,7 +1,7 @@
 {
   "analysis": {
-    "plan_id": "PLAN-CC864DDE7C9C4290",
-    "snapshot_id": "SNAP-DAF615BA072944F4",
+    "plan_id": "PLAN-CEF927603E7D4574",
+    "snapshot_id": "SNAP-43D5E03F232743CE",
     "scenario_state_version": 1,
     "model_scope": [
       "cargo_unique",
@@ -17,9 +17,9 @@
       "model_id": "transport_capacity_relaxation_v1",
       "status": "ready",
       "reason": null,
-      "snapshot_id": "SNAP-DAF615BA072944F4",
+      "snapshot_id": "SNAP-43D5E03F232743CE",
       "scenario_state_version": 1,
-      "snapshot_content_hash": "edb9dc7f43030dfa081a41508423dc8b6d43c55de76c8f2a865297309b0559ad",
+      "snapshot_content_hash": "b27e22f41bfae1ef24908a172d1496c981fdf43a3b6dcc296347fd24d7aaa1b5",
       "required_box_count": 32,
       "eligible_type_ids": [
         "A",

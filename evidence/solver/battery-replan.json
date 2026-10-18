@@ -1,14 +1,14 @@
 {
   "old_snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-1FF7D891A0C04449",
-    "scenario_id": "SCN-4BE91A4C6EB640C1",
+    "snapshot_id": "SNAP-3404D3599CBF4324",
+    "scenario_id": "SCN-9BE9F034A40C42A2",
     "scenario_state_version": 1,
-    "content_hash": "458530f1dc7daf98d2a11f4e9a93ef6283648e0c6608efa8beb4053a4efeebf8",
-    "created_at": "2026-10-18T01:26:48.450744Z",
+    "content_hash": "83b0a55cdbb095d79df2e3a9461b2cf3a8f2d5dcfe5be51226819a7369c556d1",
+    "created_at": "2026-10-18T03:27:23.264068Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-4BE91A4C6EB640C1",
+      "scenario_id": "SCN-9BE9F034A40C42A2",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 1,
       "mode": "simulation",
@@ -894,9 +894,9 @@
   },
   "old_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-9D18BB7DD52C43DF",
-    "scenario_id": "SCN-4BE91A4C6EB640C1",
-    "snapshot_id": "SNAP-1FF7D891A0C04449",
+    "plan_id": "PLAN-3B28FFF47A0442C1",
+    "scenario_id": "SCN-9BE9F034A40C42A2",
+    "snapshot_id": "SNAP-3404D3599CBF4324",
     "scenario_state_version": 1,
     "data_origin": "solver",
     "objective": "time",
@@ -1403,7 +1403,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T01:26:50.374167Z",
+    "generated_at": "2026-10-18T03:27:26.333195Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1417,12 +1417,12 @@
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-bdaa6581-5c1f-4c",
-    "scenario_id": "SCN-4BE91A4C6EB640C1",
+    "event_id": "EVT-ec932ec2-28c8-47",
+    "scenario_id": "SCN-9BE9F034A40C42A2",
     "expected_state_version": 1,
     "event_type": "battery.unavailable",
-    "occurred_at": "2026-10-18T01:26:53.378000Z",
-    "received_at": "2026-10-18T01:26:53.383838Z",
+    "occurred_at": "2026-10-18T03:27:32.120000Z",
+    "received_at": "2026-10-18T03:27:32.129416Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：运输电池退出",
@@ -1432,14 +1432,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-524BD750A7F54D22",
-    "scenario_id": "SCN-4BE91A4C6EB640C1",
+    "snapshot_id": "SNAP-7E51A3F238B44943",
+    "scenario_id": "SCN-9BE9F034A40C42A2",
     "scenario_state_version": 2,
-    "content_hash": "debbbbe4568a6484795cd1a185d9dbca7d4a697adfaf12d8fd94fdc853eed396",
-    "created_at": "2026-10-18T01:26:53.497350Z",
+    "content_hash": "d0429a160e1151ba494cbb8316568d5b2123d116b5e16bf6c336bce00d60e3de",
+    "created_at": "2026-10-18T03:27:32.271112Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-4BE91A4C6EB640C1",
+      "scenario_id": "SCN-9BE9F034A40C42A2",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -2325,9 +2325,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-7B5B0A07397D4909",
-    "scenario_id": "SCN-4BE91A4C6EB640C1",
-    "snapshot_id": "SNAP-524BD750A7F54D22",
+    "plan_id": "PLAN-3F2C74B1639C4BE7",
+    "scenario_id": "SCN-9BE9F034A40C42A2",
+    "snapshot_id": "SNAP-7E51A3F238B44943",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -2970,7 +2970,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T01:26:55.460468Z",
+    "generated_at": "2026-10-18T03:27:35.251950Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -2979,8 +2979,8 @@
       "通信未评估；输出为仿真/规划建议，不是实飞许可。",
       "依赖图局部修复：5条机体/电池前序边，直接影响2架次，传播范围3架次，本轮保留4个原架次及原时间。启发式未证明最小改动。"
     ],
-    "parent_plan_id": "PLAN-9D18BB7DD52C43DF",
-    "event_id": "EVT-bdaa6581-5c1f-4c",
+    "parent_plan_id": "PLAN-3B28FFF47A0442C1",
+    "event_id": "EVT-ec932ec2-28c8-47",
     "change_summary": {
       "preserved_sortie_ids": [
         "SRT-0effebcce24d",

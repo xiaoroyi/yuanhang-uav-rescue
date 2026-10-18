@@ -1,0 +1,23 @@
+{
+  "reviewed_at": "2026-10-18T02:55:40.035195+00:00",
+  "access": "SQLite URI mode=ro, SELECT only; saved response review, no HTTP replay",
+  "records": [
+    {
+      "plan_id": "PLAN-CF0B791A1FF84F05",
+      "snapshot_id": "SNAP-BC3CF3E36D004A19",
+      "sortie_id": "SRT-6396ff71573f",
+      "energy_kwh": 4.762303120150357,
+      "terrain_sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+      "passed": true
+    },
+    {
+      "plan_id": "PLAN-CF0B791A1FF84F05",
+      "snapshot_id": "SNAP-BC3CF3E36D004A19",
+      "sortie_id": "SRT-493807468ae3",
+      "energy_kwh": 1.7800228341026476,
+      "terrain_sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

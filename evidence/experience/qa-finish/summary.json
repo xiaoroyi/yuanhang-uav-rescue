@@ -1,0 +1,24 @@
+{
+  "checked_at_utc": "2026-10-18T02:53:41.991100+00:00",
+  "command": "$env:YUANHANG_E2E_REPORT='../evidence/experience/qa-finish/results.json'; npm.cmd --prefix frontend run test:e2e -- tests/experience.spec.ts",
+  "exit_code": 0,
+  "stats": {
+    "startTime": "2026-10-18T02:52:56.815Z",
+    "duration": 32476.836,
+    "expected": 5,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "test_file": "frontend/tests/experience.spec.ts",
+  "test_sha256": "0b193a58ed370d86fcda76c2b56d1b33e2bd816651f218b9eb387ec2fb4ff992",
+  "source_scope": "Only frontend/tests/experience.spec.ts was changed by this QA task; no product code was edited.",
+  "initial_report_preserved": true,
+  "initial_report_sha256": "c15a3ef9fccde6ec093a02f33f3ffe142a84393e2415c0e560f1fd76b4377560",
+  "changes": [
+    "Normalize only equivalent UTC suffix Z/+00:00 in generated_at while retaining fractional precision, then deep-compare every Plan field.",
+    "After setting selected no-DEM scenario, perform a real page.reload and assert the scenario selector ID before checking the empty state."
+  ],
+  "result": "passed",
+  "failures_historical": "initial-failures.json and initial-context.json are historical, not the corrected-run result."
+}
