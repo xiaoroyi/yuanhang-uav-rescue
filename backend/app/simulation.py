@@ -20,9 +20,10 @@ def timestamp(value):
 
 
 class SimulationEngine:
-    def __init__(self, database, error):
+    def __init__(self, database, error, command_tick=None):
         self.db, self.error = database, error
         self.cache = {}
+        self.command_tick = command_tick
         self.stop_event = threading.Event()
         self.thread = threading.Thread(
             target=self.run, name="simulation-clock", daemon=True
@@ -41,6 +42,8 @@ class SimulationEngine:
                         for row in session.scalars(select(ExecutionRow)):
                             if row.content["status"] == "running":
                                 self.advance(session, row)
+                        if self.command_tick:
+                            self.command_tick(session)
             except Exception:
                 # Preserve the clock/ledger transaction on error; requests expose the actual failure.
                 import logging

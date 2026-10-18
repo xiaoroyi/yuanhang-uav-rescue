@@ -120,6 +120,16 @@ test('V2 in-flight insertion is adopted, reviewed and reloaded as an immutable m
   e = await (await request.get('/api/v1/executions/' + e.execution_id)).json()
   expect(e.facts).toEqual(originalFacts)
   expect(e.schedule_parts.length).toBeGreaterThan(1)
+  await page.locator('.v2-object-scroll > button').first().click()
+  const devicePanel = page.getByRole('region', { name: '模拟设备程序核对', exact: true })
+  await expect(devicePanel).toContainText('已启用的未来程序')
+  await devicePanel.getByRole('button', { name: '独立核对设备状态', exact: true }).click()
+  await expect(devicePanel).toContainText('完成，已取得独立状态读回', { timeout: 10000 })
+  await page.screenshot({
+    path: '../evidence/redesign-v2/device-state-readback-1440.png',
+    fullPage: true,
+  })
+  await page.getByRole('button', { name: '关闭机体详情', exact: true }).click()
   await page.getByRole('button', { name: '查看完整排程', exact: true }).click()
   await expect(page.getByRole('dialog')).toContainText('生效排程与模拟事实')
   await page.screenshot({

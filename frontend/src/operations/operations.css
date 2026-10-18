@@ -741,6 +741,24 @@
   font-size: 12px;
   margin: 10px 0;
 }
+.v2-device-state {
+  border-top: 1px solid var(--v2-border);
+  margin-top: 16px;
+  padding-top: 2px;
+}
+.v2-device-state code {
+  overflow-wrap: anywhere;
+}
+.v2-device-state p {
+  font-size: 12px;
+  margin: 10px 0;
+}
+.v2-command-receipt small {
+  display: block;
+  color: var(--v2-muted);
+  overflow-wrap: anywhere;
+  margin-top: 4px;
+}
 .v2-visit {
   margin: 12px 0;
   padding: 12px;

@@ -2659,6 +2659,54 @@
         }
       }
     },
+    "/api/v1/executions/{execution_id}/devices/{device_id}/mission-state": {
+      "get": {
+        "summary": "Device Mission State",
+        "operationId": "device_mission_state_api_v1_executions__execution_id__devices__device_id__mission_state_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          },
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceMissionState"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/executions": {
       "post": {
         "summary": "Create Execution",
@@ -4636,6 +4684,16 @@
               }
             ],
             "title": "Evidence"
+          },
+          "observed_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DeviceMissionState"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -5443,7 +5501,9 @@
               "queued",
               "acknowledged",
               "succeeded",
-              "indeterminate"
+              "indeterminate",
+              "expired",
+              "rejected"
             ],
             "title": "Upload State"
           },
@@ -5459,6 +5519,17 @@
           "command_id": {
             "type": "string",
             "title": "Command Id"
+          },
+          "activation_command_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Activation Command Id"
           }
         },
         "additionalProperties": false,
@@ -5535,6 +5606,106 @@
           "command_types"
         ],
         "title": "DeviceCapabilities"
+      },
+      "DeviceMissionState": {
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Mode",
+            "default": "simulation"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Revision"
+          },
+          "active_plan_id": {
+            "type": "string",
+            "title": "Active Plan Id"
+          },
+          "uploaded_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uploaded Plan Id"
+          },
+          "uploaded_content_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uploaded Content Sha256"
+          },
+          "last_upload_command_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Upload Command Id"
+          },
+          "last_activation_command_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activation Command Id"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observed At"
+          },
+          "real_device_connected": {
+            "type": "boolean",
+            "const": false,
+            "title": "Real Device Connected",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "execution_id",
+          "device_id",
+          "revision",
+          "active_plan_id",
+          "uploaded_plan_id",
+          "updated_at",
+          "observed_at"
+        ],
+        "title": "DeviceMissionState"
       },
       "DraftImportPreview": {
         "properties": {

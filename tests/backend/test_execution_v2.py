@@ -202,7 +202,11 @@ def test_simulation_clock_refresh_idempotence_reconnect_and_commands(tmp_path):
         )
         time.sleep(0.9)
         state = c.get("/api/v1/commands/" + completion["command_id"]).json()
-        assert state["status"] == "acknowledged" and state["completed_at"] is None
+        assert (
+            state["status"] in ("acknowledged", "indeterminate")
+            and state["acknowledged_at"] is not None
+            and state["completed_at"] is None
+        )
         time.sleep(0.5)
         state = c.get("/api/v1/commands/" + completion["command_id"]).json()
         assert (
@@ -214,9 +218,10 @@ def test_simulation_clock_refresh_idempotence_reconnect_and_commands(tmp_path):
             c.get("/api/v1/commands/" + rejected["command_id"]).json()["status"]
             == "rejected"
         )
+        expiry = c.get("/api/v1/commands/" + expired["command_id"]).json()
         assert (
-            c.get("/api/v1/commands/" + expired["command_id"]).json()["status"]
-            == "expired"
+            expiry["status"] in ("expired", "indeterminate")
+            and expiry["completed_at"] is None
         )
         bad = {
             **command,

@@ -990,6 +990,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/executions/{execution_id}/devices/{device_id}/mission-state": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Device Mission State */
+        get: operations["device_mission_state_api_v1_executions__execution_id__devices__device_id__mission_state_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/executions": {
         parameters: {
             query?: never;
@@ -1685,6 +1702,7 @@ export interface components {
             completed_at: string | null;
             /** Evidence */
             evidence: string | null;
+            observed_state?: components["schemas"]["DeviceMissionState"] | null;
         };
         /** Communication */
         Communication: {
@@ -1950,7 +1968,7 @@ export interface components {
              * Upload State
              * @enum {string}
              */
-            upload_state: "queued" | "acknowledged" | "succeeded" | "indeterminate";
+            upload_state: "queued" | "acknowledged" | "succeeded" | "indeterminate" | "expired" | "rejected";
             /**
              * Activation State
              * @enum {string}
@@ -1958,6 +1976,8 @@ export interface components {
             activation_state: "not_started" | "active" | "indeterminate";
             /** Command Id */
             command_id: string;
+            /** Activation Command Id */
+            activation_command_id?: string | null;
         };
         /** DeviceCapabilities */
         DeviceCapabilities: {
@@ -1995,6 +2015,47 @@ export interface components {
             supports_future_schedule_update: true;
             /** Command Types */
             command_types: ("mission.upload" | "mission.activate" | "state.query")[];
+            /**
+             * Real Device Connected
+             * @default false
+             * @constant
+             */
+            real_device_connected: false;
+        };
+        /** DeviceMissionState */
+        DeviceMissionState: {
+            /** Execution Id */
+            execution_id: string;
+            /** Device Id */
+            device_id: string;
+            /**
+             * Mode
+             * @default simulation
+             * @constant
+             */
+            mode: "simulation";
+            /** Revision */
+            revision: number;
+            /** Active Plan Id */
+            active_plan_id: string;
+            /** Uploaded Plan Id */
+            uploaded_plan_id: string | null;
+            /** Uploaded Content Sha256 */
+            uploaded_content_sha256?: string | null;
+            /** Last Upload Command Id */
+            last_upload_command_id?: string | null;
+            /** Last Activation Command Id */
+            last_activation_command_id?: string | null;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /**
+             * Observed At
+             * Format: date-time
+             */
+            observed_at: string;
             /**
              * Real Device Connected
              * @default false
@@ -6610,6 +6671,38 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OperationCapabilities"];
+                };
+            };
+        };
+    };
+    device_mission_state_api_v1_executions__execution_id__devices__device_id__mission_state_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+                device_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeviceMissionState"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

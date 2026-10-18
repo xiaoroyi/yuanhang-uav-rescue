@@ -316,7 +316,9 @@ def create_app(runtime_dir: Path | None = None):
         app.state.jobs = manager
         from backend.app.simulation import SimulationEngine
 
-        app.state.simulation = SimulationEngine(database, AppError)
+        app.state.simulation = SimulationEngine(
+            database, AppError, command_tick=app.state.simulation_commands_tick
+        )
         yield
         app.state.simulation.close()
         manager.close()

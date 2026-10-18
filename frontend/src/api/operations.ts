@@ -13,8 +13,26 @@ export type Telemetry = components['schemas']['TelemetrySample']
 export type ExecutionAnalysis = components['schemas']['ExecutionAnalysis']
 export type ArchiveSummary = components['schemas']['ExecutionArchiveSummary']
 export type ExecutionArchive = components['schemas']['ExecutionArchiveView']
+export type DeviceMissionState = components['schemas']['DeviceMissionState']
+export type Command = components['schemas']['CommandView']
 export const key = () => crypto.randomUUID()
 export const ops = {
+  deviceState: (execution: string, device: string) =>
+    request<DeviceMissionState>(
+      `/executions/${encodeURIComponent(execution)}/devices/${encodeURIComponent(device)}/mission-state`,
+    ),
+  command: (id: string) => request<Command>(`/commands/${encodeURIComponent(id)}`),
+  queryDevice: (e: Execution, device: string) =>
+    request<Command>('/commands', {
+      execution_id: e.execution_id,
+      device_id: device,
+      command_type: 'state.query',
+      simulation_fault: 'none',
+      desired_plan_id: e.desired_plan_id,
+      expected_execution_revision: e.revision,
+      idempotency_key: key(),
+      expires_at: new Date(Date.now() + 60_000).toISOString(),
+    } satisfies components['schemas']['CommandRequest']),
   archives: () => request<ArchiveSummary[]>('/execution-archives'),
   archive: (id: string) =>
     request<ExecutionArchive>('/execution-archives/' + encodeURIComponent(id)),

@@ -153,6 +153,12 @@ def validate_bundle(model):
         c["candidate_plan_id"] for c in value["changes"] if c["candidate_plan_id"]
     )
     referenced.update(c["desired_plan_id"] for c in value["commands"])
+    for command in value["commands"]:
+        observed = command.get("observed_state")
+        if observed:
+            referenced.add(observed["active_plan_id"])
+            if observed["uploaded_plan_id"]:
+                referenced.add(observed["uploaded_plan_id"])
     referenced.update(t["active_plan_id"] for t in e["telemetry"])
     if not referenced.issubset(plans):
         raise ValueError("执行/候选/指令引用的方案未完整封装。")
@@ -164,6 +170,14 @@ def validate_bundle(model):
     for command in value["commands"]:
         if command["execution_id"] != e["execution_id"]:
             raise ValueError("指令归属的执行不符。")
+        observed = command.get("observed_state")
+        if observed and (
+            observed["execution_id"] != e["execution_id"]
+            or observed["device_id"] != command["device_id"]
+            or observed["device_id"]
+            not in {d["drone_id"] for d in scene_drones(plans, snapshots, e)}
+        ):
+            raise ValueError("设备观测的执行/机体归属不符。")
     for part in e["schedule_parts"]:
         p = plans[part["plan_id"]]
         if not set(part["sortie_ids"]).issubset({r["sortie_id"] for r in p["sorties"]}):
@@ -231,6 +245,11 @@ def validate_bundle(model):
     if not set(e.get("applied_event_ids", [])).issubset(event_ids):
         raise ValueError("采纳事件引用缺失。")
     return value, docs
+
+
+def scene_drones(plans, snapshots, execution):
+    initial = plans[execution["initial_plan_id"]]
+    return snapshots[initial["snapshot_id"]]["scenario"]["drones"]
 
 
 def register_archives(app, database, error):

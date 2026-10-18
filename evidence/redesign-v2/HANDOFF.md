@@ -1,4 +1,22 @@
+## 最新继续点：R11读回已合入（2026-10-18）
+
+模拟设备独立持久状态/后台命令调度/逐机启用读回已从隔离33e7fe4合入主V2，前端类型/查询界面/档案校验同步。后端组合15项及追加6项通过；浏览器真实在途插单与独立状态查询闭环1 passed（27.8s），lint/build通过。详情TEST_REPORT。隔离工作树保留且干净，不要再合5e5df65或33e7fe4。下一步R12：以事实判定已装载承诺、暂停读取不生成新事实、退出/误报与资源就绪遥测；然后R06地图密集点/重叠路线/镜头与空白选区。8000尚未重启加载这些新API，交付前需保护原14Plan/10Snapshot并统一重启校验。
+
 # V2 连续实施交接（仍在开发，不是最终全量交付）
+
+## 最新继续点（覆盖下方历史进程说明）
+
+主V2已提交：cc7a20c复盘档案、7fde248进度容错、130cfa0新旧偏好隔离与完整回归证据；GitHub最新同步至cc7a20c，后两提交待推送。完整非浏览器6条通过（298 Python/8子测试/12单元/lint/build，源码不变）；完整浏览器42条是41通过/1旧动态设置失败，随后原失败用例与新跨路由偏好各1通过。不能写成同轮42全过。原旧输出94文件已归档并恢复，见legacy-regression-full/SOURCE_MAP.json；旧路径没有未提交更改。
+
+8000仍为旧核心检查点PID4624，原10场景/10快照/14Plan/15Job/0Mission/0Execution最近核对未变，没有运行Job或Execution。最新只读基线.local/v2-before-r17-production.json；不要把当前dist+旧API视为已部署完成。
+
+**正在另一个工作副本完成R11**：.local/worktrees/v2-device-readback，分支feat/v2-device-readback，基于cc7a20c；只稀疏检出源代码与必要14MB题设表格/DEM，沿用主项目.venv解释器。5e5df65进度容错已cherry-pick到主V2为7fde248，不重复合。该副本仍有未提交DeviceMissionState/SimulationDeviceStore、SimulationAdapter状态写入/读回、通用activate批准限制、后台command tick/逐设备启用回执、新5项读回测试；RFC-023。没有真实设备连接。
+
+正在运行第三轮冻结源码专项：会话日志.local/v2-protocol-worktree-third.log，exec会话须查询；命令涵盖device_readback + progress_resilience + execution_v2 + execution_archive。第一轮10过/1个墙钟ACK断言失败；第二轮12过/1个短TTL被后台调度成sent→indeterminate，已改为承认合法未确定，并补控制时钟的严格ACK/过期无副作用测试。未标第三轮通过。代码第三轮期间不要再修改。
+
+后续先检查该副本测试结果，修实质问题；补只读档案对observed_state引用校验与schema往返。测试稳定后在副本提交R11（不含已经合回的5e5df65），主V2用cherry-pick --no-commit应用，再同步frontend生成类型、设备状态/启用回执界面与浏览器验证后整体提交。副本没有frontend包，不在里面跑前端build；生成OpenAPI已78路径。确认当前主工作树无他人更改。
+
+还需补已发现R12边界：ready/time0未开始的架次不能仅因prepare_start<=0就被误认作已装载承诺；未来故障机体不能在遥测列表显示“待命”，需要按未撤销事件投影可用性；测试先覆盖这些真实状态。完成后备份/重启8000，按R06密集点位/重叠航线/镜头/空白区域和R16评测继续，不能就此停止。
 
 当前项目 yuanhang-uav-rescue；分支 `feat/mission-workspace-v2`。最新已提交 `cf3d73d`，GitHub已同步至 `aafff5b`，后续R12纠错及R17需继续提交/推送；main、V1两分支不变。两个人：A算法与负责人，B一人前后端。不要重复初始化，不要在读到检查点后停止。
 

@@ -26,6 +26,7 @@ from backend.app.operation_models import (
     ExecutionAnalysis,
     OperationCapabilities,
     ExecutionBundle,
+    DeviceMissionState,
 )
 from backend.app.storage import (
     MissionRow,
@@ -44,6 +45,7 @@ from shared.contracts import content_hash, validate_scenario, ContractError
 from solver.public_api import validate
 from solver.dependencies import affected_closure
 from backend.app.device_adapter import SimulationAdapter
+from backend.app.device_state import SimulationDeviceStore
 from solver.weather import eligible_types as weather_eligible_types
 
 
@@ -101,6 +103,65 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 )
             result.append(v)
         return result
+
+    def device_adapter(session, row):
+        devices = SimulationDeviceStore(session, row, error)
+        return SimulationAdapter(
+            mission_state_reader=devices.read, mission_state_writer=devices.write
+        )
+
+    @app.get(
+        "/api/v1/executions/{execution_id}/devices/{device_id}/mission-state",
+        response_model=DeviceMissionState,
+    )
+    def device_mission_state(execution_id: str, device_id: str):
+        with database.session(immediate=True) as session:
+            row = require(session, ExecutionRow, execution_id, error)
+            if not row.content["connected"]:
+                raise error(
+                    422,
+                    "TELEMETRY_UNAVAILABLE",
+                    "模拟链路已断开，当前只能查看最后遥测，不能确认设备任务状态。",
+                )
+            return SimulationDeviceStore(session, row, error).read(device_id)
+
+    def finish_device_command(session, value):
+        import asyncio
+
+        row = require(session, ExecutionRow, value["execution_id"], error)
+        if not row.content["connected"]:
+            raise ValueError("Simulation telemetry link disconnected")
+        if (
+            value["command_type"] == "mission.activate"
+            and value["desired_plan_id"] != row.content["desired_plan_id"]
+        ):
+            raise ValueError("Target schedule is not approved/current")
+        adapter = device_adapter(session, row)
+
+        async def observe():
+            await adapter.execute_command(
+                value["device_id"],
+                value,
+                {
+                    "mode": "simulation",
+                    "approved": value["command_type"] == "mission.activate",
+                },
+            )
+            return await adapter.read_mission_state(value["device_id"])
+
+        observed = asyncio.run(observe())
+        if value["command_type"] == "mission.upload" and (
+            observed["uploaded_plan_id"] != value["desired_plan_id"]
+            or observed["uploaded_content_sha256"]
+            != content_hash(value["compiled_mission"])
+        ):
+            raise ValueError("Uploaded mission readback mismatch")
+        if (
+            value["command_type"] == "mission.activate"
+            and observed["active_plan_id"] != value["desired_plan_id"]
+        ):
+            raise ValueError("Active mission readback mismatch")
+        return observed
 
     @app.post("/api/v1/executions", response_model=ExecutionView, status_code=201)
     def create_execution(body: ExecutionCreate):
@@ -844,21 +905,29 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     ("command", application["command_id"]),
                     error,
                 )
-                command = command_view(command_row)
+                command = command_view(session, command_row)
                 application["upload_state"] = (
                     command["status"]
                     if command["status"]
-                    in ("acknowledged", "succeeded", "indeterminate")
+                    in (
+                        "acknowledged",
+                        "succeeded",
+                        "indeterminate",
+                        "expired",
+                        "rejected",
+                    )
                     else "queued"
                 )
             states = [a["upload_state"] for a in v["applications"]]
-            if "indeterminate" in states:
+            if any(
+                state in ("indeterminate", "expired", "rejected") for state in states
+            ):
                 v.update(
                     status="partially_applied",
                     message="部分模拟设备 ACK 未确定；尚未激活新排程，旧承诺和资源保护保留。请查询设备状态后重新生成调整。",
                 )
                 for a in v["applications"]:
-                    if a["upload_state"] == "indeterminate":
+                    if a["upload_state"] in ("indeterminate", "expired", "rejected"):
                         a["activation_state"] = "indeterminate"
             elif all(x == "succeeded" for x in states):
                 row = require(session, ExecutionRow, v["execution_id"], error)
@@ -880,6 +949,105 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         ("execution.change.activation", v["change_id"]),
                         error,
                     ).content
+                    import asyncio
+
+                    adapter = device_adapter(session, row)
+                    target = pending["desired_plan_id"]
+                    for application in v["applications"]:
+                        state = asyncio.run(
+                            adapter.read_mission_state(application["device_id"])
+                        )
+                        uploaded = require(
+                            session,
+                            OperationRecordRow,
+                            ("command", application["command_id"]),
+                            error,
+                        ).content
+                        if state["uploaded_plan_id"] != target or state[
+                            "uploaded_content_sha256"
+                        ] != content_hash(uploaded["compiled_mission"]):
+                            v.update(
+                                status="partially_applied",
+                                message="已上传程序的当前读回发生变化，未激活新排程；请核对设备后重新确认。",
+                            )
+                            application["activation_state"] = "indeterminate"
+                            record.content = copy.deepcopy(v)
+                            return v
+                    for application in v["applications"]:
+                        cid = identity("CMD")
+                        application["activation_command_id"] = cid
+                        activation = {
+                            "command_id": cid,
+                            "execution_id": row.id,
+                            "device_id": application["device_id"],
+                            "command_type": "mission.activate",
+                            "mode": "simulation",
+                            "status": "queued",
+                            "desired_plan_id": target,
+                            "created_at": now(),
+                            "expires_at": (
+                                datetime.now(timezone.utc) + timedelta(seconds=30)
+                            ).isoformat(),
+                            "acknowledged_at": None,
+                            "completed_at": None,
+                            "evidence": None,
+                            "fault": "none",
+                            "protocol_version": 2,
+                        }
+                        try:
+                            asyncio.run(
+                                adapter.execute_command(
+                                    application["device_id"],
+                                    activation,
+                                    {
+                                        "mode": "simulation",
+                                        "approved": True,
+                                        "change_id": v["change_id"],
+                                    },
+                                )
+                            )
+                            state = asyncio.run(
+                                adapter.read_mission_state(application["device_id"])
+                            )
+                            if state["active_plan_id"] != target:
+                                raise ValueError("Activation readback mismatch")
+                            activation.update(
+                                status="succeeded",
+                                acknowledged_at=now(),
+                                completed_at=now(),
+                                observed_state=state,
+                                evidence="Approved simulation activation confirmed by persisted device state",
+                            )
+                            application.update(
+                                activation_state="active", active_plan_id=target
+                            )
+                        except (ValueError, KeyError, TypeError) as exc:
+                            activation.update(
+                                status="indeterminate",
+                                acknowledged_at=now(),
+                                evidence="Activation not confirmed: " + str(exc)[:200],
+                            )
+                            application["activation_state"] = "indeterminate"
+                            v.update(
+                                status="partially_applied",
+                                message="设备启用结果未全部确认；模拟保持暂停，保留原承诺与新旧可能占用。",
+                            )
+                        store(
+                            session,
+                            "command",
+                            cid,
+                            row.id,
+                            content_hash(
+                                {
+                                    "change_id": v["change_id"],
+                                    "device_id": application["device_id"],
+                                }
+                            ),
+                            activation,
+                        )
+                        if v["status"] == "partially_applied":
+                            record.content = copy.deepcopy(v)
+                            return v
                     value = copy.deepcopy(row.content)
                     value.update(
                         schedule_parts=pending["schedule_parts"],
@@ -1174,6 +1342,17 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             )
             if p.id not in permitted:
                 raise error(403, "PLAN_NOT_OWNED", "指令不能使用其它执行的方案。")
+            if (
+                body.command_type == "mission.activate"
+                and p.id != row.content["desired_plan_id"]
+            ):
+                raise error(
+                    409,
+                    "ACTIVATION_APPROVAL_REQUIRED",
+                    "新候选须经过差异确认与逐设备采纳，不能用通用指令绕过。",
+                )
+            if body.command_type != "state.query" and not row.content["connected"]:
+                raise error(422, "TELEMETRY_REQUIRED", "失联时不能上传或启用任务。")
             expires = body.expires_at.timestamp()
             if expires <= timestamp(now()) or expires > timestamp(now()) + 300:
                 raise error(422, "COMMAND_EXPIRED", "指令有效期应在未来五分钟内。")
@@ -1191,13 +1370,54 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 "completed_at": None,
                 "evidence": None,
             }
+            adapter = device_adapter(session, row)
+            compiled = None
+            if body.command_type == "mission.upload":
+                snapshot = require(session, SnapshotRow, p.snapshot_id, error).content
+                if validate(snapshot, p.content)["status"] != "passed":
+                    raise error(
+                        422,
+                        "PLAN_VALIDATION_FAILED",
+                        "方案未通过当前独立检查，不能编译上传。",
+                    )
+                loaded = {
+                    (f["plan_id"], f["sortie_id"])
+                    for f in engine().records(session, row.id, "execution.fact")
+                    if f["kind"] == "loaded"
+                }
+                future = [
+                    r
+                    for r in p.content["sorties"]
+                    if r["drone_id"] == body.device_id
+                    and (p.id, r["sortie_id"]) not in loaded
+                    and r["prepare_start_s"] >= row.content["time_s"] - 1e-6
+                ]
+                import asyncio
+
+                compiled = asyncio.run(
+                    adapter.compile_mission(
+                        body.device_id,
+                        future,
+                        {"mode": "simulation", "validated": True, "plan_id": p.id},
+                    )
+                )
+                asyncio.run(
+                    adapter.upload_mission(
+                        body.device_id, compiled, {"execution_id": row.id}
+                    )
+                )
             store(
                 session,
                 "command",
                 value["command_id"],
                 row.id,
                 digest,
-                {**value, "fault": body.simulation_fault},
+                {
+                    **value,
+                    "fault": body.simulation_fault,
+                    "compiled_mission": compiled,
+                    "protocol_version": 2,
+                },
             )
             store(
                 session, "command.request", body.idempotency_key, row.id, digest, value
@@ -1208,17 +1428,23 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
     def get_command(command_id: str):
         with database.session(immediate=True) as session:
             r = require(session, OperationRecordRow, ("command", command_id), error)
-            return command_view(r)
+            return command_view(session, r)
 
-    def command_view(r):
+    def command_view(session, r):
         v = copy.deepcopy(r.content)
         elapsed = timestamp(now()) - timestamp(v["created_at"])
         terminal = {"succeeded", "rejected", "expired", "indeterminate"}
         if v["status"] not in terminal:
+            execution = require(session, ExecutionRow, v["execution_id"], error)
             if timestamp(now()) >= timestamp(v["expires_at"]):
                 v.update(
                     status="expired" if v["status"] == "queued" else "indeterminate",
                     evidence="TTL elapsed; no confirmed completion",
+                )
+            elif not execution.content["connected"] and elapsed >= 0.4:
+                v.update(
+                    status="indeterminate",
+                    evidence="Simulation link disconnected; no ACK or completion readback",
                 )
             elif elapsed >= 0.8 and v["fault"] == "ack_timeout":
                 v.update(
@@ -1230,18 +1456,33 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     status="rejected", evidence="SimulationAdapter rejected upload"
                 )
             elif elapsed >= 1.2 and v["fault"] == "completion_timeout":
+                if not v.get("action_dispatched"):
+                    try:
+                        finish_device_command(session, v)
+                    except (ValueError, KeyError, TypeError):
+                        pass
+                    v["action_dispatched"] = True
                 v.update(
                     status="indeterminate",
                     acknowledged_at=v["acknowledged_at"] or now(),
                     evidence="ACK received but completion not observed",
                 )
             elif elapsed >= 1.2:
-                v.update(
-                    status="succeeded",
-                    acknowledged_at=v["acknowledged_at"] or now(),
-                    completed_at=now(),
-                    evidence="SimulationAdapter state readback confirmed",
-                )
+                try:
+                    observed = finish_device_command(session, v)
+                    v.update(
+                        status="succeeded",
+                        acknowledged_at=v["acknowledged_at"] or now(),
+                        completed_at=now(),
+                        observed_state=observed,
+                        evidence="Persisted SimulationAdapter mission state readback confirmed",
+                    )
+                except (ValueError, KeyError, TypeError) as exc:
+                    v.update(
+                        status="indeterminate",
+                        acknowledged_at=v["acknowledged_at"] or now(),
+                        evidence="No confirmed device state: " + str(exc)[:200],
+                    )
             elif elapsed >= 0.4:
                 v.update(
                     status="acknowledged",
@@ -1390,7 +1631,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 )
 
                 commands = [
-                    command_view(r)
+                    command_view(session, r)
                     for r in session.scalars(
                         select(OperationRecordRow).where(
                             OperationRecordRow.namespace == "command",
@@ -1405,6 +1646,12 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     c["candidate_plan_id"] for c in changes if c["candidate_plan_id"]
                 )
                 plan_ids.update(c["desired_plan_id"] for c in commands)
+                for command in commands:
+                    observed = command.get("observed_state")
+                    if observed:
+                        plan_ids.add(observed["active_plan_id"])
+                        if observed["uploaded_plan_id"]:
+                            plan_ids.add(observed["uploaded_plan_id"])
                 plan_ids.update(t["active_plan_id"] for t in view["telemetry"])
                 plans = [
                     require(session, PlanRow, pid, error) for pid in sorted(plan_ids)
@@ -1471,6 +1718,27 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 "source": "simulation",
                 "is_flight_controller_file": False,
             }
+
+    def tick_commands(session):
+        for command_row in session.scalars(
+            select(OperationRecordRow).where(OperationRecordRow.namespace == "command")
+        ):
+            if command_row.content["status"] not in (
+                "succeeded",
+                "rejected",
+                "expired",
+                "indeterminate",
+            ):
+                command_view(session, command_row)
+        for change in session.scalars(
+            select(OperationRecordRow).where(
+                OperationRecordRow.namespace == "execution.change"
+            )
+        ):
+            if change.content["status"] == "applying":
+                change_view(session, change)
+
+    app.state.simulation_commands_tick = tick_commands
 
     from backend.app.execution_archive import register_archives
 

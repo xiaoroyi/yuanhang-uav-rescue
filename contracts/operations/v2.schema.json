@@ -610,6 +610,17 @@
             }
           ],
           "title": "Evidence"
+        },
+        "observed_state": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DeviceMissionState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -1073,7 +1084,9 @@
             "queued",
             "acknowledged",
             "succeeded",
-            "indeterminate"
+            "indeterminate",
+            "expired",
+            "rejected"
           ],
           "title": "Upload State",
           "type": "string"
@@ -1090,6 +1103,18 @@
         "command_id": {
           "title": "Command Id",
           "type": "string"
+        },
+        "activation_command_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activation Command Id"
         }
       },
       "required": [
@@ -1164,6 +1189,109 @@
         "command_types"
       ],
       "title": "DeviceCapabilities",
+      "type": "object"
+    },
+    "DeviceMissionState": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "mode": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Mode",
+          "type": "string"
+        },
+        "revision": {
+          "minimum": 1,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "active_plan_id": {
+          "title": "Active Plan Id",
+          "type": "string"
+        },
+        "uploaded_plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Uploaded Plan Id"
+        },
+        "uploaded_content_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uploaded Content Sha256"
+        },
+        "last_upload_command_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Upload Command Id"
+        },
+        "last_activation_command_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Activation Command Id"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "real_device_connected": {
+          "const": false,
+          "default": false,
+          "title": "Real Device Connected",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "execution_id",
+        "device_id",
+        "revision",
+        "active_plan_id",
+        "uploaded_plan_id",
+        "updated_at",
+        "observed_at"
+      ],
+      "title": "DeviceMissionState",
       "type": "object"
     },
     "DraftImportPreview": {

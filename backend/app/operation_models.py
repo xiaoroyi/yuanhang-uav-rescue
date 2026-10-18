@@ -346,9 +346,12 @@ class DeviceApplication(OperationDTO):
     device_id: str
     desired_plan_id: str | None
     active_plan_id: str
-    upload_state: Literal["queued", "acknowledged", "succeeded", "indeterminate"]
+    upload_state: Literal[
+        "queued", "acknowledged", "succeeded", "indeterminate", "expired", "rejected"
+    ]
     activation_state: Literal["not_started", "active", "indeterminate"]
     command_id: str
+    activation_command_id: str | None = None
 
 
 class RepairView(OperationDTO):
@@ -408,6 +411,21 @@ class CommandRequest(OperationDTO):
     )
 
 
+class DeviceMissionState(OperationDTO):
+    execution_id: str
+    device_id: str
+    mode: Literal["simulation"] = "simulation"
+    revision: int = Field(ge=1)
+    active_plan_id: str
+    uploaded_plan_id: str | None
+    uploaded_content_sha256: str | None = Field(default=None, pattern="^[a-f0-9]{64}$")
+    last_upload_command_id: str | None = None
+    last_activation_command_id: str | None = None
+    updated_at: AwareDatetime
+    observed_at: AwareDatetime
+    real_device_connected: Literal[False] = False
+
+
 class CommandView(OperationDTO):
     command_id: str
     execution_id: str
@@ -429,6 +447,7 @@ class CommandView(OperationDTO):
     acknowledged_at: AwareDatetime | None
     completed_at: AwareDatetime | None
     evidence: str | None
+    observed_state: DeviceMissionState | None = None
 
 
 class DeliveryDeviation(OperationDTO):

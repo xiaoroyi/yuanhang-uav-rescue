@@ -24,6 +24,7 @@ import { RescueMap } from '../components/RescueMap'
 import { ExecutionTimeline } from './ExecutionTimeline'
 import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
+import { DeviceStatePanel } from './DeviceStatePanel'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { navigate } from './App'
@@ -468,13 +469,20 @@ export function ExecutionWorkspace({
                   ? `中继组件 ${selectedDevice.component_id}`
                   : selectedDevice.battery_id || '未装载 / 未观测'}
               </dd>
-              <dt>采用计划</dt>
+              <dt>当前架次来源</dt>
               <dd>
                 <code>{selectedDevice.active_plan_id}</code>
               </dd>
               <dt>最近模拟时刻</dt>
               <dd>{clock(selectedDevice.time_s)}</dd>
             </dl>
+            {baseScenario.drones.some((drone) => drone.drone_id === selectedDevice.device_id) && (
+              <DeviceStatePanel
+                key={selectedDevice.device_id}
+                execution={e}
+                device={selectedDevice.device_id}
+              />
+            )}
           </aside>
         )}
       </div>
@@ -622,7 +630,7 @@ export function ExecutionWorkspace({
                     <th>模拟设备</th>
                     <th>上传 / ACK</th>
                     <th>激活状态</th>
-                    <th>采用计划</th>
+                    <th>已启用程序 / 回执</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -631,7 +639,14 @@ export function ExecutionWorkspace({
                       <td>{application.device_id}</td>
                       <td>{application.upload_state}</td>
                       <td>{application.activation_state}</td>
-                      <td>{application.active_plan_id.slice(-8)}</td>
+                      <td>
+                        {application.active_plan_id.slice(-8)}
+                        {application.activation_command_id && (
+                          <small title={application.activation_command_id}>
+                            启用读回 {application.activation_command_id.slice(-8)}
+                          </small>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
