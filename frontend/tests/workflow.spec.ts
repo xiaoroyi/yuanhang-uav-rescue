@@ -183,8 +183,7 @@ test('紧急需求插入新增真实箱件，全量重算与历史保留，无�
     oldSnapshot,
   )
   await screenshot(page, 'urgent-demand-result-1440')
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   await page.reload()
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await expect(page.getByLabel('新增需求安排')).toContainText('2 箱')
@@ -306,8 +305,7 @@ for (const joint of [false, true]) {
     const old = await (await request.get(`/api/v1/plans/${first.plan_id}`)).json()
     const oldSnapshot = await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()
     const failed = old.sorties[0].battery_id
-    await page.getByRole('button', { name: '确认方案', exact: true }).click()
-    await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+    await confirmCurrentPlan(page, old.plan_id)
     await page.getByRole('button', { name: '事件复盘', exact: true }).click()
     await page.getByLabel('故障事件类型').selectOption('battery')
     await page.getByLabel('故障运输电池').selectOption(failed)
@@ -337,8 +335,7 @@ for (const joint of [false, true]) {
     expect(events).toHaveLength(1)
     expect(events[0].event_type).toBe('battery.unavailable')
     expect(events[0].payload).toEqual({ battery_id: failed })
-    await page.getByRole('button', { name: '确认方案', exact: true }).click()
-    await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+    await confirmCurrentPlan(page, plan.plan_id)
     const name = joint ? 'joint-battery-fault' : 'battery-fault'
     await screenshot(page, `${name}-1440`)
     await page.reload()
@@ -530,8 +527,7 @@ test('连续通信联合调度、真实中继地图与资源窗口、确认及�
   await page.screenshot({
     path: path.resolve('../evidence/browser/verified/joint-resource-windows-1440.png'),
   })
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   const report = await page.context().newPage()
   await report.goto(`/api/v1/plans/${plan.plan_id}/report`)
   await expect(report.getByText('通信与中继保障', { exact: true })).toBeVisible()
@@ -552,6 +548,61 @@ test('连续通信联合调度、真实中继地图与资源窗口、确认及�
   await screenshot(page, 'joint-workspace-1280')
   expect(errors).toEqual([])
 })
+
+async function confirmCurrentPlan(page: Page, expectedPlanId?: string) {
+  const pending = page.waitForResponse(
+    (r) => /\/plans\/[^/]+\/confirm$/.test(r.url()) && r.request().method() === 'POST',
+  )
+  await page.getByRole('button', { name: '确认方案', exact: true }).click()
+  const response = await pending
+  expect(response.status()).toBe(200)
+  const confirmation = await response.json()
+  expect(confirmation.confirmation_state).toBe('confirmed')
+  expect(confirmation.state_version).toBe(response.request().postDataJSON().expected_state_version)
+  expect(new URL(response.url()).pathname).toBe(`/api/v1/plans/${confirmation.plan_id}/confirm`)
+  if (expectedPlanId) expect(confirmation.plan_id).toBe(expectedPlanId)
+  await expect(page.getByRole('link', { name: '计划JSON', exact: true })).toHaveAttribute(
+    'href',
+    new RegExp(`/plans/${confirmation.plan_id}/export`),
+  )
+  // Consecutive successful confirmations can legitimately coexist for 6.5 seconds.
+  await expect(page.locator('.toast').filter({ hasText: '方案已确认' }).last()).toBeVisible()
+}
+
+async function uncoveredMapSites(page: Page) {
+  await expect(page.locator('.map-marker-dot')).toHaveCount(6)
+  let nodes: { name: string; covered: boolean; outside: boolean; rect: number[] }[] = []
+  await expect
+    .poll(async () => {
+      nodes = await page.locator('.map-marker-dot').evaluateAll((dots) => {
+        const legend = document.querySelector('.map-legend')?.getBoundingClientRect()
+        const canvas = document.querySelector('.maplibregl-canvas')?.getBoundingClientRect()
+        if (!legend || !canvas)
+          return [{ name: 'map loading', covered: true, outside: true, rect: [] }]
+        return dots.map((dot) => {
+          const r = dot.getBoundingClientRect()
+          return {
+            name: dot.parentElement?.getAttribute('aria-label') || '',
+            covered: !(
+              r.right <= legend.left ||
+              r.left >= legend.right ||
+              r.bottom <= legend.top ||
+              r.top >= legend.bottom
+            ),
+            outside:
+              r.left < canvas.left ||
+              r.right > canvas.right ||
+              r.top < canvas.top ||
+              r.bottom > canvas.bottom,
+            rect: [r.x, r.y, r.width, r.height],
+          }
+        })
+      })
+      return nodes.filter((r) => r.covered || r.outside).length
+    })
+    .toBe(0)
+  return { viewport: page.viewportSize(), nodes }
+}
 
 async function screenshot(page: Page, name: string) {
   await expect(page.locator('.toast')).toHaveCount(0, { timeout: 12000 })
@@ -600,8 +651,7 @@ test('中继能源组件退出精确保存状态，联合重算不引用退出�
   ).json()
   const oldSnapshot = await (await request.get(`/api/v1/snapshots/${old.snapshot_id}`)).json()
   const failed = old.relay_sorties[0].component_id
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await page.getByLabel('故障事件类型').selectOption('relay_energy')
   await page.getByLabel('故障中继能源组件').selectOption(failed)
@@ -638,8 +688,7 @@ test('中继能源组件退出精确保存状态，联合重算不引用退出�
   await screenshot(page, 'relay-energy-fault-1440')
   await page.setViewportSize({ width: 1280, height: 720 })
   await screenshot(page, 'relay-energy-fault-1280')
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   await page.reload()
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await expect(page.locator('.event-history')).toContainText(`中继能源组件 ${failed} 退出`)
@@ -883,8 +932,7 @@ test('生产构建只允许本机请求，真实求解与事件闭环离线可�
   await expect(page.locator('.map-mode')).toHaveText('题设DEM · 离线')
   const sid = await page.getByLabel('选择场景').inputValue()
   const initial = (await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json())[0]
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await page.getByLabel('故障机体').selectOption('U01')
   await page.getByRole('button', { name: '记录故障并重规划', exact: true }).click()
@@ -945,6 +993,7 @@ test('真实双策略、地图与甘特联动、计划回放、确认导出及�
   })
   await solve(page)
   await expect(page.locator('.map-mode')).toHaveText('题设DEM · 离线')
+  const map1440 = await uncoveredMapSites(page)
   const sceneId = await page.getByLabel('选择场景').inputValue()
   const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
   const plan = await (await request.get(`/api/v1/plans/${plans[0].plan_id}`)).json()
@@ -966,15 +1015,19 @@ test('真实双策略、地图与甘特联动、计划回放、确认导出及�
   await page.getByRole('button', { name: '检查报告', exact: true }).click()
   await expect(page.getByRole('dialog')).toContainText('声明范围内检查通过')
   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗' }).click()
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   const download = page.waitForEvent('download')
   await page.getByRole('link', { name: '计划JSON', exact: true }).click()
   expect((await download).suggestedFilename()).toMatch(/\.json$/)
   await page.reload()
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
   await page.setViewportSize({ width: 1280, height: 720 })
+  const map1280 = await uncoveredMapSites(page)
   await screenshot(page, 'workspace-1280')
+  await fs.writeFile(
+    path.resolve('../evidence/browser/map-visibility.json'),
+    JSON.stringify({ scenario_id: sceneId, views: [map1440, map1280] }, null, 2) + '\n',
+  )
   expect(errors).toEqual([])
 })
 
@@ -1545,8 +1598,7 @@ test('有限准备工位与充电端口真实排程，等待在甘特与分析�
   await page.getByRole('button', { name: '检查报告', exact: true }).click()
   await expect(page.getByRole('dialog')).toContainText('准备峰值1/1')
   await page.getByRole('dialog').getByRole('button', { name: '关闭弹窗' }).click()
-  await page.getByRole('button', { name: '确认方案', exact: true }).click()
-  await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+  await confirmCurrentPlan(page)
   await page.getByRole('button', { name: '事件复盘', exact: true }).click()
   await page.getByRole('button', { name: '资源分析与试算', exact: true }).click()
   await expect(page.locator('.analysis-kpis')).toContainText('实际并发 / 1个端口')

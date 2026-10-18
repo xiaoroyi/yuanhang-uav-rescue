@@ -1,0 +1,153 @@
+{
+  "scenario_id": "SCN-6B23006729F24E60",
+  "views": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "nodes": [
+        {
+          "name": "定位凤丹村无人机调度中心",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            723.5,
+            619.578125,
+            23,
+            23
+          ]
+        },
+        {
+          "name": "定位那从",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            669.5,
+            487.578125,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位平旺、那龙、镇龙乡",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            789.5,
+            478.578125,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位六昌、木路",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            562.5,
+            625.578125,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位佛子、那桑、银坑",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            526.5,
+            502.578125,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位镇龙乡",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            960.5,
+            559.578125,
+            21,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "nodes": [
+        {
+          "name": "定位凤丹村无人机调度中心",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            637.5,
+            587.6875,
+            23,
+            23
+          ]
+        },
+        {
+          "name": "定位那从",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            593.5,
+            479.6875,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位平旺、那龙、镇龙乡",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            691.5,
+            471.6875,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位六昌、木路",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            504.5,
+            592.6875,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位佛子、那桑、银坑",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            474.5,
+            491.6875,
+            21,
+            21
+          ]
+        },
+        {
+          "name": "定位镇龙乡",
+          "covered": false,
+          "outside": false,
+          "rect": [
+            833.5,
+            537.6875,
+            21,
+            21
+          ]
+        }
+      ]
+    }
+  ]
+}

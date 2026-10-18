@@ -48,7 +48,7 @@ export function RescueMap({
   const [terrainLabel, setTerrainLabel] = useState('')
   const [showZones, setShowZones] = useState(true)
   const [showRelays, setShowRelays] = useState(true)
-  const fit = useCallback(() => {
+  const fit = useCallback((duration = 500) => {
     const scenario = latest.current.scenario
     const bounds = new maplibregl.LngLatBounds()
     for (const n of [scenario.base, ...scenario.sites])
@@ -56,9 +56,10 @@ export function RescueMap({
     for (const r of latest.current.plan?.relay_sorties || [])
       bounds.extend(r.station_coordinates as [number, number])
     map.current?.fitBounds(bounds, {
-      padding: { top: 70, bottom: 55, left: 55, right: 110 },
+      // Keep the lowest site markers above the bottom legend and scale controls.
+      padding: { top: 70, bottom: 120, left: 55, right: 140 },
       maxZoom: 13,
-      duration: 500,
+      duration,
     })
   }, [])
   useEffect(() => {
@@ -215,7 +216,10 @@ export function RescueMap({
       m.moveLayer('relay-backhaul')
       setReady(true)
     })
-    const observer = new ResizeObserver(() => m.resize())
+    const observer = new ResizeObserver(() => {
+      m.resize()
+      fit(0)
+    })
     observer.observe(container.current)
     return () => {
       observer.disconnect()
@@ -225,7 +229,7 @@ export function RescueMap({
       m.remove()
       map.current = null
     }
-  }, [])
+  }, [fit])
   useEffect(() => {
     const m = map.current
     if (!m || !ready) return
@@ -454,7 +458,7 @@ export function RescueMap({
         <button aria-label="缩小地图" onClick={() => map.current?.zoomOut()}>
           <Minus size={17} />
         </button>
-        <button aria-label="适配全部点位" onClick={fit}>
+        <button aria-label="适配全部点位" onClick={() => fit()}>
           <Crosshair size={17} />
         </button>
         <button

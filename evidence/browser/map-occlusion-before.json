@@ -1,0 +1,71 @@
+{
+  "at_utc": "2026-10-18T01:08:37.767Z",
+  "origin": "http://127.0.0.1:8000",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "nodes": [
+    {
+      "name": "定位凤丹村无人机调度中心",
+      "dot": {
+        "x": 734.5,
+        "y": 688.578125,
+        "width": 23,
+        "height": 23
+      },
+      "legend_overlap": false
+    },
+    {
+      "name": "定位那从",
+      "dot": {
+        "x": 666.5,
+        "y": 522.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend_overlap": false
+    },
+    {
+      "name": "定位平旺、那龙、镇龙乡",
+      "dot": {
+        "x": 816.5,
+        "y": 511.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend_overlap": false
+    },
+    {
+      "name": "定位六昌、木路",
+      "dot": {
+        "x": 532.5,
+        "y": 694.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend_overlap": true
+    },
+    {
+      "name": "定位佛子、那桑、银坑",
+      "dot": {
+        "x": 486.5,
+        "y": 540.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend_overlap": false
+    },
+    {
+      "name": "定位镇龙乡",
+      "dot": {
+        "x": 1030.5,
+        "y": 611.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend_overlap": false
+    }
+  ],
+  "overlapping": 1
+}
