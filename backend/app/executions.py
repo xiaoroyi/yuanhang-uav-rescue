@@ -929,6 +929,17 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     content_hash(reference),
                     reference,
                 )
+                from backend.app.repair_evidence import capture_evidence
+
+                capture_evidence(
+                    session,
+                    change["repair_reference_id"],
+                    reference,
+                    events,
+                    engine().records(session, execution_id, "execution.fact"),
+                    row.content["applied_event_ids"],
+                    row.content["time_s"],
+                )
             store(
                 session,
                 "execution.change",
@@ -1837,6 +1848,14 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     document("repair_reference", rid, ref)
                     for rid, ref in references.items()
                 )
+                for rid in references:
+                    evidence = session.get(
+                        OperationRecordRow, ("solver.repair.evidence", rid)
+                    )
+                    if evidence:
+                        documents.append(
+                            document("repair_evidence", rid, evidence.content)
+                        )
                 events = events_for(session, row.id)
                 for event in events:
                     eid = event["event_id"]

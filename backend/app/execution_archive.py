@@ -190,6 +190,29 @@ def validate_bundle(model):
             }
             if loaded != set(ref["committed_cargo_ids"]):
                 raise ValueError("修复承诺与该游标之前的装载事实不符。")
+            evidence = docs.get(("repair_evidence", change["repair_reference_id"]))
+            if evidence is not None:
+                from backend.app.repair_evidence import validate_evidence
+
+                validate_evidence(evidence, ref)
+                # Compare normalized DTO facts as date encodings in old raw documents may differ.
+                from backend.app.operation_models import ExecutionFact
+
+                frozen_facts = [
+                    ExecutionFact.model_validate(f).model_dump(mode="json")
+                    for f in evidence["facts"]
+                ]
+                actual_facts = [
+                    ExecutionFact.model_validate(f).model_dump(mode="json")
+                    for f in e["facts"]
+                    if f["cursor"] <= ref["facts_cursor"]
+                ]
+                if (
+                    evidence["reference_id"] != change["repair_reference_id"]
+                    or evidence["event_fingerprint"] != change["event_fingerprint"]
+                    or frozen_facts != actual_facts
+                ):
+                    raise ValueError("冻结事件证据与调整/执行事实不匹配。")
             for item in ref["documents"]:
                 if (
                     item["kind"] not in ("plan", "snapshot")

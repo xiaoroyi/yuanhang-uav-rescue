@@ -38,6 +38,7 @@ import { WeatherEditor } from './WeatherEditor'
 import { ExecutionTimeline } from './ExecutionTimeline'
 import { ExecutionInsights } from './ExecutionInsights'
 import { PlanValidityNotice } from './PlanValidityNotice'
+import { ResourceDiagnosis } from './ResourceDiagnosis'
 
 type Stage = 'prepare' | 'plans' | 'execute' | 'review'
 type Notify = (m: string, e?: boolean) => void
@@ -86,6 +87,7 @@ export function MissionWorkspace({
   const [compareOpen, setCompareOpen] = useState(false)
   const [details, setDetails] = useState(false)
   const [tableOpen, setTableOpen] = useState(false)
+  const [diagnosisOpen, setDiagnosisOpen] = useState(false)
   const [bottom, setBottom] = useState<'timeline' | 'profile' | 'none'>('timeline')
   const [list, setList] = useState<'demands' | 'sorties'>('demands')
   const [report, setReport] = useState<CheckReport | null>(null)
@@ -321,6 +323,7 @@ export function MissionWorkspace({
             <Button disabled={!plan.data} onClick={() => setTableOpen(true)}>
               调度明细
             </Button>
+            <Button onClick={() => setDiagnosisOpen(true)}>资源诊断与增配</Button>
             <Button
               disabled={!plan.data || stale || pending}
               onClick={() => {
@@ -542,6 +545,33 @@ export function MissionWorkspace({
               selectedPlanId={planId}
               onOpenPlan={setPlanId}
               onWorkspace={() => setCompareOpen(false)}
+            />
+          </Modal>
+          <Modal
+            title="资源诊断与独立增配"
+            description="没有可行方案也可运行。真实试算保存为独立场景，原输入与旧方案不变。"
+            open={diagnosisOpen}
+            onOpenChange={setDiagnosisOpen}
+            wide
+          >
+            <ResourceDiagnosis
+              key={scene.data.state_version}
+              scenario={scene.data}
+              baseline={!stale ? plan.data : undefined}
+              notify={notify}
+              onOpen={(s) =>
+                void ops
+                  .create({
+                    name: s.name,
+                    scenario_id: s.scenario_id,
+                    idempotency_key: crypto.randomUUID(),
+                  })
+                  .then((n) => {
+                    setDiagnosisOpen(false)
+                    navigate(`missions/${n.mission_id}/plans`)
+                  })
+                  .catch((e: Error) => notify(e.message, true))
+              }
             />
           </Modal>
           <Modal title="调度安排与导出" open={tableOpen} onOpenChange={setTableOpen} wide>

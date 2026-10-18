@@ -1617,7 +1617,9 @@
         "evidence/redesign-v2/dependency-browser-results.json",
         "docs/CONTRACT_RFC_027.md",
         "tests/backend/test_execution_impact_v2.py",
-        "evidence/redesign-v2/impact-browser-results.json"
+        "evidence/redesign-v2/impact-browser-results.json",
+        "frontend/tests/resource-diagnosis-v2.spec.ts",
+        "evidence/redesign-v2/resource-diagnosis-browser-results.json"
       ]
     },
     {
@@ -1642,7 +1644,11 @@
         "tests/backend/test_experiments_v2.py",
         "frontend/tests/experiments-v2.spec.ts",
         "evidence/redesign-v2/EXPERIMENT_SMOKE/MANIFEST.json",
-        "evidence/redesign-v2/experiments-dialog-regression-results.json"
+        "evidence/redesign-v2/experiments-dialog-regression-results.json",
+        "docs/CONTRACT_RFC_028.md",
+        "tests/backend/test_repair_experiments_v2.py",
+        "evidence/redesign-v2/REPAIR_EXPERIMENT_SMOKE/MANIFEST.json",
+        "evidence/redesign-v2/repair-experiment-browser-results.json"
       ]
     },
     {
@@ -1756,10 +1762,13 @@
         "R17",
         "R20"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/DEMO_GUIDE.md",
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+      ]
     },
     {
       "id": "R22",
@@ -1774,7 +1783,9 @@
       "status": "todo",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+      ]
     },
     {
       "id": "R23",
@@ -1789,7 +1800,9 @@
       "status": "todo",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+      ]
     },
     {
       "id": "R24",
@@ -1807,7 +1820,9 @@
       "status": "todo",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+      ]
     }
   ]
 }

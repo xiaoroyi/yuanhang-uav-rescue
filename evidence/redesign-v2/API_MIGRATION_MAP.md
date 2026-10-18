@@ -44,3 +44,9 @@ RepairRequest可选repair_policy=dependency/full，省略优先依赖修复；Re
 ## RFC027影响图增量
 
 ExecutionEventView可空impact是记录时刻的运输资源图，节点同时保留Plan/Sortie身份，旧事件缺图不补造；旧原始ID数组仍兼容。图与引用原文随完整执行包保存，导入重建资源后继/闭包/事实承诺并核对直接事件目标。49严格操作模型、82HTTP路径，Schema/OpenAPI/TS同步。没有新增真机或控制权限。
+
+## RFC028动态实验增量
+
+ExperimentRequest.suite新增repair及可空repair_reference_id；ExperimentCase方法新增dependency/full_recompute，显式实际路径与RepairDifference；ExperimentView可空repair_context。生成时独立solver.repair.evidence记录严格RepairEvidence：原事件/纠错文档、事件指纹和事实序列。旧引用无证据返回EVIDENCE_NOT_CAPTURED，不事后补造。分析两个Reference仅policy不同，共用隔离Snapshot与物理比较SHA，仍通过quick纯Solver入口；原执行/预约不变。
+
+完整执行包及实验包FrozenDocument增加repair_evidence，档案校验冻结事实/承诺/事件指纹与来源。51操作模型、82路径。旧静态suite/事件/Plan/Snapshot兼容。无基线资源诊断复用现有what-if接口的可空source_plan_id，无新增绕过校验端点。

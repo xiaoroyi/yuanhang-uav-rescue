@@ -2781,10 +2781,51 @@
         "method": {
           "enum": [
             "quick",
-            "improve"
+            "improve",
+            "dependency",
+            "full_recompute"
           ],
           "title": "Method",
           "type": "string"
+        },
+        "repair_reference_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repair Reference Id"
+        },
+        "calculation_method": {
+          "anyOf": [
+            {
+              "enum": [
+                "dependency_local",
+                "full_recompute"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calculation Method"
+        },
+        "repair_difference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RepairDifference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "objective": {
           "enum": [
@@ -3191,10 +3232,23 @@
         "suite": {
           "enum": [
             "strategy",
-            "search"
+            "search",
+            "repair"
           ],
           "title": "Suite",
           "type": "string"
+        },
+        "repair_reference_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repair Reference Id"
         },
         "objective": {
           "default": "time",
@@ -3282,10 +3336,22 @@
         "suite": {
           "enum": [
             "strategy",
-            "search"
+            "search",
+            "repair"
           ],
           "title": "Suite",
           "type": "string"
+        },
+        "repair_context": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RepairExperimentContext"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "objective_policy": {
           "enum": [
@@ -3379,7 +3445,8 @@
             "snapshot",
             "event_input",
             "event_resolution",
-            "repair_reference"
+            "repair_reference",
+            "repair_evidence"
           ],
           "title": "Kind",
           "type": "string"
@@ -5159,6 +5226,132 @@
         "rows"
       ],
       "title": "RepairDifference",
+      "type": "object"
+    },
+    "RepairEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_version": {
+          "const": "repair-event-sequence-v1",
+          "title": "Evidence Version",
+          "type": "string"
+        },
+        "reference_id": {
+          "title": "Reference Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "execution_revision": {
+          "title": "Execution Revision",
+          "type": "integer"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "event_fingerprint": {
+          "title": "Event Fingerprint",
+          "type": "string"
+        },
+        "pending_event_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pending Event Ids",
+          "type": "array"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/ExecutionEventView"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/ExecutionFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "event_documents": {
+          "items": {
+            "$ref": "#/$defs/FrozenDocument"
+          },
+          "title": "Event Documents",
+          "type": "array"
+        }
+      },
+      "required": [
+        "evidence_version",
+        "reference_id",
+        "execution_id",
+        "execution_revision",
+        "facts_cursor",
+        "time_s",
+        "event_fingerprint",
+        "pending_event_ids",
+        "events",
+        "facts",
+        "event_documents"
+      ],
+      "title": "RepairEvidence",
+      "type": "object"
+    },
+    "RepairExperimentContext": {
+      "additionalProperties": false,
+      "properties": {
+        "source_reference_id": {
+          "title": "Source Reference Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "execution_revision": {
+          "title": "Execution Revision",
+          "type": "integer"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "event_fingerprint": {
+          "title": "Event Fingerprint",
+          "type": "string"
+        },
+        "committed_quantity": {
+          "title": "Committed Quantity",
+          "type": "integer"
+        },
+        "comparison_input_sha256": {
+          "title": "Comparison Input Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_reference_id",
+        "execution_id",
+        "execution_revision",
+        "facts_cursor",
+        "time_s",
+        "event_fingerprint",
+        "committed_quantity",
+        "comparison_input_sha256"
+      ],
+      "title": "RepairExperimentContext",
       "type": "object"
     },
     "RepairRequest": {

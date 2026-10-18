@@ -1,3 +1,11 @@
+## 功能冻结，进入最终全量（2026-10-18 21:38）
+
+用户21:27要求两小时内稳定可演示版本，截止约23:28北京时间。不再扩功能，余下只修验收失败/打包/文档/配套服务与GitHub同步。a28ef79已推。RFC028成对修复/冻结事件证据、无可行基线资源诊断、教程新增入口已实现：10后端90.87s、3浏览器约1分钟、资源新流程1项8秒，lint/严格build过。51操作模型/82HTTP路径。REPAIR_EXPERIMENT_SMOKE和feature-freeze-validation有真实包/日志；比较1280与资源1280已查看。R22等缺口准确列KNOWN_LIMITATIONS，不标AI完成。
+
+接下来先提交功能冻结；备份旧evidence(除redesign-v2)/submission/examples的当前原字节，再启动scripts/verify.py到final-verification及全部Playwright到final-browser-results.json。运行期间不改源/测试/Schema。全部结束后归档变动旧输出到legacy-final-regression并从备份恢复原字节。最终查看所有状态双尺寸图、记录实际失败与修复，更新状态/交接，构建运行包，保护原14Plan/10Snapshot后配套重启8000，提交推送独立分支。不能把旧cc7a20c全量或本轮专项冒充最新全部通过。
+
+8000现仍RFC026 PID33876/start1792328787827/launcher54885，source6beab990...f943，当前dist更新不能当新后端已部署。原数据最后一致备份见dependency-deployment.json。main/V1不改写，无设备连接。
+
 ## 最新继续点：RFC027专项通过（2026-10-18 21:23）
 
 6328f3b真实局部修复已推GitHub。新增冻结命名空间影响图/原快照有效性/未来架次map-gantt-inspector/profile/档案只读图已实施；12后端104.91s、2浏览器49.8s、lint/build过。首次测试selector/短屏折叠断言失败已保留并用真实入口重跑；不是产品强制点击。49操作模型/82路径。event-impact两图已查看。下一步R16动态依赖vs全量同输入预算对照与冻结事件证据，再I3无基线资源诊断、R22可做研究、最终当前源码完整验证/视觉/交付。不在检查点停工。

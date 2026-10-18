@@ -28,3 +28,5 @@
 实际查看experiment-results-1440/1024.png、experiment-failed-cases.png及experiment-plan-audit.png。首轮截图因测试打开下方统计后未复位滚动而缺页头，已在采图前回到独立滚动区顶部；逐例表证据列固定，窄屏可横向滚动指标。无可行结果不绘零值点，失败/未验证数量保留。
 
 发现Portal弹窗不继承.v2-app，地图回退旧配色/黑色顶栏。新增UIContext只在V2提供v2，Portal根v2-dialog共享变量与输入/按钮/地图样式，旧路由保留legacy。再次实际查看新experiment-plan-audit.png，真实DEM与点/路线、甘特及浅色顶栏可见；浏览器校验实际本地地理上下文已加载且header.backgroundImage=none。10项跨模块回归通过，含新用户CSV和偏好隔离。又查看map-imagery-stalled.png，12秒无实际瓦片后警示和离线底图可见；并未据此宣称在线影像成功显示。
+
+本轮实际查看event-impact-1280/1440、repair-method-comparison-1280、resource-without-baseline-1280、dependency-battery-diff-1280/1440和dependency-inflight-adopted-1280：直接/后继/承诺与原文来源清晰，未来架次选中后详情/地图/展开排程联动，真实方法图和资源结果无横向页面溢出。1280×720时间轴按既定规则收起，使用“查看完整排程”展开，不对隐藏底条强制点击。通用弹窗按钮为“关闭弹窗”，原测试错误选择器已修正并保留失败报告。最终冻结源码全部页面视觉仍随完整浏览器复验。

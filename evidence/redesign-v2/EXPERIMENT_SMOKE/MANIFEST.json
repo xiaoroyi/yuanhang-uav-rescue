@@ -1,21 +1,42 @@
 {
-  "source": "actual isolated Playwright benchmark download",
   "artifact": "strategy-benchmark.json",
-  "artifact_sha256": "363f50a47d3519abdad333ed6e80b370b6905e2ba0075787b60177a9df226d94",
-  "bundle_content_sha256": "c45e6e2c13f297ab91e1e1c0a545b971083bdba0254ca62f672475e8c53fd911",
-  "experiment_id": "EXP-A0737083202440F3",
-  "captured_at": "2026-10-18T12:21:42.868122Z",
-  "source_snapshot_id": "SNAP-5D2DAF90B96C4145",
-  "analysis_snapshot_id": "SNAP-0150F8BC1AC44435",
+  "artifact_sha256": "33a7001cd6bd2636997862dc5c8aa3c326f3169333e8ba308339ece5908fb70c",
+  "bundle_content_sha256": "1c44ebae586edbe99190c8a603ce341cd190fed58e842aa47d2d377295164b3f",
+  "captured_at": "2026-10-18T13:32:24.491758Z",
+  "source": "Actual isolated Playwright workflow, real Worker outputs; no hardware evidence",
+  "documents": [
+    {
+      "kind": "snapshot",
+      "id": "SNAP-CBFDDEC80F3E4F07",
+      "sha256": "fc7197e46d07966ed7a805d12984204b1fa2ed8613a4ed22b80804bef5b54105"
+    },
+    {
+      "kind": "snapshot",
+      "id": "SNAP-27BE40FD01F34ECF",
+      "sha256": "98181112d4f3c042e8f9d55e6335c885ae17de9f3b0b97d5c40e39e047e799d0"
+    },
+    {
+      "kind": "plan",
+      "id": "PLAN-D32BD8716A6B4059",
+      "sha256": "171677a31a9a05e9036a6f79a2560594227e8609619f437a50cdda2d16f6ea59"
+    },
+    {
+      "kind": "plan",
+      "id": "PLAN-3E252BA78B7044DA",
+      "sha256": "402f7d025d1cbb4a76a6c69f24094da75cb27db9642a0ff5e66050e205350f66"
+    },
+    {
+      "kind": "plan",
+      "id": "PLAN-637BA5FC06AE4899",
+      "sha256": "d6b04b5aef05f3332796c5fa97e100ba5dacab4bc6265722a8e3325b9663ab4e"
+    }
+  ],
+  "experiment_id": "EXP-FA6AFDF2182D4AE4",
+  "suite": "strategy",
   "data_origin": "verified_dataset",
-  "case_count": 3,
-  "plan_count": 3,
-  "snapshot_count": 2,
-  "artifact_count": 12,
-  "missing_artifacts": [],
   "environment": {
-    "service_source_sha256": "25c71f621ac16bb166b13a1b4216de20c6400e0a0e3f9fddec9fdebd0e531865",
-    "git_commit": "8d4c9266767f329d86ecf64ae51ece94bc8b1d00",
+    "service_source_sha256": "be89bedd21cf853ad61d34fa0ba9aac61d4c9ad4d3a29d3da933079c355421bf",
+    "git_commit": "a28ef794542d9f10902181c2eb0fb6eaebe5514c",
     "git_worktree_dirty": true,
     "python_version": "3.11.15",
     "platform": "Windows-10-10.0.26300-SP0",
@@ -27,5 +48,35 @@
     "cp_sat_threads": 1,
     "cache_policy": "每例独立Worker进程；OS文件缓存不重置。runtime_s为Solver报告时间，非端到端/设备响应。"
   },
-  "scope": "One static smoke comparison, not statistically representative ablation or real-device evidence."
+  "cases": [
+    {
+      "method": "quick",
+      "seed": 11,
+      "time_limit_s": 3.0,
+      "runtime_s": 2.722537200024817,
+      "calculation_method": null,
+      "repair_difference": null,
+      "validated": true
+    },
+    {
+      "method": "quick",
+      "seed": 11,
+      "time_limit_s": 3.0,
+      "runtime_s": 2.75759900000412,
+      "calculation_method": null,
+      "repair_difference": null,
+      "validated": true
+    },
+    {
+      "method": "quick",
+      "seed": 11,
+      "time_limit_s": 3.0,
+      "runtime_s": 2.7149234999669716,
+      "calculation_method": null,
+      "repair_difference": null,
+      "validated": true
+    }
+  ],
+  "artifact_count": 12,
+  "missing_artifacts": []
 }

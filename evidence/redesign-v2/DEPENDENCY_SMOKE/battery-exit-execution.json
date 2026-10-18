@@ -2,14 +2,14 @@
   "bundle_version": "execution-simulation-v2",
   "source": "simulation",
   "is_flight_controller_file": false,
-  "captured_at": "2026-10-18T13:21:56.677360Z",
-  "mission_name": "在飞备用电池退出演练 1792329697834",
+  "captured_at": "2026-10-18T13:32:00.341889Z",
+  "mission_name": "在飞备用电池退出演练 1792330305599",
   "execution": {
-    "execution_id": "EXE-7FF7FC6DE36749FC",
-    "mission_id": "MIS-8BBAB88D178B4613",
+    "execution_id": "EXE-5ED85B60E946418A",
+    "mission_id": "MIS-6048CC8861CA4FB9",
     "mode": "simulation",
-    "initial_plan_id": "PLAN-E5700E7247994A91",
-    "desired_plan_id": "PLAN-A2CE5223CB6248BF",
+    "initial_plan_id": "PLAN-F19C5BDCE8A24FAC",
+    "desired_plan_id": "PLAN-CA2B45C0F5834D33",
     "status": "completed",
     "revision": 6,
     "facts_cursor": 12,
@@ -19,14 +19,14 @@
     "connected": true,
     "schedule_parts": [
       {
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_ids": [
           "SRT-07a247ea14f8"
         ],
         "role": "commitment"
       },
       {
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_ids": [
           "SRT-bb3d51031af8"
         ],
@@ -38,15 +38,15 @@
       "S001-MED-02"
     ],
     "applied_event_ids": [
-      "045fdf15-e6c7-4b02-9062-721b8e2e4ff4"
+      "bb13a487-8294-4077-95ef-9c098e602d7a"
     ],
     "facts": [
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:loaded:S001-MED-01",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:loaded:S001-MED-01",
         "cursor": 1,
         "time_s": 0,
         "kind": "loaded",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -56,11 +56,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:takeoff:S001-MED-01",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:takeoff:S001-MED-01",
         "cursor": 2,
         "time_s": 330,
         "kind": "takeoff",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -70,11 +70,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:delivered:S001-MED-01",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:delivered:S001-MED-01",
         "cursor": 3,
         "time_s": 848.5730843719844,
         "kind": "delivered",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -84,11 +84,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:released:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:released:",
         "cursor": 4,
         "time_s": 1190.899502077302,
         "kind": "released",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -96,11 +96,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:returned:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:returned:",
         "cursor": 5,
         "time_s": 1190.899502077302,
         "kind": "returned",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -108,11 +108,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:loaded:S001-MED-02",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:loaded:S001-MED-02",
         "cursor": 6,
         "time_s": 2070.1291511718723,
         "kind": "loaded",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -122,11 +122,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-E5700E7247994A91:SRT-07a247ea14f8:battery_ready:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:battery_ready:",
         "cursor": 7,
         "time_s": 2070.1291511718723,
         "kind": "battery_ready",
-        "plan_id": "PLAN-E5700E7247994A91",
+        "plan_id": "PLAN-F19C5BDCE8A24FAC",
         "sortie_id": "SRT-07a247ea14f8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -134,11 +134,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:takeoff:S001-MED-02",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:takeoff:S001-MED-02",
         "cursor": 8,
         "time_s": 2400.1291511718723,
         "kind": "takeoff",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -148,11 +148,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:delivered:S001-MED-02",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:delivered:S001-MED-02",
         "cursor": 9,
         "time_s": 2918.7022355438567,
         "kind": "delivered",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -162,11 +162,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:released:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:released:",
         "cursor": 10,
         "time_s": 3261.0286532491746,
         "kind": "released",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -174,11 +174,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:returned:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:returned:",
         "cursor": 11,
         "time_s": 3261.0286532491746,
         "kind": "returned",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -186,11 +186,11 @@
         "source": "simulation"
       },
       {
-        "fact_id": "EXE-7FF7FC6DE36749FC:PLAN-A2CE5223CB6248BF:SRT-bb3d51031af8:battery_ready:",
+        "fact_id": "EXE-5ED85B60E946418A:PLAN-CA2B45C0F5834D33:SRT-bb3d51031af8:battery_ready:",
         "cursor": 12,
         "time_s": 4140.258302343745,
         "kind": "battery_ready",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "sortie_id": "SRT-bb3d51031af8",
         "drone_id": "U01",
         "battery_id": "BAT-A-01",
@@ -201,10 +201,10 @@
     "telemetry": [
       {
         "device_id": "U01",
-        "device_session_id": "SIM-D581D26E4818400E",
-        "device_sequence": 23,
-        "observed_at": "2026-10-18T13:21:56.670838Z",
-        "received_at": "2026-10-18T13:21:56.670838Z",
+        "device_session_id": "SIM-618A8DAB54014654",
+        "device_sequence": 22,
+        "observed_at": "2026-10-18T13:32:00.326358Z",
+        "received_at": "2026-10-18T13:32:00.326358Z",
         "time_s": 4140.258302343745,
         "coordinates": [
           109.2308517,
@@ -222,16 +222,16 @@
         "component_id": null,
         "cargo_ids": [],
         "quality": "simulated",
-        "active_plan_id": "PLAN-A2CE5223CB6248BF"
+        "active_plan_id": "PLAN-CA2B45C0F5834D33"
       }
     ],
-    "created_at": "2026-10-18T13:21:41.094901Z",
-    "updated_at": "2026-10-18T13:21:56.645270Z"
+    "created_at": "2026-10-18T13:31:47.689159Z",
+    "updated_at": "2026-10-18T13:32:00.305442Z"
   },
   "events": [
     {
-      "event_id": "045fdf15-e6c7-4b02-9062-721b8e2e4ff4",
-      "execution_id": "EXE-7FF7FC6DE36749FC",
+      "event_id": "bb13a487-8294-4077-95ef-9c098e602d7a",
+      "execution_id": "EXE-5ED85B60E946418A",
       "event_type": "battery.unavailable",
       "object_id": "BAT-A-02",
       "reason": "备用电池无法继续使用；首架次正在飞行，保留当前在机物资",
@@ -258,8 +258,8 @@
         "ground_model": "unlimited",
         "nodes": [
           {
-            "node_id": "[\"PLAN-E5700E7247994A91\",\"SRT-07a247ea14f8\"]",
-            "plan_id": "PLAN-E5700E7247994A91",
+            "node_id": "[\"PLAN-F19C5BDCE8A24FAC\",\"SRT-07a247ea14f8\"]",
+            "plan_id": "PLAN-F19C5BDCE8A24FAC",
             "sortie_id": "SRT-07a247ea14f8",
             "drone_id": "U01",
             "battery_id": "BAT-A-01",
@@ -276,8 +276,8 @@
             "committed": true
           },
           {
-            "node_id": "[\"PLAN-E5700E7247994A91\",\"SRT-0709c59e25dc\"]",
-            "plan_id": "PLAN-E5700E7247994A91",
+            "node_id": "[\"PLAN-F19C5BDCE8A24FAC\",\"SRT-0709c59e25dc\"]",
+            "plan_id": "PLAN-F19C5BDCE8A24FAC",
             "sortie_id": "SRT-0709c59e25dc",
             "drone_id": "U01",
             "battery_id": "BAT-A-02",
@@ -296,8 +296,8 @@
         ],
         "edges": [
           {
-            "from_node_id": "[\"PLAN-E5700E7247994A91\",\"SRT-07a247ea14f8\"]",
-            "to_node_id": "[\"PLAN-E5700E7247994A91\",\"SRT-0709c59e25dc\"]",
+            "from_node_id": "[\"PLAN-F19C5BDCE8A24FAC\",\"SRT-07a247ea14f8\"]",
+            "to_node_id": "[\"PLAN-F19C5BDCE8A24FAC\",\"SRT-0709c59e25dc\"]",
             "resource_kind": "drone",
             "resource_id": "U01"
           }
@@ -307,14 +307,14 @@
   ],
   "changes": [
     {
-      "change_id": "CHG-20B14D8D245C408A",
-      "execution_id": "EXE-7FF7FC6DE36749FC",
+      "change_id": "CHG-BAF6ADFE8EA54E77",
+      "execution_id": "EXE-5ED85B60E946418A",
       "execution_revision": 3,
       "facts_cursor": 2,
-      "event_fingerprint": "c33cf1f23c1141ee8e406e23d6827583f9255e59cadd1716869544db044aa5ae",
+      "event_fingerprint": "acbad49c74e2c52985f9ad55acd286fe337713579f8938f30c0e60efade385ce",
       "committed_parts": [
         {
-          "plan_id": "PLAN-E5700E7247994A91",
+          "plan_id": "PLAN-F19C5BDCE8A24FAC",
           "sortie_ids": [
             "SRT-07a247ea14f8"
           ],
@@ -327,22 +327,22 @@
       "future_not_before_s": 331,
       "job": {
         "schema_version": "0.1.0-draft",
-        "job_id": "JOB-D5207E7B11664EF3",
-        "scenario_id": "SCN-86CEF0A82CBF4C2C",
-        "snapshot_id": "SNAP-423B9B6D3B8A40E1",
-        "reserved_plan_id": "PLAN-A2CE5223CB6248BF",
+        "job_id": "JOB-F90CDE8EC1CD4055",
+        "scenario_id": "SCN-4A83B547D0EC4761",
+        "snapshot_id": "SNAP-1C826CFB50B54562",
+        "reserved_plan_id": "PLAN-CA2B45C0F5834D33",
         "job_state": "completed",
         "solver_status": "FEASIBLE",
-        "plan_id": "PLAN-A2CE5223CB6248BF",
+        "plan_id": "PLAN-CA2B45C0F5834D33",
         "has_validated_plan": true,
-        "runtime_s": 0.8035577000118792,
+        "runtime_s": 0.6711032000021078,
         "stop_reason": "finished",
-        "created_at": "2026-10-18T13:21:48.341136Z",
-        "started_at": "2026-10-18T13:21:48.364468Z",
-        "finished_at": "2026-10-18T13:21:50.706009Z",
+        "created_at": "2026-10-18T13:31:52.826255Z",
+        "started_at": "2026-10-18T13:31:52.836772Z",
+        "finished_at": "2026-10-18T13:31:54.715253Z",
         "error": null
       },
-      "candidate_plan_id": "PLAN-A2CE5223CB6248BF",
+      "candidate_plan_id": "PLAN-CA2B45C0F5834D33",
       "status": "applied",
       "message": "模拟设备上传、ACK 与状态核对完成，未来排程已激活；既有事实与承诺保留。",
       "changed_cargo_ids": [],
@@ -353,17 +353,17 @@
       "applications": [
         {
           "device_id": "U01",
-          "desired_plan_id": "PLAN-A2CE5223CB6248BF",
-          "active_plan_id": "PLAN-A2CE5223CB6248BF",
+          "desired_plan_id": "PLAN-CA2B45C0F5834D33",
+          "active_plan_id": "PLAN-CA2B45C0F5834D33",
           "upload_state": "succeeded",
           "activation_state": "active",
-          "command_id": "CMD-57DA790264A8451B",
-          "activation_command_id": "CMD-616B9179F4F54C17"
+          "command_id": "CMD-691323523F044B8E",
+          "activation_command_id": "CMD-D9256ADD70AD4FA1"
         }
       ],
       "repair_policy": "dependency",
       "calculation_method": "dependency_local",
-      "repair_reference_id": "RRF-59CCE97CAC4A4C1D",
+      "repair_reference_id": "RRF-3529C3A62D614A1B",
       "diff": {
         "committed_quantity": 1,
         "retained_future_sortie_count": 0,
@@ -375,7 +375,7 @@
         "rows": [
           {
             "cargo_id": "S001-MED-02",
-            "previous_plan_id": "PLAN-E5700E7247994A91",
+            "previous_plan_id": "PLAN-F19C5BDCE8A24FAC",
             "previous_sortie_id": "SRT-0709c59e25dc",
             "previous_drone_id": "U01",
             "previous_battery_id": "BAT-A-02",
@@ -394,58 +394,58 @@
   ],
   "commands": [
     {
-      "command_id": "CMD-57DA790264A8451B",
-      "execution_id": "EXE-7FF7FC6DE36749FC",
+      "command_id": "CMD-691323523F044B8E",
+      "execution_id": "EXE-5ED85B60E946418A",
       "device_id": "U01",
       "command_type": "mission.upload",
       "mode": "simulation",
       "status": "succeeded",
-      "desired_plan_id": "PLAN-A2CE5223CB6248BF",
-      "created_at": "2026-10-18T13:21:53.309596Z",
-      "expires_at": "2026-10-18T13:22:23.309596Z",
-      "acknowledged_at": "2026-10-18T13:21:54.151888Z",
-      "completed_at": "2026-10-18T13:21:54.689996Z",
+      "desired_plan_id": "PLAN-CA2B45C0F5834D33",
+      "created_at": "2026-10-18T13:31:57.182006Z",
+      "expires_at": "2026-10-18T13:32:27.182006Z",
+      "acknowledged_at": "2026-10-18T13:31:58.007391Z",
+      "completed_at": "2026-10-18T13:31:58.544009Z",
       "evidence": "Persisted SimulationAdapter mission state readback confirmed",
       "observed_state": {
-        "execution_id": "EXE-7FF7FC6DE36749FC",
+        "execution_id": "EXE-5ED85B60E946418A",
         "device_id": "U01",
         "mode": "simulation",
         "revision": 2,
-        "active_plan_id": "PLAN-E5700E7247994A91",
-        "uploaded_plan_id": "PLAN-A2CE5223CB6248BF",
-        "uploaded_content_sha256": "0b7b62c027c3041243764bf56db14ab5e92cbe0de7032c4f82a27ce4ab057208",
-        "last_upload_command_id": "CMD-57DA790264A8451B",
+        "active_plan_id": "PLAN-F19C5BDCE8A24FAC",
+        "uploaded_plan_id": "PLAN-CA2B45C0F5834D33",
+        "uploaded_content_sha256": "2faba16159d0dee9d11cb8ca9c2708d190fed0b5105208e628a84593f99877f0",
+        "last_upload_command_id": "CMD-691323523F044B8E",
         "last_activation_command_id": null,
-        "updated_at": "2026-10-18T13:21:54.686994Z",
-        "observed_at": "2026-10-18T13:21:54.689996Z",
+        "updated_at": "2026-10-18T13:31:58.542007Z",
+        "observed_at": "2026-10-18T13:31:58.543009Z",
         "real_device_connected": false
       }
     },
     {
-      "command_id": "CMD-616B9179F4F54C17",
-      "execution_id": "EXE-7FF7FC6DE36749FC",
+      "command_id": "CMD-D9256ADD70AD4FA1",
+      "execution_id": "EXE-5ED85B60E946418A",
       "device_id": "U01",
       "command_type": "mission.activate",
       "mode": "simulation",
       "status": "succeeded",
-      "desired_plan_id": "PLAN-A2CE5223CB6248BF",
-      "created_at": "2026-10-18T13:21:54.701539Z",
-      "expires_at": "2026-10-18T13:22:24.701539Z",
-      "acknowledged_at": "2026-10-18T13:21:54.711071Z",
-      "completed_at": "2026-10-18T13:21:54.711071Z",
+      "desired_plan_id": "PLAN-CA2B45C0F5834D33",
+      "created_at": "2026-10-18T13:31:58.551784Z",
+      "expires_at": "2026-10-18T13:32:28.551784Z",
+      "acknowledged_at": "2026-10-18T13:31:58.558003Z",
+      "completed_at": "2026-10-18T13:31:58.558003Z",
       "evidence": "Approved simulation activation confirmed by persisted device state",
       "observed_state": {
-        "execution_id": "EXE-7FF7FC6DE36749FC",
+        "execution_id": "EXE-5ED85B60E946418A",
         "device_id": "U01",
         "mode": "simulation",
         "revision": 3,
-        "active_plan_id": "PLAN-A2CE5223CB6248BF",
-        "uploaded_plan_id": "PLAN-A2CE5223CB6248BF",
-        "uploaded_content_sha256": "0b7b62c027c3041243764bf56db14ab5e92cbe0de7032c4f82a27ce4ab057208",
-        "last_upload_command_id": "CMD-57DA790264A8451B",
-        "last_activation_command_id": "CMD-616B9179F4F54C17",
-        "updated_at": "2026-10-18T13:21:54.704534Z",
-        "observed_at": "2026-10-18T13:21:54.711071Z",
+        "active_plan_id": "PLAN-CA2B45C0F5834D33",
+        "uploaded_plan_id": "PLAN-CA2B45C0F5834D33",
+        "uploaded_content_sha256": "2faba16159d0dee9d11cb8ca9c2708d190fed0b5105208e628a84593f99877f0",
+        "last_upload_command_id": "CMD-691323523F044B8E",
+        "last_activation_command_id": "CMD-D9256ADD70AD4FA1",
+        "updated_at": "2026-10-18T13:31:58.554161Z",
+        "observed_at": "2026-10-18T13:31:58.558003Z",
         "real_device_connected": false
       }
     }
@@ -453,40 +453,46 @@
   "documents": [
     {
       "kind": "plan",
-      "document_id": "PLAN-A2CE5223CB6248BF",
-      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T13:21:50.433100+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":1.312718016096589,\"last_delivery_s\":2918.7022355438567,\"makespan_s\":3261.0286532491746,\"mandatory_served_count\":1,\"mandatory_total_count\":1,\"min_return_soc\":0.7082848853118691,\"sortie_count\":1,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-A2CE5223CB6248BF\",\"scenario_id\":\"SCN-86CEF0A82CBF4C2C\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-423B9B6D3B8A40E1\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\",\"依赖图局部修复：0条机体/电池前序边，直接影响1架次，传播范围1架次，本轮保留0个原架次及原时间。启发式未证明最小改动。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-A-01\",\"battery_released_s\":4140.258302343745,\"cargo_ids\":[\"S001-MED-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":3261.0286532491746,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":2070.1291511718723,\"return_s\":3261.0286532491746,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-bb3d51031af8\",\"takeoff_s\":2400.1291511718723,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-02\"],\"delivery_complete_s\":2918.7022355438567,\"site_id\":\"S001\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
-      "sha256": "cb6b54a475a761a92589e58226e1e2b25d2975b5a5991c51f23d8193cc0f40b5"
+      "document_id": "PLAN-CA2B45C0F5834D33",
+      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T13:31:54.482766+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":1.312718016096589,\"last_delivery_s\":2918.7022355438567,\"makespan_s\":3261.0286532491746,\"mandatory_served_count\":1,\"mandatory_total_count\":1,\"min_return_soc\":0.7082848853118691,\"sortie_count\":1,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-CA2B45C0F5834D33\",\"scenario_id\":\"SCN-4A83B547D0EC4761\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-1C826CFB50B54562\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\",\"依赖图局部修复：0条机体/电池前序边，直接影响1架次，传播范围1架次，本轮保留0个原架次及原时间。启发式未证明最小改动。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-A-01\",\"battery_released_s\":4140.258302343745,\"cargo_ids\":[\"S001-MED-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":3261.0286532491746,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":2070.1291511718723,\"return_s\":3261.0286532491746,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-bb3d51031af8\",\"takeoff_s\":2400.1291511718723,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-02\"],\"delivery_complete_s\":2918.7022355438567,\"site_id\":\"S001\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
+      "sha256": "c1ada4347250043c100d1055bab4d9f20aebb8d81118ae2d693ab4ba8c86cc69"
     },
     {
       "kind": "plan",
-      "document_id": "PLAN-E5700E7247994A91",
-      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T13:21:39.993659+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":2.625436032193178,\"last_delivery_s\":2039.4725864492864,\"makespan_s\":2381.799004154604,\"mandatory_served_count\":2,\"mandatory_total_count\":2,\"min_return_soc\":0.7082848853118691,\"sortie_count\":2,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-E5700E7247994A91\",\"scenario_id\":\"SCN-72CD7D30A9AB4F23\",\"scenario_state_version\":2,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-18A86D5641054B6B\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-A-01\",\"battery_released_s\":2070.1291511718723,\"cargo_ids\":[\"S001-MED-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":1190.899502077302,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":0.0,\"return_s\":1190.899502077302,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-07a247ea14f8\",\"takeoff_s\":330.0,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-01\"],\"delivery_complete_s\":848.5730843719844,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-A-02\",\"battery_released_s\":3261.028653249174,\"cargo_ids\":[\"S001-MED-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":2381.799004154604,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":1190.899502077302,\"return_s\":2381.799004154604,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-0709c59e25dc\",\"takeoff_s\":1520.899502077302,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-02\"],\"delivery_complete_s\":2039.4725864492864,\"site_id\":\"S001\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
-      "sha256": "2188b8dff0ffe3b8536ccbb07200bbb43b1172d7dcc2dae004e8d30c97b4a059"
+      "document_id": "PLAN-F19C5BDCE8A24FAC",
+      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T13:31:46.841045+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":2.625436032193178,\"last_delivery_s\":2039.4725864492864,\"makespan_s\":2381.799004154604,\"mandatory_served_count\":2,\"mandatory_total_count\":2,\"min_return_soc\":0.7082848853118691,\"sortie_count\":2,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"scenario_id\":\"SCN-A2B5A4CFC03244EA\",\"scenario_state_version\":2,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-8324FEE454144EA7\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-A-01\",\"battery_released_s\":2070.1291511718723,\"cargo_ids\":[\"S001-MED-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":1190.899502077302,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":0.0,\"return_s\":1190.899502077302,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-07a247ea14f8\",\"takeoff_s\":330.0,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-01\"],\"delivery_complete_s\":848.5730843719844,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-A-02\",\"battery_released_s\":3261.028653249174,\"cargo_ids\":[\"S001-MED-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":2381.799004154604,\"energy_kwh\":1.312718016096589,\"kind\":\"transport\",\"prepare_start_s\":1190.899502077302,\"return_s\":2381.799004154604,\"return_soc\":0.7082848853118691,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-0709c59e25dc\",\"takeoff_s\":1520.899502077302,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-02\"],\"delivery_complete_s\":2039.4725864492864,\"site_id\":\"S001\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
+      "sha256": "97327bccc64d5e40f9d8c43e6cacbdf5db74b3d1d88c8e31238f37006d6ae097"
     },
     {
       "kind": "snapshot",
-      "document_id": "SNAP-18A86D5641054B6B",
-      "payload_json": "{\"content_hash\":\"9deb530db2553aa03cf3dac45024a097ade43e7017a0291b6a37ce91799ee9dd\",\"created_at\":\"2026-10-18T13:21:37.973011+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"}],\"cargo_items\":[{\"cargo_id\":\"S001-MED-01\",\"demand_id\":\"D-S001-MED-01\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0},{\"cargo_id\":\"S001-MED-02\",\"demand_id\":\"D-S001-MED-02\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"user_input\",\"demands\":[{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-01\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-02\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":0.0,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"}],\"mode\":\"simulation\",\"name\":\"在飞备用电池退出演练 1792329697834\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-72CD7D30A9AB4F23\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":2,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-72CD7D30A9AB4F23\",\"scenario_state_version\":2,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-18A86D5641054B6B\"}",
-      "sha256": "1a47733127bc95efd54e36a93f562c3e4d7e692c65cde68489e373a9adbc24e1"
+      "document_id": "SNAP-1C826CFB50B54562",
+      "payload_json": "{\"content_hash\":\"491bee9d653ccd8d22cd006d0ce72e2c06eae1bb766b4ca06f3a4cdd14fd077b\",\"created_at\":\"2026-10-18T13:31:52.803690+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":2070.1291511718723,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":331.0,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"unavailable\"}],\"cargo_items\":[{\"cargo_id\":\"S001-MED-02\",\"demand_id\":\"D-S001-MED-02\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"user_input\",\"demands\":[{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-02\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":1190.899502077302,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"}],\"mode\":\"simulation\",\"name\":\"在飞备用电池退出演练 1792330305599 · 在途剩余输入\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-4A83B547D0EC4761\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":1,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-4A83B547D0EC4761\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-1C826CFB50B54562\"}",
+      "sha256": "e7c4b205dad2c20d48c3cc2e60b7e9c41624d6e3c78a6812208e219624b4ef76"
     },
     {
       "kind": "snapshot",
-      "document_id": "SNAP-423B9B6D3B8A40E1",
-      "payload_json": "{\"content_hash\":\"6a01172a02e4879c2af70331cbcd222fc0a3f5f8e34dd05e2fe7e9c397ce8e76\",\"created_at\":\"2026-10-18T13:21:48.318688+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":2070.1291511718723,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":331.0,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"unavailable\"}],\"cargo_items\":[{\"cargo_id\":\"S001-MED-02\",\"demand_id\":\"D-S001-MED-02\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"user_input\",\"demands\":[{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-02\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":1190.899502077302,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"}],\"mode\":\"simulation\",\"name\":\"在飞备用电池退出演练 1792329697834 · 在途剩余输入\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-86CEF0A82CBF4C2C\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":1,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-86CEF0A82CBF4C2C\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-423B9B6D3B8A40E1\"}",
-      "sha256": "fe7f551947e1f7c08ca80317bc8e4eeb9ec2960de95c52e34ff377cf0507212c"
+      "document_id": "SNAP-8324FEE454144EA7",
+      "payload_json": "{\"content_hash\":\"fcc18761801dce363745ee913fc3f44040094ee4140193ed9ec0691e95a0636a\",\"created_at\":\"2026-10-18T13:31:45.675316+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"}],\"cargo_items\":[{\"cargo_id\":\"S001-MED-01\",\"demand_id\":\"D-S001-MED-01\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0},{\"cargo_id\":\"S001-MED-02\",\"demand_id\":\"D-S001-MED-02\",\"location_id\":\"O01\",\"mass_kg\":25.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":60.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"user_input\",\"demands\":[{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-01\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-02\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":0.0,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"}],\"mode\":\"simulation\",\"name\":\"在飞备用电池退出演练 1792330305599\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-A2B5A4CFC03244EA\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":2,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-A2B5A4CFC03244EA\",\"scenario_state_version\":2,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-8324FEE454144EA7\"}",
+      "sha256": "dd98b26ffaf35b2109b51cead2773108e1e6ff8d5524b933a90145fb7b42926b"
     },
     {
       "kind": "repair_reference",
-      "document_id": "RRF-59CCE97CAC4A4C1D",
-      "payload_json": "{\"committed_cargo_ids\":[\"S001-MED-01\"],\"documents\":[{\"document_id\":\"PLAN-E5700E7247994A91\",\"kind\":\"plan\",\"payload_json\":\"{\\\"change_summary\\\":null,\\\"data_origin\\\":\\\"solver\\\",\\\"event_id\\\":null,\\\"generated_at\\\":\\\"2026-10-18T13:21:39.993659+00:00\\\",\\\"has_validated_plan\\\":true,\\\"metrics\\\":{\\\"cost_cny\\\":null,\\\"energy_kwh\\\":2.625436032193178,\\\"last_delivery_s\\\":2039.4725864492864,\\\"makespan_s\\\":2381.799004154604,\\\"mandatory_served_count\\\":2,\\\"mandatory_total_count\\\":2,\\\"min_return_soc\\\":0.7082848853118691,\\\"sortie_count\\\":2,\\\"unserved_demand_count\\\":0},\\\"model_scope\\\":[\\\"cargo_unique\\\",\\\"capacity\\\",\\\"inventory\\\",\\\"aircraft\\\",\\\"battery\\\",\\\"time_window\\\",\\\"energy\\\",\\\"terrain\\\"],\\\"objective\\\":\\\"time\\\",\\\"objective_policy\\\":\\\"tradeoff_v2\\\",\\\"parent_plan_id\\\":null,\\\"plan_id\\\":\\\"PLAN-E5700E7247994A91\\\",\\\"scenario_id\\\":\\\"SCN-72CD7D30A9AB4F23\\\",\\\"scenario_state_version\\\":2,\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"snapshot_id\\\":\\\"SNAP-18A86D5641054B6B\\\",\\\"solver_notes\\\":[\\\"真实限时多起点插入启发式；未证明全局最优。\\\",\\\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\\\",\\\"题设载荷能耗、两段充电；充电端口无限。\\\",\\\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\\\",\\\"通信未评估；输出为仿真/规划建议，不是实飞许可。\\\"],\\\"solver_status\\\":\\\"FEASIBLE\\\",\\\"sorties\\\":[{\\\"battery_id\\\":\\\"BAT-A-01\\\",\\\"battery_released_s\\\":2070.1291511718723,\\\"cargo_ids\\\":[\\\"S001-MED-01\\\"],\\\"communication_status\\\":\\\"not_evaluated\\\",\\\"drone_id\\\":\\\"U01\\\",\\\"drone_released_s\\\":1190.899502077302,\\\"energy_kwh\\\":1.312718016096589,\\\"kind\\\":\\\"transport\\\",\\\"prepare_start_s\\\":0.0,\\\"return_s\\\":1190.899502077302,\\\"return_soc\\\":0.7082848853118691,\\\"route_geometry\\\":{\\\"coordinates\\\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\\\"type\\\":\\\"LineString\\\"},\\\"sortie_id\\\":\\\"SRT-07a247ea14f8\\\",\\\"takeoff_s\\\":330.0,\\\"terrain_status\\\":\\\"passed\\\",\\\"visits\\\":[{\\\"cargo_ids\\\":[\\\"S001-MED-01\\\"],\\\"delivery_complete_s\\\":848.5730843719844,\\\"site_id\\\":\\\"S001\\\"}]},{\\\"battery_id\\\":\\\"BAT-A-02\\\",\\\"battery_released_s\\\":3261.028653249174,\\\"cargo_ids\\\":[\\\"S001-MED-02\\\"],\\\"communication_status\\\":\\\"not_evaluated\\\",\\\"drone_id\\\":\\\"U01\\\",\\\"drone_released_s\\\":2381.799004154604,\\\"energy_kwh\\\":1.312718016096589,\\\"kind\\\":\\\"transport\\\",\\\"prepare_start_s\\\":1190.899502077302,\\\"return_s\\\":2381.799004154604,\\\"return_soc\\\":0.7082848853118691,\\\"route_geometry\\\":{\\\"coordinates\\\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\\\"type\\\":\\\"LineString\\\"},\\\"sortie_id\\\":\\\"SRT-0709c59e25dc\\\",\\\"takeoff_s\\\":1520.899502077302,\\\"terrain_status\\\":\\\"passed\\\",\\\"visits\\\":[{\\\"cargo_ids\\\":[\\\"S001-MED-02\\\"],\\\"delivery_complete_s\\\":2039.4725864492864,\\\"site_id\\\":\\\"S001\\\"}]}],\\\"unserved_demand_ids\\\":[],\\\"validation\\\":{\\\"checks\\\":[{\\\"code\\\":\\\"cargo_unique\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"capacity\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"inventory\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"aircraft\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"battery\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"time_window\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"energy\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"terrain\\\",\\\"message\\\":\\\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"communication\\\",\\\"message\\\":\\\"当前方案未要求连续无线链路检查\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"not_evaluated\\\"}],\\\"status\\\":\\\"passed\\\"}}\",\"sha256\":\"2188b8dff0ffe3b8536ccbb07200bbb43b1172d7dcc2dae004e8d30c97b4a059\"},{\"document_id\":\"SNAP-18A86D5641054B6B\",\"kind\":\"snapshot\",\"payload_json\":\"{\\\"content_hash\\\":\\\"9deb530db2553aa03cf3dac45024a097ade43e7017a0291b6a37ce91799ee9dd\\\",\\\"created_at\\\":\\\"2026-10-18T13:21:37.973011+00:00\\\",\\\"scenario\\\":{\\\"base\\\":{\\\"available\\\":true,\\\"coordinates\\\":[109.2308517,23.0085095],\\\"ground_elevation_m\\\":127.7,\\\"id\\\":\\\"O01\\\",\\\"name\\\":\\\"凤丹村无人机调度中心\\\"},\\\"batteries\\\":[{\\\"available_after_s\\\":0.0,\\\"battery_id\\\":\\\"BAT-A-01\\\",\\\"capacity_kwh\\\":4.5,\\\"compatible_type_id\\\":\\\"A\\\",\\\"location_id\\\":\\\"O01\\\",\\\"soc\\\":1.0,\\\"soh\\\":1.0,\\\"status\\\":\\\"available\\\"},{\\\"available_after_s\\\":0.0,\\\"battery_id\\\":\\\"BAT-A-02\\\",\\\"capacity_kwh\\\":4.5,\\\"compatible_type_id\\\":\\\"A\\\",\\\"location_id\\\":\\\"O01\\\",\\\"soc\\\":1.0,\\\"soh\\\":1.0,\\\"status\\\":\\\"available\\\"}],\\\"cargo_items\\\":[{\\\"cargo_id\\\":\\\"S001-MED-01\\\",\\\"demand_id\\\":\\\"D-S001-MED-01\\\",\\\"location_id\\\":\\\"O01\\\",\\\"mass_kg\\\":25.0,\\\"status\\\":\\\"available\\\",\\\"type\\\":\\\"MED\\\",\\\"volume_l\\\":60.0},{\\\"cargo_id\\\":\\\"S001-MED-02\\\",\\\"demand_id\\\":\\\"D-S001-MED-02\\\",\\\"location_id\\\":\\\"O01\\\",\\\"mass_kg\\\":25.0,\\\"status\\\":\\\"available\\\",\\\"type\\\":\\\"MED\\\",\\\"volume_l\\\":60.0}],\\\"coordinate_system\\\":\\\"EPSG:4326\\\",\\\"data_origin\\\":\\\"user_input\\\",\\\"demands\\\":[{\\\"cargo_type\\\":\\\"MED\\\",\\\"demand_id\\\":\\\"D-S001-MED-01\\\",\\\"expected_deadline_s\\\":null,\\\"hard_deadline_s\\\":null,\\\"mandatory\\\":true,\\\"priority\\\":24,\\\"required_quantity\\\":1,\\\"site_id\\\":\\\"S001\\\"},{\\\"cargo_type\\\":\\\"MED\\\",\\\"demand_id\\\":\\\"D-S001-MED-02\\\",\\\"expected_deadline_s\\\":null,\\\"hard_deadline_s\\\":null,\\\"mandatory\\\":true,\\\"priority\\\":24,\\\"required_quantity\\\":1,\\\"site_id\\\":\\\"S001\\\"}],\\\"drone_types\\\":[{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":1800.0}},\\\"climb_speed_mps\\\":3.0,\\\"cruise_speed_mps\\\":12.0,\\\"descent_speed_mps\\\":2.5,\\\"empty_mass_kg\\\":70.0,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":25000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":20000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":4.5,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":150.0,\\\"handover_per_box_s\\\":30.0,\\\"max_payload_kg\\\":25.0,\\\"max_volume_l\\\":60.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"A\\\"},{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":2400.0}},\\\"climb_speed_mps\\\":3.0,\\\"cruise_speed_mps\\\":15.0,\\\"descent_speed_mps\\\":2.5,\\\"empty_mass_kg\\\":65.0,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":28000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":16000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":4.0,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":150.0,\\\"handover_per_box_s\\\":30.0,\\\"max_payload_kg\\\":30.0,\\\"max_volume_l\\\":73.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"B\\\"},{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":3000.0}},\\\"climb_speed_mps\\\":2.5,\\\"cruise_speed_mps\\\":15.0,\\\"descent_speed_mps\\\":2.0,\\\"empty_mass_kg\\\":69.9,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":26000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":12000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":8.0,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":180.0,\\\"handover_per_box_s\\\":36.0,\\\"max_payload_kg\\\":80.0,\\\"max_volume_l\\\":250.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"C\\\"}],\\\"drones\\\":[{\\\"available_after_s\\\":0.0,\\\"drone_id\\\":\\\"U01\\\",\\\"location_id\\\":\\\"O01\\\",\\\"status\\\":\\\"available\\\",\\\"type_id\\\":\\\"A\\\"}],\\\"mode\\\":\\\"simulation\\\",\\\"name\\\":\\\"在飞备用电池退出演练 1792329697834\\\",\\\"policy\\\":{\\\"cost_model_available\\\":false,\\\"delivery_time_policy\\\":\\\"station_end\\\",\\\"min_return_soc\\\":0.2,\\\"requires_communication\\\":false,\\\"requires_terrain\\\":true},\\\"scenario_id\\\":\\\"SCN-72CD7D30A9AB4F23\\\",\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"sites\\\":[{\\\"available\\\":true,\\\"coordinates\\\":[109.2203356,23.0319231],\\\"ground_elevation_m\\\":182.1,\\\"id\\\":\\\"S011\\\",\\\"name\\\":\\\"那从\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.2432319,23.0335927],\\\"ground_elevation_m\\\":154.0,\\\"id\\\":\\\"S001\\\",\\\"name\\\":\\\"平旺、那龙、镇龙乡\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.1997836,23.007714],\\\"ground_elevation_m\\\":284.8,\\\"id\\\":\\\"S006\\\",\\\"name\\\":\\\"六昌、木路\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.1928191,23.0294186],\\\"ground_elevation_m\\\":318.5,\\\"id\\\":\\\"S007\\\",\\\"name\\\":\\\"佛子、那桑、银坑\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.2760168,23.0194009],\\\"ground_elevation_m\\\":321.6,\\\"id\\\":\\\"S010\\\",\\\"name\\\":\\\"镇龙乡\\\"}],\\\"start_time\\\":\\\"2026-10-17T08:00:00+08:00\\\",\\\"state_version\\\":2,\\\"terrain\\\":{\\\"asset_id\\\":\\\"contest-dem-30m\\\",\\\"horizontal_crs\\\":\\\"EPSG:4326\\\",\\\"sha256\\\":\\\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\\\",\\\"status\\\":\\\"available\\\",\\\"vertical_datum\\\":\\\"contest_provided_elevation_reference\\\"},\\\"timezone\\\":\\\"Asia/Shanghai\\\"},\\\"scenario_id\\\":\\\"SCN-72CD7D30A9AB4F23\\\",\\\"scenario_state_version\\\":2,\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"snapshot_id\\\":\\\"SNAP-18A86D5641054B6B\\\"}\",\"sha256\":\"1a47733127bc95efd54e36a93f562c3e4d7e692c65cde68489e373a9adbc24e1\"}],\"execution_id\":\"EXE-7FF7FC6DE36749FC\",\"execution_revision\":3,\"facts_cursor\":2,\"force_full\":false,\"future_parts\":[{\"plan_id\":\"PLAN-E5700E7247994A91\",\"role\":\"future\",\"sortie_ids\":[\"SRT-0709c59e25dc\"]}],\"input_snapshot_id\":\"SNAP-423B9B6D3B8A40E1\",\"reference_version\":\"execution-remaining-v1\",\"repair_policy\":\"dependency\"}",
-      "sha256": "ce249a03afac5467a5ef6b87bcb66b956a51a56360f8dffe822435b31a77e0b1"
+      "document_id": "RRF-3529C3A62D614A1B",
+      "payload_json": "{\"committed_cargo_ids\":[\"S001-MED-01\"],\"documents\":[{\"document_id\":\"PLAN-F19C5BDCE8A24FAC\",\"kind\":\"plan\",\"payload_json\":\"{\\\"change_summary\\\":null,\\\"data_origin\\\":\\\"solver\\\",\\\"event_id\\\":null,\\\"generated_at\\\":\\\"2026-10-18T13:31:46.841045+00:00\\\",\\\"has_validated_plan\\\":true,\\\"metrics\\\":{\\\"cost_cny\\\":null,\\\"energy_kwh\\\":2.625436032193178,\\\"last_delivery_s\\\":2039.4725864492864,\\\"makespan_s\\\":2381.799004154604,\\\"mandatory_served_count\\\":2,\\\"mandatory_total_count\\\":2,\\\"min_return_soc\\\":0.7082848853118691,\\\"sortie_count\\\":2,\\\"unserved_demand_count\\\":0},\\\"model_scope\\\":[\\\"cargo_unique\\\",\\\"capacity\\\",\\\"inventory\\\",\\\"aircraft\\\",\\\"battery\\\",\\\"time_window\\\",\\\"energy\\\",\\\"terrain\\\"],\\\"objective\\\":\\\"time\\\",\\\"objective_policy\\\":\\\"tradeoff_v2\\\",\\\"parent_plan_id\\\":null,\\\"plan_id\\\":\\\"PLAN-F19C5BDCE8A24FAC\\\",\\\"scenario_id\\\":\\\"SCN-A2B5A4CFC03244EA\\\",\\\"scenario_state_version\\\":2,\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"snapshot_id\\\":\\\"SNAP-8324FEE454144EA7\\\",\\\"solver_notes\\\":[\\\"真实限时多起点插入启发式；未证明全局最优。\\\",\\\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\\\",\\\"题设载荷能耗、两段充电；充电端口无限。\\\",\\\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\\\",\\\"通信未评估；输出为仿真/规划建议，不是实飞许可。\\\"],\\\"solver_status\\\":\\\"FEASIBLE\\\",\\\"sorties\\\":[{\\\"battery_id\\\":\\\"BAT-A-01\\\",\\\"battery_released_s\\\":2070.1291511718723,\\\"cargo_ids\\\":[\\\"S001-MED-01\\\"],\\\"communication_status\\\":\\\"not_evaluated\\\",\\\"drone_id\\\":\\\"U01\\\",\\\"drone_released_s\\\":1190.899502077302,\\\"energy_kwh\\\":1.312718016096589,\\\"kind\\\":\\\"transport\\\",\\\"prepare_start_s\\\":0.0,\\\"return_s\\\":1190.899502077302,\\\"return_soc\\\":0.7082848853118691,\\\"route_geometry\\\":{\\\"coordinates\\\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\\\"type\\\":\\\"LineString\\\"},\\\"sortie_id\\\":\\\"SRT-07a247ea14f8\\\",\\\"takeoff_s\\\":330.0,\\\"terrain_status\\\":\\\"passed\\\",\\\"visits\\\":[{\\\"cargo_ids\\\":[\\\"S001-MED-01\\\"],\\\"delivery_complete_s\\\":848.5730843719844,\\\"site_id\\\":\\\"S001\\\"}]},{\\\"battery_id\\\":\\\"BAT-A-02\\\",\\\"battery_released_s\\\":3261.028653249174,\\\"cargo_ids\\\":[\\\"S001-MED-02\\\"],\\\"communication_status\\\":\\\"not_evaluated\\\",\\\"drone_id\\\":\\\"U01\\\",\\\"drone_released_s\\\":2381.799004154604,\\\"energy_kwh\\\":1.312718016096589,\\\"kind\\\":\\\"transport\\\",\\\"prepare_start_s\\\":1190.899502077302,\\\"return_s\\\":2381.799004154604,\\\"return_soc\\\":0.7082848853118691,\\\"route_geometry\\\":{\\\"coordinates\\\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.2308517,23.0085095]],\\\"type\\\":\\\"LineString\\\"},\\\"sortie_id\\\":\\\"SRT-0709c59e25dc\\\",\\\"takeoff_s\\\":1520.899502077302,\\\"terrain_status\\\":\\\"passed\\\",\\\"visits\\\":[{\\\"cargo_ids\\\":[\\\"S001-MED-02\\\"],\\\"delivery_complete_s\\\":2039.4725864492864,\\\"site_id\\\":\\\"S001\\\"}]}],\\\"unserved_demand_ids\\\":[],\\\"validation\\\":{\\\"checks\\\":[{\\\"code\\\":\\\"cargo_unique\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"capacity\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"inventory\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"aircraft\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"battery\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"time_window\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"energy\\\",\\\"message\\\":\\\"已根据输入、架次与资源实体独立复算\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"terrain\\\",\\\"message\\\":\\\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"passed\\\"},{\\\"code\\\":\\\"communication\\\",\\\"message\\\":\\\"当前方案未要求连续无线链路检查\\\",\\\"object_id\\\":null,\\\"status\\\":\\\"not_evaluated\\\"}],\\\"status\\\":\\\"passed\\\"}}\",\"sha256\":\"97327bccc64d5e40f9d8c43e6cacbdf5db74b3d1d88c8e31238f37006d6ae097\"},{\"document_id\":\"SNAP-8324FEE454144EA7\",\"kind\":\"snapshot\",\"payload_json\":\"{\\\"content_hash\\\":\\\"fcc18761801dce363745ee913fc3f44040094ee4140193ed9ec0691e95a0636a\\\",\\\"created_at\\\":\\\"2026-10-18T13:31:45.675316+00:00\\\",\\\"scenario\\\":{\\\"base\\\":{\\\"available\\\":true,\\\"coordinates\\\":[109.2308517,23.0085095],\\\"ground_elevation_m\\\":127.7,\\\"id\\\":\\\"O01\\\",\\\"name\\\":\\\"凤丹村无人机调度中心\\\"},\\\"batteries\\\":[{\\\"available_after_s\\\":0.0,\\\"battery_id\\\":\\\"BAT-A-01\\\",\\\"capacity_kwh\\\":4.5,\\\"compatible_type_id\\\":\\\"A\\\",\\\"location_id\\\":\\\"O01\\\",\\\"soc\\\":1.0,\\\"soh\\\":1.0,\\\"status\\\":\\\"available\\\"},{\\\"available_after_s\\\":0.0,\\\"battery_id\\\":\\\"BAT-A-02\\\",\\\"capacity_kwh\\\":4.5,\\\"compatible_type_id\\\":\\\"A\\\",\\\"location_id\\\":\\\"O01\\\",\\\"soc\\\":1.0,\\\"soh\\\":1.0,\\\"status\\\":\\\"available\\\"}],\\\"cargo_items\\\":[{\\\"cargo_id\\\":\\\"S001-MED-01\\\",\\\"demand_id\\\":\\\"D-S001-MED-01\\\",\\\"location_id\\\":\\\"O01\\\",\\\"mass_kg\\\":25.0,\\\"status\\\":\\\"available\\\",\\\"type\\\":\\\"MED\\\",\\\"volume_l\\\":60.0},{\\\"cargo_id\\\":\\\"S001-MED-02\\\",\\\"demand_id\\\":\\\"D-S001-MED-02\\\",\\\"location_id\\\":\\\"O01\\\",\\\"mass_kg\\\":25.0,\\\"status\\\":\\\"available\\\",\\\"type\\\":\\\"MED\\\",\\\"volume_l\\\":60.0}],\\\"coordinate_system\\\":\\\"EPSG:4326\\\",\\\"data_origin\\\":\\\"user_input\\\",\\\"demands\\\":[{\\\"cargo_type\\\":\\\"MED\\\",\\\"demand_id\\\":\\\"D-S001-MED-01\\\",\\\"expected_deadline_s\\\":null,\\\"hard_deadline_s\\\":null,\\\"mandatory\\\":true,\\\"priority\\\":24,\\\"required_quantity\\\":1,\\\"site_id\\\":\\\"S001\\\"},{\\\"cargo_type\\\":\\\"MED\\\",\\\"demand_id\\\":\\\"D-S001-MED-02\\\",\\\"expected_deadline_s\\\":null,\\\"hard_deadline_s\\\":null,\\\"mandatory\\\":true,\\\"priority\\\":24,\\\"required_quantity\\\":1,\\\"site_id\\\":\\\"S001\\\"}],\\\"drone_types\\\":[{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":1800.0}},\\\"climb_speed_mps\\\":3.0,\\\"cruise_speed_mps\\\":12.0,\\\"descent_speed_mps\\\":2.5,\\\"empty_mass_kg\\\":70.0,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":25000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":20000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":4.5,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":150.0,\\\"handover_per_box_s\\\":30.0,\\\"max_payload_kg\\\":25.0,\\\"max_volume_l\\\":60.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"A\\\"},{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":2400.0}},\\\"climb_speed_mps\\\":3.0,\\\"cruise_speed_mps\\\":15.0,\\\"descent_speed_mps\\\":2.5,\\\"empty_mass_kg\\\":65.0,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":28000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":16000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":4.0,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":150.0,\\\"handover_per_box_s\\\":30.0,\\\"max_payload_kg\\\":30.0,\\\"max_volume_l\\\":73.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"B\\\"},{\\\"charge_model\\\":{\\\"model_id\\\":\\\"contest_two_stage_v1\\\",\\\"parameters\\\":{\\\"full_charge_s\\\":3000.0}},\\\"climb_speed_mps\\\":2.5,\\\"cruise_speed_mps\\\":15.0,\\\"descent_speed_mps\\\":2.0,\\\"empty_mass_kg\\\":69.9,\\\"energy_model\\\":{\\\"model_id\\\":\\\"contest_transport_v1\\\",\\\"parameters\\\":{\\\"clearance_m\\\":50.0,\\\"climb_efficiency\\\":0.72,\\\"empty_range_m\\\":26000.0,\\\"energy_scale\\\":1.0,\\\"flight_time_scale\\\":1.0,\\\"full_range_m\\\":12000.0,\\\"load_per_box_s\\\":30.0,\\\"reference_energy_kwh\\\":8.0,\\\"service_height_m\\\":30.0}},\\\"handover_fixed_s\\\":180.0,\\\"handover_per_box_s\\\":36.0,\\\"max_payload_kg\\\":80.0,\\\"max_volume_l\\\":250.0,\\\"prepare_duration_s\\\":300.0,\\\"turnaround_duration_s\\\":0.0,\\\"type_id\\\":\\\"C\\\"}],\\\"drones\\\":[{\\\"available_after_s\\\":0.0,\\\"drone_id\\\":\\\"U01\\\",\\\"location_id\\\":\\\"O01\\\",\\\"status\\\":\\\"available\\\",\\\"type_id\\\":\\\"A\\\"}],\\\"mode\\\":\\\"simulation\\\",\\\"name\\\":\\\"在飞备用电池退出演练 1792330305599\\\",\\\"policy\\\":{\\\"cost_model_available\\\":false,\\\"delivery_time_policy\\\":\\\"station_end\\\",\\\"min_return_soc\\\":0.2,\\\"requires_communication\\\":false,\\\"requires_terrain\\\":true},\\\"scenario_id\\\":\\\"SCN-A2B5A4CFC03244EA\\\",\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"sites\\\":[{\\\"available\\\":true,\\\"coordinates\\\":[109.2203356,23.0319231],\\\"ground_elevation_m\\\":182.1,\\\"id\\\":\\\"S011\\\",\\\"name\\\":\\\"那从\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.2432319,23.0335927],\\\"ground_elevation_m\\\":154.0,\\\"id\\\":\\\"S001\\\",\\\"name\\\":\\\"平旺、那龙、镇龙乡\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.1997836,23.007714],\\\"ground_elevation_m\\\":284.8,\\\"id\\\":\\\"S006\\\",\\\"name\\\":\\\"六昌、木路\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.1928191,23.0294186],\\\"ground_elevation_m\\\":318.5,\\\"id\\\":\\\"S007\\\",\\\"name\\\":\\\"佛子、那桑、银坑\\\"},{\\\"available\\\":true,\\\"coordinates\\\":[109.2760168,23.0194009],\\\"ground_elevation_m\\\":321.6,\\\"id\\\":\\\"S010\\\",\\\"name\\\":\\\"镇龙乡\\\"}],\\\"start_time\\\":\\\"2026-10-17T08:00:00+08:00\\\",\\\"state_version\\\":2,\\\"terrain\\\":{\\\"asset_id\\\":\\\"contest-dem-30m\\\",\\\"horizontal_crs\\\":\\\"EPSG:4326\\\",\\\"sha256\\\":\\\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\\\",\\\"status\\\":\\\"available\\\",\\\"vertical_datum\\\":\\\"contest_provided_elevation_reference\\\"},\\\"timezone\\\":\\\"Asia/Shanghai\\\"},\\\"scenario_id\\\":\\\"SCN-A2B5A4CFC03244EA\\\",\\\"scenario_state_version\\\":2,\\\"schema_version\\\":\\\"0.1.0-draft\\\",\\\"snapshot_id\\\":\\\"SNAP-8324FEE454144EA7\\\"}\",\"sha256\":\"dd98b26ffaf35b2109b51cead2773108e1e6ff8d5524b933a90145fb7b42926b\"}],\"execution_id\":\"EXE-5ED85B60E946418A\",\"execution_revision\":3,\"facts_cursor\":2,\"force_full\":false,\"future_parts\":[{\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"role\":\"future\",\"sortie_ids\":[\"SRT-0709c59e25dc\"]}],\"input_snapshot_id\":\"SNAP-1C826CFB50B54562\",\"reference_version\":\"execution-remaining-v1\",\"repair_policy\":\"dependency\"}",
+      "sha256": "78362f5d518980753d7d57fa1dc77b2b1177a671368c9e706b0949ff37377fca"
+    },
+    {
+      "kind": "repair_evidence",
+      "document_id": "RRF-3529C3A62D614A1B",
+      "payload_json": "{\"event_documents\":[{\"document_id\":\"bb13a487-8294-4077-95ef-9c098e602d7a\",\"kind\":\"event_input\",\"payload_json\":\"{\\\"cargo_items\\\":[],\\\"demand\\\":null,\\\"event_id\\\":\\\"bb13a487-8294-4077-95ef-9c098e602d7a\\\",\\\"event_type\\\":\\\"battery.unavailable\\\",\\\"expected_revision\\\":2,\\\"object_id\\\":\\\"BAT-A-02\\\",\\\"reason\\\":\\\"备用电池无法继续使用；首架次正在飞行，保留当前在机物资\\\",\\\"weather\\\":null}\",\"sha256\":\"7ff7da4f117574c06bd38779951e6f19006292a0a0449b3646b0717e4b76f461\"}],\"event_fingerprint\":\"acbad49c74e2c52985f9ad55acd286fe337713579f8938f30c0e60efade385ce\",\"events\":[{\"affected_sortie_ids\":[\"SRT-0709c59e25dc\"],\"committed_sortie_ids\":[\"SRT-07a247ea14f8\"],\"event_id\":\"bb13a487-8294-4077-95ef-9c098e602d7a\",\"event_type\":\"battery.unavailable\",\"execution_id\":\"EXE-5ED85B60E946418A\",\"facts_cursor\":2,\"impact\":{\"edges\":[{\"from_node_id\":\"[\\\"PLAN-F19C5BDCE8A24FAC\\\",\\\"SRT-07a247ea14f8\\\"]\",\"resource_id\":\"U01\",\"resource_kind\":\"drone\",\"to_node_id\":\"[\\\"PLAN-F19C5BDCE8A24FAC\\\",\\\"SRT-0709c59e25dc\\\"]\"}],\"facts_cursor\":2,\"ground_model\":\"unlimited\",\"nodes\":[{\"affected\":false,\"battery_id\":\"BAT-A-01\",\"battery_released_s\":2070.1291511718723,\"cargo_ids\":[\"S001-MED-01\"],\"committed\":true,\"direct\":false,\"drone_id\":\"U01\",\"drone_released_s\":1190.899502077302,\"node_id\":\"[\\\"PLAN-F19C5BDCE8A24FAC\\\",\\\"SRT-07a247ea14f8\\\"]\",\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"prepare_start_s\":0.0,\"return_s\":1190.899502077302,\"sortie_id\":\"SRT-07a247ea14f8\",\"takeoff_s\":330.0},{\"affected\":true,\"battery_id\":\"BAT-A-02\",\"battery_released_s\":3261.028653249174,\"cargo_ids\":[\"S001-MED-02\"],\"committed\":false,\"direct\":true,\"drone_id\":\"U01\",\"drone_released_s\":2381.799004154604,\"node_id\":\"[\\\"PLAN-F19C5BDCE8A24FAC\\\",\\\"SRT-0709c59e25dc\\\"]\",\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"prepare_start_s\":1190.899502077302,\"return_s\":2381.799004154604,\"sortie_id\":\"SRT-0709c59e25dc\",\"takeoff_s\":1520.899502077302}],\"scope\":\"frozen_transport_resource_precedence\",\"time_s\":331.0},\"missing_inventory\":0,\"object_id\":\"BAT-A-02\",\"preserved_sortie_ids\":[\"SRT-07a247ea14f8\"],\"propagated_sortie_ids\":[\"SRT-0709c59e25dc\"],\"reason\":\"备用电池无法继续使用；首架次正在飞行，保留当前在机物资\",\"status\":\"recorded\",\"time_s\":331.0}],\"evidence_version\":\"repair-event-sequence-v1\",\"execution_id\":\"EXE-5ED85B60E946418A\",\"execution_revision\":3,\"facts\":[{\"battery_id\":\"BAT-A-01\",\"cargo_ids\":[\"S001-MED-01\"],\"cursor\":1,\"drone_id\":\"U01\",\"fact_id\":\"EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:loaded:S001-MED-01\",\"kind\":\"loaded\",\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"sortie_id\":\"SRT-07a247ea14f8\",\"source\":\"simulation\",\"time_s\":0.0},{\"battery_id\":\"BAT-A-01\",\"cargo_ids\":[\"S001-MED-01\"],\"cursor\":2,\"drone_id\":\"U01\",\"fact_id\":\"EXE-5ED85B60E946418A:PLAN-F19C5BDCE8A24FAC:SRT-07a247ea14f8:takeoff:S001-MED-01\",\"kind\":\"takeoff\",\"plan_id\":\"PLAN-F19C5BDCE8A24FAC\",\"sortie_id\":\"SRT-07a247ea14f8\",\"source\":\"simulation\",\"time_s\":330.0}],\"facts_cursor\":2,\"pending_event_ids\":[\"bb13a487-8294-4077-95ef-9c098e602d7a\"],\"reference_id\":\"RRF-3529C3A62D614A1B\",\"time_s\":331.0}",
+      "sha256": "ab27d8c34ead1c34b294993ec3b2973876817cae14a70a6538930f1339d58bc9"
     },
     {
       "kind": "event_input",
-      "document_id": "045fdf15-e6c7-4b02-9062-721b8e2e4ff4",
-      "payload_json": "{\"cargo_items\":[],\"demand\":null,\"event_id\":\"045fdf15-e6c7-4b02-9062-721b8e2e4ff4\",\"event_type\":\"battery.unavailable\",\"expected_revision\":2,\"object_id\":\"BAT-A-02\",\"reason\":\"备用电池无法继续使用；首架次正在飞行，保留当前在机物资\",\"weather\":null}",
-      "sha256": "db10afd985d6948cfa31085602b5673f74f4d9803b516258b03edca7efe23dfa"
+      "document_id": "bb13a487-8294-4077-95ef-9c098e602d7a",
+      "payload_json": "{\"cargo_items\":[],\"demand\":null,\"event_id\":\"bb13a487-8294-4077-95ef-9c098e602d7a\",\"event_type\":\"battery.unavailable\",\"expected_revision\":2,\"object_id\":\"BAT-A-02\",\"reason\":\"备用电池无法继续使用；首架次正在飞行，保留当前在机物资\",\"weather\":null}",
+      "sha256": "7ff7da4f117574c06bd38779951e6f19006292a0a0449b3646b0717e4b76f461"
     }
   ],
-  "content_sha256": "d7f54d65399f5d33a5d4fc517ffc08ff9bbd8c803f11e15ec94543041a15c5cd"
+  "content_sha256": "de58144a3e1ad4872363d07dd4f00c6b03689838c410b343c829f12e47c701e2"
 }

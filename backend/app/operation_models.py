@@ -568,12 +568,42 @@ class OperationCapabilities(OperationDTO):
 
 class FrozenDocument(OperationDTO):
     kind: Literal[
-        "plan", "snapshot", "event_input", "event_resolution", "repair_reference"
+        "plan",
+        "snapshot",
+        "event_input",
+        "event_resolution",
+        "repair_reference",
+        "repair_evidence",
     ]
     document_id: str = Field(min_length=1, max_length=256)
     # Exact UTF-8 JSON preserves absent fields and original Snapshot content hashes.
     payload_json: str = Field(max_length=4_000_000)
     sha256: str = Field(pattern="^[a-f0-9]{64}$")
+
+
+class RepairEvidence(OperationDTO):
+    evidence_version: Literal["repair-event-sequence-v1"]
+    reference_id: str
+    execution_id: str
+    execution_revision: int
+    facts_cursor: int
+    time_s: float
+    event_fingerprint: str
+    pending_event_ids: list[str]
+    events: list[ExecutionEventView]
+    facts: list[ExecutionFact]
+    event_documents: list[FrozenDocument]
+
+
+class RepairExperimentContext(OperationDTO):
+    source_reference_id: str
+    execution_id: str
+    execution_revision: int
+    facts_cursor: int
+    time_s: float
+    event_fingerprint: str
+    committed_quantity: int
+    comparison_input_sha256: str
 
 
 class ExecutionBundle(OperationDTO):
@@ -615,7 +645,8 @@ class ExecutionArchiveView(OperationDTO):
 class ExperimentRequest(OperationDTO):
     name: str = Field(min_length=1, max_length=160)
     source_snapshot_id: str
-    suite: Literal["strategy", "search"]
+    suite: Literal["strategy", "search", "repair"]
+    repair_reference_id: str | None = None
     objective: Literal["time", "energy", "balanced"] = "time"
     objective_policy: Literal["deadline_first_v1", "tradeoff_v2"] = "tradeoff_v2"
     seeds: list[StrictInt] = Field(min_length=1, max_length=3)
@@ -647,7 +678,10 @@ class ExperimentEnvironment(OperationDTO):
 
 class ExperimentCase(OperationDTO):
     case_id: str
-    method: Literal["quick", "improve"]
+    method: Literal["quick", "improve", "dependency", "full_recompute"]
+    repair_reference_id: str | None = None
+    calculation_method: Literal["dependency_local", "full_recompute"] | None = None
+    repair_difference: RepairDifference | None = None
     objective: Literal["time", "energy", "balanced"]
     seed: int
     time_limit_s: float
@@ -693,7 +727,8 @@ class ExperimentView(OperationDTO):
     snapshot_id: str
     snapshot_content_hash: str
     data_origin: str
-    suite: Literal["strategy", "search"]
+    suite: Literal["strategy", "search", "repair"]
+    repair_context: RepairExperimentContext | None = None
     objective_policy: Literal["deadline_first_v1", "tradeoff_v2"]
     status: Literal["queued", "running", "completed", "canceled"]
     cancel_requested: bool

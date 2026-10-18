@@ -7418,9 +7418,47 @@
             "type": "string",
             "enum": [
               "quick",
-              "improve"
+              "improve",
+              "dependency",
+              "full_recompute"
             ],
             "title": "Method"
+          },
+          "repair_reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repair Reference Id"
+          },
+          "calculation_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "dependency_local",
+                  "full_recompute"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Calculation Method"
+          },
+          "repair_difference": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RepairDifference"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "objective": {
             "type": "string",
@@ -7828,9 +7866,21 @@
             "type": "string",
             "enum": [
               "strategy",
-              "search"
+              "search",
+              "repair"
             ],
             "title": "Suite"
+          },
+          "repair_reference_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repair Reference Id"
           },
           "objective": {
             "type": "string",
@@ -7919,9 +7969,20 @@
             "type": "string",
             "enum": [
               "strategy",
-              "search"
+              "search",
+              "repair"
             ],
             "title": "Suite"
+          },
+          "repair_context": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RepairExperimentContext"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "objective_policy": {
             "type": "string",
@@ -8361,7 +8422,8 @@
               "snapshot",
               "event_input",
               "event_resolution",
-              "repair_reference"
+              "repair_reference",
+              "repair_evidence"
             ],
             "title": "Kind"
           },
@@ -11950,6 +12012,55 @@
           "rows"
         ],
         "title": "RepairDifference"
+      },
+      "RepairExperimentContext": {
+        "properties": {
+          "source_reference_id": {
+            "type": "string",
+            "title": "Source Reference Id"
+          },
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "execution_revision": {
+            "type": "integer",
+            "title": "Execution Revision"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "event_fingerprint": {
+            "type": "string",
+            "title": "Event Fingerprint"
+          },
+          "committed_quantity": {
+            "type": "integer",
+            "title": "Committed Quantity"
+          },
+          "comparison_input_sha256": {
+            "type": "string",
+            "title": "Comparison Input Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_reference_id",
+          "execution_id",
+          "execution_revision",
+          "facts_cursor",
+          "time_s",
+          "event_fingerprint",
+          "committed_quantity",
+          "comparison_input_sha256"
+        ],
+        "title": "RepairExperimentContext"
       },
       "RepairRequest": {
         "properties": {

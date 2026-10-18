@@ -639,6 +639,33 @@
   display: grid;
   gap: 18px;
 }
+.v2-resource-diagnosis {
+  display: grid;
+  gap: 16px;
+}
+.v2-resource-controls {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.v2-resource-controls label {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--v2-muted);
+}
+.v2-resource-controls input {
+  width: 100px;
+}
+.v2-diagnostic-details {
+  padding: 12px 0;
+  border-top: 1px solid var(--v2-border);
+}
+.v2-diagnostic-details summary {
+  cursor: pointer;
+  margin-bottom: 16px;
+}
 .v2-route-map {
   height: 330px;
   min-height: 280px;

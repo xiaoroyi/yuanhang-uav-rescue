@@ -1,7 +1,13 @@
 import { test, expect } from '@playwright/test'
 import fs from 'node:fs/promises'
 import type { Scenario, Plan, SolveJob } from '../src/api/client'
-import type { Mission, Execution, Repair, ExecutionArchive } from '../src/api/operations'
+import type {
+  Mission,
+  Execution,
+  Repair,
+  ExecutionArchive,
+  ExperimentBundle,
+} from '../src/api/operations'
 
 test.setTimeout(180000)
 test.use({ reducedMotion: 'reduce' })
@@ -222,5 +228,64 @@ test('V2 in-flight battery exit previews actual dependency repair differences be
   await fs.writeFile(
     '../evidence/redesign-v2/DEPENDENCY_SMOKE/battery-exit-execution.json',
     JSON.stringify(bundle, null, 2) + '\n',
+  )
+  // The benchmark reuses the event-time residual; it cannot mutate this completed execution.
+  const finishedFacts = e.facts
+  await page
+    .getByRole('navigation', { name: '主要导航' })
+    .getByRole('link', { name: '演练评测', exact: true })
+    .click()
+  await page.getByLabel('评测输入任务').selectOption(mission.mission_id)
+  await page.getByLabel('评测对照类型').selectOption('repair')
+  await page.getByLabel('动态评测来源调整').selectOption(changes[0].change_id)
+  await page.getByLabel('每例求解预算').selectOption('3')
+  await page.getByLabel('评测随机种子').fill('7')
+  const name = '在途冻结输入的方法对照 ' + Date.now()
+  await page.getByLabel('评测名称', { exact: true }).fill(name)
+  await page.getByRole('button', { name: '开始真实评测', exact: true }).click()
+  await expect(page.locator('.v2-experiment-heading')).toContainText(name)
+  await expect(page.locator('.v2-experiment-heading')).toContainText('已完成', { timeout: 90000 })
+  await expect(page.getByTestId('experiment-case')).toHaveCount(2)
+  await expect(page.getByTestId('experiment-case').filter({ hasText: '已验证可行' })).toHaveCount(2)
+  await expect(
+    page.getByRole('img', { name: '动态修复真实改派与求解耗时对照图', exact: true }),
+  ).toBeVisible()
+  await expect(
+    page.getByTestId('experiment-case').filter({ hasText: '依赖局部修复' }),
+  ).toContainText('资源依赖局部修复')
+  await expect(
+    page.getByTestId('experiment-case').filter({ hasText: '全量重算剩余任务' }),
+  ).toContainText('全量重算')
+  for (const [width, height] of [
+    [1440, 900],
+    [1280, 720],
+  ]) {
+    await page.setViewportSize({ width, height })
+    await page.locator('.v2-experiments').evaluate((el) => {
+      el.scrollTop = 0
+    })
+    await page.screenshot({
+      path: `../evidence/redesign-v2/repair-method-comparison-${width}.png`,
+      fullPage: true,
+    })
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
+      width,
+    )
+  }
+  const download = page.waitForEvent('download')
+  await page.getByRole('link', { name: '完整证据', exact: true }).click()
+  const saved = await download
+  const path = await saved.path()
+  expect(path).toBeTruthy()
+  const comparison: ExperimentBundle = JSON.parse(await fs.readFile(path!, 'utf8'))
+  expect(comparison.run.repair_context?.facts_cursor).toBe(changes[0].facts_cursor)
+  expect(comparison.documents.some((d) => d.kind === 'repair_evidence')).toBeTruthy()
+  expect((await (await request.get('/api/v1/executions/' + e.execution_id)).json()).facts).toEqual(
+    finishedFacts,
+  )
+  await fs.mkdir('../evidence/redesign-v2/REPAIR_EXPERIMENT_SMOKE', { recursive: true })
+  await fs.writeFile(
+    '../evidence/redesign-v2/REPAIR_EXPERIMENT_SMOKE/method-comparison.json',
+    JSON.stringify(comparison, null, 2) + '\n',
   )
 })

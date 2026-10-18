@@ -10,9 +10,15 @@ import { RescueMap } from '../components/RescueMap'
 import { ResourceTimeline } from '../components/ResourceTimeline'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
+import { policyOf } from '../lib/strategies'
 
 const objective = { time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }
-const method = { quick: '可行构造与规则搜索', improve: '有限路线池与 CP-SAT' }
+const method = {
+  quick: '可行构造与规则搜索',
+  improve: '有限路线池与 CP-SAT',
+  dependency: '依赖局部修复（可回退）',
+  full_recompute: '全量重算剩余任务',
+}
 const labels: Record<Experiment['status'], string> = {
   queued: '等待派发',
   running: '正在计算',
@@ -32,7 +38,8 @@ export function ExperimentCenter({
 }) {
   const cache = useQueryClient()
   const [sourceId, setSourceId] = useState('')
-  const [suite, setSuite] = useState<'strategy' | 'search'>('strategy')
+  const [suite, setSuite] = useState<'strategy' | 'search' | 'repair'>('strategy')
+  const [repairId, setRepairId] = useState('')
   const [preference, setPreference] = useState<'time' | 'energy' | 'balanced'>('time')
   const [seeds, setSeeds] = useState('42')
   const [budget, setBudget] = useState(5)
@@ -48,6 +55,18 @@ export function ExperimentCenter({
     queryKey: ['experiment-source', mission?.current_scenario_id],
     queryFn: () => api.scenario(mission!.current_scenario_id!),
     enabled: !!mission?.current_scenario_id,
+  })
+  const repairs = useQuery({
+    queryKey: ['execution-changes', mission?.active_execution_id],
+    queryFn: () => ops.changes(mission!.active_execution_id!),
+    enabled: suite === 'repair' && !!mission?.active_execution_id,
+  })
+  const repairSources = repairs.data?.filter((c) => c.repair_reference_id && c.job) || []
+  const repairSource = repairSources.find((c) => c.change_id === repairId) || repairSources[0]
+  const repairPlan = useQuery({
+    queryKey: ['plan', mission?.active_plan_id],
+    queryFn: () => api.plan(mission!.active_plan_id!),
+    enabled: suite === 'repair' && !!mission?.active_plan_id,
   })
   const history = useQuery({
     queryKey: ['experiments'],
@@ -108,9 +127,57 @@ export function ExperimentCenter({
       return raw
     }
   }, [logs, artifact])
+  const stability = useMemo<EChartsOption>(
+    () => ({
+      grid: { left: 48, right: 55, top: 35, bottom: 65 },
+      xAxis: {
+        type: 'category',
+        data:
+          active?.cases.map(
+            (c) => `${c.method === 'dependency' ? '依赖修复' : '全量重算'} / ${c.seed}`,
+          ) || [],
+        axisLabel: { interval: 0, rotate: 15 },
+      },
+      yAxis: [
+        { type: 'value', name: '变化箱数', minInterval: 1 },
+        { type: 'value', name: '求解 / s' },
+      ],
+      legend: { data: ['换机', '换电池', '时刻变化', '求解耗时'] },
+      series: [
+        {
+          type: 'bar',
+          name: '换机',
+          itemStyle: { color: '#557fc2' },
+          data: active?.cases.map((c) => c.repair_difference?.drone_reassigned_quantity ?? null),
+        },
+        {
+          type: 'bar',
+          name: '换电池',
+          itemStyle: { color: '#9774ba' },
+          data: active?.cases.map((c) => c.repair_difference?.battery_reassigned_quantity ?? null),
+        },
+        {
+          type: 'bar',
+          name: '时刻变化',
+          itemStyle: { color: '#ba8740' },
+          data: active?.cases.map((c) => c.repair_difference?.time_shifted_quantity ?? null),
+        },
+        {
+          type: 'line',
+          name: '求解耗时',
+          yAxisIndex: 1,
+          connectNulls: false,
+          itemStyle: { color: '#3b8c88' },
+          data: active?.cases.map((c) => c.runtime_s),
+        },
+      ],
+    }),
+    [active],
+  )
 
   async function create() {
     if (!source.data || !mission) return
+    if (suite === 'repair' && (!repairSource?.job || !repairPlan.data)) return
     setBusy(true)
     try {
       const values = seeds.split(/[,，]/).map((s) => s.trim())
@@ -118,13 +185,19 @@ export function ExperimentCenter({
         throw new Error('请输入1—3个不重复的非负整数种子，用逗号分隔。')
       const seedValues = values.map(Number)
       if (new Set(seedValues).size !== seedValues.length) throw new Error('种子不能重复。')
-      const snapshot = await api.snapshot(source.data)
+      const snapshotId =
+        suite === 'repair'
+          ? repairSource!.job!.snapshot_id
+          : (await api.snapshot(source.data)).snapshot_id
       const run = await ops.createExperiment({
-        name: name.trim() || `${mission.name} · ${suite === 'strategy' ? '策略对照' : '搜索对照'}`,
-        source_snapshot_id: snapshot.snapshot_id,
+        name:
+          name.trim() ||
+          `${mission.name} · ${suite === 'strategy' ? '策略对照' : suite === 'repair' ? '动态修复对照' : '搜索对照'}`,
+        source_snapshot_id: snapshotId,
+        ...(suite === 'repair' ? { repair_reference_id: repairSource!.repair_reference_id } : {}),
         suite,
         objective: preference,
-        objective_policy: 'tradeoff_v2',
+        objective_policy: suite === 'repair' ? policyOf(repairPlan.data!) : 'tradeoff_v2',
         seeds: seedValues,
         time_limit_s: budget,
         idempotency_key: key(),
@@ -188,14 +261,46 @@ export function ExperimentCenter({
                 >
                   <option value="strategy">同输入的三种偏好</option>
                   <option value="search">同目标的规则 / CP-SAT 搜索</option>
+                  <option value="repair">同承诺与剩余输入的动态修复</option>
                 </select>
               </label>
               <p>
                 {suite === 'strategy'
                   ? '比较时间、能耗与折中选择。相同结果可能共享最优候选，不能据此宣称算法提升。'
-                  : '两个方法使用同一快照和预算上限。保留未得到可行解、超时和不支持的模型组合。'}
+                  : suite === 'repair'
+                    ? '同一冻结事件、在飞承诺、剩余输入与预算；比较依赖修复及全量重算，不修改当前执行。'
+                    : '两个方法使用同一快照和预算上限。保留未得到可行解、超时和不支持的模型组合。'}
               </p>
-              {suite === 'search' && (
+              {suite === 'repair' && (
+                <>
+                  {repairSources.length ? (
+                    <label>
+                      冻结调整
+                      <select
+                        aria-label="动态评测来源调整"
+                        value={repairSource?.change_id || ''}
+                        onChange={(e) => setRepairId(e.target.value)}
+                      >
+                        {repairSources.map((c) => (
+                          <option key={c.change_id} value={c.change_id}>
+                            {c.change_id.slice(-6)} · 承诺 {c.committed_cargo_ids.length} 箱 ·{' '}
+                            {c.status}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : (
+                    <p className="v2-inline-warning">
+                      此任务暂无冻结调整。先在执行中暂停、记录变化并生成调整。
+                      <a href={`#/missions/${mission?.mission_id}/execute`}>进入执行跟踪</a>
+                    </p>
+                  )}
+                  <p className="v2-subtle">
+                    较早记录若缺少生成时事件证据，会明确拒绝；请重新生成调整后评测，不根据现状补造历史。
+                  </p>
+                </>
+              )}
+              {suite !== 'strategy' && (
                 <label>
                   固定目标
                   <select
@@ -251,7 +356,11 @@ export function ExperimentCenter({
               <Button
                 variant="primary"
                 busy={busy}
-                disabled={!source.data || source.isError}
+                disabled={
+                  !source.data ||
+                  source.isError ||
+                  (suite === 'repair' && (!repairSource?.job || !repairPlan.data))
+                }
                 onClick={() => void create()}
               >
                 开始真实评测
@@ -348,6 +457,22 @@ export function ExperimentCenter({
                   <b>{active.groups.reduce((n, g) => n + g.canceled, 0)}</b>
                 </div>
               </div>
+              {active.repair_context && (
+                <div className="v2-card v2-experiment-chart">
+                  <h3>动态修复：稳定性与求解耗时</h3>
+                  <p className="v2-subtle">
+                    冻结于 {clock(active.repair_context.time_s)} · 承诺{' '}
+                    {active.repair_context.committed_quantity} 箱 · 事实游标{' '}
+                    {active.repair_context.facts_cursor}
+                    。方法可全量回退，实际路径见逐例结果；失败没有零变化占位。
+                  </p>
+                  <DataChart
+                    option={stability}
+                    height={265}
+                    label="动态修复真实改派与求解耗时对照图"
+                  />
+                </div>
+              )}
               <div className="v2-card v2-experiment-chart">
                 <h3>候选时间与能源</h3>
                 {feasible.length ? (
@@ -375,6 +500,7 @@ export function ExperimentCenter({
                       <th>全队返航</th>
                       <th>能耗</th>
                       <th>余量 / 保障</th>
+                      {active.suite === 'repair' && <th>实际方法 / 变化</th>}
                       <th>证据</th>
                     </tr>
                   </thead>
@@ -437,6 +563,23 @@ export function ExperimentCenter({
                             {c.allocated_quantity === null ? '—' : `${c.allocated_quantity} 箱`}
                           </small>
                         </td>
+                        {active.suite === 'repair' && (
+                          <td>
+                            {c.calculation_method === 'dependency_local'
+                              ? '资源依赖局部修复'
+                              : c.calculation_method === 'full_recompute'
+                                ? '全量重算'
+                                : '尚未得到路径证据'}
+                            {c.repair_difference && (
+                              <small>
+                                保留 {c.repair_difference.retained_future_sortie_count} 架次 · 换机{' '}
+                                {c.repair_difference.drone_reassigned_quantity} · 换电池{' '}
+                                {c.repair_difference.battery_reassigned_quantity} · 移时{' '}
+                                {c.repair_difference.time_shifted_quantity} 箱
+                              </small>
+                            )}
+                          </td>
+                        )}
                         <td>
                           <Button
                             disabled={!c.job?.has_validated_plan}

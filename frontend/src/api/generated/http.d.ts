@@ -2675,7 +2675,12 @@ export interface components {
              * Method
              * @enum {string}
              */
-            method: "quick" | "improve";
+            method: "quick" | "improve" | "dependency" | "full_recompute";
+            /** Repair Reference Id */
+            repair_reference_id?: string | null;
+            /** Calculation Method */
+            calculation_method?: ("dependency_local" | "full_recompute") | null;
+            repair_difference?: components["schemas"]["RepairDifference"] | null;
             /**
              * Objective
              * @enum {string}
@@ -2790,7 +2795,9 @@ export interface components {
              * Suite
              * @enum {string}
              */
-            suite: "strategy" | "search";
+            suite: "strategy" | "search" | "repair";
+            /** Repair Reference Id */
+            repair_reference_id?: string | null;
             /**
              * Objective
              * @default time
@@ -2830,7 +2837,8 @@ export interface components {
              * Suite
              * @enum {string}
              */
-            suite: "strategy" | "search";
+            suite: "strategy" | "search" | "repair";
+            repair_context?: components["schemas"]["RepairExperimentContext"] | null;
             /**
              * Objective Policy
              * @enum {string}
@@ -2976,7 +2984,7 @@ export interface components {
              * Kind
              * @enum {string}
              */
-            kind: "plan" | "snapshot" | "event_input" | "event_resolution" | "repair_reference";
+            kind: "plan" | "snapshot" | "event_input" | "event_resolution" | "repair_reference" | "repair_evidence";
             /** Document Id */
             document_id: string;
             /** Payload Json */
@@ -4177,6 +4185,25 @@ export interface components {
             new_quantity: number;
             /** Rows */
             rows: components["schemas"]["CargoRepairDifference"][];
+        };
+        /** RepairExperimentContext */
+        RepairExperimentContext: {
+            /** Source Reference Id */
+            source_reference_id: string;
+            /** Execution Id */
+            execution_id: string;
+            /** Execution Revision */
+            execution_revision: number;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /** Time S */
+            time_s: number;
+            /** Event Fingerprint */
+            event_fingerprint: string;
+            /** Committed Quantity */
+            committed_quantity: number;
+            /** Comparison Input Sha256 */
+            comparison_input_sha256: string;
         };
         /** RepairRequest */
         RepairRequest: {

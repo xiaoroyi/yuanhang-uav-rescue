@@ -1,0 +1,9 @@
+Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+
+Running 1 test using 1 worker
+
+(node:56772) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\resource-diagnosis-v2.spec.ts:8:1 › V2 resource diagnosis computes an isolated addition before any feasible baseline exists (6.6s)
+
+  1 passed (8.0s)
