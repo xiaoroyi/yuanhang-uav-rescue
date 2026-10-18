@@ -4,7 +4,7 @@ import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { Crosshair, Layers, MapPinned, Minus, Plus, Mountain, Satellite } from 'lucide-react'
 import type { FeatureCollection, LineString, Polygon } from 'geojson'
-import type { Plan, Scenario, Playback, TerrainMap } from '../api/client'
+import type { Plan, Scenario, Playback, TerrainMap, RadioCoverage } from '../api/client'
 import type { Telemetry } from '../api/operations'
 import { colorFor } from '../lib/format'
 import {
@@ -24,6 +24,43 @@ type MapScene = Pick<Scenario, 'sites' | 'terrain' | 'restricted_zones' | 'weath
   scenario_id?: string
 }
 const mapNodes = (scene: MapScene) => (scene.base ? [scene.base, ...scene.sites] : scene.sites)
+function droneGlyph(button: HTMLButtonElement, count = 1) {
+  const ns = 'http://www.w3.org/2000/svg',
+    svg = document.createElementNS(ns, 'svg')
+  svg.setAttribute('viewBox', '0 0 32 32')
+  svg.setAttribute('width', '29')
+  svg.setAttribute('height', '29')
+  svg.setAttribute('aria-hidden', 'true')
+  svg.style.display = 'block'
+  for (const [x, y] of [
+    [7, 7],
+    [25, 7],
+    [7, 25],
+    [25, 25],
+  ]) {
+    const circle = document.createElementNS(ns, 'circle')
+    circle.setAttribute('cx', String(x))
+    circle.setAttribute('cy', String(y))
+    circle.setAttribute('r', '5')
+    circle.setAttribute('fill', 'none')
+    circle.setAttribute('stroke', 'currentColor')
+    circle.setAttribute('stroke-width', '1.7')
+    svg.appendChild(circle)
+  }
+  const path = document.createElementNS(ns, 'path')
+  path.setAttribute('d', 'M8 8L24 24M24 8L8 24M13 11H19V21H13Z')
+  path.setAttribute('stroke', 'currentColor')
+  path.setAttribute('stroke-width', '2')
+  path.setAttribute('fill', 'currentColor')
+  svg.appendChild(path)
+  button.appendChild(svg)
+  if (count > 1) {
+    const badge = document.createElement('sup')
+    badge.className = 'map-drone-count'
+    badge.textContent = String(count)
+    button.appendChild(badge)
+  }
+}
 type RouteChoice = { id: string; drone: string; cargo: number; stops: string }
 type Props = {
   scenario: MapScene
@@ -38,6 +75,7 @@ type Props = {
   playTime?: number | null
   playback?: Playback
   telemetry?: Telemetry[]
+  radioCoverage?: RadioCoverage
   selectedSite?: string | null
   onPickCoordinates?: (coordinates: [number, number]) => void
   routeSets?: { plan: Plan; sortieIds: string[] }[]
@@ -55,6 +93,7 @@ export function RescueMap({
   playTime,
   playback,
   telemetry,
+  radioCoverage,
   selectedSite,
   onPickCoordinates,
   routeSets,
@@ -127,7 +166,22 @@ export function RescueMap({
       canceled = true
     }
   }, [])
-  const [basemap, setBasemap] = useState<'offline' | 'satellite'>('offline')
+  const [basemap, setBasemap] = useState<'offline' | 'satellite'>(() => {
+    try {
+      return sessionStorage.getItem('yuanhang-map-basemap') === 'satellite'
+        ? 'satellite'
+        : 'offline'
+    } catch {
+      return 'offline'
+    }
+  })
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('yuanhang-map-basemap', basemap)
+    } catch {
+      /* Optional browser storage. */
+    }
+  }, [basemap])
   const [satelliteState, setSatelliteState] = useState<'idle' | 'loading' | 'ready' | 'failed'>(
     'idle',
   )
@@ -144,13 +198,14 @@ export function RescueMap({
       return
     }
     const width = map.current?.getContainer().clientWidth || 1000
+    const height = map.current?.getContainer().clientHeight || 600
     map.current?.fitBounds(bounds, {
       // Keep the lowest site markers above the bottom legend and scale controls.
       padding: {
-        top: 115,
-        bottom: basemapRef.current === 'satellite' ? 155 : 120,
+        top: Math.min(110, height * 0.18),
+        bottom: Math.min(basemapRef.current === 'satellite' ? 140 : 105, height * 0.19),
         left: width < 600 ? 38 : 55,
-        right: width < 600 ? 65 : 140,
+        right: width < 600 ? 65 : 95,
       },
       maxZoom: 13,
       duration,
@@ -205,6 +260,50 @@ export function RescueMap({
     }
     fit(0)
   }, [fit])
+  useEffect(() => {
+    const m = map.current
+    if (!m || !ready) return
+    if (!m.getSource('radio-coverage')) {
+      m.addSource('radio-coverage', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: [] },
+      })
+      m.addLayer(
+        {
+          id: 'radio-coverage-points',
+          type: 'circle',
+          source: 'radio-coverage',
+          paint: {
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 2.5, 13, 5, 16, 9],
+            'circle-color': [
+              'match',
+              ['get', 'source'],
+              'gateway',
+              '#65bfa5',
+              'relay',
+              '#d4b26e',
+              'uncovered',
+              '#c97c78',
+              '#93a1ad',
+            ],
+            'circle-opacity': 0.7,
+            'circle-stroke-width': 0.5,
+            'circle-stroke-color': '#ffffff44',
+          },
+        },
+        m.getLayer('routes-line') ? 'routes-line' : undefined,
+      )
+    }
+    const source = m.getSource('radio-coverage') as maplibregl.GeoJSONSource
+    source.setData({
+      type: 'FeatureCollection',
+      features: (radioCoverage?.points || []).map((p) => ({
+        type: 'Feature',
+        geometry: { type: 'Point', coordinates: p.coordinates },
+        properties: { source: p.source },
+      })),
+    })
+  }, [radioCoverage, ready])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !m.getSource('grid')) return
@@ -716,10 +815,10 @@ export function RescueMap({
       button.dataset.dotText = dot.textContent
       const label = document.createElement('span')
       label.className = 'map-marker-label'
-      label.textContent = isBase ? n.name.slice(0, 8) : n.id
+      label.textContent = `${isBase ? '调度中心' : '救援点'} · ${(n.name || n.id).slice(0, 12)}`
       if (!isBase && scenario.sites.length > 8) label.hidden = true
       button.append(dot, label)
-      button.title = `${n.id} · ${n.coordinates.join(', ')}`
+      button.title = `${isBase ? '调度中心' : '救援需求点'}：${n.name} (${n.id}) · ${n.coordinates.join(', ')}`
       button.setAttribute('aria-label', `定位${n.name}`)
       button.onclick = (event) => {
         event.stopPropagation()
@@ -861,11 +960,7 @@ export function RescueMap({
       const label = element.querySelector<HTMLElement>('.map-marker-label')
       if (node && label) {
         const active = node.id === selectedSite
-        label.textContent = active
-          ? node.name
-          : node.id === scenario.base?.id
-            ? node.name.slice(0, 8)
-            : node.id
+        label.textContent = `${node.id === scenario.base?.id ? '调度中心' : '救援点'} · ${(node.name || node.id).slice(0, active ? 24 : 12)}`
         label.hidden = !active && node.id !== scenario.base?.id && scenario.sites.length > 8
         element.classList.toggle('selected-site', active)
       }
@@ -1022,7 +1117,7 @@ export function RescueMap({
       for (const { sample, members } of groups) {
         const button = document.createElement('button')
         button.className = `planned-aircraft simulated-aircraft ${sample.quality === 'stale' ? 'stale-aircraft' : ''}`
-        button.textContent = members.length > 1 ? `✈ ${members.length}` : '✈'
+        droneGlyph(button, members.length)
         const tag = document.createElement('span')
         tag.textContent =
           members.length > 1
@@ -1066,7 +1161,7 @@ export function RescueMap({
       const label = { prepare: '准备', flight: '运输', handover: '交接', return: '返航' }[
         phase.phase
       ]
-      button.textContent = '✈'
+      droneGlyph(button)
       button.title = `${phase.drone_id} · ${label} · 计划位置示意`
       button.setAttribute('aria-label', `${phase.drone_id}计划位置`)
       button.onclick = (event) => {

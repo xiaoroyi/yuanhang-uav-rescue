@@ -10,7 +10,7 @@ import {
   FlaskConical,
   LoaderCircle,
   PackagePlus,
-  Plane,
+  Drone,
   RadioTower,
   Scale,
   ShieldCheck,
@@ -420,7 +420,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
                   }
                   onClick={() => setKind('drone')}
                 >
-                  <Plane size={14} />
+                  <Drone size={14} />
                   机体
                 </button>
                 <button

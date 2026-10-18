@@ -51,11 +51,18 @@ export function StageCharts({ plan, selected }: { plan: Plan; selected: string }
             data: data.map((p) => [p.distance_m / 1000, p.ground_elevation_m]),
           },
           {
-            name: '模型巡航高度',
+            name: '模型飞行高度（含升降）',
             type: 'line',
             showSymbol: false,
-            lineStyle: { color: '#2563eb', width: 2 },
-            data: data.map((p) => [p.distance_m / 1000, p.cruise_elevation_m]),
+            lineStyle: { color: '#087d72', width: 2 },
+            itemStyle: { color: '#087d72' },
+            data:
+              profile.data?.legs.flatMap((l) => [
+                [l.start_distance_m / 1000, l.start_work_elevation_m],
+                [l.start_distance_m / 1000, l.cruise_elevation_m],
+                [l.end_distance_m / 1000, l.cruise_elevation_m],
+                [l.end_distance_m / 1000, l.end_work_elevation_m],
+              ]) || [],
           },
         ],
       }
@@ -64,7 +71,7 @@ export function StageCharts({ plan, selected }: { plan: Plan; selected: string }
       return {
         grid: { left: 48, right: 25, top: 22, bottom: 40 },
         xAxis: { type: 'value', name: '时间 / min' },
-        yAxis: { type: 'value', name: 'SOC / %', min: 0, max: 100 },
+        yAxis: { type: 'value', name: '剩余电量 / %', min: 0, max: 100 },
         series: [
           {
             name: '已计算阶段端点',
@@ -92,7 +99,7 @@ export function StageCharts({ plan, selected }: { plan: Plan; selected: string }
         data: rows.map((r) => `${phaseLabel[r.phase]} ${clock(r.start_s)}`),
         axisLabel: { hideOverlap: true },
       },
-      yAxis: { type: 'value', name: mode === 'energy' ? 'kWh' : 'kg' },
+      yAxis: { type: 'value', name: mode === 'energy' ? '能耗 / kWh' : '载荷 / kg' },
       series: [
         {
           name: mode === 'energy' ? '分阶段能耗' : '阶段载荷',
@@ -131,9 +138,9 @@ export function StageCharts({ plan, selected }: { plan: Plan; selected: string }
       )}
       <p className="v2-chart-note">
         {mode === 'height'
-          ? `水平轴为航路距离 · 高程基准 ${profile.data?.vertical_datum || '未知'} · 巡航包络不表示完整实飞高度`
+          ? `水平轴为航路距离 · 高程基准 ${profile.data?.vertical_datum || '未知'} · 竖线表示爬升/下降；为模型高度，非实测轨迹`
           : mode === 'soc'
-            ? '仅显示物理模型已计算的阶段端点；阶段内连续 SOC 未计算，不连接成实测曲线。'
+            ? '仅显示已计算的电量阶段端点（SOC 为剩余电量比例），不连接成实测曲线。'
             : `阶段能耗合计 ${number(
                 rows.reduce((n, r) => n + r.energy_kwh, 0),
                 3,

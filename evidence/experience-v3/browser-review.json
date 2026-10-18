@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-18T17:39:05.343Z",
+  "passed": true,
+  "mission": "MIS-D2F23EE63D284389",
+  "plan": "PLAN-E26E26799B1047CD",
+  "execution": "EXE-6501764F7F9B48D5",
+  "errors": [],
+  "failed": [],
+  "geometry": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "firstRowBottom": 756.171875,
+      "pageWidth": 1440
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "mapHeight": 328,
+      "mapWidth": 1108,
+      "pageWidth": 1440
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "firstRowBottom": 629.171875,
+      "pageWidth": 1280
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "mapHeight": 383,
+      "mapWidth": 968,
+      "pageWidth": 1280
+    }
+  ],
+  "shots": [
+    "home-1440.png",
+    "prepare-1440.png",
+    "checks-1440.png",
+    "solve-progress-1440.png",
+    "plans-1440.png",
+    "schedule-1440.png",
+    "cargo-1440.png",
+    "sortie-detail-1440.png",
+    "gantt-1440.png",
+    "terrain-1440.png",
+    "profile-1440.png",
+    "execution-1440.png",
+    "fleet-1440.png",
+    "repair-1440.png",
+    "review-1440.png",
+    "schedule-1440.png",
+    "plans-1440.png",
+    "execution-1440.png",
+    "fleet-1440.png",
+    "resources-1440.png",
+    "resources-fleet-1440.png",
+    "home-1440.png",
+    "schedule-1280.png",
+    "plans-1280.png",
+    "execution-1280.png",
+    "fleet-1280.png",
+    "resources-1280.png",
+    "resources-fleet-1280.png",
+    "home-1280.png",
+    "communication-1440.png",
+    "coverage-1440.png"
+  ],
+  "cues": [
+    {
+      "seconds": 0.003,
+      "text": "从首页创建一份独立的小规模救援任务。"
+    },
+    {
+      "seconds": 3.183,
+      "text": "任务准备：查看基地、真实地图和物资机队，然后运行条件检查。"
+    },
+    {
+      "seconds": 5.76,
+      "text": "生成方案：输入进入新快照，由后台实际求解并独立核对。"
+    },
+    {
+      "seconds": 10.455,
+      "text": "调度安排：逐行查看运输架次、货箱、时间、电池与能耗，并导出 Excel。"
+    },
+    {
+      "seconds": 14.864,
+      "text": "地形与航迹：所选架次的模型升降、净空与爬升能耗可逐段核对。"
+    },
+    {
+      "seconds": 19.092,
+      "text": "确认方案只是建立计划预约。检查并创建模拟实例后，才开始业务仿真。"
+    },
+    {
+      "seconds": 23.424,
+      "text": "推进到首批物资交付后：查看已完成、在机和待运输数量，以及每架机体的下一任务。"
+    },
+    {
+      "seconds": 25.339,
+      "text": "途中新增需求：暂停、记录变化、检查影响，再比较并采纳调整。已有交付与在途承诺保留。"
+    },
+    {
+      "seconds": 33.318,
+      "text": "复盘分析分别保留计划与模拟事实。后续可导出完整运行包供只读复核。"
+    }
+  ],
+  "video": "frontend/public/help/v3/walkthrough.webm"
+}

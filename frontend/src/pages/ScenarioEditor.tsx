@@ -10,7 +10,7 @@ import {
   FlaskConical,
   MapPin,
   Package,
-  Plane,
+  Drone,
   Plus,
   Search,
   Settings2,
@@ -86,7 +86,7 @@ const groups: {
   {
     key: 'drones',
     label: '运输机',
-    icon: Plane,
+    icon: Drone,
     id: 'drone_id',
     columns: [
       { key: 'drone_id', label: '机体编号' },
@@ -467,7 +467,7 @@ export function ScenarioEditor({
           </span>
         </div>
         <div>
-          <Plane size={20} />
+          <Drone size={20} />
           <span>
             <small>当前可用运输机</small>
             <strong>

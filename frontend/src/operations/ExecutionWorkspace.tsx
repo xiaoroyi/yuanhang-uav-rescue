@@ -31,8 +31,18 @@ import { ExecutionRouteInspector } from './ExecutionRouteInspector'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { navigate } from './App'
+import { FleetOperationsPanel, FleetSummary } from './FleetOperationsPanel'
 
 type Notify = (m: string, error?: boolean) => void
+const repairStatus: Record<Repair['status'], string> = {
+  computing: '正在计算',
+  ready: '待比较采纳',
+  no_remaining: '无剩余任务',
+  applying: '正在应用',
+  failed: '未生成可用调整',
+  partially_applied: '部分设备待确认',
+  applied: '已采纳',
+}
 export function ExecutionWorkspace({
   mission,
   scenario,
@@ -50,6 +60,7 @@ export function ExecutionWorkspace({
   const [id, setId] = useState(mission.active_execution_id || '')
   const [busy, setBusy] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
+  const [view, setView] = useState<'map' | 'fleet'>('map')
   const [routeSelection, setRouteSelection] = useState<ImpactSelection | null>(null)
   const [impactEvent, setImpactEvent] = useState<ExecutionEvent | null>(null)
   const [eventOpen, setEventOpen] = useState(false)
@@ -334,37 +345,46 @@ export function ExecutionWorkspace({
           <Plus size={14} />
           上报变化
         </Button>
-        <select
-          aria-label="剩余任务修复方法"
-          value={repairPolicy}
-          onChange={(event) => setRepairPolicy(event.target.value as typeof repairPolicy)}
-          disabled={busy || !['paused', 'ready'].includes(e.status)}
-        >
-          <option value="dependency">优先保留未来安排</option>
-          <option value="full">重排全部剩余任务</option>
-        </select>
-        <Button
-          disabled={
-            (e.status !== 'paused' && e.status !== 'ready') || !pendingEvents.length || busy
-          }
-          onClick={() => void repair()}
-        >
-          <RefreshCw size={14} />
-          生成调整
-        </Button>
-        <Button onClick={() => void act(e.connected ? 'disconnect' : 'reconnect')}>
-          {e.connected ? <Wifi size={14} /> : <WifiOff size={14} />}
-          {e.connected ? '模拟遥测断流' : '恢复遥测'}
-        </Button>
-        <a
-          className="button"
-          href={`/api/v1/executions/${id}/export?version=2`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Download size={14} />
-          记录
-        </a>
+        {pendingEvents.length > 0 && (
+          <>
+            <select
+              aria-label="剩余任务修复方法"
+              value={repairPolicy}
+              onChange={(event) => setRepairPolicy(event.target.value as typeof repairPolicy)}
+              disabled={busy || !['paused', 'ready'].includes(e.status)}
+            >
+              <option value="dependency">优先保留未来安排</option>
+              <option value="full">重排全部剩余任务</option>
+            </select>
+            <Button
+              disabled={
+                (e.status !== 'paused' && e.status !== 'ready') || !pendingEvents.length || busy
+              }
+              onClick={() => void repair()}
+            >
+              <RefreshCw size={14} />
+              生成调整
+            </Button>
+          </>
+        )}
+        <details className="v3-execution-more">
+          <summary>更多操作</summary>
+          <div>
+            <Button onClick={() => void act(e.connected ? 'disconnect' : 'reconnect')}>
+              {e.connected ? <Wifi size={14} /> : <WifiOff size={14} />}
+              {e.connected ? '模拟遥测断流' : '恢复遥测'}
+            </Button>
+            <a
+              className="button"
+              href={`/api/v1/executions/${id}/export?version=2`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Download size={14} />
+              记录
+            </a>
+          </div>
+        </details>
       </div>
       <div className="v2-metrics-line">
         <span>
@@ -385,186 +405,255 @@ export function ExecutionWorkspace({
           模拟已交付 <b>{e.delivered_cargo_ids.length} 箱</b>
         </span>
         <span>
-          事实游标 <b>{e.facts_cursor}</b>
+          已记录状态变化 <b>{e.facts_cursor} 条</b>
         </span>
         <span>
           状态版本 <b>{e.revision}</b>
         </span>
         <span>{e.connected ? '模拟遥测正常' : '遥测断流 · 保留最后位置'}</span>
       </div>
-      <div
-        className={`v2-map-workspace ${selectedDevice || routeSelection ? 'inspector-open' : ''}`}
-      >
-        <aside className="v2-object-list">
-          <div className="v2-section-bar">
-            <h3>机队状态</h3>
-          </div>
-          <div className="v2-object-scroll">
-            {e.telemetry.map((d) => (
-              <button
-                key={d.device_id}
-                onClick={() => selectDevice(d.device_id)}
-                className={selected === d.device_id ? 'active' : ''}
-              >
-                <strong>
-                  {d.device_id}
-                  <span>
-                    {d.quality === 'stale'
-                      ? '失联'
-                      : {
-                          prepare: '装载',
-                          climb: '爬升',
-                          cruise: '巡航',
-                          descent: '下降',
-                          handover: '交接',
-                          turnaround: '周转',
-                          available: '待命',
-                          ready: '待开始',
-                          unavailable: '停用',
-                          not_ready: '尚未就绪',
-                          relay_link: '中继建链',
-                          relay_service: '中继服务',
-                        }[d.phase] || d.phase}
-                  </span>
-                </strong>
-                <small>
-                  载货 {d.cargo_ids.length} 箱 · {d.soc === null ? 'SOC 待观测' : percent(d.soc)}
-                </small>
-                <small>{d.sortie_id || '尚无当前架次'}</small>
-                {d.availability_reason && <small>{d.availability_reason}</small>}
-              </button>
-            ))}
-          </div>
-          <div className="v2-section-bar">
-            <h3>变化队列</h3>
-          </div>
-          <div className="v2-event-list">
-            {events.data?.length ? (
-              events.data.map((event) => (
-                <div key={event.event_id}>
-                  <b>{event.reason}</b>
-                  <small>
-                    {clock(event.time_s)} · 直接{' '}
-                    {event.impact?.nodes.filter((n) => n.direct).length ??
-                      event.affected_sortie_ids.length}{' '}
-                    / 影响合计{' '}
-                    {event.impact?.nodes.filter((n) => n.affected).length ??
-                      event.propagated_sortie_ids.length}{' '}
-                    架次
-                  </small>
-                  <Button onClick={() => setImpactEvent(event)}>查看影响链与架次</Button>
-                  {event.missing_inventory > 0 && <em>缺少 {event.missing_inventory} 箱库存</em>}
-                  {event.status === 'requires_manual' && <em>涉及已开始承诺，需人工协调</em>}
-                  {event.status === 'withdrawn' ? (
-                    <small>已核实误报 · {event.resolution_reason}</small>
-                  ) : e.applied_event_ids?.includes(event.event_id) ? (
-                    <small>已纳入采纳方案</small>
-                  ) : (
-                    <Button
-                      disabled={busy || !['paused', 'ready'].includes(e.status)}
-                      onClick={() => {
-                        setResolution(event)
-                        setResolutionReason('')
-                      }}
-                    >
-                      核实误报
-                    </Button>
-                  )}
-                </div>
-              ))
-            ) : (
-              <p>暂无变化</p>
-            )}
-          </div>
-        </aside>
-        <div className="v2-map-main">
-          <RescueMap
-            viewKey={mission.mission_id}
-            onSelectDevice={selectDevice}
-            scenario={mapScenario}
-            plan={initialPlan.data}
-            routeSets={routeSets}
-            telemetry={e.telemetry}
-            playTime={e.time_s}
-            selected={selectedRouteKey}
-            onSelect={selectRoute}
-          />
-        </div>
-        {routeSelection && (
-          <ExecutionRouteInspector
-            key={routeSelection.planId + ':' + routeSelection.sortieId}
-            selection={routeSelection}
-            execution={e}
-            onClose={() => setRouteSelection(null)}
-          />
-        )}
-        {selectedDevice && !routeSelection && (
-          <aside className="v2-inspector">
-            <div className="v2-section-bar">
-              <h2>{selectedDevice.device_id}</h2>
-              <button onClick={() => setSelected(null)} aria-label="关闭机体详情">
-                ×
-              </button>
+      <FleetSummary
+        execution={e}
+        initialScenario={baseScenario}
+        scenario={desiredSnapshot.data?.scenario || baseScenario}
+        sources={routeSets}
+      />
+      <nav className="v3-execution-views" aria-label="执行查看方式">
+        <button className={view === 'map' ? 'active' : ''} onClick={() => setView('map')}>
+          地图监控与事件
+        </button>
+        <button className={view === 'fleet' ? 'active' : ''} onClick={() => setView('fleet')}>
+          机队运输看板
+        </button>
+        <span>模拟状态与实际设备数据分开显示</span>
+      </nav>
+      {view === 'fleet' ? (
+        <FleetOperationsPanel
+          execution={e}
+          scenario={desiredSnapshot.data?.scenario || baseScenario}
+          sources={routeSets}
+          selected={selected}
+          onSelect={(d) => {
+            selectDevice(d)
+            setView('map')
+          }}
+        />
+      ) : (
+        <>
+          <div
+            className={`v2-map-workspace ${selectedDevice || routeSelection ? 'inspector-open' : ''}`}
+          >
+            <aside className="v2-object-list">
+              <div className="v2-section-bar">
+                <h3>机队状态</h3>
+              </div>
+              <div className="v2-object-scroll">
+                {e.telemetry.map((d) => (
+                  <button
+                    key={d.device_id}
+                    onClick={() => selectDevice(d.device_id)}
+                    className={selected === d.device_id ? 'active' : ''}
+                  >
+                    <strong>
+                      {d.device_id}
+                      <span>
+                        {d.quality === 'stale'
+                          ? '失联'
+                          : {
+                              prepare: '装载',
+                              climb: '爬升',
+                              cruise: '巡航',
+                              descent: '下降',
+                              handover: '交接',
+                              turnaround: '周转',
+                              available: '待命',
+                              ready: '待开始',
+                              unavailable: '停用',
+                              not_ready: '尚未就绪',
+                              relay_link: '中继建链',
+                              relay_service: '中继服务',
+                            }[d.phase] || d.phase}
+                      </span>
+                    </strong>
+                    <small>
+                      载货 {d.cargo_ids.length} 箱 ·{' '}
+                      {!d.battery_id && !d.component_id
+                        ? '能源未装机'
+                        : d.estimated_soc != null
+                          ? `${percent(d.estimated_soc)}（模型估计）`
+                          : d.soc != null
+                            ? `${percent(d.soc)}（阶段端点）`
+                            : '电量未知'}
+                    </small>
+                    <small>
+                      {['climb', 'cruise', 'descent'].includes(d.phase)
+                        ? d.cargo_ids.length
+                          ? '载货运输中'
+                          : '空载返航中'
+                        : d.phase === 'handover'
+                          ? '正在交接物资'
+                          : '等待或地面保障'}
+                    </small>
+                    {d.availability_reason && <small>{d.availability_reason}</small>}
+                  </button>
+                ))}
+              </div>
+              <div className="v2-section-bar">
+                <h3>变化队列</h3>
+              </div>
+              <div className="v2-event-list">
+                {events.data?.length ? (
+                  events.data.map((event) => (
+                    <div key={event.event_id}>
+                      <b>{event.reason}</b>
+                      <small>
+                        {clock(event.time_s)} · 直接{' '}
+                        {event.impact?.nodes.filter((n) => n.direct).length ??
+                          event.affected_sortie_ids.length}{' '}
+                        / 影响合计{' '}
+                        {event.impact?.nodes.filter((n) => n.affected).length ??
+                          event.propagated_sortie_ids.length}{' '}
+                        架次
+                      </small>
+                      <Button onClick={() => setImpactEvent(event)}>查看影响链与架次</Button>
+                      {event.missing_inventory > 0 && (
+                        <em>缺少 {event.missing_inventory} 箱库存</em>
+                      )}
+                      {event.status === 'requires_manual' && <em>涉及已开始承诺，需人工协调</em>}
+                      {event.status === 'withdrawn' ? (
+                        <small>已核实误报 · {event.resolution_reason}</small>
+                      ) : e.applied_event_ids?.includes(event.event_id) ? (
+                        <small>已纳入采纳方案</small>
+                      ) : (
+                        <Button
+                          disabled={busy || !['paused', 'ready'].includes(e.status)}
+                          onClick={() => {
+                            setResolution(event)
+                            setResolutionReason('')
+                          }}
+                        >
+                          核实误报
+                        </Button>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <p>暂无变化</p>
+                )}
+              </div>
+            </aside>
+            <div className="v2-map-main">
+              <RescueMap
+                viewKey={mission.mission_id}
+                onSelectDevice={selectDevice}
+                scenario={mapScenario}
+                plan={initialPlan.data}
+                routeSets={routeSets}
+                telemetry={e.telemetry}
+                playTime={e.time_s}
+                selected={selectedRouteKey}
+                onSelect={selectRoute}
+              />
             </div>
-            <dl>
-              <dt>状态来源</dt>
-              <dd>{selectedDevice.quality === 'stale' ? '失联前模拟记录' : '服务器模拟'}</dd>
-              {selectedDevice.availability && (
-                <>
-                  <dt>未来任务可用性</dt>
-                  <dd>
-                    {
-                      { available: '可用', not_ready: '尚未就绪', unavailable: '不可用' }[
-                        selectedDevice.availability
-                      ]
-                    }
-                    <small>{selectedDevice.availability_reason}</small>
-                  </dd>
-                </>
-              )}
-              <dt>当前位置</dt>
-              <dd>{selectedDevice.coordinates?.map((n) => n.toFixed(6)).join(', ') || '未知'}</dd>
-              <dt>模型高程</dt>
-              <dd>
-                {selectedDevice.elevation_m === null
-                  ? '未知'
-                  : number(selectedDevice.elevation_m, 1) + ' m'}
-                <small>{selectedDevice.vertical_datum || '垂直基准未知'}</small>
-              </dd>
-              <dt>SOC 最近端点</dt>
-              <dd>
-                {selectedDevice.soc === null ? '未计算' : percent(selectedDevice.soc)}
-                <small>
-                  {selectedDevice.soc_sample_time_s === null
-                    ? ''
-                    : clock(selectedDevice.soc_sample_time_s)}
-                </small>
-              </dd>
-              <dt>在机箱件</dt>
-              <dd>{selectedDevice.cargo_ids.join(' · ') || '无'}</dd>
-              <dt>能源实体</dt>
-              <dd>
-                {selectedDevice.component_id
-                  ? `中继组件 ${selectedDevice.component_id}`
-                  : selectedDevice.battery_id || '未装载 / 未观测'}
-              </dd>
-              <dt>当前架次来源</dt>
-              <dd>
-                <code>{selectedDevice.active_plan_id}</code>
-              </dd>
-              <dt>最近模拟时刻</dt>
-              <dd>{clock(selectedDevice.time_s)}</dd>
-            </dl>
-            {baseScenario.drones.some((drone) => drone.drone_id === selectedDevice.device_id) && (
-              <DeviceStatePanel
-                key={selectedDevice.device_id}
+            {routeSelection && (
+              <ExecutionRouteInspector
+                key={routeSelection.planId + ':' + routeSelection.sortieId}
+                selection={routeSelection}
                 execution={e}
-                device={selectedDevice.device_id}
+                onClose={() => setRouteSelection(null)}
               />
             )}
-          </aside>
-        )}
-      </div>
+            {selectedDevice && !routeSelection && (
+              <aside className="v2-inspector">
+                <div className="v2-section-bar">
+                  <h2>{selectedDevice.device_id}</h2>
+                  <button onClick={() => setSelected(null)} aria-label="关闭机体详情">
+                    ×
+                  </button>
+                </div>
+                <dl>
+                  <dt>状态来源</dt>
+                  <dd>{selectedDevice.quality === 'stale' ? '失联前模拟记录' : '服务器模拟'}</dd>
+                  {selectedDevice.availability && (
+                    <>
+                      <dt>未来任务可用性</dt>
+                      <dd>
+                        {
+                          { available: '可用', not_ready: '尚未就绪', unavailable: '不可用' }[
+                            selectedDevice.availability
+                          ]
+                        }
+                        <small>{selectedDevice.availability_reason}</small>
+                      </dd>
+                    </>
+                  )}
+                  <dt>当前位置</dt>
+                  <dd>
+                    {selectedDevice.coordinates?.map((n) => n.toFixed(6)).join(', ') || '未知'}
+                  </dd>
+                  <dt>模型高程</dt>
+                  <dd>
+                    {selectedDevice.elevation_m === null
+                      ? '未知'
+                      : number(selectedDevice.elevation_m, 1) + ' m'}
+                    <small>{selectedDevice.vertical_datum || '垂直基准未知'}</small>
+                  </dd>
+                  <dt>电量最近阶段端点</dt>
+                  <dd>
+                    {selectedDevice.soc === null ? '未计算' : percent(selectedDevice.soc)}
+                    <small>
+                      {selectedDevice.soc_sample_time_s === null
+                        ? ''
+                        : clock(selectedDevice.soc_sample_time_s)}
+                    </small>
+                  </dd>
+                  <dt>电量模型估计</dt>
+                  <dd>
+                    {selectedDevice.estimated_soc == null
+                      ? '当前无估计'
+                      : percent(selectedDevice.estimated_soc)}
+                    <small>阶段功率模型推算 · 非实测</small>
+                  </dd>
+                  <dt>水平 / 垂直模型速度</dt>
+                  <dd>
+                    {selectedDevice.model_horizontal_speed_mps == null
+                      ? '未知'
+                      : number(selectedDevice.model_horizontal_speed_mps, 1)}{' '}
+                    /{' '}
+                    {selectedDevice.model_vertical_speed_mps == null
+                      ? '未知'
+                      : number(selectedDevice.model_vertical_speed_mps, 1)}{' '}
+                    m/s
+                  </dd>
+                  <dt>在机箱件</dt>
+                  <dd>{selectedDevice.cargo_ids.join(' · ') || '无'}</dd>
+                  <dt>能源实体</dt>
+                  <dd>
+                    {selectedDevice.component_id
+                      ? `中继组件 ${selectedDevice.component_id}`
+                      : selectedDevice.battery_id || '未装载 / 未观测'}
+                  </dd>
+                  <dt>当前架次来源</dt>
+                  <dd>
+                    <code>{selectedDevice.active_plan_id}</code>
+                  </dd>
+                  <dt>最近模拟时刻</dt>
+                  <dd>{clock(selectedDevice.time_s)}</dd>
+                </dl>
+                {baseScenario.drones.some(
+                  (drone) => drone.drone_id === selectedDevice.device_id,
+                ) && (
+                  <DeviceStatePanel
+                    key={selectedDevice.device_id}
+                    execution={e}
+                    device={selectedDevice.device_id}
+                  />
+                )}
+              </aside>
+            )}
+          </div>
+        </>
+      )}
       <div className="v2-execution-bottom">
         <div className="v2-section-bar">
           <h3>当前采用安排 · 历次方案承诺合并核对</h3>
@@ -686,11 +775,11 @@ export function ExecutionWorkspace({
       </Modal>
       {!!changes.data?.length && (
         <div className="v2-change-list">
-          {changes.data.map((change) => (
+          {changes.data.map((change, index) => (
             <button key={change.change_id} onClick={() => setPreview(change)}>
-              <b>调整 {change.change_id.slice(-6)}</b>
+              <b>第 {(changes.data?.length || 1) - index} 次调整</b>
               <span>
-                {change.status} · 保留 {change.committed_cargo_ids.length} 箱承诺
+                {repairStatus[change.status]} · 保留 {change.committed_cargo_ids.length} 箱承诺
               </span>
               <ArrowRight size={14} />
             </button>
@@ -720,8 +809,8 @@ export function ExecutionWorkspace({
         {latest && (
           <div className="v2-repair-preview">
             <div className="v2-check-summary">
-              状态 {latest.status} · 已保留 {latest.committed_cargo_ids.length} 箱 · 未来最早{' '}
-              {clock(latest.future_not_before_s)}
+              调整状态：{repairStatus[latest.status]} · 已保留 {latest.committed_cargo_ids.length}{' '}
+              箱 · 未来最早 {clock(latest.future_not_before_s)}
             </div>
             <p>{latest.message}</p>
             {latest.calculation_method && (

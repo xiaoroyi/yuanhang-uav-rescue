@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   Expand,
@@ -11,11 +11,17 @@ import {
   ZoomOut,
 } from 'lucide-react'
 import { api, type Plan, type Scenario, type TerrainSurface } from '../api/client'
+import { ops, type Stages } from '../api/operations'
 import { number, percent } from '../lib/format'
 import { terrainMeshIndices } from './terrain-scene-data'
 import './terrain-scene.css'
 
-type Props = { scenario: Scenario; plan: Plan | null; onOpenMap: () => void }
+type Props = {
+  scenario: Scenario
+  plan: Plan | null
+  onOpenMap: () => void
+  selectedSortie?: string | null
+}
 type SceneActions = {
   reset: () => void
   zoom: (factor: number) => void
@@ -42,12 +48,14 @@ function SurfaceCanvas({
   plan,
   exaggeration,
   wireframe,
+  trajectories,
 }: {
   surface: TerrainSurface
   scenario: Scenario
   plan: Plan | null
   exaggeration: number
   wireframe: boolean
+  trajectories: Stages['trajectory_segments']
 }) {
   const host = useRef<HTMLDivElement>(null)
   const actions = useRef<SceneActions | null>(null)
@@ -187,7 +195,8 @@ function SurfaceCanvas({
             scene.add(sphere)
             const label = document.createElement('span')
             label.className = `terrain-scene-node-label ${i ? '' : 'terrain-scene-node-base'}`
-            label.textContent = site.id
+            label.textContent = `${i ? '救援点' : '调度中心'} · ${site.name || site.id}`
+            label.title = label.textContent
             label.setAttribute('aria-hidden', 'true')
             container.appendChild(label)
             labels.push({
@@ -213,7 +222,7 @@ function SurfaceCanvas({
             const lineMaterial = new T.LineBasicMaterial({
               color: '#b4a0ff',
               transparent: true,
-              opacity: 0.8,
+              opacity: 0.25,
             })
             assets.push(lineMaterial)
             let points: InstanceType<typeof T.Vector3>[] = []
@@ -248,6 +257,30 @@ function SurfaceCanvas({
               }
             }
             flush()
+          }
+          // True model phase geometry, not a terrain-draped line.
+          for (const segment of trajectories) {
+            if (
+              !['climb', 'cruise', 'descent'].includes(segment.phase) ||
+              segment.start_elevation_m == null ||
+              segment.end_elevation_m == null
+            )
+              continue
+            const a = segment.from_coordinates,
+              b = segment.to_coordinates
+            if (!a || !b) continue
+            const geometry = new T.BufferGeometry().setFromPoints([
+              project(a[0], a[1], segment.start_elevation_m),
+              project(b[0], b[1], segment.end_elevation_m),
+            ])
+            const material = new T.LineBasicMaterial({
+              color: segment.phase === 'cruise' ? '#a8e8d3' : '#ffce82',
+              depthTest: false,
+            })
+            assets.push(geometry, material)
+            const line = new T.Line(geometry, material)
+            line.renderOrder = 5
+            scene.add(line)
           }
           // Start at the actual task region, not the full asset extent (which may be much larger).
           if (labels.length) {
@@ -290,16 +323,34 @@ function SurfaceCanvas({
                 top: y - height - lift - 2,
                 bottom: y - lift + 2,
               })
-              for (let attempt = 0; attempt < 6; attempt++) {
+              let placed = false
+              for (const offset of [
+                0,
+                height + 6,
+                -height - 8,
+                2 * (height + 6),
+                -2 * (height + 8),
+                3 * (height + 6),
+              ]) {
+                lift = offset
                 const a = box()
                 if (
+                  a.left >= 6 &&
+                  a.right <= container.clientWidth - 6 &&
+                  a.top >= 8 &&
+                  a.bottom <= container.clientHeight - 35 &&
                   !occupied.some(
                     (b) =>
                       a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top,
                   )
-                )
+                ) {
+                  placed = true
                   break
-                lift += height + 4
+                }
+              }
+              if (!placed) {
+                label.element.hidden = true
+                continue
               }
               occupied.push(box())
               label.element.style.left = `${x}px`
@@ -375,7 +426,7 @@ function SurfaceCanvas({
       canceled = true
       cleanup()
     }
-  }, [surface, scenario, plan, exaggeration, wireframe])
+  }, [surface, scenario, plan, exaggeration, wireframe, trajectories])
   return (
     <div className="terrain-scene-stage">
       <div
@@ -461,15 +512,33 @@ function SurfaceCanvas({
           <i className="terrain-scene-route" />
           航路地面投影
         </span>
+        {!!trajectories.length && (
+          <span>
+            <i style={{ background: '#a8e8d3' }} />
+            模型航迹 · 黄色为升降
+          </span>
+        )}
       </div>
     </div>
   )
 }
 
-export function TerrainScene({ scenario, plan, onOpenMap }: Props) {
+export function TerrainScene({ scenario, plan, onOpenMap, selectedSortie }: Props) {
   const terrain = scenario.terrain
   const [exaggeration, setExaggeration] = useState(2)
   const [wireframe, setWireframe] = useState(false)
+  const stages = useQuery({
+    queryKey: ['stages', plan?.plan_id],
+    queryFn: () => ops.stages(plan!.plan_id),
+    enabled: !!plan,
+  })
+  const trajectories = useMemo(
+    () =>
+      stages.data?.trajectory_segments.filter(
+        (s) => s.sortie_id === (selectedSortie || plan?.sorties[0]?.sortie_id),
+      ) || [],
+    [stages.data, selectedSortie, plan],
+  )
   const hasAsset = terrain.status === 'available' && !!terrain.asset_id && !!terrain.sha256
   const surface = useQuery({
     queryKey: ['terrain-surface', terrain.asset_id, terrain.sha256],
@@ -482,7 +551,7 @@ export function TerrainScene({ scenario, plan, onOpenMap }: Props) {
     <section className="terrain-scene" aria-label="真实三维地形分析">
       <div className="terrain-scene-header">
         <div>
-          <span className="terrain-scene-eyebrow">GEOSPATIAL VIEW</span>
+          <span className="terrain-scene-eyebrow">真实地形与模型航迹</span>
           <h3>
             <Mountain size={19} />
             山地空间 · 三维推演
@@ -501,6 +570,7 @@ export function TerrainScene({ scenario, plan, onOpenMap }: Props) {
           plan={plan}
           exaggeration={exaggeration}
           wireframe={wireframe}
+          trajectories={trajectories}
         />
       ) : (
         <div className="terrain-scene-empty">
@@ -577,11 +647,11 @@ export function TerrainScene({ scenario, plan, onOpenMap }: Props) {
           </div>
           <p className="terrain-scene-caption">
             {surface.data.notice}{' '}
-            路线贴地投影仅供空间理解，不代表飞行高度或实测轨迹；高程倍率只改变画面，不参与计算。NoData保留孔洞；范围外或NoData中的点位与投影线不绘制。
+            淡紫色为航路地面投影；绿色与黄色线显示所选架次的模型巡航和升降，高度来自阶段计算，非实测轨迹。高程倍率只改变画面，不参与计算。NoData保留孔洞。
           </p>
           <p className="terrain-scene-compact-note">
             真实DEM · {surface.data.longitude.length}×{surface.data.latitude.length}展示网格 ·
-            NoData留空 · 航路为地面投影，非实飞轨迹
+            NoData留空 · 淡紫投影 / 绿黄模型航迹 · 非实测
           </p>
           <details className="terrain-scene-provenance">
             <summary>查看地形来源与空间范围</summary>

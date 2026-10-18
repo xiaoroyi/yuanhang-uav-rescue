@@ -341,9 +341,14 @@ def register_missions(app, database, error, save_new, snapshot_for):
 
                 s = (
                     compact_scenario()
-                    if body.template == "compact"
+                    if body.template in ("compact", "compact_joint")
                     else contest_scenario()
                 )
+                if body.template in ("compact_joint", "contest_joint"):
+                    from solver.adapters.contest import contest_communication
+
+                    s["communication"] = contest_communication(s)
+                    s["policy"]["requires_communication"] = True
                 s.update(
                     scenario_id=identity("SCN"),
                     state_version=1,

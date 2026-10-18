@@ -1,11 +1,12 @@
 import type { Plan, Scenario } from '../api/client'
+export function orderedSorties(plan: Plan) {
+  return [...plan.sorties].sort((a,b)=>a.prepare_start_s-b.prepare_start_s||a.sortie_id.localeCompare(b.sortie_id))
+}
 
 export function scheduleRows(plan: Plan, scenario: Scenario) {
   const cargo = new Map(scenario.cargo_items.map((c) => [c.cargo_id, c]))
   const demands = new Map(scenario.demands.map((d) => [d.demand_id, d]))
-  const sorties = [...plan.sorties].sort(
-    (a, b) => a.prepare_start_s - b.prepare_start_s || a.sortie_id.localeCompare(b.sortie_id),
-  )
+  const sorties = orderedSorties(plan)
   const deliveries = sorties
     .flatMap((r) =>
       r.visits.flatMap((v) =>

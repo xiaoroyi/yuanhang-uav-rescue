@@ -60,6 +60,7 @@ from backend.app.map_assets import (
 )
 from backend.app.map_models import TerrainSurface
 from backend.app.flight_profiles import FlightProfile, flight_profile
+from backend.app.radio_coverage import RadioCoverage, radio_coverage
 from backend.app.version_views import ScenarioVersionSummary
 from backend.app.reports import build_report
 from backend.app.partition_views import PartitionReport
@@ -745,6 +746,30 @@ def create_app(runtime_dir: Path | None = None):
             ).model_dump(mode="json", exclude_unset=True)
             snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
         return partition(snap, plan)
+
+    @app.get("/api/v1/plans/{plan_id}/radio-coverage", response_model=RadioCoverage)
+    def plan_radio_coverage(
+        plan_id: str,
+        altitude_agl_m: float = Query(120, ge=1, le=300),
+        relay_sortie_id: str | None = Query(None, max_length=128),
+        grid_size: int = Query(21, ge=9, le=31),
+    ):
+        with database.session() as session:
+            plan = require_row(session, PlanRow, plan_id).content
+            snap = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+        try:
+            return radio_coverage(
+                snap, plan, altitude_agl_m, relay_sortie_id, grid_size
+            )
+        except KeyError as exc:
+            raise AppError(
+                404,
+                "REFERENCE_INVALID",
+                "所选中继架次不属于这个方案。",
+                "relay_sortie_id",
+            ) from exc
+        except (InputNotReady, TimeoutError) as exc:
+            raise AppError(422, "SCHEMA_INVALID", str(exc), "communication") from exc
 
     @app.get("/api/v1/plans/{plan_id}/report", response_class=HTMLResponse)
     def plan_report(plan_id: str):
@@ -1516,11 +1541,23 @@ def create_app(runtime_dir: Path | None = None):
 
     @app.get("/api/v1/plans/{plan_id}/export")
     def export_plan(
-        plan_id: str, format: Literal["json", "csv", "geojson", "relay_csv"] = "json"
+        plan_id: str,
+        format: Literal["json", "csv", "geojson", "relay_csv", "xlsx"] = "json",
     ):
         with database.session() as session:
             plan = copy.deepcopy(require_row(session, PlanRow, plan_id).content)
         headers = {"Content-Disposition": f'attachment; filename="{plan_id}.{format}"'}
+        if format == "xlsx":
+            from backend.app.schedule_export import schedule_workbook
+
+            with database.session() as session:
+                frozen = require_row(session, SnapshotRow, plan["snapshot_id"]).content
+                frozen = copy.deepcopy(frozen)
+            return Response(
+                schedule_workbook(plan, frozen),
+                media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                headers=headers,
+            )
         if format == "json":
             return JSONResponse(content=plan, headers=headers)
         if format == "relay_csv":

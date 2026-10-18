@@ -1,0 +1,18 @@
+{
+  "prepare": {
+    "source": "evidence/experience-v3/screenshots/help-prepare.png",
+    "sha256": "098aa349678db1b8f0b729161dc4b487b3ed186976fc36de950a99a3572fa229"
+  },
+  "schedule": {
+    "source": "evidence/experience-v3/screenshots/help-schedule.png",
+    "sha256": "1bba1ed2a7bc3ffedb531d6c9a3139bb8f03d6ac65dfdc3fe6b6e493a31fc9f6"
+  },
+  "terrain": {
+    "source": "evidence/experience-v3/screenshots/help-terrain.png",
+    "sha256": "417a071a7bd82825b7355a7c4ac3bf6fd47a16492a814d6355c754388430aa76"
+  },
+  "execution": {
+    "source": "evidence/experience-v3/screenshots/help-execution.png",
+    "sha256": "3cbdc87e56fe8428876f168cc20dc33b0031ad975cb1c4dee29497a785760272"
+  }
+}

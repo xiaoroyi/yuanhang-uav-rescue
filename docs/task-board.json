@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-18",
+  "updated": "2026-10-19",
   "team": {
     "A": "算法与项目负责人",
     "B": "同一人负责前端、后端与集成"
@@ -1870,6 +1870,242 @@
         "evidence/redesign-v2/KNOWN_LIMITATIONS.md",
         "evidence/redesign-v2/TEST_REPORT.md",
         "evidence/redesign-v2/DELIVERY_CHECKS.json"
+      ]
+    },
+    {
+      "id": "V3-00",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "审计与论文/参考对照",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "独立调度安排与多表导出",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-00"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-02",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "设计系统与独立精致首页",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-00"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-03",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "显眼步骤、菜单和求解进度",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-02"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-04",
+      "phase": "G4",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "地形剖面/三维与论文约束核对",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-00"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-05",
+      "phase": "G4",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "真实通信演练/中继/覆盖与分析",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-04"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-06",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "执行运输看板与逐机模拟状态",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-03"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-07",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "按救援任务组织资源中心",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-02"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-08",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "全界面术语/标签/图标可读性",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-01",
+        "V3-03"
+      ],
+      "status": "in_progress",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-09",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "图文帮助/引导和实际演示录屏",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-01",
+        "V3-06"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-10",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "同类产品关键缺口与能力说明",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-00"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
+      ]
+    },
+    {
+      "id": "V3-11",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "关键流程/实景检查与交接",
+      "acceptance": "对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3",
+      "dependencies": [
+        "V3-01",
+        "V3-02",
+        "V3-04",
+        "V3-05",
+        "V3-06",
+        "V3-07",
+        "V3-08",
+        "V3-09",
+        "V3-10"
+      ],
+      "status": "in_progress",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/experience-v3/README.md",
+        "docs/experience-v3/CONSTRAINT_TRACEABILITY.md",
+        "evidence/experience-v3/browser-review.json"
       ]
     }
   ]

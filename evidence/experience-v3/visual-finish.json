@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-18T17:48:55.084Z",
+  "passed": false,
+  "errors": [],
+  "geometry": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "mapHeight": 502,
+      "pageWidth": 1440
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "mapHeight": 383,
+      "pageWidth": 1280
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "mapHeight": 431,
+      "pageWidth": 1024
+    }
+  ],
+  "checks": [
+    "post-repair totals = 33, retained in-flight commitments; 3 viewport maps and tables",
+    {
+      "tutorial_video": {
+        "duration": 36.6,
+        "currentTime": 0.5382,
+        "readyState": 4,
+        "tracks": 1
+      }
+    },
+    {
+      "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '恢复遥测', exact: true })\u001b[22m\n"
+    }
+  ],
+  "shots": [
+    "plans-1440.png",
+    "execution-1440.png",
+    "fleet-1440.png",
+    "schedule-1440.png",
+    "plans-1280.png",
+    "execution-1280.png",
+    "fleet-1280.png",
+    "schedule-1280.png",
+    "plans-1024.png",
+    "execution-1024.png",
+    "fleet-1024.png",
+    "schedule-1024.png",
+    "help-prepare.png",
+    "help-schedule.png",
+    "help-terrain.png",
+    "help-execution.png",
+    "help-1440.png",
+    "help-schedule-1440.png",
+    "help-1280.png",
+    "help-schedule-1280.png",
+    "insights-1440.png",
+    "insights-height-1440.png",
+    "schedule-dark-1440.png",
+    "resource-dark-1440.png",
+    "execution-disconnected-1440.png",
+    "finish-failure.png"
+  ]
+}

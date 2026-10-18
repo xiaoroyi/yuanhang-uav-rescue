@@ -357,6 +357,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/plans/{plan_id}/radio-coverage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Plan Radio Coverage */
+        get: operations["plan_radio_coverage_api_v1_plans__plan_id__radio_coverage_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/plans/{plan_id}/report": {
         parameters: {
             query?: never;
@@ -1944,6 +1961,21 @@ export interface components {
             /** Name */
             name?: string | null;
         };
+        /** CoveragePoint */
+        CoveragePoint: {
+            /** Coordinates */
+            coordinates: [
+                number,
+                number
+            ];
+            /** Elevation M */
+            elevation_m: number | null;
+            /**
+             * Source
+             * @enum {string}
+             */
+            source: "gateway" | "relay" | "uncovered" | "unknown";
+        };
         /**
          * DataOrigin
          * @enum {string}
@@ -3217,7 +3249,7 @@ export interface components {
              * @default blank
              * @enum {string}
              */
-            template: "blank" | "compact" | "contest";
+            template: "blank" | "compact" | "contest" | "compact_joint" | "contest_joint";
             /** Scenario Id */
             scenario_id?: string | null;
             /** Idempotency Key */
@@ -4001,6 +4033,42 @@ export interface components {
             elapsed_s: number;
             /** Candidate Count */
             candidate_count: number;
+        };
+        /** RadioCoverage */
+        RadioCoverage: {
+            /** Plan Id */
+            plan_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /** Terrain Sha256 */
+            terrain_sha256: string;
+            /** Vertical Datum */
+            vertical_datum: string | null;
+            /** Relay Sortie Id */
+            relay_sortie_id: string | null;
+            /** Relay Service Start S */
+            relay_service_start_s: number | null;
+            /** Relay Service End S */
+            relay_service_end_s: number | null;
+            /** Relay Backhaul Available */
+            relay_backhaul_available: boolean | null;
+            /** Altitude Agl M */
+            altitude_agl_m: number;
+            /** Bounds */
+            bounds: [
+                number,
+                number,
+                number,
+                number
+            ];
+            /** Grid Size */
+            grid_size: number;
+            /** Points */
+            points: components["schemas"]["CoveragePoint"][];
+            /** Complete */
+            complete: boolean;
+            /** Notice */
+            notice: string;
         };
         /** RadioEndpoint */
         RadioEndpoint: {
@@ -4822,6 +4890,16 @@ export interface components {
             soc: number | null;
             /** Soc Sample Time S */
             soc_sample_time_s: number | null;
+            /** Model Horizontal Speed Mps */
+            model_horizontal_speed_mps?: number | null;
+            /** Model Vertical Speed Mps */
+            model_vertical_speed_mps?: number | null;
+            /** Estimated Soc */
+            estimated_soc?: number | null;
+            /** Payload Kg */
+            payload_kg?: number | null;
+            /** Phase End S */
+            phase_end_s?: number | null;
             /** Phase */
             phase: string;
             /** Availability */
@@ -5831,6 +5909,41 @@ export interface operations {
             };
         };
     };
+    plan_radio_coverage_api_v1_plans__plan_id__radio_coverage_get: {
+        parameters: {
+            query?: {
+                altitude_agl_m?: number;
+                relay_sortie_id?: string | null;
+                grid_size?: number;
+            };
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RadioCoverage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     plan_report_api_v1_plans__plan_id__report_get: {
         parameters: {
             query?: never;
@@ -6649,7 +6762,7 @@ export interface operations {
     export_plan_api_v1_plans__plan_id__export_get: {
         parameters: {
             query?: {
-                format?: "json" | "csv" | "geojson" | "relay_csv";
+                format?: "json" | "csv" | "geojson" | "relay_csv" | "xlsx";
             };
             header?: never;
             path: {

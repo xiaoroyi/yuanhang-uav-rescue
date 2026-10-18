@@ -13,22 +13,28 @@ import {
   ListChecks,
   MapPin,
   Moon,
-  Plane,
+  Drone,
   Plus,
   Search,
   Settings2,
   Sun,
 } from 'lucide-react'
 import { api } from '../api/client'
-import { ops, key, type Mission } from '../api/operations'
+import { ops, key, type Mission, type MissionCreate } from '../api/operations'
 import { Button, Empty, Modal, Toasts, type ToastMessage } from '../components/ui'
 import { LocalProfileDialog, useLocalProfile } from '../components/LocalProfile'
 import LegacyApp from '../App'
-import { MissionWorkspace } from './MissionWorkspace'
-import { ResourceCenter } from './ResourceCenter'
+import { MissionWorkspace, type MissionStage } from './MissionWorkspace'
+import { TaskResources } from './TaskResources'
 import { ExperimentCenter } from './ExperimentCenter'
 import { UIContext } from '../components/UIContext'
+import { LandingHome } from './LandingHome'
+import { HelpHub } from './HelpHub'
+import { CommandPalette } from './CommandPalette'
 import './operations.css'
+import '@radix-ui/colors/teal.css'
+import '@radix-ui/colors/slate.css'
+import './experience.css'
 
 export function navigate(path: string) {
   location.hash = path
@@ -67,13 +73,17 @@ export default function OperationsApp() {
   const [path, setPath] = useState(route)
   const inLegacy = legacyRoutes.includes(path)
   const [createOpen, setCreateOpen] = useState(false)
-  const [template, setTemplate] = useState<'blank' | 'compact' | 'contest'>('blank')
+  const [template, setTemplate] = useState<NonNullable<MissionCreate['template']>>('blank')
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
   const [messages, setMessages] = useState<ToastMessage[]>([])
   const [profileOpen, setProfileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const { profile, saveProfile } = useLocalProfile()
   const [theme, setTheme] = useState(() => localStorage.getItem('yuanhang-v2-theme') || 'light')
+  const [motionEnabled, setMotionEnabled] = useState(
+    () => localStorage.getItem('yuanhang-v3-motion') !== 'off',
+  )
   const query = useQueryClient()
   const missions = useQuery({
     queryKey: ['missions'],
@@ -89,9 +99,10 @@ export default function OperationsApp() {
   useEffect(() => {
     if (inLegacy) return
     document.documentElement.dataset.theme = theme
-    document.documentElement.dataset.motion = 'off'
+    document.documentElement.dataset.motion = motionEnabled ? 'on' : 'off'
+    localStorage.setItem('yuanhang-v3-motion', motionEnabled ? 'on' : 'off')
     localStorage.setItem('yuanhang-v2-theme', theme)
-  }, [theme, inLegacy])
+  }, [theme, inLegacy, motionEnabled])
   const notify = (message: string, error = false) =>
     setMessages((m) => [
       ...m.slice(-3),
@@ -115,7 +126,10 @@ export default function OperationsApp() {
     void query.invalidateQueries({ queryKey: ['missions'] })
     void query.invalidateQueries({ queryKey: ['mission'] })
   }
-  const match = /^missions\/([^/]+)(?:\/(prepare|plans|execute|review))?/.exec(path)
+  const match =
+    /^missions\/([^/]+)(?:\/(prepare|plans|schedule|terrain|communication|insights|execute|review))?/.exec(
+      path,
+    )
   const inMission = !!match && match[1] !== 'new'
   const current = missions.data?.find((m) => m.mission_id === match?.[1])
   const nav = [
@@ -132,9 +146,9 @@ export default function OperationsApp() {
           name.trim() ||
           (template === 'blank'
             ? '新建救援任务'
-            : template === 'compact'
+            : template === 'compact' || template === 'compact_joint'
               ? '小规模救援演练'
-              : '原题回归演练'),
+              : '原题回归演练') + (template.endsWith('_joint') ? ' · 通信协同' : ''),
         template,
         idempotency_key: key(),
         mode: 'simulation',
@@ -165,104 +179,130 @@ export default function OperationsApp() {
     )
   return (
     <UIContext.Provider value="v2">
-      <div className={`v2-app ${inMission ? 'mission-shell' : ''}`}>
-        <aside className="v2-sidebar">
-          <a className="v2-brand" href="#/home" aria-label="援航首页">
-            <span>
-              <Plane size={24} />
-            </span>
-            <b>
-              援航<small>救援任务协同</small>
-            </b>
-          </a>
-          <nav aria-label="主要导航">
-            {nav.map((n) => (
-              <a
-                key={n.path}
-                href={`#/${n.path}`}
-                title={n.title}
-                className={path === n.path || (n.path === 'missions' && inMission) ? 'active' : ''}
-              >
-                <n.icon size={19} />
-                <span>{n.title}</span>
+      <div className={`v2-app v3-experience ${inMission ? 'mission-shell' : ''}`}>
+        {path === 'home' ? (
+          <LandingHome
+            missions={missions.data || []}
+            onNew={newTask}
+            motionEnabled={motionEnabled}
+            onMotion={() => setMotionEnabled(!motionEnabled)}
+          />
+        ) : (
+          <>
+            <aside className="v2-sidebar">
+              <a className="v2-brand" href="#/home" aria-label="援航首页">
+                <span>
+                  <Drone size={24} />
+                </span>
+                <b>
+                  援航<small>救援任务协同</small>
+                </b>
               </a>
-            ))}
-          </nav>
-          <div className="v2-sidebar-bottom">
-            <a href="#/settings" title="设置与接入">
-              <Settings2 size={18} />
-              <span>设置与接入</span>
-            </a>
-            <a href="#/help" title="使用帮助">
-              <CircleHelp size={18} />
-              <span>使用帮助</span>
-            </a>
-            <button onClick={() => setProfileOpen(true)} title="本机档案">
-              <i>{profile.displayName.slice(0, 1)}</i>
-              <span>{profile.displayName}</span>
-            </button>
-          </div>
-        </aside>
-        <div className="v2-main">
-          <header className="v2-topbar">
-            <div>
-              <a href="#/home">救援工作空间</a>
-              {inMission && (
-                <>
-                  <span>/</span>
-                  <a href="#/missions">救援任务</a>
-                  <span>/</span>
-                  <b>{current?.name || '加载任务…'}</b>
-                </>
+              <nav aria-label="主要导航">
+                {nav.map((n) => (
+                  <a
+                    key={n.path}
+                    href={`#/${n.path}`}
+                    aria-label={n.title}
+                    title={n.title}
+                    className={
+                      path === n.path || (n.path === 'missions' && inMission) ? 'active' : ''
+                    }
+                  >
+                    <n.icon size={19} />
+                    <span>{n.title}</span>
+                  </a>
+                ))}
+              </nav>
+              <div className="v2-sidebar-bottom">
+                <a href="#/settings" title="设置与接入">
+                  <Settings2 size={18} />
+                  <span>设置与接入</span>
+                </a>
+                <a href="#/help" title="使用帮助">
+                  <CircleHelp size={18} />
+                  <span>使用帮助</span>
+                </a>
+                <button onClick={() => setProfileOpen(true)} title="本机档案">
+                  <i>{profile.displayName.slice(0, 1)}</i>
+                  <span>{profile.displayName}</span>
+                </button>
+              </div>
+            </aside>
+            <div className="v2-main">
+              <header className="v2-topbar">
+                <div>
+                  <a href="#/home">救援工作空间</a>
+                  {inMission && (
+                    <>
+                      <span>/</span>
+                      <a href="#/missions">救援任务</a>
+                      <span>/</span>
+                      <b>{current?.name || '加载任务…'}</b>
+                    </>
+                  )}
+                </div>
+                <div>
+                  <button className="v3-global-search" onClick={() => setSearchOpen(true)}>
+                    <Search size={15} />
+                    <span>查找任务与功能</span>
+                    <kbd>Ctrl K</kbd>
+                  </button>
+                  <span className={`v2-service ${health.isError ? 'offline' : ''}`}>
+                    {health.isError ? '本机服务不可用' : health.data ? '本机服务已连接' : '连接中…'}
+                  </span>
+                  <button
+                    className="icon-button"
+                    aria-label="切换主题"
+                    onClick={() => setTheme(theme === 'light' ? 'midnight' : 'light')}
+                  >
+                    {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+                  </button>
+                  <a href="#/help" aria-label="帮助">
+                    <CircleHelp size={18} />
+                  </a>
+                </div>
+              </header>
+              {inMission ? (
+                <MissionWorkspace
+                  key={match[1]}
+                  missionId={match[1]}
+                  stage={(match[2] || 'prepare') as MissionStage}
+                  notify={notify}
+                />
+              ) : path.startsWith('resources') ? (
+                <TaskResources key={path.split('/')[1] || 'index'} path={path} notify={notify} />
+              ) : path === 'experiments' ? (
+                <ExperimentCenter
+                  missions={missions.data || []}
+                  onNew={() => newTask('compact')}
+                  onNewJoint={() => newTask('compact_joint')}
+                  notify={notify}
+                />
+              ) : path === 'settings' ? (
+                <Settings />
+              ) : path.startsWith('help') ? (
+                <HelpHub missions={missions.data || []} onNew={newTask} />
+              ) : (
+                <MissionHome
+                  missions={missions.data || []}
+                  loading={missions.isPending}
+                  error={missions.error}
+                  list={path === 'missions'}
+                  onNew={newTask}
+                  notify={notify}
+                  onRefresh={refresh}
+                />
               )}
             </div>
-            <div>
-              <span className={`v2-service ${health.isError ? 'offline' : ''}`}>
-                {health.isError ? '本机服务不可用' : health.data ? '本机服务已连接' : '连接中…'}
-              </span>
-              <button
-                className="icon-button"
-                aria-label="切换主题"
-                onClick={() => setTheme(theme === 'light' ? 'midnight' : 'light')}
-              >
-                {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
-              </button>
-              <a href="#/help" aria-label="帮助">
-                <CircleHelp size={18} />
-              </a>
-            </div>
-          </header>
-          {inMission ? (
-            <MissionWorkspace
-              key={match[1]}
-              missionId={match[1]}
-              stage={(match[2] || 'prepare') as 'prepare' | 'plans' | 'execute' | 'review'}
-              notify={notify}
-            />
-          ) : path === 'resources' ? (
-            <ResourceCenter notify={notify} />
-          ) : path === 'experiments' ? (
-            <ExperimentCenter
-              missions={missions.data || []}
-              onNew={() => newTask('compact')}
-              notify={notify}
-            />
-          ) : path === 'settings' ? (
-            <Settings />
-          ) : path === 'help' ? (
-            <Help />
-          ) : (
-            <MissionHome
-              missions={missions.data || []}
-              loading={missions.isPending}
-              error={missions.error}
-              list={path === 'missions'}
-              onNew={newTask}
-              notify={notify}
-              onRefresh={refresh}
-            />
-          )}
-        </div>
+          </>
+        )}
+        <CommandPalette
+          open={searchOpen}
+          onOpenChange={setSearchOpen}
+          missions={missions.data || []}
+          current={current}
+        />
         <Modal
           title="新建救援任务"
           description="创建独立模拟任务。只保存输入，不复制其他任务的执行事实。"
@@ -300,6 +340,16 @@ export default function OperationsApp() {
                     value: 'contest',
                     title: '原题回归演练',
                     text: '15 个需求点 · 80 箱 · 原题模型',
+                  },
+                  {
+                    value: 'compact_joint',
+                    title: '小规模运输＋通信协同',
+                    text: '5 个需求点 · 中继机队与能源组件 · 真实联合计算',
+                  },
+                  {
+                    value: 'contest_joint',
+                    title: '原题运输＋通信协同',
+                    text: '15 个需求点 · 80 箱 · 原题通信模型与中继排程',
                   },
                 ] as const
               ).map((t) => (
@@ -360,7 +410,7 @@ function MissionHome({
   loading: boolean
   error: Error | null
   list: boolean
-  onNew: (t: 'blank' | 'compact' | 'contest') => void
+  onNew: (t: NonNullable<MissionCreate['template']>) => void
   notify: (m: string, e?: boolean) => void
   onRefresh: () => void
 }) {
@@ -375,6 +425,8 @@ function MissionHome({
       `${m.name} ${m.mission_id}`.toLowerCase().includes(search.toLowerCase()),
   )
   const recent = missions.find((m) => m.lifecycle !== 'archived')
+  const unlinked =
+    legacy.data?.filter((s) => !missions.some((m) => m.current_scenario_id === s.scenario_id)) || []
   return (
     <main className="v2-content">
       <div className="v2-page-heading">
@@ -421,6 +473,26 @@ function MissionHome({
             </span>
             <ArrowRight size={18} />
           </a>
+        </div>
+      )}
+      {list && unlinked.length > 0 && (
+        <div className="v3-legacy-banner">
+          <Archive size={18} />
+          <span>
+            <b>保留了 {unlinked.length} 份旧版输入记录</b>
+            <small>可接入救援任务，继续查看原有方案与版本。</small>
+          </span>
+          <button
+            className="button"
+            onClick={() => {
+              const el = document.getElementById('v3-existing-inputs')
+              el?.setAttribute('open', '')
+              el?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+            }}
+          >
+            接入已有输入
+            <ArrowRight size={13} />
+          </button>
         </div>
       )}
       <section className="v2-card">
@@ -548,8 +620,8 @@ function MissionHome({
       {!!legacy.data?.some(
         (s) => !missions.some((m) => m.current_scenario_id === s.scenario_id),
       ) && (
-        <details className="v2-card v2-legacy-list">
-          <summary>已有 V1 场景与历史方案</summary>
+        <details className="v2-card v2-legacy-list" id="v3-existing-inputs">
+          <summary>已有输入记录与历史方案</summary>
           <p>关联既有输入；保留全部历史版本与方案。</p>
           {legacy.data
             .filter((s) => !missions.some((m) => m.current_scenario_id === s.scenario_id))
@@ -603,60 +675,6 @@ function Settings() {
           <dd>左下角本机档案仅保存展示姓名，不授予设备控制权限</dd>
         </dl>
         <p>真实设备接入需独立配置受支持适配器、服务端身份与现场许可。</p>
-      </section>
-    </main>
-  )
-}
-function Help() {
-  return (
-    <main className="v2-content">
-      <div className="v2-page-heading">
-        <h1>使用帮助</h1>
-      </div>
-      <section className="v2-card v2-help">
-        <h2>完成一次救援演练</h2>
-        <ol>
-          <li>
-            <b>新建任务</b>
-            <p>首次使用可选择小规模入门演练；空白任务从基地、需求和库存开始。</p>
-          </li>
-          <li>
-            <b>任务准备</b>
-            <p>
-              依次核对区域基地、需求物资、机队保障；需求和实物库存分别录入，保存后运行条件检查。
-            </p>
-          </li>
-          <li>
-            <b>方案规划</b>
-            <p>
-              选择偏好生成方案。点击站点、航线或甘特条核对架次、箱件、时间和电池。确认方案只建立计划预约。
-              暂无可行方案时，可打开“资源诊断与增配”，在独立场景真实试算新增机体或电池。
-            </p>
-          </li>
-          <li>
-            <b>执行跟踪</b>
-            <p>
-              创建并启动仿真，使用暂停和倍速。刷新会恢复服务器状态。中途变化先暂停，记录事件后生成调整并核对差异。
-              变化队列可查看资源影响链；点击未来架次核对安排，调整预览会列出换机、换电池与时刻变化。
-            </p>
-          </li>
-          <li>
-            <b>复盘分析</b>
-            <p>区分计划分配和模拟交付，查看时间轴、能源与事件；导出方案和执行记录。</p>
-          </li>
-        </ol>
-        <h3>比较算法与保存历史</h3>
-        <p>
-          在“演练评测”选择同输入偏好、搜索方法或冻结调整的方法对照，设置预算与种子。结果、失败和原始日志都会保存；评测不会采纳新方案。执行页下载完整运行包后，可在资源中心的运行档案只读重新打开。
-        </p>
-        <a href="#/experiments">打开演练评测</a>
-        <div className="v2-help-note">
-          计划预演仅用于查看，不产生交付；仿真演练写隔离账本；本机未连接真实设备。
-        </div>
-        <a href="#/home">
-          返回首页
-          <ArrowRight size={15} />
-        </a>
       </section>
     </main>
   )

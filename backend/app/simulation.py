@@ -13,6 +13,7 @@ from backend.app.operation_models import ExecutionView
 from backend.app.missions import identity, require
 from solver.assets import terrain_store
 from solver.stages import stage_analysis, position
+from solver.physics import GEOD
 
 
 def timestamp(value):
@@ -214,7 +215,9 @@ class SimulationEngine:
         value["telemetry_sequence"] = value.get("telemetry_sequence", 0) + 1
         withdrawn = {
             e["event_id"]
-            for e in self.records(session, value["execution_id"], "execution.event.resolution")
+            for e in self.records(
+                session, value["execution_id"], "execution.event.resolution"
+            )
             if e["action"] == "withdraw_misreport"
         }
         unavailable = {
@@ -248,12 +251,16 @@ class SimulationEngine:
             availability_reason = None
             if drone["drone_id"] in unavailable or drone.get("status") == "unavailable":
                 availability = "unavailable"
-                availability_reason = unavailable.get(drone["drone_id"], "输入资源标记为不可用")
+                availability_reason = unavailable.get(
+                    drone["drone_id"], "输入资源标记为不可用"
+                )
             elif drone.get("available_after_s", 0) > tick:
                 availability = "not_ready"
                 availability_reason = f"预计可用时刻 {drone['available_after_s']:g} s"
-            phase = availability if availability != "available" else (
-                "ready" if value["status"] == "ready" else "available"
+            phase = (
+                availability
+                if availability != "available"
+                else ("ready" if value["status"] == "ready" else "available")
             )
             soc = None
             soc_time = None
@@ -261,6 +268,8 @@ class SimulationEngine:
             bid = None
             component = None
             loaded = []
+            horizontal_speed, vertical_speed = 0.0, 0.0
+            estimated_soc, payload, phase_end = None, None, None
             pid = initial["plan_id"]
             if active:
                 p, snap, r, stages = active
@@ -277,6 +286,45 @@ class SimulationEngine:
                     loaded = segment["cargo_ids"]
                     # Last computed endpoint, never an invented continuous SOC reading.
                     soc, soc_time = segment["soc_start"], segment["start_s"]
+                    duration = segment["end_s"] - segment["start_s"]
+                    a, b = segment["from_coordinates"], segment["to_coordinates"]
+                    horizontal_speed = GEOD.inv(*a, *b)[2] / duration
+                    z0, z1 = segment["start_elevation_m"], segment["end_elevation_m"]
+                    vertical_speed = (
+                        (z1 - z0) / duration
+                        if z0 is not None and z1 is not None
+                        else None
+                    )
+                    phase_end, payload = segment["end_s"], segment["payload_kg"]
+                    # Constant-power flight phases in this model. This is a model
+                    # interpolation, separate from the original last-endpoint SOC.
+                    if (
+                        segment["phase"]
+                        in {
+                            "prepare",
+                            "climb",
+                            "cruise",
+                            "descent",
+                            "handover",
+                            "turnaround",
+                            "relay_link",
+                            "relay_service",
+                        }
+                        and segment["soc_start"] is not None
+                        and segment["soc_end"] is not None
+                    ):
+                        fraction = max(
+                            0.0, min(1.0, (tick - segment["start_s"]) / duration)
+                        )
+                        estimated_soc = max(
+                            0.0,
+                            min(
+                                1.0,
+                                segment["soc_start"]
+                                + fraction
+                                * (segment["soc_end"] - segment["soc_start"]),
+                            ),
+                        )
             else:
                 past = sorted(
                     [item for item in uses if item[2]["return_s"] <= tick],
@@ -304,6 +352,11 @@ class SimulationEngine:
                     ),
                     "soc": soc,
                     "soc_sample_time_s": soc_time,
+                    "model_horizontal_speed_mps": horizontal_speed,
+                    "model_vertical_speed_mps": vertical_speed,
+                    "estimated_soc": estimated_soc,
+                    "payload_kg": payload,
+                    "phase_end_s": phase_end,
                     "phase": phase,
                     "availability": availability,
                     "availability_reason": availability_reason,

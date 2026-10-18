@@ -25,7 +25,7 @@ import {
   MoreHorizontal,
   Package,
   Pause,
-  Plane,
+  Drone,
   Play,
   Plus,
   RefreshCw,
@@ -677,7 +677,7 @@ export default function App() {
           }}
         >
           <span className="brand-mark">
-            <Plane size={22} />
+            <Drone size={22} />
             <i />
           </span>
           <span>
@@ -840,7 +840,7 @@ export default function App() {
               ) : (
                 <>
                   <span className="boot-mark">
-                    <Plane size={35} />
+                    <Drone size={35} />
                   </span>
                   <h2>援航 · 让每一程救援有序抵达</h2>
                   <p>
@@ -1635,7 +1635,7 @@ export default function App() {
                                 ))
                             ) : (
                               <Empty
-                                icon={<Plane size={23} />}
+                                icon={<Drone size={23} />}
                                 title="等待生成架次"
                                 description="点击生成方案，查看具体的箱件、机体和电池安排。"
                               />
@@ -2142,7 +2142,7 @@ export default function App() {
         <div className="scope-grid">
           <section>
             <h3>
-              <Plane size={18} />
+              <Drone size={18} />
               可操作的真实闭环
             </h3>
             <p>

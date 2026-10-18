@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { BatteryCharging, Expand, Plane, Shrink } from 'lucide-react'
+import { BatteryCharging, Expand, Drone, Shrink } from 'lucide-react'
 import type { Plan, Scenario } from '../api/client'
 import { clock, colorFor, percent } from '../lib/format'
 
@@ -49,7 +49,7 @@ export function ResourceTimeline({
         <div className="heading-actions">
           <div className="segmented">
             <button className={mode === 'drone' ? 'active' : ''} onClick={() => setMode('drone')}>
-              <Plane size={14} />
+              <Drone size={14} />
               机体
             </button>
             <button

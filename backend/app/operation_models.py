@@ -67,7 +67,9 @@ class MissionDraft(OperationDTO):
 class MissionCreate(OperationDTO):
     name: str = Field(min_length=1, max_length=120)
     mode: Literal["simulation", "planning_assist"] = "simulation"
-    template: Literal["blank", "compact", "contest"] = "blank"
+    template: Literal[
+        "blank", "compact", "contest", "compact_joint", "contest_joint"
+    ] = "blank"
     scenario_id: str | None = None
     idempotency_key: str = Field(min_length=1, max_length=128)
 
@@ -262,6 +264,11 @@ class TelemetrySample(OperationDTO):
     vertical_datum: str | None
     soc: float | None
     soc_sample_time_s: float | None
+    model_horizontal_speed_mps: float | None = Field(default=None, ge=0)
+    model_vertical_speed_mps: float | None = None
+    estimated_soc: float | None = Field(default=None, ge=0, le=1)
+    payload_kg: float | None = Field(default=None, ge=0)
+    phase_end_s: float | None = None
     phase: str
     availability: Literal["available", "not_ready", "unavailable"] | None = None
     availability_reason: str | None = None

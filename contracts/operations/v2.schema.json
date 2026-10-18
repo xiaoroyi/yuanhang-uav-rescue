@@ -3864,7 +3864,9 @@
           "enum": [
             "blank",
             "compact",
-            "contest"
+            "contest",
+            "compact_joint",
+            "contest_joint"
           ],
           "title": "Template",
           "type": "string"
@@ -6664,6 +6666,70 @@
             }
           ],
           "title": "Soc Sample Time S"
+        },
+        "model_horizontal_speed_mps": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Horizontal Speed Mps"
+        },
+        "model_vertical_speed_mps": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Vertical Speed Mps"
+        },
+        "estimated_soc": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimated Soc"
+        },
+        "payload_kg": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payload Kg"
+        },
+        "phase_end_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Phase End S"
         },
         "phase": {
           "title": "Phase",

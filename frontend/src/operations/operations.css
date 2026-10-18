@@ -30,21 +30,21 @@
   --v2-border: #344254;
   --v2-blue: #75a8ff;
 }
-:is(.v2-app, .v2-dialog) h1 {
+:where(.v2-app, .v2-dialog) h1 {
   font-size: 23px;
   font-weight: 650;
   letter-spacing: 0;
   line-height: 1.4;
 }
-:is(.v2-app, .v2-dialog) h2 {
+:where(.v2-app, .v2-dialog) h2 {
   font-size: 16px;
   font-weight: 650;
 }
-:is(.v2-app, .v2-dialog) h3 {
+:where(.v2-app, .v2-dialog) h3 {
   font-size: 14px;
   font-weight: 650;
 }
-:is(.v2-app, .v2-dialog) button {
+:where(.v2-app, .v2-dialog) button {
   border: 0;
   background: none;
   color: inherit;

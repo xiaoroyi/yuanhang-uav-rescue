@@ -5,10 +5,14 @@ import {
   ArrowRight,
   CheckCircle2,
   Download,
+  FileSpreadsheet,
   GitCompareArrows,
   ListChecks,
-  LoaderCircle,
   MapPin,
+  Mountain,
+  RadioTower,
+  Map,
+  ChartNoAxesCombined,
   Play,
   RefreshCw,
 } from 'lucide-react'
@@ -39,8 +43,14 @@ import { ExecutionTimeline } from './ExecutionTimeline'
 import { ExecutionInsights } from './ExecutionInsights'
 import { PlanValidityNotice } from './PlanValidityNotice'
 import { ResourceDiagnosis } from './ResourceDiagnosis'
+import { WorkflowNav, JobProgress } from './ExperienceUI'
+import { ResultsWorkspace } from './ResultsWorkspace'
+import { TerrainWorkspace } from './TerrainWorkspace'
+import { CommunicationWorkspace } from './CommunicationWorkspace'
+import { VisualAnalysis } from '../pages/VisualAnalysis'
 
-type Stage = 'prepare' | 'plans' | 'execute' | 'review'
+export type MissionStage =
+  'prepare' | 'plans' | 'schedule' | 'terrain' | 'communication' | 'insights' | 'execute' | 'review'
 type Notify = (m: string, e?: boolean) => void
 export function MissionWorkspace({
   missionId,
@@ -48,7 +58,7 @@ export function MissionWorkspace({
   notify,
 }: {
   missionId: string
-  stage: Stage
+  stage: MissionStage
   notify: Notify
 }) {
   const query = useQueryClient()
@@ -82,13 +92,14 @@ export function MissionWorkspace({
   const [siteId, setSiteId] = useState<string | null>(null)
   const [jobId, setJobId] = useState('')
   const [budget, setBudget] = useState(10)
+  const [budgetEdited, setBudgetEdited] = useState(false)
   const [objective, setObjective] = useState<'time' | 'energy' | 'balanced'>('time')
   const [busy, setBusy] = useState(false)
   const [compareOpen, setCompareOpen] = useState(false)
   const [details, setDetails] = useState(false)
   const [tableOpen, setTableOpen] = useState(false)
   const [diagnosisOpen, setDiagnosisOpen] = useState(false)
-  const [bottom, setBottom] = useState<'timeline' | 'profile' | 'none'>('timeline')
+  const [bottom, setBottom] = useState<'timeline' | 'profile' | 'none'>('none')
   const [compactHeight, setCompactHeight] = useState(
     () => window.matchMedia('(max-height: 800px)').matches,
   )
@@ -140,6 +151,9 @@ export function MissionWorkspace({
     enabled: !!plan.data,
   })
   const activeScenario = snapshot.data?.scenario || scene.data
+  useEffect(() => {
+    if (!budgetEdited && scene.data?.policy.requires_communication) setBudget(90)
+  }, [scene.data?.policy.requires_communication, budgetEdited])
   const refresh = () => {
     void query.invalidateQueries({ queryKey: ['mission', missionId] })
     void query.invalidateQueries({ queryKey: ['missions'] })
@@ -221,25 +235,36 @@ export function MissionWorkspace({
           {m.cargo_count} 箱
         </span>
       </div>
-      <nav className="v2-stage-tabs" aria-label="任务阶段">
-        {(
-          [
-            ['prepare', '任务准备'],
-            ['plans', '方案规划'],
-            ['execute', '执行跟踪'],
-            ['review', '复盘分析'],
-          ] as const
-        ).map(([id, title], i) => (
-          <a
-            className={stage === id ? 'active' : ''}
-            href={`#/missions/${missionId}/${id}`}
-            key={id}
-          >
-            <i>{i + 1}</i>
-            {title}
-          </a>
-        ))}
-      </nav>
+      <WorkflowNav
+        mission={m}
+        current={stage}
+        ready={
+          !!currentReport &&
+          currentReport.blocking_count === 0 &&
+          currentReport.state_version === scene.data?.state_version
+        }
+      />
+      {['plans', 'schedule', 'terrain', 'communication', 'insights'].includes(stage) && (
+        <nav className="v3-planning-views" aria-label="方案查看方式">
+          {[
+            { id: 'plans', name: '方案地图', icon: Map },
+            { id: 'schedule', name: '调度安排', icon: FileSpreadsheet },
+            { id: 'terrain', name: '地形与航迹', icon: Mountain },
+            { id: 'communication', name: '通信协同', icon: RadioTower },
+            { id: 'insights', name: '数据分析', icon: ChartNoAxesCombined },
+          ].map((v) => (
+            <a
+              key={v.id}
+              href={`#/missions/${missionId}/${v.id}`}
+              className={stage === v.id ? 'active' : ''}
+            >
+              <v.icon size={15} />
+              {v.name}
+            </a>
+          ))}
+          <span className="v3-view-callout">同一方案 · 多种核对方式</span>
+        </nav>
+      )}
       {stage === 'prepare' ? (
         <Preparation
           key={m.mission_id}
@@ -288,59 +313,89 @@ export function MissionWorkspace({
         />
       ) : (
         <>
-          <div className="v2-plan-toolbar">
+          <div className={`v2-plan-toolbar ${stage !== 'plans' ? 'v3-view-toolbar' : ''}`}>
             <select
               aria-label="选择调度方案"
               value={planId}
               onChange={(e) => setPlanId(e.target.value)}
             >
               <option value="">选择方案</option>
-              {plans.data?.map((p) => (
+              {plans.data?.map((p, index) => (
                 <option value={p.plan_id} key={p.plan_id}>
                   {{ time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }[
                     p.objective
                   ] || p.objective}{' '}
-                  · {p.plan_id.slice(-6)} · v{p.scenario_state_version}
+                  · 方案{(plans.data?.length || 1) - index} · 输入第{p.scenario_state_version}版
                 </option>
               ))}
             </select>
-            <select
-              aria-label="计算偏好"
-              value={objective}
-              onChange={(e) => setObjective(e.target.value as typeof objective)}
-            >
-              <option value="time">时间优先</option>
-              <option value="energy">能耗优先</option>
-              <option value="balanced">时间能耗折中</option>
-            </select>
-            <label className="v2-budget">
-              预算
-              <select
-                aria-label="计算预算"
-                value={budget}
-                onChange={(e) => setBudget(Number(e.target.value))}
-              >
-                <option value={5}>5 秒</option>
-                <option value={10}>10 秒</option>
-                <option value={30}>30 秒</option>
-                <option value={60}>60 秒</option>
-              </select>
-            </label>
-            <Button variant="primary" busy={pending} onClick={() => void solve()}>
-              <Play size={14} />
-              生成方案
-            </Button>
-            <Button disabled={pending} onClick={() => void solve(true)}>
-              比较多种偏好
-            </Button>
-            <Button disabled={!plan.data} onClick={() => setCompareOpen(true)}>
-              <GitCompareArrows size={14} />
-              比较
-            </Button>
-            <Button disabled={!plan.data} onClick={() => setTableOpen(true)}>
-              调度明细
-            </Button>
-            <Button onClick={() => setDiagnosisOpen(true)}>资源诊断与增配</Button>
+            {stage === 'plans' && (
+              <>
+                <select
+                  aria-label="计算偏好"
+                  value={objective}
+                  onChange={(e) => setObjective(e.target.value as typeof objective)}
+                >
+                  <option value="time">时间优先</option>
+                  <option value="energy">能耗优先</option>
+                  <option value="balanced">时间能耗折中</option>
+                </select>
+                <label className="v2-budget">
+                  预算
+                  <select
+                    aria-label="计算预算"
+                    value={budget}
+                    onChange={(e) => {
+                      setBudget(Number(e.target.value))
+                      setBudgetEdited(true)
+                    }}
+                  >
+                    <option value={5}>5 秒</option>
+                    <option value={10}>10 秒</option>
+                    <option value={30}>30 秒</option>
+                    <option value={60}>60 秒</option>
+                    <option value={90}>90 秒</option>
+                    <option value={120}>120 秒</option>
+                    <option value={180}>180 秒</option>
+                  </select>
+                </label>
+                <Button variant="primary" busy={pending} onClick={() => void solve()}>
+                  <Play size={14} />
+                  生成方案
+                </Button>
+                <Button disabled={pending} onClick={() => void solve(true)}>
+                  比较多种偏好
+                </Button>
+                <Button disabled={!plan.data} onClick={() => setCompareOpen(true)}>
+                  <GitCompareArrows size={14} />
+                  比较
+                </Button>
+                {plan.data ? (
+                  <a className="button" href={`#/missions/${missionId}/schedule`}>
+                    <FileSpreadsheet size={14} />
+                    查看调度安排
+                  </a>
+                ) : (
+                  <Button disabled>
+                    <FileSpreadsheet size={14} />
+                    查看调度安排
+                  </Button>
+                )}
+                <Button onClick={() => setDiagnosisOpen(true)}>资源诊断与增配</Button>
+              </>
+            )}
+            {stage !== 'plans' && (
+              <>
+                <a className="button" href={`#/missions/${missionId}/plans`}>
+                  <Map size={14} />
+                  地图与方案计算
+                </a>
+                <Button disabled={!plan.data} onClick={() => setCompareOpen(true)}>
+                  <GitCompareArrows size={14} />
+                  方案对比
+                </Button>
+              </>
+            )}
             <Button
               disabled={!plan.data || stale || pending}
               onClick={() => {
@@ -359,20 +414,15 @@ export function MissionWorkspace({
             </Button>
           </div>
           {pending && (
-            <div className="v2-job-strip">
-              <LoaderCircle className="spin" size={15} />
-              求解作业 {activeJob?.job_state === 'running' ? '运行中' : '等待计算'} ·{' '}
-              {activeJobs.length} 项 · {activeJob?.job_id || '提交中'}
-              {activeJob?.job_state === 'running' && progress.data && (
-                <span>
-                  {progress.data.stage} · {number(progress.data.elapsed_s, 1)}s ·{' '}
-                  {progress.data.candidate_count} 候选
-                </span>
-              )}
-              <Button onClick={() => activeJob && void api.cancel(activeJob.job_id).then(refresh)}>
-                取消计算
-              </Button>
-            </div>
+            <JobProgress
+              job={
+                activeJob && ['queued', 'running'].includes(activeJob.job_state)
+                  ? activeJob
+                  : undefined
+              }
+              progress={progress.data}
+              onCancel={() => activeJob && void api.cancel(activeJob.job_id).then(refresh)}
+            />
           )}
           {activeJob && ['failed', 'canceled'].includes(activeJob.job_state) && (
             <div className="v2-inline-error">
@@ -431,141 +481,190 @@ export function MissionWorkspace({
               <ArrowRight size={13} />
             </a>
           </div>
-          <div className={`v2-map-workspace ${details ? 'inspector-open' : ''}`}>
-            <aside className="v2-object-list">
-              <div className="v2-tabs">
-                <button
-                  className={list === 'demands' ? 'active' : ''}
-                  onClick={() => setList('demands')}
-                >
-                  需求
-                </button>
-                <button
-                  className={list === 'sorties' ? 'active' : ''}
-                  onClick={() => setList('sorties')}
-                >
-                  架次 {plan.data?.sorties.length || 0}
-                </button>
+          {stage === 'schedule' && activeScenario ? (
+            <ResultsWorkspace
+              scenario={activeScenario}
+              plan={plan.data}
+              selected={selected}
+              onSelect={setSelected}
+              onMap={() => navigate(`missions/${missionId}/plans`)}
+            />
+          ) : stage === 'terrain' && activeScenario ? (
+            <TerrainWorkspace
+              scenario={activeScenario}
+              plan={plan.data}
+              selected={selected}
+              onSelect={setSelected}
+              onMap={() => navigate(`missions/${missionId}/plans`)}
+            />
+          ) : stage === 'insights' && activeScenario ? (
+            <main className="v3-data-analysis">
+              <div className="v3-analysis-heading">
+                <div>
+                  <span className="v3-kicker">
+                    <ChartNoAxesCombined size={14} />
+                    同一输入 · 多维分析
+                  </span>
+                  <h2>任务数据分析</h2>
+                  <p>
+                    需求、地形、载荷、能源与工作量来自当前所选方案的原始输入；可进入只读大屏展示。
+                  </p>
+                </div>
               </div>
-              <div className="v2-object-scroll">
-                {list === 'demands'
-                  ? activeScenario?.sites.map((n) => (
-                      <button
-                        className={siteId === n.id ? 'active' : ''}
-                        key={n.id}
-                        onClick={() => {
-                          setSiteId(n.id)
-                          setSelected(null)
-                          setDetails(true)
-                        }}
-                      >
-                        <strong>
-                          <MapPin size={14} />
-                          {n.name}
-                        </strong>
-                        <small>
-                          {n.id} ·{' '}
-                          {activeScenario?.demands
-                            .filter((d) => d.site_id === n.id)
-                            .reduce((v, d) => v + d.required_quantity, 0)}{' '}
-                          箱需求
-                        </small>
-                      </button>
-                    ))
-                  : plan.data?.sorties.map((r) => (
-                      <button
-                        className={selected === r.sortie_id ? 'active' : ''}
-                        key={r.sortie_id}
-                        onClick={() => {
-                          setSelected(r.sortie_id)
-                          setSiteId(null)
-                          setDetails(true)
-                        }}
-                      >
-                        <strong>
-                          {r.drone_id}
-                          <span>{r.cargo_ids.length} 箱</span>
-                        </strong>
-                        <small>{r.visits.map((v) => v.site_id).join(' → ')}</small>
-                        <small>
-                          {clock(r.takeoff_s)} — {clock(r.return_s)}
-                        </small>
-                      </button>
-                    ))}
-              </div>
-            </aside>
-            <div className="v2-map-main">
-              <RescueMap
-                viewKey={missionId}
-                scenario={activeScenario!}
-                plan={plan.data}
-                selected={selected}
-                selectedSite={siteId}
-                onSelect={(id) => {
-                  setSelected(id)
-                  setSiteId(null)
-                  setDetails(true)
-                }}
-                onSelectSite={(id) => {
-                  setSiteId(id)
-                  setSelected(null)
-                  setDetails(true)
-                }}
-              />
-            </div>
-            {details && (
-              <ObjectInspector
-                scenario={activeScenario!}
-                plan={plan.data}
-                selected={selected}
-                siteId={siteId}
-                onClose={() => setDetails(false)}
-                onProfile={() => showAnalysis('profile')}
-              />
-            )}
-          </div>
-          <div className={`v2-bottom ${bottom === 'none' ? 'collapsed' : ''}`}>
-            <div className="v2-bottom-tabs">
-              <button
-                onClick={() =>
-                  compactHeight
-                    ? showAnalysis('timeline')
-                    : setBottom(bottom === 'timeline' ? 'none' : 'timeline')
-                }
-              >
-                机体 / 电池排程
-              </button>
-              <button disabled={!selected} onClick={() => showAnalysis('profile')}>
-                选中架次分析
-              </button>
-              <button
-                className="v2-push-right"
-                onClick={() =>
-                  compactHeight
-                    ? showAnalysis(bottom === 'profile' ? 'profile' : 'timeline')
-                    : setBottom(bottom === 'none' ? 'timeline' : 'none')
-                }
-              >
-                {compactHeight ? '查看完整分析' : bottom === 'none' ? '展开' : '收起'}
-              </button>
-            </div>
-            {plan.data && activeScenario && bottom === 'timeline' ? (
-              <ResourceTimeline
+              <VisualAnalysis
                 scenario={activeScenario}
-                plan={plan.data}
-                selected={selected}
-                onSelect={(id) => {
-                  setSelected(id)
-                  setDetails(true)
-                  setSiteId(null)
-                }}
+                plan={plan.data || null}
+                onOpenMap={() => navigate(`missions/${missionId}/prepare?tab=region`)}
+                onOpenWorkspace={() => navigate(`missions/${missionId}/schedule`)}
               />
-            ) : plan.data && selected && bottom === 'profile' ? (
-              <StageCharts plan={plan.data} selected={selected} />
-            ) : (
-              bottom !== 'none' && <p className="v2-subtle">生成方案后查看资源安排。</p>
-            )}
-          </div>
+            </main>
+          ) : stage === 'communication' && activeScenario ? (
+            <CommunicationWorkspace
+              scenario={activeScenario}
+              plan={plan.data}
+              selected={selected}
+              onSelect={setSelected}
+              onPrepare={() => navigate(`missions/${missionId}/prepare?tab=communication`)}
+            />
+          ) : (
+            <>
+              <div className={`v2-map-workspace ${details ? 'inspector-open' : ''}`}>
+                <aside className="v2-object-list">
+                  <div className="v2-tabs">
+                    <button
+                      className={list === 'demands' ? 'active' : ''}
+                      onClick={() => setList('demands')}
+                    >
+                      需求
+                    </button>
+                    <button
+                      className={list === 'sorties' ? 'active' : ''}
+                      onClick={() => setList('sorties')}
+                    >
+                      架次 {plan.data?.sorties.length || 0}
+                    </button>
+                  </div>
+                  <div className="v2-object-scroll">
+                    {list === 'demands'
+                      ? activeScenario?.sites.map((n) => (
+                          <button
+                            className={siteId === n.id ? 'active' : ''}
+                            key={n.id}
+                            onClick={() => {
+                              setSiteId(n.id)
+                              setSelected(null)
+                              setDetails(true)
+                            }}
+                          >
+                            <strong>
+                              <MapPin size={14} />
+                              {n.name}
+                            </strong>
+                            <small>
+                              {n.id} ·{' '}
+                              {activeScenario?.demands
+                                .filter((d) => d.site_id === n.id)
+                                .reduce((v, d) => v + d.required_quantity, 0)}{' '}
+                              箱需求
+                            </small>
+                          </button>
+                        ))
+                      : plan.data?.sorties.map((r) => (
+                          <button
+                            className={selected === r.sortie_id ? 'active' : ''}
+                            key={r.sortie_id}
+                            onClick={() => {
+                              setSelected(r.sortie_id)
+                              setSiteId(null)
+                              setDetails(true)
+                            }}
+                          >
+                            <strong>
+                              {r.drone_id}
+                              <span>{r.cargo_ids.length} 箱</span>
+                            </strong>
+                            <small>{r.visits.map((v) => v.site_id).join(' → ')}</small>
+                            <small>
+                              {clock(r.takeoff_s)} — {clock(r.return_s)}
+                            </small>
+                          </button>
+                        ))}
+                  </div>
+                </aside>
+                <div className="v2-map-main">
+                  <RescueMap
+                    viewKey={missionId}
+                    scenario={activeScenario!}
+                    plan={plan.data}
+                    selected={selected}
+                    selectedSite={siteId}
+                    onSelect={(id) => {
+                      setSelected(id)
+                      setSiteId(null)
+                      setDetails(true)
+                    }}
+                    onSelectSite={(id) => {
+                      setSiteId(id)
+                      setSelected(null)
+                      setDetails(true)
+                    }}
+                  />
+                </div>
+                {details && (
+                  <ObjectInspector
+                    scenario={activeScenario!}
+                    plan={plan.data}
+                    selected={selected}
+                    siteId={siteId}
+                    onClose={() => setDetails(false)}
+                    onProfile={() => showAnalysis('profile')}
+                  />
+                )}
+              </div>
+              <div className={`v2-bottom ${bottom === 'none' ? 'collapsed' : ''}`}>
+                <div className="v2-bottom-tabs">
+                  <button
+                    onClick={() =>
+                      compactHeight
+                        ? showAnalysis('timeline')
+                        : setBottom(bottom === 'timeline' ? 'none' : 'timeline')
+                    }
+                  >
+                    机体 / 电池排程
+                  </button>
+                  <button disabled={!selected} onClick={() => showAnalysis('profile')}>
+                    选中架次分析
+                  </button>
+                  <button
+                    className="v2-push-right"
+                    onClick={() =>
+                      compactHeight
+                        ? showAnalysis(bottom === 'profile' ? 'profile' : 'timeline')
+                        : setBottom(bottom === 'none' ? 'timeline' : 'none')
+                    }
+                  >
+                    {compactHeight ? '查看完整分析' : bottom === 'none' ? '展开' : '收起'}
+                  </button>
+                </div>
+                {plan.data && activeScenario && bottom === 'timeline' ? (
+                  <ResourceTimeline
+                    scenario={activeScenario}
+                    plan={plan.data}
+                    selected={selected}
+                    onSelect={(id) => {
+                      setSelected(id)
+                      setDetails(true)
+                      setSiteId(null)
+                    }}
+                  />
+                ) : plan.data && selected && bottom === 'profile' ? (
+                  <StageCharts plan={plan.data} selected={selected} />
+                ) : (
+                  bottom !== 'none' && <p className="v2-subtle">生成方案后查看资源安排。</p>
+                )}
+              </div>
+            </>
+          )}
           <Modal
             title={analysisOpen === 'profile' ? '架次完整分析' : '完整资源排程'}
             description="来自当前所选方案的真实箱件、资源与阶段数据；关闭后返回地图。"
@@ -795,7 +894,14 @@ function Preparation({
   onReport: (r: CheckReport) => void
 }) {
   const query = useQueryClient()
-  const [step, setStep] = useState<'region' | 'demand' | 'fleet' | 'checks'>('region')
+  const [step, setStep] = useState<'region' | 'demand' | 'fleet' | 'checks'>(() => {
+    const tab = new URLSearchParams(location.hash.split('?')[1] || '').get('tab')
+    return tab === 'communication'
+      ? 'fleet'
+      : ['region', 'demand', 'fleet', 'checks'].includes(tab || '')
+        ? (tab as 'region' | 'demand' | 'fleet' | 'checks')
+        : 'region'
+  })
   const [draft, setDraft] = useState<MissionDraft>(mission.draft)
   const [busy, setBusy] = useState(false)
   const [longitude, setLongitude] = useState(String(mission.draft.base?.coordinates[0] ?? ''))
@@ -913,6 +1019,12 @@ function Preparation({
     }
   }
   const known = scenario || live
+  const filled: Record<string, boolean> = {
+    region: !!known?.base && !!known.sites.length,
+    demand: !!known?.demands.length && !!known.cargo_items.length,
+    fleet: !!known?.drones.length && !!known.batteries.length,
+    checks: !!report && report.blocking_count === 0,
+  }
   return (
     <div className="v2-prepare">
       <div className="v2-prepare-steps">
@@ -925,18 +1037,33 @@ function Preparation({
           ] as const
         ).map(([id, title], i) => (
           <button className={step === id ? 'active' : ''} onClick={() => setStep(id)} key={id}>
-            <i>{i + 1}</i>
-            {title}
+            <i className={filled[id] ? 'is-filled' : ''}>
+              {filled[id] ? <CheckCircle2 size={15} /> : i + 1}
+            </i>
+            <span>
+              {title}
+              <small>
+                {id === 'checks'
+                  ? filled[id]
+                    ? '检查已完成'
+                    : '运行条件检查'
+                  : filled[id]
+                    ? '已填写，待核对'
+                    : '补齐本项输入'}
+              </small>
+            </span>
           </button>
         ))}
       </div>
-      <InputImport
-        key={step}
-        mission={mission}
-        group={step === 'fleet' ? 'drones' : step === 'region' ? 'sites' : 'cargo_items'}
-        onSave={importDraft}
-        notify={notify}
-      />
+      {step !== 'checks' && (
+        <InputImport
+          key={step}
+          mission={mission}
+          group={step === 'fleet' ? 'drones' : step === 'region' ? 'sites' : 'cargo_items'}
+          onSave={importDraft}
+          notify={notify}
+        />
+      )}
       <div className="v2-prepare-body">
         {step === 'region' ? (
           <div className="v2-region-grid">
@@ -1109,14 +1236,16 @@ function Preparation({
       </div>
       <footer className="v2-prepare-footer">
         <span>{scenario ? `已发布输入 v${scenario.state_version}` : '草稿可分步保存'}</span>
-        <Button
-          onClick={() =>
-            setStep(step === 'region' ? 'demand' : step === 'demand' ? 'fleet' : 'checks')
-          }
-        >
-          下一步
-          <ArrowRight size={14} />
-        </Button>
+        {step !== 'checks' && (
+          <Button
+            onClick={() =>
+              setStep(step === 'region' ? 'demand' : step === 'demand' ? 'fleet' : 'checks')
+            }
+          >
+            下一步：{step === 'region' ? '需求物资' : step === 'demand' ? '机队保障' : '条件检查'}
+            <ArrowRight size={14} />
+          </Button>
+        )}
         <Button
           variant="primary"
           disabled={!scenario || !!report?.blocking_count || !report}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ArrowDownToLine, ArrowRight, Plane, RadioTower } from 'lucide-react'
+import { ArrowDownToLine, ArrowRight, Drone, RadioTower } from 'lucide-react'
+import { orderedSorties } from '../pages/schedule-data'
 import { downloadJson, type Plan, type Scenario } from '../api/client'
 import { clock, number } from '../lib/format'
 import { Badge, Button } from './ui'
@@ -24,7 +25,7 @@ export function CommunicationEvidence({
 }) {
   const [choice, setChoice] = useState({ sortie: '', index: 0, page: 0 })
   const report = plan.communication_report
-  const flight = plan.sorties.find((r) => r.sortie_id === selected) || plan.sorties[0]
+  const flight = plan.sorties.find((r) => r.sortie_id === selected) || orderedSorties(plan)[0]
   if (!report || !flight) return null
   const windows = report.windows
     .filter((w) => w.sortie_id === flight.sortie_id)
@@ -72,9 +73,9 @@ export function CommunicationEvidence({
             value={flight.sortie_id}
             onChange={(e) => onSelect(e.target.value)}
           >
-            {plan.sorties.map((r, i) => (
+            {orderedSorties(plan).map((r, i) => (
               <option value={r.sortie_id} key={r.sortie_id}>
-                {String(i + 1).padStart(2, '0')} · {r.drone_id} · {r.sortie_id}
+                第 {i+1} 架次 · {r.drone_id}
               </option>
             ))}
           </select>
@@ -209,7 +210,7 @@ export function CommunicationEvidence({
             className={`coverage-link-chain ${picked.source === 'gateway' ? 'direct-chain' : ''}`}
           >
             <div>
-              <Plane size={21} />
+              <Drone size={21} />
               <span>运输接入端</span>
               <strong>{flight.drone_id}</strong>
               <small>{flight.sortie_id}</small>

@@ -9,7 +9,7 @@ import { ExecutionInsights } from './ExecutionInsights'
 import { clock } from './format'
 import { DependencyImpactPanel, type ImpactSelection } from './DependencyImpactPanel'
 
-export function ArchiveCenter({ notify }: { notify: (message: string, error?: boolean) => void }) {
+export function ArchiveCenter({ notify, executionIds }: { notify: (message: string, error?: boolean) => void; executionIds?: string[] }) {
   const [impact, setImpact] = useState<ExecutionEvent | null>(null)
   const [frozenRoute, setFrozenRoute] = useState<ImpactSelection | null>(null)
   const [id, setId] = useState(''),
@@ -293,6 +293,7 @@ export function ArchiveCenter({ notify }: { notify: (message: string, error?: bo
           </thead>
           <tbody>
             {list.data
+              ?.filter(v=>!executionIds||executionIds.includes(v.execution_id))
               ?.filter((v) =>
                 (v.mission_name + ' ' + v.execution_id)
                   .toLowerCase()
@@ -323,7 +324,7 @@ export function ArchiveCenter({ notify }: { notify: (message: string, error?: bo
               ))}
           </tbody>
         </table>
-        {!list.data?.length && (
+        {!list.data?.some(v=>!executionIds||executionIds.includes(v.execution_id)) && (
           <p className="v2-subtle">暂无已导入运行档案。执行中的记录仍保存在各救援任务内。</p>
         )}
       </div>

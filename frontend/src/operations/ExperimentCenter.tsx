@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { Download, FlaskConical, Plus, Square, FileJson } from 'lucide-react'
+import { Download, FlaskConical, Plus, Square, FileJson, RadioTower } from 'lucide-react'
 import type { EChartsOption } from 'echarts'
 import { api } from '../api/client'
 import { ops, key, type Mission, type Experiment, type ExperimentBundle } from '../api/operations'
@@ -30,10 +30,12 @@ type Notify = (message: string, error?: boolean) => void
 export function ExperimentCenter({
   missions,
   onNew,
+  onNewJoint,
   notify,
 }: {
   missions: Mission[]
   onNew: () => void
+  onNewJoint: () => void
   notify: Notify
 }) {
   const cache = useQueryClient()
@@ -43,6 +45,7 @@ export function ExperimentCenter({
   const [preference, setPreference] = useState<'time' | 'energy' | 'balanced'>('time')
   const [seeds, setSeeds] = useState('42')
   const [budget, setBudget] = useState(5)
+  const [budgetEdited, setBudgetEdited] = useState(false)
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
   const [selected, setSelected] = useState('')
@@ -61,6 +64,9 @@ export function ExperimentCenter({
     queryFn: () => ops.changes(mission!.active_execution_id!),
     enabled: suite === 'repair' && !!mission?.active_execution_id,
   })
+  useEffect(() => {
+    if (!budgetEdited) setBudget(source.data?.policy.requires_communication ? 30 : 5)
+  }, [source.data?.policy.requires_communication, budgetEdited])
   const repairSources = repairs.data?.filter((c) => c.repair_reference_id && c.job) || []
   const repairSource = repairSources.find((c) => c.change_id === repairId) || repairSources[0]
   const repairPlan = useQuery({
@@ -219,10 +225,16 @@ export function ExperimentCenter({
           <h1>演练评测</h1>
           <p>固定输入与预算，查看真实候选、失败记录和可复现证据。</p>
         </div>
-        <Button onClick={onNew}>
-          <Plus size={15} />
-          新建演练任务
-        </Button>
+        <div className="v3-resource-actions">
+          <Button onClick={onNewJoint}>
+            <RadioTower size={15} />
+            通信协同演练
+          </Button>
+          <Button onClick={onNew}>
+            <Plus size={15} />
+            新建演练任务
+          </Button>
+        </div>
       </div>
       <div className="v2-experiment-workbench">
         <aside className="v2-card v2-experiment-setup">
@@ -250,6 +262,12 @@ export function ExperimentCenter({
                 <p className="v2-subtle">
                   输入 v{source.data.state_version} · {source.data.sites.length} 点 ·{' '}
                   {source.data.cargo_items.length} 箱 · {source.data.data_origin}
+                </p>
+              )}
+              {source.data?.policy.requires_communication && (
+                <p className="v3-experiment-joint-note">
+                  <RadioTower size={14} />
+                  此输入包含运输与中继联合保障。评测每例最多30秒；需要更长搜索时，可到任务的方案规划单独计算。
                 </p>
               )}
               <label>
@@ -321,7 +339,10 @@ export function ExperimentCenter({
                 <select
                   aria-label="每例求解预算"
                   value={budget}
-                  onChange={(e) => setBudget(Number(e.target.value))}
+                  onChange={(e) => {
+                    setBudget(Number(e.target.value))
+                    setBudgetEdited(true)
+                  }}
                 >
                   {[1, 3, 5, 10, 30].map((v) => (
                     <option key={v} value={v}>
@@ -474,7 +495,7 @@ export function ExperimentCenter({
                 </div>
               )}
               <div className="v2-card v2-experiment-chart">
-                <h3>候选时间与能源</h3>
+                <h3>全部返航时间与总能耗的取舍</h3>
                 {feasible.length ? (
                   <DataChart option={chart} label="评测真实候选时间能耗散点图" height={265} />
                 ) : (

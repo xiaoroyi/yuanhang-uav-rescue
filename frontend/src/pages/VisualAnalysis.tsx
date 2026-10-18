@@ -19,7 +19,7 @@ import {
   MapPinned,
   Minimize2,
   Orbit,
-  Plane,
+  Drone,
   RadioTower,
   ShieldCheck,
   Sparkles,
@@ -328,9 +328,10 @@ function FlightProfilePanel({ plan }: { plan: Plan }) {
           lineStyle: { color: '#ada2ff', width: 2 },
           itemStyle: { color: '#ada2ff' },
           data: data.legs.flatMap((l) => [
+            [l.start_distance_m / 1000, l.start_work_elevation_m],
             [l.start_distance_m / 1000, l.cruise_elevation_m],
             [l.end_distance_m / 1000, l.cruise_elevation_m],
-            [null, null],
+            [l.end_distance_m / 1000, l.end_work_elevation_m],
           ]),
         },
         {
@@ -404,7 +405,7 @@ function FlightProfilePanel({ plan }: { plan: Plan }) {
               ? '题设提供的高程参考'
               : data.vertical_datum || '未声明参考'}
             。
-            紫线表示分段模型巡航高程，点标表示节点作业高程；采样展示不替代完整净空检查，也不是实飞记录。
+            紫线包含分段模型巡航及升降，点标表示节点作业高程；采样展示不替代完整净空检查，也不是实飞记录。
           </p>
           <details className="va-data">
             <summary>
@@ -885,9 +886,7 @@ export function VisualAnalysis({
       <div className="va-screenbar">
         <span>
           <Layers3 size={13} />
-          {fullscreen
-            ? `${boundScenario.name} · 场景洞察`
-            : '场景洞察 · REAL DATA, CLEAR DECISIONS'}
+          {fullscreen ? `${boundScenario.name} · 场景洞察` : '需求、地形与调度结果 · 数据洞察'}
         </span>
         <div className="va-screen-controls">
           {fullscreen && (
@@ -965,7 +964,11 @@ export function VisualAnalysis({
           <small>v{boundScenario.state_version}</small>
           {historical && <b>历史方案绑定输入</b>}
         </div>
-        <span>{plan ? `方案 ${plan.plan_id.slice(-12)}` : '当前场景 · 尚无方案'}</span>
+        <span title={plan?.plan_id}>
+          {plan
+            ? `已选方案 · ${objectiveLabel[plan.objective] || plan.objective}`
+            : '当前场景 · 尚无方案'}
+        </span>
       </div>
       {!bindingReady && (
         <div className="va-notice">
@@ -1013,7 +1016,7 @@ export function VisualAnalysis({
         </div>
         <div>
           <span>
-            <Plane size={14} />
+            <Drone size={14} />
             可用运输机体
           </span>
           <strong>

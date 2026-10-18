@@ -1,0 +1,92 @@
+{
+  "compact": {
+    "xlsx_bytes": 14870,
+    "rows": {
+      "方案说明": 17,
+      "运输架次": 7,
+      "逐箱交付": 32,
+      "中继架次": 0,
+      "通信保障": 0,
+      "资源占用": 14
+    },
+    "read_only": true,
+    "relay_sorties": 0,
+    "execution": "EXE-087785A7A75D4447",
+    "model_telemetry": {
+      "device_id": "U07",
+      "device_session_id": "SIM-6865D19B80D54143",
+      "device_sequence": 3,
+      "observed_at": "2026-10-18T17:23:51.887257Z",
+      "received_at": "2026-10-18T17:23:51.887257Z",
+      "time_s": 699.9419388269187,
+      "coordinates": [
+        109.23704122753209,
+        23.021051230971583
+      ],
+      "elevation_m": 273.0566101074219,
+      "vertical_datum": "contest_provided_elevation_reference",
+      "soc": 0.9897606236210743,
+      "soc_sample_time_s": 598.1426440429688,
+      "model_horizontal_speed_mps": 15.000000000000004,
+      "model_vertical_speed_mps": 0.0,
+      "estimated_soc": 0.8652271441545059,
+      "payload_kg": 79.0,
+      "phase_end_s": 801.7412336108687,
+      "phase": "cruise",
+      "availability": "available",
+      "availability_reason": null,
+      "sortie_id": "SRT-6396ff71573f",
+      "battery_id": "BAT-C-01",
+      "component_id": null,
+      "cargo_ids": [
+        "S001-MED-01",
+        "S001-MED-02",
+        "S001-WAT-01",
+        "S001-WAT-02",
+        "S001-WAT-03",
+        "S001-WAT-04",
+        "S001-WAT-05",
+        "S006-MED-01"
+      ],
+      "quality": "simulated",
+      "active_plan_id": "PLAN-66A0A900F9FD4914"
+    }
+  },
+  "compact_joint": {
+    "xlsx_bytes": 16453,
+    "rows": {
+      "方案说明": 17,
+      "运输架次": 7,
+      "逐箱交付": 32,
+      "中继架次": 2,
+      "通信保障": 19,
+      "资源占用": 18
+    },
+    "read_only": true,
+    "relay_sorties": 2,
+    "coverage": {
+      "complete": true,
+      "relay_backhaul_available": true,
+      "altitude_agl_m": 120.0,
+      "counts": {
+        "gateway": 135,
+        "relay": 56,
+        "uncovered": 34,
+        "unknown": 0
+      }
+    }
+  },
+  "contest_joint": {
+    "xlsx_bytes": 25441,
+    "rows": {
+      "方案说明": 17,
+      "运输架次": 23,
+      "逐箱交付": 80,
+      "中继架次": 3,
+      "通信保障": 72,
+      "资源占用": 52
+    },
+    "read_only": true,
+    "relay_sorties": 3
+  }
+}

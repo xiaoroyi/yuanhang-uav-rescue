@@ -20,6 +20,7 @@ export type TerrainAsset = components['schemas']['TerrainAsset']
 export type TerrainMap = components['schemas']['TerrainMap']
 export type TerrainSurface = components['schemas']['TerrainSurface']
 export type FlightProfile = components['schemas']['FlightProfile']
+export type RadioCoverage = components['schemas']['RadioCoverage']
 export type ScenarioVersionSummary = components['schemas']['ScenarioVersionSummary']
 export type Communication = NonNullable<Scenario['communication']>
 export type PartitionReport = components['schemas']['PartitionReport']
@@ -52,6 +53,7 @@ export async function request<T>(url: string, body?: unknown, method?: string): 
 }
 
 export const api = {
+  radioCoverage: (plan:string, agl:number, relay?:string) => request<RadioCoverage>(`/plans/${encodeURIComponent(plan)}/radio-coverage?altitude_agl_m=${agl}${relay?`&relay_sortie_id=${encodeURIComponent(relay)}`:''}`),
   scenarioVersions: (id: string) =>
     request<ScenarioVersionSummary[]>(`/scenarios/${encodeURIComponent(id)}/versions`),
   scenarioVersion: (id: string, version: number) =>
@@ -165,7 +167,7 @@ export const api = {
     request<components['schemas']['Validation']>(`/scenarios/${s.scenario_id}/validate`, {
       expected_state_version: s.state_version,
     }),
-  exportUrl: (plan: string, format: 'json' | 'csv' | 'geojson' | 'relay_csv') =>
+  exportUrl: (plan: string, format: 'json' | 'csv' | 'geojson' | 'relay_csv' | 'xlsx') =>
     `/api/v1/plans/${plan}/export?format=${format}`,
   reportUrl: (plan: string) => `/api/v1/plans/${plan}/report`,
 }

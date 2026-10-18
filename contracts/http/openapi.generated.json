@@ -851,6 +851,86 @@
         }
       }
     },
+    "/api/v1/plans/{plan_id}/radio-coverage": {
+      "get": {
+        "summary": "Plan Radio Coverage",
+        "operationId": "plan_radio_coverage_api_v1_plans__plan_id__radio_coverage_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "altitude_agl_m",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 300,
+              "minimum": 1,
+              "default": 120,
+              "title": "Altitude Agl M"
+            }
+          },
+          {
+            "name": "relay_sortie_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 128
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Relay Sortie Id"
+            }
+          },
+          {
+            "name": "grid_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 31,
+              "minimum": 9,
+              "default": 21,
+              "title": "Grid Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RadioCoverage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/plans/{plan_id}/report": {
       "get": {
         "summary": "Plan Report",
@@ -2007,7 +2087,8 @@
                 "json",
                 "csv",
                 "geojson",
-                "relay_csv"
+                "relay_csv",
+                "xlsx"
               ],
               "type": "string",
               "default": "json",
@@ -5437,6 +5518,53 @@
         "additionalProperties": false,
         "type": "object",
         "title": "CopyRequest"
+      },
+      "CoveragePoint": {
+        "properties": {
+          "coordinates": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 2,
+            "minItems": 2,
+            "title": "Coordinates"
+          },
+          "elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elevation M"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "gateway",
+              "relay",
+              "uncovered",
+              "unknown"
+            ],
+            "title": "Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "coordinates",
+          "elevation_m",
+          "source"
+        ],
+        "title": "CoveragePoint"
       },
       "DataOrigin": {
         "type": "string",
@@ -9075,7 +9203,9 @@
             "enum": [
               "blank",
               "compact",
-              "contest"
+              "contest",
+              "compact_joint",
+              "contest_joint"
             ],
             "title": "Template",
             "default": "blank"
@@ -11443,6 +11573,139 @@
           "candidate_count"
         ],
         "title": "Progress"
+      },
+      "RadioCoverage": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "snapshot_id": {
+            "type": "string",
+            "title": "Snapshot Id"
+          },
+          "terrain_sha256": {
+            "type": "string",
+            "title": "Terrain Sha256"
+          },
+          "vertical_datum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vertical Datum"
+          },
+          "relay_sortie_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Sortie Id"
+          },
+          "relay_service_start_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Service Start S"
+          },
+          "relay_service_end_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Service End S"
+          },
+          "relay_backhaul_available": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relay Backhaul Available"
+          },
+          "altitude_agl_m": {
+            "type": "number",
+            "title": "Altitude Agl M"
+          },
+          "bounds": {
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 4,
+            "title": "Bounds"
+          },
+          "grid_size": {
+            "type": "integer",
+            "title": "Grid Size"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/CoveragePoint"
+            },
+            "type": "array",
+            "title": "Points"
+          },
+          "complete": {
+            "type": "boolean",
+            "title": "Complete"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "snapshot_id",
+          "terrain_sha256",
+          "vertical_datum",
+          "relay_sortie_id",
+          "relay_service_start_s",
+          "relay_service_end_s",
+          "relay_backhaul_available",
+          "altitude_agl_m",
+          "bounds",
+          "grid_size",
+          "points",
+          "complete",
+          "notice"
+        ],
+        "title": "RadioCoverage"
       },
       "RadioEndpoint": {
         "properties": {
@@ -13850,6 +14113,65 @@
               }
             ],
             "title": "Soc Sample Time S"
+          },
+          "model_horizontal_speed_mps": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Horizontal Speed Mps"
+          },
+          "model_vertical_speed_mps": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Vertical Speed Mps"
+          },
+          "estimated_soc": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Soc"
+          },
+          "payload_kg": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload Kg"
+          },
+          "phase_end_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase End S"
           },
           "phase": {
             "type": "string",
