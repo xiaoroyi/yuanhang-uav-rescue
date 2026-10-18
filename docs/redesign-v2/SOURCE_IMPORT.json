@@ -1,0 +1,40 @@
+{
+  "source": "C:\\Users\\26099\\.codex\\attachments\\f126c350-7aca-4e6a-b1d9-dd490376d5c1\\已粘贴的文本.txt",
+  "sha256": "3d24e06f49710c5cc89333155c233dd12fc38f9cac83ee626c44f3c92077c377",
+  "format": "combined markdown split at explicit source markers",
+  "screenshots": "not attached; referenced sandbox links are not local files",
+  "files": [
+    {
+      "path": "docs/redesign-v2/README.md",
+      "lines": 38
+    },
+    {
+      "path": "docs/redesign-v2/docs/01_PRODUCT_UX_SPEC.md",
+      "lines": 369
+    },
+    {
+      "path": "docs/redesign-v2/docs/02_MAP_ANALYTICS_SPEC.md",
+      "lines": 213
+    },
+    {
+      "path": "docs/redesign-v2/docs/03_CONTRACTS_EXECUTION_SPEC.md",
+      "lines": 350
+    },
+    {
+      "path": "docs/redesign-v2/docs/04_ALGORITHM_REALISM_SPEC.md",
+      "lines": 214
+    },
+    {
+      "path": "docs/redesign-v2/docs/05_TASKS_ACCEPTANCE.md",
+      "lines": 230
+    },
+    {
+      "path": "docs/redesign-v2/docs/06_RESEARCH_NOTES.md",
+      "lines": 120
+    },
+    {
+      "path": "docs/redesign-v2/prompts/CODEX_REDESIGN_EXECUTE.md",
+      "lines": 86
+    }
+  ]
+}

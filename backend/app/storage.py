@@ -101,6 +101,30 @@ class ConfirmationRow(Base):
     response: Mapped[dict] = mapped_column(JSON)
 
 
+class MissionRow(Base):
+    __tablename__ = "missions"
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    scenario_id: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    content: Mapped[dict] = mapped_column(JSON)
+
+
+class OperationRecordRow(Base):
+    """Append-only reports, facts, events, changes and idempotency receipts."""
+    __tablename__ = "operation_records"
+    namespace: Mapped[str] = mapped_column(String, primary_key=True)
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    owner_id: Mapped[str] = mapped_column(String, index=True)
+    request_hash: Mapped[str] = mapped_column(String)
+    content: Mapped[dict] = mapped_column(JSON)
+
+
+class ExecutionRow(Base):
+    __tablename__ = "executions"
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    mission_id: Mapped[str] = mapped_column(String, index=True)
+    content: Mapped[dict] = mapped_column(JSON)
+
+
 class Database:
     def __init__(self, directory: Path):
         self.directory = directory

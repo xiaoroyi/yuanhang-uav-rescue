@@ -801,6 +801,127 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/missions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Missions */
+        get: operations["list_missions_api_v1_missions_get"];
+        put?: never;
+        /** Create Mission */
+        post: operations["create_mission_api_v1_missions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Mission */
+        get: operations["get_mission_api_v1_missions__mission_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Mission */
+        patch: operations["update_mission_api_v1_missions__mission_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}/draft": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Draft */
+        put: operations["update_draft_api_v1_missions__mission_id__draft_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}/clone": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Clone Mission */
+        post: operations["clone_mission_api_v1_missions__mission_id__clone_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}/preflight": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Preflight */
+        post: operations["preflight_api_v1_missions__mission_id__preflight_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/preflight-reports/{report_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Report */
+        get: operations["get_report_api_v1_preflight_reports__report_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/plans/{plan_id}/stages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Stages */
+        get: operations["stages_api_v1_plans__plan_id__stages_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1040,6 +1161,40 @@ export interface components {
             object_id: string | null;
             /** Message */
             message: string;
+        };
+        /** CheckItem */
+        CheckItem: {
+            /** Code */
+            code: string;
+            /**
+             * Group
+             * @enum {string}
+             */
+            group: "map" | "inventory" | "fleet" | "weather" | "communication" | "model" | "execution";
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "passed" | "warning" | "blocked" | "unknown" | "not_applicable";
+            /** Message */
+            message: string;
+            /** Affected Objects */
+            affected_objects?: string[];
+            /** Field Path */
+            field_path?: string | null;
+            /** Actual */
+            actual?: number | null;
+            /** Required */
+            required?: number | null;
+            /** Unit */
+            unit?: string | null;
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "region" | "demand" | "fleet" | "checks" | "plans" | "settings";
+            /** Source Ref */
+            source_ref: string;
         };
         /**
          * Code
@@ -1684,6 +1839,121 @@ export interface components {
             /** Min Return Soc */
             min_return_soc: number | null;
         };
+        /** MissionCreate */
+        MissionCreate: {
+            /** Name */
+            name: string;
+            /**
+             * Mode
+             * @default simulation
+             * @enum {string}
+             */
+            mode: "simulation" | "planning_assist";
+            /**
+             * Template
+             * @default blank
+             * @enum {string}
+             */
+            template: "blank" | "compact" | "contest";
+            /** Scenario Id */
+            scenario_id?: string | null;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** MissionDraft */
+        MissionDraft: {
+            /**
+             * Start Time
+             * Format: date-time
+             */
+            start_time: string;
+            /**
+             * Timezone
+             * @default Asia/Shanghai
+             */
+            timezone: string;
+            base?: components["schemas"]["Base"] | null;
+            /** Sites */
+            sites?: components["schemas"]["Site"][];
+            /** Demands */
+            demands?: components["schemas"]["Demand"][];
+            /** Cargo Items */
+            cargo_items?: components["schemas"]["CargoItem"][];
+            /** Drone Types */
+            drone_types?: components["schemas"]["DroneType"][];
+            /** Drones */
+            drones?: components["schemas"]["Drone"][];
+            /** Batteries */
+            batteries?: components["schemas"]["Battery"][];
+            terrain: components["schemas"]["Terrain"];
+            policy: components["schemas"]["Policy"];
+            /** Restricted Zones */
+            restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
+            resource_limits?: components["schemas"]["ResourceLimits"] | null;
+            communication?: components["schemas"]["Communication"] | null;
+        };
+        /** MissionDraftUpdate */
+        MissionDraftUpdate: {
+            /** Expected Revision */
+            expected_revision: number;
+            draft: components["schemas"]["MissionDraft"];
+            /**
+             * Publish
+             * @default false
+             */
+            publish: boolean;
+        };
+        /** MissionUpdate */
+        MissionUpdate: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Name */
+            name?: string | null;
+            /** Archived */
+            archived?: boolean | null;
+        };
+        /** MissionView */
+        MissionView: {
+            /** Mission Id */
+            mission_id: string;
+            /** Name */
+            name: string;
+            /**
+             * Mode
+             * @enum {string}
+             */
+            mode: "simulation" | "planning_assist";
+            /** Timezone */
+            timezone: string;
+            /**
+             * Lifecycle
+             * @enum {string}
+             */
+            lifecycle: "draft" | "planning" | "ready" | "executing" | "paused" | "completed" | "archived";
+            /** Revision */
+            revision: number;
+            /** Current Scenario Id */
+            current_scenario_id: string | null;
+            /** Active Plan Id */
+            active_plan_id: string | null;
+            /** Active Execution Id */
+            active_execution_id: string | null;
+            draft: components["schemas"]["MissionDraft"];
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Site Count */
+            site_count: number;
+            /** Cargo Count */
+            cargo_count: number;
+            /**
+             * Next Action
+             * @enum {string}
+             */
+            next_action: "prepare" | "plans" | "execute" | "review";
+        };
         /**
          * Mode
          * @enum {string}
@@ -2254,6 +2524,47 @@ export interface components {
              */
             cost_model_available: false;
         };
+        /** PreflightReport */
+        PreflightReport: {
+            /** Report Id */
+            report_id: string;
+            /** Mission Id */
+            mission_id: string;
+            /** Scenario Id */
+            scenario_id: string | null;
+            /** State Version */
+            state_version: number | null;
+            /** Snapshot Id */
+            snapshot_id: string | null;
+            /** Check Kind */
+            check_kind: string;
+            /** Checks */
+            checks: components["schemas"]["CheckItem"][];
+            /** Blocking Count */
+            blocking_count: number;
+            /** Warning Count */
+            warning_count: number;
+            /** Validity Fingerprint */
+            validity_fingerprint: string;
+            /**
+             * Checked At
+             * Format: date-time
+             */
+            checked_at: string;
+        };
+        /** PreflightRequest */
+        PreflightRequest: {
+            /** Expected Revision */
+            expected_revision: number;
+            /**
+             * Check Kind
+             * @default planning_readiness
+             * @enum {string}
+             */
+            check_kind: "planning_readiness" | "simulation_readiness" | "real_dispatch";
+            /** Plan Id */
+            plan_id?: string | null;
+        };
         /** PreservedSortieId */
         PreservedSortieId: string;
         /** Progress */
@@ -2812,6 +3123,33 @@ export interface components {
             /** Objective */
             objective: number | null;
         };
+        /** StageAnalysis */
+        StageAnalysis: {
+            /** Plan Id */
+            plan_id: string;
+            /** Snapshot Id */
+            snapshot_id: string;
+            /**
+             * Analysis Version
+             * @default stages-v1
+             * @constant
+             */
+            analysis_version: "stages-v1";
+            /**
+             * Position Semantics
+             * @default model_phase_geodesic
+             * @constant
+             */
+            position_semantics: "model_phase_geodesic";
+            /**
+             * Soc Semantics
+             * @default computed_phase_endpoints_only
+             * @constant
+             */
+            soc_semantics: "computed_phase_endpoints_only";
+            /** Trajectory Segments */
+            trajectory_segments: components["schemas"]["TrajectorySegment"][];
+        };
         /** StationCoordinate */
         StationCoordinate: number;
         /** StationCoordinate1 */
@@ -3010,6 +3348,50 @@ export interface components {
             valid_fraction: number;
             /** Notice */
             notice: string;
+        };
+        /** TrajectorySegment */
+        TrajectorySegment: {
+            /** Sortie Id */
+            sortie_id: string;
+            /** Drone Id */
+            drone_id: string;
+            /** Phase Id */
+            phase_id: string;
+            /**
+             * Phase
+             * @enum {string}
+             */
+            phase: "prepare" | "climb" | "cruise" | "descent" | "handover" | "turnaround" | "charge_wait" | "charge";
+            /** Start S */
+            start_s: number;
+            /** End S */
+            end_s: number;
+            /** From Coordinates */
+            from_coordinates: [
+                number,
+                number
+            ];
+            /** To Coordinates */
+            to_coordinates: [
+                number,
+                number
+            ];
+            /** Start Elevation M */
+            start_elevation_m: number | null;
+            /** End Elevation M */
+            end_elevation_m: number | null;
+            /** Vertical Datum */
+            vertical_datum: string | null;
+            /** Payload Kg */
+            payload_kg: number;
+            /** Energy Kwh */
+            energy_kwh: number;
+            /** Soc Start */
+            soc_start: number | null;
+            /** Soc End */
+            soc_end: number | null;
+            /** Cargo Ids */
+            cargo_ids: string[];
         };
         /** UnservedDemandId */
         UnservedDemandId: string;
@@ -4655,6 +5037,292 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_missions_api_v1_missions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"][];
+                };
+            };
+        };
+    };
+    create_mission_api_v1_missions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MissionCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_mission_api_v1_missions__mission_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_mission_api_v1_missions__mission_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MissionUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_draft_api_v1_missions__mission_id__draft_put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MissionDraftUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    clone_mission_api_v1_missions__mission_id__clone_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MissionCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MissionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    preflight_api_v1_missions__mission_id__preflight_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PreflightRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PreflightReport"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_report_api_v1_preflight_reports__report_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                report_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PreflightReport"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stages_api_v1_plans__plan_id__stages_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StageAnalysis"];
                 };
             };
             /** @description Validation Error */

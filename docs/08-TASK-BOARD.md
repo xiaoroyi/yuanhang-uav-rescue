@@ -33,6 +33,16 @@
 | B-02 | P0 | B | B-01, C-01 | 场景导入/资源/需求表与地图点位联动；验收：场景导入、六类表格编辑、地图点位定位与版本变更已实际验证；更换输入后重新求解。 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; frontend/src/pages/ScenarioEditor.tsx; frontend/tests/workflow.spec.ts; evidence/browser/verified/scenario-with-nominal-1440.png |
 | B-03 | P0 | B | B-01, C-03 | 地图/架次表/摘要指标、真实 Job 状态；验收：用同一 sortie_id 联动，不二次估能耗 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; frontend/tests/workflow.spec.ts; evidence/browser/e2e-results.json |
 | X-01 | P0 | A+B | A-02, C-03, B-03 | 首个端到端验收：新数据→真实 Plan→地图→导出；验收：E2E 记录+请求/响应+Git SHA，Mock 不计 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json |
+| R00 | P0 | A+B | — | 仓库、截图和能力审计；验收：文件树、实际技术栈、现有入口、已运行测试、功能状态、风险；保留未提交修改 | done | feat/mission-workspace-v2; evidence/redesign-v2/REPO_AUDIT.md |
+| R01 | P0 | A+B | R00 | 接口迁移与模型边界；验收：API_MIGRATION_MAP、Mission/Execution 等新增契约、样例及兼容测试；不改旧字段含义 | in_progress | feat/mission-workspace-v2 |
+| R02 | P0 | A+B | R00 | 设计系统与导航壳；验收：4 个主导航、首页入口、任务页签、tokens、受控滚动、响应式壳；移除业务口号 | todo | feat/mission-workspace-v2 |
+| R03 | P0 | A+B | R01, R02 | 首页和任务管理；验收：创建、继续、复制、搜索、归档、示例演练；不复制实际执行事实 | todo | feat/mission-workspace-v2 |
+| R04 | P0 | A+B | R01, R02 | 任务准备流程；验收：区域/基地、需求/库存、机队/保障、条件检查 4 步；草稿保存与修复定位 | todo | feat/mission-workspace-v2 |
+| R05 | P0 | A+B | R01, R04 | 条件检查服务与界面；验收：planning/execution 检查报告、必检范围、未知/失败/提醒分开；能一键定位问题 | todo | feat/mission-workspace-v2 |
+| R06 | P0 | A+B | R01, R02 | 统一地图与空间资产；验收：真正交互地图、图层、紧凑标签、选中联动、CRS/DEM/离线、限制区编辑和缓存失效 | todo | feat/mission-workspace-v2 |
+| R07 | P0 | A+B | R01, R04 | Solver 适配和计算作业；验收：原算法回归、实际新输入计算、限时/取消、候选、错误语义、独立验证 | todo | feat/mission-workspace-v2 |
+| R08 | P0 | A+B | R06, R07 | 结果数据与分析图；验收：同源 PlanAnalysis、V01—V09、单位和阶段一致；逐箱/机体/电池追踪 | todo | feat/mission-workspace-v2 |
+| R09 | P0 | A+B | R02, R05, R06, R07, R08 | 方案工作台与确认；验收：地图主视图、任务表、资源甘特、比较、确认/导出；同条件与事件差异分开 | todo | feat/mission-workspace-v2 |
 
 ## G2
 
@@ -57,6 +67,9 @@
 | A-06 | P0 | A | A-05 | 依赖图传播、变更代价、限时修复/全量回退；验收：输出 changed/preserved，可对照修复范围 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json; evidence/solver/replan-comparison.json |
 | B-05 | P0 | B | B-04, C-05 | 事件输入、旧新地图叠加、差异清单、时间轴；验收：可清楚定位受影响任务和未完成原因 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; evidence/browser/e2e-results.json |
 | X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json |
+| R10 | P0 | A+B | R01, R09 | 服务器业务仿真与回放；验收：独立执行实例/时钟/账本，开始暂停倍速恢复，刷新不丢进度；回放不改事实 | todo | feat/mission-workspace-v2 |
+| R11 | P0 | A+B | R01, R10 | 遥测和设备适配合同；验收：SimulationAdapter、能力查询、指令状态、断线/重连；SITL 接入按环境验证 | todo | feat/mission-workspace-v2 |
+| R12 | P0 | A+B | R07, R10, R11 | 执行中事件与计划变更；验收：已装载/在飞事实冻结、依赖影响、真实重算、差异确认、分设备应用及失败状态 | todo | feat/mission-workspace-v2 |
 
 ## G4
 
@@ -78,6 +91,10 @@
 | A-12 | P1 | A | A-08 | Q4 冻结任务分区、资源峰值与共享损失；验收：分区不冒用可重新分配时的全局最优性 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/FROZEN_PARTITION.md; docs/CONTRACT_RFC_007.md; tests/solver/test_partition.py; tests/backend/test_partition_api.py; evidence/solver/frozen-partition-contest.json; evidence/browser/verified/frozen-partition-1440.png |
 | C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 | B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
+| R13 | P1 | A+B | R06, R07, R08 | 通信中继与连续验证；验收：直连与接入/回传、窗口、组件、通信时间轴与剖面；明确连续/采样边界 | todo | feat/mission-workspace-v2 |
+| R14 | P1 | A+B | R01, R05, R07 | 气象、现实电量和地面保障；验收：手工/预报适配、数据年龄、机型阈值、SOC/容量定义、充电端口/起降与装卸能力 | todo | feat/mission-workspace-v2 |
+| R15 | P1 | A+B | R08, R12, R13, R14 | 条件变化有效性与增配诊断；验收：I1—I3 可操作界面、受影响对象、真实 what-if 计算、保留原 Plan | todo | feat/mission-workspace-v2 |
+| R16 | P1 | A+B | R07, R10, R12 | 演练评测与算法消融；验收：从 UI 运行场景/事件/方法对比；预算/种子/日志/失败记录；研究功能独立 | todo | feat/mission-workspace-v2 |
 
 ## G5
 
@@ -116,6 +133,14 @@
 | UX-06 | P0 | B | Q-04 | 体验迭代的完整集成回归；验收：新专项与原工作流统一回归；实际生成接口类型无漂移；固定源码指纹、截图、可用启动和远端CI分别留证 | done | feat/experience-v1; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; frontend/tests/experience.spec.ts; docs/EXPERIENCE_RELEASE.md; evidence/experience/qa-finish/results.json; evidence/experience/release-audit.json; evidence/experience/production/browser-check.json; evidence/verification/latest.json; evidence/browser/e2e-results.json; evidence/experience/handoff-audit.json |
 | UX-07 | P0 | B | Q-04 | 地图/论文追溯与候选版本交接；验收：只读参考论文图形语义，当前图只用真实输入结果；明确卫星联网限制/未知日期、旧材料归档、两人交接与剩余范围 | done | feat/experience-v1; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CONTRACT_RFC_015.md; docs/EXPERIENCE_RELEASE.md; evidence/experience/map/source-review.json |
 | FIX-01 | P0 | A+B | UX-06 | 版本化策略取舍、动态背景与调度安排；验收：保留期限/硬约束的真实三策略，旧规则兼容，统一联合口径，明确相同结果，调度表/箱件/资源时间轴与背景开关真实验收 | done | feat/experience-v1; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CONTRACT_RFC_016.md; docs/STRATEGY_V2_RELEASE.md; tests/solver/test_strategy_policy.py; frontend/src/pages/SchedulePage.tsx; frontend/tests/strategy-manifest.spec.ts; evidence/verification/latest.json; evidence/strategy-v2/final-verification.json; evidence/strategy-v2/final-browser.json; evidence/strategy-v2/production-service.json; evidence/strategy-v2/production-browser.json; evidence/strategy-v2/trial-policy-v1.json; evidence/strategy-v2/trial-policy-v2.json |
+| R17 | P1 | A+B | R08, R10, R12 | 复盘、档案与导出；验收：计划/模拟/实况分开、轨迹/服务/能源/通信分析、可重载任务包 | todo | feat/mission-workspace-v2 |
+| R18 | P1 | A+B | R06, R09, R10 | 离线、性能与异常降级；验收：授权地图包、字体图标本地化、无网/无 WebGL 降级、订阅清理和任务限流 | todo | feat/mission-workspace-v2 |
+| R19 | P1 | A+B | R01, R11 | 安全、隐私与权限；验收：模式隔离、认证、指令审批/幂等/TTL、敏感信息与 XSS/上传路径防护 | todo | feat/mission-workspace-v2 |
+| R20 | P1 | A+B | R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19 | 全流程和视觉验收；验收：真实浏览器操作、指定尺寸截图、数据/日志、失败态测试、重复运行 | todo | feat/mission-workspace-v2 |
+| R21 | P1 | A+B | R16, R17, R20 | 演示与参赛交付；验收：项目说明书实况更新、真实图表、视频/PPT素材、运行包、许可/匿名检查 | todo | feat/mission-workspace-v2 |
+| R22 | P2 | A | R16 | 学习辅助搜索；验收：规则基线、训练/测试隔离、消融、开销；无证据不显示 AI 成功 | todo | feat/mission-workspace-v2 |
+| R23 | P2 | A+B | R06 | 影像测绘与高级三维；验收：ODM 异步处理、质量确认；必要时 Cesium 的真三维剖面与轨迹 | todo | feat/mission-workspace-v2 |
+| R24 | P2 | A+B | R01, R12, R14, R19 | 多基地/移动补能/协作扩展；验收：真实模型与跨任务预约检查，不止配置表单 | todo | feat/mission-workspace-v2 |
 
 ## 当前执行入口
 

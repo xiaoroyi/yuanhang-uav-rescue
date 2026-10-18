@@ -1653,6 +1653,9 @@ def create_app(runtime_dir: Path | None = None):
                 ],
             }
 
+    from backend.app.missions import register_missions
+    register_missions(app, database, AppError, save_new, snapshot_for)
+
     frontend = ROOT / "frontend/dist"
     if frontend.is_dir():
         assets = frontend / "assets"

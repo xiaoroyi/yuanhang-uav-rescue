@@ -13,7 +13,7 @@
     "G5": "in_progress",
     "G6": "in_progress"
   },
-  "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。",
+  "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。 V2按R00-R24实施，原包C职责归同一位B。",
   "tasks": [
     {
       "id": "G0-01",
@@ -1296,6 +1296,430 @@
         "evidence/strategy-v2/trial-policy-v1.json",
         "evidence/strategy-v2/trial-policy-v2.json"
       ]
+    },
+    {
+      "id": "R00",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "仓库、截图和能力审计",
+      "acceptance": "文件树、实际技术栈、现有入口、已运行测试、功能状态、风险；保留未提交修改",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": [
+        "evidence/redesign-v2/REPO_AUDIT.md"
+      ]
+    },
+    {
+      "id": "R01",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "接口迁移与模型边界",
+      "acceptance": "API_MIGRATION_MAP、Mission/Execution 等新增契约、样例及兼容测试；不改旧字段含义",
+      "dependencies": [
+        "R00"
+      ],
+      "status": "in_progress",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R02",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "设计系统与导航壳",
+      "acceptance": "4 个主导航、首页入口、任务页签、tokens、受控滚动、响应式壳；移除业务口号",
+      "dependencies": [
+        "R00"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R03",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "首页和任务管理",
+      "acceptance": "创建、继续、复制、搜索、归档、示例演练；不复制实际执行事实",
+      "dependencies": [
+        "R01",
+        "R02"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R04",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "任务准备流程",
+      "acceptance": "区域/基地、需求/库存、机队/保障、条件检查 4 步；草稿保存与修复定位",
+      "dependencies": [
+        "R01",
+        "R02"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R05",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "条件检查服务与界面",
+      "acceptance": "planning/execution 检查报告、必检范围、未知/失败/提醒分开；能一键定位问题",
+      "dependencies": [
+        "R01",
+        "R04"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R06",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "统一地图与空间资产",
+      "acceptance": "真正交互地图、图层、紧凑标签、选中联动、CRS/DEM/离线、限制区编辑和缓存失效",
+      "dependencies": [
+        "R01",
+        "R02"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R07",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "Solver 适配和计算作业",
+      "acceptance": "原算法回归、实际新输入计算、限时/取消、候选、错误语义、独立验证",
+      "dependencies": [
+        "R01",
+        "R04"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R08",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "结果数据与分析图",
+      "acceptance": "同源 PlanAnalysis、V01—V09、单位和阶段一致；逐箱/机体/电池追踪",
+      "dependencies": [
+        "R06",
+        "R07"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R09",
+      "phase": "G1",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "方案工作台与确认",
+      "acceptance": "地图主视图、任务表、资源甘特、比较、确认/导出；同条件与事件差异分开",
+      "dependencies": [
+        "R02",
+        "R05",
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R10",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "服务器业务仿真与回放",
+      "acceptance": "独立执行实例/时钟/账本，开始暂停倍速恢复，刷新不丢进度；回放不改事实",
+      "dependencies": [
+        "R01",
+        "R09"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R11",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "遥测和设备适配合同",
+      "acceptance": "SimulationAdapter、能力查询、指令状态、断线/重连；SITL 接入按环境验证",
+      "dependencies": [
+        "R01",
+        "R10"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R12",
+      "phase": "G3",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "执行中事件与计划变更",
+      "acceptance": "已装载/在飞事实冻结、依赖影响、真实重算、差异确认、分设备应用及失败状态",
+      "dependencies": [
+        "R07",
+        "R10",
+        "R11"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R13",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "通信中继与连续验证",
+      "acceptance": "直连与接入/回传、窗口、组件、通信时间轴与剖面；明确连续/采样边界",
+      "dependencies": [
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R14",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "气象、现实电量和地面保障",
+      "acceptance": "手工/预报适配、数据年龄、机型阈值、SOC/容量定义、充电端口/起降与装卸能力",
+      "dependencies": [
+        "R01",
+        "R05",
+        "R07"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R15",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "条件变化有效性与增配诊断",
+      "acceptance": "I1—I3 可操作界面、受影响对象、真实 what-if 计算、保留原 Plan",
+      "dependencies": [
+        "R08",
+        "R12",
+        "R13",
+        "R14"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R16",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "演练评测与算法消融",
+      "acceptance": "从 UI 运行场景/事件/方法对比；预算/种子/日志/失败记录；研究功能独立",
+      "dependencies": [
+        "R07",
+        "R10",
+        "R12"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R17",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "复盘、档案与导出",
+      "acceptance": "计划/模拟/实况分开、轨迹/服务/能源/通信分析、可重载任务包",
+      "dependencies": [
+        "R08",
+        "R10",
+        "R12"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R18",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "离线、性能与异常降级",
+      "acceptance": "授权地图包、字体图标本地化、无网/无 WebGL 降级、订阅清理和任务限流",
+      "dependencies": [
+        "R06",
+        "R09",
+        "R10"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R19",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "安全、隐私与权限",
+      "acceptance": "模式隔离、认证、指令审批/幂等/TTL、敏感信息与 XSS/上传路径防护",
+      "dependencies": [
+        "R01",
+        "R11"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R20",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "全流程和视觉验收",
+      "acceptance": "真实浏览器操作、指定尺寸截图、数据/日志、失败态测试、重复运行",
+      "dependencies": [
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R14",
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R21",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "演示与参赛交付",
+      "acceptance": "项目说明书实况更新、真实图表、视频/PPT素材、运行包、许可/匿名检查",
+      "dependencies": [
+        "R16",
+        "R17",
+        "R20"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R22",
+      "phase": "G6",
+      "priority": "P2",
+      "owner": "A",
+      "title": "学习辅助搜索",
+      "acceptance": "规则基线、训练/测试隔离、消融、开销；无证据不显示 AI 成功",
+      "dependencies": [
+        "R16"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R23",
+      "phase": "G6",
+      "priority": "P2",
+      "owner": "A+B",
+      "title": "影像测绘与高级三维",
+      "acceptance": "ODM 异步处理、质量确认；必要时 Cesium 的真三维剖面与轨迹",
+      "dependencies": [
+        "R06"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
+    },
+    {
+      "id": "R24",
+      "phase": "G6",
+      "priority": "P2",
+      "owner": "A+B",
+      "title": "多基地/移动补能/协作扩展",
+      "acceptance": "真实模型与跨任务预约检查，不止配置表单",
+      "dependencies": [
+        "R01",
+        "R12",
+        "R14",
+        "R19"
+      ],
+      "status": "todo",
+      "branch": "feat/mission-workspace-v2",
+      "pr": null,
+      "evidence": []
     }
   ]
 }

@@ -1,0 +1,3338 @@
+{
+  "$defs": {
+    "ApplyRepair": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "ack_timeout_device_ids": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 20,
+          "title": "Ack Timeout Device Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "idempotency_key"
+      ],
+      "title": "ApplyRepair",
+      "type": "object"
+    },
+    "Base": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "coordinates": {
+          "$ref": "#/$defs/Coordinates"
+        },
+        "ground_elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ground Elevation M"
+        },
+        "available": {
+          "title": "Available",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "coordinates",
+        "ground_elevation_m",
+        "available"
+      ],
+      "title": "Base",
+      "type": "object"
+    },
+    "Battery": {
+      "additionalProperties": false,
+      "properties": {
+        "battery_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Battery Id",
+          "type": "string"
+        },
+        "compatible_type_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Compatible Type Id",
+          "type": "string"
+        },
+        "capacity_kwh": {
+          "exclusiveMinimum": 0,
+          "title": "Capacity Kwh",
+          "type": "number"
+        },
+        "soc": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Soc",
+          "type": "number"
+        },
+        "soh": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Soh",
+          "type": "number"
+        },
+        "status": {
+          "$ref": "#/$defs/Status7"
+        },
+        "location_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Location Id",
+          "type": "string"
+        },
+        "available_after_s": {
+          "minimum": 0.0,
+          "title": "Available After S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "battery_id",
+        "compatible_type_id",
+        "capacity_kwh",
+        "soc",
+        "soh",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "title": "Battery",
+      "type": "object"
+    },
+    "CargoItem": {
+      "additionalProperties": false,
+      "properties": {
+        "cargo_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Cargo Id",
+          "type": "string"
+        },
+        "demand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Demand Id",
+          "type": "string"
+        },
+        "type": {
+          "minLength": 1,
+          "title": "Type",
+          "type": "string"
+        },
+        "mass_kg": {
+          "exclusiveMinimum": 0,
+          "title": "Mass Kg",
+          "type": "number"
+        },
+        "volume_l": {
+          "exclusiveMinimum": 0,
+          "title": "Volume L",
+          "type": "number"
+        },
+        "status": {
+          "$ref": "#/$defs/Status5"
+        },
+        "location_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Location Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cargo_id",
+        "demand_id",
+        "type",
+        "mass_kg",
+        "volume_l",
+        "status",
+        "location_id"
+      ],
+      "title": "CargoItem",
+      "type": "object"
+    },
+    "ChargeModel": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "model_id",
+        "parameters"
+      ],
+      "title": "ChargeModel",
+      "type": "object"
+    },
+    "CheckItem": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "group": {
+          "enum": [
+            "map",
+            "inventory",
+            "fleet",
+            "weather",
+            "communication",
+            "model",
+            "execution"
+          ],
+          "title": "Group",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "passed",
+            "warning",
+            "blocked",
+            "unknown",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "affected_objects": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Objects",
+          "type": "array"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field Path"
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actual"
+        },
+        "required": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "action": {
+          "enum": [
+            "region",
+            "demand",
+            "fleet",
+            "checks",
+            "plans",
+            "settings"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "source_ref": {
+          "title": "Source Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "group",
+        "status",
+        "message",
+        "action",
+        "source_ref"
+      ],
+      "title": "CheckItem",
+      "type": "object"
+    },
+    "Code1": {
+      "enum": [
+        "SCHEMA_INVALID",
+        "REFERENCE_INVALID",
+        "RESOURCE_CONFLICT",
+        "STATE_VERSION_CONFLICT",
+        "SNAPSHOT_STALE",
+        "UNSUPPORTED_SCOPE",
+        "INPUT_NOT_READY",
+        "NO_VALIDATED_PLAN",
+        "UNSUPPORTED_EVENT_STATE",
+        "SOLVER_BUSY",
+        "CANCELED",
+        "EXTERNAL_ASSET_UNAVAILABLE",
+        "INTERNAL_ERROR"
+      ],
+      "title": "Code1",
+      "type": "string"
+    },
+    "CommandRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "command_type": {
+          "enum": [
+            "mission.upload",
+            "mission.activate",
+            "state.query"
+          ],
+          "title": "Command Type",
+          "type": "string"
+        },
+        "desired_plan_id": {
+          "title": "Desired Plan Id",
+          "type": "string"
+        },
+        "expected_execution_revision": {
+          "minimum": 1,
+          "title": "Expected Execution Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "simulation_fault": {
+          "default": "none",
+          "enum": [
+            "none",
+            "reject",
+            "ack_timeout",
+            "completion_timeout"
+          ],
+          "title": "Simulation Fault",
+          "type": "string"
+        }
+      },
+      "required": [
+        "execution_id",
+        "device_id",
+        "command_type",
+        "desired_plan_id",
+        "expected_execution_revision",
+        "idempotency_key",
+        "expires_at"
+      ],
+      "title": "CommandRequest",
+      "type": "object"
+    },
+    "CommandView": {
+      "additionalProperties": false,
+      "properties": {
+        "command_id": {
+          "title": "Command Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "command_type": {
+          "title": "Command Type",
+          "type": "string"
+        },
+        "mode": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Mode",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "sent",
+            "acknowledged",
+            "succeeded",
+            "rejected",
+            "expired",
+            "indeterminate"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "desired_plan_id": {
+          "title": "Desired Plan Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "acknowledged_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Acknowledged At"
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Completed At"
+        },
+        "evidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evidence"
+        }
+      },
+      "required": [
+        "command_id",
+        "execution_id",
+        "device_id",
+        "command_type",
+        "status",
+        "desired_plan_id",
+        "created_at",
+        "expires_at",
+        "acknowledged_at",
+        "completed_at",
+        "evidence"
+      ],
+      "title": "CommandView",
+      "type": "object"
+    },
+    "Communication": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "const": "projected_dem_radio_v1",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "frequency_mhz": {
+          "maximum": 100000.0,
+          "minimum": 1.0,
+          "title": "Frequency Mhz",
+          "type": "number"
+        },
+        "system_loss_db": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "System Loss Db",
+          "type": "number"
+        },
+        "obstruction_loss_db": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Obstruction Loss Db",
+          "type": "number"
+        },
+        "sensitivity_dbm": {
+          "maximum": 0.0,
+          "minimum": -200.0,
+          "title": "Sensitivity Dbm",
+          "type": "number"
+        },
+        "fading_margin_db": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Fading Margin Db",
+          "type": "number"
+        },
+        "gateway": {
+          "$ref": "#/$defs/RadioGateway"
+        },
+        "transport": {
+          "$ref": "#/$defs/RadioEndpoint"
+        },
+        "relay_access": {
+          "$ref": "#/$defs/RadioEndpoint"
+        },
+        "relay_backhaul": {
+          "$ref": "#/$defs/RadioEndpoint"
+        },
+        "relay_model": {
+          "$ref": "#/$defs/RelayModel"
+        },
+        "relay_drones": {
+          "items": {
+            "$ref": "#/$defs/RelayAircraft"
+          },
+          "maxItems": 8,
+          "title": "Relay Drones",
+          "type": "array"
+        },
+        "relay_energy": {
+          "items": {
+            "$ref": "#/$defs/RelayEnergy"
+          },
+          "maxItems": 32,
+          "title": "Relay Energy",
+          "type": "array"
+        },
+        "candidate_stations": {
+          "items": {
+            "$ref": "#/$defs/RelayStation"
+          },
+          "maxItems": 48,
+          "title": "Candidate Stations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model_id",
+        "frequency_mhz",
+        "system_loss_db",
+        "obstruction_loss_db",
+        "sensitivity_dbm",
+        "fading_margin_db",
+        "gateway",
+        "transport",
+        "relay_access",
+        "relay_backhaul",
+        "relay_model",
+        "relay_drones",
+        "relay_energy",
+        "candidate_stations"
+      ],
+      "title": "Communication",
+      "type": "object"
+    },
+    "Coordinate": {
+      "maximum": 180.0,
+      "minimum": -180.0,
+      "title": "Coordinate",
+      "type": "number"
+    },
+    "Coordinate1": {
+      "maximum": 90.0,
+      "minimum": -90.0,
+      "title": "Coordinate1",
+      "type": "number"
+    },
+    "Coordinate2": {
+      "maximum": 180.0,
+      "minimum": -180.0,
+      "title": "Coordinate2",
+      "type": "number"
+    },
+    "Coordinate3": {
+      "maximum": 90.0,
+      "minimum": -90.0,
+      "title": "Coordinate3",
+      "type": "number"
+    },
+    "Coordinate5": {
+      "items": {
+        "$ref": "#/$defs/Coordinates"
+      },
+      "title": "Coordinate5",
+      "type": "array"
+    },
+    "Coordinates": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Coordinate"
+        },
+        {
+          "$ref": "#/$defs/Coordinate1"
+        }
+      ],
+      "title": "Coordinates",
+      "type": "array"
+    },
+    "Demand": {
+      "additionalProperties": false,
+      "properties": {
+        "demand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Demand Id",
+          "type": "string"
+        },
+        "site_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Site Id",
+          "type": "string"
+        },
+        "cargo_type": {
+          "minLength": 1,
+          "title": "Cargo Type",
+          "type": "string"
+        },
+        "required_quantity": {
+          "minimum": 1,
+          "title": "Required Quantity",
+          "type": "integer"
+        },
+        "priority": {
+          "minimum": 1,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "expected_deadline_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected Deadline S"
+        },
+        "hard_deadline_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hard Deadline S"
+        },
+        "mandatory": {
+          "title": "Mandatory",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "demand_id",
+        "site_id",
+        "cargo_type",
+        "required_quantity",
+        "priority",
+        "expected_deadline_s",
+        "hard_deadline_s",
+        "mandatory"
+      ],
+      "title": "Demand",
+      "type": "object"
+    },
+    "DeviceCapabilities": {
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "adapter": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "mode": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Mode",
+          "type": "string"
+        },
+        "supports_upload": {
+          "const": true,
+          "default": true,
+          "title": "Supports Upload",
+          "type": "boolean"
+        },
+        "supports_inflight_replacement": {
+          "const": false,
+          "default": false,
+          "title": "Supports Inflight Replacement",
+          "type": "boolean"
+        },
+        "supports_future_schedule_update": {
+          "const": true,
+          "default": true,
+          "title": "Supports Future Schedule Update",
+          "type": "boolean"
+        },
+        "command_types": {
+          "items": {
+            "enum": [
+              "mission.upload",
+              "mission.activate",
+              "state.query"
+            ],
+            "type": "string"
+          },
+          "title": "Command Types",
+          "type": "array"
+        },
+        "real_device_connected": {
+          "const": false,
+          "default": false,
+          "title": "Real Device Connected",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "device_id",
+        "command_types"
+      ],
+      "title": "DeviceCapabilities",
+      "type": "object"
+    },
+    "Drone": {
+      "additionalProperties": false,
+      "properties": {
+        "drone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Drone Id",
+          "type": "string"
+        },
+        "type_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Type Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/Status6"
+        },
+        "location_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Location Id",
+          "type": "string"
+        },
+        "available_after_s": {
+          "minimum": 0.0,
+          "title": "Available After S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "drone_id",
+        "type_id",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "title": "Drone",
+      "type": "object"
+    },
+    "DroneType": {
+      "additionalProperties": false,
+      "properties": {
+        "type_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Type Id",
+          "type": "string"
+        },
+        "max_payload_kg": {
+          "exclusiveMinimum": 0,
+          "title": "Max Payload Kg",
+          "type": "number"
+        },
+        "max_volume_l": {
+          "exclusiveMinimum": 0,
+          "title": "Max Volume L",
+          "type": "number"
+        },
+        "cruise_speed_mps": {
+          "exclusiveMinimum": 0,
+          "title": "Cruise Speed Mps",
+          "type": "number"
+        },
+        "climb_speed_mps": {
+          "exclusiveMinimum": 0,
+          "title": "Climb Speed Mps",
+          "type": "number"
+        },
+        "descent_speed_mps": {
+          "exclusiveMinimum": 0,
+          "title": "Descent Speed Mps",
+          "type": "number"
+        },
+        "prepare_duration_s": {
+          "minimum": 0.0,
+          "title": "Prepare Duration S",
+          "type": "number"
+        },
+        "turnaround_duration_s": {
+          "minimum": 0.0,
+          "title": "Turnaround Duration S",
+          "type": "number"
+        },
+        "handover_fixed_s": {
+          "minimum": 0.0,
+          "title": "Handover Fixed S",
+          "type": "number"
+        },
+        "handover_per_box_s": {
+          "minimum": 0.0,
+          "title": "Handover Per Box S",
+          "type": "number"
+        },
+        "empty_mass_kg": {
+          "exclusiveMinimum": 0,
+          "title": "Empty Mass Kg",
+          "type": "number"
+        },
+        "energy_model": {
+          "$ref": "#/$defs/EnergyModel"
+        },
+        "charge_model": {
+          "$ref": "#/$defs/ChargeModel"
+        }
+      },
+      "required": [
+        "type_id",
+        "max_payload_kg",
+        "max_volume_l",
+        "cruise_speed_mps",
+        "climb_speed_mps",
+        "descent_speed_mps",
+        "prepare_duration_s",
+        "turnaround_duration_s",
+        "handover_fixed_s",
+        "handover_per_box_s",
+        "empty_mass_kg",
+        "energy_model",
+        "charge_model"
+      ],
+      "title": "DroneType",
+      "type": "object"
+    },
+    "EnergyModel": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "model_id",
+        "parameters"
+      ],
+      "title": "EnergyModel",
+      "type": "object"
+    },
+    "Error1": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/Code1"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field Path"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "request_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "field_path",
+        "details",
+        "request_id"
+      ],
+      "title": "Error1",
+      "type": "object"
+    },
+    "ExecutionAnalysis": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "source": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Source",
+          "type": "string"
+        },
+        "allocated_quantity": {
+          "title": "Allocated Quantity",
+          "type": "integer"
+        },
+        "delivered_quantity": {
+          "title": "Delivered Quantity",
+          "type": "integer"
+        },
+        "unserved_quantity": {
+          "title": "Unserved Quantity",
+          "type": "integer"
+        },
+        "delivery_rows": {
+          "items": {
+            "$ref": "#/$defs/ExecutionFact"
+          },
+          "title": "Delivery Rows",
+          "type": "array"
+        },
+        "initial_plan_id": {
+          "title": "Initial Plan Id",
+          "type": "string"
+        },
+        "active_plan_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Active Plan Ids",
+          "type": "array"
+        },
+        "event_count": {
+          "title": "Event Count",
+          "type": "integer"
+        },
+        "change_count": {
+          "title": "Change Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "execution_id",
+        "facts_cursor",
+        "allocated_quantity",
+        "delivered_quantity",
+        "unserved_quantity",
+        "delivery_rows",
+        "initial_plan_id",
+        "active_plan_ids",
+        "event_count",
+        "change_count"
+      ],
+      "title": "ExecutionAnalysis",
+      "type": "object"
+    },
+    "ExecutionCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "confirmed_plan_id": {
+          "title": "Confirmed Plan Id",
+          "type": "string"
+        },
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "mode": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Mode",
+          "type": "string"
+        },
+        "seed": {
+          "default": 42,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mission_id",
+        "confirmed_plan_id",
+        "expected_revision",
+        "idempotency_key"
+      ],
+      "title": "ExecutionCreate",
+      "type": "object"
+    },
+    "ExecutionEventInput": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Event Id",
+          "type": "string"
+        },
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "event_type": {
+          "enum": [
+            "drone.unavailable",
+            "battery.unavailable",
+            "demand.added",
+            "site.unavailable"
+          ],
+          "title": "Event Type",
+          "type": "string"
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Object Id"
+        },
+        "demand": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Demand"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cargo_items": {
+          "items": {
+            "$ref": "#/$defs/CargoItem"
+          },
+          "maxItems": 200,
+          "title": "Cargo Items",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "expected_revision",
+        "event_type",
+        "reason"
+      ],
+      "title": "ExecutionEventInput",
+      "type": "object"
+    },
+    "ExecutionEventView": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "title": "Event Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "event_type": {
+          "title": "Event Type",
+          "type": "string"
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Object Id"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "affected_sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Affected Sortie Ids",
+          "type": "array"
+        },
+        "propagated_sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Propagated Sortie Ids",
+          "type": "array"
+        },
+        "preserved_sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preserved Sortie Ids",
+          "type": "array"
+        },
+        "committed_sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Committed Sortie Ids",
+          "type": "array"
+        },
+        "missing_inventory": {
+          "title": "Missing Inventory",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "recorded",
+            "requires_manual"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "event_id",
+        "execution_id",
+        "event_type",
+        "object_id",
+        "reason",
+        "time_s",
+        "facts_cursor",
+        "affected_sortie_ids",
+        "propagated_sortie_ids",
+        "preserved_sortie_ids",
+        "committed_sortie_ids",
+        "missing_inventory",
+        "status"
+      ],
+      "title": "ExecutionEventView",
+      "type": "object"
+    },
+    "ExecutionFact": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_id": {
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "cursor": {
+          "title": "Cursor",
+          "type": "integer"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "loaded",
+            "takeoff",
+            "delivered",
+            "returned",
+            "released",
+            "battery_ready",
+            "plan_adopted"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "plan_id": {
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "sortie_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sortie Id"
+        },
+        "drone_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Drone Id"
+        },
+        "battery_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Battery Id"
+        },
+        "cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cargo Ids",
+          "type": "array"
+        },
+        "source": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "cursor",
+        "time_s",
+        "kind",
+        "plan_id",
+        "sortie_id",
+        "drone_id",
+        "battery_id",
+        "cargo_ids"
+      ],
+      "title": "ExecutionFact",
+      "type": "object"
+    },
+    "ExecutionSchedulePart": {
+      "additionalProperties": false,
+      "properties": {
+        "plan_id": {
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "sortie_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Sortie Ids",
+          "type": "array"
+        },
+        "role": {
+          "enum": [
+            "initial",
+            "commitment",
+            "future"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "plan_id",
+        "sortie_ids",
+        "role"
+      ],
+      "title": "ExecutionSchedulePart",
+      "type": "object"
+    },
+    "ExecutionView": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "mode": {
+          "const": "simulation",
+          "title": "Mode",
+          "type": "string"
+        },
+        "initial_plan_id": {
+          "title": "Initial Plan Id",
+          "type": "string"
+        },
+        "desired_plan_id": {
+          "title": "Desired Plan Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "running",
+            "paused",
+            "completed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "revision": {
+          "title": "Revision",
+          "type": "integer"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "speed": {
+          "title": "Speed",
+          "type": "number"
+        },
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "connected": {
+          "title": "Connected",
+          "type": "boolean"
+        },
+        "schedule_parts": {
+          "items": {
+            "$ref": "#/$defs/ExecutionSchedulePart"
+          },
+          "title": "Schedule Parts",
+          "type": "array"
+        },
+        "delivered_cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Delivered Cargo Ids",
+          "type": "array"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/ExecutionFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "telemetry": {
+          "items": {
+            "$ref": "#/$defs/TelemetrySample"
+          },
+          "title": "Telemetry",
+          "type": "array"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "execution_id",
+        "mission_id",
+        "mode",
+        "initial_plan_id",
+        "desired_plan_id",
+        "status",
+        "revision",
+        "facts_cursor",
+        "time_s",
+        "speed",
+        "seed",
+        "connected",
+        "schedule_parts",
+        "delivered_cargo_ids",
+        "facts",
+        "telemetry",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ExecutionView",
+      "type": "object"
+    },
+    "Geometry": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "Polygon",
+          "title": "Type",
+          "type": "string"
+        },
+        "coordinates": {
+          "items": {
+            "$ref": "#/$defs/Coordinate5"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "title": "Coordinates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "Geometry",
+      "type": "object"
+    },
+    "JobState": {
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "canceled"
+      ],
+      "title": "JobState",
+      "type": "string"
+    },
+    "MissionCreate": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "mode": {
+          "default": "simulation",
+          "enum": [
+            "simulation",
+            "planning_assist"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "template": {
+          "default": "blank",
+          "enum": [
+            "blank",
+            "compact",
+            "contest"
+          ],
+          "title": "Template",
+          "type": "string"
+        },
+        "scenario_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scenario Id"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "idempotency_key"
+      ],
+      "title": "MissionCreate",
+      "type": "object"
+    },
+    "MissionDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "start_time": {
+          "format": "date-time",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "timezone": {
+          "default": "Asia/Shanghai",
+          "title": "Timezone",
+          "type": "string"
+        },
+        "base": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Base"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sites": {
+          "items": {
+            "$ref": "#/$defs/Site"
+          },
+          "title": "Sites",
+          "type": "array"
+        },
+        "demands": {
+          "items": {
+            "$ref": "#/$defs/Demand"
+          },
+          "title": "Demands",
+          "type": "array"
+        },
+        "cargo_items": {
+          "items": {
+            "$ref": "#/$defs/CargoItem"
+          },
+          "title": "Cargo Items",
+          "type": "array"
+        },
+        "drone_types": {
+          "items": {
+            "$ref": "#/$defs/DroneType"
+          },
+          "title": "Drone Types",
+          "type": "array"
+        },
+        "drones": {
+          "items": {
+            "$ref": "#/$defs/Drone"
+          },
+          "title": "Drones",
+          "type": "array"
+        },
+        "batteries": {
+          "items": {
+            "$ref": "#/$defs/Battery"
+          },
+          "title": "Batteries",
+          "type": "array"
+        },
+        "terrain": {
+          "$ref": "#/$defs/Terrain"
+        },
+        "policy": {
+          "$ref": "#/$defs/Policy"
+        },
+        "restricted_zones": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/RestrictedZone"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Restricted Zones"
+        },
+        "resource_limits": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResourceLimits"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "communication": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Communication"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "start_time",
+        "terrain",
+        "policy"
+      ],
+      "title": "MissionDraft",
+      "type": "object"
+    },
+    "MissionDraftUpdate": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "draft": {
+          "$ref": "#/$defs/MissionDraft"
+        },
+        "publish": {
+          "default": false,
+          "title": "Publish",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "draft"
+      ],
+      "title": "MissionDraftUpdate",
+      "type": "object"
+    },
+    "MissionUpdate": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "archived": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Archived"
+        }
+      },
+      "required": [
+        "expected_revision"
+      ],
+      "title": "MissionUpdate",
+      "type": "object"
+    },
+    "MissionView": {
+      "additionalProperties": false,
+      "properties": {
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "simulation",
+            "planning_assist"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "timezone": {
+          "title": "Timezone",
+          "type": "string"
+        },
+        "lifecycle": {
+          "enum": [
+            "draft",
+            "planning",
+            "ready",
+            "executing",
+            "paused",
+            "completed",
+            "archived"
+          ],
+          "title": "Lifecycle",
+          "type": "string"
+        },
+        "revision": {
+          "title": "Revision",
+          "type": "integer"
+        },
+        "current_scenario_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current Scenario Id"
+        },
+        "active_plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Active Plan Id"
+        },
+        "active_execution_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Active Execution Id"
+        },
+        "draft": {
+          "$ref": "#/$defs/MissionDraft"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "title": "Updated At",
+          "type": "string"
+        },
+        "site_count": {
+          "title": "Site Count",
+          "type": "integer"
+        },
+        "cargo_count": {
+          "title": "Cargo Count",
+          "type": "integer"
+        },
+        "next_action": {
+          "enum": [
+            "prepare",
+            "plans",
+            "execute",
+            "review"
+          ],
+          "title": "Next Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mission_id",
+        "name",
+        "mode",
+        "timezone",
+        "lifecycle",
+        "revision",
+        "current_scenario_id",
+        "active_plan_id",
+        "active_execution_id",
+        "draft",
+        "updated_at",
+        "site_count",
+        "cargo_count",
+        "next_action"
+      ],
+      "title": "MissionView",
+      "type": "object"
+    },
+    "Policy": {
+      "additionalProperties": false,
+      "properties": {
+        "min_return_soc": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Min Return Soc",
+          "type": "number"
+        },
+        "requires_terrain": {
+          "title": "Requires Terrain",
+          "type": "boolean"
+        },
+        "requires_communication": {
+          "title": "Requires Communication",
+          "type": "boolean"
+        },
+        "delivery_time_policy": {
+          "const": "station_end",
+          "title": "Delivery Time Policy",
+          "type": "string"
+        },
+        "cost_model_available": {
+          "const": false,
+          "title": "Cost Model Available",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "min_return_soc",
+        "requires_terrain",
+        "requires_communication",
+        "delivery_time_policy",
+        "cost_model_available"
+      ],
+      "title": "Policy",
+      "type": "object"
+    },
+    "PreflightReport": {
+      "additionalProperties": false,
+      "properties": {
+        "report_id": {
+          "title": "Report Id",
+          "type": "string"
+        },
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Scenario Id"
+        },
+        "state_version": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "State Version"
+        },
+        "snapshot_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Snapshot Id"
+        },
+        "check_kind": {
+          "title": "Check Kind",
+          "type": "string"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/CheckItem"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "blocking_count": {
+          "title": "Blocking Count",
+          "type": "integer"
+        },
+        "warning_count": {
+          "title": "Warning Count",
+          "type": "integer"
+        },
+        "validity_fingerprint": {
+          "title": "Validity Fingerprint",
+          "type": "string"
+        },
+        "checked_at": {
+          "format": "date-time",
+          "title": "Checked At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "report_id",
+        "mission_id",
+        "scenario_id",
+        "state_version",
+        "snapshot_id",
+        "check_kind",
+        "checks",
+        "blocking_count",
+        "warning_count",
+        "validity_fingerprint",
+        "checked_at"
+      ],
+      "title": "PreflightReport",
+      "type": "object"
+    },
+    "PreflightRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "check_kind": {
+          "default": "planning_readiness",
+          "enum": [
+            "planning_readiness",
+            "simulation_readiness",
+            "real_dispatch"
+          ],
+          "title": "Check Kind",
+          "type": "string"
+        },
+        "plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan Id"
+        }
+      },
+      "required": [
+        "expected_revision"
+      ],
+      "title": "PreflightRequest",
+      "type": "object"
+    },
+    "RadioEndpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "tx_power_dbm": {
+          "maximum": 100.0,
+          "minimum": -100.0,
+          "title": "Tx Power Dbm",
+          "type": "number"
+        },
+        "gain_dbi": {
+          "maximum": 50.0,
+          "minimum": -20.0,
+          "title": "Gain Dbi",
+          "type": "number"
+        }
+      },
+      "required": [
+        "tx_power_dbm",
+        "gain_dbi"
+      ],
+      "title": "RadioEndpoint",
+      "type": "object"
+    },
+    "RadioGateway": {
+      "additionalProperties": false,
+      "properties": {
+        "tx_power_dbm": {
+          "maximum": 100.0,
+          "minimum": -100.0,
+          "title": "Tx Power Dbm",
+          "type": "number"
+        },
+        "gain_dbi": {
+          "maximum": 50.0,
+          "minimum": -20.0,
+          "title": "Gain Dbi",
+          "type": "number"
+        },
+        "antenna_height_m": {
+          "maximum": 1000.0,
+          "minimum": 0.01,
+          "title": "Antenna Height M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "tx_power_dbm",
+        "gain_dbi",
+        "antenna_height_m"
+      ],
+      "title": "RadioGateway",
+      "type": "object"
+    },
+    "RelayAircraft": {
+      "additionalProperties": false,
+      "properties": {
+        "drone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Drone Id",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/Status2"
+        },
+        "location_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Location Id",
+          "type": "string"
+        },
+        "available_after_s": {
+          "minimum": 0.0,
+          "title": "Available After S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "drone_id",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "title": "RelayAircraft",
+      "type": "object"
+    },
+    "RelayEnergy": {
+      "additionalProperties": false,
+      "properties": {
+        "component_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Component Id",
+          "type": "string"
+        },
+        "capacity_kwh": {
+          "maximum": 10000.0,
+          "minimum": 0.001,
+          "title": "Capacity Kwh",
+          "type": "number"
+        },
+        "soc": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Soc",
+          "type": "number"
+        },
+        "soh": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Soh",
+          "type": "number"
+        },
+        "status": {
+          "$ref": "#/$defs/Status3"
+        },
+        "location_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Location Id",
+          "type": "string"
+        },
+        "available_after_s": {
+          "minimum": 0.0,
+          "title": "Available After S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "component_id",
+        "capacity_kwh",
+        "soc",
+        "soh",
+        "status",
+        "location_id",
+        "available_after_s"
+      ],
+      "title": "RelayEnergy",
+      "type": "object"
+    },
+    "RelayModel": {
+      "additionalProperties": false,
+      "properties": {
+        "mass_kg": {
+          "maximum": 10000.0,
+          "minimum": 0.01,
+          "title": "Mass Kg",
+          "type": "number"
+        },
+        "cruise_speed_mps": {
+          "maximum": 200.0,
+          "minimum": 0.01,
+          "title": "Cruise Speed Mps",
+          "type": "number"
+        },
+        "climb_speed_mps": {
+          "maximum": 100.0,
+          "minimum": 0.01,
+          "title": "Climb Speed Mps",
+          "type": "number"
+        },
+        "descent_speed_mps": {
+          "maximum": 100.0,
+          "minimum": 0.01,
+          "title": "Descent Speed Mps",
+          "type": "number"
+        },
+        "cruise_power_kw": {
+          "maximum": 1000.0,
+          "minimum": 0.001,
+          "title": "Cruise Power Kw",
+          "type": "number"
+        },
+        "hover_power_kw": {
+          "maximum": 1000.0,
+          "minimum": 0.001,
+          "title": "Hover Power Kw",
+          "type": "number"
+        },
+        "radio_power_kw": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Radio Power Kw",
+          "type": "number"
+        },
+        "climb_efficiency": {
+          "maximum": 1.0,
+          "minimum": 0.001,
+          "title": "Climb Efficiency",
+          "type": "number"
+        },
+        "prepare_duration_s": {
+          "maximum": 86400.0,
+          "minimum": 0.0,
+          "title": "Prepare Duration S",
+          "type": "number"
+        },
+        "link_duration_s": {
+          "maximum": 86400.0,
+          "minimum": 0.0,
+          "title": "Link Duration S",
+          "type": "number"
+        },
+        "turnaround_duration_s": {
+          "maximum": 86400.0,
+          "minimum": 0.0,
+          "title": "Turnaround Duration S",
+          "type": "number"
+        },
+        "full_charge_s": {
+          "maximum": 864000.0,
+          "minimum": 0.01,
+          "title": "Full Charge S",
+          "type": "number"
+        },
+        "max_agl_m": {
+          "maximum": 3000.0,
+          "minimum": 0.1,
+          "title": "Max Agl M",
+          "type": "number"
+        },
+        "min_return_soc": {
+          "maximum": 0.99,
+          "minimum": 0.0,
+          "title": "Min Return Soc",
+          "type": "number"
+        }
+      },
+      "required": [
+        "mass_kg",
+        "cruise_speed_mps",
+        "climb_speed_mps",
+        "descent_speed_mps",
+        "cruise_power_kw",
+        "hover_power_kw",
+        "radio_power_kw",
+        "climb_efficiency",
+        "prepare_duration_s",
+        "link_duration_s",
+        "turnaround_duration_s",
+        "full_charge_s",
+        "max_agl_m",
+        "min_return_soc"
+      ],
+      "title": "RelayModel",
+      "type": "object"
+    },
+    "RelayStation": {
+      "additionalProperties": false,
+      "properties": {
+        "station_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Station Id",
+          "type": "string"
+        },
+        "coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/Coordinate2"
+            },
+            {
+              "$ref": "#/$defs/Coordinate3"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "agl_m": {
+          "maximum": 3000.0,
+          "minimum": 0.01,
+          "title": "Agl M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "station_id",
+        "coordinates",
+        "agl_m"
+      ],
+      "title": "RelayStation",
+      "type": "object"
+    },
+    "RepairRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "objective": {
+          "default": "time",
+          "enum": [
+            "time",
+            "energy",
+            "balanced"
+          ],
+          "title": "Objective",
+          "type": "string"
+        },
+        "time_limit_s": {
+          "default": 10,
+          "maximum": 120,
+          "minimum": 1,
+          "title": "Time Limit S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "idempotency_key"
+      ],
+      "title": "RepairRequest",
+      "type": "object"
+    },
+    "RepairView": {
+      "additionalProperties": false,
+      "properties": {
+        "change_id": {
+          "title": "Change Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "execution_revision": {
+          "title": "Execution Revision",
+          "type": "integer"
+        },
+        "facts_cursor": {
+          "title": "Facts Cursor",
+          "type": "integer"
+        },
+        "event_fingerprint": {
+          "title": "Event Fingerprint",
+          "type": "string"
+        },
+        "committed_parts": {
+          "items": {
+            "$ref": "#/$defs/ExecutionSchedulePart"
+          },
+          "title": "Committed Parts",
+          "type": "array"
+        },
+        "committed_cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Committed Cargo Ids",
+          "type": "array"
+        },
+        "future_not_before_s": {
+          "title": "Future Not Before S",
+          "type": "number"
+        },
+        "job": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SolveJob"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "candidate_plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Candidate Plan Id"
+        },
+        "status": {
+          "enum": [
+            "computing",
+            "ready",
+            "no_remaining",
+            "failed",
+            "partially_applied",
+            "applied"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "changed_cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Changed Cargo Ids",
+          "type": "array"
+        },
+        "retained_cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Retained Cargo Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "change_id",
+        "execution_id",
+        "execution_revision",
+        "facts_cursor",
+        "event_fingerprint",
+        "committed_parts",
+        "committed_cargo_ids",
+        "future_not_before_s",
+        "job",
+        "candidate_plan_id",
+        "status",
+        "message",
+        "changed_cargo_ids",
+        "retained_cargo_ids"
+      ],
+      "title": "RepairView",
+      "type": "object"
+    },
+    "ResourceLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "prep_slots": {
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Prep Slots",
+          "type": "integer"
+        },
+        "charging_ports": {
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Charging Ports",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "prep_slots",
+        "charging_ports"
+      ],
+      "title": "ResourceLimits",
+      "type": "object"
+    },
+    "RestrictedZone": {
+      "additionalProperties": false,
+      "properties": {
+        "zone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Zone Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "buffer_m": {
+          "maximum": 5000.0,
+          "minimum": 0.0,
+          "title": "Buffer M",
+          "type": "number"
+        },
+        "geometry": {
+          "$ref": "#/$defs/Geometry"
+        }
+      },
+      "required": [
+        "zone_id",
+        "name",
+        "buffer_m",
+        "geometry"
+      ],
+      "title": "RestrictedZone",
+      "type": "object"
+    },
+    "SimulationAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "start",
+            "pause",
+            "resume",
+            "speed",
+            "advance",
+            "disconnect",
+            "reconnect"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "speed": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0.1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Speed"
+        },
+        "target_time_s": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Time S"
+        }
+      },
+      "required": [
+        "action",
+        "expected_revision",
+        "idempotency_key"
+      ],
+      "title": "SimulationAction",
+      "type": "object"
+    },
+    "Site": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "coordinates": {
+          "$ref": "#/$defs/Coordinates"
+        },
+        "ground_elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ground Elevation M"
+        },
+        "available": {
+          "title": "Available",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "coordinates",
+        "ground_elevation_m",
+        "available"
+      ],
+      "title": "Site",
+      "type": "object"
+    },
+    "SolveJob": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0-draft",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "job_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "reserved_plan_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Reserved Plan Id",
+          "type": "string"
+        },
+        "job_state": {
+          "$ref": "#/$defs/JobState"
+        },
+        "solver_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SolverStatus"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "plan_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Plan Id"
+        },
+        "has_validated_plan": {
+          "title": "Has Validated Plan",
+          "type": "boolean"
+        },
+        "runtime_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Runtime S"
+        },
+        "stop_reason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stop Reason"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Error1"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "job_id",
+        "scenario_id",
+        "snapshot_id",
+        "reserved_plan_id",
+        "job_state",
+        "solver_status",
+        "plan_id",
+        "has_validated_plan",
+        "runtime_s",
+        "stop_reason",
+        "created_at",
+        "started_at",
+        "finished_at",
+        "error"
+      ],
+      "title": "SolveJob",
+      "type": "object"
+    },
+    "SolverStatus": {
+      "enum": [
+        "OPTIMAL",
+        "FEASIBLE",
+        "INFEASIBLE",
+        "UNKNOWN",
+        "ERROR"
+      ],
+      "title": "SolverStatus",
+      "type": "string"
+    },
+    "StageAnalysis": {
+      "additionalProperties": false,
+      "properties": {
+        "plan_id": {
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "analysis_version": {
+          "const": "stages-v1",
+          "default": "stages-v1",
+          "title": "Analysis Version",
+          "type": "string"
+        },
+        "position_semantics": {
+          "const": "model_phase_geodesic",
+          "default": "model_phase_geodesic",
+          "title": "Position Semantics",
+          "type": "string"
+        },
+        "soc_semantics": {
+          "const": "computed_phase_endpoints_only",
+          "default": "computed_phase_endpoints_only",
+          "title": "Soc Semantics",
+          "type": "string"
+        },
+        "trajectory_segments": {
+          "items": {
+            "$ref": "#/$defs/TrajectorySegment"
+          },
+          "title": "Trajectory Segments",
+          "type": "array"
+        }
+      },
+      "required": [
+        "plan_id",
+        "snapshot_id",
+        "trajectory_segments"
+      ],
+      "title": "StageAnalysis",
+      "type": "object"
+    },
+    "Status2": {
+      "enum": [
+        "available",
+        "unavailable"
+      ],
+      "title": "Status2",
+      "type": "string"
+    },
+    "Status3": {
+      "enum": [
+        "available",
+        "charging",
+        "unavailable"
+      ],
+      "title": "Status3",
+      "type": "string"
+    },
+    "Status4": {
+      "enum": [
+        "not_evaluated",
+        "available",
+        "invalid"
+      ],
+      "title": "Status4",
+      "type": "string"
+    },
+    "Status5": {
+      "enum": [
+        "available",
+        "reserved",
+        "loaded",
+        "in_transit",
+        "delivered",
+        "unavailable"
+      ],
+      "title": "Status5",
+      "type": "string"
+    },
+    "Status6": {
+      "enum": [
+        "available",
+        "reserved",
+        "loaded",
+        "in_flight",
+        "unavailable"
+      ],
+      "title": "Status6",
+      "type": "string"
+    },
+    "Status7": {
+      "enum": [
+        "available",
+        "reserved",
+        "in_use",
+        "charging",
+        "unavailable"
+      ],
+      "title": "Status7",
+      "type": "string"
+    },
+    "TelemetrySample": {
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "device_session_id": {
+          "title": "Device Session Id",
+          "type": "string"
+        },
+        "device_sequence": {
+          "title": "Device Sequence",
+          "type": "integer"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        },
+        "received_at": {
+          "format": "date-time",
+          "title": "Received At",
+          "type": "string"
+        },
+        "time_s": {
+          "title": "Time S",
+          "type": "number"
+        },
+        "coordinates": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Coordinates"
+        },
+        "elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Elevation M"
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Vertical Datum"
+        },
+        "soc": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Soc"
+        },
+        "soc_sample_time_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Soc Sample Time S"
+        },
+        "phase": {
+          "title": "Phase",
+          "type": "string"
+        },
+        "sortie_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sortie Id"
+        },
+        "cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cargo Ids",
+          "type": "array"
+        },
+        "quality": {
+          "enum": [
+            "simulated",
+            "stale",
+            "missing"
+          ],
+          "title": "Quality",
+          "type": "string"
+        },
+        "active_plan_id": {
+          "title": "Active Plan Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "device_id",
+        "device_session_id",
+        "device_sequence",
+        "observed_at",
+        "received_at",
+        "time_s",
+        "coordinates",
+        "elevation_m",
+        "vertical_datum",
+        "soc",
+        "soc_sample_time_s",
+        "phase",
+        "sortie_id",
+        "cargo_ids",
+        "quality",
+        "active_plan_id"
+      ],
+      "title": "TelemetrySample",
+      "type": "object"
+    },
+    "Terrain": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/Status4"
+        },
+        "asset_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Asset Id"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sha256"
+        },
+        "horizontal_crs": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Horizontal Crs"
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Vertical Datum"
+        }
+      },
+      "required": [
+        "status",
+        "asset_id",
+        "sha256",
+        "horizontal_crs",
+        "vertical_datum"
+      ],
+      "title": "Terrain",
+      "type": "object"
+    },
+    "TrajectorySegment": {
+      "additionalProperties": false,
+      "properties": {
+        "sortie_id": {
+          "title": "Sortie Id",
+          "type": "string"
+        },
+        "drone_id": {
+          "title": "Drone Id",
+          "type": "string"
+        },
+        "phase_id": {
+          "title": "Phase Id",
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "prepare",
+            "climb",
+            "cruise",
+            "descent",
+            "handover",
+            "turnaround",
+            "charge_wait",
+            "charge"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "start_s": {
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "title": "End S",
+          "type": "number"
+        },
+        "from_coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "From Coordinates",
+          "type": "array"
+        },
+        "to_coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "To Coordinates",
+          "type": "array"
+        },
+        "start_elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start Elevation M"
+        },
+        "end_elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Elevation M"
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Vertical Datum"
+        },
+        "payload_kg": {
+          "title": "Payload Kg",
+          "type": "number"
+        },
+        "energy_kwh": {
+          "title": "Energy Kwh",
+          "type": "number"
+        },
+        "soc_start": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Soc Start"
+        },
+        "soc_end": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Soc End"
+        },
+        "cargo_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cargo Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "sortie_id",
+        "drone_id",
+        "phase_id",
+        "phase",
+        "start_s",
+        "end_s",
+        "from_coordinates",
+        "to_coordinates",
+        "start_elevation_m",
+        "end_elevation_m",
+        "vertical_datum",
+        "payload_kg",
+        "energy_kwh",
+        "soc_start",
+        "soc_end",
+        "cargo_ids"
+      ],
+      "title": "TrajectorySegment",
+      "type": "object"
+    }
+  },
+  "title": "Yuanhang additive operations v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/operations/v2.schema.json"
+}
