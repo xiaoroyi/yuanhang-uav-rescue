@@ -80,7 +80,8 @@ export default function App() {
     'drone',
   )
   const initialized = useRef(false),
-    seenJobs = useRef(new Set<string>())
+    seenJobs = useRef(new Set<string>()),
+    restoredTerminalJobs = useRef(new Set<string>())
   const scenarios = useQuery({ queryKey: ['scenarios'], queryFn: api.scenarios })
   const sceneQuery = useQuery({
     queryKey: ['scenario', scenarioId],
@@ -291,7 +292,7 @@ export default function App() {
     if (active) setJobId(active.job_id)
     else if (!latest.plan_id || !planId) {
       // Loading a completed historical job restores state; it is not a new completion.
-      seenJobs.current.add(latest.job_id)
+      restoredTerminalJobs.current.add(latest.job_id)
       setJobId(latest.job_id)
     }
   }, [jobId, planId, scenarioJobs.data])
@@ -304,12 +305,14 @@ export default function App() {
     )
       return
     seenJobs.current.add(value.job_id)
+    const restored = restoredTerminalJobs.current.delete(value.job_id)
     void query.invalidateQueries({ queryKey: ['jobs', scenarioId] })
     if (value.plan_id) {
       choosePlan(value.plan_id)
       void query.invalidateQueries({ queryKey: ['plans', scenarioId] })
-      notify(`真实计算完成 · ${duration(value.runtime_s)} · 独立检查通过`)
-    } else if (value.job_state === 'failed')
+      if (!restored) notify(`真实计算完成 · ${duration(value.runtime_s)} · 独立检查通过`)
+    } else if (restored) return
+    else if (value.job_state === 'failed')
       notify(value.error?.message || '求解进程异常，请检查任务日志。', true)
     else if (value.job_state === 'canceled') notify('任务已停止，未发布未完成候选。')
     else

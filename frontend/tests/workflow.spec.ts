@@ -1113,11 +1113,9 @@ test('三种偏好共享真实快照，保留硬截止并分别计算与恢复',
     await screenshot(page, `three-preferences-${width}`)
     if (width === 390) {
       await page.locator('.strategy-panel').scrollIntoViewIfNeeded()
-      await page
-        .locator('.strategy-panel')
-        .screenshot({
-          path: path.resolve('../evidence/browser/verified/three-preferences-panel-390.png'),
-        })
+      await page.locator('.strategy-panel').screenshot({
+        path: path.resolve('../evidence/browser/verified/three-preferences-panel-390.png'),
+      })
     }
     expect(
       await page.evaluate(
@@ -1226,6 +1224,26 @@ test('任务刷新恢复，重新载入页面不重复提交求解', async ({ pa
   expect(jobs.length).toBe(1)
   expect(jobs[0].job_state).toBe('completed')
   expect(jobs[0].has_validated_plan).toBe(true)
+
+  // A plans read can precede the worker commit while job metadata follows it.
+  // Only the first list response is stale; the stored result remains real.
+  let planReads = 0
+  await page.route(`**/api/v1/scenarios/${sceneId}/plans`, async (route) => {
+    planReads++
+    if (planReads === 1) await route.fulfill({ json: [] })
+    else await route.continue()
+  })
+  await page.route(`**/api/v1/scenarios/${sceneId}/solve-jobs`, async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 250))
+    await route.continue()
+  })
+  await page.reload()
+  await expect(page.getByTestId('sortie-card').first()).toBeVisible()
+  await expect.poll(() => planReads).toBeGreaterThan(1)
+  await expect(page.locator('.toast').filter({ hasText: '真实计算完成' })).toHaveCount(0)
+  const recovered = await (await request.get(`/api/v1/scenarios/${sceneId}/solve-jobs`)).json()
+  expect(recovered).toHaveLength(1)
+  expect(recovered[0].job_id).toBe(jobs[0].job_id)
 })
 
 test('打印报告包含真实任务并可离线保存PDF', async ({ page }) => {
