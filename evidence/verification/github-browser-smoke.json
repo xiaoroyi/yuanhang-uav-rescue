@@ -1,0 +1,257 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+      "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/node_modules/@playwright/test/cli.js",
+      "test",
+      "--grep",
+      "单点诊断|生产构建"
+    ],
+    "configFile": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/playwright.config.ts",
+    "rootDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/commit/d7aad4b54ec14812e9d195e198888961977e15a9",
+        "commitHash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+        "buildHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39074450180"
+      },
+      "gitCommit": {
+        "shortHash": "d7aad4b",
+        "hash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+        "subject": "feat(events): support battery withdrawal and validate replan identity chains",
+        "body": "feat(events): support battery withdrawal and validate replan identity chains\n",
+        "author": {
+          "name": "xiaoroyi",
+          "email": "2609940225@qq.com",
+          "time": 1792275422000
+        },
+        "committer": {
+          "name": "xiaoroyi",
+          "email": "2609940225@qq.com",
+          "time": 1792275422000
+        },
+        "branch": "feat/solo-fullstack-v0"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/commit/d7aad4b54ec14812e9d195e198888961977e15a9",
+            "commitHash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+            "buildHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39074450180"
+          },
+          "gitCommit": {
+            "shortHash": "d7aad4b",
+            "hash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+            "subject": "feat(events): support battery withdrawal and validate replan identity chains",
+            "body": "feat(events): support battery withdrawal and validate replan identity chains\n",
+            "author": {
+              "name": "xiaoroyi",
+              "email": "2609940225@qq.com",
+              "time": 1792275422000
+            },
+            "committer": {
+              "name": "xiaoroyi",
+              "email": "2609940225@qq.com",
+              "time": 1792275422000
+            },
+            "branch": "feat/solo-fullstack-v0"
+          },
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/commit/d7aad4b54ec14812e9d195e198888961977e15a9",
+            "commitHash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+            "buildHref": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39074450180"
+          },
+          "gitCommit": {
+            "shortHash": "d7aad4b",
+            "hash": "d7aad4b54ec14812e9d195e198888961977e15a9",
+            "subject": "feat(events): support battery withdrawal and validate replan identity chains",
+            "body": "feat(events): support battery withdrawal and validate replan identity chains\n",
+            "author": {
+              "name": "xiaoroyi",
+              "email": "2609940225@qq.com",
+              "time": 1792275422000
+            },
+            "committer": {
+              "name": "xiaoroyi",
+              "email": "2609940225@qq.com",
+              "time": 1792275422000
+            },
+            "branch": "feat/solo-fullstack-v0"
+          },
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/tests",
+        "snapshotDir": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:5174",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=swiftshader",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/runner/work/yuanhang-uav-rescue/yuanhang-uav-rescue/.local/ci-artifacts/browser-smoke.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "workflow.spec.ts",
+      "file": "workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 78257,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T22:21:37.571Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-8105d903bc8750953a94",
+          "file": "workflow.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "生产构建只允许本机请求，真实求解与事件闭环离线可用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17976,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-17T22:22:57.180Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-c57b2dc146b83d4c0ee3",
+          "file": "workflow.spec.ts",
+          "line": 470,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-17T22:21:36.927Z",
+    "duration": 98307.181,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

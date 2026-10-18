@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-18T07:35:46.441Z",
+  "origin": "http://127.0.0.1:8000",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "9d828caeb54a2b70c3fe7b122fd90adeba2136ee4fe682701e3d509f831a76e4",
+    "runtime_id": "23afa25c2bda"
+  },
+  "plan_id": "PLAN-A762EB0DA38B4C30",
+  "snapshot_id": "SNAP-61392C16D6AC4D31",
+  "old_plan_unchanged": true,
+  "sortie_rows": 7,
+  "screenshots": [
+    "production-schedule-1440.png",
+    "production-schedule-1280.png",
+    "production-schedule-390.png",
+    "production-ambient.png"
+  ],
+  "dimensions": [
+    {
+      "width": 1440,
+      "bodyWidth": 1440
+    },
+    {
+      "width": 1280,
+      "bodyWidth": 1280
+    },
+    {
+      "width": 390,
+      "bodyWidth": 390
+    }
+  ],
+  "external_requests": [],
+  "page_errors": [],
+  "passed": true
+}

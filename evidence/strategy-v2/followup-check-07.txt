@@ -1,0 +1,16 @@
+Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+
+Running 8 tests using 1 worker
+
+(node:31164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node.EXE --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\strategy-manifest.spec.ts:82:1 › 新规则真实取舍、旧结果说明与共同口径 (7.0s)
+  ok 2 tests\strategy-manifest.spec.ts:112:1 › 调度安排完整覆盖箱件，筛选联动、CSV、历史绑定与响应式 (6.7s)
+  ok 3 tests\strategy-manifest.spec.ts:169:1 › 背景光流和粒子实际运动，开关与系统减少动态效果有效 (4.6s)
+  ok 4 tests\strategy-manifest.spec.ts:190:3 › 资源试算与压力测试继承v1基线目标规则 (47.6s)
+  ok 5 tests\strategy-manifest.spec.ts:190:3 › 资源试算与压力测试继承v2基线目标规则 (54.3s)
+  ok 6 tests\workflow.spec.ts:1190:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (35.4s)
+  ok 7 tests\workflow.spec.ts:1223:1 › 地面工位与端口增配建立独立情景，真实重算与刷新导出 (44.1s)
+  ok 8 tests\workflow.spec.ts:1330:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (59.3s)
+
+  8 passed (4.6m)

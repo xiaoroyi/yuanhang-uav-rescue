@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.1.0-draft",
+  "solver_status": "UNKNOWN",
+  "plan": null,
+  "model_scope": [],
+  "algorithm_mode": "quick",
+  "runtime_s": 0,
+  "first_feasible_s": null,
+  "candidate_count": 0,
+  "seed": 42,
+  "stop_reason": "input_not_ready",
+  "validation": {
+    "status": "not_run",
+    "checks": []
+  },
+  "diagnostics": [
+    {
+      "code": "INPUT_NOT_READY",
+      "message": "开发样例，不连接求解器。",
+      "field_path": null,
+      "object_id": null
+    }
+  ]
+}

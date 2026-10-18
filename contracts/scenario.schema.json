@@ -1,0 +1,686 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/scenario.schema.json",
+  "title": "scenario",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "mode": {
+      "enum": [
+        "simulation",
+        "planning_assist"
+      ]
+    },
+    "data_origin": {
+      "enum": [
+        "mock",
+        "user_input",
+        "verified_dataset"
+      ]
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "timezone": {
+      "type": "string",
+      "minLength": 1
+    },
+    "coordinate_system": {
+      "const": "EPSG:4326"
+    },
+    "terrain": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "not_evaluated",
+            "available",
+            "invalid"
+          ]
+        },
+        "asset_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "horizontal_crs": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "vertical_datum": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "asset_id",
+        "sha256",
+        "horizontal_crs",
+        "vertical_datum"
+      ],
+      "additionalProperties": false
+    },
+    "base": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coordinates": {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/coordinates"
+        },
+        "ground_elevation_m": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "available": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "coordinates",
+        "ground_elevation_m",
+        "available"
+      ],
+      "additionalProperties": false
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "coordinates": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/coordinates"
+          },
+          "ground_elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "available": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "coordinates",
+          "ground_elevation_m",
+          "available"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "demands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "demand_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "site_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "cargo_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required_quantity": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expected_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hard_deadline_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mandatory": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "demand_id",
+          "site_id",
+          "cargo_type",
+          "required_quantity",
+          "priority",
+          "expected_deadline_s",
+          "hard_deadline_s",
+          "mandatory"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "cargo_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cargo_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "demand_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "volume_l": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "status": {
+            "enum": [
+              "available",
+              "reserved",
+              "loaded",
+              "in_transit",
+              "delivered",
+              "unavailable"
+            ]
+          },
+          "location_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          }
+        },
+        "required": [
+          "cargo_id",
+          "demand_id",
+          "type",
+          "mass_kg",
+          "volume_l",
+          "status",
+          "location_id"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "drone_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "max_payload_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "max_volume_l": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "cruise_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "climb_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "descent_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "prepare_duration_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "turnaround_duration_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "handover_fixed_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "handover_per_box_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "empty_mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "energy_model": {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "parameters": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "model_id",
+              "parameters"
+            ],
+            "additionalProperties": false
+          },
+          "charge_model": {
+            "type": "object",
+            "properties": {
+              "model_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+              },
+              "parameters": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "model_id",
+              "parameters"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "type_id",
+          "max_payload_kg",
+          "max_volume_l",
+          "cruise_speed_mps",
+          "climb_speed_mps",
+          "descent_speed_mps",
+          "prepare_duration_s",
+          "turnaround_duration_s",
+          "handover_fixed_s",
+          "handover_per_box_s",
+          "empty_mass_kg",
+          "energy_model",
+          "charge_model"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "drones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "drone_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "type_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "reserved",
+              "loaded",
+              "in_flight",
+              "unavailable"
+            ]
+          },
+          "location_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "drone_id",
+          "type_id",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "batteries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "battery_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "compatible_type_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "capacity_kwh": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "soc": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "soh": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "status": {
+            "enum": [
+              "available",
+              "reserved",
+              "in_use",
+              "charging",
+              "unavailable"
+            ]
+          },
+          "location_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "available_after_s": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "battery_id",
+          "compatible_type_id",
+          "capacity_kwh",
+          "soc",
+          "soh",
+          "status",
+          "location_id",
+          "available_after_s"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "min_return_soc": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "requires_terrain": {
+          "type": "boolean"
+        },
+        "requires_communication": {
+          "type": "boolean"
+        },
+        "delivery_time_policy": {
+          "const": "station_end"
+        },
+        "cost_model_available": {
+          "const": false
+        }
+      },
+      "required": [
+        "min_return_soc",
+        "requires_terrain",
+        "requires_communication",
+        "delivery_time_policy",
+        "cost_model_available"
+      ],
+      "additionalProperties": false
+    },
+    "restricted_zones": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "buffer_m": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5000
+          },
+          "geometry": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "Polygon"
+              },
+              "coordinates": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "maxItems": 64,
+                  "items": {
+                    "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/coordinates"
+                  }
+                }
+              }
+            },
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "zone_id",
+          "name",
+          "buffer_m",
+          "geometry"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "resource_limits": {
+      "type": "object",
+      "properties": {
+        "prep_slots": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "charging_ports": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      },
+      "required": [
+        "prep_slots",
+        "charging_ports"
+      ],
+      "additionalProperties": false
+    },
+    "communication": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/communication"
+    }
+  },
+  "required": [
+    "schema_version",
+    "scenario_id",
+    "name",
+    "state_version",
+    "mode",
+    "data_origin",
+    "start_time",
+    "timezone",
+    "coordinate_system",
+    "terrain",
+    "base",
+    "sites",
+    "demands",
+    "cargo_items",
+    "drone_types",
+    "drones",
+    "batteries",
+    "policy"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,99 @@
+{
+  "reviewed_at": "2026-10-18T02:56:10.204895+00:00",
+  "reviewer": "analysis_final_review independent read-only review",
+  "status": "passed_after_correction",
+  "scope": "Independent source and exact screenshot review; saved responses versus read-only SQLite; real ECharts unknown/zero correction and targeted regression. Root owns full end-to-end verification.",
+  "source_files": {
+    "frontend/src/App.tsx": "b936bcf0b8cbd9f8d0ef80fd6fbe0d4ad3867dab69e94c8d2e93e4b212e1e3ad",
+    "frontend/src/pages/VisualAnalysis.tsx": "c3b89efe0bb24008197698bc7370ba83721838adc1e09318e45a1d494f439994",
+    "frontend/src/pages/visual-analysis-data.ts": "599167a496640a3d6ccc737a0dc0047771801bee2929e3711e8c9629519f87c3",
+    "frontend/src/components/TerrainScene.tsx": "49342455d5dfc0db9cae724f4f6a52ace0d2b12a51cb4e32240b6848a3d0b4ee",
+    "frontend/src/components/terrain-scene-data.ts": "a3ce646697cf5b4f6a2924218fb67b5e7f5f4214130fb9afee67a3cd69936054",
+    "frontend/src/pages/CompareCenter.tsx": "98e4f45fbdfa6fcc53f0b97c75cdd802a81f36cb4cd507550afe7a221cffdc4d",
+    "frontend/src/components/DataChart.tsx": "bd9e28de3d58f6459c771614e80e7d628ea4a0d76a6ac8d1df11cadb4e175abf",
+    "backend/app/flight_profiles.py": "1ca9daefb3acf12720ad2057309ceb194d9d179bf4765b8d76d51f76306a2962",
+    "backend/app/map_assets.py": "c904f7e117f670adcae1e7c0119db0d1d994c2179b39722342efc2146fc458f6",
+    "backend/app/map_models.py": "ce649d8a2ae33af6df6c6e7647b6b57dc027bbabb6ee735b57bb7b89adac8f91",
+    "frontend/tests/unit/visual-analysis.test.mjs": "97e3be2f30387f205e9aac8401c81d8b2d8e6c964da670ec1c3481c2a071053b",
+    "frontend/tests/chart-null.spec.ts": "5e3790cbb613c46487ea9ec8903246b31246b05c5183252099ed458ddebc9d9c"
+  },
+  "visually_reviewed": [
+    {
+      "path": "evidence/experience/analysis/overview-1440.png",
+      "sha256": "507fc3fd0fc0aac7c6d7e8666ee37b785851b2062f61b1cd0d9a6299ad0f9334",
+      "result": "passed"
+    },
+    {
+      "path": "evidence/experience/analysis/flight-profile-final.png",
+      "sha256": "c1e311f5b6471c2a66229508efa6efb125848bbc09e3eb75e7b45e24b27709d4",
+      "result": "passed"
+    },
+    {
+      "path": "evidence/experience/analysis/analysis-top-390.png",
+      "sha256": "37154b75412bb60f487dd0eb7c2e302106a750d0d6a1f5fe44f4eda1af49acff",
+      "result": "passed"
+    },
+    {
+      "path": "evidence/experience/analysis/material-light-theme.png",
+      "sha256": "6f5bf00cd983f927645ba46a9a087f3acd5f4f3a1468d839b365bcc38fee1ad2",
+      "result": "passed"
+    }
+  ],
+  "passed_checks": [
+    "App gates selected Plan on snapshot ID, scenario ID and state version; analysis uses original Snapshot Scenario, not mutable later Scenario",
+    "Flight profile resolves saved Snapshot server-side, verifies content hash and Plan binding, rebuilds with existing leg/leg_values, and refuses changed route geometry",
+    "Two saved profiles agree with original saved Plan energy, terrain hash, datum, summed leg distances/time and horizontal plus climb energy; count <=240",
+    "Unknown energy/SOC remains null in aggregate helper; null Plan has no invented sorties/workload; target four unit tests pass",
+    "Axes distinguish km, meters, minutes, kWh, counts and SOC percent; sampled DEM distribution explicitly not full-raster area proportion; datum explicitly not assumed AMSL",
+    "Same-condition comparison requires same immutable Snapshot and same model scope, shows weighted box delay before energy; differences retain null and B-A sign",
+    "NoData quads removed from mesh; missing/outside sampled height omits markers and splits lines; ground projection and visual exaggeration explicitly labeled",
+    "Three resources, OrbitControls, WebGL context, DOM labels, ResizeObserver disposed; render only on interaction/resizing, no uncanceled animation frame loop",
+    "ECharts instances and observers disposed; reduced motion respected; custom HTML tooltip escapes imported drone ID, template tooltip uses library encodeHTML, Three labels use textContent",
+    "Final screenshots show usable overview with 6 KPIs and 8 charts, readable height detail, no mobile top horizontal overflow, legible light theme"
+  ],
+  "findings": [
+    {
+      "severity": "medium",
+      "file": "frontend/src/pages/VisualAnalysis.tsx",
+      "line": 282,
+      "issue": "Flight profile HTML axis tooltip converts null ground elevation to 0 m via Number(null)",
+      "evidence": "evidence/experience/final-review/null-tooltip-before.json",
+      "recommended": "Null-aware value formatter, with isolated ECharts null ground plus valid cruise regression",
+      "state": "fixed_and_real_echarts_regression_passed",
+      "resolution": "All five numeric tooltip formatters use formatChartValue; null, undefined and nonfinite/nonnumber remain 未知; actual numeric zero remains 0 with original unit. Raw tables/exports stay null.",
+      "fix_evidence": "evidence/experience/final-review/null-tooltip-after.json"
+    },
+    {
+      "severity": "low",
+      "file": "frontend/src/pages/CompareCenter.tsx",
+      "issue": "Chart note says units on horizontal axis but unit names are on vertical axes",
+      "recommended": "Change small note to 单位见纵轴",
+      "state": "fixed",
+      "resolution": "Only the chart note changed to 各列单位见纵轴 · 原值展示."
+    }
+  ],
+  "not_run": [
+    "Live preview 8031/5178 was no longer listening; no runtime restarted, no scenes/plans/versions created or changed",
+    "No independent full test suite claimed; root is running final integration verification separately"
+  ],
+  "updated_at": "2026-10-18T02:58:15.016536+00:00",
+  "targeted_verification": {
+    "analysis_unit_tests": {
+      "passed": 5,
+      "failed": 0,
+      "command": "node --test tests/unit/visual-analysis.test.mjs"
+    },
+    "lint": {
+      "exit_code": 0,
+      "command": "npm.cmd exec -- eslint src/pages/VisualAnalysis.tsx src/pages/visual-analysis-data.ts src/pages/CompareCenter.tsx tests/unit/visual-analysis.test.mjs tests/chart-null.spec.ts"
+    },
+    "browser_regression": {
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "command": "npm.cmd exec -- playwright test tests/chart-null.spec.ts --output ../.local/final-review-test-results",
+      "report": "evidence/experience/final-review/tooltip-regression.json"
+    }
+  }
+}

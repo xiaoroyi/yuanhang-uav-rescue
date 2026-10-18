@@ -1,0 +1,31 @@
+test_absolute_time_needs_offset_and_valid_date (test_contracts.ContractsTest.test_absolute_time_needs_offset_and_valid_date) ... ok
+test_all_development_examples (test_contracts.ContractsTest.test_all_development_examples) ... ok
+test_coordinates_are_bounded_lon_lat (test_contracts.ContractsTest.test_coordinates_are_bounded_lon_lat) ... ok
+test_duplicate_and_missing_references (test_contracts.ContractsTest.test_duplicate_and_missing_references) ... ok
+test_duplicate_cargo_detected (test_contracts.ContractsTest.test_duplicate_cargo_detected) ... ok
+test_event_cannot_rewind_execution (test_contracts.ContractsTest.test_event_cannot_rewind_execution) ... ok
+test_feasible_without_plan_is_invalid (test_contracts.ContractsTest.test_feasible_without_plan_is_invalid) ... ok
+test_half_open_release_allows_next_task (test_contracts.ContractsTest.test_half_open_release_allows_next_task) ... ok
+test_job_success_requires_resolvable_validated_plan (test_contracts.ContractsTest.test_job_success_requires_resolvable_validated_plan) ... ok
+test_json_duplicates_and_nan_rejected (test_contracts.ContractsTest.test_json_duplicates_and_nan_rejected) ... ok
+test_mandatory_scope_cannot_be_omitted (test_contracts.ContractsTest.test_mandatory_scope_cannot_be_omitted) ... ok
+test_mock_can_never_be_confirmable (test_contracts.ContractsTest.test_mock_can_never_be_confirmable) ... ok
+test_old_plan_cannot_bind_new_snapshot (test_contracts.ContractsTest.test_old_plan_cannot_bind_new_snapshot) ... ok
+test_overlapping_entity_windows_detected (test_contracts.ContractsTest.test_overlapping_entity_windows_detected) ... ok
+test_partial_service_requires_new_contract (test_contracts.ContractsTest.test_partial_service_requires_new_contract) ... ok
+test_release_and_visit_time_order (test_contracts.ContractsTest.test_release_and_visit_time_order) ... ok
+test_replan_links_are_paired (test_contracts.ContractsTest.test_replan_links_are_paired) ... ok
+test_snapshot_hash_and_version (test_contracts.ContractsTest.test_snapshot_hash_and_version) ... ok
+test_soc_is_fraction (test_contracts.ContractsTest.test_soc_is_fraction) ... ok
+test_success_cannot_reference_mock_plan (test_contracts.ContractsTest.test_success_cannot_reference_mock_plan) ... ok
+test_unknown_completed_job_has_no_plan (test_contracts.ContractsTest.test_unknown_completed_job_has_no_plan) ... ok
+test_unknown_energy_is_not_zero (test_contracts.ContractsTest.test_unknown_energy_is_not_zero) ... ok
+test_unversioned_extra_field_rejected (test_contracts.ContractsTest.test_unversioned_extra_field_rejected) ... ok
+test_wrong_event_payload_rejected (test_contracts.ContractsTest.test_wrong_event_payload_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.261s
+
+OK
+PASS: 10 schemas, 12 mock fixtures, 16 draft HTTP operations; references/hash/state smoke checks.
+Scope: no solver execution, physical feasibility validation, running API, or UI build.

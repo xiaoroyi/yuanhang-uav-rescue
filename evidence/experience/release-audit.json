@@ -1,0 +1,114 @@
+{
+  "reviewed_at_utc": "2026-10-18T03:00:46.720894+00:00",
+  "head": "fac7f62658a92ef7b25565499b02914e973f5096",
+  "scope": "Focused read-only review of UX additions, data lineage, missing values, exports and external map claims. Not a whole-system security audit or test-suite result.",
+  "status": "no_blocking_findings_in_reviewed_scope",
+  "product_source_modified": false,
+  "tests_run_by_this_review": [],
+  "source_checks": [
+    "App filters Plan by selected scenario and validates original Snapshot ID/scenario/version before map or analysis receives Plan. Historical selection and invalid-cache fallback do not rewrite saved Plan.",
+    "History and Compare mount with scenario-specific keys; query keys include scenario/Plan/version IDs. Historical input reads and downloads are GET-only and never restore current input.",
+    "Flight profile uses saved Plan plus its original Snapshot; snapshot content hash and IDs are checked. Existing physics functions reconstruct legs with remaining payload; mismatched historical route is refused.",
+    "DEM surface requires explicit validated asset ID and SHA256. Content-addressed asset access validates digest and filesystem containment; NoData remains null and mesh display does not replace solver certification.",
+    "Nullable result energy/SOC remains null in analysis derivation and chart series. formatChartValue now rejects null/undefined/nonfinite values rather than coercing them to zero; actual zero is retained.",
+    "Exports use fetched comparison/Plan/profile or bound Snapshot-derived analysis objects. Missing version dates remain null; displayed input entity counts are distinguished from available resources.",
+    "Map labels use textContent and custom scatter tooltip escapes user-derived IDs. Profile fields are normalized, length bounded and avatar color is allowlisted; local profile is accurately described as browser-only.",
+    "Satellite source is created only after explicit selection, retains source attribution and returns to offline mode on failure. DEM and archived geographic context are not advertised as satellite or current disaster data."
+  ],
+  "material_limits": [
+    "No independent full suite or production visual run was performed by this review; final unified verification is owned by the parent task.",
+    "Actual browser satellite loading remains constrained by execution environment network policy; this review does not certify satellite tile display.",
+    "Research extensions, execution-time replanning and server authentication are outside this UX iteration and must not be inferred from the interface."
+  ],
+  "reviewed_files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "2300833fd16e7025cfc65000ae0ad542c01035337608a0377234b4c672406c15"
+    },
+    {
+      "path": "frontend/AGENTS.md",
+      "sha256": "27cb7f4a26792fc67100ab2da7920250990abb02be4a2c4c366511c85d5c85b3"
+    },
+    {
+      "path": "backend/AGENTS.md",
+      "sha256": "cadce09b1a53ab9bd28e5c1e10a1ef9febb58999d3fbc921beafb5602fc4c4d2"
+    },
+    {
+      "path": "docs/EXPERIENCE_RELEASE.md",
+      "sha256": "4519960ac2577ff796bb27c1060b3e28b5871427977535cd87ab3973bef15c31"
+    },
+    {
+      "path": "docs/CONTRACT_RFC_015.md",
+      "sha256": "4cbd7974b388912c87a1f39118840e6fc5be1174e53300f70a84944d6503e1a7"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "sha256": "b936bcf0b8cbd9f8d0ef80fd6fbe0d4ad3867dab69e94c8d2e93e4b212e1e3ad"
+    },
+    {
+      "path": "frontend/src/pages/HistoryCenter.tsx",
+      "sha256": "01c150d070a41a2d3db3d2411f23b9c55ddd012b48f5d187133fa2c9f72854db"
+    },
+    {
+      "path": "frontend/src/pages/CompareCenter.tsx",
+      "sha256": "98e4f45fbdfa6fcc53f0b97c75cdd802a81f36cb4cd507550afe7a221cffdc4d"
+    },
+    {
+      "path": "frontend/src/pages/VisualAnalysis.tsx",
+      "sha256": "c3b89efe0bb24008197698bc7370ba83721838adc1e09318e45a1d494f439994"
+    },
+    {
+      "path": "frontend/src/pages/visual-analysis-data.ts",
+      "sha256": "599167a496640a3d6ccc737a0dc0047771801bee2929e3711e8c9629519f87c3"
+    },
+    {
+      "path": "frontend/src/components/TerrainScene.tsx",
+      "sha256": "49342455d5dfc0db9cae724f4f6a52ace0d2b12a51cb4e32240b6848a3d0b4ee"
+    },
+    {
+      "path": "frontend/src/components/RescueMap.tsx",
+      "sha256": "8ec86e5b3e562f2354d6917ae338619d9dc4a6925c0e289329806f7ec35816a6"
+    },
+    {
+      "path": "frontend/src/components/LocalProfile.tsx",
+      "sha256": "a3ac79a2623d1e4aa987b5ce9ac1afc8a54defea12daf9095a4f3912ea168605"
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "sha256": "d9ef7effc82d126956b07966052b153e8351ab56e0938f674b4377a0388a8459"
+    },
+    {
+      "path": "backend/app/main.py",
+      "sha256": "cf3752e241b57b2709e1733818934ef303626509f113435bca0a0f7d3ed94c2c"
+    },
+    {
+      "path": "backend/app/flight_profiles.py",
+      "sha256": "1ca9daefb3acf12720ad2057309ceb194d9d179bf4765b8d76d51f76306a2962"
+    },
+    {
+      "path": "backend/app/map_models.py",
+      "sha256": "ce649d8a2ae33af6df6c6e7647b6b57dc027bbabb6ee735b57bb7b89adac8f91"
+    },
+    {
+      "path": "backend/app/map_assets.py",
+      "sha256": "c904f7e117f670adcae1e7c0119db0d1d994c2179b39722342efc2146fc458f6"
+    },
+    {
+      "path": "backend/app/version_views.py",
+      "sha256": "6bd3bd2ee7f2f1d51d481e7b57856245f79dd24b7d7313f8c77f6a949a16418b"
+    },
+    {
+      "path": "solver/assets.py",
+      "sha256": "ad590ba1c43932b666899adf42d42b94fd9edb7bea48684639b8c1b676b779e3"
+    },
+    {
+      "path": "tests/backend/test_flight_profiles.py",
+      "sha256": "12fba6eab884c57b040bd03b48428db4cef9a4bd1b5d6e460e822937e7303edb"
+    },
+    {
+      "path": "tests/backend/test_scenario_versions.py",
+      "sha256": "fa1b46fcf4d3763eaa289a3a73223a5b00bcd84ef77a870ca467c16bdccbbecc"
+    }
+  ],
+  "findings": []
+}

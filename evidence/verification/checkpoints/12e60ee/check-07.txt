@@ -1,0 +1,89 @@
+
+> yuanhang-rescue-console@0.1.0 test:e2e
+> node scripts/run-e2e.mjs
+
+
+Running 27 tests using 1 worker
+
+(node:35756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\workflow.spec.ts:12:1 › 单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景 (20.0s)
+  ok  2 tests\workflow.spec.ts:116:1 › 紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案 (34.5s)
+  ok  3 tests\workflow.spec.ts:228:1 › 容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏 (11.8s)
+  x   4 tests\workflow.spec.ts:278:3 › 运输场景运输电池退出，真实改派、确认和历史恢复 (11.2s)
+(node:52220) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  5 tests\workflow.spec.ts:278:3 › 联合通信场景运输电池退出，真实改派、确认和历史恢复 (53.0s)
+  ok  6 tests\workflow.spec.ts:376:1 › 点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照 (25.7s)
+  ok  7 tests\workflow.spec.ts:496:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (32.7s)
+  ok  8 tests\workflow.spec.ts:572:1 › 中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复 (40.5s)
+  ok  9 tests\workflow.spec.ts:673:1 › 中继机退出保存新版本，真实重规划保留旧方案和连续保障 (59.3s)
+  ok 10 tests\workflow.spec.ts:731:1 › 历史方案等待绑定原始快照，延迟期间不显示混合版本结果 (9.0s)
+  ok 11 tests\workflow.spec.ts:780:1 › 80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出 (1.1m)
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+  ok 12 tests\workflow.spec.ts:862:1 › 生产构建只允许本机请求，真实求解与事件闭环离线可用 (16.6s)
+  ok 13 tests\workflow.spec.ts:940:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (18.6s)
+  ok 14 tests\workflow.spec.ts:981:1 › 编辑输入使旧方案失效，导入预览创建新场景 (15.1s)
+  ok 15 tests\workflow.spec.ts:1014:1 › 真实故障重规划保留旧方案，展示新旧变化 (16.6s)
+  ok 16 tests\workflow.spec.ts:1036:1 › 手机窄屏仍可切页和运行计算 (10.7s)
+  ok 17 tests\workflow.spec.ts:1048:1 › 三种偏好共享真实快照，保留硬截止并分别计算与恢复 (22.3s)
+  ok 18 tests\workflow.spec.ts:1137:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (14.3s)
+  ok 19 tests\workflow.spec.ts:1170:1 › 地面工位与端口增配建立独立情景，真实重算与刷新导出 (17.4s)
+  ok 20 tests\workflow.spec.ts:1277:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (19.6s)
+  ok 21 tests\workflow.spec.ts:1328:1 › 任务刷新恢复，重新载入页面不重复提交求解 (7.3s)
+  ok 22 tests\workflow.spec.ts:1360:1 › 打印报告包含真实任务并可离线保存PDF (7.9s)
+  ok 23 tests\workflow.spec.ts:1382:1 › 深入优化保留同快照基线，刷新后继续真实计算 (43.6s)
+  ok 24 tests\workflow.spec.ts:1405:1 › 限制区保存新版本，真实绕行并沿折线回放 (18.4s)
+  ok 25 tests\workflow.spec.ts:1450:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (29.1s)
+  ok 26 tests\workflow.spec.ts:1510:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (18.8s)
+  ok 27 tests\workflow.spec.ts:1555:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (15.3s)
+
+
+  1) tests\workflow.spec.ts:278:3 › 运输场景运输电池退出，真实改派、确认和历史恢复 ────────────────────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.toast').filter({ hasText: '方案已确认' })
+    Expected: visible
+    Error: strict mode violation: locator('.toast').filter({ hasText: '方案已确认' }) resolved to 2 elements:
+        1) <div class="toast toast-success">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(3)
+        2) <div class="toast toast-success">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(4)
+
+    Call log:
+      - Expect "toBeVisible" locator('.toast').filter({ hasText: '方案已确认' }) with timeout 15000ms
+      - waiting for locator('.toast').filter({ hasText: '方案已确认' })
+
+
+      339 |     expect(events[0].payload).toEqual({ battery_id: failed })
+      340 |     await page.getByRole('button', { name: '确认方案', exact: true }).click()
+    > 341 |     await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()
+          |                                                                       ^
+      342 |     const name = joint ? 'joint-battery-fault' : 'battery-fault'
+      343 |     await screenshot(page, `${name}-1440`)
+      344 |     await page.reload()
+        at E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\frontend\tests\workflow.spec.ts:341:71
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\workflow.spec.ts:278:3 › 运输场景运输电池退出，真实改派、确认和历史恢复 ─────────────────────────────────────────
+  26 passed (11.0m)

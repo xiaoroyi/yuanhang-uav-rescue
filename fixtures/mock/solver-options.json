@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.1.0-draft",
+  "plan_id": "PLAN-RESERVED-001",
+  "snapshot_id": "SNAP-MOCK-001",
+  "objective": "time",
+  "mode": "quick",
+  "time_limit_s": 30,
+  "seed": 42,
+  "parent_plan_id": null,
+  "event_id": null,
+  "requested_model_scope": [
+    "cargo_unique",
+    "capacity",
+    "inventory",
+    "aircraft",
+    "battery",
+    "time_window",
+    "energy"
+  ],
+  "allow_partial_service": false
+}

@@ -1,0 +1,1079 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test"
+    ],
+    "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
+    "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "snapshotDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:5174",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=swiftshader",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../evidence/browser/e2e-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "workflow.spec.ts",
+      "file": "workflow.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19954,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:00:52.379Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-8105d903bc8750953a94",
+          "file": "workflow.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 34534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:01:12.655Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-598115cbbcc91845a2b6",
+          "file": "workflow.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11806,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:01:47.209Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-a60989a8c9ffe36de42c",
+          "file": "workflow.spec.ts",
+          "line": 228,
+          "column": 1
+        },
+        {
+          "title": "运输场景运输电池退出，真实改派、确认和历史恢复",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11150,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.toast').filter({ hasText: '方案已确认' })\nExpected: visible\nError: strict mode violation: locator('.toast').filter({ hasText: '方案已确认' }) resolved to 2 elements:\n    1) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(3)\n    2) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(4)\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.toast').filter({ hasText: '方案已确认' }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.toast').filter({ hasText: '方案已确认' })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.toast').filter({ hasText: '方案已确认' })\nExpected: visible\nError: strict mode violation: locator('.toast').filter({ hasText: '方案已确认' }) resolved to 2 elements:\n    1) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(3)\n    2) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(4)\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.toast').filter({ hasText: '方案已确认' }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.toast').filter({ hasText: '方案已确认' })\u001b[22m\n\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\workflow.spec.ts:341:71",
+                    "location": {
+                      "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\workflow.spec.ts",
+                      "column": 71,
+                      "line": 341
+                    },
+                    "snippet": "  339 |     expect(events[0].payload).toEqual({ battery_id: failed })\n  340 |     await page.getByRole('button', { name: '确认方案', exact: true }).click()\n> 341 |     await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()\n      |                                                                       ^\n  342 |     const name = joint ? 'joint-battery-fault' : 'battery-fault'\n  343 |     await screenshot(page, `${name}-1440`)\n  344 |     await page.reload()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\workflow.spec.ts",
+                        "column": 71,
+                        "line": 341
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.toast').filter({ hasText: '方案已确认' })\nExpected: visible\nError: strict mode violation: locator('.toast').filter({ hasText: '方案已确认' }) resolved to 2 elements:\n    1) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(3)\n    2) <div class=\"toast toast-success\">…</div> aka locator('div').filter({ hasText: '方案已确认并原子预约资源。此操作不会下发飞控指令。' }).nth(4)\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" locator('.toast').filter({ hasText: '方案已确认' }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.toast').filter({ hasText: '方案已确认' })\u001b[22m\n\n\n  339 |     expect(events[0].payload).toEqual({ battery_id: failed })\n  340 |     await page.getByRole('button', { name: '确认方案', exact: true }).click()\n> 341 |     await expect(page.locator('.toast').filter({ hasText: '方案已确认' })).toBeVisible()\n      |                                                                       ^\n  342 |     const name = joint ? 'joint-battery-fault' : 'battery-fault'\n  343 |     await screenshot(page, `${name}-1440`)\n  344 |     await page.reload()\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\workflow.spec.ts:341:71"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:01:59.031Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\workflow-运输场景运输电池退出，真实改派、确认和历史恢复\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\workflow.spec.ts",
+                    "column": 71,
+                    "line": 341
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-e22472289255d403f7cd",
+          "file": "workflow.spec.ts",
+          "line": 278,
+          "column": 3
+        },
+        {
+          "title": "联合通信场景运输电池退出，真实改派、确认和历史恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 53034,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:02:12.204Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-92987f53b41b8961fb53",
+          "file": "workflow.spec.ts",
+          "line": 278,
+          "column": 3
+        },
+        {
+          "title": "点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25707,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:03:05.589Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-03851b37ea08382acaa3",
+          "file": "workflow.spec.ts",
+          "line": 376,
+          "column": 1
+        },
+        {
+          "title": "连续通信联合调度、真实中继地图与资源窗口、确认及报告",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 32749,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:03:31.316Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-fd42c0fd40ede4c2d710",
+          "file": "workflow.spec.ts",
+          "line": 496,
+          "column": 1
+        },
+        {
+          "title": "中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 40531,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:04:04.080Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-c124d4b204e4873d700e",
+          "file": "workflow.spec.ts",
+          "line": 572,
+          "column": 1
+        },
+        {
+          "title": "中继机退出保存新版本，真实重规划保留旧方案和连续保障",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 59349,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:04:44.623Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-a3900ce511d56f3a1248",
+          "file": "workflow.spec.ts",
+          "line": 673,
+          "column": 1
+        },
+        {
+          "title": "历史方案等待绑定原始快照，延迟期间不显示混合版本结果",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8961,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:05:43.982Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-97e57c6bf2aa8b4b7a1d",
+          "file": "workflow.spec.ts",
+          "line": 731,
+          "column": 1
+        },
+        {
+          "title": "80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 65892,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:05:52.954Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-ce326e6604e3e416dd98",
+          "file": "workflow.spec.ts",
+          "line": 780,
+          "column": 1
+        },
+        {
+          "title": "生产构建只允许本机请求，真实求解与事件闭环离线可用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16597,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:06:58.860Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-c57b2dc146b83d4c0ee3",
+          "file": "workflow.spec.ts",
+          "line": 862,
+          "column": 1
+        },
+        {
+          "title": "真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:07:15.470Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-a41c63e0a00922aa52a5",
+          "file": "workflow.spec.ts",
+          "line": 940,
+          "column": 1
+        },
+        {
+          "title": "编辑输入使旧方案失效，导入预览创建新场景",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15105,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:07:34.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-a0f07487d34ef4a7e114",
+          "file": "workflow.spec.ts",
+          "line": 981,
+          "column": 1
+        },
+        {
+          "title": "真实故障重规划保留旧方案，展示新旧变化",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16569,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:07:49.165Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-b0f31ad25e71986fd6fd",
+          "file": "workflow.spec.ts",
+          "line": 1014,
+          "column": 1
+        },
+        {
+          "title": "手机窄屏仍可切页和运行计算",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10732,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:08:05.751Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-ff30d1760fb0d6ce1884",
+          "file": "workflow.spec.ts",
+          "line": 1036,
+          "column": 1
+        },
+        {
+          "title": "三种偏好共享真实快照，保留硬截止并分别计算与恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:08:16.496Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-e9479269621fb28d173c",
+          "file": "workflow.spec.ts",
+          "line": 1048,
+          "column": 1
+        },
+        {
+          "title": "资源分析绑定基线快照，增配试算创建独立场景并真实求解",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14256,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:08:38.808Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-4c4fddffa3ced1dae6ea",
+          "file": "workflow.spec.ts",
+          "line": 1137,
+          "column": 1
+        },
+        {
+          "title": "地面工位与端口增配建立独立情景，真实重算与刷新导出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17413,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:08:53.073Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-6dc58d916087552598a5",
+          "file": "workflow.spec.ts",
+          "line": 1170,
+          "column": 1
+        },
+        {
+          "title": "三档压力测试分别真实计算，刷新后保留各情景历史",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19551,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:09:10.497Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-4cd69db5ce0f464e5774",
+          "file": "workflow.spec.ts",
+          "line": 1277,
+          "column": 1
+        },
+        {
+          "title": "任务刷新恢复，重新载入页面不重复提交求解",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7302,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:09:30.058Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-97508e972d1712334aba",
+          "file": "workflow.spec.ts",
+          "line": 1328,
+          "column": 1
+        },
+        {
+          "title": "打印报告包含真实任务并可离线保存PDF",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7949,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:09:37.371Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-a62e0a6d5823242e3e17",
+          "file": "workflow.spec.ts",
+          "line": 1360,
+          "column": 1
+        },
+        {
+          "title": "深入优化保留同快照基线，刷新后继续真实计算",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 43587,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:09:45.335Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-b2ed39c148b1ce1645f4",
+          "file": "workflow.spec.ts",
+          "line": 1382,
+          "column": 1
+        },
+        {
+          "title": "限制区保存新版本，真实绕行并沿折线回放",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18353,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:10:28.932Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-1c196ab5c9f9014abfbc",
+          "file": "workflow.spec.ts",
+          "line": 1405,
+          "column": 1
+        },
+        {
+          "title": "GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 29068,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:10:47.293Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-2aa3f9039612ac814343",
+          "file": "workflow.spec.ts",
+          "line": 1450,
+          "column": 1
+        },
+        {
+          "title": "有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:11:16.370Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-0ccf153e8331500265b1",
+          "file": "workflow.spec.ts",
+          "line": 1510,
+          "column": 1
+        },
+        {
+          "title": "低SOC初始补能使用端口，并在甘特和打印报告保留窗口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T01:11:35.202Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c601ceb5ecfc8efa4a14-7a4082d902de1db027a7",
+          "file": "workflow.spec.ts",
+          "line": 1555,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T01:00:51.997Z",
+    "duration": 659585.485,
+    "expected": 26,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

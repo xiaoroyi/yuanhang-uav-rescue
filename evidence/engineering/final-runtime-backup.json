@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-10-18T01:04:35.634671+00:00",
+  "archive": "runtime/backups/yuanhang-backup-20261018T010435Z-7a3730a6.zip",
+  "sha256": "f27616f7883417dca24ba2f50dbd9e827ab39fac4391e16b02571100b905f7ec",
+  "verified": true,
+  "restored_into_new_directory": ".local/final-restore-20a40dd2",
+  "table_counts": {
+    "scenarios": 5,
+    "scenario_versions": 7,
+    "snapshots": 5,
+    "jobs": 8,
+    "plans": 8,
+    "events": 0,
+    "reservations": 0,
+    "confirmations": 0,
+    "scenario_forks": 0,
+    "plan_refinements": 0
+  },
+  "http_records_equal": 14,
+  "all_restored_http_records_equal": true,
+  "original_runtime_retained": true,
+  "service_source_sha256": "71fef265608e2407fea7ceccfd2e504ed6da3378676269b4792ec6cafa50d78a",
+  "scope": "Actual final primary runtime backup including committed WAL, verified archive, restore into a new directory and HTTP equality of all five saved scenes/eight full plans. Archive is in runtime/backups; data remain outside Git."
+}

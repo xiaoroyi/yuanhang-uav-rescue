@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.1.0-draft",
+  "fixtures": [
+    {
+      "path": "fixtures/mock/scenario.json",
+      "schema": "scenario",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/snapshot.json",
+      "schema": "snapshot",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/plan.json",
+      "schema": "plan",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event.json",
+      "schema": "event",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/solver-options.json",
+      "schema": "solver-options",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/solver-outcome.json",
+      "schema": "solver-outcome",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/solve-job.json",
+      "schema": "solve-job",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/error.json",
+      "schema": "error",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/capabilities.json",
+      "schema": "capabilities",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/job-completed.json",
+      "schema": "solve-job",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/job-failed.json",
+      "schema": "solve-job",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/job-canceled.json",
+      "schema": "solve-job",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event-battery.json",
+      "schema": "event",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event-demand.json",
+      "schema": "event",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/snapshot-relay.json",
+      "schema": "snapshot",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/event-relay-energy.json",
+      "schema": "event",
+      "purpose": "mock_development_only",
+      "context_snapshot": "fixtures/mock/snapshot-relay.json"
+    },
+    {
+      "path": "fixtures/mock/plan-v2.json",
+      "schema": "plan",
+      "purpose": "mock_development_only"
+    },
+    {
+      "path": "fixtures/mock/solver-options-v2.json",
+      "schema": "solver-options",
+      "purpose": "mock_development_only"
+    }
+  ]
+}

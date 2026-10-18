@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/solver-outcome.schema.json",
+  "title": "solver-outcome",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft"
+    },
+    "solver_status": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/solver_status"
+    },
+    "plan": {
+      "anyOf": [
+        {
+          "$ref": "https://yuanhang.example/contracts/plan.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication",
+          "restricted_zone",
+          "ground_resource"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "algorithm_mode": {
+      "enum": [
+        "quick",
+        "improve",
+        "replan"
+      ]
+    },
+    "runtime_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "first_feasible_s": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "candidate_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stop_reason": {
+      "enum": [
+        "finished",
+        "time_limit",
+        "canceled",
+        "unsupported_scope",
+        "input_not_ready",
+        "validation_failed",
+        "exception"
+      ]
+    },
+    "validation": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/validation"
+    },
+    "diagnostics": {
+      "type": "array",
+      "items": {
+        "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/diagnostic"
+      },
+      "minItems": 0
+    },
+    "joint_search": {
+      "$ref": "https://yuanhang.example/contracts/plan.schema.json#/properties/joint_search"
+    }
+  },
+  "required": [
+    "schema_version",
+    "solver_status",
+    "plan",
+    "model_scope",
+    "algorithm_mode",
+    "runtime_s",
+    "first_feasible_s",
+    "candidate_count",
+    "seed",
+    "stop_reason",
+    "validation",
+    "diagnostics"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "solver_status": {
+            "enum": [
+              "FEASIBLE",
+              "OPTIMAL"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "plan": {
+            "$ref": "https://yuanhang.example/contracts/plan.schema.json"
+          },
+          "validation": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "plan": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

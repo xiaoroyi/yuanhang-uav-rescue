@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "at_utc": "2026-10-17T16:41:06.210Z",
+  "base": "http://127.0.0.1:8002",
+  "scenario_id": "SCN-D3BE4DAD05034280",
+  "plan_id": "PLAN-774E48A47E1A41BA",
+  "snapshot_id": "SNAP-67536D8E39034B21",
+  "metrics": {
+    "last_delivery_s": 7328.291973527146,
+    "makespan_s": 7640.191512191726,
+    "energy_kwh": 23.310229087752887,
+    "cost_cny": null,
+    "sortie_count": 7,
+    "unserved_demand_count": 0,
+    "mandatory_served_count": 32,
+    "mandatory_total_count": 32,
+    "min_return_soc": 0.27139895809859826
+  },
+  "external_requests": [],
+  "console_errors": [],
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1280,
+      720
+    ]
+  ],
+  "note": "Built static frontend served by the local backend. External network requests were blocked."
+}

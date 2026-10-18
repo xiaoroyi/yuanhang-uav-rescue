@@ -1,0 +1,19 @@
+{
+  "stage": "before-final-demo-curation",
+  "archive": ".local\\final-backups\\yuanhang-backup-20261018T002231Z-c40ad9a7.zip",
+  "sha256": "b581379b5dd73ad67f34fbad8949e50239cdfe2c9a215d95f570f58c4f4a698d",
+  "table_counts": {
+    "scenarios": 2,
+    "scenario_versions": 2,
+    "snapshots": 2,
+    "jobs": 3,
+    "plans": 3,
+    "events": 0,
+    "reservations": 0,
+    "confirmations": 0,
+    "scenario_forks": 0,
+    "plan_refinements": 0
+  },
+  "verified": true,
+  "original_runtime_retained": true
+}

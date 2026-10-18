@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-10-18T02:34:05.954Z",
+  "base_url": "http://127.0.0.1:5178",
+  "scope": "Independent context, real preview backend 8031; no solve or database mutations",
+  "checks": [],
+  "screenshots": [],
+  "page_errors": [
+    "Cannot read properties of undefined (reading 'setData')"
+  ],
+  "api_errors": [],
+  "mutating_requests": [],
+  "source": {
+    "frontend/src/pages/GuidePage.tsx": "32d6b3343126604ab276e8034926439ebb75e0e72c4a6a8f88aa159138e72a03",
+    "frontend/src/pages/guide.css": "052c04fa621a9b8bcaac9c7b42a1437e42f4dbda6c62db66da0357f23894ca43",
+    "frontend/src/components/LocalProfile.tsx": "a3ac79a2623d1e4aa987b5ce9ac1afc8a54defea12daf9095a4f3912ea168605",
+    "frontend/src/components/local-profile.css": "86ece161ef8b8594b66c7035c2daafa334975a05b121be56ddb737c60eb64327"
+  },
+  "fatal": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.scene-select select option').first() to be visible\u001b[22m\n\u001b[2m    10 × locator resolved to hidden <option value=\"SCN-8F5D99D25CCC4A28\">镇龙乡 · 应急运输演练</option>\u001b[22m\n\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\experience\\qa-onboarding.mjs:21:188",
+  "finished_at": "2026-10-18T02:34:37.071Z",
+  "passed": false
+}

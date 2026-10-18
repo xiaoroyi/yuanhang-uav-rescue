@@ -1,0 +1,1016 @@
+{
+  "analysis": {
+    "plan_id": "PLAN-D5BE9C6B4EB84D36",
+    "snapshot_id": "SNAP-677D50808893423C",
+    "scenario_state_version": 3,
+    "model_scope": [
+      "cargo_unique",
+      "capacity",
+      "inventory",
+      "aircraft",
+      "battery",
+      "time_window",
+      "energy",
+      "terrain"
+    ],
+    "capacity_bound": {
+      "model_id": "transport_capacity_relaxation_v1",
+      "status": "ready",
+      "reason": null,
+      "snapshot_id": "SNAP-677D50808893423C",
+      "scenario_state_version": 3,
+      "snapshot_content_hash": "9d350edc66ca121ffbdb80136b613249ef11df74a319240ebe543066dbf443bf",
+      "required_box_count": 32,
+      "eligible_type_ids": [
+        "A",
+        "B",
+        "C"
+      ],
+      "max_payload_kg": 80,
+      "max_volume_l": 250,
+      "mass_min_kg": 308,
+      "volume_min_l": 813,
+      "mass_bound": 4,
+      "volume_bound": 4,
+      "sortie_lower_bound": 4,
+      "exact": {
+        "mass_sum": "308",
+        "volume_sum": "813",
+        "mass_divisor": "5629499534916811/70368744177664",
+        "volume_divisor": "1099511627819981/4398046511104",
+        "mass_ratio": "21673573206720512/5629499534916811",
+        "volume_ratio": "3575611813527552/1099511627819981"
+      },
+      "witnesses": [
+        {
+          "demand_id": "D-S001-MED-01",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S001-MED-01"
+          ],
+          "volume_cargo_ids": [
+            "S001-MED-01"
+          ]
+        },
+        {
+          "demand_id": "D-S001-MED-02",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S001-MED-02"
+          ],
+          "volume_cargo_ids": [
+            "S001-MED-02"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-01",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-01"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-01"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-02",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-02"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-02"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-03",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-03"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-03"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-04",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-04"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-04"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-05",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-05"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-05"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-06",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-06"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-06"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-07",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-07"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-07"
+          ]
+        },
+        {
+          "demand_id": "D-S001-WAT-08",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S001-WAT-08"
+          ],
+          "volume_cargo_ids": [
+            "S001-WAT-08"
+          ]
+        },
+        {
+          "demand_id": "D-S001-FOD-01",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S001-FOD-01"
+          ],
+          "volume_cargo_ids": [
+            "S001-FOD-01"
+          ]
+        },
+        {
+          "demand_id": "D-S001-FOD-02",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S001-FOD-02"
+          ],
+          "volume_cargo_ids": [
+            "S001-FOD-02"
+          ]
+        },
+        {
+          "demand_id": "D-S001-FOD-03",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S001-FOD-03"
+          ],
+          "volume_cargo_ids": [
+            "S001-FOD-03"
+          ]
+        },
+        {
+          "demand_id": "D-S001-HYG-01",
+          "required_quantity": 1,
+          "mass_min_kg": 6,
+          "volume_min_l": 35,
+          "mass_cargo_ids": [
+            "S001-HYG-01"
+          ],
+          "volume_cargo_ids": [
+            "S001-HYG-01"
+          ]
+        },
+        {
+          "demand_id": "D-S001-HYG-02",
+          "required_quantity": 1,
+          "mass_min_kg": 6,
+          "volume_min_l": 35,
+          "mass_cargo_ids": [
+            "S001-HYG-02"
+          ],
+          "volume_cargo_ids": [
+            "S001-HYG-02"
+          ]
+        },
+        {
+          "demand_id": "D-S006-MED-01",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S006-MED-01"
+          ],
+          "volume_cargo_ids": [
+            "S006-MED-01"
+          ]
+        },
+        {
+          "demand_id": "D-S006-WAT-01",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S006-WAT-01"
+          ],
+          "volume_cargo_ids": [
+            "S006-WAT-01"
+          ]
+        },
+        {
+          "demand_id": "D-S006-WAT-02",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S006-WAT-02"
+          ],
+          "volume_cargo_ids": [
+            "S006-WAT-02"
+          ]
+        },
+        {
+          "demand_id": "D-S006-WAT-03",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S006-WAT-03"
+          ],
+          "volume_cargo_ids": [
+            "S006-WAT-03"
+          ]
+        },
+        {
+          "demand_id": "D-S006-FOD-01",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S006-FOD-01"
+          ],
+          "volume_cargo_ids": [
+            "S006-FOD-01"
+          ]
+        },
+        {
+          "demand_id": "D-S006-HYG-01",
+          "required_quantity": 1,
+          "mass_min_kg": 6,
+          "volume_min_l": 35,
+          "mass_cargo_ids": [
+            "S006-HYG-01"
+          ],
+          "volume_cargo_ids": [
+            "S006-HYG-01"
+          ]
+        },
+        {
+          "demand_id": "D-S007-MED-01",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S007-MED-01"
+          ],
+          "volume_cargo_ids": [
+            "S007-MED-01"
+          ]
+        },
+        {
+          "demand_id": "D-S007-WAT-01",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S007-WAT-01"
+          ],
+          "volume_cargo_ids": [
+            "S007-WAT-01"
+          ]
+        },
+        {
+          "demand_id": "D-S007-WAT-02",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S007-WAT-02"
+          ],
+          "volume_cargo_ids": [
+            "S007-WAT-02"
+          ]
+        },
+        {
+          "demand_id": "D-S007-FOD-01",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S007-FOD-01"
+          ],
+          "volume_cargo_ids": [
+            "S007-FOD-01"
+          ]
+        },
+        {
+          "demand_id": "D-S007-HYG-01",
+          "required_quantity": 1,
+          "mass_min_kg": 6,
+          "volume_min_l": 35,
+          "mass_cargo_ids": [
+            "S007-HYG-01"
+          ],
+          "volume_cargo_ids": [
+            "S007-HYG-01"
+          ]
+        },
+        {
+          "demand_id": "D-S010-MED-01",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S010-MED-01"
+          ],
+          "volume_cargo_ids": [
+            "S010-MED-01"
+          ]
+        },
+        {
+          "demand_id": "D-S010-WAT-01",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S010-WAT-01"
+          ],
+          "volume_cargo_ids": [
+            "S010-WAT-01"
+          ]
+        },
+        {
+          "demand_id": "D-S010-FOD-01",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S010-FOD-01"
+          ],
+          "volume_cargo_ids": [
+            "S010-FOD-01"
+          ]
+        },
+        {
+          "demand_id": "D-S011-MED-01",
+          "required_quantity": 1,
+          "mass_min_kg": 3,
+          "volume_min_l": 12,
+          "mass_cargo_ids": [
+            "S011-MED-01"
+          ],
+          "volume_cargo_ids": [
+            "S011-MED-01"
+          ]
+        },
+        {
+          "demand_id": "D-S011-WAT-01",
+          "required_quantity": 1,
+          "mass_min_kg": 14,
+          "volume_min_l": 27,
+          "mass_cargo_ids": [
+            "S011-WAT-01"
+          ],
+          "volume_cargo_ids": [
+            "S011-WAT-01"
+          ]
+        },
+        {
+          "demand_id": "D-S011-FOD-01",
+          "required_quantity": 1,
+          "mass_min_kg": 8,
+          "volume_min_l": 28,
+          "mass_cargo_ids": [
+            "S011-FOD-01"
+          ],
+          "volume_cargo_ids": [
+            "S011-FOD-01"
+          ]
+        }
+      ],
+      "numeric_policy": "binary64_fsum_capacity_tol_1e-8_plus_4ulp",
+      "notes": [
+        "完整服务运输架次数的质量/体积容量必要下界，不是机体或电池数量下界。",
+        "按每项需求分别选最轻和最小体积的可用箱件，两套见证可以不同。",
+        "使用可用机体与兼容可补能电池的机型上限；忽略能耗、时限、航路、并发与通信等限制。",
+        "达到该下界也不证明完整调度最优或现实可执行，未达到不能单凭差值判断算法损失。"
+      ]
+    },
+    "resource_limits": null,
+    "prep_peak": 3,
+    "charge_wait_s": 0,
+    "delivery": {
+      "demands": [
+        {
+          "demand_id": "D-S001-MED-01",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1266.2695386645796,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S001-MED-02",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1266.2695386645796,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S001-WAT-01",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1266.2695386645796,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S001-WAT-02",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 3931.9587307382476,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 331.9587307382476,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-03",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 4755.149995791146,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 1155.1499957911456,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-04",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 5081.0589380316005,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 1481.0589380316005,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-05",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 6200.159145324952,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 2600.159145324952,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-06",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 2493.948835960434,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-07",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 2493.948835960434,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-WAT-08",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 8185.517756718236,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 4585.517756718236,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-FOD-01",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1266.2695386645796,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-FOD-02",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 5081.0589380316005,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-FOD-03",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 4755.149995791146,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-HYG-01",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 3931.9587307382476,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S001-HYG-02",
+          "site_id": "S001",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1266.2695386645796,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S006-MED-01",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 2377.80374082091,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S006-WAT-01",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 2377.80374082091,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S006-WAT-02",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 8820.228415351747,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 5220.228415351747,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S006-WAT-03",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 6032.978843891612,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 2432.978843891612,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S006-FOD-01",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 6032.978843891612,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S006-HYG-01",
+          "site_id": "S006",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 2377.80374082091,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S007-MED-01",
+          "site_id": "S007",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1125.7776994902122,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S007-WAT-01",
+          "site_id": "S007",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1125.7776994902122,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S007-WAT-02",
+          "site_id": "S007",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 10150.878408930212,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": null,
+          "delay_s": 6550.878408930212,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S007-FOD-01",
+          "site_id": "S007",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1125.7776994902122,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S007-HYG-01",
+          "site_id": "S007",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 6847.346620248015,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S010-MED-01",
+          "site_id": "S010",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1701.8194867569523,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S010-WAT-01",
+          "site_id": "S010",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1701.8194867569523,
+          "expected_deadline_s": 3600,
+          "hard_deadline_s": 3600,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S010-FOD-01",
+          "site_id": "S010",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 3296.682214309536,
+          "expected_deadline_s": 7200,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        },
+        {
+          "demand_id": "D-S011-MED-01",
+          "site_id": "S011",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 893.198139995606,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": 10800,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S011-WAT-01",
+          "site_id": "S011",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1744.3081540010596,
+          "expected_deadline_s": 10800,
+          "hard_deadline_s": 10800,
+          "delay_s": 0,
+          "hard_satisfied": true
+        },
+        {
+          "demand_id": "D-S011-FOD-01",
+          "site_id": "S011",
+          "required_quantity": 1,
+          "served_quantity": 1,
+          "complete_s": 1744.3081540010596,
+          "expected_deadline_s": 14400,
+          "hard_deadline_s": null,
+          "delay_s": 0,
+          "hard_satisfied": null
+        }
+      ],
+      "weighted_box_delay_s": 292295.162817333,
+      "late_demand_count": 8,
+      "expected_demand_count": 32,
+      "hard_violation_count": 0
+    },
+    "resources": [
+      {
+        "kind": "drone",
+        "resource_id": "U01",
+        "type_id": "A",
+        "sortie_count": 4,
+        "occupied_s": 6410.954607620093,
+        "flight_s": 4970.954607620093,
+        "energy_kwh": 7.302635107623715,
+        "horizon_s": 10661.376108420423,
+        "utilization": 0.6013252456741189
+      },
+      {
+        "kind": "drone",
+        "resource_id": "U05",
+        "type_id": "B",
+        "sortie_count": 7,
+        "occupied_s": 10372.466420935962,
+        "flight_s": 7852.466420935962,
+        "energy_kwh": 11.042731584872284,
+        "horizon_s": 10661.376108420423,
+        "utilization": 0.9729012761067233
+      },
+      {
+        "kind": "drone",
+        "resource_id": "U07",
+        "type_id": "C",
+        "sortie_count": 1,
+        "occupied_s": 2729.9356748017426,
+        "flight_s": 2129.9356748017426,
+        "energy_kwh": 5.256157203756666,
+        "horizon_s": 10661.376108420423,
+        "utilization": 0.2560584719120472
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-A-01",
+        "type_id": "A",
+        "sortie_count": 2,
+        "occupied_s": 5680.601183848446,
+        "flight_s": 2752.6136859438793,
+        "energy_kwh": 4.077649031208118,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0.4733405426999083
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-A-02",
+        "type_id": "A",
+        "sortie_count": 2,
+        "occupied_s": 4840.003565974053,
+        "flight_s": 2218.340921676214,
+        "energy_kwh": 3.224986076415596,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0.40329708783315477
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-B-01",
+        "type_id": "B",
+        "sortie_count": 4,
+        "occupied_s": 11792.098997268055,
+        "flight_s": 4847.009616647485,
+        "energy_kwh": 6.550206262970545,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0.9825858845377482
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-B-02",
+        "type_id": "B",
+        "sortie_count": 3,
+        "occupied_s": 8032.2177771125625,
+        "flight_s": 3005.4568042884766,
+        "energy_kwh": 4.492525321901738,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0.6692908371234365
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-C-01",
+        "type_id": "C",
+        "sortie_count": 0,
+        "occupied_s": 0,
+        "flight_s": 0,
+        "energy_kwh": 0,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0
+      },
+      {
+        "kind": "battery",
+        "resource_id": "BAT-C-02",
+        "type_id": "C",
+        "sortie_count": 1,
+        "occupied_s": 4986.811584152507,
+        "flight_s": 2129.9356748017426,
+        "energy_kwh": 5.256157203756666,
+        "horizon_s": 12001.087317487345,
+        "utilization": 0.41552998092814397
+      }
+    ],
+    "charge_windows": [
+      {
+        "battery_id": "BAT-B-01",
+        "type_id": "B",
+        "start_s": 1636.2753989804244,
+        "end_s": 3074.2852937582384,
+        "is_initial": false,
+        "sortie_id": "SRT-493807468ae3"
+      },
+      {
+        "battery_id": "BAT-A-01",
+        "type_id": "A",
+        "start_s": 2251.7141838665775,
+        "end_s": 3559.246156633708,
+        "is_initial": false,
+        "sortie_id": "SRT-0effebcce24d"
+      },
+      {
+        "battery_id": "BAT-C-02",
+        "type_id": "C",
+        "start_s": 2729.9356748017426,
+        "end_s": 4986.811584152507,
+        "is_initial": false,
+        "sortie_id": "SRT-78576bb8a368"
+      },
+      {
+        "battery_id": "BAT-B-02",
+        "type_id": "B",
+        "start_s": 2785.3756062737766,
+        "end_s": 3980.889906525594,
+        "is_initial": false,
+        "sortie_id": "SRT-3147f654c6cd"
+      },
+      {
+        "battery_id": "BAT-A-02",
+        "type_id": "A",
+        "start_s": 3846.5769114191617,
+        "end_s": 4886.20336651956,
+        "is_initial": false,
+        "sortie_id": "SRT-c7fb7356a90d"
+      },
+      {
+        "battery_id": "BAT-B-01",
+        "type_id": "B",
+        "start_s": 4223.385501051591,
+        "end_s": 5355.443922329234,
+        "is_initial": false,
+        "sortie_id": "SRT-13ab3153ab5d"
+      },
+      {
+        "battery_id": "BAT-A-01",
+        "type_id": "A",
+        "start_s": 5097.4764134964635,
+        "end_s": 5967.9319386339,
+        "is_initial": false,
+        "sortie_id": "SRT-87bf852350df"
+      },
+      {
+        "battery_id": "BAT-B-02",
+        "type_id": "B",
+        "start_s": 5372.485708344942,
+        "end_s": 6517.117194567091,
+        "is_initial": false,
+        "sortie_id": "SRT-c15f801f23ca"
+      },
+      {
+        "battery_id": "BAT-A-02",
+        "type_id": "A",
+        "start_s": 6410.954607620093,
+        "end_s": 7302.990796817534,
+        "is_initial": false,
+        "sortie_id": "SRT-91317829668b"
+      },
+      {
+        "battery_id": "BAT-B-01",
+        "type_id": "B",
+        "start_s": 7357.844319738227,
+        "end_s": 8953.154175236417,
+        "is_initial": false,
+        "sortie_id": "SRT-239d2d593449"
+      },
+      {
+        "battery_id": "BAT-B-02",
+        "type_id": "B",
+        "start_s": 9145.10070944,
+        "end_s": 10751.71589579012,
+        "is_initial": false,
+        "sortie_id": "SRT-2269c255ad3e"
+      },
+      {
+        "battery_id": "BAT-B-01",
+        "type_id": "B",
+        "start_s": 10661.376108420423,
+        "end_s": 12001.087317487345,
+        "is_initial": false,
+        "sortie_id": "SRT-3310823a4e28"
+      }
+    ],
+    "charge_peak": 4,
+    "charge_peak_by_type": {
+      "A": 1,
+      "B": 2,
+      "C": 1
+    },
+    "min_hard_slack_s": 1222.1962591790898,
+    "notes": [
+      "占用率按该类资源从场景零点至最后释放计，属于计划占用，不是设备实测统计。",
+      "充电峰值为现有无限端口模型的并发需求，不代表已考虑端口容量。",
+      "期望截止允许延期；硬截止必须通过独立检查。",
+      "初始充电仅在本次方案实际先补能时计入。"
+    ]
+  },
+  "trial": null,
+  "trial_plan": null
+}

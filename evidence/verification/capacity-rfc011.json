@@ -1,0 +1,39 @@
+{
+  "at_utc": "2026-10-17T22:56:56.619178+00:00",
+  "scope": "Targeted observed commands; not a full-suite report.",
+  "source_at_record_sha256": "292b2f832e5e646fdf4c70cd7b06cc730105f8b8e29a00dd3544de5799abff49",
+  "checks": [
+    {
+      "command": ".venv/Scripts/python -m pytest tests/solver/test_bounds.py tests/backend/test_capacity_bound_api.py -q",
+      "passed": 14
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest tests/solver/test_solver.py tests/solver/test_battery_event.py -q",
+      "passed": 25
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest tests/solver/test_joint_patterns.py tests/backend/test_joint_api.py -q",
+      "passed": 10
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep 容量下界",
+      "passed": 1
+    }
+  ],
+  "visual_review": {
+    "reviewed": true,
+    "widths": [
+      1440,
+      1280,
+      390
+    ],
+    "files": [
+      "evidence/browser/verified/capacity-bound-1440.png",
+      "evidence/browser/verified/capacity-bound-1280.png",
+      "evidence/browser/verified/capacity-bound-390.png"
+    ],
+    "observations": "实际查看三种尺寸，面板无横向溢出；窄屏依据在纵向滚动区域。"
+  },
+  "prior_failure": "Zero required_quantity test input violated existing Scenario schema; corrected to assert ContractError, no schema change.",
+  "full_verification_pending": true
+}

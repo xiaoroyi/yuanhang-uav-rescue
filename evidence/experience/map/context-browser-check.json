@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "default_external_requests": 0,
+  "page_errors": [],
+  "visible_place_labels": 2,
+  "layer_toggles": true,
+  "full_extent": true,
+  "mobile_overflow": false,
+  "outside_region_fixture": "read-only HTTP display fixture with all points moved outside bbox; not a computed Plan",
+  "outside_region_context_hidden": true,
+  "outside_region_geometry_requests": 0,
+  "geojson_sha256": "a0c624b6993d1d5156b2f4a942c991c6e704c5256660c3a5f21c1952cdb9033b",
+  "source_sha256": {
+    "frontend/src/components/RescueMap.tsx": "8ec86e5b3e562f2354d6917ae338619d9dc4a6925c0e289329806f7ec35816a6",
+    "frontend/src/components/rescue-map.css": "a90d9c960672e0b1863eefbdda0c4e7ec8eaec923d5c7b31419eefc2299dbc7e",
+    "frontend/src/pages/MapCenter.tsx": "9aadcfddfba19319af888fdf662a4e58b859a7f4a384c7f88cdd6c46dda379a7",
+    "frontend/src/pages/map-center.css": "813ccd613f464b3e40fbe285d0f2360af878b92750aa1af769504bd9cda99a02",
+    "frontend/src/lib/map-context.ts": "f5a76718d809bbc94e96d568975b30c6eda6c9f7489cbe2023a5e9b8beae75db",
+    "frontend/public/maps/town-context.geojson": "a0c624b6993d1d5156b2f4a942c991c6e704c5256660c3a5f21c1952cdb9033b",
+    "frontend/public/maps/town-context-meta.json": "256cf423c796fb72883f6e48120dbf173cb2f6347fc789f7b1a6227bf467819c"
+  },
+  "visual_review": {
+    "status": "passed",
+    "reviewed_at": "2026-10-18T10:49:29.686556+08:00",
+    "images": {
+      "context-map-1440.png": "c81f383db84de3103a9d2c4c26b6e06b5fb5e06fe08bd7252fe0c1985fbaf653",
+      "context-full-extent.png": "53e799c384668fbe307876ab7e6977ed4de4c9d30d16bfa2f51011f0f5b554b2",
+      "context-map-390.png": "240a5dba5d34049d2ea9e13b49ee12c399a87795f0fa537bbeb180544856bfe3"
+    },
+    "findings": [
+      "Actual river/road/settlement data visible on neutral DEM; task dots/labels remain identifiable.",
+      "Full extent shows real original boundary and network; task name labels hide at overview zoom to reduce overlap.",
+      "Mobile map keeps source credits and controls visible; no horizontal page overflow."
+    ]
+  }
+}

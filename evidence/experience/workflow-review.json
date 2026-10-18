@@ -1,0 +1,83 @@
+{
+  "checked_at": "2026-10-18T03:16:18.148893+00:00",
+  "mode": "read-only original failure analysis; one related test corrected; no product source/API/DB writes",
+  "emergency_flow_failure": {
+    "trace": "frontend/test-results/workflow-紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案/trace.zip",
+    "trace_sha256": "a266cb326ef610d2745ce2d0a7247af347222e778be24bd839a6af918eee396d",
+    "solve_request": {
+      "snapshot_id": "SNAP-F61A636EBB474ED1",
+      "objective": "time",
+      "time_limit_s": 15,
+      "seed": 42
+    },
+    "completed_job": {
+      "schema_version": "0.1.0-draft",
+      "job_id": "JOB-302A5DC9B58A4557",
+      "scenario_id": "SCN-540FEFE6F7934E8A",
+      "snapshot_id": "SNAP-F61A636EBB474ED1",
+      "reserved_plan_id": "PLAN-3B3C3DAB7DF34695",
+      "job_state": "completed",
+      "solver_status": "UNKNOWN",
+      "plan_id": null,
+      "has_validated_plan": false,
+      "runtime_s": 14.35853909997968,
+      "stop_reason": "time_limit",
+      "created_at": "2026-10-18T03:01:54.648067Z",
+      "started_at": "2026-10-18T03:01:54.660651Z",
+      "finished_at": "2026-10-18T03:02:14.995102Z",
+      "error": null
+    },
+    "outcome": {
+      "schema_version": "0.1.0-draft",
+      "solver_status": "UNKNOWN",
+      "plan": null,
+      "model_scope": [],
+      "algorithm_mode": "quick",
+      "runtime_s": 14.35853909997968,
+      "first_feasible_s": null,
+      "candidate_count": 0,
+      "seed": 42,
+      "stop_reason": "time_limit",
+      "validation": {
+        "status": "not_run",
+        "checks": []
+      },
+      "diagnostics": [
+        {
+          "code": "NO_VALIDATED_CANDIDATE",
+          "message": "当前预算和候选范围内未找到完整可行方案，可增加预算、设备或调整非关键时限。",
+          "field_path": null,
+          "object_id": null
+        }
+      ]
+    },
+    "diagnostics": {
+      "diagnostics": [
+        {
+          "code": "NO_VALIDATED_CANDIDATE",
+          "message": "当前预算和候选范围内未找到完整可行方案，可增加预算、设备或调整非关键时限。",
+          "field_path": null,
+          "object_id": null
+        }
+      ],
+      "validation": {
+        "status": "not_run",
+        "checks": []
+      }
+    },
+    "finding": "First real solve completed UNKNOWN at the search time limit with zero validated candidates. The UI truthfully displayed no feasible solution. A longer post-completion wait would not produce a Plan. No evidence of historical-Plan restoration/UI hiding a successful result.",
+    "search_budget_s": 13.5,
+    "code_evidence": [
+      "solver/public_api.py:631 quick search deadline = budget * 0.9",
+      "solver/public_api.py:316 first unfinished construction returns None at deadline"
+    ],
+    "recommendation": "Review product computation budget and first feasible construction performance. Do not relax sortie assertions, treat UNKNOWN as INFEASIBLE, or fabricate a Plan."
+  },
+  "refresh_failure": {
+    "trace": "frontend/test-results/workflow-任务刷新恢复，重新载入页面不重复提交求解/trace.zip",
+    "trace_sha256": "bb4ba33b39611cb025a29cc5c97cda4a6cc837ade1d6b245a964bfd5d202153c",
+    "finding": "The old assertion required more than one Plan-list request. A valid persisted Plan ID now loads its immutable Plan and bound Snapshot directly; a second list read is unnecessary.",
+    "test_change": "Retain injected stale empty Plan list and delayed Job metadata. Check actual restored Plan and original Snapshot JSON, displayed Plan export identity, no binding error, no completion toast, same sole Job/Plan/Snapshot, and zero new solve submissions.",
+    "validation": "Pending parent unified rerun; no second 8011/5174 services started."
+  }
+}

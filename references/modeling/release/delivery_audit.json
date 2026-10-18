@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "release_id": "20260926_v4_excel1",
+  "paper_pdf": {
+    "path": "论文LaTeX_20260926/论文/build/全文_20260926更新.pdf",
+    "sha256": "5f5766630ef4d9b1abc8e015a01946a64a4a5e05ff8a085836c19fbfe412db7c",
+    "bytes": 4094862
+  },
+  "physical_pages": 75,
+  "figures": 42,
+  "redrawn_figures": 26,
+  "references": 9,
+  "unique_labels": 206,
+  "all_references_resolved": true,
+  "latex_final_overflow_or_missing_glyph": false,
+  "Q1_text_and_Excel_unchanged": true,
+  "template_cls_unchanged": true,
+  "user_AI_statement_unchanged": true,
+  "Q2_Excel_energy_and_return_match": true,
+  "Q3_independent_replay": true,
+  "Q4_source_hash_matches": true,
+  "Q4_enumeration_and_MILP_agree": true,
+  "original_Excel_template_preserved": true,
+  "proof_scope": "No original-problem global optimum claimed for Q2/Q3; Q4 exact only for frozen new Q3"
+}

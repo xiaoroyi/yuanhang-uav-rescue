@@ -1,0 +1,64 @@
+{
+  "reviewed_at": "2026-10-18T02:55:04.007449+00:00",
+  "status": "passed_for_full_suite_freeze",
+  "source_sha256": {
+    "backend/app/map_assets.py": "c904f7e117f670adcae1e7c0119db0d1d994c2179b39722342efc2146fc458f6",
+    "backend/app/map_models.py": "ce649d8a2ae33af6df6c6e7647b6b57dc027bbabb6ee735b57bb7b89adac8f91",
+    "backend/app/flight_profiles.py": "1ca9daefb3acf12720ad2057309ceb194d9d179bf4765b8d76d51f76306a2962",
+    "backend/app/version_views.py": "6bd3bd2ee7f2f1d51d481e7b57856245f79dd24b7d7313f8c77f6a949a16418b",
+    "frontend/src/components/RescueMap.tsx": "8ec86e5b3e562f2354d6917ae338619d9dc4a6925c0e289329806f7ec35816a6",
+    "frontend/src/components/rescue-map.css": "a90d9c960672e0b1863eefbdda0c4e7ec8eaec923d5c7b31419eefc2299dbc7e",
+    "frontend/src/lib/map-context.ts": "f5a76718d809bbc94e96d568975b30c6eda6c9f7489cbe2023a5e9b8beae75db",
+    "frontend/src/pages/MapCenter.tsx": "9aadcfddfba19319af888fdf662a4e58b859a7f4a384c7f88cdd6c46dda379a7",
+    "frontend/src/pages/map-center.css": "813ccd613f464b3e40fbe285d0f2360af878b92750aa1af769504bd9cda99a02",
+    "tests/backend/test_map_surface.py": "703f5ec7e721a79147f2b340112862a8f192be7c5ce20f95cec82184f5da23dc",
+    "tests/backend/test_flight_profiles.py": "12fba6eab884c57b040bd03b48428db4cef9a4bd1b5d6e460e822937e7303edb",
+    "tests/backend/test_scenario_versions.py": "fa1b46fcf4d3763eaa289a3a73223a5b00bcd84ef77a870ca467c16bdccbbecc"
+  },
+  "tests": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest -q tests/backend/test_map_surface.py tests/backend/test_flight_profiles.py tests/backend/test_scenario_versions.py",
+      "passed": 15,
+      "warnings": 1,
+      "duration_s": 16.42,
+      "warning": "StarletteDeprecationWarning from FastAPI TestClient"
+    },
+    {
+      "command": "node --test tests/unit/map-context.test.mjs tests/unit/visual-analysis.test.mjs",
+      "cwd": "frontend",
+      "passed": 6,
+      "failed": 0
+    }
+  ],
+  "change": {
+    "file": "tests/backend/test_map_surface.py",
+    "test": "test_http_preview_render_revision_busts_browser_cache_without_changing_dem_identity",
+    "scope": "HTTP metadata versioned image URL, actual PNG response/immutable cache, NoData transparency, renderer revision changes URL while all geospatial/solver identities remain identical",
+    "production_code_changes": false
+  },
+  "findings": [
+    "Offline DEM image URL includes v=stone-v2 as a real browser cache key as well as an internal render-version directory; cached v0 green PNG does not mask the new neutral image.",
+    "DEM surface enforces explicit asset ID and hash, full-grid statistics and bounded <=73x73 samples; NoData stays null. Registered asset changes are rejected and separate runtime roots cannot access each other.",
+    "Three-dimensional mesh omits every quad touching a null corner. Projection curves skip unknown/out-of-range samples; the UI states display-only sampling, exaggeration and ground projection boundaries.",
+    "Flight profiles read original Plan Snapshot, content hash, original resource/type/cargo and bound DEM. Rebuilt route mismatch is rejected; time and energy reuse solver leg/leg_values. Vertical datum is not relabeled AMSL. Up to 240 display samples do not certify clearance.",
+    "Version routes are GET-only, preserve immutable contents and snapshot, sort descending, and return null dates because VersionRow never stored timestamps.",
+    "Town context extracted from original HTML retains exact checked hash, original WGS84 coordinates/OSM IDs and 1829 roads/95 water surfaces/101 waterways/166 places/1 reference boundary. It is labeled historical non-solver context, not live imagery or official boundary.",
+    "Native Map source guards and canceled/instance checks prevent unmounted stale async work. Per-component event listeners/ResizeObserver/markers and native Map are removed during cleanup.",
+    "Reviewed existing source-matching 1440 and 390 map screenshots: neutral DEM/waterways, point dots and credits visible; mobile long names are ellipsized or may extend to clipping edge, and complete names remain in point selection/table/title. No horizontal page overflow was recorded."
+  ],
+  "existing_browser_evidence_review": {
+    "executed_again_in_this_audit": false,
+    "report": "evidence/experience/map/context-browser-check.json",
+    "source_hashes_match_current_map_files": true,
+    "individually_viewed": [
+      "evidence/experience/map/context-map-1440.png",
+      "evidence/experience/map/context-map-390.png"
+    ],
+    "satellite": "Existing browser reports ERR_NETWORK_ACCESS_DENIED; no successful satellite browser screenshot claimed. Standard-shell single-tile HTTP 200 JPEG only confirms upstream reachability. Explicit failure fallback is separately covered."
+  },
+  "scope_notes": [
+    "Shared local background promises are session cached; a failed initial background fetch does not automatically retry in the same JS session. Reload retries. DEM analysis remains separately retryable via React Query. This is a non-blocking local static-asset availability limitation.",
+    "MapCenter region metadata banner indicates an available context package before geometry finishes loading; native map data-context only becomes true after the geometry source is added. The static count panel is package inventory, not current visible feature count.",
+    "No browser preview database was changed; no original source inputs, algorithm, API DTO, production code or generated contracts were changed in this audit."
+  ]
+}

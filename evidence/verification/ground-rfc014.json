@@ -1,0 +1,30 @@
+{
+  "at_utc": "2026-10-18T00:55:21.121314+00:00",
+  "scope": "RFC-014 targeted checks, not the final full regression",
+  "python": {
+    "command": ".venv/Scripts/python -m pytest tests/backend/test_analytics.py tests/backend/test_ground_api.py -q",
+    "passed": 18,
+    "warnings": 1,
+    "elapsed_s": 23.67
+  },
+  "frontend": [
+    "npm.cmd run lint: exit 0",
+    "npm.cmd run typecheck: exit 0"
+  ],
+  "generation": [
+    "scripts/export_openapi.py: 43 paths",
+    "generate-types.mjs: completed"
+  ],
+  "browser": {
+    "startTime": "2026-10-18T00:54:37.153Z",
+    "duration": 33520.678,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "verification_source_at_observation": "0a99ef753a153e49490438adba45f5f454c7f3a1ac4c35fa449c30a6655432a9",
+  "core_schema_changed": false,
+  "http_extension_rfc": "docs/CONTRACT_RFC_014.md",
+  "visual_scope": "1440/1280/390 form and result captures viewed; at 1280 the form is longer than the viewport, so footer reachability is asserted and a separate actual viewport capture is retained."
+}

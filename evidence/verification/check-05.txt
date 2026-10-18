@@ -1,0 +1,24 @@
+
+> yuanhang-rescue-console@0.1.0 test:unit
+> node --test tests/unit/*.test.mjs
+
+✔ rounding carries seconds into the next minute and hour (0.5238ms)
+✔ zero is data, missing values remain unknown (11.9676ms)
+✔ archived map context has exact provenance hash, feature counts and finite WGS84 geometry (17.9972ms)
+✔ foreign input coordinates do not inherit the archived town background (0.2848ms)
+✔ legacy policy is explicit and joint metrics consistently include relay scope (1.4382ms)
+✔ same metrics do not imply the same schedule or the same objective policy (17.2494ms)
+✔ manifest covers each real cargo once and preserves source data and unknown deadlines (1.1372ms)
+✔ imported entity IDs stay inert inside an HTML chart tooltip (0.6689ms)
+✔ numeric tooltips distinguish unknown samples from an actual zero (12.5682ms)
+✔ analysis preserves demand versus actual stock and unknown energy without changing inputs (1.8201ms)
+✔ empty Plan keeps real input totals and does not invent result series (0.6058ms)
+✔ a missing DEM sample removes every touching cell, including an internal hole (0.1869ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 194.6162

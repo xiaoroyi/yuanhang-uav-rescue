@@ -1,0 +1,123 @@
+{
+  "schema_version": 4,
+  "release_id": "20260926_v4_excel1",
+  "model_version": "20260926_v4",
+  "status": "verified",
+  "published_local": "2026-09-26T11:43:47.754689+08:00",
+  "user_authorization": "用户要求自主选择快/省电方案并更新提交Excel、论文、图表、继承Q4和最终编译。",
+  "previous_release_id": "20260924_v3_excel1",
+  "workbook": {
+    "path": "outputs/current_release_20260926_v4/结果提交_原版模板_20260926_v4.xlsx",
+    "sha256": "4b76a8817c90ff765eb3604c472da20e57ceaf8dae76b49f64935514c50a7dbe",
+    "bytes": 52242
+  },
+  "workbook_validation": {
+    "path": "outputs/current_release_20260926_v4/original_template_validation.json",
+    "sha256": "308a73a878e86514feb0aa4d66c3a8182f32b89b68c095072a04776ba457d73a",
+    "bytes": 1077
+  },
+  "workbook_sources": {
+    "path": "outputs/current_release_20260926_v4/excel_source_manifest.json",
+    "sha256": "1147ecb6d37d10893ab7e82aa8a7ff9abade667b49bac7d945664c367a1a4960",
+    "bytes": 2928
+  },
+  "complete_handoff": {
+    "path": "gptpro对接/20260926_当前版本完整对接/当前版本_Q1至Q4_完整对接_20260926.md",
+    "sha256": "6fdf5eb555f5a9e117da4dfa7cf7960fb9ac188b42a7a25ef617ec79d6ea1611",
+    "bytes": 354625
+  },
+  "selected_versions": {
+    "path": "review_runs/20260926_release/selected_versions.json",
+    "sha256": "bf30697b0a72bad4cbf70dc81b8224ba69a09d9f7a63e5f206693bb9b7a19d51",
+    "bytes": 2474
+  },
+  "accepted_metrics": {
+    "path": "review_runs/20260926_release/accepted_metrics.csv",
+    "sha256": "39829ec3d8b7fb63518e4355a768dfc3d51e35dd968b2a895d436b75d4660379",
+    "bytes": 512
+  },
+  "primary_q1": "问题1/results",
+  "primary_q2": "Q2_fast",
+  "primary_q3": "Q3_fast",
+  "primary_q4_directory": "review_runs/20260926_release/q4_fast",
+  "paper_source": {
+    "path": "论文LaTeX_20260926_Pro定稿/论文/全文.tex",
+    "sha256": "57ee00df57e51a82b259b4cdd0f0fb1aed48093d823c110343cad831e9bc8965",
+    "bytes": 205573
+  },
+  "paper_pdf": {
+    "path": "论文LaTeX_20260926_Pro定稿/论文/build/D26106140150.pdf",
+    "sha256": "5bf6dc10dd64cb0a53a93036ed44b54aa2987c04dccbea2b9163d033f94f76d4",
+    "bytes": 5706037
+  },
+  "code_attachment": {
+    "path": "outputs/current_release_20260926_v4/问题1至4_详细代码与结果依据_20260926.zip",
+    "sha256": "5b8bb6d0637e5f6ba190d8fe721e58ab6a2f9514cb66529d04a121fd97bd0d4a",
+    "bytes": 3606541
+  },
+  "delivery_definition": "整站交接结束；80箱按期、31箱硬截止全部满足。",
+  "objective_preference": "整站零延期条件下优先缩短完成时间；省电方案为独立备选，不混用指标。",
+  "proof_scope": "No original-problem global optimum claimed for Q2/Q3; Q4 exact only for frozen new Q3",
+  "data_overrides": [
+    {
+      "original": "review_runs/20260924_v1/q2/results/fleet_objective_audit.csv",
+      "use_instead": "outputs/current_release_20260924/corrected_data/fleet_objective_audit.csv",
+      "reason": "BC fleet labels only; every other cell unchanged"
+    },
+    {
+      "original": "review_runs/20260924_v1/q2/results/pareto_all_valid.csv",
+      "use_instead": "outputs/current_release_20260924/corrected_data/pareto_all_valid.csv",
+      "reason": "BC fleet labels only; every other cell unchanged"
+    },
+    {
+      "original": "review_runs/20260924_v1/q2/results/pareto_nondominated.csv",
+      "use_instead": "outputs/current_release_20260924/corrected_data/pareto_nondominated.csv",
+      "reason": "BC fleet labels only; every other cell unchanged"
+    }
+  ],
+  "validation": {
+    "path": "review_runs/20260926_release/delivery_audit.json",
+    "sha256": "f4aed2a352d3b02a86fd6e3d230aecff9f203c7858b70534b8ec716f2e0e651a",
+    "bytes": 893
+  },
+  "previous_release_manifest": {
+    "path": "review_runs/20260926_release/previous_CURRENT_RELEASE.json",
+    "sha256": "f25d773a982f4e90eadfa6dbed91c56865cb36ea9892d9cdae748b55efafbd39",
+    "bytes": 8204
+  },
+  "release_change_note": {
+    "path": "review_runs/20260926_release/新结果发布与论文更新说明.md",
+    "sha256": "a0906ceaf73ecae1184d829dc27edff2a1021b3af977b9ac01d12b9b5502d19d",
+    "bytes": 6490
+  },
+  "paper_revision_note": {
+    "path": "gptpro对接/20260926_最终提交整理说明.md",
+    "sha256": "a2175f4fae7e34aa259ede2492504c16776febdfefaa2295d9ea51003953ae4f",
+    "bytes": 1270
+  },
+  "paper_source_package": {
+    "path": "gptpro对接/论文_D26106140150_最终源码工程.zip",
+    "sha256": "ce4c4df1390a4cac349acef515b52df416dccf3810e41ded8c4e4f6a78cb7d83",
+    "bytes": 10720328
+  },
+  "paper_revision_time": "2026-09-26T16:45:02.148024+08:00",
+  "submission_delivery": {
+    "directory": "outputs/提交材料_D26106140150_20260926",
+    "paper": {
+      "path": "outputs/提交材料_D26106140150_20260926/D26106140150.pdf",
+      "sha256": "5bf6dc10dd64cb0a53a93036ed44b54aa2987c04dccbea2b9163d033f94f76d4",
+      "bytes": 5706037
+    },
+    "workbook": {
+      "path": "outputs/提交材料_D26106140150_20260926/D26106140150_答案.xlsx",
+      "sha256": "4b76a8817c90ff765eb3604c472da20e57ceaf8dae76b49f64935514c50a7dbe",
+      "bytes": 52242
+    },
+    "code": {
+      "path": "outputs/提交材料_D26106140150_20260926/D26106140150_附件.zip",
+      "sha256": "f4dfef351dc24a6b747444975bbc8f8cfff28192b9c1c95377aabcd0bf3a8e7c",
+      "bytes": 46493
+    },
+    "code_file_count": 18
+  }
+}

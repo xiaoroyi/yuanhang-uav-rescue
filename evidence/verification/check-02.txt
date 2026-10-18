@@ -1,0 +1,2 @@
+PASS: 10 schemas, 18 mock fixtures, 16 draft HTTP operations; references/hash/state smoke checks.
+Scope: no solver execution, physical feasibility validation, running API, or UI build.

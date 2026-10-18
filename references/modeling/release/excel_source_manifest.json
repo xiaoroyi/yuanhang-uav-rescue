@@ -1,0 +1,88 @@
+{
+  "release": "20260926_v4_excel1",
+  "sources": {
+    "version": "20260926_v4",
+    "primary_q2": "Q2_fast",
+    "primary_q3": "Q3_fast",
+    "primary_q4_directory": "review_runs/20260926_release/q4_fast",
+    "solutions": [
+      {
+        "id": "Q2_fast",
+        "directory": "review_runs/20260925_overnight/reviews/morning_20260926/runs/q2_decomp_night_00/elites/eaee08f80c72ac79",
+        "metrics": {
+          "C": 5693.242512959364,
+          "E": 66.21486599521012,
+          "N": 23,
+          "D": 0,
+          "D_station": 0.0,
+          "late_boxes": 0,
+          "hard_slack": 420.51359880173686,
+          "min_SOC": 0.20095847325256222,
+          "by_model": {
+            "C": 6,
+            "A": 11,
+            "B": 6
+          }
+        },
+        "sha256": "f64a0960ac3295babe274309746860b2e5a6da47f4b1fa8cf4b5e3431b4dc0cb"
+      },
+      {
+        "id": "Q3_fast",
+        "directory": "review_runs/20260925_overnight/reviews/morning_20260926/runs/q3_night_05/elites/00c8ee7f3b11b29c29",
+        "metrics": {
+          "C": 5783.226919003505,
+          "E": 68.68177239672228,
+          "N": 26,
+          "N_transport": 23,
+          "N_relay": 3,
+          "D": 0,
+          "D_station": 0.0,
+          "late_boxes": 0,
+          "hard_violations": 0,
+          "gap_seconds": 0
+        },
+        "sha256": "00c8ee7f3b11b29c29586488ae945be690d39f10c58702cfa250abe1c886588b"
+      },
+      {
+        "id": "Q3_economy",
+        "directory": "review_runs/20260925_overnight/reviews/morning_20260926/runs/q3_night_00/elites/f455d04d2d9c7614ab",
+        "metrics": {
+          "C": 5939.704336389495,
+          "E": 67.71466449822888,
+          "N": 26,
+          "N_transport": 23,
+          "N_relay": 3,
+          "D": 0,
+          "D_station": 0.0,
+          "late_boxes": 0,
+          "hard_violations": 0,
+          "gap_seconds": 0
+        },
+        "sha256": "f455d04d2d9c7614abb031bd5d2c8d1342934b547ccd782c235fb7b32092169b"
+      },
+      {
+        "id": "Q2_economy",
+        "directory": "review_runs/20260925_overnight/reviews/morning_20260926/runs/q2_decomp_night_00/elites/41f0ee5a185363c4",
+        "metrics": {
+          "C": 5969.043477110843,
+          "E": 64.7341320848141,
+          "N": 22,
+          "D": 0,
+          "D_station": 0.0,
+          "late_boxes": 0,
+          "hard_slack": 510.1387966362163,
+          "min_SOC": 0.20095847325256222,
+          "by_model": {
+            "B": 6,
+            "C": 6,
+            "A": 10
+          }
+        },
+        "sha256": "d6e9a89c976e46561b61ad82b9ec1d25a2b41eada16e01d35f434c4355c34541"
+      }
+    ]
+  },
+  "template": "review_runs/20260924_v1/data_archive/raw_tables/结果提交模板.xlsx",
+  "Q4": "review_runs/20260926_release/q4_fast",
+  "policy": "时间优先主方案；交付统一取整站交接结束；保持原六表格式"
+}

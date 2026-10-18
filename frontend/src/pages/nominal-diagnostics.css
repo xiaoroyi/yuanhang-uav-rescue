@@ -1,0 +1,329 @@
+.nominal-diagnostics {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.nominal-scope {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 18px 24px;
+  background: var(--teal-soft, #edf8f6);
+  color: var(--teal, #087e76);
+  flex-shrink: 0;
+}
+.nominal-scope > svg {
+  flex-shrink: 0;
+}
+.nominal-scope > div {
+  flex: 1;
+}
+.nominal-scope strong {
+  font-size: 14px;
+}
+.nominal-scope p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted, #647876);
+}
+.nominal-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line, #e2e9e7);
+  flex-shrink: 0;
+}
+.nominal-controls > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--muted, #647876);
+  margin-right: auto;
+}
+.nominal-controls label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.nominal-controls select,
+.nominal-table-tools select {
+  min-height: 34px;
+  border: 1px solid var(--line, #dce7e3);
+  border-radius: 8px;
+  padding: 5px 9px;
+  background: white;
+  color: inherit;
+  font: inherit;
+  max-width: 100%;
+}
+.nominal-scroll {
+  min-height: 0;
+  overflow: auto;
+  padding: 22px 24px 28px;
+  overscroll-behavior: contain;
+}
+.nominal-loading {
+  min-height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--teal, #087e76);
+}
+.nominal-loading h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.nominal-loading p {
+  font-size: 12px;
+  color: var(--muted, #647876);
+}
+.nominal-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.nominal-metrics > div {
+  border: 1px solid var(--line, #e2e9e7);
+  padding: 18px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.nominal-metrics .nominal-primary {
+  background: #f0f9f6;
+  border-color: #cbe8df;
+}
+.nominal-metrics small {
+  color: var(--muted, #647876);
+  font-size: 12px;
+}
+.nominal-metrics strong {
+  font-size: 29px;
+  letter-spacing: -1px;
+  font-weight: 650;
+}
+.nominal-metrics strong.nominal-duration {
+  font-size: 24px;
+  line-height: 35px;
+}
+.nominal-metrics em {
+  font-size: 12px;
+  font-style: normal;
+  margin-left: 7px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.nominal-metrics span {
+  font-size: 11px;
+  color: var(--muted, #647876);
+}
+.nominal-comparison {
+  margin: 16px 0 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line, #e2e9e7);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.nominal-comparison > div {
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 12px;
+  font-size: 12px;
+}
+.nominal-comparison > div + div {
+  border-left: 1px solid var(--line, #e2e9e7);
+}
+.nominal-comparison span {
+  width: 100%;
+  color: var(--muted, #647876);
+}
+.nominal-comparison small {
+  color: var(--muted, #647876);
+}
+.nominal-comparison > div:last-child b {
+  color: var(--teal, #087e76);
+}
+.nominal-table-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.nominal-help {
+  font-size: 12px;
+  color: var(--muted, #647876);
+  line-height: 1.8;
+  margin: 13px 0;
+}
+.nominal-table-scroll {
+  overflow: auto;
+  border: 1px solid var(--line, #e2e9e7);
+  border-radius: 10px;
+}
+.nominal-table-scroll .data-table {
+  min-width: 700px;
+}
+.nominal-subline {
+  display: block;
+  font-size: 10px;
+  color: var(--muted, #647876);
+  margin-top: 5px;
+  line-height: 1.6;
+}
+.nominal-cargo {
+  max-width: 260px;
+  white-space: normal !important;
+  font-size: 11px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+.nominal-warning {
+  padding: 12px;
+  border: 1px solid #ead8a8;
+  background: #fffbef;
+  border-radius: 9px;
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+.nominal-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.nominal-audit h3 {
+  font-size: 14px;
+  margin: 20px 0 10px;
+}
+.nominal-audit p {
+  color: var(--muted, #647876);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.nominal-checks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px 0;
+}
+.nominal-checks span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--teal, #087e76);
+}
+.nominal-audit details {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f6f8f7;
+  border-radius: 9px;
+  font-size: 12px;
+}
+.nominal-audit summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.nominal-audit dl {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 10px;
+  line-height: 1.6;
+}
+.nominal-audit dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, monospace;
+}
+.nominal-footer {
+  padding: 12px 24px;
+  border-top: 1px solid var(--line, #e2e9e7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--muted, #647876);
+  flex-shrink: 0;
+}
+.dialog-content:has(.nominal-diagnostics) {
+  display: flex;
+  flex-direction: column;
+  width: min(1080px, calc(100vw - 32px));
+  height: min(820px, 90vh);
+  padding: 0;
+  overflow: hidden;
+}
+.dialog-content:has(.nominal-diagnostics) > .dialog-header {
+  flex-shrink: 0;
+  padding: 22px 24px 18px;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .nominal-scope {
+    padding: 14px;
+    gap: 10px;
+  }
+  .nominal-scope > .badge {
+    display: none;
+  }
+  .nominal-controls {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .nominal-controls > span {
+    width: 100%;
+  }
+  .nominal-scroll {
+    padding: 16px 14px;
+  }
+  .nominal-metrics {
+    grid-template-columns: 1fr;
+  }
+  .nominal-metrics > div {
+    padding: 13px 16px;
+    gap: 7px;
+  }
+  .nominal-metrics strong {
+    font-size: 26px;
+  }
+  .nominal-comparison {
+    grid-template-columns: 1fr;
+  }
+  .nominal-comparison > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line, #e2e9e7);
+  }
+  .nominal-comparison span {
+    width: auto;
+    margin-right: auto;
+  }
+  .nominal-checks {
+    grid-template-columns: 1fr 1fr;
+  }
+  .nominal-audit dl {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .nominal-audit dd {
+    margin-bottom: 9px;
+  }
+  .nominal-footer {
+    padding: 10px;
+    font-size: 10px;
+  }
+}

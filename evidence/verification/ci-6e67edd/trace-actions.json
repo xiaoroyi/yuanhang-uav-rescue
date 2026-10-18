@@ -1,0 +1,345 @@
+[
+  {
+    "trace": "test.trace",
+    "last_calls": [
+      {
+        "callId": "sxoj@186",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"context\"",
+        "startTime": 94976.122,
+        "endTime": 95541.485,
+        "error": null
+      },
+      {
+        "callId": "sxoj@193",
+        "apiName": null,
+        "method": "pw:api",
+        "title": "GET",
+        "startTime": 95392.494,
+        "endTime": 95402.999,
+        "error": null
+      },
+      {
+        "callId": "sxoj@196",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toEqual\"",
+        "startTime": 95404.802,
+        "endTime": 95408.184,
+        "error": null
+      },
+      {
+        "callId": "sxoj@197",
+        "apiName": null,
+        "method": "pw:api",
+        "title": "GET",
+        "startTime": 95408.63,
+        "endTime": 95415.989,
+        "error": null
+      },
+      {
+        "callId": "sxoj@200",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toEqual\"",
+        "startTime": 95417.012,
+        "endTime": 95417.126,
+        "error": null
+      },
+      {
+        "callId": "sxoj@201",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toHaveLength\"",
+        "startTime": 95417.45,
+        "endTime": 95417.719,
+        "error": null
+      },
+      {
+        "callId": "sxoj@203",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toEqual\"",
+        "startTime": 95420.365,
+        "endTime": 95420.433,
+        "error": null
+      },
+      {
+        "callId": "sxoj@204",
+        "apiName": null,
+        "method": "pw:api",
+        "title": "Close context",
+        "startTime": 95531.102,
+        "endTime": 95541.436,
+        "error": null
+      },
+      {
+        "callId": "sxoj@207",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"request\"",
+        "startTime": 95542.213,
+        "endTime": 95576.385,
+        "error": null
+      },
+      {
+        "callId": "sxoj@216",
+        "apiName": null,
+        "method": "test.attach",
+        "title": "Attach \"error-context\"",
+        "startTime": 95583.762,
+        "endTime": 95583.775,
+        "error": null
+      },
+      {
+        "callId": "sxoj@219",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"baseURL\"",
+        "startTime": 95584.521,
+        "endTime": 95584.547,
+        "error": null
+      },
+      {
+        "callId": "sxoj@222",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"viewport\"",
+        "startTime": 95585.154,
+        "endTime": 95585.172,
+        "error": null
+      },
+      {
+        "callId": "sxoj@245",
+        "apiName": null,
+        "method": "hook",
+        "title": "Worker Cleanup",
+        "startTime": 95592.65,
+        "endTime": 95787.056,
+        "error": null
+      },
+      {
+        "callId": "sxoj@250",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"browser\"",
+        "startTime": 95594.074,
+        "endTime": 95785.048,
+        "error": null
+      },
+      {
+        "callId": "sxoj@256",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"screenshot\"",
+        "startTime": 95785.942,
+        "endTime": 95785.954,
+        "error": null
+      },
+      {
+        "callId": "sxoj@260",
+        "apiName": null,
+        "method": "fixture",
+        "title": "Fixture \"launchOptions\"",
+        "startTime": 95786.684,
+        "endTime": 95786.706,
+        "error": null
+      }
+    ]
+  },
+  {
+    "trace": "2-trace.trace",
+    "last_calls": [
+      {
+        "callId": "sxoj@58",
+        "apiName": null,
+        "method": "fetch",
+        "title": null,
+        "startTime": 3404.405,
+        "endTime": 3542.225,
+        "error": null
+      },
+      {
+        "callId": "sxoj@99",
+        "apiName": null,
+        "method": "fetch",
+        "title": null,
+        "startTime": 11259.827,
+        "endTime": 11289.339,
+        "error": null
+      },
+      {
+        "callId": "sxoj@193",
+        "apiName": null,
+        "method": "fetch",
+        "title": null,
+        "startTime": 95392.827,
+        "endTime": 95402.726,
+        "error": null
+      },
+      {
+        "callId": "sxoj@197",
+        "apiName": null,
+        "method": "fetch",
+        "title": null,
+        "startTime": 95409.009,
+        "endTime": 95415.734,
+        "error": null
+      }
+    ]
+  },
+  {
+    "trace": "1-trace.trace",
+    "last_calls": [
+      {
+        "callId": "sxoj@136",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toHaveCount\"",
+        "startTime": 36326.555,
+        "endTime": 36349.822,
+        "error": null
+      },
+      {
+        "callId": "sxoj@138",
+        "apiName": null,
+        "method": "__waitInfo__",
+        "title": "Wait for event \"download\"",
+        "startTime": 36366.058,
+        "endTime": 36459,
+        "error": null
+      },
+      {
+        "callId": "sxoj@141",
+        "apiName": null,
+        "method": "click",
+        "title": null,
+        "startTime": 36366.339,
+        "endTime": 36464.171,
+        "error": null
+      },
+      {
+        "callId": "sxoj@150",
+        "apiName": null,
+        "method": "selectOption",
+        "title": null,
+        "startTime": 36539.541,
+        "endTime": 36602.293,
+        "error": null
+      },
+      {
+        "callId": "sxoj@152",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toHaveText\"",
+        "startTime": 36630.88,
+        "endTime": 37977.893,
+        "error": null
+      },
+      {
+        "callId": "sxoj@154",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toBeVisible\"",
+        "startTime": 37992.813,
+        "endTime": 38009.912,
+        "error": null
+      },
+      {
+        "callId": "sxoj@156",
+        "apiName": null,
+        "method": "selectOption",
+        "title": null,
+        "startTime": 38021.846,
+        "endTime": 38066.181,
+        "error": null
+      },
+      {
+        "callId": "sxoj@158",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toHaveText\"",
+        "startTime": 38083.299,
+        "endTime": 38095.815,
+        "error": null
+      },
+      {
+        "callId": "sxoj@160",
+        "apiName": null,
+        "method": "setViewportSize",
+        "title": null,
+        "startTime": 38105.201,
+        "endTime": 38169.109,
+        "error": null
+      },
+      {
+        "callId": "sxoj@162",
+        "apiName": null,
+        "method": "waitForSelector",
+        "title": "Scroll into view",
+        "startTime": 38227.875,
+        "endTime": 38251.057,
+        "error": null
+      },
+      {
+        "callId": "sxoj@166",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toBeInViewport\"",
+        "startTime": 38274.796,
+        "endTime": 38294.24,
+        "error": null
+      },
+      {
+        "callId": "sxoj@168",
+        "apiName": null,
+        "method": "waitForSelector",
+        "title": "Screenshot",
+        "startTime": 38309.406,
+        "endTime": 38332.775,
+        "error": null
+      },
+      {
+        "callId": "sxoj@172",
+        "apiName": null,
+        "method": "setViewportSize",
+        "title": null,
+        "startTime": 93049.05,
+        "endTime": 93123.428,
+        "error": null
+      },
+      {
+        "callId": "sxoj@174",
+        "apiName": null,
+        "method": "waitForSelector",
+        "title": "Scroll into view",
+        "startTime": 93185.917,
+        "endTime": 93222.809,
+        "error": null
+      },
+      {
+        "callId": "sxoj@178",
+        "apiName": null,
+        "method": "expect",
+        "title": "Expect \"toBeInViewport\"",
+        "startTime": 93294.101,
+        "endTime": 93317.841,
+        "error": null
+      },
+      {
+        "callId": "sxoj@180",
+        "apiName": null,
+        "method": "waitForSelector",
+        "title": "Screenshot",
+        "startTime": 93327.556,
+        "endTime": 93345.486,
+        "error": null
+      }
+    ]
+  },
+  {
+    "trace": "0-trace.trace",
+    "last_calls": []
+  }
+]

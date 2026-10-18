@@ -1,0 +1,56 @@
+{
+  "plan_id": "PLAN-ECB7174D56C44688",
+  "page_count": 7,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 673,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-1.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 1473,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-2.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 1234,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-3.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 1124,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-4.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 1192,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-5.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 1659,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-6.png"
+    },
+    {
+      "page": 7,
+      "text_characters": 1356,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/joint-report-page-7.png"
+    }
+  ],
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "visual_review": {
+    "reviewer": "Codex visual inspection",
+    "all_pages_viewed": true,
+    "reviewed_at_utc": "2026-10-17T21:57:49.333601+00:00",
+    "pdf_sha256": "99af06195f00281d8bcbd6d6c2eebb2b82752fd6b38962ae9e4a4e2f5ef952da",
+    "finding": "No unintended overlap, clipping, missing rows or broken pagination observed."
+  }
+}

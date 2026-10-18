@@ -1,0 +1,50 @@
+
+> yuanhang-rescue-console@0.1.0 test:e2e
+> node scripts/run-e2e.mjs
+
+Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+
+Running 36 tests using 1 worker
+
+(node:47192) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\chart-null.spec.ts:5:1 › analysis axis tooltip keeps missing DEM unknown beside a valid cruise series (5.1s)
+  ok  2 tests\experience.spec.ts:103:1 › experience 本机档案与主题持久化，教程hash刷新/返回和390导航可用 (10.2s)
+  ok  3 tests\experience.spec.ts:157:1 › experience 真实同快照双策略保存到历史，JSON导出与方案交换保持身份 (5.5s)
+  ok  4 tests\experience.spec.ts:225:1 › experience 实际保存输入版本后，只读预览和下载旧JSON不覆盖当前版本 (3.7s)
+  ok  5 tests\experience.spec.ts:280:1 › experience 选择非最新历史Plan后刷新，保留原Plan和快照身份 (7.9s)
+  ok  6 tests\experience.spec.ts:304:1 › experience 大屏真实DEM与架次剖面切换，无DEM无Plan时保留明确空态 (6.4s)
+  ok  7 tests\strategy-manifest.spec.ts:82:1 › 新规则真实取舍、旧结果说明与共同口径 (4.1s)
+  ok  8 tests\strategy-manifest.spec.ts:112:1 › 调度安排完整覆盖箱件，筛选联动、CSV、历史绑定与响应式 (6.8s)
+  ok  9 tests\strategy-manifest.spec.ts:169:1 › 背景光流和粒子实际运动，开关与系统减少动态效果有效 (3.9s)
+  ok 10 tests\workflow.spec.ts:12:1 › 单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景 (26.3s)
+  ok 11 tests\workflow.spec.ts:116:1 › 紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案 (58.3s)
+  ok 12 tests\workflow.spec.ts:227:1 › 容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏 (22.3s)
+  ok 13 tests\workflow.spec.ts:277:3 › 运输场景运输电池退出，真实改派、确认和历史恢复 (32.7s)
+  ok 14 tests\workflow.spec.ts:277:3 › 联合通信场景运输电池退出，真实改派、确认和历史恢复 (1.2m)
+  ok 15 tests\workflow.spec.ts:373:1 › 点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照 (39.5s)
+  ok 16 tests\workflow.spec.ts:493:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (48.6s)
+  ok 17 tests\workflow.spec.ts:623:1 › 中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复 (1.0m)
+  ok 18 tests\workflow.spec.ts:722:1 › 中继机退出保存新版本，真实重规划保留旧方案和连续保障 (1.2m)
+  ok 19 tests\workflow.spec.ts:780:1 › 历史方案等待绑定原始快照，延迟期间不显示混合版本结果 (28.5s)
+  ok 20 tests\workflow.spec.ts:829:1 › 80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出 (2.0m)
+  ok 21 tests\workflow.spec.ts:911:1 › 生产构建只允许本机请求，真实求解与事件闭环离线可用 (35.1s)
+  ok 22 tests\workflow.spec.ts:988:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (39.9s)
+  ok 23 tests\workflow.spec.ts:1034:1 › 编辑输入使旧方案失效，导入预览创建新场景 (27.0s)
+  ok 24 tests\workflow.spec.ts:1067:1 › 真实故障重规划保留旧方案，展示新旧变化 (34.8s)
+  ok 25 tests\workflow.spec.ts:1089:1 › 手机窄屏仍可切页和运行计算 (14.5s)
+  ok 26 tests\workflow.spec.ts:1101:1 › 三种偏好共享真实快照，保留硬截止并分别计算与恢复 (52.4s)
+  ok 27 tests\workflow.spec.ts:1190:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (30.9s)
+  ok 28 tests\workflow.spec.ts:1223:1 › 地面工位与端口增配建立独立情景，真实重算与刷新导出 (35.9s)
+  ok 29 tests\workflow.spec.ts:1330:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (58.5s)
+  ok 30 tests\workflow.spec.ts:1381:1 › 任务刷新恢复，重新载入页面不重复提交求解 (17.0s)
+  ok 31 tests\workflow.spec.ts:1444:1 › 打印报告包含真实任务并可离线保存PDF (22.0s)
+  ok 32 tests\workflow.spec.ts:1466:1 › 深入优化保留同快照基线，刷新后继续真实计算 (1.0m)
+  ok 33 tests\workflow.spec.ts:1489:1 › 限制区保存新版本，真实绕行并沿折线回放 (42.1s)
+  ok 34 tests\workflow.spec.ts:1534:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (1.1m)
+  ok 35 tests\workflow.spec.ts:1594:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (46.6s)
+  ok 36 tests\workflow.spec.ts:1638:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (31.6s)
+
+  Slow test file: tests\workflow.spec.ts (19.8m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  36 passed (21.2m)

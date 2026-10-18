@@ -1,0 +1,66 @@
+{
+  "artifact": "submission/examples/solve-result.json",
+  "sha256": "4f51345354f868f3a204896356aaf033b282b7608af6c984d09a223b5e47d112",
+  "snapshot_id": "SNAP-CLI-4965CA8F4EF24251",
+  "plan_id": "PLAN-CLI-0A557B1E37C24587",
+  "fresh_independent_validation": {
+    "status": "passed",
+    "checks": [
+      {
+        "code": "cargo_unique",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "capacity",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "inventory",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "aircraft",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "battery",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "time_window",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "energy",
+        "status": "passed",
+        "object_id": null,
+        "message": "已根据输入、架次与资源实体独立复算"
+      },
+      {
+        "code": "terrain",
+        "status": "passed",
+        "object_id": null,
+        "message": "绑定DEM闭像元航段净空已检查；非现实障碍/适航认证"
+      },
+      {
+        "code": "communication",
+        "status": "not_evaluated",
+        "object_id": null,
+        "message": "当前方案未要求连续无线链路检查"
+      }
+    ]
+  },
+  "scope": "Rechecked saved real CLI output under current code; not a new optimization run."
+}

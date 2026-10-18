@@ -1,0 +1,122 @@
+{
+  "schema_version": "0.1.0-draft",
+  "snapshot_id": "SNAP-MOCK-001",
+  "scenario_id": "SCN-MOCK-001",
+  "scenario_state_version": 1,
+  "content_hash": "039addbf61aa3d2a4b2617ed2e45dbc646795635e041ae21fe5f8ad1f0fa1704",
+  "created_at": "2026-10-17T09:00:00+08:00",
+  "scenario": {
+    "schema_version": "0.1.0-draft",
+    "scenario_id": "SCN-MOCK-001",
+    "name": "仅用于界面和契约开发的两点示例",
+    "state_version": 1,
+    "mode": "simulation",
+    "data_origin": "mock",
+    "start_time": "2026-10-17T09:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "coordinate_system": "EPSG:4326",
+    "terrain": {
+      "status": "not_evaluated",
+      "asset_id": null,
+      "sha256": null,
+      "horizontal_crs": null,
+      "vertical_datum": null
+    },
+    "base": {
+      "id": "O01",
+      "name": "模拟基地",
+      "coordinates": [
+        108.9,
+        22.9
+      ],
+      "ground_elevation_m": null,
+      "available": true
+    },
+    "sites": [
+      {
+        "id": "S01",
+        "name": "模拟需求点",
+        "coordinates": [
+          108.91,
+          22.91
+        ],
+        "ground_elevation_m": null,
+        "available": true
+      }
+    ],
+    "demands": [
+      {
+        "demand_id": "D01",
+        "site_id": "S01",
+        "cargo_type": "MED",
+        "required_quantity": 1,
+        "priority": 1,
+        "expected_deadline_s": 1200,
+        "hard_deadline_s": 1800,
+        "mandatory": true
+      }
+    ],
+    "cargo_items": [
+      {
+        "cargo_id": "BOX01",
+        "demand_id": "D01",
+        "type": "MED",
+        "mass_kg": 2,
+        "volume_l": 3,
+        "status": "available",
+        "location_id": "O01"
+      }
+    ],
+    "drone_types": [
+      {
+        "type_id": "A",
+        "max_payload_kg": 10,
+        "max_volume_l": 20,
+        "cruise_speed_mps": 10,
+        "climb_speed_mps": 2,
+        "descent_speed_mps": 2,
+        "prepare_duration_s": 60,
+        "turnaround_duration_s": 30,
+        "handover_fixed_s": 20,
+        "handover_per_box_s": 5,
+        "empty_mass_kg": 5,
+        "energy_model": {
+          "model_id": "MOCK_UNSUPPORTED",
+          "parameters": {}
+        },
+        "charge_model": {
+          "model_id": "MOCK_UNSUPPORTED",
+          "parameters": {}
+        }
+      }
+    ],
+    "drones": [
+      {
+        "drone_id": "U01",
+        "type_id": "A",
+        "status": "available",
+        "location_id": "O01",
+        "available_after_s": 0
+      }
+    ],
+    "batteries": [
+      {
+        "battery_id": "BAT01",
+        "compatible_type_id": "A",
+        "capacity_kwh": 1,
+        "soc": 1,
+        "soh": 1,
+        "status": "available",
+        "location_id": "O01",
+        "available_after_s": 0
+      }
+    ],
+    "policy": {
+      "min_return_soc": 0.2,
+      "requires_terrain": false,
+      "requires_communication": false,
+      "delivery_time_policy": "station_end",
+      "cost_model_available": false
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-18T01:27:01.356Z",
+  "origin": "http://127.0.0.1:8000",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "71fef265608e2407fea7ceccfd2e504ed6da3378676269b4792ec6cafa50d78a",
+    "runtime_id": "23afa25c2bda"
+  },
+  "empty_browser_storage_selected_default": true,
+  "stored_results_restored": true,
+  "historical_completion_notification": false,
+  "three_scenes_checked": true,
+  "external_requests": [],
+  "page_errors": [],
+  "images": [
+    "evidence/browser/verified/local-ready-1440.png",
+    "evidence/browser/verified/local-ready-1280.png"
+  ],
+  "scope": "Read-only browser check of the prepared primary runtime; no new solve, confirmation or event was submitted.",
+  "visual_review": {
+    "at_utc": "2026-10-18T01:27:16.461616+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "scope": "Final-source primary runtime at 1440x900 and 1280x720 individually viewed. Offline DEM loaded, all five site dots and base visible above the legend, controls/KPIs present; no blocking overlap observed.",
+    "images_sha256": {
+      "evidence/browser/verified/local-ready-1440.png": "4321a52fa799f7d9ba240886be6d026a7fcb687b85dafd67ad0986f3ab0e0d73",
+      "evidence/browser/verified/local-ready-1280.png": "661b988948dd275637b877a3664d1f6e6d8467b9d341675fe7198a835fa7fc03"
+    }
+  }
+}

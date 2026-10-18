@@ -1,0 +1,25 @@
+{
+  "no_dem": {
+    "scenario_id": "SCN-3264F73F62F647A9",
+    "terrain": {
+      "status": "not_evaluated",
+      "asset_id": null,
+      "sha256": null,
+      "horizontal_crs": null,
+      "vertical_datum": null
+    },
+    "chart_count": 3,
+    "invented_result_series": 0,
+    "errors": []
+  },
+  "no_webgl": {
+    "browser_args": [
+      "--disable-webgl",
+      "--disable-webgl2"
+    ],
+    "notice": "三维展示暂不可用\nTHREE.WebGLRenderer: Error creating WebGL context.\n二维地图与全部分析数据仍可使用。",
+    "remaining_charts": 8,
+    "errors": []
+  },
+  "visual_review": "pending"
+}

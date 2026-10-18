@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/capabilities.schema.json",
+  "title": "capabilities",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "api_version": {
+      "const": "v1"
+    },
+    "schema_versions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "solver_ready": {
+      "type": "boolean"
+    },
+    "supported_objectives": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "time",
+          "energy",
+          "balanced"
+        ]
+      },
+      "minItems": 0
+    },
+    "supported_events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "supported_model_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication",
+          "restricted_zone",
+          "ground_resource"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "supported_energy_models": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "minItems": 0
+    },
+    "supported_charge_models": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+      },
+      "minItems": 0
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "partial_service": {
+          "type": "boolean"
+        },
+        "relay_coordination": {
+          "type": "boolean"
+        },
+        "execution_state": {
+          "type": "boolean"
+        },
+        "dem_validation": {
+          "type": "boolean"
+        },
+        "what_if": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "partial_service",
+        "relay_coordination",
+        "execution_state",
+        "dem_validation",
+        "what_if"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "api_version",
+    "schema_versions",
+    "solver_ready",
+    "supported_objectives",
+    "supported_events",
+    "supported_model_scope",
+    "supported_energy_models",
+    "supported_charge_models",
+    "features"
+  ],
+  "additionalProperties": false
+}

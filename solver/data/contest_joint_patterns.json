@@ -1,0 +1,403 @@
+{
+  "description": "Historical grouping and station candidates only. No historical times, energy, SOC, resources or validation results are copied.",
+  "sources": [
+    {
+      "path": "references/modeling/answers.xlsx",
+      "sha256": "4b76a8817c90ff765eb3604c472da20e57ceaf8dae76b49f64935514c50a7dbe"
+    },
+    {
+      "path": "references/modeling/release/Q3_运输架次_配套明细.csv",
+      "sha256": "f2d1f6137bbd472d35b8627792faa976d7e3a73ee7c6ef1ccb9ec9e203e3ef1d"
+    },
+    {
+      "path": "references/modeling/release/Q3_逐箱交付_配套明细.csv",
+      "sha256": "759d61887e842cc8b34f8546c88bc10cc361da2f0bdb234ab607fc2f06c828fd"
+    }
+  ],
+  "stations": [
+    {
+      "station_id": "RS-ARCHIVE-Q3R-001",
+      "coordinates": [
+        109.27261259193807,
+        23.01895691911217
+      ],
+      "agl_m": 150.0
+    },
+    {
+      "station_id": "RS-ARCHIVE-Q3R-002",
+      "coordinates": [
+        109.27208134678364,
+        23.052540179483053
+      ],
+      "agl_m": 300.0
+    },
+    {
+      "station_id": "RS-ARCHIVE-Q3R-003",
+      "coordinates": [
+        109.20117056537686,
+        23.033649567921643
+      ],
+      "agl_m": 300.0
+    }
+  ],
+  "patterns": [
+    {
+      "pattern_id": "Q3T-001",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S004",
+          "cargo_ids": [
+            "S004-HYG-01",
+            "S004-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-002",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S006",
+          "cargo_ids": [
+            "S006-FOD-01",
+            "S006-HYG-01",
+            "S006-MED-01",
+            "S006-WAT-01",
+            "S006-WAT-02",
+            "S006-WAT-03"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-003",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S010",
+          "cargo_ids": [
+            "S010-FOD-01",
+            "S010-MED-01",
+            "S010-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-004",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S013",
+          "cargo_ids": [
+            "S013-FOD-01",
+            "S013-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-005",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S012",
+          "cargo_ids": [
+            "S012-FOD-01",
+            "S012-MED-01",
+            "S012-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-006",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S014",
+          "cargo_ids": [
+            "S014-FOD-01",
+            "S014-MED-01",
+            "S014-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-007",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S015",
+          "cargo_ids": [
+            "S015-FOD-01",
+            "S015-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-008",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S005",
+          "cargo_ids": [
+            "S005-FOD-01",
+            "S005-HYG-01",
+            "S005-MED-01",
+            "S005-WAT-01",
+            "S005-WAT-02",
+            "S005-WAT-03"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-009",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S011",
+          "cargo_ids": [
+            "S011-FOD-01",
+            "S011-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-010",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S004",
+          "cargo_ids": [
+            "S004-FOD-01",
+            "S004-WAT-02"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-011",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S011",
+          "cargo_ids": [
+            "S011-MED-01"
+          ]
+        },
+        {
+          "site_id": "S004",
+          "cargo_ids": [
+            "S004-MED-01",
+            "S004-WAT-03"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-012",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S007",
+          "cargo_ids": [
+            "S007-MED-01",
+            "S007-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-013",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S007",
+          "cargo_ids": [
+            "S007-FOD-01",
+            "S007-WAT-02"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-014",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S008",
+          "cargo_ids": [
+            "S008-FOD-01",
+            "S008-MED-01",
+            "S008-WAT-02"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-015",
+      "type_id": "B",
+      "stops": [
+        {
+          "site_id": "S008",
+          "cargo_ids": [
+            "S008-HYG-01",
+            "S008-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-016",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S009",
+          "cargo_ids": [
+            "S009-MED-01"
+          ]
+        },
+        {
+          "site_id": "S002",
+          "cargo_ids": [
+            "S002-WAT-02"
+          ]
+        },
+        {
+          "site_id": "S013",
+          "cargo_ids": [
+            "S013-MED-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-017",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S002",
+          "cargo_ids": [
+            "S002-FOD-01",
+            "S002-FOD-02",
+            "S002-HYG-01",
+            "S002-MED-01",
+            "S002-WAT-01",
+            "S002-WAT-03",
+            "S002-WAT-04"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-018",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S003",
+          "cargo_ids": [
+            "S003-MED-01",
+            "S003-WAT-01"
+          ]
+        },
+        {
+          "site_id": "S015",
+          "cargo_ids": [
+            "S015-MED-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-019",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S007",
+          "cargo_ids": [
+            "S007-HYG-01"
+          ]
+        },
+        {
+          "site_id": "S003",
+          "cargo_ids": [
+            "S003-FOD-01",
+            "S003-FOD-02",
+            "S003-HYG-01",
+            "S003-WAT-02",
+            "S003-WAT-03",
+            "S003-WAT-04"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-020",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S009",
+          "cargo_ids": [
+            "S009-FOD-01",
+            "S009-WAT-01"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-021",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S001",
+          "cargo_ids": [
+            "S001-FOD-02",
+            "S001-WAT-01",
+            "S001-WAT-02",
+            "S001-WAT-07",
+            "S001-WAT-08"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-022",
+      "type_id": "C",
+      "stops": [
+        {
+          "site_id": "S001",
+          "cargo_ids": [
+            "S001-FOD-01",
+            "S001-HYG-01",
+            "S001-HYG-02",
+            "S001-MED-01",
+            "S001-MED-02",
+            "S001-WAT-03",
+            "S001-WAT-05",
+            "S001-WAT-06"
+          ]
+        }
+      ]
+    },
+    {
+      "pattern_id": "Q3T-023",
+      "type_id": "A",
+      "stops": [
+        {
+          "site_id": "S001",
+          "cargo_ids": [
+            "S001-FOD-03",
+            "S001-WAT-04"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-10-17T20:14:06.469695+00:00",
+  "base_head": "2906600",
+  "scope": "Targeted checks after relay pooling, immediate unlimited charging, shared membership constraints, cache/status/provenance corrections, and relay analysis UI. The previous complete 94-test/14-browser run remains in latest.json.",
+  "observations": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/solver/test_radio.py tests/solver/test_resource_pool.py tests/backend/test_joint_api.py -q",
+      "result": "13 passed, 1 warning in 31.79s",
+      "source": "exec session 60496"
+    },
+    {
+      "command": "npm.cmd run lint; npm.cmd run build (frontend)",
+      "result": "Passed after nullable plan access was corrected",
+      "source": "exec session 7541"
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep 连续通信联合",
+      "result": "1 passed in 31.0s; no browser errors; includes relay energy analysis",
+      "source": "exec session 7541"
+    },
+    {
+      "command": "scripts/check_contracts.py; scripts/check_governance.py",
+      "result": "10 schemas / 12 mock fixtures / 16 draft operations; 56 tasks / 42 source hashes passed",
+      "source": "post-target tool checks"
+    }
+  ],
+  "remote_ci": "Pending for the next commit; 2906600 failed and remains recorded."
+}

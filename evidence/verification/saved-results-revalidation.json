@@ -1,0 +1,207 @@
+{
+  "at_utc": "2026-10-18T01:01:44.056519+00:00",
+  "verification_source_sha256": "0a99ef753a153e49490438adba45f5f454c7f3a1ac4c35fa449c30a6655432a9",
+  "records": [
+    {
+      "artifact": "submission/examples/solve-result.json",
+      "sha256": "4f51345354f868f3a204896356aaf033b282b7608af6c984d09a223b5e47d112",
+      "snapshot_id": "SNAP-CLI-4965CA8F4EF24251",
+      "plan_id": "PLAN-CLI-0A557B1E37C24587",
+      "mandatory_served_count": 32,
+      "fresh_independent_validation": {
+        "status": "passed",
+        "checks": [
+          {
+            "code": "cargo_unique",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "capacity",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "inventory",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "aircraft",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "battery",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "time_window",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "energy",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "terrain",
+            "status": "passed",
+            "object_id": null,
+            "message": "绑定DEM闭像元航段净空已检查；非现实障碍/适航认证"
+          },
+          {
+            "code": "communication",
+            "status": "not_evaluated",
+            "object_id": null,
+            "message": "当前方案未要求连续无线链路检查"
+          }
+        ]
+      }
+    },
+    {
+      "artifact": "evidence/solver/joint-contest-recomputed.json",
+      "sha256": "d75cb42e1d9121f7ff9e9bdbbe266991feec14364331734ef2515dfaf96caaf5",
+      "snapshot_id": "SNAP-CLI-83EB0619728D4976",
+      "plan_id": "PLAN-CLI-6F67A5231CC5439B",
+      "mandatory_served_count": 80,
+      "fresh_independent_validation": {
+        "status": "passed",
+        "checks": [
+          {
+            "code": "cargo_unique",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "capacity",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "inventory",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "aircraft",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "battery",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "time_window",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "energy",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "terrain",
+            "status": "passed",
+            "object_id": null,
+            "message": "绑定DEM闭像元航段净空已检查；非现实障碍/适航认证"
+          },
+          {
+            "code": "communication",
+            "status": "passed",
+            "object_id": null,
+            "message": "投影DEM连续区间模型：直连20741.86秒、中继13570.64秒、缺口0；非现实链路认证"
+          }
+        ]
+      }
+    },
+    {
+      "artifact": "evidence/solver/joint-contest-input-change.json",
+      "sha256": "9282bc7535d2e2fb9f1cb04df1263b5f0803884c0c517f901df2e26e6dcdbcb6",
+      "snapshot_id": "SNAP-CHANGED-4FEA7F5681E9",
+      "plan_id": "PLAN-CHANGED-0C85F6B23E28",
+      "mandatory_served_count": 80,
+      "fresh_independent_validation": {
+        "status": "passed",
+        "checks": [
+          {
+            "code": "cargo_unique",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "capacity",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "inventory",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "aircraft",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "battery",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "time_window",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "energy",
+            "status": "passed",
+            "object_id": null,
+            "message": "已根据输入、架次与资源实体独立复算"
+          },
+          {
+            "code": "terrain",
+            "status": "passed",
+            "object_id": null,
+            "message": "绑定DEM闭像元航段净空已检查；非现实障碍/适航认证"
+          },
+          {
+            "code": "communication",
+            "status": "passed",
+            "object_id": null,
+            "message": "投影DEM连续区间模型：直连20741.86秒、中继13570.64秒、缺口0；非现实链路认证"
+          }
+        ]
+      }
+    }
+  ],
+  "complete": true,
+  "scope": "Revalidation of saved real outcomes, not new optimization runs. Includes changed-box input and separate 80-box joint inputs at original and 0.9 energy scale.",
+  "source_unchanged": true
+}

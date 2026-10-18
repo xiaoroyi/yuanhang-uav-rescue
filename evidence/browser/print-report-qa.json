@@ -1,0 +1,58 @@
+{
+  "plan_id": "PLAN-FECEDB00EE594CE3",
+  "page_count": 6,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 647,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-1.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 1475,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-2.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 1234,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-3.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 1124,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-4.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 1469,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-5.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 1540,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/print-report-final-page-6.png"
+    }
+  ],
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "pdf_sha256": "13d10d4a9dd39ed5a0530515a431600b437a23d2077fc75aec80f24c31190930",
+  "visual_review": {
+    "status": "passed",
+    "reviewed_at_utc": "2026-10-18T01:37:15.027504+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "finding": "All six rendered pages individually viewed: headings, full rows, repeated table headers, page/Plan identity and model-scope notes legible; no unintended clipping or blank page observed."
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/solve-job.schema.json",
+  "title": "solve-job",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft"
+    },
+    "job_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "scenario_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "reserved_plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "job_state": {
+      "enum": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "canceled"
+      ]
+    },
+    "solver_status": {
+      "anyOf": [
+        {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/solver_status"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "plan_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "has_validated_plan": {
+      "type": "boolean"
+    },
+    "runtime_s": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stop_reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "error": {
+      "anyOf": [
+        {
+          "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/error"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "job_id",
+    "scenario_id",
+    "snapshot_id",
+    "reserved_plan_id",
+    "job_state",
+    "solver_status",
+    "plan_id",
+    "has_validated_plan",
+    "runtime_s",
+    "stop_reason",
+    "created_at",
+    "started_at",
+    "finished_at",
+    "error"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "job_state": {
+            "enum": [
+              "queued",
+              "running"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "solver_status": {
+            "type": "null"
+          },
+          "plan_id": {
+            "type": "null"
+          },
+          "has_validated_plan": {
+            "const": false
+          },
+          "finished_at": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "job_state": {
+            "const": "failed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "solver_status": {
+            "const": "ERROR"
+          },
+          "plan_id": {
+            "type": "null"
+          },
+          "has_validated_plan": {
+            "const": false
+          },
+          "error": {
+            "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/error"
+          },
+          "finished_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "job_state": {
+            "const": "canceled"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "solver_status": {
+            "type": "null"
+          },
+          "plan_id": {
+            "type": "null"
+          },
+          "has_validated_plan": {
+            "const": false
+          },
+          "stop_reason": {
+            "const": "canceled"
+          },
+          "finished_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "has_validated_plan": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "job_state": {
+            "const": "completed"
+          },
+          "solver_status": {
+            "enum": [
+              "FEASIBLE",
+              "OPTIMAL"
+            ]
+          },
+          "plan_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "job_state": {
+            "const": "completed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "solver_status": {
+            "enum": [
+              "FEASIBLE",
+              "OPTIMAL",
+              "INFEASIBLE",
+              "UNKNOWN"
+            ]
+          },
+          "runtime_s": {
+            "type": "number",
+            "minimum": 0
+          },
+          "finished_at": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+          },
+          "error": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

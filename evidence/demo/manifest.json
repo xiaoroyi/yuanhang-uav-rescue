@@ -1,0 +1,124 @@
+{
+  "generated_at_utc": "2026-10-18T01:36:25.972Z",
+  "slide_count": 15,
+  "source_files": {
+    "evidence/solver/nominal-contest.json": "bcdaafe06c9d272f349ef719773a1bff97496ed0f758bccb8c39645bdcc5ab40",
+    "evidence/solver/nominal-compact.json": "6c6ca0a261fab2d688683dd65dcf9fb0c0be38bc62bea09627038aa58707fd5f",
+    "evidence/solver/joint-contest-recomputed.json": "d75cb42e1d9121f7ff9e9bdbbe266991feec14364331734ef2515dfaf96caaf5",
+    "evidence/solver/frozen-partition-contest.json": "d51f41e4d4726a169e259b761618059fda9bd793233417a63a3480e3c7aad543",
+    "evidence/solver/battery-replan.json": "d7c19f43b61cf327df3006798bb78da1127e8b99ead30b81337b81164efcfa79",
+    "evidence/browser/urgent-demand.json": "d1aa15c2fae4275f3773399adbcf97e93bba50a578377eaa3790345cacc8ce43",
+    "evidence/solver/capacity-compact.json": "1a641e36e6712aeb1534f685c7ad2976f58e10c59e74b507cc28857406083bbd",
+    "evidence/solver/capacity-contest.json": "442dbcaab389abf0c36b63ec94a1212e14ece12b0ff65e3536e6483448499b1b",
+    "evidence/verification/latest.json": "cd6961649b6e30d0dd03a7d6e1e618d05be3194e530731c99944c83bcf70b20d",
+    "evidence/verification/check-01.txt": "18940a24856f59e75a9b35d9b74b2e28e468bfcde427151ba6cf6b7b5ff005e6",
+    "evidence/browser/e2e-results.json": "d705410c8008e395ecacf6c8f642704738b6f31c27608857217a5834be912009",
+    "evidence/browser/verified/workspace-1440.png": "8a78d9a57bae0523540e606f81ff39ef342673cfaa5536e8d29766ce48851794",
+    "evidence/browser/verified/ground-timeline-expanded-1440.png": "3402b1194b7884fdc108ac9abec8f861e98628d4bd4eeb30ac45a1fa7bfed4fd",
+    "evidence/browser/verified/battery-fault-changes-1280.png": "07da3ddb709e4c0b8b86ec5489f969d0e484b605643f65f82b907db0d4a3df46",
+    "evidence/browser/verified/urgent-demand-result-1440.png": "dd37f6474f160d5c978e462d5fd2884e0c0b96573a1c5562c77696d8510f49ca",
+    "evidence/browser/verified/zone-detour-1440.png": "7cfbc6bba19bcd3512d9293e4a4c4aa24ed453bdb027a7b3318d757006018c9d",
+    "evidence/browser/verified/joint-resource-windows-1440.png": "ce6ada361ecf224864cb618cdd59843ad64dab54b2a9ca91cbce6d75383f94f8",
+    "evidence/browser/verified/frozen-partition-1440.png": "e38ed5b2f8f6b36076d6371dafcd1bafabc93aad35b2b665f4b3f0425db12f71",
+    "evidence/browser/verified/resource-analysis-1440.png": "10227f53599d249d9069f3a8da1be791e692c4cff6f5c88fa8b65b7706c81e80"
+  },
+  "verification_source_at_build": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "last_full_verification_source": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "full_verification_matches_current_source": true,
+  "page_errors": [],
+  "network_requests": [],
+  "keyboard_navigation": "Home, ArrowRight and End checked",
+  "slides": [
+    {
+      "slide": 1,
+      "title": "援航",
+      "image": "evidence/demo/slide-01.png",
+      "issues": []
+    },
+    {
+      "slide": 2,
+      "title": "场景与实体数据",
+      "image": "evidence/demo/slide-02.png",
+      "issues": []
+    },
+    {
+      "slide": 3,
+      "title": "真实调度工作台",
+      "image": "evidence/demo/slide-03.png",
+      "issues": []
+    },
+    {
+      "slide": 4,
+      "title": "电池与地面资源",
+      "image": "evidence/demo/slide-04.png",
+      "issues": []
+    },
+    {
+      "slide": 5,
+      "title": "资源退出后的真实改派",
+      "image": "evidence/demo/slide-05.png",
+      "issues": []
+    },
+    {
+      "slide": 6,
+      "title": "紧急需求与实物库存一起插入",
+      "image": "evidence/demo/slide-06.png",
+      "issues": []
+    },
+    {
+      "slide": 7,
+      "title": "单点额定运输诊断",
+      "image": "evidence/demo/slide-07.png",
+      "issues": []
+    },
+    {
+      "slide": 8,
+      "title": "地形与静态限制区",
+      "image": "evidence/demo/slide-08.png",
+      "issues": []
+    },
+    {
+      "slide": 9,
+      "title": "运输与通信联合保障",
+      "image": "evidence/demo/slide-09.png",
+      "issues": []
+    },
+    {
+      "slide": 10,
+      "title": "原题80箱联合实例",
+      "image": "evidence/demo/slide-10.png",
+      "issues": []
+    },
+    {
+      "slide": 11,
+      "title": "冻结任务分区",
+      "image": "evidence/demo/slide-11.png",
+      "issues": []
+    },
+    {
+      "slide": 12,
+      "title": "运输架次的容量必要下界",
+      "image": "evidence/demo/slide-12.png",
+      "issues": []
+    },
+    {
+      "slide": 13,
+      "title": "资源情景与压力对照",
+      "image": "evidence/demo/slide-13.png",
+      "issues": []
+    },
+    {
+      "slide": 14,
+      "title": "验证记录与模型边界",
+      "image": "evidence/demo/slide-14.png",
+      "issues": []
+    },
+    {
+      "slide": 15,
+      "title": "本机演示操作",
+      "image": "evidence/demo/slide-15.png",
+      "issues": []
+    }
+  ],
+  "note": "HTML and PDF walkthrough from recorded evidence, not a PPTX or official contest submission template. Individual visual inspection remains required."
+}

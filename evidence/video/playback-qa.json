@@ -1,0 +1,77 @@
+{
+  "at_utc": "2026-10-18T01:38:18.312Z",
+  "video_sha256": "310925f8fd173c2f8f2f34e33105ce2afdf5875967215d43624b37d250c131a6",
+  "bytes": 15248137,
+  "decoded_media": {
+    "width": 1440,
+    "height": 900,
+    "duration_s": 70.52,
+    "caption_mode": "showing",
+    "caption_count": 12
+  },
+  "chapter_buttons": 12,
+  "checked_chapter_seek": [
+    {
+      "chapter": 1,
+      "title": "01 查看真实输入",
+      "requested_time_s": 2.36,
+      "image": "evidence/video/frames/chapter-01.png"
+    },
+    {
+      "chapter": 4,
+      "title": "04 电池与补能窗口",
+      "requested_time_s": 17.03,
+      "image": "evidence/video/frames/chapter-04.png"
+    },
+    {
+      "chapter": 7,
+      "title": "07 独立检查与确认",
+      "requested_time_s": 36.63,
+      "image": "evidence/video/frames/chapter-07.png"
+    },
+    {
+      "chapter": 9,
+      "title": "09 新旧方案对照",
+      "requested_time_s": 47.42,
+      "image": "evidence/video/frames/chapter-09.png"
+    },
+    {
+      "chapter": 10,
+      "title": "10 查看资源依据",
+      "requested_time_s": 55.190000000000005,
+      "image": "evidence/video/frames/chapter-10.png"
+    },
+    {
+      "chapter": 12,
+      "title": "12 本机离线闭环完成",
+      "requested_time_s": 64.49,
+      "image": "evidence/video/frames/chapter-12.png"
+    }
+  ],
+  "page_errors": [],
+  "external_requests": [],
+  "note": "Actual browser decoding and subtitle/chapter checks. Individual visual inspection of these captured video frames is recorded separately.",
+  "visual_review": {
+    "status": "passed",
+    "at_utc": "2026-10-18T01:42:51.004978+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "reviewed_chapters": [
+      1,
+      4,
+      7,
+      9,
+      10,
+      12
+    ],
+    "video_sha256": "310925f8fd173c2f8f2f34e33105ce2afdf5875967215d43624b37d250c131a6",
+    "finding": "All six actual decoded chapter frames individually viewed: real inputs, battery timeline, independent validation, event differences, capacity analysis and final workspace; subtitles legible and chapter seeks show the expected UI. Timeline playback is schematic, not real flight.",
+    "frames_sha256": {
+      "evidence/video/frames/chapter-01.png": "dc1f8d1b057013e3381d6f8bccb11793d64bf4cb885c207204ed1986755f46c9",
+      "evidence/video/frames/chapter-04.png": "e2149d3362a1444b264e720679e943ba38dd74652ae6cbc9ecfa0033de520cac",
+      "evidence/video/frames/chapter-07.png": "35b0325f2a42788de192b5707d4d222b51dc2a59fb151177cb9fb5f1eb1250a2",
+      "evidence/video/frames/chapter-09.png": "01fc6da34c8ac66f6061fb3db3e5841ce3f75675ad1cbde1c1b300f5a8110300",
+      "evidence/video/frames/chapter-10.png": "c1f0a243dd3a533b45954c92cf2755a5d2075364a71668a153d5097acc783c0e",
+      "evidence/video/frames/chapter-12.png": "9c52cd77717534ce9458bc851e5a8d23bdac0f40a41358dc681245cd4d906a8a"
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "checked_at_utc": "2026-10-17T22:29:52.840065+00:00",
+  "run_id": 39074450180,
+  "head_sha": "d7aad4b54ec14812e9d195e198888961977e15a9",
+  "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39074450180",
+  "jobs": [
+    {
+      "name": "integration",
+      "conclusion": "success",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Run python -m venv .venv",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Run .venv/bin/python -m pip install -r requirements.lock.txt",
+          "conclusion": "success"
+        },
+        {
+          "number": 7,
+          "name": "Run npm ci --prefix frontend",
+          "conclusion": "success"
+        },
+        {
+          "number": 8,
+          "name": "Run .venv/bin/python -m pytest tests -q",
+          "conclusion": "success"
+        },
+        {
+          "number": 9,
+          "name": "Run .venv/bin/python scripts/check_contracts.py",
+          "conclusion": "success"
+        },
+        {
+          "number": 10,
+          "name": "Run .venv/bin/python scripts/check_governance.py",
+          "conclusion": "success"
+        },
+        {
+          "number": 11,
+          "name": "Run npm --prefix frontend run lint",
+          "conclusion": "success"
+        },
+        {
+          "number": 12,
+          "name": "Run npm --prefix frontend run test:unit",
+          "conclusion": "success"
+        },
+        {
+          "number": 13,
+          "name": "Run npm --prefix frontend run build",
+          "conclusion": "success"
+        },
+        {
+          "number": 14,
+          "name": "Run .venv/bin/python scripts/generate_models.py",
+          "conclusion": "success"
+        },
+        {
+          "number": 15,
+          "name": "Run .venv/bin/python scripts/export_openapi.py",
+          "conclusion": "success"
+        },
+        {
+          "number": 16,
+          "name": "Run node frontend/scripts/generate-types.mjs",
+          "conclusion": "success"
+        },
+        {
+          "number": 17,
+          "name": "Run git diff --exit-code -- backend/app/generated/domain.py contracts/http/openapi.generated.json frontend/src/api/generated/http.d.ts",
+          "conclusion": "success"
+        },
+        {
+          "number": 18,
+          "name": "Install project-local Chromium",
+          "conclusion": "success"
+        },
+        {
+          "number": 19,
+          "name": "Production offline and nominal diagnostic browser smoke",
+          "conclusion": "success"
+        },
+        {
+          "number": 20,
+          "name": "Retain fresh browser result and failure traces",
+          "conclusion": "success"
+        },
+        {
+          "number": 38,
+          "name": "Post Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "number": 39,
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "number": 40,
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "number": 41,
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "python_summary_lines": [
+    "183 passed, 10 warnings, 8 subtests passed in 163.42s (0:02:43)"
+  ],
+  "artifact": {
+    "id": 12115818519,
+    "name": "browser-smoke-d7aad4b54ec14812e9d195e198888961977e15a9",
+    "size_in_bytes": 2218,
+    "expired": false
+  },
+  "browser_stats": {
+    "startTime": "2026-10-17T22:21:36.927Z",
+    "duration": 98307.181,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "scope": "Linux full Python/contracts/governance/lint/build/type-generation plus 2 browser smoke cases, not the full local browser suite."
+}

@@ -1,0 +1,56 @@
+{
+  "plan_id": "PLAN-755CD57187BF4C25",
+  "page_count": 7,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 664,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-1.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 1557,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-2.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 1300,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-3.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 1020,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-4.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 1372,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-5.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 1102,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-6.png"
+    },
+    {
+      "page": 7,
+      "text_characters": 672,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-page-7.png"
+    }
+  ],
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "visual_review": {
+    "reviewer": "Codex visual inspection",
+    "all_pages_viewed": true,
+    "reviewed_at_utc": "2026-10-17T21:57:49.334601+00:00",
+    "pdf_sha256": "909fd1daef48a7b11dd9bd4d16f17c860ff9dda921eaa5312638f6740a41577d",
+    "finding": "No unintended overlap, clipping, missing rows or broken pagination observed."
+  }
+}

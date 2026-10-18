@@ -1,0 +1,70 @@
+{
+  "run_at": "2026-10-17T23:12:15.941171+08:00",
+  "base_commit_before_governance_commit": "8f89af12d0384cd974c5707c95094f72a15c04a0",
+  "scope": "G0 review artifacts; not business implementation",
+  "python_version": "3.13.12",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "checks": [
+    {
+      "name": "contracts",
+      "command": [
+        "python",
+        "scripts/check_contracts.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "output": "evidence/governance/contracts.log"
+    },
+    {
+      "name": "contract-tests",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/contracts",
+        "-v"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "output": "evidence/governance/contract-tests.log"
+    },
+    {
+      "name": "governance",
+      "command": [
+        "python",
+        "scripts/check_governance.py"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "output": "evidence/governance/governance.log"
+    },
+    {
+      "name": "git-whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "output": "evidence/governance/git-whitespace.log"
+    }
+  ],
+  "not_run": [
+    "legacy Q1-Q4 solving",
+    "independent flight physics/DEM/radio validation",
+    "running FastAPI/Pydantic/OpenAPI generation",
+    "frontend build/typecheck",
+    "real E2E/offline demo",
+    "hosted GitHub Actions"
+  ]
+}

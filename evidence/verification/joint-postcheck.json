@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-10-17T19:50:37.060557+00:00",
+  "base_head": "b569ad2c180ac164651d4143e64179402c05a31c",
+  "source_tree_sha256": "b04e0f95483e82b9ed9733359a324816a56bb3dd42e6d1883a375e3b96a02833",
+  "scope": "Post full regression: documentation/task-board projection and actual capabilities metadata. Full business suite and 14 browser workflows are in latest.json.",
+  "checks": [
+    {
+      "command": [
+        "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe",
+        "scripts/check_contracts.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.3471791999763809,
+      "stdout": "PASS: 10 schemas, 12 mock fixtures, 16 draft HTTP operations; references/hash/state smoke checks.\nScope: no solver execution, physical feasibility validation, running API, or UI build.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe",
+        "scripts/check_governance.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.48703459999524057,
+      "stdout": "PASS: 56 tasks across G0–G6, dependency graph acyclic; states={'done': 25, 'in_progress': 16, 'todo': 15}.\nPASS: 42 source hashes, 18 legacy Python ASTs, 18 local document links; no legacy code execution.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe",
+        "-c",
+        "from solver.public_api import capabilities; from shared.contracts import validate_schema; c=capabilities();validate_schema('capabilities',c);assert c['features']['relay_coordination'];print('Actual relay capabilities fit the current contract.')"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.5576978999888524,
+      "stdout": "Actual relay capabilities fit the current contract.\n",
+      "stderr": ""
+    }
+  ],
+  "passed": true
+}

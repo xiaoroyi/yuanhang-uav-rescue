@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/error.schema.json",
+  "title": "error",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "error": {
+      "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/error"
+    }
+  },
+  "required": [
+    "error"
+  ],
+  "additionalProperties": false
+}

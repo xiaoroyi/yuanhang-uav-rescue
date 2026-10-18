@@ -1,0 +1,1399 @@
+{
+  "snapshot": {
+    "schema_version": "0.1.0-draft",
+    "snapshot_id": "SNAP-NOM-047B80772F614044",
+    "scenario_id": "SCN-EXERCISE-001",
+    "scenario_state_version": 1,
+    "content_hash": "5832d9640ff6beae342599705d4f26853af12849e429b36bf13646e7129317fb",
+    "created_at": "2026-10-17T21:42:14.010758+00:00",
+    "scenario": {
+      "schema_version": "0.1.0-draft",
+      "scenario_id": "SCN-EXERCISE-001",
+      "name": "镇龙乡 · 应急运输演练",
+      "state_version": 1,
+      "mode": "simulation",
+      "data_origin": "verified_dataset",
+      "start_time": "2026-10-17T08:00:00+08:00",
+      "timezone": "Asia/Shanghai",
+      "coordinate_system": "EPSG:4326",
+      "terrain": {
+        "status": "available",
+        "asset_id": "contest-dem-30m",
+        "sha256": "c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf",
+        "horizontal_crs": "EPSG:4326",
+        "vertical_datum": "contest_provided_elevation_reference"
+      },
+      "base": {
+        "id": "O01",
+        "name": "凤丹村无人机调度中心",
+        "coordinates": [
+          109.2308517,
+          23.0085095
+        ],
+        "ground_elevation_m": 127.7,
+        "available": true
+      },
+      "sites": [
+        {
+          "id": "S011",
+          "name": "那从",
+          "coordinates": [
+            109.2203356,
+            23.0319231
+          ],
+          "ground_elevation_m": 182.1,
+          "available": true
+        },
+        {
+          "id": "S001",
+          "name": "平旺、那龙、镇龙乡",
+          "coordinates": [
+            109.2432319,
+            23.0335927
+          ],
+          "ground_elevation_m": 154.0,
+          "available": true
+        },
+        {
+          "id": "S006",
+          "name": "六昌、木路",
+          "coordinates": [
+            109.1997836,
+            23.007714
+          ],
+          "ground_elevation_m": 284.8,
+          "available": true
+        },
+        {
+          "id": "S007",
+          "name": "佛子、那桑、银坑",
+          "coordinates": [
+            109.1928191,
+            23.0294186
+          ],
+          "ground_elevation_m": 318.5,
+          "available": true
+        },
+        {
+          "id": "S010",
+          "name": "镇龙乡",
+          "coordinates": [
+            109.2760168,
+            23.0194009
+          ],
+          "ground_elevation_m": 321.6,
+          "available": true
+        }
+      ],
+      "demands": [
+        {
+          "demand_id": "D-S001-MED-01",
+          "site_id": "S001",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 24,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-MED-02",
+          "site_id": "S001",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 24,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-01",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-02",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-03",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-04",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-05",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-06",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-07",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-WAT-08",
+          "site_id": "S001",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-FOD-01",
+          "site_id": "S001",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-FOD-02",
+          "site_id": "S001",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-FOD-03",
+          "site_id": "S001",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-HYG-01",
+          "site_id": "S001",
+          "cargo_type": "HYG",
+          "required_quantity": 1,
+          "priority": 8,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S001-HYG-02",
+          "site_id": "S001",
+          "cargo_type": "HYG",
+          "required_quantity": 1,
+          "priority": 8,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-MED-01",
+          "site_id": "S006",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 24,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-WAT-01",
+          "site_id": "S006",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-WAT-02",
+          "site_id": "S006",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-WAT-03",
+          "site_id": "S006",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-FOD-01",
+          "site_id": "S006",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S006-HYG-01",
+          "site_id": "S006",
+          "cargo_type": "HYG",
+          "required_quantity": 1,
+          "priority": 8,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S007-MED-01",
+          "site_id": "S007",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 24,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S007-WAT-01",
+          "site_id": "S007",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S007-WAT-02",
+          "site_id": "S007",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S007-FOD-01",
+          "site_id": "S007",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S007-HYG-01",
+          "site_id": "S007",
+          "cargo_type": "HYG",
+          "required_quantity": 1,
+          "priority": 8,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S010-MED-01",
+          "site_id": "S010",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 24,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S010-WAT-01",
+          "site_id": "S010",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 12,
+          "expected_deadline_s": 3600.0,
+          "hard_deadline_s": 3600.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S010-FOD-01",
+          "site_id": "S010",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 10,
+          "expected_deadline_s": 7200.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S011-MED-01",
+          "site_id": "S011",
+          "cargo_type": "MED",
+          "required_quantity": 1,
+          "priority": 16,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": 10800.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S011-WAT-01",
+          "site_id": "S011",
+          "cargo_type": "WAT",
+          "required_quantity": 1,
+          "priority": 8,
+          "expected_deadline_s": 10800.0,
+          "hard_deadline_s": 10800.0,
+          "mandatory": true
+        },
+        {
+          "demand_id": "D-S011-FOD-01",
+          "site_id": "S011",
+          "cargo_type": "FOD",
+          "required_quantity": 1,
+          "priority": 6,
+          "expected_deadline_s": 14400.0,
+          "hard_deadline_s": null,
+          "mandatory": true
+        }
+      ],
+      "cargo_items": [
+        {
+          "cargo_id": "S001-MED-01",
+          "demand_id": "D-S001-MED-01",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-MED-02",
+          "demand_id": "D-S001-MED-02",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-01",
+          "demand_id": "D-S001-WAT-01",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-02",
+          "demand_id": "D-S001-WAT-02",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-03",
+          "demand_id": "D-S001-WAT-03",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-04",
+          "demand_id": "D-S001-WAT-04",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-05",
+          "demand_id": "D-S001-WAT-05",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-06",
+          "demand_id": "D-S001-WAT-06",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-07",
+          "demand_id": "D-S001-WAT-07",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-WAT-08",
+          "demand_id": "D-S001-WAT-08",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-FOD-01",
+          "demand_id": "D-S001-FOD-01",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-FOD-02",
+          "demand_id": "D-S001-FOD-02",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-FOD-03",
+          "demand_id": "D-S001-FOD-03",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-HYG-01",
+          "demand_id": "D-S001-HYG-01",
+          "type": "HYG",
+          "mass_kg": 6.0,
+          "volume_l": 35.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S001-HYG-02",
+          "demand_id": "D-S001-HYG-02",
+          "type": "HYG",
+          "mass_kg": 6.0,
+          "volume_l": 35.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-MED-01",
+          "demand_id": "D-S006-MED-01",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-WAT-01",
+          "demand_id": "D-S006-WAT-01",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-WAT-02",
+          "demand_id": "D-S006-WAT-02",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-WAT-03",
+          "demand_id": "D-S006-WAT-03",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-FOD-01",
+          "demand_id": "D-S006-FOD-01",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S006-HYG-01",
+          "demand_id": "D-S006-HYG-01",
+          "type": "HYG",
+          "mass_kg": 6.0,
+          "volume_l": 35.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S007-MED-01",
+          "demand_id": "D-S007-MED-01",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S007-WAT-01",
+          "demand_id": "D-S007-WAT-01",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S007-WAT-02",
+          "demand_id": "D-S007-WAT-02",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S007-FOD-01",
+          "demand_id": "D-S007-FOD-01",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S007-HYG-01",
+          "demand_id": "D-S007-HYG-01",
+          "type": "HYG",
+          "mass_kg": 6.0,
+          "volume_l": 35.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S010-MED-01",
+          "demand_id": "D-S010-MED-01",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S010-WAT-01",
+          "demand_id": "D-S010-WAT-01",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S010-FOD-01",
+          "demand_id": "D-S010-FOD-01",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S011-MED-01",
+          "demand_id": "D-S011-MED-01",
+          "type": "MED",
+          "mass_kg": 3.0,
+          "volume_l": 12.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S011-WAT-01",
+          "demand_id": "D-S011-WAT-01",
+          "type": "WAT",
+          "mass_kg": 14.0,
+          "volume_l": 27.0,
+          "status": "available",
+          "location_id": "O01"
+        },
+        {
+          "cargo_id": "S011-FOD-01",
+          "demand_id": "D-S011-FOD-01",
+          "type": "FOD",
+          "mass_kg": 8.0,
+          "volume_l": 28.0,
+          "status": "available",
+          "location_id": "O01"
+        }
+      ],
+      "drone_types": [
+        {
+          "type_id": "A",
+          "max_payload_kg": 25.0,
+          "max_volume_l": 60.0,
+          "cruise_speed_mps": 12.0,
+          "climb_speed_mps": 3.0,
+          "descent_speed_mps": 2.5,
+          "prepare_duration_s": 300.0,
+          "turnaround_duration_s": 0.0,
+          "handover_fixed_s": 150.0,
+          "handover_per_box_s": 30.0,
+          "empty_mass_kg": 70.0,
+          "energy_model": {
+            "model_id": "contest_transport_v1",
+            "parameters": {
+              "empty_range_m": 25000.0,
+              "full_range_m": 20000.0,
+              "reference_energy_kwh": 4.5,
+              "climb_efficiency": 0.72,
+              "load_per_box_s": 30.0,
+              "service_height_m": 30,
+              "clearance_m": 50,
+              "energy_scale": 1,
+              "flight_time_scale": 1
+            }
+          },
+          "charge_model": {
+            "model_id": "contest_two_stage_v1",
+            "parameters": {
+              "full_charge_s": 1800.0
+            }
+          }
+        },
+        {
+          "type_id": "B",
+          "max_payload_kg": 30.0,
+          "max_volume_l": 73.0,
+          "cruise_speed_mps": 15.0,
+          "climb_speed_mps": 3.0,
+          "descent_speed_mps": 2.5,
+          "prepare_duration_s": 300.0,
+          "turnaround_duration_s": 0.0,
+          "handover_fixed_s": 150.0,
+          "handover_per_box_s": 30.0,
+          "empty_mass_kg": 65.0,
+          "energy_model": {
+            "model_id": "contest_transport_v1",
+            "parameters": {
+              "empty_range_m": 28000.0,
+              "full_range_m": 16000.0,
+              "reference_energy_kwh": 4.0,
+              "climb_efficiency": 0.72,
+              "load_per_box_s": 30.0,
+              "service_height_m": 30,
+              "clearance_m": 50,
+              "energy_scale": 1,
+              "flight_time_scale": 1
+            }
+          },
+          "charge_model": {
+            "model_id": "contest_two_stage_v1",
+            "parameters": {
+              "full_charge_s": 2400.0
+            }
+          }
+        },
+        {
+          "type_id": "C",
+          "max_payload_kg": 80.0,
+          "max_volume_l": 250.0,
+          "cruise_speed_mps": 15.0,
+          "climb_speed_mps": 2.5,
+          "descent_speed_mps": 2.0,
+          "prepare_duration_s": 300.0,
+          "turnaround_duration_s": 0.0,
+          "handover_fixed_s": 180.0,
+          "handover_per_box_s": 36.0,
+          "empty_mass_kg": 69.9,
+          "energy_model": {
+            "model_id": "contest_transport_v1",
+            "parameters": {
+              "empty_range_m": 26000.0,
+              "full_range_m": 12000.0,
+              "reference_energy_kwh": 8.0,
+              "climb_efficiency": 0.72,
+              "load_per_box_s": 30.0,
+              "service_height_m": 30,
+              "clearance_m": 50,
+              "energy_scale": 1,
+              "flight_time_scale": 1
+            }
+          },
+          "charge_model": {
+            "model_id": "contest_two_stage_v1",
+            "parameters": {
+              "full_charge_s": 3000.0
+            }
+          }
+        }
+      ],
+      "drones": [
+        {
+          "drone_id": "U01",
+          "type_id": "A",
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "drone_id": "U05",
+          "type_id": "B",
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "drone_id": "U07",
+          "type_id": "C",
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        }
+      ],
+      "batteries": [
+        {
+          "battery_id": "BAT-A-01",
+          "compatible_type_id": "A",
+          "capacity_kwh": 4.5,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "battery_id": "BAT-A-02",
+          "compatible_type_id": "A",
+          "capacity_kwh": 4.5,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "battery_id": "BAT-B-01",
+          "compatible_type_id": "B",
+          "capacity_kwh": 4.0,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "battery_id": "BAT-B-02",
+          "compatible_type_id": "B",
+          "capacity_kwh": 4.0,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "battery_id": "BAT-C-01",
+          "compatible_type_id": "C",
+          "capacity_kwh": 8.0,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "battery_id": "BAT-C-02",
+          "compatible_type_id": "C",
+          "capacity_kwh": 8.0,
+          "soc": 1.0,
+          "soh": 1.0,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        }
+      ],
+      "policy": {
+        "min_return_soc": 0.2,
+        "requires_terrain": true,
+        "requires_communication": false,
+        "delivery_time_policy": "station_end",
+        "cost_model_available": false
+      }
+    }
+  },
+  "report": {
+    "model_id": "single_site_nominal_transport_v1",
+    "status": "complete",
+    "reason": null,
+    "snapshot_id": "SNAP-NOM-047B80772F614044",
+    "scenario_id": "SCN-EXERCISE-001",
+    "scenario_state_version": 1,
+    "snapshot_content_hash": "5832d9640ff6beae342599705d4f26853af12849e429b36bf13646e7129317fb",
+    "required_box_count": 32,
+    "available_box_count": 32,
+    "parameters": {
+      "min_return_soc": 0.2,
+      "nominal_soc": 1.0,
+      "nominal_soh": 1.0,
+      "max_count_states_per_site": 512,
+      "priority": [
+        "sortie_count",
+        "energy_kwh",
+        "operation_s"
+      ]
+    },
+    "analysis_input_hash": "79522764d22f954abed2beed3be4f1332f1de4274a5749742dca61e0463de47a",
+    "capacities": [
+      {
+        "site_id": "S011",
+        "type_id": "A",
+        "capacity_kg": 25.0,
+        "max_volume_l": 60.0,
+        "nominal_energy_kwh": 4.5,
+        "allowed_energy_kwh": 3.6,
+        "empty_energy_kwh": 1.0773840288682708,
+        "full_energy_kwh": 1.219611198623189,
+        "roundtrip_distance_m": 5616.148465363292,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 2.380388801376811,
+        "reason": null
+      },
+      {
+        "site_id": "S011",
+        "type_id": "B",
+        "capacity_kg": 30.0,
+        "max_volume_l": 73.0,
+        "nominal_energy_kwh": 4.0,
+        "allowed_energy_kwh": 3.2,
+        "empty_energy_kwh": 0.8640358497902858,
+        "full_energy_kwh": 1.1839375412901265,
+        "roundtrip_distance_m": 5616.148465363292,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 2.0160624587098734,
+        "reason": null
+      },
+      {
+        "site_id": "S011",
+        "type_id": "C",
+        "capacity_kg": 80.0,
+        "max_volume_l": 250.0,
+        "nominal_energy_kwh": 8.0,
+        "allowed_energy_kwh": 6.4,
+        "empty_energy_kwh": 1.7944280191744038,
+        "full_energy_kwh": 2.8532189205132936,
+        "roundtrip_distance_m": 5616.148465363292,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 3.5467810794867067,
+        "reason": null
+      },
+      {
+        "site_id": "S001",
+        "type_id": "A",
+        "capacity_kg": 25.0,
+        "max_volume_l": 60.0,
+        "nominal_energy_kwh": 4.5,
+        "allowed_energy_kwh": 3.6,
+        "empty_energy_kwh": 1.1615356083277453,
+        "full_energy_kwh": 1.312718016096589,
+        "roundtrip_distance_m": 6107.957687036999,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 2.2872819839034113,
+        "reason": null
+      },
+      {
+        "site_id": "S001",
+        "type_id": "B",
+        "capacity_kg": 30.0,
+        "max_volume_l": 73.0,
+        "nominal_energy_kwh": 4.0,
+        "allowed_energy_kwh": 3.2,
+        "empty_energy_kwh": 0.9302326639048648,
+        "full_energy_kwh": 1.273948714625889,
+        "roundtrip_distance_m": 6107.957687036999,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.9260512853741112,
+        "reason": null
+      },
+      {
+        "site_id": "S001",
+        "type_id": "C",
+        "capacity_kg": 80.0,
+        "max_volume_l": 250.0,
+        "nominal_energy_kwh": 8.0,
+        "allowed_energy_kwh": 6.4,
+        "empty_energy_kwh": 1.9413861017800966,
+        "full_energy_kwh": 3.08169695084704,
+        "roundtrip_distance_m": 6107.957687036999,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 3.31830304915296,
+        "reason": null
+      },
+      {
+        "site_id": "S006",
+        "type_id": "A",
+        "capacity_kg": 25.0,
+        "max_volume_l": 60.0,
+        "nominal_energy_kwh": 4.5,
+        "allowed_energy_kwh": 3.6,
+        "empty_energy_kwh": 1.2237841813318484,
+        "full_energy_kwh": 1.3897202893689231,
+        "roundtrip_distance_m": 6372.416356827312,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 2.210279710631077,
+        "reason": null
+      },
+      {
+        "site_id": "S006",
+        "type_id": "B",
+        "capacity_kg": 30.0,
+        "max_volume_l": 73.0,
+        "nominal_energy_kwh": 4.0,
+        "allowed_energy_kwh": 3.2,
+        "empty_energy_kwh": 0.9816123425709102,
+        "full_energy_kwh": 1.35005987826824,
+        "roundtrip_distance_m": 6372.416356827312,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.8499401217317601,
+        "reason": null
+      },
+      {
+        "site_id": "S006",
+        "type_id": "C",
+        "capacity_kg": 80.0,
+        "max_volume_l": 250.0,
+        "nominal_energy_kwh": 8.0,
+        "allowed_energy_kwh": 6.4,
+        "empty_energy_kwh": 2.037383089744046,
+        "full_energy_kwh": 3.2533316961760206,
+        "roundtrip_distance_m": 6372.416356827312,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 3.1466683038239798,
+        "reason": null
+      },
+      {
+        "site_id": "S007",
+        "type_id": "A",
+        "capacity_kg": 25.0,
+        "max_volume_l": 60.0,
+        "nominal_energy_kwh": 4.5,
+        "allowed_energy_kwh": 3.6,
+        "empty_energy_kwh": 1.7775205488886865,
+        "full_energy_kwh": 2.0179304550206894,
+        "roundtrip_distance_m": 9068.921133632148,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.5820695449793107,
+        "reason": null
+      },
+      {
+        "site_id": "S007",
+        "type_id": "B",
+        "capacity_kg": 30.0,
+        "max_volume_l": 73.0,
+        "nominal_energy_kwh": 4.0,
+        "allowed_energy_kwh": 3.2,
+        "empty_energy_kwh": 1.430309567865571,
+        "full_energy_kwh": 1.9597756453462005,
+        "roundtrip_distance_m": 9068.921133632148,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.2402243546537997,
+        "reason": null
+      },
+      {
+        "site_id": "S007",
+        "type_id": "C",
+        "capacity_kg": 80.0,
+        "max_volume_l": 250.0,
+        "nominal_energy_kwh": 8.0,
+        "allowed_energy_kwh": 6.4,
+        "empty_energy_kwh": 2.935344709943379,
+        "full_energy_kwh": 4.679449163211583,
+        "roundtrip_distance_m": 9068.921133632148,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.7205508367884175,
+        "reason": null
+      },
+      {
+        "site_id": "S010",
+        "type_id": "A",
+        "capacity_kg": 25.0,
+        "max_volume_l": 60.0,
+        "nominal_energy_kwh": 4.5,
+        "allowed_energy_kwh": 3.6,
+        "empty_energy_kwh": 1.8262637901311352,
+        "full_energy_kwh": 2.070702414692298,
+        "roundtrip_distance_m": 9568.98970328726,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.529297585307702,
+        "reason": null
+      },
+      {
+        "site_id": "S010",
+        "type_id": "B",
+        "capacity_kg": 30.0,
+        "max_volume_l": 73.0,
+        "nominal_energy_kwh": 4.0,
+        "allowed_energy_kwh": 3.2,
+        "empty_energy_kwh": 1.4634266266133638,
+        "full_energy_kwh": 2.011014702488392,
+        "roundtrip_distance_m": 9568.98970328726,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.188985297511608,
+        "reason": null
+      },
+      {
+        "site_id": "S010",
+        "type_id": "C",
+        "capacity_kg": 80.0,
+        "max_volume_l": 250.0,
+        "nominal_energy_kwh": 8.0,
+        "allowed_energy_kwh": 6.4,
+        "empty_energy_kwh": 3.0480018167084744,
+        "full_energy_kwh": 4.858749129052406,
+        "roundtrip_distance_m": 9568.98970328726,
+        "terrain_evaluated": true,
+        "limit": "rated_payload",
+        "root_width_kg": 0.0,
+        "residual_kwh": 1.5412508709475947,
+        "reason": null
+      }
+    ],
+    "sites": [
+      {
+        "site_id": "S011",
+        "status": "complete",
+        "reason": null,
+        "count_states": 8,
+        "box_count": 3,
+        "metrics": {
+          "sortie_count": 1,
+          "energy_kwh": 1.0739517654354556,
+          "operation_s": 1188.420472235157,
+          "min_return_soc": 0.7315120586411361
+        }
+      },
+      {
+        "site_id": "S001",
+        "status": "complete",
+        "reason": null,
+        "count_states": 324,
+        "box_count": 15,
+        "metrics": {
+          "sortie_count": 2,
+          "energy_kwh": 5.913351570304529,
+          "operation_s": 3186.3381546583187,
+          "min_return_soc": 0.6255288421596533
+        }
+      },
+      {
+        "site_id": "S006",
+        "status": "complete",
+        "reason": null,
+        "count_states": 32,
+        "box_count": 6,
+        "metrics": {
+          "sortie_count": 1,
+          "energy_kwh": 2.597987864912184,
+          "operation_s": 1561.5538679616648,
+          "min_return_soc": 0.675251516885977
+        }
+      },
+      {
+        "site_id": "S007",
+        "status": "complete",
+        "reason": null,
+        "count_states": 24,
+        "box_count": 5,
+        "metrics": {
+          "sortie_count": 1,
+          "energy_kwh": 3.4108943800040366,
+          "operation_s": 1907.5664573300337,
+          "min_return_soc": 0.5736382024994955
+        }
+      },
+      {
+        "site_id": "S010",
+        "status": "complete",
+        "reason": null,
+        "count_states": 8,
+        "box_count": 3,
+        "metrics": {
+          "sortie_count": 1,
+          "energy_kwh": 1.823195698089688,
+          "operation_s": 1555.3795658311296,
+          "min_return_soc": 0.544201075477578
+        }
+      }
+    ],
+    "batches": [
+      {
+        "batch_id": "NOM-1da49ddc0e25",
+        "site_id": "S011",
+        "type_id": "B",
+        "cargo_ids": [
+          "S011-FOD-01",
+          "S011-MED-01",
+          "S011-WAT-01"
+        ],
+        "mass_kg": 25.0,
+        "volume_l": 67.0,
+        "duration_s": 1188.420472235157,
+        "energy_kwh": 1.0739517654354556,
+        "return_soc": 0.7315120586411361
+      },
+      {
+        "batch_id": "NOM-dd78c906af8f",
+        "site_id": "S001",
+        "type_id": "C",
+        "cargo_ids": [
+          "S001-FOD-01",
+          "S001-FOD-02",
+          "S001-HYG-01",
+          "S001-HYG-02",
+          "S001-MED-01",
+          "S001-MED-02",
+          "S001-WAT-01",
+          "S001-WAT-02",
+          "S001-WAT-03"
+        ],
+        "mass_kg": 76.0,
+        "volume_l": 231.0,
+        "duration_s": 1692.1690773291593,
+        "energy_kwh": 2.917582307581756,
+        "return_soc": 0.6353022115522805
+      },
+      {
+        "batch_id": "NOM-2b8fe7cd0c4f",
+        "site_id": "S001",
+        "type_id": "C",
+        "cargo_ids": [
+          "S001-FOD-03",
+          "S001-WAT-04",
+          "S001-WAT-05",
+          "S001-WAT-06",
+          "S001-WAT-07",
+          "S001-WAT-08"
+        ],
+        "mass_kg": 78.0,
+        "volume_l": 163.0,
+        "duration_s": 1494.1690773291593,
+        "energy_kwh": 2.9957692627227734,
+        "return_soc": 0.6255288421596533
+      },
+      {
+        "batch_id": "NOM-7ebdf299dbb4",
+        "site_id": "S006",
+        "type_id": "C",
+        "cargo_ids": [
+          "S006-FOD-01",
+          "S006-HYG-01",
+          "S006-MED-01",
+          "S006-WAT-01",
+          "S006-WAT-02",
+          "S006-WAT-03"
+        ],
+        "mass_kg": 59.0,
+        "volume_l": 156.0,
+        "duration_s": 1561.5538679616648,
+        "energy_kwh": 2.597987864912184,
+        "return_soc": 0.675251516885977
+      },
+      {
+        "batch_id": "NOM-6b34fb11cd90",
+        "site_id": "S007",
+        "type_id": "C",
+        "cargo_ids": [
+          "S007-FOD-01",
+          "S007-HYG-01",
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-WAT-02"
+        ],
+        "mass_kg": 45.0,
+        "volume_l": 129.0,
+        "duration_s": 1907.5664573300337,
+        "energy_kwh": 3.4108943800040366,
+        "return_soc": 0.5736382024994955
+      },
+      {
+        "batch_id": "NOM-cab6293182b2",
+        "site_id": "S010",
+        "type_id": "B",
+        "cargo_ids": [
+          "S010-FOD-01",
+          "S010-MED-01",
+          "S010-WAT-01"
+        ],
+        "mass_kg": 25.0,
+        "volume_l": 67.0,
+        "duration_s": 1555.3795658311296,
+        "energy_kwh": 1.823195698089688,
+        "return_soc": 0.544201075477578
+      }
+    ],
+    "metrics": {
+      "sortie_count": 6,
+      "energy_kwh": 14.819381278745894,
+      "operation_s": 9399.258518016304,
+      "min_return_soc": 0.544201075477578
+    },
+    "single_box_baseline": {
+      "sortie_count": 32,
+      "energy_kwh": 35.71065194569659,
+      "operation_s": 38312.90774756031,
+      "min_return_soc": 0.603023892459728
+    },
+    "greedy_baseline": {
+      "sortie_count": 7,
+      "energy_kwh": 15.35378951793422,
+      "operation_s": 10422.358725309656,
+      "min_return_soc": 0.544201075477578
+    },
+    "sensitivity": [
+      {
+        "min_return_soc": 0.1,
+        "status": "complete",
+        "metrics": {
+          "sortie_count": 6,
+          "energy_kwh": 14.819381278745894,
+          "operation_s": 9399.258518016304,
+          "min_return_soc": 0.544201075477578
+        }
+      },
+      {
+        "min_return_soc": 0.2,
+        "status": "complete",
+        "metrics": {
+          "sortie_count": 6,
+          "energy_kwh": 14.819381278745894,
+          "operation_s": 9399.258518016304,
+          "min_return_soc": 0.544201075477578
+        }
+      },
+      {
+        "min_return_soc": 0.3,
+        "status": "complete",
+        "metrics": {
+          "sortie_count": 6,
+          "energy_kwh": 14.819381278745894,
+          "operation_s": 9399.258518016304,
+          "min_return_soc": 0.544201075477578
+        }
+      }
+    ],
+    "audit_checks": [
+      "箱件唯一与完整覆盖",
+      "单站点归属",
+      "质量与体积",
+      "航段能耗与额定SOC",
+      "累计作业时长",
+      "当前地形与静态路径模型"
+    ],
+    "runtime_s": 0.7267439999850467,
+    "notes": [
+      "额定满电、SOH=100%的单点运输物理诊断，不是实际实体调度Plan。",
+      "不考虑机体/电池数量、充电、并发、物资时限与通信；确认方案仍须正式求解。",
+      "每批只服务一个站点；目标依次为最少架次、最小能耗、最小累计作业时长。",
+      "体积约束单独参与整箱组批，不用未知密度换算最大安全质量。",
+      "切换诊断余量不会修改场景策略；有限模型最少架次不代表多站调度全局最优。"
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yuanhang.example/contracts/solver-options.schema.json",
+  "title": "solver-options",
+  "description": "G0 review draft 0.1.0-draft; not an approved or implemented V1 contract.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0-draft"
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "objective": {
+      "enum": [
+        "time",
+        "energy",
+        "balanced"
+      ]
+    },
+    "mode": {
+      "enum": [
+        "quick",
+        "improve",
+        "replan"
+      ]
+    },
+    "time_limit_s": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "parent_plan_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "event_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requested_model_scope": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "cargo_unique",
+          "capacity",
+          "inventory",
+          "aircraft",
+          "battery",
+          "time_window",
+          "energy",
+          "terrain",
+          "communication",
+          "restricted_zone",
+          "ground_resource"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "allow_partial_service": {
+      "const": false
+    },
+    "objective_policy": {
+      "enum": [
+        "deadline_first_v1",
+        "tradeoff_v2"
+      ],
+      "default": "deadline_first_v1",
+      "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
+    }
+  },
+  "required": [
+    "schema_version",
+    "plan_id",
+    "snapshot_id",
+    "objective",
+    "mode",
+    "time_limit_s",
+    "seed",
+    "parent_plan_id",
+    "event_id",
+    "requested_model_scope",
+    "allow_partial_service"
+  ],
+  "additionalProperties": false
+}

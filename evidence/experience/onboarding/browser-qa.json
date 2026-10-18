@@ -1,0 +1,209 @@
+{
+  "started_at": "2026-10-18T02:36:16.563Z",
+  "base_url": "http://127.0.0.1:5178",
+  "scope": "Independent context, real preview backend 8031; no solve or database mutations",
+  "checks": [
+    {
+      "name": "guide-six-navigation-targets",
+      "passed": true,
+      "duration_ms": 3265,
+      "details": {
+        "step_targets": [
+          "调度工作台",
+          "场景与资源",
+          "地图与地形",
+          "调度工作台",
+          "方案对比",
+          "历史档案"
+        ],
+        "innovation_target": "数据大屏"
+      }
+    },
+    {
+      "name": "guide-reading-checklist-and-map-tabs-keyboard",
+      "passed": true,
+      "duration_ms": 1803,
+      "details": {
+        "visited": 6,
+        "map_tab_keyboard": true,
+        "personal_checklist_only": true
+      }
+    },
+    {
+      "name": "guide-faq-search-expand-clear-empty",
+      "passed": true,
+      "duration_ms": 389
+    },
+    {
+      "name": "account-edit-save-cross-tab-refresh",
+      "passed": true,
+      "duration_ms": 3329,
+      "details": {
+        "display_name": "林舟",
+        "team": "援航体验组",
+        "role": "算法调度",
+        "color": "#d97706",
+        "cross_tab": true,
+        "refresh": true
+      }
+    },
+    {
+      "name": "account-invalid-json-recovers",
+      "passed": true,
+      "duration_ms": 231,
+      "details": {
+        "recovered_default": true
+      }
+    },
+    {
+      "name": "themes-motion-settings-persist-and-system-reduction",
+      "passed": true,
+      "duration_ms": 2376,
+      "details": {
+        "theme_refresh": true,
+        "motion_refresh": true,
+        "user_pause": "paused",
+        "system_reduced": "none",
+        "ambient_system_reduced": [
+          "none",
+          "none",
+          "none"
+        ]
+      }
+    },
+    {
+      "name": "guide-responsive-1440-1280-390-and-mobile-navigation",
+      "passed": true,
+      "duration_ms": 4076,
+      "details": {
+        "sizes": [
+          1440,
+          1280,
+          390
+        ],
+        "horizontal_overflow": false,
+        "mobile_nav_access": true
+      }
+    },
+    {
+      "name": "history-four-tabs-search-export",
+      "passed": true,
+      "duration_ms": 1060,
+      "details": {
+        "plan_count": 2,
+        "exported_plan_id": "PLAN-2020D939C7264BAF",
+        "tabs": 4
+      }
+    },
+    {
+      "name": "comparison-two-real-plans-swap-json",
+      "passed": true,
+      "duration_ms": 1222,
+      "details": {
+        "before": [
+          "PLAN-2020D939C7264BAF",
+          "PLAN-CF0B791A1FF84F05"
+        ],
+        "after": [
+          "PLAN-CF0B791A1FF84F05",
+          "PLAN-2020D939C7264BAF"
+        ],
+        "comparable": true,
+        "validation": [
+          "passed",
+          "passed"
+        ],
+        "export": "comparison-export.json"
+      }
+    },
+    {
+      "name": "no-onboarding-history-comparison-server-mutations",
+      "passed": true,
+      "duration_ms": 0,
+      "details": {
+        "api_mutations": 0,
+        "page_errors": 0,
+        "api_errors": 0
+      }
+    }
+  ],
+  "screenshots": [
+    "account-1440-midnight.png",
+    "guide-1440-midnight.png",
+    "guide-innovation-1440-midnight.png",
+    "guide-1280-light.png",
+    "guide-innovation-1280-light.png",
+    "guide-390-midnight.png",
+    "mobile-navigation-390.png",
+    "guide-innovation-390-midnight.png",
+    "history-1440-midnight.png",
+    "comparison-1440-midnight.png"
+  ],
+  "page_errors": [],
+  "api_errors": [],
+  "mutating_requests": [],
+  "source": {
+    "frontend/src/pages/GuidePage.tsx": "32d6b3343126604ab276e8034926439ebb75e0e72c4a6a8f88aa159138e72a03",
+    "frontend/src/pages/guide.css": "052c04fa621a9b8bcaac9c7b42a1437e42f4dbda6c62db66da0357f23894ca43",
+    "frontend/src/components/LocalProfile.tsx": "a3ac79a2623d1e4aa987b5ce9ac1afc8a54defea12daf9095a4f3912ea168605",
+    "frontend/src/components/local-profile.css": "86ece161ef8b8594b66c7035c2daafa334975a05b121be56ddb737c60eb64327"
+  },
+  "scenario_id": "SCN-8F5D99D25CCC4A28",
+  "real_plan_ids": [
+    "PLAN-2020D939C7264BAF",
+    "PLAN-CF0B791A1FF84F05"
+  ],
+  "finished_at": "2026-10-18T02:36:35.467Z",
+  "passed": true,
+  "visual_review": {
+    "reviewed_at": "2026-10-18T02:38:30.908Z",
+    "status": "reviewed_with_notes",
+    "reviewed_screenshots": [
+      {
+        "file": "account-1440-midnight.png",
+        "sha256": "65e78d0986beb341a8b2e840d609761b2793bd677c6fc062468fc1db829f872e"
+      },
+      {
+        "file": "guide-1440-midnight.png",
+        "sha256": "70a535f1fb555baef7761424bab2cebbecfeb973361cab0e97dbe862a6135770"
+      },
+      {
+        "file": "guide-innovation-1440-midnight.png",
+        "sha256": "9d1252c8e4b74ae5b1931f886e34ed30b5e3a0633a69f5c8e0d43faf2da72776"
+      },
+      {
+        "file": "guide-1280-light.png",
+        "sha256": "a20bf2c3780f054133657d62f0f1ac2eb9872c0535f0d9fa697023328e78c98c"
+      },
+      {
+        "file": "guide-innovation-1280-light.png",
+        "sha256": "b8e1003867992773615894e64da778ff5565084483e27563e22ec0fe4d4f020d"
+      },
+      {
+        "file": "guide-390-midnight.png",
+        "sha256": "072b00c555b9822dc2153f37dd827574045a33882aa6e8fa5c7823fa99fabd03"
+      },
+      {
+        "file": "mobile-navigation-390.png",
+        "sha256": "c1ea926eb0a1a3ecceb9ebb235c7e99791b0692b30b7f48b907fee302cd965a7"
+      },
+      {
+        "file": "guide-innovation-390-midnight.png",
+        "sha256": "ea6554b7ff2607076bdec3f0f249fb1515e4023260eef3236474a3ef5f749d65"
+      },
+      {
+        "file": "history-1440-midnight.png",
+        "sha256": "24dff8f469c722cf664395c1ae602a1dddee3586de807be649702bdfe953ae91"
+      },
+      {
+        "file": "comparison-1440-midnight.png",
+        "sha256": "a07b2c98f951285e0f4e29a117dee5579eb503253e0e04493ac56159edeafb99"
+      }
+    ],
+    "findings": [
+      "1440 midnight / 1280 light / 390 midnight tutorial headers, readable step navigation and innovation cards checked; no horizontal overflow.",
+      "Account dialog, original saved history and actual two-plan comparison checked visually.",
+      "390 navigation operates, but translucent background shows underlying text and old responsive CSS hides profile details; reported to root for polish."
+    ]
+  }
+}

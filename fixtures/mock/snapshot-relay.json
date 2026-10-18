@@ -1,0 +1,267 @@
+{
+  "schema_version": "0.1.0-draft",
+  "snapshot_id": "SNAP-MOCK-RELAY",
+  "scenario_id": "SCN-MOCK-001",
+  "scenario_state_version": 1,
+  "content_hash": "4eff86be96c29b8d10023f0ca87d339a7abb7e0e87b5a5e48afe1cec820e2403",
+  "created_at": "2026-10-17T09:00:00+08:00",
+  "scenario": {
+    "schema_version": "0.1.0-draft",
+    "scenario_id": "SCN-MOCK-001",
+    "name": "仅用于界面和契约开发的两点示例",
+    "state_version": 1,
+    "mode": "simulation",
+    "data_origin": "mock",
+    "start_time": "2026-10-17T09:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "coordinate_system": "EPSG:4326",
+    "terrain": {
+      "status": "not_evaluated",
+      "asset_id": null,
+      "sha256": null,
+      "horizontal_crs": null,
+      "vertical_datum": null
+    },
+    "base": {
+      "id": "O01",
+      "name": "模拟基地",
+      "coordinates": [
+        108.9,
+        22.9
+      ],
+      "ground_elevation_m": null,
+      "available": true
+    },
+    "sites": [
+      {
+        "id": "S01",
+        "name": "模拟需求点",
+        "coordinates": [
+          108.91,
+          22.91
+        ],
+        "ground_elevation_m": null,
+        "available": true
+      }
+    ],
+    "demands": [
+      {
+        "demand_id": "D01",
+        "site_id": "S01",
+        "cargo_type": "MED",
+        "required_quantity": 1,
+        "priority": 1,
+        "expected_deadline_s": 1200,
+        "hard_deadline_s": 1800,
+        "mandatory": true
+      }
+    ],
+    "cargo_items": [
+      {
+        "cargo_id": "BOX01",
+        "demand_id": "D01",
+        "type": "MED",
+        "mass_kg": 2,
+        "volume_l": 3,
+        "status": "available",
+        "location_id": "O01"
+      }
+    ],
+    "drone_types": [
+      {
+        "type_id": "A",
+        "max_payload_kg": 10,
+        "max_volume_l": 20,
+        "cruise_speed_mps": 10,
+        "climb_speed_mps": 2,
+        "descent_speed_mps": 2,
+        "prepare_duration_s": 60,
+        "turnaround_duration_s": 30,
+        "handover_fixed_s": 20,
+        "handover_per_box_s": 5,
+        "empty_mass_kg": 5,
+        "energy_model": {
+          "model_id": "MOCK_UNSUPPORTED",
+          "parameters": {}
+        },
+        "charge_model": {
+          "model_id": "MOCK_UNSUPPORTED",
+          "parameters": {}
+        }
+      }
+    ],
+    "drones": [
+      {
+        "drone_id": "U01",
+        "type_id": "A",
+        "status": "available",
+        "location_id": "O01",
+        "available_after_s": 0
+      }
+    ],
+    "batteries": [
+      {
+        "battery_id": "BAT01",
+        "compatible_type_id": "A",
+        "capacity_kwh": 1,
+        "soc": 1,
+        "soh": 1,
+        "status": "available",
+        "location_id": "O01",
+        "available_after_s": 0
+      }
+    ],
+    "policy": {
+      "min_return_soc": 0.2,
+      "requires_terrain": false,
+      "requires_communication": false,
+      "delivery_time_policy": "station_end",
+      "cost_model_available": false
+    },
+    "communication": {
+      "model_id": "projected_dem_radio_v1",
+      "frequency_mhz": 2400.0,
+      "system_loss_db": 3.0,
+      "obstruction_loss_db": 10.0,
+      "sensitivity_dbm": -98.0,
+      "fading_margin_db": 8.0,
+      "gateway": {
+        "tx_power_dbm": 27.0,
+        "gain_dbi": 12.0,
+        "antenna_height_m": 20.0
+      },
+      "transport": {
+        "tx_power_dbm": 20.0,
+        "gain_dbi": 3.0
+      },
+      "relay_access": {
+        "tx_power_dbm": 20.0,
+        "gain_dbi": 6.0
+      },
+      "relay_backhaul": {
+        "tx_power_dbm": 19.0,
+        "gain_dbi": 8.0
+      },
+      "relay_model": {
+        "mass_kg": 23.5,
+        "cruise_speed_mps": 15.0,
+        "cruise_power_kw": 1.15,
+        "climb_speed_mps": 4.0,
+        "descent_speed_mps": 3.0,
+        "hover_power_kw": 1.05,
+        "radio_power_kw": 0.05,
+        "climb_efficiency": 0.72,
+        "prepare_duration_s": 180.0,
+        "link_duration_s": 30.0,
+        "turnaround_duration_s": 300.0,
+        "full_charge_s": 1800.0,
+        "max_agl_m": 300.0,
+        "min_return_soc": 0.2
+      },
+      "relay_drones": [
+        {
+          "drone_id": "R01",
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "drone_id": "R02",
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        }
+      ],
+      "relay_energy": [
+        {
+          "component_id": "R-COMP-01",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "component_id": "R-COMP-02",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "component_id": "R-COMP-03",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "component_id": "R-COMP-04",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "component_id": "R-COMP-05",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        },
+        {
+          "component_id": "R-COMP-06",
+          "capacity_kwh": 3.2,
+          "soc": 1,
+          "soh": 1,
+          "status": "available",
+          "location_id": "O01",
+          "available_after_s": 0
+        }
+      ],
+      "candidate_stations": [
+        {
+          "station_id": "RS-S01-150",
+          "coordinates": [
+            108.91,
+            22.91
+          ],
+          "agl_m": 150
+        },
+        {
+          "station_id": "RS-S01-300",
+          "coordinates": [
+            108.91,
+            22.91
+          ],
+          "agl_m": 300
+        },
+        {
+          "station_id": "RS-MID-S01",
+          "coordinates": [
+            108.905,
+            22.905
+          ],
+          "agl_m": 300
+        },
+        {
+          "station_id": "RS-BASE-300",
+          "coordinates": [
+            108.9,
+            22.9
+          ],
+          "agl_m": 300
+        }
+      ]
+    }
+  }
+}

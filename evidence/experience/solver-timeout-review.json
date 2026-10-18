@@ -1,0 +1,254 @@
+{
+  "review_type": "read_only_solver_timeout_audit",
+  "observed_at_utc": "2026-10-18T03:17:38.558177+00:00",
+  "source_head": "fac7f62658a92ef7b25565499b02914e973f5096",
+  "source_sha256": {
+    "solver/public_api.py": "25b1d8124eefec0af22ee06411a659d09f172fb7547afee49ed6fdf6286796de",
+    "solver/physics.py": "1a741e4a8cb171e35d49995fcd2a8cf6e91fec8cdcf38e244b3ec20e9f57caee",
+    "solver/assets.py": "ad590ba1c43932b666899adf42d42b94fd9edb7bea48684639b8c1b676b779e3",
+    "backend/app/jobs.py": "5a436d6b2336cd77b1ec08882686bb54d0817ca24c358ae514b3b25a543ca631",
+    "frontend/src/App.tsx": "b936bcf0b8cbd9f8d0ef80fd6fbe0d4ad3867dab69e94c8d2e93e4b212e1e3ad",
+    "frontend/src/api/client.ts": "d9ef7effc82d126956b07966052b153e8351ab56e0938f674b4377a0388a8459",
+    "frontend/src/pages/ResourceAnalysis.tsx": "1927678af4dbb78dce2c03595528e46b9f9e539c9162843cfd0d1dfa948b2011",
+    "frontend/tests/workflow.spec.ts": "fd47b8d9b67b5decf8785714cc3474abb95a5682b4325cb84087020f96a6861b",
+    "frontend/playwright.config.ts": "1ab76f035d0ace07e5d9e7f40a0a1f8d75ff022114f2679378d1b5796f1b435b"
+  },
+  "actions": {
+    "business_code_modified": false,
+    "solver_executed": false,
+    "browser_or_port_started": false,
+    "runtime_written": false
+  },
+  "failed_job": {
+    "job_id": "JOB-302A5DC9B58A4557",
+    "input_sha256": "5c907212f7234352390510eed503040c2e5cab5ca64a204c3c46e60e101f4524",
+    "outcome_sha256": "25b4adde00fcb96f9711b5ddfba9e52589762adc2dd910ab74fa72dbae70ac16",
+    "options": {
+      "schema_version": "0.1.0-draft",
+      "plan_id": "PLAN-3B3C3DAB7DF34695",
+      "snapshot_id": "SNAP-F61A636EBB474ED1",
+      "objective": "time",
+      "mode": "quick",
+      "time_limit_s": 15.0,
+      "seed": 42,
+      "parent_plan_id": null,
+      "event_id": null,
+      "requested_model_scope": [
+        "cargo_unique",
+        "capacity",
+        "inventory",
+        "aircraft",
+        "battery",
+        "time_window",
+        "energy",
+        "terrain"
+      ],
+      "allow_partial_service": false
+    },
+    "outcome": {
+      "schema_version": "0.1.0-draft",
+      "solver_status": "UNKNOWN",
+      "plan": null,
+      "model_scope": [],
+      "algorithm_mode": "quick",
+      "runtime_s": 14.35853909997968,
+      "first_feasible_s": null,
+      "candidate_count": 0,
+      "seed": 42,
+      "stop_reason": "time_limit",
+      "validation": {
+        "status": "not_run",
+        "checks": []
+      },
+      "diagnostics": [
+        {
+          "code": "NO_VALIDATED_CANDIDATE",
+          "message": "当前预算和候选范围内未找到完整可行方案，可增加预算、设备或调整非关键时限。",
+          "field_path": null,
+          "object_id": null
+        }
+      ]
+    },
+    "last_progress": {
+      "stage": "计算航段与箱件插入",
+      "elapsed_s": 0.039821599959395826,
+      "candidate_count": 0
+    },
+    "worker_log_size_bytes": 0
+  },
+  "source_findings": [
+    {
+      "location": "solver/public_api.py:632",
+      "finding": "quick 的构造期限为入口墙钟 started + 0.9 * time_limit_s；15s 对应 13.5s。构造和同快照独立检查实际执行，未使用历史 Plan。"
+    },
+    {
+      "location": "solver/public_api.py:_construct",
+      "finding": "构造先为当前箱件枚举机型及其他箱件插入（最多 80），每架次选择后继续剩余箱件；仅在 while remaining 顶部检查期限。候选插入内层可能越过期限，下次 while 返回 None，尚未形成完整方案不会发布局部结果。"
+    },
+    {
+      "location": "solver/public_api.py:solve",
+      "finding": "candidate_count 仅在完整 schedule 已构造并调用 validate 后增加。此 Job count=0 且始终停留计算航段与箱件插入阶段，说明没有进入一次完整候选的独立验证；不能从现有进度区分首次构造中断或多次无候选构造。"
+    },
+    {
+      "location": "solver/assets.py; solver/physics.py",
+      "finding": "每个 worker 为独立 Python 进程；首次 DEM SHA256/读取及航段地形净空预处理在本次墙钟预算内，缓存只帮助本进程后续计算。"
+    },
+    {
+      "location": "backend/app/jobs.py:179",
+      "finding": "worker 硬超时为请求预算 + 8s。此次正常 outcome.json 返回 UNKNOWN / time_limit，不是异常退出或硬超时。"
+    },
+    {
+      "location": "frontend/src/App.tsx:430,482; api/client.ts:123; pages/ResourceAnalysis.tsx:221",
+      "finding": "非通信 quick/replan/资源试算默认均为 15s；improve 为 30s，通信为 60s。当前未提供用户预算配置。"
+    }
+  ],
+  "historical_same_input_observation": {
+    "normalized_scenario_sha256": "e3246fda80ff418e99d3622e34c4575aa95a9d1211b4cef0dff94eff0c85923a",
+    "excluded_scenario_fields": [
+      "scenario_id",
+      "name"
+    ],
+    "matching_input_count": 277,
+    "statuses": {
+      "FEASIBLE": 276,
+      "UNKNOWN": 1
+    },
+    "first_feasible_s": {
+      "min": 0.4477646999876015,
+      "median": 0.7852637000032701,
+      "max": 2.199440099997446
+    },
+    "recent_matching_jobs": [
+      {
+        "job": "JOB-EB11BB17D9024C71",
+        "runtime_s": 4.063217300048564,
+        "first_feasible_s": 1.664551600057166,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:10:32.601073+00:00",
+        "input_sha256": "a264195616ffa2bf16ea379ffd073bc5c7b872220fc972eb20cef1d0f1e7c8d6"
+      },
+      {
+        "job": "JOB-F86D98BE9F4C496D",
+        "runtime_s": 1.6696322000352666,
+        "first_feasible_s": 0.7154370000353083,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:10:52.090601+00:00",
+        "input_sha256": "544ab1ea7a204ed4b435762fe14011a67faed8827654895593558112e44f5c3b"
+      },
+      {
+        "job": "JOB-1D92C018A2734235",
+        "runtime_s": 4.002013600023929,
+        "first_feasible_s": 1.6774347000173293,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:11:39.074793+00:00",
+        "input_sha256": "d4bfc89d66064b953bfcd3f5eb3737ef21a088e7ee21338c8199f33a95811a2d"
+      },
+      {
+        "job": "JOB-3E1516892BEC49A8",
+        "runtime_s": 4.13617010001326,
+        "first_feasible_s": 1.739989899971988,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:12:24.804116+00:00",
+        "input_sha256": "1d99d48c0a00cf5940b9f85d2d168c399e502e6a42521269931de3badb8e5d9f"
+      },
+      {
+        "job": "JOB-E5CC81559277470F",
+        "runtime_s": 3.717734300007578,
+        "first_feasible_s": 1.2388258999562822,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:12:55.107992+00:00",
+        "input_sha256": "ae0d10443485be38ddbeacbd58b5a54df9d798ab2b6dfe5b04d6bc7ec7e3fc42"
+      },
+      {
+        "job": "JOB-DC70C11673E7402E",
+        "runtime_s": 4.323264500009827,
+        "first_feasible_s": 1.1981460000388324,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:13:25.767092+00:00",
+        "input_sha256": "8629d5f093dffb9bb3f85ff2658c63ededf30543c5137e943642d8b922a2f766"
+      },
+      {
+        "job": "JOB-D1132F72F5B741F1",
+        "runtime_s": 5.61100290005561,
+        "first_feasible_s": 2.090535200026352,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:13:41.697645+00:00",
+        "input_sha256": "b22556ae6a8dec36ba441917b92ce4603bd288914fe672e2f6b2c234cf3a0f85"
+      },
+      {
+        "job": "JOB-3D3872722B13433C",
+        "runtime_s": 4.701376699958928,
+        "first_feasible_s": 1.994029399997089,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:14:32.916431+00:00",
+        "input_sha256": "61e4a6e701696892dc5cffd42f38aa4fb7ab73bafead0cfbc09ff636e383b2e9"
+      },
+      {
+        "job": "JOB-D52093840BD14099",
+        "runtime_s": 4.046681399981026,
+        "first_feasible_s": 1.6131041999906301,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:15:01.264307+00:00",
+        "input_sha256": "98149267efd0a203f83f6e25794b5a3492af01dfb61ebb9f24a6d711c5ae0f85"
+      },
+      {
+        "job": "JOB-11DE9D1F0A264C2E",
+        "runtime_s": 5.603293100022711,
+        "first_feasible_s": 2.199440099997446,
+        "candidate_count": 13,
+        "solver_status": "FEASIBLE",
+        "stop_reason": "finished",
+        "observed_outcome_mtime_utc": "2026-10-18T03:15:49.163606+00:00",
+        "input_sha256": "01c9d9eb2692e2198c6a8544bbafccdbd73a6e79ab9efdd07c932985f6d52e3a"
+      }
+    ],
+    "non_feasible_matching_jobs": [
+      {
+        "job": "JOB-302A5DC9B58A4557",
+        "runtime_s": 14.35853909997968,
+        "first_feasible_s": null,
+        "candidate_count": 0,
+        "solver_status": "UNKNOWN",
+        "stop_reason": "time_limit",
+        "observed_outcome_mtime_utc": "2026-10-18T03:02:11.831721+00:00",
+        "input_sha256": "5c907212f7234352390510eed503040c2e5cab5ca64a204c3c46e60e101f4524"
+      }
+    ],
+    "notice": "Historical same-input local job artifacts are observational evidence, not a controlled current-source success-rate or performance benchmark. Outcome modification time is a filesystem observation, not guaranteed runtime timestamp."
+  },
+  "conclusions": {
+    "source_correctness_bug_proven": false,
+    "explanation": "证据与限时启发式未能在墙钟预算内产生完整候选相符。UNKNOWN / null Plan 及不可确认状态符合契约；没有伪造成功、验证错误或历史结果冒充证据。",
+    "cause_limit": "同时截图/软件 3D 渲染导致 CPU 调度或 DEM 冷启动/I/O 延迟是合理假设，但没有该时间段 CPU、I/O 或构造计数遥测，不能确认为根因。",
+    "budget_limit": "30s 只能提高余量，任何固定墙钟预算在任意慢或受竞争的机器上都不能保证 FEASIBLE。"
+  },
+  "recommendations_in_order": [
+    "先在不并行生产截图/3D软件渲染的环境中，单独重跑原紧急插单 E2E；保留本次失败报告与 Job，不改成功断言，也不重试后隐藏原失败。",
+    "若需要产品层提升余量，可统一 quick/replan/资源试算默认至 30s，或提供真实 15/30/60s 预算选择。实际预算须写入请求并在 UI/历史显示，UNKNOWN 保留并给出明确增加预算再算入口。不要只替测试请求加预算。",
+    "如后续确认普通负载频繁首次构造超时，再设计低成本完整基线构造，仍用同快照物理及独立验证；本次不因一次离群耗时引入新的算法分支。可先增加构造轮次和截止中断原因遥测便于诊断。"
+  ],
+  "meaningful_validation": [
+    "集成成功链仍必须运行真实 solver，断言请求的 budget、FEASIBLE、validation=passed、全部新增箱件、快照/历史不变；给合理宽裕的预算并避免同时跑渲染负载。",
+    "独立测试限时语义可注入/monkeypatch 可控单调时钟，确定性走到 deadline 并断言 UNKNOWN / time_limit / Plan=null；这种路径验证不依赖硬件速度，且不能取代真实完整求解验收。",
+    "若增加预算设置，用单元/浏览器请求断言同时覆盖 quick、事件重规划、资源试算一致性；不能把后端完成 Job 等同验证方案成功。",
+    "运行速度指标应作为单独、记录 CPU/负载/冷暖缓存/预算/源码版本的性能观察，不将严格秒级阈值混入所有 UI 业务正确性测试。"
+  ]
+}

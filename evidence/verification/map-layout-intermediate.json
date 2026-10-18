@@ -1,0 +1,150 @@
+{
+  "at_utc": "2026-10-18T01:16:40.643Z",
+  "origin": "http://127.0.0.1:8000",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "nodes": [
+    {
+      "name": "定位凤丹村无人机调度中心",
+      "dot": {
+        "x": 734.5,
+        "y": 668.578125,
+        "width": 23,
+        "height": 23
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": false
+    },
+    {
+      "name": "定位那从",
+      "dot": {
+        "x": 666.5,
+        "y": 502.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": false
+    },
+    {
+      "name": "定位平旺、那龙、镇龙乡",
+      "dot": {
+        "x": 816.5,
+        "y": 491.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": false
+    },
+    {
+      "name": "定位六昌、木路",
+      "dot": {
+        "x": 532.5,
+        "y": 674.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": true
+    },
+    {
+      "name": "定位佛子、那桑、银坑",
+      "dot": {
+        "x": 486.5,
+        "y": 520.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": false
+    },
+    {
+      "name": "定位镇龙乡",
+      "dot": {
+        "x": 1030.5,
+        "y": 591.578125,
+        "width": 21,
+        "height": 21
+      },
+      "legend": {
+        "x": 455,
+        "y": 694.578125,
+        "w": 180,
+        "h": 31.5
+      },
+      "canvas": {
+        "x": 442,
+        "y": 419.078125,
+        "w": 709,
+        "h": 337
+      },
+      "outside": false,
+      "legend_overlap": false
+    }
+  ],
+  "overlapping": 1,
+  "stage": "Intermediate bottom padding of 95px left one pixel of overlap; final padding and ResizeObserver fix are verified separately."
+}

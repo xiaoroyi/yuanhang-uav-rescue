@@ -218,3 +218,37 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# 援航：本地工具、私密配置、运行生成物
+.local/
+.env.*
+!.env.example
+node_modules/
+!frontend/src/lib/
+!frontend/src/lib/**
+.pnpm-store/
+.vite/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+frontend/test-results/
+frontend/playwright-report/
+runtime/
+data/private/
+data/cache/
+artifacts/
+*.db
+*.db-shm
+*.db-wal
+*.pem
+*.key
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+~$*
+.DS_Store
+Thumbs.db
+
+# Reviewed G0 command output is intentional evidence, not runtime logs.
+!evidence/governance/*.log

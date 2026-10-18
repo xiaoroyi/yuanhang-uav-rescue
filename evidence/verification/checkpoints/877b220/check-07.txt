@@ -1,0 +1,45 @@
+
+> yuanhang-rescue-console@0.1.0 test:e2e
+> node scripts/run-e2e.mjs
+
+
+Running 24 tests using 1 worker
+
+(node:21864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\workflow.spec.ts:12:1 › 单点诊断按快照重算32箱与80箱，余量敏感性和导出不修改场景 (40.3s)
+  ok  2 tests\workflow.spec.ts:111:1 › 紧急需求插入新增真实箱件，全量重算与历史保留，无法满足新截止时不发布旧方案 (37.3s)
+  ok  3 tests\workflow.spec.ts:223:1 › 容量下界绑定真实方案快照，依据与精确见证可导出且适配窄屏 (11.0s)
+  ok  4 tests\workflow.spec.ts:273:3 › 运输场景运输电池退出，真实改派、确认和历史恢复 (24.2s)
+  ok  5 tests\workflow.spec.ts:273:3 › 联合通信场景运输电池退出，真实改派、确认和历史恢复 (43.0s)
+  ok  6 tests\workflow.spec.ts:371:1 › 连续通信联合调度、真实中继地图与资源窗口、确认及报告 (34.3s)
+  ok  7 tests\workflow.spec.ts:442:1 › 中继能源组件退出精确保存状态，联合重算不引用退出组件且刷新恢复 (31.1s)
+  ok  8 tests\workflow.spec.ts:543:1 › 中继机退出保存新版本，真实重规划保留旧方案和连续保障 (54.1s)
+  ok  9 tests\workflow.spec.ts:601:1 › 历史方案等待绑定原始快照，延迟期间不显示混合版本结果 (9.4s)
+  ok 10 tests\workflow.spec.ts:650:1 › 80箱冻结联合任务分区，真实资源缺口、峰值分配与JSON导出 (49.5s)
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "D:\miniconda\miniconda3\envs\lqb\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+  ok 11 tests\workflow.spec.ts:732:1 › 生产构建只允许本机请求，真实求解与事件闭环离线可用 (17.7s)
+  ok 12 tests\workflow.spec.ts:810:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (23.5s)
+  ok 13 tests\workflow.spec.ts:851:1 › 编辑输入使旧方案失效，导入预览创建新场景 (14.5s)
+  ok 14 tests\workflow.spec.ts:884:1 › 真实故障重规划保留旧方案，展示新旧变化 (16.2s)
+  ok 15 tests\workflow.spec.ts:906:1 › 手机窄屏仍可切页和运行计算 (10.4s)
+  ok 16 tests\workflow.spec.ts:918:1 › 资源分析绑定基线快照，增配试算创建独立场景并真实求解 (13.5s)
+  ok 17 tests\workflow.spec.ts:947:1 › 三档压力测试分别真实计算，刷新后保留各情景历史 (18.6s)
+  ok 18 tests\workflow.spec.ts:998:1 › 任务刷新恢复，重新载入页面不重复提交求解 (5.5s)
+  ok 19 tests\workflow.spec.ts:1010:1 › 打印报告包含真实任务并可离线保存PDF (7.6s)
+  ok 20 tests\workflow.spec.ts:1032:1 › 深入优化保留同快照基线，刷新后继续真实计算 (43.4s)
+  ok 21 tests\workflow.spec.ts:1055:1 › 限制区保存新版本，真实绕行并沿折线回放 (19.8s)
+  ok 22 tests\workflow.spec.ts:1100:1 › GeoTIFF资产上传绑定，真实Worker使用新DEM并恢复历史 (46.2s)
+  ok 23 tests\workflow.spec.ts:1160:1 › 有限准备工位与充电端口真实排程，等待在甘特与分析中分开显示 (20.1s)
+  ok 24 tests\workflow.spec.ts:1205:1 › 低SOC初始补能使用端口，并在甘特和打印报告保留窗口 (14.8s)
+
+  Slow test file: tests\workflow.spec.ts (10.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  24 passed (10.1m)

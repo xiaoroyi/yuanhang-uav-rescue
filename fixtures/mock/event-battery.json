@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1.0-draft",
+  "event_id": "EVT-MOCK-BATTERY-001",
+  "scenario_id": "SCN-MOCK-001",
+  "expected_state_version": 1,
+  "event_type": "battery.unavailable",
+  "occurred_at": "2026-10-17T09:00:00+08:00",
+  "received_at": "2026-10-17T09:00:00+08:00",
+  "effective_time_s": 0,
+  "actor": "simulation",
+  "reason": "开发示例：运输电池退出",
+  "payload": {
+    "battery_id": "BAT01"
+  }
+}

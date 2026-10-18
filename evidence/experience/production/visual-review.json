@@ -1,0 +1,56 @@
+{
+  "at_utc": "2026-10-18T03:04:02.533323+00:00",
+  "head": "fac7f62658a92ef7b25565499b02914e973f5096",
+  "verification_source_sha256": "22e61e67b34f20083b54e2dac29cce2f0be9ff430abd2a167aaf9d7f2707ebaa",
+  "screenshots": [
+    {
+      "path": "evidence/experience/production/analysis-1440.png",
+      "sha256": "84576a5e45a4bd45d8ad2d5f582e5239ce8577401749f52176d86fa1f9bf5cf3",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/analysis-390.png",
+      "sha256": "6a8e0402525d844a71fb3a9cfb4f7005b13790c7ae158d774ffd7450b6929ab7",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/guide-1440.png",
+      "sha256": "10cd1e8dc2e76edaff28cf3a75e734fec33d6ecea393748493b96f0d0d89c141",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/history-1440.png",
+      "sha256": "21bc8cc30b7f8bf3c45fec5cb526b9acf3314001ecd2c3795bfe74fa9f58f326",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/map-1440.png",
+      "sha256": "461ca2677d0a70fd3cc5de3f00c1872118f4d7c31fae3e560504d7035c11ddb0",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/overview-1440.png",
+      "sha256": "4b58b2fefee284b9a37ddbbd34670bc072173f9ecd0e9eca14d646357d238c8c",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/workspace-1280.png",
+      "sha256": "a3a3ea8be980fc497f0bd4c5e57501550591967c3757170615d609d021d84ce3",
+      "visually_reviewed": true
+    },
+    {
+      "path": "evidence/experience/production/workspace-1440.png",
+      "sha256": "289a99395548186ddf0141469231462891c2deaeeecc3e55ad63a3859a5ef50d",
+      "visually_reviewed": true
+    }
+  ],
+  "review": "Root inspected all eight production PNGs with view_image. Overview displays six KPIs, real 3D terrain and eight legible charts within 1440x900. Workspace at 1440/1280 has no overlap; map import entry, history and six-step tutorial visible; mobile analysis has no horizontal overflow. Browser-check contains actual no-error/default-offline and unchanged-scene/plan assertions; its unused visibleCharts selector is empty, so the all-eight visual conclusion is supported by these PNGs and separate overview-qa.json geometry, not that selector.",
+  "passed": true,
+  "limits": [
+    "Actual successful browser satellite imagery remains unverified because browser external access was denied by environment policy.",
+    "This visual review does not claim physical flight certification or real-time telemetry."
+  ],
+  "frontend_source_sha256": "fc30a7841a727df6041bde78d5c10ca3c2743809cd764c1f9ac44953f22d9256",
+  "service_source_sha256": "ebd999da9fa9c62e65730ca38bd977e159c71f54723cb6ba542caec68eec0fd6",
+  "identity_note": "The later refresh-test correction changes verification_fingerprint only; reviewed product source and rendered production build remain unchanged."
+}

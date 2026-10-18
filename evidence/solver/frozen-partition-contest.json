@@ -1,0 +1,3524 @@
+{
+  "model_id": "frozen_joint_homogeneous_v1",
+  "status": "ready",
+  "reason": null,
+  "plan_id": "PLAN-CLI-6F67A5231CC5439B",
+  "snapshot_id": "SNAP-CLI-83EB0619728D4976",
+  "scenario_state_version": 1,
+  "snapshot_content_hash": "5ae296edc39c03ca71ccd071a4efeff267ca8f863e81e675ac71c515c5cd0a6d",
+  "source_plan_hash": "55fcec6deedf387339cfc4ef8e7fddccb74d0f13a4e48823163901c25f8ab1c8",
+  "max_atoms": 10,
+  "atoms": [
+    {
+      "atom_id": "C01",
+      "site_ids": [
+        "S001"
+      ],
+      "transport_sortie_ids": [
+        "SRT-5ab49955fd13",
+        "SRT-8f440498cf35",
+        "SRT-e8b10e933368"
+      ],
+      "relay_sortie_ids": []
+    },
+    {
+      "atom_id": "C02",
+      "site_ids": [
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S007",
+        "S008",
+        "S009",
+        "S010",
+        "S011",
+        "S012",
+        "S013",
+        "S014",
+        "S015"
+      ],
+      "transport_sortie_ids": [
+        "SRT-1dc9d5f7f2fc",
+        "SRT-2586a50529c1",
+        "SRT-30cc3f8ae722",
+        "SRT-3fd44f1d7de5",
+        "SRT-4da91d6976e4",
+        "SRT-502da4f10a78",
+        "SRT-6f5336367eaa",
+        "SRT-737bfcf7c80e",
+        "SRT-7b5dc7cfd0d3",
+        "SRT-82014083c794",
+        "SRT-8be5e3b63cd9",
+        "SRT-92540ce9401e",
+        "SRT-99ec45058016",
+        "SRT-a53b01f0b1ec",
+        "SRT-b1bffc86fd2c",
+        "SRT-b9827ff3aae8",
+        "SRT-c0588b427e45",
+        "SRT-e2286424cf85",
+        "SRT-f95c018b5d4f"
+      ],
+      "relay_sortie_ids": [
+        "RLY-b8379c37f6d8",
+        "RLY-f4a060f4f743",
+        "RLY-f6b3802fea6e"
+      ]
+    },
+    {
+      "atom_id": "C03",
+      "site_ids": [
+        "S006"
+      ],
+      "transport_sortie_ids": [
+        "SRT-83a00e402b8b"
+      ],
+      "relay_sortie_ids": []
+    }
+  ],
+  "edges": [
+    {
+      "kind": "transport",
+      "task_id": "SRT-83a00e402b8b",
+      "site_ids": [
+        "S006"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-c0588b427e45",
+      "site_ids": [
+        "S010"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-737bfcf7c80e",
+      "site_ids": [
+        "S014"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-e2286424cf85",
+      "site_ids": [
+        "S004",
+        "S011"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-5ab49955fd13",
+      "site_ids": [
+        "S001"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-e8b10e933368",
+      "site_ids": [
+        "S001"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-92540ce9401e",
+      "site_ids": [
+        "S009"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-99ec45058016",
+      "site_ids": [
+        "S013"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-b9827ff3aae8",
+      "site_ids": [
+        "S002",
+        "S009",
+        "S013"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-a53b01f0b1ec",
+      "site_ids": [
+        "S002"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-f95c018b5d4f",
+      "site_ids": [
+        "S012"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-8f440498cf35",
+      "site_ids": [
+        "S001"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-b1bffc86fd2c",
+      "site_ids": [
+        "S007"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-8be5e3b63cd9",
+      "site_ids": [
+        "S008"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-4da91d6976e4",
+      "site_ids": [
+        "S007"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-2586a50529c1",
+      "site_ids": [
+        "S003",
+        "S015"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-6f5336367eaa",
+      "site_ids": [
+        "S003",
+        "S007"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-82014083c794",
+      "site_ids": [
+        "S004"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-1dc9d5f7f2fc",
+      "site_ids": [
+        "S005"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-7b5dc7cfd0d3",
+      "site_ids": [
+        "S004"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-30cc3f8ae722",
+      "site_ids": [
+        "S008"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-502da4f10a78",
+      "site_ids": [
+        "S015"
+      ]
+    },
+    {
+      "kind": "transport",
+      "task_id": "SRT-3fd44f1d7de5",
+      "site_ids": [
+        "S011"
+      ]
+    },
+    {
+      "kind": "relay",
+      "task_id": "RLY-f4a060f4f743",
+      "site_ids": [
+        "S002",
+        "S004",
+        "S005",
+        "S008",
+        "S009",
+        "S010",
+        "S011",
+        "S012",
+        "S013",
+        "S014"
+      ]
+    },
+    {
+      "kind": "relay",
+      "task_id": "RLY-f6b3802fea6e",
+      "site_ids": [
+        "S010",
+        "S014"
+      ]
+    },
+    {
+      "kind": "relay",
+      "task_id": "RLY-b8379c37f6d8",
+      "site_ids": [
+        "S003",
+        "S004",
+        "S005",
+        "S007",
+        "S008",
+        "S015"
+      ]
+    }
+  ],
+  "resource_classes": [
+    {
+      "key": "drone:A",
+      "kind": "drone",
+      "type_id": "A",
+      "label": "A型运输机",
+      "inventory": 4
+    },
+    {
+      "key": "drone:B",
+      "kind": "drone",
+      "type_id": "B",
+      "label": "B型运输机",
+      "inventory": 2
+    },
+    {
+      "key": "drone:C",
+      "kind": "drone",
+      "type_id": "C",
+      "label": "C型运输机",
+      "inventory": 2
+    },
+    {
+      "key": "battery:A",
+      "kind": "battery",
+      "type_id": "A",
+      "label": "A型运输电池",
+      "inventory": 6
+    },
+    {
+      "key": "battery:B",
+      "kind": "battery",
+      "type_id": "B",
+      "label": "B型运输电池",
+      "inventory": 4
+    },
+    {
+      "key": "battery:C",
+      "kind": "battery",
+      "type_id": "C",
+      "label": "C型运输电池",
+      "inventory": 4
+    },
+    {
+      "key": "relay_drone:R",
+      "kind": "relay_drone",
+      "type_id": "R",
+      "label": "中继机",
+      "inventory": 2
+    },
+    {
+      "key": "relay_energy:R",
+      "kind": "relay_energy",
+      "type_id": "R",
+      "label": "中继能源",
+      "inventory": 6
+    }
+  ],
+  "pooled_requirements": [
+    {
+      "resource_key": "drone:A",
+      "required_count": 4
+    },
+    {
+      "resource_key": "drone:B",
+      "required_count": 2
+    },
+    {
+      "resource_key": "drone:C",
+      "required_count": 2
+    },
+    {
+      "resource_key": "battery:A",
+      "required_count": 6
+    },
+    {
+      "resource_key": "battery:B",
+      "required_count": 4
+    },
+    {
+      "resource_key": "battery:C",
+      "required_count": 4
+    },
+    {
+      "resource_key": "relay_drone:R",
+      "required_count": 2
+    },
+    {
+      "resource_key": "relay_energy:R",
+      "required_count": 3
+    }
+  ],
+  "variants": [
+    {
+      "group_count": 2,
+      "candidate_count": 3,
+      "status": "available",
+      "reason": null,
+      "resource_first": {
+        "groups": [
+          {
+            "group_id": "K2-G1",
+            "atom_ids": [
+              "C01",
+              "C02"
+            ],
+            "site_ids": [
+              "S001",
+              "S002",
+              "S003",
+              "S004",
+              "S005",
+              "S007",
+              "S008",
+              "S009",
+              "S010",
+              "S011",
+              "S012",
+              "S013",
+              "S014",
+              "S015"
+            ],
+            "transport_sortie_ids": [
+              "SRT-1dc9d5f7f2fc",
+              "SRT-2586a50529c1",
+              "SRT-30cc3f8ae722",
+              "SRT-3fd44f1d7de5",
+              "SRT-4da91d6976e4",
+              "SRT-502da4f10a78",
+              "SRT-5ab49955fd13",
+              "SRT-6f5336367eaa",
+              "SRT-737bfcf7c80e",
+              "SRT-7b5dc7cfd0d3",
+              "SRT-82014083c794",
+              "SRT-8be5e3b63cd9",
+              "SRT-8f440498cf35",
+              "SRT-92540ce9401e",
+              "SRT-99ec45058016",
+              "SRT-a53b01f0b1ec",
+              "SRT-b1bffc86fd2c",
+              "SRT-b9827ff3aae8",
+              "SRT-c0588b427e45",
+              "SRT-e2286424cf85",
+              "SRT-e8b10e933368",
+              "SRT-f95c018b5d4f"
+            ],
+            "relay_sortie_ids": [
+              "RLY-b8379c37f6d8",
+              "RLY-f4a060f4f743",
+              "RLY-f6b3802fea6e"
+            ],
+            "box_count": 74,
+            "workload_s": 53397.3467676849,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 4,
+                "peak_at_s": 585.11,
+                "peak_task_ids": [
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-e2286424cf85",
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 1250.899502077302,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 2464.077983431098,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 1725.403231831329,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 2197.2237376764397,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 3926.427940782651,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 3628.28408454096,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 3924.65408454096,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 5502.242416842849,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 5807.090185367184,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 5893.249403147653,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 5900.752946657878,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-c0588b427e45"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 1555.3795658311296,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 1869.7564163815437,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 3478.1203507441855,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 3916.9614356603315,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 5399.773637063279,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 5818.801435660331,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 2,
+                "peak_at_s": 1561.56,
+                "peak_task_ids": [
+                  "SRT-8f440498cf35",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 1428.1690773291593,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 3601.982384815261,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 3187.7290773291593,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 5881.322418392317,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 5479.18052452578,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 6,
+                "peak_at_s": 1900.86,
+                "peak_task_ids": [
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b1bffc86fd2c",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85",
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 2121.355027214739,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "BAT-A-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 3895.8182090942737,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 2898.8946383711477,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 3282.3524793194947,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 5405.73176042586,
+                    "original_resource_id": "BAT-A-05",
+                    "allocated_resource_id": "BAT-A-05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 4678.716509196414,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 4994.031665274511,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "BAT-A-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 6954.772309455364,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 7228.96942640683,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 7132.138917724154,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 6744.905880891208,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 4,
+                "peak_at_s": 1955.13,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-8be5e3b63cd9",
+                  "SRT-c0588b427e45",
+                  "SRT-f95c018b5d4f"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 3012.0977016699944,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 3463.9247586280844,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 5337.499880224939,
+                    "original_resource_id": "BAT-B-03",
+                    "allocated_resource_id": "BAT-B-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 5872.888597086537,
+                    "original_resource_id": "BAT-B-04",
+                    "allocated_resource_id": "BAT-B-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 7222.733319466246,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 7682.959312941878,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 4,
+                "peak_at_s": 3601.99,
+                "peak_task_ids": [
+                  "SRT-1dc9d5f7f2fc",
+                  "SRT-6f5336367eaa",
+                  "SRT-8f440498cf35",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 2956.3465568503216,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 6136.372397604101,
+                    "original_resource_id": "BAT-C-03",
+                    "allocated_resource_id": "BAT-C-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 4742.77451136468,
+                    "original_resource_id": "BAT-C-04",
+                    "allocated_resource_id": "BAT-C-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 8445.879124173185,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 7456.024423975601,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "BAT-C-04",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2094.5359752968543,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6057.443073196799,
+                    "original_resource_id": "R01",
+                    "allocated_resource_id": "R02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6188.965878562472,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 3,
+                "peak_at_s": 2094.54,
+                "peak_task_ids": [
+                  "RLY-b8379c37f6d8",
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2484.479163931088,
+                    "original_resource_id": "R-COMP-02",
+                    "allocated_resource_id": "R-COMP-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6934.139639493329,
+                    "original_resource_id": "R-COMP-01",
+                    "allocated_resource_id": "R-COMP-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6820.745104535941,
+                    "original_resource_id": "R-COMP-03",
+                    "allocated_resource_id": "R-COMP-03",
+                    "needs_addition": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group_id": "K2-G2",
+            "atom_ids": [
+              "C03"
+            ],
+            "site_ids": [
+              "S006"
+            ],
+            "transport_sortie_ids": [
+              "SRT-83a00e402b8b"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 6,
+            "workload_s": 1561.5538679616648,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 1561.5538679616648,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 3098.5089147087147,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          }
+        ],
+        "configuration": [
+          {
+            "resource_key": "drone:A",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 4,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:B",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:C",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 3,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:A",
+            "inventory": 6,
+            "pooled_required": 6,
+            "partition_required": 6,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:B",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 4,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:C",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 5,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_drone:R",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_energy:R",
+            "inventory": 6,
+            "pooled_required": 3,
+            "partition_required": 3,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 3
+          }
+        ],
+        "normalized_deficit": 0.75,
+        "normalized_size": 8.25,
+        "workload_cv2": 0.8895767395526835,
+        "objective_exact": {
+          "deficit": "3/4",
+          "size": "33/4",
+          "cv2": "268694942554299837595281297548872921/302048075907887303293502284267009849"
+        },
+        "fits_inventory": false
+      },
+      "balanced_first": {
+        "groups": [
+          {
+            "group_id": "K2-G1",
+            "atom_ids": [
+              "C01",
+              "C03"
+            ],
+            "site_ids": [
+              "S001",
+              "S006"
+            ],
+            "transport_sortie_ids": [
+              "SRT-5ab49955fd13",
+              "SRT-83a00e402b8b",
+              "SRT-8f440498cf35",
+              "SRT-e8b10e933368"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 21,
+            "workload_s": 5866.791524697285,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 1250.899502077302,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13",
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 1428.1690773291593,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 1561.5538679616648,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 3187.7290773291593,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 2121.355027214739,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "BAT-A-01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 3,
+                "peak_at_s": 1561.56,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13",
+                  "SRT-83a00e402b8b",
+                  "SRT-8f440498cf35"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 2956.3465568503216,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 3098.5089147087147,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "BAT-C-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 4742.77451136468,
+                    "original_resource_id": "BAT-C-04",
+                    "allocated_resource_id": "BAT-C-03",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          },
+          {
+            "group_id": "K2-G2",
+            "atom_ids": [
+              "C02"
+            ],
+            "site_ids": [
+              "S002",
+              "S003",
+              "S004",
+              "S005",
+              "S007",
+              "S008",
+              "S009",
+              "S010",
+              "S011",
+              "S012",
+              "S013",
+              "S014",
+              "S015"
+            ],
+            "transport_sortie_ids": [
+              "SRT-1dc9d5f7f2fc",
+              "SRT-2586a50529c1",
+              "SRT-30cc3f8ae722",
+              "SRT-3fd44f1d7de5",
+              "SRT-4da91d6976e4",
+              "SRT-502da4f10a78",
+              "SRT-6f5336367eaa",
+              "SRT-737bfcf7c80e",
+              "SRT-7b5dc7cfd0d3",
+              "SRT-82014083c794",
+              "SRT-8be5e3b63cd9",
+              "SRT-92540ce9401e",
+              "SRT-99ec45058016",
+              "SRT-a53b01f0b1ec",
+              "SRT-b1bffc86fd2c",
+              "SRT-b9827ff3aae8",
+              "SRT-c0588b427e45",
+              "SRT-e2286424cf85",
+              "SRT-f95c018b5d4f"
+            ],
+            "relay_sortie_ids": [
+              "RLY-b8379c37f6d8",
+              "RLY-f4a060f4f743",
+              "RLY-f6b3802fea6e"
+            ],
+            "box_count": 59,
+            "workload_s": 49092.109110949285,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 4,
+                "peak_at_s": 1250.9,
+                "peak_task_ids": [
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 2464.077983431098,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 1725.403231831329,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 2197.2237376764397,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 3926.427940782651,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 3628.28408454096,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 3924.65408454096,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 5502.242416842849,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 5807.090185367184,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 5893.249403147653,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 5900.752946657878,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-c0588b427e45"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 1555.3795658311296,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 1869.7564163815437,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 3478.1203507441855,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 3916.9614356603315,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 5399.773637063279,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 5818.801435660331,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 2,
+                "peak_at_s": 3187.73,
+                "peak_task_ids": [
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 3601.982384815261,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "ADD-drone:C-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 5881.322418392317,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-02",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 5479.18052452578,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "ADD-drone:C-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 6,
+                "peak_at_s": 2197.23,
+                "peak_task_ids": [
+                  "SRT-4da91d6976e4",
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b1bffc86fd2c",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 3895.8182090942737,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 2898.8946383711477,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 3282.3524793194947,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 5405.73176042586,
+                    "original_resource_id": "BAT-A-05",
+                    "allocated_resource_id": "BAT-A-05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 4678.716509196414,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 4994.031665274511,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "ADD-battery:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 6954.772309455364,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 7228.96942640683,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 7132.138917724154,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 6744.905880891208,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 4,
+                "peak_at_s": 1955.13,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-8be5e3b63cd9",
+                  "SRT-c0588b427e45",
+                  "SRT-f95c018b5d4f"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 3012.0977016699944,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 3463.9247586280844,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 5337.499880224939,
+                    "original_resource_id": "BAT-B-03",
+                    "allocated_resource_id": "BAT-B-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 5872.888597086537,
+                    "original_resource_id": "BAT-B-04",
+                    "allocated_resource_id": "BAT-B-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 7222.733319466246,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 7682.959312941878,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 3,
+                "peak_at_s": 3601.99,
+                "peak_task_ids": [
+                  "SRT-1dc9d5f7f2fc",
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 6136.372397604101,
+                    "original_resource_id": "BAT-C-03",
+                    "allocated_resource_id": "BAT-C-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 8445.879124173185,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "ADD-battery:C-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 7456.024423975601,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-02",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2094.5359752968543,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6057.443073196799,
+                    "original_resource_id": "R01",
+                    "allocated_resource_id": "R02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6188.965878562472,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 3,
+                "peak_at_s": 2094.54,
+                "peak_task_ids": [
+                  "RLY-b8379c37f6d8",
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2484.479163931088,
+                    "original_resource_id": "R-COMP-02",
+                    "allocated_resource_id": "R-COMP-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6934.139639493329,
+                    "original_resource_id": "R-COMP-01",
+                    "allocated_resource_id": "R-COMP-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6820.745104535941,
+                    "original_resource_id": "R-COMP-03",
+                    "allocated_resource_id": "R-COMP-03",
+                    "needs_addition": false
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "configuration": [
+          {
+            "resource_key": "drone:A",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 5,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:B",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:C",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 4,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:A",
+            "inventory": 6,
+            "pooled_required": 6,
+            "partition_required": 7,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:B",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 4,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:C",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 6,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_drone:R",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_energy:R",
+            "inventory": 6,
+            "pooled_required": 3,
+            "partition_required": 3,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 3
+          }
+        ],
+        "normalized_deficit": 1.9166666666666667,
+        "normalized_size": 9.416666666666666,
+        "workload_cv2": 0.6185863210074356,
+        "objective_exact": {
+          "deficit": "23/12",
+          "size": "113/12",
+          "cv2": "186842808043234641881434398674960001/302048075907887303293502284267009849"
+        },
+        "fits_inventory": false
+      }
+    },
+    {
+      "group_count": 3,
+      "candidate_count": 1,
+      "status": "available",
+      "reason": null,
+      "resource_first": {
+        "groups": [
+          {
+            "group_id": "K3-G1",
+            "atom_ids": [
+              "C01"
+            ],
+            "site_ids": [
+              "S001"
+            ],
+            "transport_sortie_ids": [
+              "SRT-5ab49955fd13",
+              "SRT-8f440498cf35",
+              "SRT-e8b10e933368"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 15,
+            "workload_s": 4305.2376567356205,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 1250.899502077302,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 1428.1690773291593,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 3187.7290773291593,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 2121.355027214739,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "BAT-A-01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 2,
+                "peak_at_s": 1561.56,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13",
+                  "SRT-8f440498cf35"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 2956.3465568503216,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 4742.77451136468,
+                    "original_resource_id": "BAT-C-04",
+                    "allocated_resource_id": "BAT-C-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          },
+          {
+            "group_id": "K3-G2",
+            "atom_ids": [
+              "C02"
+            ],
+            "site_ids": [
+              "S002",
+              "S003",
+              "S004",
+              "S005",
+              "S007",
+              "S008",
+              "S009",
+              "S010",
+              "S011",
+              "S012",
+              "S013",
+              "S014",
+              "S015"
+            ],
+            "transport_sortie_ids": [
+              "SRT-1dc9d5f7f2fc",
+              "SRT-2586a50529c1",
+              "SRT-30cc3f8ae722",
+              "SRT-3fd44f1d7de5",
+              "SRT-4da91d6976e4",
+              "SRT-502da4f10a78",
+              "SRT-6f5336367eaa",
+              "SRT-737bfcf7c80e",
+              "SRT-7b5dc7cfd0d3",
+              "SRT-82014083c794",
+              "SRT-8be5e3b63cd9",
+              "SRT-92540ce9401e",
+              "SRT-99ec45058016",
+              "SRT-a53b01f0b1ec",
+              "SRT-b1bffc86fd2c",
+              "SRT-b9827ff3aae8",
+              "SRT-c0588b427e45",
+              "SRT-e2286424cf85",
+              "SRT-f95c018b5d4f"
+            ],
+            "relay_sortie_ids": [
+              "RLY-b8379c37f6d8",
+              "RLY-f4a060f4f743",
+              "RLY-f6b3802fea6e"
+            ],
+            "box_count": 59,
+            "workload_s": 49092.109110949285,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 4,
+                "peak_at_s": 1250.9,
+                "peak_task_ids": [
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 2464.077983431098,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 1725.403231831329,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 2197.2237376764397,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 3926.427940782651,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 3628.28408454096,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 3924.65408454096,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 5502.242416842849,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 5807.090185367184,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 5893.249403147653,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 5900.752946657878,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-c0588b427e45"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 1555.3795658311296,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 1869.7564163815437,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 3478.1203507441855,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 3916.9614356603315,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 5399.773637063279,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 5818.801435660331,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 2,
+                "peak_at_s": 3187.73,
+                "peak_task_ids": [
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 3601.982384815261,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 5881.322418392317,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 5479.18052452578,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 6,
+                "peak_at_s": 2197.23,
+                "peak_task_ids": [
+                  "SRT-4da91d6976e4",
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b1bffc86fd2c",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 3895.8182090942737,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 2898.8946383711477,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 3282.3524793194947,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 5405.73176042586,
+                    "original_resource_id": "BAT-A-05",
+                    "allocated_resource_id": "BAT-A-05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 4678.716509196414,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 4994.031665274511,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "ADD-battery:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 6954.772309455364,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 7228.96942640683,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 7132.138917724154,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 6744.905880891208,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 4,
+                "peak_at_s": 1955.13,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-8be5e3b63cd9",
+                  "SRT-c0588b427e45",
+                  "SRT-f95c018b5d4f"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 3012.0977016699944,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 3463.9247586280844,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 5337.499880224939,
+                    "original_resource_id": "BAT-B-03",
+                    "allocated_resource_id": "BAT-B-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 5872.888597086537,
+                    "original_resource_id": "BAT-B-04",
+                    "allocated_resource_id": "BAT-B-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 7222.733319466246,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 7682.959312941878,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 3,
+                "peak_at_s": 3601.99,
+                "peak_task_ids": [
+                  "SRT-1dc9d5f7f2fc",
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 6136.372397604101,
+                    "original_resource_id": "BAT-C-03",
+                    "allocated_resource_id": "BAT-C-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 8445.879124173185,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 7456.024423975601,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2094.5359752968543,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6057.443073196799,
+                    "original_resource_id": "R01",
+                    "allocated_resource_id": "R02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6188.965878562472,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 3,
+                "peak_at_s": 2094.54,
+                "peak_task_ids": [
+                  "RLY-b8379c37f6d8",
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2484.479163931088,
+                    "original_resource_id": "R-COMP-02",
+                    "allocated_resource_id": "R-COMP-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6934.139639493329,
+                    "original_resource_id": "R-COMP-01",
+                    "allocated_resource_id": "R-COMP-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6820.745104535941,
+                    "original_resource_id": "R-COMP-03",
+                    "allocated_resource_id": "R-COMP-03",
+                    "needs_addition": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group_id": "K3-G3",
+            "atom_ids": [
+              "C03"
+            ],
+            "site_ids": [
+              "S006"
+            ],
+            "transport_sortie_ids": [
+              "SRT-83a00e402b8b"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 6,
+            "workload_s": 1561.5538679616648,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 1561.5538679616648,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-02",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 3098.5089147087147,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-02",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          }
+        ],
+        "configuration": [
+          {
+            "resource_key": "drone:A",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 5,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:B",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:C",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 4,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:A",
+            "inventory": 6,
+            "pooled_required": 6,
+            "partition_required": 7,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:B",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 4,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:C",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 6,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_drone:R",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_energy:R",
+            "inventory": 6,
+            "pooled_required": 3,
+            "partition_required": 3,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 3
+          }
+        ],
+        "normalized_deficit": 1.9166666666666667,
+        "normalized_size": 9.416666666666666,
+        "workload_cv2": 1.4145249309248025,
+        "objective_exact": {
+          "deficit": "23/12",
+          "size": "113/12",
+          "cv2": "427254533709573780996087546483639998/302048075907887303293502284267009849"
+        },
+        "fits_inventory": false
+      },
+      "balanced_first": {
+        "groups": [
+          {
+            "group_id": "K3-G1",
+            "atom_ids": [
+              "C01"
+            ],
+            "site_ids": [
+              "S001"
+            ],
+            "transport_sortie_ids": [
+              "SRT-5ab49955fd13",
+              "SRT-8f440498cf35",
+              "SRT-e8b10e933368"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 15,
+            "workload_s": 4305.2376567356205,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 1250.899502077302,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "U01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 1428.1690773291593,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 3187.7290773291593,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "U07",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-e8b10e933368"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e8b10e933368",
+                    "start_s": 0.0,
+                    "end_s": 2121.355027214739,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "BAT-A-01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 2,
+                "peak_at_s": 1561.56,
+                "peak_task_ids": [
+                  "SRT-5ab49955fd13",
+                  "SRT-8f440498cf35"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-5ab49955fd13",
+                    "start_s": 0.0,
+                    "end_s": 2956.3465568503216,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8f440498cf35",
+                    "start_s": 1561.56,
+                    "end_s": 4742.77451136468,
+                    "original_resource_id": "BAT-C-04",
+                    "allocated_resource_id": "BAT-C-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          },
+          {
+            "group_id": "K3-G2",
+            "atom_ids": [
+              "C02"
+            ],
+            "site_ids": [
+              "S002",
+              "S003",
+              "S004",
+              "S005",
+              "S007",
+              "S008",
+              "S009",
+              "S010",
+              "S011",
+              "S012",
+              "S013",
+              "S014",
+              "S015"
+            ],
+            "transport_sortie_ids": [
+              "SRT-1dc9d5f7f2fc",
+              "SRT-2586a50529c1",
+              "SRT-30cc3f8ae722",
+              "SRT-3fd44f1d7de5",
+              "SRT-4da91d6976e4",
+              "SRT-502da4f10a78",
+              "SRT-6f5336367eaa",
+              "SRT-737bfcf7c80e",
+              "SRT-7b5dc7cfd0d3",
+              "SRT-82014083c794",
+              "SRT-8be5e3b63cd9",
+              "SRT-92540ce9401e",
+              "SRT-99ec45058016",
+              "SRT-a53b01f0b1ec",
+              "SRT-b1bffc86fd2c",
+              "SRT-b9827ff3aae8",
+              "SRT-c0588b427e45",
+              "SRT-e2286424cf85",
+              "SRT-f95c018b5d4f"
+            ],
+            "relay_sortie_ids": [
+              "RLY-b8379c37f6d8",
+              "RLY-f4a060f4f743",
+              "RLY-f6b3802fea6e"
+            ],
+            "box_count": 59,
+            "workload_s": 49092.109110949285,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 4,
+                "peak_at_s": 1250.9,
+                "peak_task_ids": [
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 2464.077983431098,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 1725.403231831329,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 2197.2237376764397,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 3926.427940782651,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 3628.28408454096,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 3924.65408454096,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 5502.242416842849,
+                    "original_resource_id": "U01",
+                    "allocated_resource_id": "U02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 5807.090185367184,
+                    "original_resource_id": "U03",
+                    "allocated_resource_id": "U03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 5893.249403147653,
+                    "original_resource_id": "U04",
+                    "allocated_resource_id": "U04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 5900.752946657878,
+                    "original_resource_id": "U02",
+                    "allocated_resource_id": "ADD-drone:A-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-c0588b427e45"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 1555.3795658311296,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 1869.7564163815437,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 3478.1203507441855,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 3916.9614356603315,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 5399.773637063279,
+                    "original_resource_id": "U05",
+                    "allocated_resource_id": "U05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 5818.801435660331,
+                    "original_resource_id": "U06",
+                    "allocated_resource_id": "U06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 2,
+                "peak_at_s": 3187.73,
+                "peak_task_ids": [
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 3601.982384815261,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 5881.322418392317,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 5479.18052452578,
+                    "original_resource_id": "U08",
+                    "allocated_resource_id": "U08",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 6,
+                "peak_at_s": 2197.23,
+                "peak_task_ids": [
+                  "SRT-4da91d6976e4",
+                  "SRT-92540ce9401e",
+                  "SRT-99ec45058016",
+                  "SRT-b1bffc86fd2c",
+                  "SRT-b9827ff3aae8",
+                  "SRT-e2286424cf85"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-e2286424cf85",
+                    "start_s": 0.0,
+                    "end_s": 3895.8182090942737,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-92540ce9401e",
+                    "start_s": 36.79,
+                    "end_s": 2898.8946383711477,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-99ec45058016",
+                    "start_s": 585.11,
+                    "end_s": 3282.3524793194947,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b9827ff3aae8",
+                    "start_s": 1250.9,
+                    "end_s": 5405.73176042586,
+                    "original_resource_id": "BAT-A-05",
+                    "allocated_resource_id": "BAT-A-05",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-b1bffc86fd2c",
+                    "start_s": 1900.86,
+                    "end_s": 4678.716509196414,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-4da91d6976e4",
+                    "start_s": 2197.23,
+                    "end_s": 4994.031665274511,
+                    "original_resource_id": "BAT-A-02",
+                    "allocated_resource_id": "ADD-battery:A-01",
+                    "needs_addition": true
+                  },
+                  {
+                    "task_id": "SRT-2586a50529c1",
+                    "start_s": 2898.91,
+                    "end_s": 6954.772309455364,
+                    "original_resource_id": "BAT-A-03",
+                    "allocated_resource_id": "BAT-A-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-7b5dc7cfd0d3",
+                    "start_s": 3628.29,
+                    "end_s": 7228.96942640683,
+                    "original_resource_id": "BAT-A-04",
+                    "allocated_resource_id": "BAT-A-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-502da4f10a78",
+                    "start_s": 3924.66,
+                    "end_s": 7132.138917724154,
+                    "original_resource_id": "BAT-A-01",
+                    "allocated_resource_id": "BAT-A-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-3fd44f1d7de5",
+                    "start_s": 4678.73,
+                    "end_s": 6744.905880891208,
+                    "original_resource_id": "BAT-A-06",
+                    "allocated_resource_id": "BAT-A-06",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 4,
+                "peak_at_s": 1955.13,
+                "peak_task_ids": [
+                  "SRT-737bfcf7c80e",
+                  "SRT-8be5e3b63cd9",
+                  "SRT-c0588b427e45",
+                  "SRT-f95c018b5d4f"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-c0588b427e45",
+                    "start_s": 0.0,
+                    "end_s": 3012.0977016699944,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-737bfcf7c80e",
+                    "start_s": 0.0,
+                    "end_s": 3463.9247586280844,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-f95c018b5d4f",
+                    "start_s": 1555.38,
+                    "end_s": 5337.499880224939,
+                    "original_resource_id": "BAT-B-03",
+                    "allocated_resource_id": "BAT-B-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-8be5e3b63cd9",
+                    "start_s": 1955.13,
+                    "end_s": 5872.888597086537,
+                    "original_resource_id": "BAT-B-04",
+                    "allocated_resource_id": "BAT-B-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-82014083c794",
+                    "start_s": 3478.13,
+                    "end_s": 7222.733319466246,
+                    "original_resource_id": "BAT-B-01",
+                    "allocated_resource_id": "BAT-B-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-30cc3f8ae722",
+                    "start_s": 3916.97,
+                    "end_s": 7682.959312941878,
+                    "original_resource_id": "BAT-B-02",
+                    "allocated_resource_id": "BAT-B-02",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 3,
+                "peak_at_s": 3601.99,
+                "peak_task_ids": [
+                  "SRT-1dc9d5f7f2fc",
+                  "SRT-6f5336367eaa",
+                  "SRT-a53b01f0b1ec"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-a53b01f0b1ec",
+                    "start_s": 1428.17,
+                    "end_s": 6136.372397604101,
+                    "original_resource_id": "BAT-C-03",
+                    "allocated_resource_id": "BAT-C-03",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-6f5336367eaa",
+                    "start_s": 3187.73,
+                    "end_s": 8445.879124173185,
+                    "original_resource_id": "BAT-C-02",
+                    "allocated_resource_id": "BAT-C-04",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "SRT-1dc9d5f7f2fc",
+                    "start_s": 3601.99,
+                    "end_s": 7456.024423975601,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-01",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 2,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2094.5359752968543,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6057.443073196799,
+                    "original_resource_id": "R01",
+                    "allocated_resource_id": "R02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6188.965878562472,
+                    "original_resource_id": "R02",
+                    "allocated_resource_id": "R01",
+                    "needs_addition": false
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 3,
+                "peak_at_s": 2094.54,
+                "peak_task_ids": [
+                  "RLY-b8379c37f6d8",
+                  "RLY-f4a060f4f743",
+                  "RLY-f6b3802fea6e"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "RLY-f6b3802fea6e",
+                    "start_s": 0.0,
+                    "end_s": 2484.479163931088,
+                    "original_resource_id": "R-COMP-02",
+                    "allocated_resource_id": "R-COMP-01",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-f4a060f4f743",
+                    "start_s": 0.0,
+                    "end_s": 6934.139639493329,
+                    "original_resource_id": "R-COMP-01",
+                    "allocated_resource_id": "R-COMP-02",
+                    "needs_addition": false
+                  },
+                  {
+                    "task_id": "RLY-b8379c37f6d8",
+                    "start_s": 2094.54,
+                    "end_s": 6820.745104535941,
+                    "original_resource_id": "R-COMP-03",
+                    "allocated_resource_id": "R-COMP-03",
+                    "needs_addition": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group_id": "K3-G3",
+            "atom_ids": [
+              "C03"
+            ],
+            "site_ids": [
+              "S006"
+            ],
+            "transport_sortie_ids": [
+              "SRT-83a00e402b8b"
+            ],
+            "relay_sortie_ids": [],
+            "box_count": 6,
+            "workload_s": 1561.5538679616648,
+            "resources": [
+              {
+                "resource_key": "drone:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "drone:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 1561.5538679616648,
+                    "original_resource_id": "U07",
+                    "allocated_resource_id": "ADD-drone:C-02",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "battery:A",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:B",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "battery:C",
+                "required_count": 1,
+                "peak_at_s": 0.0,
+                "peak_task_ids": [
+                  "SRT-83a00e402b8b"
+                ],
+                "assignments": [
+                  {
+                    "task_id": "SRT-83a00e402b8b",
+                    "start_s": 0.0,
+                    "end_s": 3098.5089147087147,
+                    "original_resource_id": "BAT-C-01",
+                    "allocated_resource_id": "ADD-battery:C-02",
+                    "needs_addition": true
+                  }
+                ]
+              },
+              {
+                "resource_key": "relay_drone:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              },
+              {
+                "resource_key": "relay_energy:R",
+                "required_count": 0,
+                "peak_at_s": null,
+                "peak_task_ids": [],
+                "assignments": []
+              }
+            ]
+          }
+        ],
+        "configuration": [
+          {
+            "resource_key": "drone:A",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 5,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:B",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "drone:C",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 4,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:A",
+            "inventory": 6,
+            "pooled_required": 6,
+            "partition_required": 7,
+            "extra_vs_pool": 1,
+            "shortfall": 1,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:B",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 4,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "battery:C",
+            "inventory": 4,
+            "pooled_required": 4,
+            "partition_required": 6,
+            "extra_vs_pool": 2,
+            "shortfall": 2,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_drone:R",
+            "inventory": 2,
+            "pooled_required": 2,
+            "partition_required": 2,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 0
+          },
+          {
+            "resource_key": "relay_energy:R",
+            "inventory": 6,
+            "pooled_required": 3,
+            "partition_required": 3,
+            "extra_vs_pool": 0,
+            "shortfall": 0,
+            "unallocated_stock": 3
+          }
+        ],
+        "normalized_deficit": 1.9166666666666667,
+        "normalized_size": 9.416666666666666,
+        "workload_cv2": 1.4145249309248025,
+        "objective_exact": {
+          "deficit": "23/12",
+          "size": "113/12",
+          "cv2": "427254533709573780996087546483639998/302048075907887303293502284267009849"
+        },
+        "fits_inventory": false
+      }
+    }
+  ],
+  "audit_checks": [
+    "联合方案独立重算",
+    "并查集与二分图连通性一致",
+    "站点和任务唯一归属",
+    "通信实际来源不跨组",
+    "冻结区间与峰值见证一致",
+    "同质资源区间着色不重叠",
+    "专用实体不跨组",
+    "完整枚举与有理数字典序排序"
+  ],
+  "notes": [
+    "固定任务、时刻、驻点和通信实际来源；只允许同质资源重新编号，各组不得共享实体。",
+    "峰值与配置最优只针对冻结任务及有限分区，不是重新调度时最少资源。",
+    "工作量为运输与中继从准备到返航的累计秒数，不包含充电和机体周转。"
+  ]
+}

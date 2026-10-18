@@ -1,0 +1,15 @@
+{
+  "source_commit": "12e60ee",
+  "trace_archive_local": ".local/failure-traces/12e60ee-battery-confirmation.zip",
+  "confirmations": [
+    {
+      "url": "http://127.0.0.1:5174/api/v1/plans/PLAN-B808AB6ECD2D4203/confirm",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:5174/api/v1/plans/PLAN-B6DC7353D77542E8/confirm",
+      "status": 200
+    }
+  ],
+  "failure": "The toast locator matched both legitimate success notices. Browser strict-mode assertion failed after both HTTP confirmations succeeded; the final test now checks current Plan ID/version/receipt instead of assuming one notification."
+}

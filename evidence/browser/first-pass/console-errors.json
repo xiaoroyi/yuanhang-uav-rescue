@@ -1,0 +1,4 @@
+[
+  "Error: Worker failed to load. Check that the worker URL is correct.\n    at Worker.<anonymous> (http://127.0.0.1:5173/node_modules/.vite/deps/maplibre-gl.js?v=630bf29b:18649:37)",
+  "Error: Worker failed to load. Check that the worker URL is correct.\n    at Worker.<anonymous> (http://127.0.0.1:5173/node_modules/.vite/deps/maplibre-gl.js?v=630bf29b:18649:37)"
+]
