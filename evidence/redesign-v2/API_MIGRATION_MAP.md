@@ -20,3 +20,7 @@ Scenario与MissionDraft可选weather；旧输入不强制补字段，原Snapshot
 
 ExecutionView兼容增加applied_event_ids；事件投影增加withdrawn/纠错时间与依据，原事件原输入只读保留。新增POST `/executions/{id}/events/{event_id}/resolve`，只允许未采纳的本机误报；状态/幂等/版本检查和独立审计记录。SSE支持cursor/Last-Event-ID、超前游标409与连接状态，同步读取转线程池。旧控制路由继续保留，但advance与start/resume统一阻断未处理事件。
 
+## RFC-021增量
+
+execution export默认v1保留；version=2新增严格执行包/文档封装。3条execution-archives路径提供只读导入/列表/详情，存储仅OperationRecordRow新命名空间，不创建可控执行/领域行。整体及原文SHA256、Snapshot哈希、Plan结构、事实游标/箱件归属与事件/指令/Job快照引用均检查；不重跑独立物理验证冒充认证。运行时间筛选是只读，不调用simulation/actions。新HTTP/OpenAPI/操作Schema/TypeScript同步，见RFC-021。
+

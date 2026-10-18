@@ -21,6 +21,11 @@ from shared.build_info import verification_fingerprint
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--browser", action="store_true")
+    parser.add_argument(
+        "--output-dir",
+        default="evidence/verification",
+        help="Project-relative evidence directory; use a new release directory to preserve earlier reports.",
+    )
     args = parser.parse_args()
     npm = shutil.which("npm.cmd" if os.name == "nt" else "npm")
     py = sys.executable
@@ -34,7 +39,9 @@ def main():
     ]
     if args.browser:
         commands.append([npm, "--prefix", "frontend", "run", "test:e2e"])
-    out = ROOT / "evidence/verification"
+    out = (ROOT / args.output_dir).resolve()
+    if not out.is_relative_to(ROOT.resolve()):
+        parser.error("--output-dir must stay inside this project")
     out.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     records = []

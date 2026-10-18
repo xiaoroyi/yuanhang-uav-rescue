@@ -1,5 +1,12 @@
 {
   "$defs": {
+    "AddedSortieId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "AddedSortieId",
+      "type": "string"
+    },
     "ApplyRepair": {
       "additionalProperties": false,
       "properties": {
@@ -137,6 +144,13 @@
       "title": "Battery",
       "type": "object"
     },
+    "CargoId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "CargoId",
+      "type": "string"
+    },
     "CargoItem": {
       "additionalProperties": false,
       "properties": {
@@ -192,6 +206,42 @@
       "title": "CargoItem",
       "type": "object"
     },
+    "ChangeSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "preserved_sortie_ids": {
+          "items": {
+            "$ref": "#/$defs/PreservedSortieId"
+          },
+          "minItems": 0,
+          "title": "Preserved Sortie Ids",
+          "type": "array"
+        },
+        "removed_sortie_ids": {
+          "items": {
+            "$ref": "#/$defs/RemovedSortieId"
+          },
+          "minItems": 0,
+          "title": "Removed Sortie Ids",
+          "type": "array"
+        },
+        "added_sortie_ids": {
+          "items": {
+            "$ref": "#/$defs/AddedSortieId"
+          },
+          "minItems": 0,
+          "title": "Added Sortie Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "preserved_sortie_ids",
+        "removed_sortie_ids",
+        "added_sortie_ids"
+      ],
+      "title": "ChangeSummary",
+      "type": "object"
+    },
     "ChargeModel": {
       "additionalProperties": false,
       "properties": {
@@ -215,6 +265,44 @@
         "parameters"
       ],
       "title": "ChargeModel",
+      "type": "object"
+    },
+    "Check": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/Code"
+        },
+        "status": {
+          "$ref": "#/$defs/Status1"
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Object Id"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "status",
+        "object_id",
+        "message"
+      ],
+      "title": "Check",
       "type": "object"
     },
     "CheckItem": {
@@ -334,6 +422,24 @@
       ],
       "title": "CheckItem",
       "type": "object"
+    },
+    "Code": {
+      "enum": [
+        "cargo_unique",
+        "capacity",
+        "inventory",
+        "aircraft",
+        "battery",
+        "time_window",
+        "energy",
+        "terrain",
+        "communication",
+        "restricted_zone",
+        "ground_resource",
+        "weather_window"
+      ],
+      "title": "Code",
+      "type": "string"
     },
     "Code1": {
       "enum": [
@@ -619,6 +725,111 @@
       "title": "Communication",
       "type": "object"
     },
+    "CommunicationReport": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "const": "projected_dem_radio_v1",
+          "title": "Model Id",
+          "type": "string"
+        },
+        "transport_active_s": {
+          "minimum": 0.0,
+          "title": "Transport Active S",
+          "type": "number"
+        },
+        "direct_s": {
+          "minimum": 0.0,
+          "title": "Direct S",
+          "type": "number"
+        },
+        "relay_s": {
+          "minimum": 0.0,
+          "title": "Relay S",
+          "type": "number"
+        },
+        "coverage_gap_s": {
+          "minimum": 0.0,
+          "title": "Coverage Gap S",
+          "type": "number"
+        },
+        "windows": {
+          "items": {
+            "$ref": "#/$defs/CommunicationWindow"
+          },
+          "maxItems": 20000,
+          "title": "Windows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model_id",
+        "transport_active_s",
+        "direct_s",
+        "relay_s",
+        "coverage_gap_s",
+        "windows"
+      ],
+      "title": "CommunicationReport",
+      "type": "object"
+    },
+    "CommunicationStatus": {
+      "enum": [
+        "passed",
+        "failed",
+        "not_evaluated"
+      ],
+      "title": "CommunicationStatus",
+      "type": "string"
+    },
+    "CommunicationWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "sortie_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Sortie Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0.0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0.0,
+          "title": "End S",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "relay_sortie_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Relay Sortie Id"
+        }
+      },
+      "required": [
+        "sortie_id",
+        "start_s",
+        "end_s",
+        "source",
+        "relay_sortie_id"
+      ],
+      "title": "CommunicationWindow",
+      "type": "object"
+    },
     "Coordinate": {
       "maximum": 180.0,
       "minimum": -180.0,
@@ -643,6 +854,32 @@
       "title": "Coordinate3",
       "type": "number"
     },
+    "Coordinate4": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/Coordinate4Item"
+        },
+        {
+          "$ref": "#/$defs/Coordinate4Item1"
+        }
+      ],
+      "title": "Coordinate4",
+      "type": "array"
+    },
+    "Coordinate4Item": {
+      "maximum": 180.0,
+      "minimum": -180.0,
+      "title": "Coordinate4Item",
+      "type": "number"
+    },
+    "Coordinate4Item1": {
+      "maximum": 90.0,
+      "minimum": -90.0,
+      "title": "Coordinate4Item1",
+      "type": "number"
+    },
     "Coordinate5": {
       "items": {
         "$ref": "#/$defs/Coordinates"
@@ -663,6 +900,24 @@
       ],
       "title": "Coordinates",
       "type": "array"
+    },
+    "DataOrigin": {
+      "enum": [
+        "mock",
+        "solver",
+        "imported_historical"
+      ],
+      "title": "DataOrigin",
+      "type": "string"
+    },
+    "DataOrigin1": {
+      "enum": [
+        "mock",
+        "user_input",
+        "verified_dataset"
+      ],
+      "title": "DataOrigin1",
+      "type": "string"
     },
     "DeliveryDeviation": {
       "additionalProperties": false,
@@ -1249,6 +1504,192 @@
       "title": "ExecutionAnalysis",
       "type": "object"
     },
+    "ExecutionArchiveSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "archive_id": {
+          "title": "Archive Id",
+          "type": "string"
+        },
+        "execution_id": {
+          "title": "Execution Id",
+          "type": "string"
+        },
+        "mission_name": {
+          "title": "Mission Name",
+          "type": "string"
+        },
+        "imported_at": {
+          "format": "date-time",
+          "title": "Imported At",
+          "type": "string"
+        },
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "captured_time_s": {
+          "title": "Captured Time S",
+          "type": "number"
+        },
+        "captured_status": {
+          "title": "Captured Status",
+          "type": "string"
+        },
+        "fact_count": {
+          "title": "Fact Count",
+          "type": "integer"
+        },
+        "plan_count": {
+          "title": "Plan Count",
+          "type": "integer"
+        },
+        "content_sha256": {
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "read_only": {
+          "const": true,
+          "default": true,
+          "title": "Read Only",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "archive_id",
+        "execution_id",
+        "mission_name",
+        "imported_at",
+        "captured_at",
+        "captured_time_s",
+        "captured_status",
+        "fact_count",
+        "plan_count",
+        "content_sha256"
+      ],
+      "title": "ExecutionArchiveSummary",
+      "type": "object"
+    },
+    "ExecutionArchiveView": {
+      "additionalProperties": false,
+      "properties": {
+        "summary": {
+          "$ref": "#/$defs/ExecutionArchiveSummary"
+        },
+        "bundle": {
+          "$ref": "#/$defs/ExecutionBundle"
+        },
+        "plans": {
+          "items": {
+            "$ref": "#/$defs/Plan"
+          },
+          "title": "Plans",
+          "type": "array"
+        },
+        "snapshots": {
+          "items": {
+            "$ref": "#/$defs/Snapshot"
+          },
+          "title": "Snapshots",
+          "type": "array"
+        },
+        "analysis": {
+          "$ref": "#/$defs/ExecutionAnalysis"
+        }
+      },
+      "required": [
+        "summary",
+        "bundle",
+        "plans",
+        "snapshots",
+        "analysis"
+      ],
+      "title": "ExecutionArchiveView",
+      "type": "object"
+    },
+    "ExecutionBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "bundle_version": {
+          "const": "execution-simulation-v2",
+          "title": "Bundle Version",
+          "type": "string"
+        },
+        "source": {
+          "const": "simulation",
+          "title": "Source",
+          "type": "string"
+        },
+        "is_flight_controller_file": {
+          "const": false,
+          "title": "Is Flight Controller File",
+          "type": "boolean"
+        },
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "mission_name": {
+          "maxLength": 128,
+          "title": "Mission Name",
+          "type": "string"
+        },
+        "execution": {
+          "$ref": "#/$defs/ExecutionView"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/ExecutionEventView"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "changes": {
+          "items": {
+            "$ref": "#/$defs/RepairView"
+          },
+          "title": "Changes",
+          "type": "array"
+        },
+        "commands": {
+          "items": {
+            "$ref": "#/$defs/CommandView"
+          },
+          "title": "Commands",
+          "type": "array"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/FrozenDocument"
+          },
+          "maxItems": 2000,
+          "title": "Documents",
+          "type": "array"
+        },
+        "content_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "bundle_version",
+        "source",
+        "is_flight_controller_file",
+        "captured_at",
+        "mission_name",
+        "execution",
+        "events",
+        "changes",
+        "commands",
+        "documents",
+        "content_sha256"
+      ],
+      "title": "ExecutionBundle",
+      "type": "object"
+    },
     "ExecutionCreate": {
       "additionalProperties": false,
       "properties": {
@@ -1788,6 +2229,45 @@
       "title": "ExecutionView",
       "type": "object"
     },
+    "FrozenDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "plan",
+            "snapshot",
+            "event_input",
+            "event_resolution"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "document_id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "title": "Document Id",
+          "type": "string"
+        },
+        "payload_json": {
+          "maxLength": 4000000,
+          "title": "Payload Json",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "payload_json",
+        "sha256"
+      ],
+      "title": "FrozenDocument",
+      "type": "object"
+    },
     "Geometry": {
       "additionalProperties": false,
       "properties": {
@@ -1813,6 +2293,48 @@
       "title": "Geometry",
       "type": "object"
     },
+    "InitialCharge": {
+      "additionalProperties": false,
+      "properties": {
+        "battery_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Battery Id",
+          "type": "string"
+        },
+        "start_s": {
+          "minimum": 0.0,
+          "title": "Start S",
+          "type": "number"
+        },
+        "end_s": {
+          "minimum": 0.0,
+          "title": "End S",
+          "type": "number"
+        },
+        "from_soc": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "From Soc",
+          "type": "number"
+        },
+        "to_soc": {
+          "const": 1,
+          "title": "To Soc",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "battery_id",
+        "start_s",
+        "end_s",
+        "from_soc",
+        "to_soc"
+      ],
+      "title": "InitialCharge",
+      "type": "object"
+    },
     "JobState": {
       "enum": [
         "queued",
@@ -1823,6 +2345,177 @@
       ],
       "title": "JobState",
       "type": "string"
+    },
+    "JointMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "relay_energy_kwh": {
+          "minimum": 0.0,
+          "title": "Relay Energy Kwh",
+          "type": "number"
+        },
+        "joint_energy_kwh": {
+          "minimum": 0.0,
+          "title": "Joint Energy Kwh",
+          "type": "number"
+        },
+        "joint_makespan_s": {
+          "minimum": 0.0,
+          "title": "Joint Makespan S",
+          "type": "number"
+        },
+        "relay_sortie_count": {
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Relay Sortie Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "relay_energy_kwh",
+        "joint_energy_kwh",
+        "joint_makespan_s",
+        "relay_sortie_count"
+      ],
+      "title": "JointMetrics",
+      "type": "object"
+    },
+    "JointSearch": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "const": "fixed_grouping_joint_cp_v1",
+          "title": "Method",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "station_count": {
+          "minimum": 0,
+          "title": "Station Count",
+          "type": "integer"
+        },
+        "coverage_atom_count": {
+          "minimum": 0,
+          "title": "Coverage Atom Count",
+          "type": "integer"
+        },
+        "relay_slot_limit": {
+          "minimum": 0,
+          "title": "Relay Slot Limit",
+          "type": "integer"
+        },
+        "stages": {
+          "items": {
+            "$ref": "#/$defs/Stage"
+          },
+          "title": "Stages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "method",
+        "status",
+        "station_count",
+        "coverage_atom_count",
+        "relay_slot_limit",
+        "stages"
+      ],
+      "title": "JointSearch",
+      "type": "object"
+    },
+    "Metrics": {
+      "additionalProperties": false,
+      "properties": {
+        "last_delivery_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Delivery S"
+        },
+        "makespan_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Makespan S"
+        },
+        "energy_kwh": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Energy Kwh"
+        },
+        "cost_cny": {
+          "title": "Cost Cny",
+          "type": "null"
+        },
+        "sortie_count": {
+          "minimum": 0,
+          "title": "Sortie Count",
+          "type": "integer"
+        },
+        "unserved_demand_count": {
+          "minimum": 0,
+          "title": "Unserved Demand Count",
+          "type": "integer"
+        },
+        "mandatory_served_count": {
+          "minimum": 0,
+          "title": "Mandatory Served Count",
+          "type": "integer"
+        },
+        "mandatory_total_count": {
+          "minimum": 0,
+          "title": "Mandatory Total Count",
+          "type": "integer"
+        },
+        "min_return_soc": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Min Return Soc"
+        }
+      },
+      "required": [
+        "last_delivery_s",
+        "makespan_s",
+        "energy_kwh",
+        "cost_cny",
+        "sortie_count",
+        "unserved_demand_count",
+        "mandatory_served_count",
+        "mandatory_total_count",
+        "min_return_soc"
+      ],
+      "title": "Metrics",
+      "type": "object"
     },
     "MissionCreate": {
       "additionalProperties": false,
@@ -2197,6 +2890,49 @@
       "title": "MissionView",
       "type": "object"
     },
+    "Mode": {
+      "enum": [
+        "simulation",
+        "planning_assist"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "ModelScopeEnum": {
+      "enum": [
+        "cargo_unique",
+        "capacity",
+        "inventory",
+        "aircraft",
+        "battery",
+        "time_window",
+        "energy",
+        "terrain",
+        "communication",
+        "restricted_zone",
+        "ground_resource",
+        "weather_window"
+      ],
+      "title": "ModelScopeEnum",
+      "type": "string"
+    },
+    "Objective": {
+      "enum": [
+        "time",
+        "energy",
+        "balanced"
+      ],
+      "title": "Objective",
+      "type": "string"
+    },
+    "ObjectivePolicy": {
+      "enum": [
+        "deadline_first_v1",
+        "tradeoff_v2"
+      ],
+      "title": "ObjectivePolicy",
+      "type": "string"
+    },
     "OperationCapabilities": {
       "additionalProperties": false,
       "properties": {
@@ -2273,6 +3009,234 @@
         "modes"
       ],
       "title": "OperationCapabilities",
+      "type": "object"
+    },
+    "Plan": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0-draft",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "plan_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "scenario_state_version": {
+          "minimum": 1,
+          "title": "Scenario State Version",
+          "type": "integer"
+        },
+        "data_origin": {
+          "$ref": "#/$defs/DataOrigin"
+        },
+        "objective": {
+          "$ref": "#/$defs/Objective"
+        },
+        "solver_status": {
+          "$ref": "#/$defs/SolverStatus"
+        },
+        "has_validated_plan": {
+          "title": "Has Validated Plan",
+          "type": "boolean"
+        },
+        "model_scope": {
+          "items": {
+            "$ref": "#/$defs/ModelScopeEnum"
+          },
+          "title": "Model Scope",
+          "type": "array"
+        },
+        "metrics": {
+          "$ref": "#/$defs/Metrics"
+        },
+        "sorties": {
+          "items": {
+            "$ref": "#/$defs/Sortie"
+          },
+          "minItems": 0,
+          "title": "Sorties",
+          "type": "array"
+        },
+        "unserved_demand_ids": {
+          "items": {
+            "$ref": "#/$defs/UnservedDemandId"
+          },
+          "minItems": 0,
+          "title": "Unserved Demand Ids",
+          "type": "array"
+        },
+        "validation": {
+          "$ref": "#/$defs/Validation"
+        },
+        "generated_at": {
+          "format": "date-time",
+          "title": "Generated At",
+          "type": "string"
+        },
+        "solver_notes": {
+          "items": {
+            "$ref": "#/$defs/SolverNote"
+          },
+          "minItems": 0,
+          "title": "Solver Notes",
+          "type": "array"
+        },
+        "parent_plan_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Plan Id"
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Id"
+        },
+        "change_summary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ChangeSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "initial_charges": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/InitialCharge"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Initial Charges"
+        },
+        "relay_sorties": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/RelaySortie"
+              },
+              "maxItems": 1000,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relay Sorties"
+        },
+        "joint_metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JointMetrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "communication_report": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CommunicationReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "joint_search": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JointSearch"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "objective_policy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ObjectivePolicy"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "deadline_first_v1",
+          "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
+        }
+      },
+      "required": [
+        "schema_version",
+        "plan_id",
+        "scenario_id",
+        "snapshot_id",
+        "scenario_state_version",
+        "data_origin",
+        "objective",
+        "solver_status",
+        "has_validated_plan",
+        "model_scope",
+        "metrics",
+        "sorties",
+        "unserved_demand_ids",
+        "validation",
+        "generated_at",
+        "solver_notes",
+        "parent_plan_id",
+        "event_id",
+        "change_summary"
+      ],
+      "title": "Plan",
       "type": "object"
     },
     "Policy": {
@@ -2438,6 +3402,13 @@
       ],
       "title": "PreflightRequest",
       "type": "object"
+    },
+    "PreservedSortieId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "PreservedSortieId",
+      "type": "string"
     },
     "RadioEndpoint": {
       "additionalProperties": false,
@@ -2690,6 +3661,144 @@
       "title": "RelayModel",
       "type": "object"
     },
+    "RelaySortie": {
+      "additionalProperties": false,
+      "properties": {
+        "relay_sortie_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Relay Sortie Id",
+          "type": "string"
+        },
+        "drone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Drone Id",
+          "type": "string"
+        },
+        "component_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Component Id",
+          "type": "string"
+        },
+        "station_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Station Id",
+          "type": "string"
+        },
+        "station_coordinates": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/StationCoordinate"
+            },
+            {
+              "$ref": "#/$defs/StationCoordinate1"
+            }
+          ],
+          "title": "Station Coordinates",
+          "type": "array"
+        },
+        "station_agl_m": {
+          "minimum": 0.0,
+          "title": "Station Agl M",
+          "type": "number"
+        },
+        "station_elevation_m": {
+          "title": "Station Elevation M",
+          "type": "number"
+        },
+        "prepare_start_s": {
+          "minimum": 0.0,
+          "title": "Prepare Start S",
+          "type": "number"
+        },
+        "takeoff_s": {
+          "minimum": 0.0,
+          "title": "Takeoff S",
+          "type": "number"
+        },
+        "arrival_s": {
+          "minimum": 0.0,
+          "title": "Arrival S",
+          "type": "number"
+        },
+        "service_start_s": {
+          "minimum": 0.0,
+          "title": "Service Start S",
+          "type": "number"
+        },
+        "service_end_s": {
+          "minimum": 0.0,
+          "title": "Service End S",
+          "type": "number"
+        },
+        "return_s": {
+          "minimum": 0.0,
+          "title": "Return S",
+          "type": "number"
+        },
+        "drone_released_s": {
+          "minimum": 0.0,
+          "title": "Drone Released S",
+          "type": "number"
+        },
+        "charge_start_s": {
+          "minimum": 0.0,
+          "title": "Charge Start S",
+          "type": "number"
+        },
+        "component_released_s": {
+          "minimum": 0.0,
+          "title": "Component Released S",
+          "type": "number"
+        },
+        "energy_kwh": {
+          "minimum": 0.0,
+          "title": "Energy Kwh",
+          "type": "number"
+        },
+        "return_soc": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Return Soc",
+          "type": "number"
+        },
+        "route_geometry": {
+          "$ref": "#/$defs/RouteGeometry"
+        }
+      },
+      "required": [
+        "relay_sortie_id",
+        "drone_id",
+        "component_id",
+        "station_id",
+        "station_coordinates",
+        "station_agl_m",
+        "station_elevation_m",
+        "prepare_start_s",
+        "takeoff_s",
+        "arrival_s",
+        "service_start_s",
+        "service_end_s",
+        "return_s",
+        "drone_released_s",
+        "charge_start_s",
+        "component_released_s",
+        "energy_kwh",
+        "return_soc",
+        "route_geometry"
+      ],
+      "title": "RelaySortie",
+      "type": "object"
+    },
     "RelayStation": {
       "additionalProperties": false,
       "properties": {
@@ -2728,6 +3837,13 @@
       ],
       "title": "RelayStation",
       "type": "object"
+    },
+    "RemovedSortieId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "RemovedSortieId",
+      "type": "string"
     },
     "RepairRequest": {
       "additionalProperties": false,
@@ -2945,6 +4061,230 @@
       "title": "RestrictedZone",
       "type": "object"
     },
+    "RouteGeometry": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "LineString",
+          "title": "Type",
+          "type": "string"
+        },
+        "coordinates": {
+          "items": {
+            "$ref": "#/$defs/Coordinate4"
+          },
+          "minItems": 2,
+          "title": "Coordinates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "RouteGeometry",
+      "type": "object"
+    },
+    "RouteGeometry1": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "LineString",
+          "title": "Type",
+          "type": "string"
+        },
+        "coordinates": {
+          "items": {
+            "$ref": "#/$defs/Coordinates"
+          },
+          "minItems": 2,
+          "title": "Coordinates",
+          "type": "array"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "title": "RouteGeometry1",
+      "type": "object"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0-draft",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "scenario_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "state_version": {
+          "minimum": 1,
+          "title": "State Version",
+          "type": "integer"
+        },
+        "mode": {
+          "$ref": "#/$defs/Mode"
+        },
+        "data_origin": {
+          "$ref": "#/$defs/DataOrigin1"
+        },
+        "start_time": {
+          "format": "date-time",
+          "title": "Start Time",
+          "type": "string"
+        },
+        "timezone": {
+          "minLength": 1,
+          "title": "Timezone",
+          "type": "string"
+        },
+        "coordinate_system": {
+          "const": "EPSG:4326",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "terrain": {
+          "$ref": "#/$defs/Terrain"
+        },
+        "base": {
+          "$ref": "#/$defs/Base"
+        },
+        "sites": {
+          "items": {
+            "$ref": "#/$defs/Site"
+          },
+          "minItems": 1,
+          "title": "Sites",
+          "type": "array"
+        },
+        "demands": {
+          "items": {
+            "$ref": "#/$defs/Demand"
+          },
+          "minItems": 1,
+          "title": "Demands",
+          "type": "array"
+        },
+        "cargo_items": {
+          "items": {
+            "$ref": "#/$defs/CargoItem"
+          },
+          "minItems": 0,
+          "title": "Cargo Items",
+          "type": "array"
+        },
+        "drone_types": {
+          "items": {
+            "$ref": "#/$defs/DroneType"
+          },
+          "minItems": 1,
+          "title": "Drone Types",
+          "type": "array"
+        },
+        "drones": {
+          "items": {
+            "$ref": "#/$defs/Drone"
+          },
+          "minItems": 0,
+          "title": "Drones",
+          "type": "array"
+        },
+        "batteries": {
+          "items": {
+            "$ref": "#/$defs/Battery"
+          },
+          "minItems": 0,
+          "title": "Batteries",
+          "type": "array"
+        },
+        "policy": {
+          "$ref": "#/$defs/Policy"
+        },
+        "restricted_zones": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/RestrictedZone"
+              },
+              "maxItems": 12,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Restricted Zones"
+        },
+        "resource_limits": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResourceLimits"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "communication": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Communication"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "weather": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Weather"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "schema_version",
+        "scenario_id",
+        "name",
+        "state_version",
+        "mode",
+        "data_origin",
+        "start_time",
+        "timezone",
+        "coordinate_system",
+        "terrain",
+        "base",
+        "sites",
+        "demands",
+        "cargo_items",
+        "drone_types",
+        "drones",
+        "batteries",
+        "policy"
+      ],
+      "title": "Scenario",
+      "type": "object"
+    },
     "SimulationAction": {
       "additionalProperties": false,
       "properties": {
@@ -3050,6 +4390,59 @@
         "available"
       ],
       "title": "Site",
+      "type": "object"
+    },
+    "Snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "0.1.0-draft",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "scenario_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Scenario Id",
+          "type": "string"
+        },
+        "scenario_state_version": {
+          "minimum": 1,
+          "title": "Scenario State Version",
+          "type": "integer"
+        },
+        "content_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "scenario": {
+          "$ref": "#/$defs/Scenario"
+        }
+      },
+      "required": [
+        "schema_version",
+        "snapshot_id",
+        "scenario_id",
+        "scenario_state_version",
+        "content_hash",
+        "created_at",
+        "scenario"
+      ],
+      "title": "Snapshot",
       "type": "object"
     },
     "SolveJob": {
@@ -3203,6 +4596,11 @@
       "title": "SolveJob",
       "type": "object"
     },
+    "SolverNote": {
+      "minLength": 1,
+      "title": "SolverNote",
+      "type": "string"
+    },
     "SolverStatus": {
       "enum": [
         "OPTIMAL",
@@ -3213,6 +4611,145 @@
       ],
       "title": "SolverStatus",
       "type": "string"
+    },
+    "Sortie": {
+      "additionalProperties": false,
+      "properties": {
+        "sortie_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Sortie Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "transport",
+          "title": "Kind",
+          "type": "string"
+        },
+        "drone_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Drone Id",
+          "type": "string"
+        },
+        "battery_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Battery Id",
+          "type": "string"
+        },
+        "cargo_ids": {
+          "items": {
+            "$ref": "#/$defs/CargoId"
+          },
+          "minItems": 1,
+          "title": "Cargo Ids",
+          "type": "array"
+        },
+        "visits": {
+          "items": {
+            "$ref": "#/$defs/Visit"
+          },
+          "minItems": 1,
+          "title": "Visits",
+          "type": "array"
+        },
+        "route_geometry": {
+          "$ref": "#/$defs/RouteGeometry1"
+        },
+        "prepare_start_s": {
+          "minimum": 0.0,
+          "title": "Prepare Start S",
+          "type": "number"
+        },
+        "takeoff_s": {
+          "minimum": 0.0,
+          "title": "Takeoff S",
+          "type": "number"
+        },
+        "return_s": {
+          "minimum": 0.0,
+          "title": "Return S",
+          "type": "number"
+        },
+        "drone_released_s": {
+          "minimum": 0.0,
+          "title": "Drone Released S",
+          "type": "number"
+        },
+        "battery_released_s": {
+          "minimum": 0.0,
+          "title": "Battery Released S",
+          "type": "number"
+        },
+        "energy_kwh": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Energy Kwh"
+        },
+        "return_soc": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Return Soc"
+        },
+        "terrain_status": {
+          "$ref": "#/$defs/TerrainStatus"
+        },
+        "communication_status": {
+          "$ref": "#/$defs/CommunicationStatus"
+        },
+        "charge_start_s": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Charge Start S"
+        }
+      },
+      "required": [
+        "sortie_id",
+        "kind",
+        "drone_id",
+        "battery_id",
+        "cargo_ids",
+        "visits",
+        "route_geometry",
+        "prepare_start_s",
+        "takeoff_s",
+        "return_s",
+        "drone_released_s",
+        "battery_released_s",
+        "energy_kwh",
+        "return_soc",
+        "terrain_status",
+        "communication_status"
+      ],
+      "title": "Sortie",
+      "type": "object"
     },
     "SortieLoad": {
       "additionalProperties": false,
@@ -3273,6 +4810,51 @@
       "title": "SortieLoad",
       "type": "object"
     },
+    "Source": {
+      "enum": [
+        "gateway",
+        "relay"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "Stage": {
+      "additionalProperties": false,
+      "properties": {
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "seconds": {
+          "minimum": 0.0,
+          "title": "Seconds",
+          "type": "number"
+        },
+        "objective": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Objective"
+        }
+      },
+      "required": [
+        "stage",
+        "status",
+        "seconds",
+        "objective"
+      ],
+      "title": "Stage",
+      "type": "object"
+    },
     "StageAnalysis": {
       "additionalProperties": false,
       "properties": {
@@ -3324,6 +4906,37 @@
       ],
       "title": "StageAnalysis",
       "type": "object"
+    },
+    "StationCoordinate": {
+      "maximum": 180.0,
+      "minimum": -180.0,
+      "title": "StationCoordinate",
+      "type": "number"
+    },
+    "StationCoordinate1": {
+      "maximum": 90.0,
+      "minimum": -90.0,
+      "title": "StationCoordinate1",
+      "type": "number"
+    },
+    "Status": {
+      "enum": [
+        "passed",
+        "failed",
+        "partial",
+        "not_run"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "Status1": {
+      "enum": [
+        "passed",
+        "failed",
+        "not_evaluated"
+      ],
+      "title": "Status1",
+      "type": "string"
     },
     "Status2": {
       "enum": [
@@ -3627,6 +5240,15 @@
       "title": "Terrain",
       "type": "object"
     },
+    "TerrainStatus": {
+      "enum": [
+        "passed",
+        "failed",
+        "not_evaluated"
+      ],
+      "title": "TerrainStatus",
+      "type": "string"
+    },
     "TrajectorySegment": {
       "additionalProperties": false,
       "properties": {
@@ -3784,6 +5406,67 @@
         "cargo_ids"
       ],
       "title": "TrajectorySegment",
+      "type": "object"
+    },
+    "UnservedDemandId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "UnservedDemandId",
+      "type": "string"
+    },
+    "Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/Status"
+        },
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/Check"
+          },
+          "minItems": 0,
+          "title": "Checks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "status",
+        "checks"
+      ],
+      "title": "Validation",
+      "type": "object"
+    },
+    "Visit": {
+      "additionalProperties": false,
+      "properties": {
+        "site_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Site Id",
+          "type": "string"
+        },
+        "cargo_ids": {
+          "items": {
+            "$ref": "#/$defs/CargoId"
+          },
+          "minItems": 1,
+          "title": "Cargo Ids",
+          "type": "array"
+        },
+        "delivery_complete_s": {
+          "minimum": 0.0,
+          "title": "Delivery Complete S",
+          "type": "number"
+        }
+      },
+      "required": [
+        "site_id",
+        "cargo_ids",
+        "delivery_complete_s"
+      ],
+      "title": "Visit",
       "type": "object"
     },
     "Weather": {

@@ -1263,6 +1263,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/execution-archives/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Import Archive */
+        post: operations["import_archive_api_v1_execution_archives_import_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/execution-archives": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Archives */
+        get: operations["list_archives_api_v1_execution_archives_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/execution-archives/{archive_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Archive */
+        get: operations["get_archive_api_v1_execution_archives__archive_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1347,6 +1398,11 @@ export interface components {
             /** Reason */
             reason: string;
             payload: components["schemas"]["Payload1"];
+        };
+        /** Body_import_archive_api_v1_execution_archives_import_post */
+        Body_import_archive_api_v1_execution_archives_import_post: {
+            /** File */
+            file: string;
         };
         /** Body_import_file_api_v1_scenarios_import_file_post */
         Body_import_file_api_v1_scenarios_import_file_post: {
@@ -2118,6 +2174,87 @@ export interface components {
             /** Deviation Rows */
             deviation_rows?: components["schemas"]["DeliveryDeviation"][];
         };
+        /** ExecutionArchiveSummary */
+        ExecutionArchiveSummary: {
+            /** Archive Id */
+            archive_id: string;
+            /** Execution Id */
+            execution_id: string;
+            /** Mission Name */
+            mission_name: string;
+            /**
+             * Imported At
+             * Format: date-time
+             */
+            imported_at: string;
+            /**
+             * Captured At
+             * Format: date-time
+             */
+            captured_at: string;
+            /** Captured Time S */
+            captured_time_s: number;
+            /** Captured Status */
+            captured_status: string;
+            /** Fact Count */
+            fact_count: number;
+            /** Plan Count */
+            plan_count: number;
+            /** Content Sha256 */
+            content_sha256: string;
+            /**
+             * Read Only
+             * @default true
+             * @constant
+             */
+            read_only: true;
+        };
+        /** ExecutionArchiveView */
+        ExecutionArchiveView: {
+            summary: components["schemas"]["ExecutionArchiveSummary"];
+            bundle: components["schemas"]["ExecutionBundle"];
+            /** Plans */
+            plans: components["schemas"]["Plan"][];
+            /** Snapshots */
+            snapshots: components["schemas"]["Snapshot"][];
+            analysis: components["schemas"]["ExecutionAnalysis"];
+        };
+        /** ExecutionBundle */
+        ExecutionBundle: {
+            /**
+             * Bundle Version
+             * @constant
+             */
+            bundle_version: "execution-simulation-v2";
+            /**
+             * Source
+             * @constant
+             */
+            source: "simulation";
+            /**
+             * Is Flight Controller File
+             * @constant
+             */
+            is_flight_controller_file: false;
+            /**
+             * Captured At
+             * Format: date-time
+             */
+            captured_at: string;
+            /** Mission Name */
+            mission_name: string;
+            execution: components["schemas"]["ExecutionView"];
+            /** Events */
+            events: components["schemas"]["ExecutionEventView"][];
+            /** Changes */
+            changes: components["schemas"]["RepairView"][];
+            /** Commands */
+            commands: components["schemas"]["CommandView"][];
+            /** Documents */
+            documents: components["schemas"]["FrozenDocument"][];
+            /** Content Sha256 */
+            content_sha256: string;
+        };
         /** ExecutionCreate */
         ExecutionCreate: {
             /** Mission Id */
@@ -2407,6 +2544,20 @@ export interface components {
             ground_elevation_m: number | null;
             /** Cruise Elevation M */
             cruise_elevation_m: number;
+        };
+        /** FrozenDocument */
+        FrozenDocument: {
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "plan" | "snapshot" | "event_input" | "event_resolution";
+            /** Document Id */
+            document_id: string;
+            /** Payload Json */
+            payload_json: string;
+            /** Sha256 */
+            sha256: string;
         };
         /** Geometry */
         Geometry: {
@@ -6990,7 +7141,9 @@ export interface operations {
     };
     export_execution_api_v1_executions__execution_id__export_get: {
         parameters: {
-            query?: never;
+            query?: {
+                version?: number;
+            };
             header?: never;
             path: {
                 execution_id: string;
@@ -7006,6 +7159,90 @@ export interface operations {
                 };
                 content: {
                     "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    import_archive_api_v1_execution_archives_import_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_import_archive_api_v1_execution_archives_import_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionArchiveSummary"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_archives_api_v1_execution_archives_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionArchiveSummary"][];
+                };
+            };
+        };
+    };
+    get_archive_api_v1_execution_archives__archive_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                archive_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionArchiveView"];
                 };
             };
             /** @description Validation Error */

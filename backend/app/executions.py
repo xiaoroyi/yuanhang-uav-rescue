@@ -25,6 +25,7 @@ from backend.app.operation_models import (
     CommandView,
     ExecutionAnalysis,
     OperationCapabilities,
+    ExecutionBundle,
 )
 from backend.app.storage import (
     MissionRow,
@@ -1366,23 +1367,111 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
         )
 
     @app.get("/api/v1/executions/{execution_id}/export")
-    def export_execution(execution_id: str):
+    def export_execution(
+        execution_id: str, version: int = Query(default=1, ge=1, le=2)
+    ):
         with database.session(immediate=True) as session:
             row = require(session, ExecutionRow, execution_id, error)
+            changes = [
+                change_view(session, r)
+                for r in session.scalars(
+                    select(OperationRecordRow).where(
+                        OperationRecordRow.namespace == "execution.change",
+                        OperationRecordRow.owner_id == row.id,
+                    )
+                )
+            ]
             view = engine().view(session, row)
+            if version == 2:
+                from backend.app.execution_archive import (
+                    document,
+                    seal,
+                    validate_bundle,
+                )
+
+                commands = [
+                    command_view(r)
+                    for r in session.scalars(
+                        select(OperationRecordRow).where(
+                            OperationRecordRow.namespace == "command",
+                            OperationRecordRow.owner_id == row.id,
+                        )
+                    )
+                ]
+                plan_ids = {view["initial_plan_id"], view["desired_plan_id"]}
+                plan_ids.update(p["plan_id"] for p in view["schedule_parts"])
+                plan_ids.update(f["plan_id"] for f in view["facts"])
+                plan_ids.update(
+                    c["candidate_plan_id"] for c in changes if c["candidate_plan_id"]
+                )
+                plan_ids.update(c["desired_plan_id"] for c in commands)
+                plan_ids.update(t["active_plan_id"] for t in view["telemetry"])
+                plans = [
+                    require(session, PlanRow, pid, error) for pid in sorted(plan_ids)
+                ]
+                documents = [document("plan", p.id, p.content) for p in plans]
+                snapshot_ids = {p.snapshot_id for p in plans}
+                snapshot_ids.update(
+                    c["job"]["snapshot_id"] for c in changes if c["job"]
+                )
+                for sid in sorted(snapshot_ids):
+                    documents.append(
+                        document(
+                            "snapshot",
+                            sid,
+                            require(session, SnapshotRow, sid, error).content,
+                        )
+                    )
+                events = events_for(session, row.id)
+                for event in events:
+                    eid = event["event_id"]
+                    documents.append(
+                        document(
+                            "event_input",
+                            eid,
+                            require(
+                                session,
+                                OperationRecordRow,
+                                ("execution.event.input", row.id + ":" + eid),
+                                error,
+                            ).content,
+                        )
+                    )
+                    resolved = session.get(
+                        OperationRecordRow,
+                        ("execution.event.resolution", row.id + ":" + eid),
+                    )
+                    if resolved:
+                        documents.append(
+                            document("event_resolution", eid, resolved.content)
+                        )
+                bundle = seal(
+                    {
+                        "bundle_version": "execution-simulation-v2",
+                        "source": "simulation",
+                        "is_flight_controller_file": False,
+                        "captured_at": now(),
+                        "mission_name": require(
+                            session, MissionRow, row.mission_id, error
+                        ).content["name"],
+                        "execution": view,
+                        "events": events,
+                        "changes": changes,
+                        "commands": commands,
+                        "documents": documents,
+                    }
+                )
+                validate_bundle(ExecutionBundle.model_validate(bundle))
+                return bundle
             return {
                 "bundle_version": "execution-simulation-v1",
                 "execution": view,
                 "events": events_for(session, row.id),
-                "changes": [
-                    change_view(session, r)
-                    for r in session.scalars(
-                        select(OperationRecordRow).where(
-                            OperationRecordRow.namespace == "execution.change",
-                            OperationRecordRow.owner_id == row.id,
-                        )
-                    )
-                ],
+                "changes": changes,
                 "source": "simulation",
                 "is_flight_controller_file": False,
             }
+
+    from backend.app.execution_archive import register_archives
+
+    register_archives(app, database, error)

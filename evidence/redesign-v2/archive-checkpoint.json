@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-18T10:51:17.545959+00:00",
+  "service_source_sha256": "5df11a768861bf93d647fc0caa398acf8e0ebd293b03278619b7769aa9301f0d",
+  "frontend_source_sha256": "d831a931bc5363a6170a5d3ae8cb5c6e20f8c675ad39c4247fbd7c3c2a4f244f",
+  "verification_source_sha256": "2c58b9d8c6b55e851138a03b2872e2e5fbbdaed808ea814c6ebb6439bf913086",
+  "full_non_browser_report": "full-verification/latest.json",
+  "full_python_passed": 298,
+  "subtests_passed": 8,
+  "frontend_unit_passed": 12,
+  "v2_browser_four_passed": 4,
+  "v2_browser_four_duration_s": 56.0,
+  "latest_archive_browser_passed": 1,
+  "latest_archive_duration_s": 25.7,
+  "full_browser_finished": false,
+  "known_full_browser_failure": "legacy ambient motion setting is overridden by V2 global setup; queued for fix",
+  "real_devices": false,
+  "deployed_to_8000": false
+}

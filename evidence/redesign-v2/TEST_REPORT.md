@@ -38,3 +38,15 @@ lint、strict TS/build、12项前端单元通过；11领域Schema/18旧Mock/16�
 
 正式浏览器1 passed，14.0s，resolution-browser-results.json，覆盖暂停已装载误报、禁用两类推进、核实依据纠错、恢复与再次暂停，核对交付事实未改变。event-manual-1440.png已查看；重叠机体标记、底部排程可用面积列入R06/R17继续改进。lint与strict TS/build通过。该增量尚未整体回归旧算法，不宣称所有R12特殊场景完成。
 
+## R17 / RFC-021多源复盘与可重载档案
+
+V2新增测试全组合19 passed，92.33s（日志.local/v2-archive-regression.log）；另两项档案/在途专项2 passed，25.57s。真实Worker形成残余方案，完成33箱/53事实后导出两份Plan/两份Snapshot，导入只读档案，核对原领域行数与事实数量完全不增；篡改整体/文档、缺快照、重复事实、交付汇总不符、真实source伪造等拒绝。首次多源导出发现command_view调用参数错误，修正后再次通过，不将单Plan无指令往返当作全部通过。
+
+正式4条V2 Playwright通过56.0s，archive-browser-final-results.json；视觉微调后档案流程又通过25.7s，archive-browser-visual-results.json。含真实在途插单→修复→逐设备应用→完成→复盘→GUI导入→时间筛选→核对不重写事实。浏览器报告和截图均为实际生成；最新运行包保存EXECUTION_SMOKE/inflight-repair-archive.json，SCENARIO_MANIFEST.json记录2快照/2Plan/53事实的来源与哈希。物理重验证不因导入被伪称通过。
+
+完整旧算法/接口/前端检查正在通过scripts/verify.py运行，输出独立full-verification/，避免覆盖V1历史证据。当前段落不预先声明整轮通过。
+
+## 完整非浏览器回归检查点
+
+full-verification/latest.json：passed=true、source_unchanged=true，前后验证源码指纹均`2c58b9d8c6b55e851138a03b2872e2e5fbbdaed808ea814c6ebb6439bf913086`。全部Python 298 passed、8 subtests，830.85s；契约、治理、lint、12单元、strict TS/build共6条命令退出码全0。原题与原接口回归包含在此轮，不再以V1计数代替。完整浏览器仍在运行，已发现旧兼容入口动态设置隔离问题，不能将本段解释为全部浏览器通过。
+

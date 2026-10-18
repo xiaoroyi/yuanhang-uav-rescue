@@ -21,7 +21,7 @@ import {
 } from '../api/operations'
 import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
-import { ResourceTimeline } from '../components/ResourceTimeline'
+import { ExecutionTimeline } from './ExecutionTimeline'
 import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
 import { number, percent } from '../lib/format'
@@ -50,6 +50,7 @@ export function ExecutionWorkspace({
   const [preview, setPreview] = useState<Repair | null>(null)
   const [fault, setFault] = useState(false)
   const [communicationOpen, setCommunicationOpen] = useState(false)
+  const [timelineOpen, setTimelineOpen] = useState(false)
   const [resolution, setResolution] = useState<ExecutionEvent | null>(null)
   const [resolutionReason, setResolutionReason] = useState('')
   const execution = useQuery({
@@ -86,6 +87,12 @@ export function ExecutionWorkspace({
       queryKey: ['plan', part.plan_id],
       queryFn: () => api.plan(part.plan_id),
     })),
+  })
+  const desiredPlan = partPlans.find((p) => p.data?.plan_id === e?.desired_plan_id)?.data
+  const desiredSnapshot = useQuery({
+    queryKey: ['snapshot', desiredPlan?.snapshot_id],
+    queryFn: () => api.getSnapshot(desiredPlan!.snapshot_id),
+    enabled: !!desiredPlan,
   })
   const candidate = useQuery({
     queryKey: ['plan', preview?.candidate_plan_id],
@@ -205,8 +212,23 @@ export function ExecutionWorkspace({
     (event) => event.status !== 'withdrawn' && !e.applied_event_ids?.includes(event.event_id),
   )
   const routeSets = e.schedule_parts.flatMap((part, i) =>
-    partPlans[i].data ? [{ plan: partPlans[i].data!, sortieIds: part.sortie_ids }] : [],
+    partPlans[i].data
+      ? [
+          {
+            plan: partPlans[i].data!,
+            sortieIds: part.sortie_ids,
+            relayIds:
+              part.relay_sortie_ids ||
+              (part.role === 'initial'
+                ? partPlans[i].data!.relay_sorties?.map((r) => r.relay_sortie_id)
+                : []),
+          },
+        ]
+      : [],
   )
+  const mapScenario = desiredSnapshot.data
+    ? { ...baseScenario, weather: desiredSnapshot.data.scenario.weather }
+    : baseScenario
   return (
     <>
       <div className="v2-plan-toolbar">
@@ -285,7 +307,7 @@ export function ExecutionWorkspace({
         </Button>
         <a
           className="button"
-          href={`/api/v1/executions/${id}/export`}
+          href={`/api/v1/executions/${id}/export?version=2`}
           target="_blank"
           rel="noreferrer"
         >
@@ -396,7 +418,7 @@ export function ExecutionWorkspace({
         </aside>
         <div className="v2-map-main">
           <RescueMap
-            scenario={baseScenario}
+            scenario={mapScenario}
             plan={initialPlan.data}
             routeSets={routeSets}
             telemetry={e.telemetry}
@@ -458,7 +480,8 @@ export function ExecutionWorkspace({
       </div>
       <div className="v2-execution-bottom">
         <div className="v2-section-bar">
-          <h3>初始计划排程 · 用于与模拟事实核对</h3>
+          <h3>当前采用安排 · 历次方案承诺合并核对</h3>
+          <Button onClick={() => setTimelineOpen(true)}>查看完整排程</Button>
           {!!initialPlan.data?.communication_report && (
             <Button onClick={() => setCommunicationOpen(true)}>通信与中继时序</Button>
           )}
@@ -468,11 +491,12 @@ export function ExecutionWorkspace({
           </a>
         </div>
         {initialPlan.data && (
-          <ResourceTimeline
-            scenario={baseScenario}
-            plan={initialPlan.data}
-            selected={null}
-            onSelect={(sid) => {
+          <ExecutionTimeline
+            sources={routeSets}
+            execution={e}
+            onSelect={(key) => {
+              const source = routeSets.find((s) => key.startsWith(s.plan.plan_id + ':'))
+              const sid = source ? key.slice(source.plan.plan_id.length + 1) : key
               const d = e.telemetry.find((x) => x.sortie_id === sid)
               if (d) setSelected(d.device_id)
             }}
@@ -496,6 +520,17 @@ export function ExecutionWorkspace({
             }}
           />
         )}
+      </Modal>
+      <Modal
+        title="生效调度安排"
+        description="已保留承诺与后续方案共同构成当前安排，保留各段来源，不改写初始方案。"
+        open={timelineOpen}
+        onOpenChange={setTimelineOpen}
+        wide
+      >
+        <div className="v2-execution-arrangements">
+          <ExecutionTimeline sources={routeSets} execution={e} />
+        </div>
       </Modal>
       <Modal
         title="核实并纠正误报"
@@ -629,7 +664,11 @@ export function ExecutionWorkspace({
               注入一台模拟设备 ACK 超时（验证部分应用状态）
             </label>
             <div className="v2-form-actions">
-              <Button onClick={() => setPreview(null)}>暂不采用</Button>
+              <Button onClick={() => setPreview(null)}>
+                {['applying', 'partially_applied', 'applied'].includes(latest.status)
+                  ? '关闭详情'
+                  : '暂不采用'}
+              </Button>
               <Button disabled={latest.status !== 'failed'} onClick={() => void repair()}>
                 继续计算
               </Button>
@@ -643,7 +682,12 @@ export function ExecutionWorkspace({
                     .then((next) => {
                       setPreview(next)
                       refresh()
-                      notify(next.message, next.status === 'partially_applied')
+                      notify(
+                        next.status === 'applying'
+                          ? '调整请求已受理，请查看逐设备应用状态。'
+                          : next.message,
+                        next.status === 'partially_applied',
+                      )
                     })
                     .catch((error: Error) => notify(error.message, true))
                     .finally(() => setBusy(false))

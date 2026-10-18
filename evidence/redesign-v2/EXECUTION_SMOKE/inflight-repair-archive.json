@@ -1,0 +1,1146 @@
+{
+  "bundle_version": "execution-simulation-v2",
+  "source": "simulation",
+  "is_flight_controller_file": false,
+  "captured_at": "2026-10-18T10:34:47.847775Z",
+  "mission_name": "在途插单与档案验收 1792319666734",
+  "execution": {
+    "execution_id": "EXE-CC37EFED10264ECF",
+    "mission_id": "MIS-22BCEEF6FEE5405C",
+    "mode": "simulation",
+    "initial_plan_id": "PLAN-BB9C2A74AD8E494C",
+    "desired_plan_id": "PLAN-61EF9E552A834EC0",
+    "status": "completed",
+    "revision": 6,
+    "facts_cursor": 53,
+    "time_s": 9338.480134649242,
+    "speed": 1.0,
+    "seed": 42,
+    "connected": true,
+    "schedule_parts": [
+      {
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_ids": [
+          "SRT-6396ff71573f",
+          "SRT-493807468ae3",
+          "SRT-0effebcce24d"
+        ],
+        "role": "commitment"
+      },
+      {
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_ids": [
+          "SRT-1154e5c0e268",
+          "SRT-d9714915bbff",
+          "SRT-7a29b29c7e76",
+          "SRT-e6786f2cb91a",
+          "SRT-feff812563f8"
+        ],
+        "role": "future"
+      }
+    ],
+    "delivered_cargo_ids": [
+      "BROWSER-URGENT-BOX",
+      "S001-FOD-01",
+      "S001-FOD-02",
+      "S001-FOD-03",
+      "S001-HYG-01",
+      "S001-HYG-02",
+      "S001-MED-01",
+      "S001-MED-02",
+      "S001-WAT-01",
+      "S001-WAT-02",
+      "S001-WAT-03",
+      "S001-WAT-04",
+      "S001-WAT-05",
+      "S001-WAT-06",
+      "S001-WAT-07",
+      "S001-WAT-08",
+      "S006-FOD-01",
+      "S006-HYG-01",
+      "S006-MED-01",
+      "S006-WAT-01",
+      "S006-WAT-02",
+      "S006-WAT-03",
+      "S007-FOD-01",
+      "S007-HYG-01",
+      "S007-MED-01",
+      "S007-WAT-01",
+      "S007-WAT-02",
+      "S010-FOD-01",
+      "S010-MED-01",
+      "S010-WAT-01",
+      "S011-FOD-01",
+      "S011-MED-01",
+      "S011-WAT-01"
+    ],
+    "applied_event_ids": [
+      "35da3cf0-02df-443b-9e89-39e50e527de3"
+    ],
+    "facts": [
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:loaded:S011-MED-01,S010-MED-01,S010-WAT-01",
+        "cursor": 1,
+        "time_s": 0.0,
+        "kind": "loaded",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [
+          "S011-MED-01",
+          "S010-MED-01",
+          "S010-WAT-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:loaded:S007-MED-01,S007-WAT-01,S007-FOD-01",
+        "cursor": 2,
+        "time_s": 0.0,
+        "kind": "loaded",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:loaded:S001-MED-01,S001-MED-02,S001-WAT-01,S001-WAT-02,S001-WAT-03,S001-WAT-04,S001-WAT-05,S006-MED-01",
+        "cursor": 3,
+        "time_s": 0.0,
+        "kind": "loaded",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S001-MED-01",
+          "S001-MED-02",
+          "S001-WAT-01",
+          "S001-WAT-02",
+          "S001-WAT-03",
+          "S001-WAT-04",
+          "S001-WAT-05",
+          "S006-MED-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:takeoff:S011-MED-01,S010-MED-01,S010-WAT-01",
+        "cursor": 4,
+        "time_s": 390.0,
+        "kind": "takeoff",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [
+          "S011-MED-01",
+          "S010-MED-01",
+          "S010-WAT-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:takeoff:S007-MED-01,S007-WAT-01,S007-FOD-01",
+        "cursor": 5,
+        "time_s": 390.0,
+        "kind": "takeoff",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:takeoff:S001-MED-01,S001-MED-02,S001-WAT-01,S001-WAT-02,S001-WAT-03,S001-WAT-04,S001-WAT-05,S006-MED-01",
+        "cursor": 6,
+        "time_s": 540.0,
+        "kind": "takeoff",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S001-MED-01",
+          "S001-MED-02",
+          "S001-WAT-01",
+          "S001-WAT-02",
+          "S001-WAT-03",
+          "S001-WAT-04",
+          "S001-WAT-05",
+          "S006-MED-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:delivered:S011-MED-01",
+        "cursor": 7,
+        "time_s": 893.198139995606,
+        "kind": "delivered",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [
+          "S011-MED-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:delivered:S007-MED-01,S007-WAT-01,S007-FOD-01",
+        "cursor": 8,
+        "time_s": 1125.7776994902122,
+        "kind": "delivered",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:delivered:S001-MED-01,S001-MED-02,S001-WAT-01,S001-WAT-02,S001-WAT-03,S001-WAT-04,S001-WAT-05",
+        "cursor": 9,
+        "time_s": 1278.2695386645796,
+        "kind": "delivered",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S001-MED-01",
+          "S001-MED-02",
+          "S001-WAT-01",
+          "S001-WAT-02",
+          "S001-WAT-03",
+          "S001-WAT-04",
+          "S001-WAT-05"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:loaded:S007-WAT-02,S007-HYG-01",
+        "cursor": 10,
+        "time_s": 1636.2753989804244,
+        "kind": "loaded",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [
+          "S007-WAT-02",
+          "S007-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:released:",
+        "cursor": 11,
+        "time_s": 1636.2753989804244,
+        "kind": "released",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:returned:",
+        "cursor": 12,
+        "time_s": 1636.2753989804244,
+        "kind": "returned",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:delivered:S010-MED-01,S010-WAT-01",
+        "cursor": 13,
+        "time_s": 1701.8194867569523,
+        "kind": "delivered",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [
+          "S010-MED-01",
+          "S010-WAT-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:delivered:S006-MED-01",
+        "cursor": 14,
+        "time_s": 1970.8894703693786,
+        "kind": "delivered",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S006-MED-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:takeoff:S007-WAT-02,S007-HYG-01",
+        "cursor": 15,
+        "time_s": 1996.2753989804244,
+        "kind": "takeoff",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [
+          "S007-WAT-02",
+          "S007-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:loaded:S006-WAT-02,S006-FOD-01",
+        "cursor": 16,
+        "time_s": 2251.7141838665775,
+        "kind": "loaded",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [
+          "S006-WAT-02",
+          "S006-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:released:",
+        "cursor": 17,
+        "time_s": 2251.7141838665775,
+        "kind": "released",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:returned:",
+        "cursor": 18,
+        "time_s": 2251.7141838665775,
+        "kind": "returned",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:loaded:S006-WAT-01,S006-WAT-03,S011-WAT-01,S011-FOD-01,S001-FOD-01,S001-HYG-01,S001-WAT-06,BROWSER-URGENT-BOX",
+        "cursor": 19,
+        "time_s": 2323.021404350211,
+        "kind": "loaded",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [
+          "S006-WAT-01",
+          "S006-WAT-03",
+          "S011-WAT-01",
+          "S011-FOD-01",
+          "S001-FOD-01",
+          "S001-HYG-01",
+          "S001-WAT-06",
+          "BROWSER-URGENT-BOX"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:released:",
+        "cursor": 20,
+        "time_s": 2323.021404350211,
+        "kind": "released",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:returned:",
+        "cursor": 21,
+        "time_s": 2323.021404350211,
+        "kind": "returned",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:takeoff:S006-WAT-02,S006-FOD-01",
+        "cursor": 22,
+        "time_s": 2611.7141838665775,
+        "kind": "takeoff",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [
+          "S006-WAT-02",
+          "S006-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:delivered:S007-WAT-02,S007-HYG-01",
+        "cursor": 23,
+        "time_s": 2702.0530984706365,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [
+          "S007-WAT-02",
+          "S007-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:takeoff:S006-WAT-01,S006-WAT-03,S011-WAT-01,S011-FOD-01,S001-FOD-01,S001-HYG-01,S001-WAT-06,BROWSER-URGENT-BOX",
+        "cursor": 24,
+        "time_s": 2863.021404350211,
+        "kind": "takeoff",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [
+          "S006-WAT-01",
+          "S006-WAT-03",
+          "S011-WAT-01",
+          "S011-FOD-01",
+          "S001-FOD-01",
+          "S001-HYG-01",
+          "S001-WAT-06",
+          "BROWSER-URGENT-BOX"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-493807468ae3:battery_ready:",
+        "cursor": 25,
+        "time_s": 3074.2852937582384,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-493807468ae3",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:delivered:S006-WAT-02,S006-FOD-01",
+        "cursor": 26,
+        "time_s": 3187.216614261726,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [
+          "S006-WAT-02",
+          "S006-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:released:",
+        "cursor": 27,
+        "time_s": 3212.5507979608487,
+        "kind": "released",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:returned:",
+        "cursor": 28,
+        "time_s": 3212.5507979608487,
+        "kind": "returned",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:loaded:S006-HYG-01",
+        "cursor": 29,
+        "time_s": 3212.5507979608487,
+        "kind": "loaded",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S006-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:delivered:S006-WAT-01,S006-WAT-03",
+        "cursor": 30,
+        "time_s": 3448.4433383310434,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [
+          "S006-WAT-01",
+          "S006-WAT-03"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:takeoff:S006-HYG-01",
+        "cursor": 31,
+        "time_s": 3542.5507979608487,
+        "kind": "takeoff",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S006-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-0effebcce24d:battery_ready:",
+        "cursor": 32,
+        "time_s": 3559.246156633708,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-0effebcce24d",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:released:",
+        "cursor": 33,
+        "time_s": 3565.1923779902077,
+        "kind": "released",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:returned:",
+        "cursor": 34,
+        "time_s": 3565.1923779902077,
+        "kind": "returned",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:delivered:S006-HYG-01",
+        "cursor": 35,
+        "time_s": 4034.9497587157693,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S006-HYG-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:delivered:S011-WAT-01,S011-FOD-01",
+        "cursor": 36,
+        "time_s": 4056.208925150894,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [
+          "S011-WAT-01",
+          "S011-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:released:",
+        "cursor": 37,
+        "time_s": 4359.822052804024,
+        "kind": "released",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:returned:",
+        "cursor": 38,
+        "time_s": 4359.822052804024,
+        "kind": "returned",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-BB9C2A74AD8E494C:SRT-6396ff71573f:battery_ready:",
+        "cursor": 39,
+        "time_s": 4446.145166057599,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-BB9C2A74AD8E494C",
+        "sortie_id": "SRT-6396ff71573f",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-7a29b29c7e76:battery_ready:",
+        "cursor": 40,
+        "time_s": 4457.228567187648,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-7a29b29c7e76",
+        "drone_id": "U01",
+        "battery_id": "BAT-A-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-e6786f2cb91a:battery_ready:",
+        "cursor": 41,
+        "time_s": 4597.031452613246,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-e6786f2cb91a",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:delivered:S001-FOD-01,S001-HYG-01,S001-WAT-06,BROWSER-URGENT-BOX",
+        "cursor": 42,
+        "time_s": 4609.057540487374,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [
+          "S001-FOD-01",
+          "S001-HYG-01",
+          "S001-WAT-06",
+          "BROWSER-URGENT-BOX"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:released:",
+        "cursor": 43,
+        "time_s": 4920.957079151954,
+        "kind": "released",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:returned:",
+        "cursor": 44,
+        "time_s": 4920.957079151954,
+        "kind": "returned",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:loaded:S010-FOD-01,S001-WAT-07,S001-FOD-02,S001-WAT-08,S001-FOD-03,S001-HYG-02",
+        "cursor": 45,
+        "time_s": 4920.957079151954,
+        "kind": "loaded",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S010-FOD-01",
+          "S001-WAT-07",
+          "S001-FOD-02",
+          "S001-WAT-08",
+          "S001-FOD-03",
+          "S001-HYG-02"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:takeoff:S010-FOD-01,S001-WAT-07,S001-FOD-02,S001-WAT-08,S001-FOD-03,S001-HYG-02",
+        "cursor": 46,
+        "time_s": 5400.957079151954,
+        "kind": "takeoff",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S010-FOD-01",
+          "S001-WAT-07",
+          "S001-FOD-02",
+          "S001-WAT-08",
+          "S001-FOD-03",
+          "S001-HYG-02"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-feff812563f8:battery_ready:",
+        "cursor": 47,
+        "time_s": 5462.062122350362,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-feff812563f8",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:delivered:S010-FOD-01",
+        "cursor": 48,
+        "time_s": 6101.11628467494,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S010-FOD-01"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:delivered:S001-WAT-07,S001-FOD-02,S001-WAT-08,S001-FOD-03,S001-HYG-02",
+        "cursor": 49,
+        "time_s": 6863.77427660696,
+        "kind": "delivered",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [
+          "S001-WAT-07",
+          "S001-FOD-02",
+          "S001-WAT-08",
+          "S001-FOD-03",
+          "S001-HYG-02"
+        ],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:released:",
+        "cursor": 50,
+        "time_s": 7175.673815271539,
+        "kind": "released",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:returned:",
+        "cursor": 51,
+        "time_s": 7175.673815271539,
+        "kind": "returned",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-1154e5c0e268:battery_ready:",
+        "cursor": 52,
+        "time_s": 7245.423129075427,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-1154e5c0e268",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-02",
+        "cargo_ids": [],
+        "source": "simulation"
+      },
+      {
+        "fact_id": "EXE-CC37EFED10264ECF:PLAN-61EF9E552A834EC0:SRT-d9714915bbff:battery_ready:",
+        "cursor": 53,
+        "time_s": 9338.480134649242,
+        "kind": "battery_ready",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "sortie_id": "SRT-d9714915bbff",
+        "drone_id": "U07",
+        "battery_id": "BAT-C-01",
+        "cargo_ids": [],
+        "source": "simulation"
+      }
+    ],
+    "telemetry": [
+      {
+        "device_id": "U01",
+        "device_session_id": "SIM-3852095F29654BB4",
+        "device_sequence": 23,
+        "observed_at": "2026-10-18T10:34:47.835757Z",
+        "received_at": "2026-10-18T10:34:47.835757Z",
+        "time_s": 9338.480134649242,
+        "coordinates": [
+          109.2308517,
+          23.0085095
+        ],
+        "elevation_m": 127.7,
+        "vertical_datum": "contest_provided_elevation_reference",
+        "soc": 1.0,
+        "soc_sample_time_s": 4457.228567187648,
+        "phase": "available",
+        "sortie_id": null,
+        "battery_id": null,
+        "component_id": null,
+        "cargo_ids": [],
+        "quality": "simulated",
+        "active_plan_id": "PLAN-61EF9E552A834EC0"
+      },
+      {
+        "device_id": "U05",
+        "device_session_id": "SIM-3852095F29654BB4",
+        "device_sequence": 23,
+        "observed_at": "2026-10-18T10:34:47.835757Z",
+        "received_at": "2026-10-18T10:34:47.835757Z",
+        "time_s": 9338.480134649242,
+        "coordinates": [
+          109.2308517,
+          23.0085095
+        ],
+        "elevation_m": 127.7,
+        "vertical_datum": "contest_provided_elevation_reference",
+        "soc": 1.0,
+        "soc_sample_time_s": 5462.062122350362,
+        "phase": "available",
+        "sortie_id": null,
+        "battery_id": null,
+        "component_id": null,
+        "cargo_ids": [],
+        "quality": "simulated",
+        "active_plan_id": "PLAN-61EF9E552A834EC0"
+      },
+      {
+        "device_id": "U07",
+        "device_session_id": "SIM-3852095F29654BB4",
+        "device_sequence": 23,
+        "observed_at": "2026-10-18T10:34:47.835757Z",
+        "received_at": "2026-10-18T10:34:47.835757Z",
+        "time_s": 9338.480134649242,
+        "coordinates": [
+          109.2308517,
+          23.0085095
+        ],
+        "elevation_m": 127.7,
+        "vertical_datum": "contest_provided_elevation_reference",
+        "soc": 1.0,
+        "soc_sample_time_s": 9338.480134649242,
+        "phase": "available",
+        "sortie_id": null,
+        "battery_id": null,
+        "component_id": null,
+        "cargo_ids": [],
+        "quality": "simulated",
+        "active_plan_id": "PLAN-61EF9E552A834EC0"
+      }
+    ],
+    "created_at": "2026-10-18T10:34:33.346751Z",
+    "updated_at": "2026-10-18T10:34:46.782054Z"
+  },
+  "events": [
+    {
+      "event_id": "35da3cf0-02df-443b-9e89-39e50e527de3",
+      "execution_id": "EXE-CC37EFED10264ECF",
+      "event_type": "demand.added",
+      "object_id": null,
+      "reason": "新增一箱急需物资，有明确基地库存",
+      "time_s": 894.198139995606,
+      "facts_cursor": 7,
+      "affected_sortie_ids": [],
+      "propagated_sortie_ids": [],
+      "preserved_sortie_ids": [
+        "SRT-6396ff71573f",
+        "SRT-493807468ae3",
+        "SRT-0effebcce24d",
+        "SRT-4b12e7d95fbd",
+        "SRT-6edfcc0593e2",
+        "SRT-e6786f2cb91a",
+        "SRT-7285ee29cb6c"
+      ],
+      "committed_sortie_ids": [
+        "SRT-6396ff71573f",
+        "SRT-493807468ae3",
+        "SRT-0effebcce24d"
+      ],
+      "missing_inventory": 0,
+      "status": "recorded"
+    }
+  ],
+  "changes": [
+    {
+      "change_id": "CHG-489C55F8774048F8",
+      "execution_id": "EXE-CC37EFED10264ECF",
+      "execution_revision": 3,
+      "facts_cursor": 7,
+      "event_fingerprint": "accfa64087759b3a9a33f533d3868220fab050f3e8a923516772d4d1a1dc3ac4",
+      "committed_parts": [
+        {
+          "plan_id": "PLAN-BB9C2A74AD8E494C",
+          "sortie_ids": [
+            "SRT-6396ff71573f",
+            "SRT-493807468ae3",
+            "SRT-0effebcce24d"
+          ],
+          "role": "commitment"
+        }
+      ],
+      "committed_cargo_ids": [
+        "S001-MED-01",
+        "S001-MED-02",
+        "S001-WAT-01",
+        "S001-WAT-02",
+        "S001-WAT-03",
+        "S001-WAT-04",
+        "S001-WAT-05",
+        "S006-MED-01",
+        "S007-FOD-01",
+        "S007-MED-01",
+        "S007-WAT-01",
+        "S010-MED-01",
+        "S010-WAT-01",
+        "S011-MED-01"
+      ],
+      "future_not_before_s": 894.198139995606,
+      "job": {
+        "schema_version": "0.1.0-draft",
+        "job_id": "JOB-0FD311A9D9994A2D",
+        "scenario_id": "SCN-E27D67076C314B36",
+        "snapshot_id": "SNAP-09E5B2347AFA4FEF",
+        "reserved_plan_id": "PLAN-61EF9E552A834EC0",
+        "job_state": "completed",
+        "solver_status": "FEASIBLE",
+        "plan_id": "PLAN-61EF9E552A834EC0",
+        "has_validated_plan": true,
+        "runtime_s": 3.6881961999461055,
+        "stop_reason": "finished",
+        "created_at": "2026-10-18T10:34:36.252544Z",
+        "started_at": "2026-10-18T10:34:36.271553Z",
+        "finished_at": "2026-10-18T10:34:41.816080Z",
+        "error": null
+      },
+      "candidate_plan_id": "PLAN-61EF9E552A834EC0",
+      "status": "applied",
+      "message": "模拟设备上传、ACK 与状态核对完成，未来排程已激活；既有事实与承诺保留。",
+      "changed_cargo_ids": [
+        "S011-FOD-01",
+        "BROWSER-URGENT-BOX",
+        "S006-WAT-02",
+        "S006-FOD-01",
+        "S006-HYG-01"
+      ],
+      "retained_cargo_ids": [
+        "S001-FOD-01",
+        "S001-FOD-02",
+        "S001-FOD-03",
+        "S001-HYG-01",
+        "S001-HYG-02",
+        "S001-MED-01",
+        "S001-MED-02",
+        "S001-WAT-01",
+        "S001-WAT-02",
+        "S001-WAT-03",
+        "S001-WAT-04",
+        "S001-WAT-05",
+        "S001-WAT-06",
+        "S001-WAT-07",
+        "S001-WAT-08",
+        "S006-MED-01",
+        "S006-WAT-01",
+        "S006-WAT-03",
+        "S007-FOD-01",
+        "S007-HYG-01",
+        "S007-MED-01",
+        "S007-WAT-01",
+        "S007-WAT-02",
+        "S010-FOD-01",
+        "S010-MED-01",
+        "S010-WAT-01",
+        "S011-MED-01",
+        "S011-WAT-01"
+      ],
+      "applications": [
+        {
+          "device_id": "U01",
+          "desired_plan_id": "PLAN-61EF9E552A834EC0",
+          "active_plan_id": "PLAN-61EF9E552A834EC0",
+          "upload_state": "succeeded",
+          "activation_state": "active",
+          "command_id": "CMD-1526475C57E04D50"
+        },
+        {
+          "device_id": "U05",
+          "desired_plan_id": "PLAN-61EF9E552A834EC0",
+          "active_plan_id": "PLAN-61EF9E552A834EC0",
+          "upload_state": "succeeded",
+          "activation_state": "active",
+          "command_id": "CMD-53D24EF0A00C4EC2"
+        },
+        {
+          "device_id": "U07",
+          "desired_plan_id": "PLAN-61EF9E552A834EC0",
+          "active_plan_id": "PLAN-61EF9E552A834EC0",
+          "upload_state": "succeeded",
+          "activation_state": "active",
+          "command_id": "CMD-9B7F619D4C4342B5"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "command_id": "CMD-1526475C57E04D50",
+      "execution_id": "EXE-CC37EFED10264ECF",
+      "device_id": "U01",
+      "command_type": "mission.upload",
+      "mode": "simulation",
+      "status": "succeeded",
+      "desired_plan_id": "PLAN-61EF9E552A834EC0",
+      "created_at": "2026-10-18T10:34:43.432315Z",
+      "expires_at": "2026-10-18T10:35:13.432315Z",
+      "acknowledged_at": "2026-10-18T10:34:45.192226Z",
+      "completed_at": "2026-10-18T10:34:45.192226Z",
+      "evidence": "SimulationAdapter state readback confirmed"
+    },
+    {
+      "command_id": "CMD-53D24EF0A00C4EC2",
+      "execution_id": "EXE-CC37EFED10264ECF",
+      "device_id": "U05",
+      "command_type": "mission.upload",
+      "mode": "simulation",
+      "status": "succeeded",
+      "desired_plan_id": "PLAN-61EF9E552A834EC0",
+      "created_at": "2026-10-18T10:34:43.441810Z",
+      "expires_at": "2026-10-18T10:35:13.441810Z",
+      "acknowledged_at": "2026-10-18T10:34:45.193223Z",
+      "completed_at": "2026-10-18T10:34:45.193223Z",
+      "evidence": "SimulationAdapter state readback confirmed"
+    },
+    {
+      "command_id": "CMD-9B7F619D4C4342B5",
+      "execution_id": "EXE-CC37EFED10264ECF",
+      "device_id": "U07",
+      "command_type": "mission.upload",
+      "mode": "simulation",
+      "status": "succeeded",
+      "desired_plan_id": "PLAN-61EF9E552A834EC0",
+      "created_at": "2026-10-18T10:34:43.445822Z",
+      "expires_at": "2026-10-18T10:35:13.445822Z",
+      "acknowledged_at": "2026-10-18T10:34:45.195737Z",
+      "completed_at": "2026-10-18T10:34:45.195737Z",
+      "evidence": "SimulationAdapter state readback confirmed"
+    }
+  ],
+  "documents": [
+    {
+      "kind": "plan",
+      "document_id": "PLAN-61EF9E552A834EC0",
+      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T10:34:41.265334+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":14.433255689715645,\"last_delivery_s\":6863.77427660696,\"makespan_s\":7175.673815271539,\"mandatory_served_count\":19,\"mandatory_total_count\":19,\"min_return_soc\":0.3117849000353202,\"sortie_count\":5,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-61EF9E552A834EC0\",\"scenario_id\":\"SCN-E27D67076C314B36\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-09E5B2347AFA4FEF\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-C-02\",\"battery_released_s\":7245.423129075427,\"cargo_ids\":[\"S006-WAT-01\",\"S006-WAT-03\",\"S011-WAT-01\",\"S011-FOD-01\",\"S001-FOD-01\",\"S001-HYG-01\",\"S001-WAT-06\",\"BROWSER-URGENT-BOX\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U07\",\"drone_released_s\":4920.957079151954,\"energy_kwh\":5.505720799717438,\"kind\":\"transport\",\"prepare_start_s\":2323.021404350211,\"return_s\":4920.957079151954,\"return_soc\":0.3117849000353202,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1997836,23.007714],[109.2203356,23.0319231],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-1154e5c0e268\",\"takeoff_s\":2863.021404350211,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S006-WAT-01\",\"S006-WAT-03\"],\"delivery_complete_s\":3448.4433383310434,\"site_id\":\"S006\"},{\"cargo_ids\":[\"S011-WAT-01\",\"S011-FOD-01\"],\"delivery_complete_s\":4056.208925150894,\"site_id\":\"S011\"},{\"cargo_ids\":[\"S001-FOD-01\",\"S001-HYG-01\",\"S001-WAT-06\",\"BROWSER-URGENT-BOX\"],\"delivery_complete_s\":4609.057540487374,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-C-01\",\"battery_released_s\":9338.480134649242,\"cargo_ids\":[\"S010-FOD-01\",\"S001-WAT-07\",\"S001-FOD-02\",\"S001-WAT-08\",\"S001-FOD-03\",\"S001-HYG-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U07\",\"drone_released_s\":7175.673815271539,\"energy_kwh\":4.908823333086906,\"kind\":\"transport\",\"prepare_start_s\":4920.957079151954,\"return_s\":7175.673815271539,\"return_soc\":0.3863970833641367,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2760168,23.0194009],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-d9714915bbff\",\"takeoff_s\":5400.957079151954,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S010-FOD-01\"],\"delivery_complete_s\":6101.11628467494,\"site_id\":\"S010\"},{\"cargo_ids\":[\"S001-WAT-07\",\"S001-FOD-02\",\"S001-WAT-08\",\"S001-FOD-03\",\"S001-HYG-02\"],\"delivery_complete_s\":6863.77427660696,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-A-02\",\"battery_released_s\":4457.228567187648,\"cargo_ids\":[\"S006-WAT-02\",\"S006-FOD-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":3565.1923779902077,\"energy_kwh\":1.3570483472219093,\"kind\":\"transport\",\"prepare_start_s\":2251.7141838665775,\"return_s\":3565.1923779902077,\"return_soc\":0.6984337006173535,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1997836,23.007714],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-7a29b29c7e76\",\"takeoff_s\":2611.7141838665775,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S006-WAT-02\",\"S006-FOD-01\"],\"delivery_complete_s\":3187.216614261726,\"site_id\":\"S006\"}]},{\"battery_id\":\"BAT-B-02\",\"battery_released_s\":4597.031452613246,\"cargo_ids\":[\"S007-WAT-02\",\"S007-HYG-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U05\",\"drone_released_s\":3212.5507979608487,\"energy_kwh\":1.6564938184286104,\"kind\":\"transport\",\"prepare_start_s\":1636.2753989804244,\"return_s\":3212.5507979608487,\"return_soc\":0.5858765453928474,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1928191,23.0294186],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-e6786f2cb91a\",\"takeoff_s\":1996.2753989804244,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S007-WAT-02\",\"S007-HYG-01\"],\"delivery_complete_s\":2702.0530984706365,\"site_id\":\"S007\"}]},{\"battery_id\":\"BAT-B-01\",\"battery_released_s\":5462.062122350362,\"cargo_ids\":[\"S006-HYG-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U05\",\"drone_released_s\":4359.822052804024,\"energy_kwh\":1.0051693912607804,\"kind\":\"transport\",\"prepare_start_s\":3212.5507979608487,\"return_s\":4359.822052804024,\"return_soc\":0.7487076521848048,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1997836,23.007714],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-feff812563f8\",\"takeoff_s\":3542.5507979608487,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S006-HYG-01\"],\"delivery_complete_s\":4034.9497587157693,\"site_id\":\"S006\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
+      "sha256": "edc9b4b92a0a7960577b033e1720425d634cf8347e71fc3f30e902adad386a0b"
+    },
+    {
+      "kind": "plan",
+      "document_id": "PLAN-BB9C2A74AD8E494C",
+      "payload_json": "{\"change_summary\":null,\"data_origin\":\"solver\",\"event_id\":null,\"generated_at\":\"2026-10-18T10:34:30.073643+00:00\",\"has_validated_plan\":true,\"metrics\":{\"cost_cny\":null,\"energy_kwh\":23.426517506214932,\"last_delivery_s\":6929.77427660696,\"makespan_s\":7241.673815271539,\"mandatory_served_count\":32,\"mandatory_total_count\":32,\"min_return_soc\":0.215561116797523,\"sortie_count\":7,\"unserved_demand_count\":0},\"model_scope\":[\"cargo_unique\",\"capacity\",\"inventory\",\"aircraft\",\"battery\",\"time_window\",\"energy\",\"terrain\"],\"objective\":\"time\",\"objective_policy\":\"tradeoff_v2\",\"parent_plan_id\":null,\"plan_id\":\"PLAN-BB9C2A74AD8E494C\",\"scenario_id\":\"SCN-EE25B1DAB5FB404C\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-E800C2EF6E054CA8\",\"solver_notes\":[\"真实限时多起点插入启发式；未证明全局最优。\",\"tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。\",\"题设载荷能耗、两段充电；充电端口无限。\",\"航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。\",\"通信未评估；输出为仿真/规划建议，不是实飞许可。\"],\"solver_status\":\"FEASIBLE\",\"sorties\":[{\"battery_id\":\"BAT-C-01\",\"battery_released_s\":4446.145166057599,\"cargo_ids\":[\"S001-MED-01\",\"S001-MED-02\",\"S001-WAT-01\",\"S001-WAT-02\",\"S001-WAT-03\",\"S001-WAT-04\",\"S001-WAT-05\",\"S006-MED-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U07\",\"drone_released_s\":2323.021404350211,\"energy_kwh\":4.762303120150357,\"kind\":\"transport\",\"prepare_start_s\":0.0,\"return_s\":2323.021404350211,\"return_soc\":0.4047121099812053,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2432319,23.0335927],[109.1997836,23.007714],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-6396ff71573f\",\"takeoff_s\":540.0,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S001-MED-01\",\"S001-MED-02\",\"S001-WAT-01\",\"S001-WAT-02\",\"S001-WAT-03\",\"S001-WAT-04\",\"S001-WAT-05\"],\"delivery_complete_s\":1278.2695386645796,\"site_id\":\"S001\"},{\"cargo_ids\":[\"S006-MED-01\"],\"delivery_complete_s\":1970.8894703693786,\"site_id\":\"S006\"}]},{\"battery_id\":\"BAT-B-01\",\"battery_released_s\":3074.2852937582384,\"cargo_ids\":[\"S007-MED-01\",\"S007-WAT-01\",\"S007-FOD-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U05\",\"drone_released_s\":1636.2753989804244,\"energy_kwh\":1.7800228341026476,\"kind\":\"transport\",\"prepare_start_s\":0.0,\"return_s\":1636.2753989804244,\"return_soc\":0.5549942914743381,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1928191,23.0294186],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-493807468ae3\",\"takeoff_s\":390.0,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S007-MED-01\",\"S007-WAT-01\",\"S007-FOD-01\"],\"delivery_complete_s\":1125.7776994902122,\"site_id\":\"S007\"}]},{\"battery_id\":\"BAT-A-01\",\"battery_released_s\":3559.246156633708,\"cargo_ids\":[\"S011-MED-01\",\"S010-MED-01\",\"S010-WAT-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":2251.7141838665775,\"energy_kwh\":2.795302982655452,\"kind\":\"transport\",\"prepare_start_s\":0.0,\"return_s\":2251.7141838665775,\"return_soc\":0.3788215594098996,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2203356,23.0319231],[109.2760168,23.0194009],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-0effebcce24d\",\"takeoff_s\":390.0,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S011-MED-01\"],\"delivery_complete_s\":893.198139995606,\"site_id\":\"S011\"},{\"cargo_ids\":[\"S010-MED-01\",\"S010-WAT-01\"],\"delivery_complete_s\":1701.8194867569523,\"site_id\":\"S010\"}]},{\"battery_id\":\"BAT-C-02\",\"battery_released_s\":7057.471123238606,\"cargo_ids\":[\"S006-WAT-01\",\"S006-WAT-02\",\"S006-WAT-03\",\"S006-FOD-01\",\"S006-HYG-01\",\"S011-WAT-01\",\"S001-FOD-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U07\",\"drone_released_s\":4854.957079151954,\"energy_kwh\":5.055436470473794,\"kind\":\"transport\",\"prepare_start_s\":2323.021404350211,\"return_s\":4854.957079151954,\"return_soc\":0.3680704411907757,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1997836,23.007714],[109.2203356,23.0319231],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-4b12e7d95fbd\",\"takeoff_s\":2833.021404350211,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S006-WAT-01\",\"S006-WAT-02\",\"S006-WAT-03\",\"S006-FOD-01\",\"S006-HYG-01\"],\"delivery_complete_s\":3526.4433383310434,\"site_id\":\"S006\"},{\"cargo_ids\":[\"S011-WAT-01\"],\"delivery_complete_s\":4098.208925150894,\"site_id\":\"S011\"},{\"cargo_ids\":[\"S001-FOD-01\"],\"delivery_complete_s\":4543.057540487374,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-C-01\",\"battery_released_s\":9774.624728876905,\"cargo_ids\":[\"S010-FOD-01\",\"S001-WAT-06\",\"S001-WAT-07\",\"S001-WAT-08\",\"S001-FOD-02\",\"S001-FOD-03\",\"S001-HYG-01\",\"S001-HYG-02\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U07\",\"drone_released_s\":7241.673815271539,\"energy_kwh\":6.275511065619816,\"kind\":\"transport\",\"prepare_start_s\":4854.957079151954,\"return_s\":7241.673815271539,\"return_soc\":0.215561116797523,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2760168,23.0194009],[109.2432319,23.0335927],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-6edfcc0593e2\",\"takeoff_s\":5394.957079151954,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S010-FOD-01\"],\"delivery_complete_s\":6095.11628467494,\"site_id\":\"S010\"},{\"cargo_ids\":[\"S001-WAT-06\",\"S001-WAT-07\",\"S001-WAT-08\",\"S001-FOD-02\",\"S001-FOD-03\",\"S001-HYG-01\",\"S001-HYG-02\"],\"delivery_complete_s\":6929.77427660696,\"site_id\":\"S001\"}]},{\"battery_id\":\"BAT-B-02\",\"battery_released_s\":4597.031452613246,\"cargo_ids\":[\"S007-WAT-02\",\"S007-HYG-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U05\",\"drone_released_s\":3212.5507979608487,\"energy_kwh\":1.6564938184286104,\"kind\":\"transport\",\"prepare_start_s\":1636.2753989804244,\"return_s\":3212.5507979608487,\"return_soc\":0.5858765453928474,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.1928191,23.0294186],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-e6786f2cb91a\",\"takeoff_s\":1996.2753989804244,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S007-WAT-02\",\"S007-HYG-01\"],\"delivery_complete_s\":2702.0530984706365,\"site_id\":\"S007\"}]},{\"battery_id\":\"BAT-A-02\",\"battery_released_s\":4231.932992573239,\"cargo_ids\":[\"S011-FOD-01\"],\"communication_status\":\"not_evaluated\",\"drone_id\":\"U01\",\"drone_released_s\":3413.737130524456,\"energy_kwh\":1.10144721478425,\"kind\":\"transport\",\"prepare_start_s\":2251.7141838665775,\"return_s\":3413.737130524456,\"return_soc\":0.7552339522701667,\"route_geometry\":{\"coordinates\":[[109.2308517,23.0085095],[109.2203356,23.0319231],[109.2308517,23.0085095]],\"type\":\"LineString\"},\"sortie_id\":\"SRT-7285ee29cb6c\",\"takeoff_s\":2581.7141838665775,\"terrain_status\":\"passed\",\"visits\":[{\"cargo_ids\":[\"S011-FOD-01\"],\"delivery_complete_s\":3084.9123238621833,\"site_id\":\"S011\"}]}],\"unserved_demand_ids\":[],\"validation\":{\"checks\":[{\"code\":\"cargo_unique\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"capacity\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"inventory\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"aircraft\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"battery\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"time_window\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"energy\",\"message\":\"已根据输入、架次与资源实体独立复算\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"terrain\",\"message\":\"绑定DEM闭像元航段净空已检查；非现实障碍/适航认证\",\"object_id\":null,\"status\":\"passed\"},{\"code\":\"communication\",\"message\":\"当前方案未要求连续无线链路检查\",\"object_id\":null,\"status\":\"not_evaluated\"}],\"status\":\"passed\"}}",
+      "sha256": "2d1c0cf4ee50f98dc9ca8c45ade506401e0512fbf9b4658b1829578bc41c9c1e"
+    },
+    {
+      "kind": "snapshot",
+      "document_id": "SNAP-09E5B2347AFA4FEF",
+      "payload_json": "{\"content_hash\":\"26b12062406bdcd63f46c55edce5b5f8699d0bde9fd8cac345f053879d1d426e\",\"created_at\":\"2026-10-18T10:34:36.240544+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":3559.246156633708,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":894.198139995606,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":3074.2852937582384,\"battery_id\":\"BAT-B-01\",\"capacity_kwh\":4.0,\"compatible_type_id\":\"B\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":894.198139995606,\"battery_id\":\"BAT-B-02\",\"capacity_kwh\":4.0,\"compatible_type_id\":\"B\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":4446.145166057599,\"battery_id\":\"BAT-C-01\",\"capacity_kwh\":8.0,\"compatible_type_id\":\"C\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":894.198139995606,\"battery_id\":\"BAT-C-02\",\"capacity_kwh\":8.0,\"compatible_type_id\":\"C\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"}],\"cargo_items\":[{\"cargo_id\":\"S001-WAT-06\",\"demand_id\":\"D-S001-WAT-06\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-07\",\"demand_id\":\"D-S001-WAT-07\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-08\",\"demand_id\":\"D-S001-WAT-08\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-FOD-01\",\"demand_id\":\"D-S001-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-FOD-02\",\"demand_id\":\"D-S001-FOD-02\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-FOD-03\",\"demand_id\":\"D-S001-FOD-03\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-HYG-01\",\"demand_id\":\"D-S001-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S001-HYG-02\",\"demand_id\":\"D-S001-HYG-02\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S006-WAT-01\",\"demand_id\":\"D-S006-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-WAT-02\",\"demand_id\":\"D-S006-WAT-02\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-WAT-03\",\"demand_id\":\"D-S006-WAT-03\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-FOD-01\",\"demand_id\":\"D-S006-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S006-HYG-01\",\"demand_id\":\"D-S006-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S007-WAT-02\",\"demand_id\":\"D-S007-WAT-02\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S007-HYG-01\",\"demand_id\":\"D-S007-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S010-FOD-01\",\"demand_id\":\"D-S010-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S011-WAT-01\",\"demand_id\":\"D-S011-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S011-FOD-01\",\"demand_id\":\"D-S011-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"BROWSER-URGENT-BOX\",\"demand_id\":\"BROWSER-URGENT\",\"location_id\":\"O01\",\"mass_kg\":1.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":1.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"user_input\",\"demands\":[{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-06\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-07\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-08\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-02\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-03\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S001-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S001-HYG-02\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-03\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S006-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S006-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S007-WAT-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S007-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S010-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S010\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S011-WAT-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":10800.0,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S011\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S011-FOD-01\",\"expected_deadline_s\":14400.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":6,\"required_quantity\":1,\"site_id\":\"S011\"},{\"cargo_type\":\"MED\",\"demand_id\":\"BROWSER-URGENT\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":2251.7141838665775,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"},{\"available_after_s\":1636.2753989804244,\"drone_id\":\"U05\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"B\"},{\"available_after_s\":2323.021404350211,\"drone_id\":\"U07\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"C\"}],\"mode\":\"simulation\",\"name\":\"在途插单与档案验收 1792319666734 · 在途剩余输入\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-E27D67076C314B36\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":1,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-E27D67076C314B36\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-09E5B2347AFA4FEF\"}",
+      "sha256": "4e921d20770e33074f9e0ba4a179f8a291b12956e63c594124331932c9d452d3"
+    },
+    {
+      "kind": "snapshot",
+      "document_id": "SNAP-E800C2EF6E054CA8",
+      "payload_json": "{\"content_hash\":\"09226f696020144abfd86491cca601e61710903b4bb416c92d325672298a6fa5\",\"created_at\":\"2026-10-18T10:34:27.012102+00:00\",\"scenario\":{\"base\":{\"available\":true,\"coordinates\":[109.2308517,23.0085095],\"ground_elevation_m\":127.7,\"id\":\"O01\",\"name\":\"凤丹村无人机调度中心\"},\"batteries\":[{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-01\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-A-02\",\"capacity_kwh\":4.5,\"compatible_type_id\":\"A\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-B-01\",\"capacity_kwh\":4.0,\"compatible_type_id\":\"B\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-B-02\",\"capacity_kwh\":4.0,\"compatible_type_id\":\"B\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-C-01\",\"capacity_kwh\":8.0,\"compatible_type_id\":\"C\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"},{\"available_after_s\":0.0,\"battery_id\":\"BAT-C-02\",\"capacity_kwh\":8.0,\"compatible_type_id\":\"C\",\"location_id\":\"O01\",\"soc\":1.0,\"soh\":1.0,\"status\":\"available\"}],\"cargo_items\":[{\"cargo_id\":\"S001-MED-01\",\"demand_id\":\"D-S001-MED-01\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S001-MED-02\",\"demand_id\":\"D-S001-MED-02\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S001-WAT-01\",\"demand_id\":\"D-S001-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-02\",\"demand_id\":\"D-S001-WAT-02\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-03\",\"demand_id\":\"D-S001-WAT-03\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-04\",\"demand_id\":\"D-S001-WAT-04\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-05\",\"demand_id\":\"D-S001-WAT-05\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-06\",\"demand_id\":\"D-S001-WAT-06\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-07\",\"demand_id\":\"D-S001-WAT-07\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-WAT-08\",\"demand_id\":\"D-S001-WAT-08\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S001-FOD-01\",\"demand_id\":\"D-S001-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-FOD-02\",\"demand_id\":\"D-S001-FOD-02\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-FOD-03\",\"demand_id\":\"D-S001-FOD-03\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S001-HYG-01\",\"demand_id\":\"D-S001-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S001-HYG-02\",\"demand_id\":\"D-S001-HYG-02\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S006-MED-01\",\"demand_id\":\"D-S006-MED-01\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S006-WAT-01\",\"demand_id\":\"D-S006-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-WAT-02\",\"demand_id\":\"D-S006-WAT-02\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-WAT-03\",\"demand_id\":\"D-S006-WAT-03\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S006-FOD-01\",\"demand_id\":\"D-S006-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S006-HYG-01\",\"demand_id\":\"D-S006-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S007-MED-01\",\"demand_id\":\"D-S007-MED-01\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S007-WAT-01\",\"demand_id\":\"D-S007-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S007-WAT-02\",\"demand_id\":\"D-S007-WAT-02\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S007-FOD-01\",\"demand_id\":\"D-S007-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S007-HYG-01\",\"demand_id\":\"D-S007-HYG-01\",\"location_id\":\"O01\",\"mass_kg\":6.0,\"status\":\"available\",\"type\":\"HYG\",\"volume_l\":35.0},{\"cargo_id\":\"S010-MED-01\",\"demand_id\":\"D-S010-MED-01\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S010-WAT-01\",\"demand_id\":\"D-S010-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S010-FOD-01\",\"demand_id\":\"D-S010-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0},{\"cargo_id\":\"S011-MED-01\",\"demand_id\":\"D-S011-MED-01\",\"location_id\":\"O01\",\"mass_kg\":3.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":12.0},{\"cargo_id\":\"S011-WAT-01\",\"demand_id\":\"D-S011-WAT-01\",\"location_id\":\"O01\",\"mass_kg\":14.0,\"status\":\"available\",\"type\":\"WAT\",\"volume_l\":27.0},{\"cargo_id\":\"S011-FOD-01\",\"demand_id\":\"D-S011-FOD-01\",\"location_id\":\"O01\",\"mass_kg\":8.0,\"status\":\"available\",\"type\":\"FOD\",\"volume_l\":28.0}],\"coordinate_system\":\"EPSG:4326\",\"data_origin\":\"verified_dataset\",\"demands\":[{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S001-MED-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-03\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-04\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-05\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-06\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-07\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S001-WAT-08\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-02\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S001-FOD-03\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S001-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S001-HYG-02\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S001\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S006-MED-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S006-WAT-03\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S006-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S006-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S006\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S007-MED-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S007-WAT-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S007-WAT-02\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S007-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"HYG\",\"demand_id\":\"D-S007-HYG-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S007\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S010-MED-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S010\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S010-WAT-01\",\"expected_deadline_s\":3600.0,\"hard_deadline_s\":3600.0,\"mandatory\":true,\"priority\":12,\"required_quantity\":1,\"site_id\":\"S010\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S010-FOD-01\",\"expected_deadline_s\":7200.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":10,\"required_quantity\":1,\"site_id\":\"S010\"},{\"cargo_type\":\"MED\",\"demand_id\":\"D-S011-MED-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":10800.0,\"mandatory\":true,\"priority\":16,\"required_quantity\":1,\"site_id\":\"S011\"},{\"cargo_type\":\"WAT\",\"demand_id\":\"D-S011-WAT-01\",\"expected_deadline_s\":10800.0,\"hard_deadline_s\":10800.0,\"mandatory\":true,\"priority\":8,\"required_quantity\":1,\"site_id\":\"S011\"},{\"cargo_type\":\"FOD\",\"demand_id\":\"D-S011-FOD-01\",\"expected_deadline_s\":14400.0,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":6,\"required_quantity\":1,\"site_id\":\"S011\"}],\"drone_types\":[{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":1800.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":12.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":70.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":25000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":20000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.5,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":25.0,\"max_volume_l\":60.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"A\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":2400.0}},\"climb_speed_mps\":3.0,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.5,\"empty_mass_kg\":65.0,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":28000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":16000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":4.0,\"service_height_m\":30.0}},\"handover_fixed_s\":150.0,\"handover_per_box_s\":30.0,\"max_payload_kg\":30.0,\"max_volume_l\":73.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"B\"},{\"charge_model\":{\"model_id\":\"contest_two_stage_v1\",\"parameters\":{\"full_charge_s\":3000.0}},\"climb_speed_mps\":2.5,\"cruise_speed_mps\":15.0,\"descent_speed_mps\":2.0,\"empty_mass_kg\":69.9,\"energy_model\":{\"model_id\":\"contest_transport_v1\",\"parameters\":{\"clearance_m\":50.0,\"climb_efficiency\":0.72,\"empty_range_m\":26000.0,\"energy_scale\":1.0,\"flight_time_scale\":1.0,\"full_range_m\":12000.0,\"load_per_box_s\":30.0,\"reference_energy_kwh\":8.0,\"service_height_m\":30.0}},\"handover_fixed_s\":180.0,\"handover_per_box_s\":36.0,\"max_payload_kg\":80.0,\"max_volume_l\":250.0,\"prepare_duration_s\":300.0,\"turnaround_duration_s\":0.0,\"type_id\":\"C\"}],\"drones\":[{\"available_after_s\":0.0,\"drone_id\":\"U01\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"A\"},{\"available_after_s\":0.0,\"drone_id\":\"U05\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"B\"},{\"available_after_s\":0.0,\"drone_id\":\"U07\",\"location_id\":\"O01\",\"status\":\"available\",\"type_id\":\"C\"}],\"mode\":\"simulation\",\"name\":\"在途插单与档案验收 1792319666734\",\"policy\":{\"cost_model_available\":false,\"delivery_time_policy\":\"station_end\",\"min_return_soc\":0.2,\"requires_communication\":false,\"requires_terrain\":true},\"scenario_id\":\"SCN-EE25B1DAB5FB404C\",\"schema_version\":\"0.1.0-draft\",\"sites\":[{\"available\":true,\"coordinates\":[109.2203356,23.0319231],\"ground_elevation_m\":182.1,\"id\":\"S011\",\"name\":\"那从\"},{\"available\":true,\"coordinates\":[109.2432319,23.0335927],\"ground_elevation_m\":154.0,\"id\":\"S001\",\"name\":\"平旺、那龙、镇龙乡\"},{\"available\":true,\"coordinates\":[109.1997836,23.007714],\"ground_elevation_m\":284.8,\"id\":\"S006\",\"name\":\"六昌、木路\"},{\"available\":true,\"coordinates\":[109.1928191,23.0294186],\"ground_elevation_m\":318.5,\"id\":\"S007\",\"name\":\"佛子、那桑、银坑\"},{\"available\":true,\"coordinates\":[109.2760168,23.0194009],\"ground_elevation_m\":321.6,\"id\":\"S010\",\"name\":\"镇龙乡\"}],\"start_time\":\"2026-10-17T08:00:00+08:00\",\"state_version\":1,\"terrain\":{\"asset_id\":\"contest-dem-30m\",\"horizontal_crs\":\"EPSG:4326\",\"sha256\":\"c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf\",\"status\":\"available\",\"vertical_datum\":\"contest_provided_elevation_reference\"},\"timezone\":\"Asia/Shanghai\"},\"scenario_id\":\"SCN-EE25B1DAB5FB404C\",\"scenario_state_version\":1,\"schema_version\":\"0.1.0-draft\",\"snapshot_id\":\"SNAP-E800C2EF6E054CA8\"}",
+      "sha256": "ecd850ba7ed6c5e86ff28d85cb6bc5a42aa174a801568ee9be432f99c5f4cc9b"
+    },
+    {
+      "kind": "event_input",
+      "document_id": "35da3cf0-02df-443b-9e89-39e50e527de3",
+      "payload_json": "{\"cargo_items\":[{\"cargo_id\":\"BROWSER-URGENT-BOX\",\"demand_id\":\"BROWSER-URGENT\",\"location_id\":\"O01\",\"mass_kg\":1.0,\"status\":\"available\",\"type\":\"MED\",\"volume_l\":1.0}],\"demand\":{\"cargo_type\":\"MED\",\"demand_id\":\"BROWSER-URGENT\",\"expected_deadline_s\":null,\"hard_deadline_s\":null,\"mandatory\":true,\"priority\":24,\"required_quantity\":1,\"site_id\":\"S001\"},\"event_id\":\"35da3cf0-02df-443b-9e89-39e50e527de3\",\"event_type\":\"demand.added\",\"expected_revision\":2,\"object_id\":null,\"reason\":\"新增一箱急需物资，有明确基地库存\",\"weather\":null}",
+      "sha256": "36cafb7ce8df8e34db8753a10acb4c469272a50233350fe4de2ac4d6777c458c"
+    }
+  ],
+  "content_sha256": "6489b6802737268c9c7299c2a27645d408f6477a67d026a3dddfdb78c48607b9"
+}

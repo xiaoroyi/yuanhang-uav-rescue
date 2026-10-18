@@ -3390,6 +3390,18 @@
               "type": "string",
               "title": "Execution Id"
             }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 2,
+              "minimum": 1,
+              "default": 1,
+              "title": "Version"
+            }
           }
         ],
         "responses": {
@@ -3398,6 +3410,105 @@
             "content": {
               "application/json": {
                 "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/execution-archives/import": {
+      "post": {
+        "summary": "Import Archive",
+        "operationId": "import_archive_api_v1_execution_archives_import_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_archive_api_v1_execution_archives_import_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionArchiveSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/execution-archives": {
+      "get": {
+        "summary": "List Archives",
+        "operationId": "list_archives_api_v1_execution_archives_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ExecutionArchiveSummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Archives Api V1 Execution Archives Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/execution-archives/{archive_id}": {
+      "get": {
+        "summary": "Get Archive",
+        "operationId": "get_archive_api_v1_execution_archives__archive_id__get",
+        "parameters": [
+          {
+            "name": "archive_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Archive Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionArchiveView"
+                }
               }
             }
           },
@@ -3643,6 +3754,20 @@
           "payload"
         ],
         "title": "BatteryUnavailableEvent"
+      },
+      "Body_import_archive_api_v1_execution_archives_import_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_archive_api_v1_execution_archives_import_post"
       },
       "Body_import_file_api_v1_scenarios_import_file_post": {
         "properties": {
@@ -5881,6 +6006,192 @@
         ],
         "title": "ExecutionAnalysis"
       },
+      "ExecutionArchiveSummary": {
+        "properties": {
+          "archive_id": {
+            "type": "string",
+            "title": "Archive Id"
+          },
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "mission_name": {
+            "type": "string",
+            "title": "Mission Name"
+          },
+          "imported_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Imported At"
+          },
+          "captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Captured At"
+          },
+          "captured_time_s": {
+            "type": "number",
+            "title": "Captured Time S"
+          },
+          "captured_status": {
+            "type": "string",
+            "title": "Captured Status"
+          },
+          "fact_count": {
+            "type": "integer",
+            "title": "Fact Count"
+          },
+          "plan_count": {
+            "type": "integer",
+            "title": "Plan Count"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "read_only": {
+            "type": "boolean",
+            "const": true,
+            "title": "Read Only",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "archive_id",
+          "execution_id",
+          "mission_name",
+          "imported_at",
+          "captured_at",
+          "captured_time_s",
+          "captured_status",
+          "fact_count",
+          "plan_count",
+          "content_sha256"
+        ],
+        "title": "ExecutionArchiveSummary"
+      },
+      "ExecutionArchiveView": {
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/ExecutionArchiveSummary"
+          },
+          "bundle": {
+            "$ref": "#/components/schemas/ExecutionBundle"
+          },
+          "plans": {
+            "items": {
+              "$ref": "#/components/schemas/Plan"
+            },
+            "type": "array",
+            "title": "Plans"
+          },
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/Snapshot"
+            },
+            "type": "array",
+            "title": "Snapshots"
+          },
+          "analysis": {
+            "$ref": "#/components/schemas/ExecutionAnalysis"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "summary",
+          "bundle",
+          "plans",
+          "snapshots",
+          "analysis"
+        ],
+        "title": "ExecutionArchiveView"
+      },
+      "ExecutionBundle": {
+        "properties": {
+          "bundle_version": {
+            "type": "string",
+            "const": "execution-simulation-v2",
+            "title": "Bundle Version"
+          },
+          "source": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Source"
+          },
+          "is_flight_controller_file": {
+            "type": "boolean",
+            "const": false,
+            "title": "Is Flight Controller File"
+          },
+          "captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Captured At"
+          },
+          "mission_name": {
+            "type": "string",
+            "maxLength": 128,
+            "title": "Mission Name"
+          },
+          "execution": {
+            "$ref": "#/components/schemas/ExecutionView"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/ExecutionEventView"
+            },
+            "type": "array",
+            "title": "Events"
+          },
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/RepairView"
+            },
+            "type": "array",
+            "title": "Changes"
+          },
+          "commands": {
+            "items": {
+              "$ref": "#/components/schemas/CommandView"
+            },
+            "type": "array",
+            "title": "Commands"
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/FrozenDocument"
+            },
+            "type": "array",
+            "maxItems": 2000,
+            "title": "Documents"
+          },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Content Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "bundle_version",
+          "source",
+          "is_flight_controller_file",
+          "captured_at",
+          "mission_name",
+          "execution",
+          "events",
+          "changes",
+          "commands",
+          "documents",
+          "content_sha256"
+        ],
+        "title": "ExecutionBundle"
+      },
       "ExecutionCreate": {
         "properties": {
           "mission_id": {
@@ -6757,6 +7068,45 @@
           "cruise_elevation_m"
         ],
         "title": "FlightProfileSample"
+      },
+      "FrozenDocument": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "plan",
+              "snapshot",
+              "event_input",
+              "event_resolution"
+            ],
+            "title": "Kind"
+          },
+          "document_id": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 1,
+            "title": "Document Id"
+          },
+          "payload_json": {
+            "type": "string",
+            "maxLength": 4000000,
+            "title": "Payload Json"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "title": "Sha256"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "document_id",
+          "payload_json",
+          "sha256"
+        ],
+        "title": "FrozenDocument"
       },
       "Geometry": {
         "properties": {

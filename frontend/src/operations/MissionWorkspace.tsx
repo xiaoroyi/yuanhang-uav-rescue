@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   ArrowLeft,
   ArrowRight,
@@ -35,6 +35,8 @@ import { InputImport } from './InputImport'
 import { PlanInsights } from './PlanInsights'
 import { CommunicationPanel } from '../components/CommunicationPanel'
 import { WeatherEditor } from './WeatherEditor'
+import { ExecutionTimeline } from './ExecutionTimeline'
+import { ExecutionInsights } from './ExecutionInsights'
 
 type Stage = 'prepare' | 'plans' | 'execute' | 'review'
 type Notify = (m: string, e?: boolean) => void
@@ -425,7 +427,7 @@ export function MissionWorkspace({
               </div>
               <div className="v2-object-scroll">
                 {list === 'demands'
-                  ? scene.data.sites.map((n) => (
+                  ? activeScenario?.sites.map((n) => (
                       <button
                         className={siteId === n.id ? 'active' : ''}
                         key={n.id}
@@ -441,7 +443,7 @@ export function MissionWorkspace({
                         </strong>
                         <small>
                           {n.id} ·{' '}
-                          {scene.data?.demands
+                          {activeScenario?.demands
                             .filter((d) => d.site_id === n.id)
                             .reduce((v, d) => v + d.required_quantity, 0)}{' '}
                           箱需求
@@ -1069,10 +1071,48 @@ function Review({
   onOpen: (s: Scenario) => void
 }) {
   const [tab, setTab] = useState('summary')
+  const [profile, setProfile] = useState<{ plan: Plan; sortieId: string } | null>(null)
+  const profileSnapshot = useQuery({
+    queryKey: ['snapshot', profile?.plan.snapshot_id],
+    queryFn: () => api.getSnapshot(profile!.plan.snapshot_id),
+    enabled: !!profile,
+  })
+  const execution = useQuery({
+    queryKey: ['execution', mission.active_execution_id],
+    queryFn: () => ops.execution(mission.active_execution_id!),
+    enabled: !!mission.active_execution_id,
+    refetchInterval: 2000,
+  })
+  const initial = useQuery({
+    queryKey: ['plan', execution.data?.initial_plan_id],
+    queryFn: () => api.plan(execution.data!.initial_plan_id),
+    enabled: !!execution.data,
+  })
+  const parts = useQueries({
+    queries: (execution.data?.schedule_parts || []).map((part) => ({
+      queryKey: ['plan', part.plan_id],
+      queryFn: () => api.plan(part.plan_id),
+    })),
+  })
+  const sources = (execution.data?.schedule_parts || []).flatMap((part, i) => {
+    const p = parts[i].data
+    return p
+      ? [
+          {
+            plan: p,
+            sortieIds: part.sortie_ids,
+            relayIds:
+              part.relay_sortie_ids ||
+              (part.role === 'initial' ? p.relay_sorties?.map((r) => r.relay_sortie_id) : []),
+          },
+        ]
+      : []
+  })
   const analysis = useQuery({
     queryKey: ['execution-analysis', mission.active_execution_id],
     queryFn: () => ops.executionAnalysis(mission.active_execution_id!),
     enabled: !!mission.active_execution_id,
+    refetchInterval: 2000,
   })
   if (!plan || !scenario)
     return (
@@ -1102,7 +1142,7 @@ function Review({
           className="button"
           href={
             mission.active_execution_id
-              ? `/api/v1/executions/${mission.active_execution_id}/export`
+              ? `/api/v1/executions/${mission.active_execution_id}/export?version=2`
               : api.reportUrl(plan.plan_id)
           }
           target="_blank"
@@ -1115,6 +1155,7 @@ function Review({
       <div className="v2-tabs">
         {[
           ['summary', '任务结果'],
+          ['profiles', '单架次与方案分析'],
           ['resources', '资源与增配'],
           ['communication', '通信与分区'],
         ].map(([id, label]) => (
@@ -1147,39 +1188,58 @@ function Review({
               调整记录 <b>{analysis.data?.change_count ?? 0}</b>
             </span>
           </div>
-          <ResourceTimeline
-            scenario={scenario}
-            plan={plan}
-            selected={selected}
-            onSelect={onSelect}
-          />
-          <StageCharts plan={plan} selected={selected || plan.sorties[0]?.sortie_id || ''} />
-          <PlanInsights plan={plan} />
-          {analysis.data && (
-            <section className="v2-card">
-              <h3>模拟交付记录</h3>
-              <table className="v2-table">
-                <thead>
-                  <tr>
-                    <th>时间</th>
-                    <th>机体</th>
-                    <th>架次</th>
-                    <th>箱件</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {analysis.data.delivery_rows.map((f) => (
-                    <tr key={f.fact_id}>
-                      <td>{clock(f.time_s)}</td>
-                      <td>{f.drone_id}</td>
-                      <td>{f.sortie_id}</td>
-                      <td>{f.cargo_ids.join(' · ')}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
+          {execution.data ? (
+            <ExecutionTimeline
+              sources={sources}
+              execution={execution.data}
+              onSelect={(key) => {
+                const source = sources.find((s) => key.startsWith(s.plan.plan_id + ':'))
+                if (source) {
+                  setProfile({
+                    plan: source.plan,
+                    sortieId: key.slice(source.plan.plan_id.length + 1),
+                  })
+                  setTab('profiles')
+                }
+              }}
+            />
+          ) : (
+            <ResourceTimeline
+              scenario={scenario}
+              plan={plan}
+              selected={selected}
+              onSelect={onSelect}
+            />
           )}
+          {analysis.data && initial.data ? (
+            <ExecutionInsights analysis={analysis.data} initialPlan={initial.data} />
+          ) : !mission.active_execution_id ? (
+            <PlanInsights plan={plan} />
+          ) : (
+            <p className="v2-subtle">{analysis.error?.message || '正在读取模拟事实…'}</p>
+          )}
+        </>
+      ) : tab === 'profiles' ? (
+        <>
+          <div className="v2-section-bar">
+            <h3>独立方案来源</h3>
+            <code>{(profile?.plan || plan).plan_id}</code>
+          </div>
+          {!profile || profileSnapshot.data ? (
+            <ResourceTimeline
+              scenario={profileSnapshot.data?.scenario || scenario}
+              plan={profile?.plan || plan}
+              selected={profile?.sortieId || selected}
+              onSelect={(id) => setProfile({ plan: profile?.plan || plan, sortieId: id })}
+            />
+          ) : (
+            <p>读取该方案冻结输入…</p>
+          )}
+          <StageCharts
+            plan={profile?.plan || plan}
+            selected={profile?.sortieId || selected || plan.sorties[0]?.sortie_id || ''}
+          />
+          <PlanInsights plan={profile?.plan || plan} />
         </>
       ) : tab === 'resources' ? (
         <ResourceAnalysis

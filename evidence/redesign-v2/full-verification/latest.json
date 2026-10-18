@@ -1,0 +1,50 @@
+{
+  "at_utc": "2026-10-18T10:50:16.404005+00:00",
+  "head": "cf3d73d34851b3deba5efd9dcae26765ee6ce6ad",
+  "branch": "feat/mission-workspace-v2",
+  "working_tree_diff_sha256": "99baf7cfca4f890fe6687f5d69bee8d3ae822afd75c0d21e2ffdc5e81fc710da",
+  "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
+  "status": " M backend/app/executions.py\n M backend/app/operation_models.py\n M contracts/http/openapi.generated.json\n M contracts/operations/v2.schema.json\n M docs/08-TASK-BOARD.md\n M docs/CONTRACT_RFC_021.md\n M docs/task-board.json\n M evidence/browser/capacity-bound.json\n M evidence/browser/communication-source.json\n M evidence/browser/nominal-diagnostic.json\n M evidence/browser/urgent-demand.json\n M evidence/browser/verified/battery-fault-1280.png\n M evidence/browser/verified/battery-fault-1440.png\n M evidence/browser/verified/battery-fault-changes-1280.png\n M evidence/browser/verified/battery-fault-changes-390.png\n M evidence/browser/verified/capacity-bound-1280.png\n M evidence/browser/verified/capacity-bound-1440.png\n M evidence/browser/verified/capacity-bound-390.png\n M evidence/browser/verified/communication-config-1280.png\n M evidence/browser/verified/communication-source-1280.png\n M evidence/browser/verified/communication-source-1440.png\n M evidence/browser/verified/communication-source-detail-1280.png\n M evidence/browser/verified/communication-source-detail-mobile.png\n M evidence/browser/verified/communication-source-mobile.png\n M evidence/browser/verified/joint-battery-fault-1280.png\n M evidence/browser/verified/joint-battery-fault-1440.png\n M evidence/browser/verified/joint-battery-fault-changes-1280.png\n M evidence/browser/verified/joint-battery-fault-changes-390.png\n M evidence/browser/verified/nominal-batches-1440.png\n M evidence/browser/verified/nominal-capacity-1440.png\n M evidence/browser/verified/nominal-sensitivity-1280.png\n M evidence/browser/verified/nominal-sensitivity-390.png\n M evidence/browser/verified/scenario-with-nominal-1440.png\n M evidence/browser/verified/urgent-demand-form-1280.png\n M evidence/browser/verified/urgent-demand-form-1440.png\n M evidence/browser/verified/urgent-demand-form-390.png\n M evidence/browser/verified/urgent-demand-form-footer-390.png\n M evidence/browser/verified/urgent-demand-no-result-1440.png\n M evidence/browser/verified/urgent-demand-result-1440.png\n M evidence/redesign-v2/API_MIGRATION_MAP.md\n M evidence/redesign-v2/DEMO_GUIDE.md\n M evidence/redesign-v2/FEATURE_TRACEABILITY.md\n M evidence/redesign-v2/HANDOFF.md\n M evidence/redesign-v2/KNOWN_LIMITATIONS.md\n M evidence/redesign-v2/TEST_REPORT.md\n M evidence/redesign-v2/VISUAL_REVIEW.md\n M evidence/redesign-v2/event-manual-1440.png\n M evidence/redesign-v2/weather-plan-1440.png\n M evidence/redesign-v2/weather-preflight-1440.png\n M evidence/solver/battery-replan.json\n M evidence/solver/joint-battery-replan.json\n M evidence/strategy-v2/browser-solve.json\n M evidence/strategy-v2/schedule-1280.png\n M evidence/strategy-v2/schedule-1440.png\n M evidence/strategy-v2/schedule-390.png\n M evidence/strategy-v2/strategies-1440.png\n M evidence/strategy-v2/trial-policy-v1.json\n M evidence/strategy-v2/trial-policy-v2.json\n M frontend/src/api/generated/http.d.ts\n M frontend/src/api/operations.ts\n M frontend/src/operations/ExecutionWorkspace.tsx\n M frontend/src/operations/MissionWorkspace.tsx\n M frontend/src/operations/ResourceCenter.tsx\n M frontend/src/operations/operations.css\n M scripts/verify.py\n M tests/backend/test_execution_v2.py\n?? backend/app/execution_archive.py\n?? evidence/redesign-v2/EXECUTION_SMOKE/\n?? evidence/redesign-v2/SCENARIO_MANIFEST.json\n?? evidence/redesign-v2/archive-browser-final-results.json\n?? evidence/redesign-v2/archive-browser-results.json\n?? evidence/redesign-v2/archive-browser-visual-results.json\n?? evidence/redesign-v2/archive-event-diff-1440.png\n?? evidence/redesign-v2/execution-active-gantt-1440.png\n?? evidence/redesign-v2/full-verification/\n?? evidence/redesign-v2/readonly-archive-1280.png\n?? evidence/redesign-v2/readonly-archive-1440.png\n?? evidence/redesign-v2/retrospective-1280.png\n?? evidence/redesign-v2/retrospective-1440.png\n?? frontend/src/operations/ArchiveCenter.tsx\n?? frontend/src/operations/ExecutionInsights.tsx\n?? frontend/src/operations/ExecutionTimeline.tsx\n?? frontend/tests/archive-v2.spec.ts\n?? tests/backend/test_execution_archive.py\n",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
+      "exit_code": 0,
+      "elapsed_s": 836.851,
+      "output": "evidence/redesign-v2/full-verification/check-01.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
+      "exit_code": 0,
+      "elapsed_s": 1.574,
+      "output": "evidence/redesign-v2/full-verification/check-02.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
+      "exit_code": 0,
+      "elapsed_s": 3.091,
+      "output": "evidence/redesign-v2/full-verification/check-03.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
+      "exit_code": 0,
+      "elapsed_s": 20.412,
+      "output": "evidence/redesign-v2/full-verification/check-04.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
+      "exit_code": 0,
+      "elapsed_s": 2.219,
+      "output": "evidence/redesign-v2/full-verification/check-05.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
+      "exit_code": 0,
+      "elapsed_s": 18.743,
+      "output": "evidence/redesign-v2/full-verification/check-06.txt"
+    }
+  ],
+  "verification_source_before_sha256": "2c58b9d8c6b55e851138a03b2872e2e5fbbdaed808ea814c6ebb6439bf913086",
+  "verification_source_after_sha256": "2c58b9d8c6b55e851138a03b2872e2e5fbbdaed808ea814c6ebb6439bf913086",
+  "source_unchanged": true,
+  "passed": true
+}

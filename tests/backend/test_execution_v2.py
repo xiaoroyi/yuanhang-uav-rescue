@@ -364,6 +364,29 @@ def test_inflight_repair_preserves_facts_and_resource_release(tmp_path):
         assert len(after["delivered_cargo_ids"]) == len(s["cargo_items"]) + 1
         summary = c.get(f"/api/v1/executions/{e['execution_id']}/analysis").json()
         assert summary["delivered_quantity"] == 33 and summary["unserved_quantity"] == 0
+        bundle = c.get(f"/api/v1/executions/{e['execution_id']}/export?version=2")
+        assert bundle.status_code == 200, bundle.text
+        bundle = bundle.json()
+        assert len([d for d in bundle["documents"] if d["kind"] == "plan"]) >= 2
+        assert len([d for d in bundle["documents"] if d["kind"] == "snapshot"]) >= 2
+        import json
+
+        archive = c.post(
+            "/api/v1/execution-archives/import",
+            files={
+                "file": (
+                    "multi-source.json",
+                    json.dumps(bundle).encode(),
+                    "application/json",
+                )
+            },
+        )
+        assert archive.status_code == 201, archive.text
+        saved = c.get(
+            "/api/v1/execution-archives/" + archive.json()["archive_id"]
+        ).json()
+        assert saved["analysis"] == summary
+        assert saved["bundle"]["execution"]["facts"] == after["facts"]
         assert (
             next(r for r in summary["deviation_rows"] if r["cargo_id"] == "BOX-NEW")[
                 "difference_s"

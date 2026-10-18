@@ -1641,8 +1641,11 @@
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
-        "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "docs/CONTRACT_RFC_021.md",
+        "tests/backend/test_execution_archive.py",
+        "frontend/tests/archive-v2.spec.ts",
+        "evidence/redesign-v2/archive-browser-visual-results.json",
+        "evidence/redesign-v2/SCENARIO_MANIFEST.json"
       ]
     },
     {

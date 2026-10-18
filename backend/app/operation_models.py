@@ -23,6 +23,8 @@ from backend.app.generated.domain import (
     Scenario,
     SolveJob,
     Weather,
+    Plan,
+    Snapshot,
 )
 
 
@@ -467,3 +469,47 @@ class OperationCapabilities(OperationDTO):
     weather_energy: Literal[False] = False
     learning_search: Literal[False] = False
     position_source: Literal["business_model_phases"] = "business_model_phases"
+
+
+class FrozenDocument(OperationDTO):
+    kind: Literal["plan", "snapshot", "event_input", "event_resolution"]
+    document_id: str = Field(min_length=1, max_length=256)
+    # Exact UTF-8 JSON preserves absent fields and original Snapshot content hashes.
+    payload_json: str = Field(max_length=4_000_000)
+    sha256: str = Field(pattern="^[a-f0-9]{64}$")
+
+
+class ExecutionBundle(OperationDTO):
+    bundle_version: Literal["execution-simulation-v2"]
+    source: Literal["simulation"]
+    is_flight_controller_file: Literal[False]
+    captured_at: AwareDatetime
+    mission_name: str = Field(max_length=128)
+    execution: ExecutionView
+    events: list[ExecutionEventView]
+    changes: list[RepairView]
+    commands: list[CommandView]
+    documents: list[FrozenDocument] = Field(max_length=2000)
+    content_sha256: str = Field(pattern="^[a-f0-9]{64}$")
+
+
+class ExecutionArchiveSummary(OperationDTO):
+    archive_id: str
+    execution_id: str
+    mission_name: str
+    imported_at: AwareDatetime
+    captured_at: AwareDatetime
+    captured_time_s: float
+    captured_status: str
+    fact_count: int
+    plan_count: int
+    content_sha256: str
+    read_only: Literal[True] = True
+
+
+class ExecutionArchiveView(OperationDTO):
+    summary: ExecutionArchiveSummary
+    bundle: ExecutionBundle
+    plans: list[Plan]
+    snapshots: list[Snapshot]
+    analysis: ExecutionAnalysis

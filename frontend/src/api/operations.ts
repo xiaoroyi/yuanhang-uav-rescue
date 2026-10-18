@@ -1,5 +1,5 @@
 import type { components } from './generated/http'
-import { request } from './client'
+import { request, ApiError } from './client'
 
 export type Mission = components['schemas']['MissionView']
 export type MissionDraft = components['schemas']['MissionDraft']
@@ -11,8 +11,24 @@ export type Repair = components['schemas']['RepairView']
 export type Stages = components['schemas']['StageAnalysis']
 export type Telemetry = components['schemas']['TelemetrySample']
 export type ExecutionAnalysis = components['schemas']['ExecutionAnalysis']
+export type ArchiveSummary = components['schemas']['ExecutionArchiveSummary']
+export type ExecutionArchive = components['schemas']['ExecutionArchiveView']
 export const key = () => crypto.randomUUID()
 export const ops = {
+  archives: () => request<ArchiveSummary[]>('/execution-archives'),
+  archive: (id: string) =>
+    request<ExecutionArchive>('/execution-archives/' + encodeURIComponent(id)),
+  importArchive: async (file: File): Promise<ArchiveSummary> => {
+    const body = new FormData()
+    body.append('file', file)
+    const response = await fetch('/api/v1/execution-archives/import', { method: 'POST', body })
+    if (!response.ok) {
+      const error: { error?: { message?: string; code?: string; details?: unknown } } =
+        await response.json()
+      throw new ApiError(response.status, error)
+    }
+    return response.json()
+  },
   missions: () => request<Mission[]>('/missions'),
   mission: (id: string) => request<Mission>(`/missions/${id}`),
   create: (

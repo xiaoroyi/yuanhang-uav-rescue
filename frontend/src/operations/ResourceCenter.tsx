@@ -4,6 +4,7 @@ import { ArrowDownToLine, Layers3, Upload } from 'lucide-react'
 import { api } from '../api/client'
 import { Button, Empty } from '../components/ui'
 import { navigate } from './App'
+import { ArchiveCenter } from './ArchiveCenter'
 
 export function ResourceCenter({ notify }: { notify: (m: string, e?: boolean) => void }) {
   const [tab, setTab] = useState('maps')
@@ -40,13 +41,16 @@ export function ResourceCenter({ notify }: { notify: (m: string, e?: boolean) =>
           ['maps', '地图资产'],
           ['fleet', '机队与电池'],
           ['cargo', '物资与保障'],
+          ['archives', '运行档案'],
         ].map(([id, title]) => (
           <button key={id} className={tab === id ? 'active' : ''} onClick={() => setTab(id)}>
             {title}
           </button>
         ))}
       </div>
-      {tab === 'maps' ? (
+      {tab === 'archives' ? (
+        <ArchiveCenter notify={notify} />
+      ) : tab === 'maps' ? (
         <section className="v2-card">
           <div className="v2-section-bar">
             <h2>
