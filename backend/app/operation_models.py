@@ -255,6 +255,8 @@ class TelemetrySample(OperationDTO):
     soc: float | None
     soc_sample_time_s: float | None
     phase: str
+    availability: Literal["available", "not_ready", "unavailable"] | None = None
+    availability_reason: str | None = None
     sortie_id: str | None
     battery_id: str | None = None
     component_id: str | None = None

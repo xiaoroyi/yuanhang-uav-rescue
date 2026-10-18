@@ -369,6 +369,7 @@ export function ExecutionWorkspace({
                           available: '待命',
                           ready: '待开始',
                           unavailable: '停用',
+                          not_ready: '尚未就绪',
                           relay_link: '中继建链',
                           relay_service: '中继服务',
                         }[d.phase] || d.phase}
@@ -378,6 +379,7 @@ export function ExecutionWorkspace({
                   载货 {d.cargo_ids.length} 箱 · {d.soc === null ? 'SOC 待观测' : percent(d.soc)}
                 </small>
                 <small>{d.sortie_id || '尚无当前架次'}</small>
+                {d.availability_reason && <small>{d.availability_reason}</small>}
               </button>
             ))}
           </div>
@@ -426,8 +428,11 @@ export function ExecutionWorkspace({
             playTime={e.time_s}
             selected={null}
             onSelect={(value) => {
-              const sid = value.includes(':') ? value.split(':').at(-1) : value
-              const d = e.telemetry.find((t) => t.sortie_id === sid)
+              const source = routeSets.find((set) => value.startsWith(set.plan.plan_id + ':'))
+              const sid = source ? value.slice(source.plan.plan_id.length + 1) : value
+              const d = e.telemetry.find(
+                (t) => t.sortie_id === sid && (!source || t.active_plan_id === source.plan.plan_id),
+              )
               if (d) setSelected(d.device_id)
             }}
           />
@@ -443,6 +448,19 @@ export function ExecutionWorkspace({
             <dl>
               <dt>状态来源</dt>
               <dd>{selectedDevice.quality === 'stale' ? '失联前模拟记录' : '服务器模拟'}</dd>
+              {selectedDevice.availability && (
+                <>
+                  <dt>未来任务可用性</dt>
+                  <dd>
+                    {
+                      { available: '可用', not_ready: '尚未就绪', unavailable: '不可用' }[
+                        selectedDevice.availability
+                      ]
+                    }
+                    <small>{selectedDevice.availability_reason}</small>
+                  </dd>
+                </>
+              )}
               <dt>当前位置</dt>
               <dd>{selectedDevice.coordinates?.map((n) => n.toFixed(6)).join(', ') || '未知'}</dd>
               <dt>模型高程</dt>

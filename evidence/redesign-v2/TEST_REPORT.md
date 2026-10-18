@@ -61,3 +61,7 @@ full-browser-results.json：完整42条，41 passed、1 failed，21.8m。唯一�
 ## R11 / RFC-023 模拟程序独立读回
 
 后端隔离分支组合15 passed（110.73s）；补充档案内观测归属与方案引用校验后6 passed（54.41s），合回V2的后端内容相同。覆盖HTTP受理/ACK/实际完成、完成回执丢失后独立查询、后台无轮询派发、TTL和断联、重启恢复、未批准候选禁止通用activate、档案篡改拒绝。前端lint与strict TS/build通过。正式浏览器在途插单→逐设备读回启用→独立查询→完成→复盘→只读档案1 passed（27.8s），device-readback-browser-results.json。运行时补齐显式simulation_fault=none，热更新发生在查询步骤之前；未声称本轮整体源码冻结。实际查看device-state-readback-1440.png，未来程序与当前架次来源分开。无真实设备连接。
+
+## R12 / RFC-024 开始边界与遥测可用性
+
+新增两项边界先复现失败（19.25s），修正事实驱动承诺/暂停只读/误报可用性投影后，与执行/天气/中继/操作契约组合11 passed（98.14s）。首轮组合9 passed/1 failed：原急需场景退出关键机体后确实未找到满足硬截止的可验证方案，系统返回UNKNOWN；测试改为专用无硬截止输入以检验可行修复，生产输入/原题回归保持原样。专用测试验证ready 0秒无已装载承诺→退出/误报→真实残余Worker→逐机采纳→刷新不写账→显式advance(0)才写loaded；暂停读取同样不写新边界。新增可空availability/reason，前端区分当前飞行阶段与未来任务可用性。lint/strict TS/build通过，浏览器与后续地图联动继续验证。

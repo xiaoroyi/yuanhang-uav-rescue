@@ -5224,6 +5224,35 @@
           "title": "Phase",
           "type": "string"
         },
+        "availability": {
+          "anyOf": [
+            {
+              "enum": [
+                "available",
+                "not_ready",
+                "unavailable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Availability"
+        },
+        "availability_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Availability Reason"
+        },
         "sortie_id": {
           "anyOf": [
             {

@@ -93,23 +93,21 @@ class SimulationEngine:
                     )
         return result
 
+    def started(self, session, execution_id):
+        """Only observed starts commit a sortie; a planned timestamp is not a fact."""
+        return {
+            (f["plan_id"], f["sortie_id"])
+            for f in self.records(session, execution_id, "execution.fact")
+            if f["kind"] in ("loaded", "relay_started")
+        }
+
     def advance(self, session, row, target=None):
         value = copy.deepcopy(row.content)
-        if value["status"] == "ready" and target is None:
+        if value["status"] != "running" and target is None:
             if value["connected"]:
                 value["last_telemetry"] = self.telemetry(
                     session, value, self.schedule(session, value)
                 )
-                for sample in value["last_telemetry"]:
-                    sample.update(
-                        phase="ready",
-                        cargo_ids=[],
-                        sortie_id=None,
-                        battery_id=None,
-                        component_id=None,
-                        soc=None,
-                        soc_sample_time_s=None,
-                    )
             row.content = value
             return value
         tick = value["time_s"]
@@ -214,11 +212,17 @@ class SimulationEngine:
     def telemetry(self, session, value, schedule):
         tick = value["time_s"]
         value["telemetry_sequence"] = value.get("telemetry_sequence", 0) + 1
-        unavailable = {
-            e["object_id"]
-            for e in self.records(session, value["execution_id"], "execution.event")
-            if e["event_type"] == "drone.unavailable"
+        withdrawn = {
+            e["event_id"]
+            for e in self.records(session, value["execution_id"], "execution.event.resolution")
+            if e["action"] == "withdraw_misreport"
         }
+        unavailable = {
+            e["object_id"]: e["reason"]
+            for e in self.records(session, value["execution_id"], "execution.event")
+            if e["event_type"] == "drone.unavailable" and e["event_id"] not in withdrawn
+        }
+        started = self.started(session, value["execution_id"])
         initial, snapshot, _ = self.plan_data(session, value["initial_plan_id"])
         schedule = [*schedule, *self.relay_schedule(session, value)]
         result = []
@@ -233,13 +237,24 @@ class SimulationEngine:
                 (
                     item
                     for item in uses
-                    if item[2]["prepare_start_s"] <= tick < item[2]["drone_released_s"]
+                    if (item[0]["plan_id"], item[2]["sortie_id"]) in started
+                    and item[2]["prepare_start_s"] <= tick < item[2]["drone_released_s"]
                 ),
                 None,
             )
             coords = snapshot["scenario"]["base"]["coordinates"]
             elevation = snapshot["scenario"]["base"]["ground_elevation_m"]
-            phase = "unavailable" if drone["drone_id"] in unavailable else "available"
+            availability = "available"
+            availability_reason = None
+            if drone["drone_id"] in unavailable or drone.get("status") == "unavailable":
+                availability = "unavailable"
+                availability_reason = unavailable.get(drone["drone_id"], "输入资源标记为不可用")
+            elif drone.get("available_after_s", 0) > tick:
+                availability = "not_ready"
+                availability_reason = f"预计可用时刻 {drone['available_after_s']:g} s"
+            phase = availability if availability != "available" else (
+                "ready" if value["status"] == "ready" else "available"
+            )
             soc = None
             soc_time = None
             sid = None
@@ -290,6 +305,8 @@ class SimulationEngine:
                     "soc": soc,
                     "soc_sample_time_s": soc_time,
                     "phase": phase,
+                    "availability": availability,
+                    "availability_reason": availability_reason,
                     "sortie_id": sid,
                     "battery_id": bid,
                     "component_id": component,

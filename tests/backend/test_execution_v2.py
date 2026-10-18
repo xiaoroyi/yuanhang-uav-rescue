@@ -25,7 +25,7 @@ def await_job(c, job):
     raise AssertionError(job)
 
 
-def setup(c):
+def setup(c, configure=None):
     m = post(
         c,
         "/missions",
@@ -39,6 +39,8 @@ def setup(c):
     s = c.get("/api/v1/scenarios/" + m["current_scenario_id"]).json()
     # Keep one available entity at the base for the in-flight future-failure scenario.
     s["drones"][-1]["available_after_s"] = 20000
+    if configure:
+        configure(s)
     r = c.put(
         "/api/v1/scenarios/" + s["scenario_id"],
         json={"expected_state_version": 1, "scenario": s},

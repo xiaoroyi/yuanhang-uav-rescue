@@ -4354,6 +4354,10 @@ export interface components {
             soc_sample_time_s: number | null;
             /** Phase */
             phase: string;
+            /** Availability */
+            availability?: ("available" | "not_ready" | "unavailable") | null;
+            /** Availability Reason */
+            availability_reason?: string | null;
             /** Sortie Id */
             sortie_id: string | null;
             /** Battery Id */

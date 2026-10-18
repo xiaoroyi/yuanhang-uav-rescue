@@ -387,7 +387,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 session, row.content["initial_plan_id"]
             )
             s = snap["scenario"]
-            all_sorties = [r for _, _, r, _ in schedule]
+            all_sorties = [{**r, "_plan_id": p["plan_id"]} for p, _, r, _ in schedule]
+            started = engine().started(session, execution_id)
             direct = set()
             manual = False
             missing = 0
@@ -417,7 +418,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         and r["return_s"] > probe["weather"]["valid_from_s"]
                     ):
                         direct.add(r["sortie_id"])
-                        if r["prepare_start_s"] <= tick and (
+                        if (r["_plan_id"], r["sortie_id"]) in started and (
                             types[r["drone_id"]] not in eligible
                             or r["return_s"] > probe["weather"]["valid_until_s"]
                         ):
@@ -506,11 +507,12 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     )
                     if hit and r["drone_released_s"] > tick:
                         direct.add(r["sortie_id"])
-                        if r["prepare_start_s"] <= tick:
+                        if (r["_plan_id"], r["sortie_id"]) in started:
                             manual = True
             propagated, _ = affected_closure(all_sorties, direct)
             committed = [
-                r["sortie_id"] for r in all_sorties if r["prepare_start_s"] <= tick
+                r["sortie_id"] for r in all_sorties
+                if (r["_plan_id"], r["sortie_id"]) in started
             ]
             value = {
                 "event_id": body.event_id,
@@ -733,8 +735,10 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     s["weather"] = copy.deepcopy(raw["weather"])
             tick = row.content["time_s"]
             schedule = current_schedule(session, row)
+            started = engine().started(session, execution_id)
             committed = [
-                item for item in schedule if item[2]["prepare_start_s"] <= tick
+                item for item in schedule
+                if (item[0]["plan_id"], item[2]["sortie_id"]) in started
             ]
             locked = {c for _, _, r, _ in committed for c in r["cargo_ids"]}
             # Conservative common boundary also preserves all finite preparation/charging occupancy.
