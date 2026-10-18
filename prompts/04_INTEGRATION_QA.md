@@ -1,6 +1,6 @@
 # 两人集成验收 Codex 提示词（每个阶段可重复调用）
 
-> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准 V1 或已实现 API。
+> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准V1；当前已实现能力与实际API以docs/IMPLEMENTATION_STATUS.md、docs/SOLO_DELIVERY.md和实际OpenAPI为准。先核对候选分支与最新验收，不从G0重复搭建已有模块。
 
 现在只做【跨模块集成验收】，不要临时新增 UI/算法产品功能来掩盖原来接口的错误。
 

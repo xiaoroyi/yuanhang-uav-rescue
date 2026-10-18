@@ -1,7 +1,7 @@
 {
-  "rendered_at_utc": "2026-10-17T22:34:39.853834+00:00",
-  "pdf_sha256": "d6621882ca4dba4bf8cba7bb7fc2736185bdbc0050d1ad9a26d8db013604a714",
-  "page_count": 13,
+  "rendered_at_utc": "2026-10-18T01:36:35.163656+00:00",
+  "pdf_sha256": "81cf96c6d0bec1f4a232d6528caf86f71011dcf14e9159aee57876cd7022f73d",
+  "page_count": 15,
   "pages": [
     {
       "page": 1,
@@ -30,63 +30,92 @@
     {
       "page": 5,
       "title": "资源退出后的真实改派",
-      "native_text_characters": 143,
+      "native_text_characters": 146,
       "image": "evidence/demo/pdf/page-05.png"
     },
     {
       "page": 6,
-      "title": "单点额定运输诊断",
-      "native_text_characters": 232,
+      "title": "紧急需求与实物库存一起插入",
+      "native_text_characters": 128,
       "image": "evidence/demo/pdf/page-06.png"
     },
     {
       "page": 7,
-      "title": "地形与静态限制区",
-      "native_text_characters": 135,
+      "title": "单点额定运输诊断",
+      "native_text_characters": 232,
       "image": "evidence/demo/pdf/page-07.png"
     },
     {
       "page": 8,
-      "title": "运输与通信联合保障",
-      "native_text_characters": 119,
+      "title": "地形与静态限制区",
+      "native_text_characters": 135,
       "image": "evidence/demo/pdf/page-08.png"
     },
     {
       "page": 9,
-      "title": "原题80箱联合实例",
-      "native_text_characters": 195,
+      "title": "运输与通信联合保障",
+      "native_text_characters": 119,
       "image": "evidence/demo/pdf/page-09.png"
     },
     {
       "page": 10,
-      "title": "冻结任务分区",
-      "native_text_characters": 126,
+      "title": "原题80箱联合实例",
+      "native_text_characters": 195,
       "image": "evidence/demo/pdf/page-10.png"
     },
     {
       "page": 11,
-      "title": "资源情景与压力对照",
-      "native_text_characters": 136,
+      "title": "冻结任务分区",
+      "native_text_characters": 126,
       "image": "evidence/demo/pdf/page-11.png"
     },
     {
       "page": 12,
-      "title": "验证记录与模型边界",
-      "native_text_characters": 251,
+      "title": "运输架次的容量必要下界",
+      "native_text_characters": 243,
       "image": "evidence/demo/pdf/page-12.png"
     },
     {
       "page": 13,
+      "title": "资源情景与压力对照",
+      "native_text_characters": 136,
+      "image": "evidence/demo/pdf/page-13.png"
+    },
+    {
+      "page": 14,
+      "title": "验证记录与模型边界",
+      "native_text_characters": 253,
+      "image": "evidence/demo/pdf/page-14.png"
+    },
+    {
+      "page": 15,
       "title": "本机演示操作",
       "native_text_characters": 196,
-      "image": "evidence/demo/pdf/page-13.png"
+      "image": "evidence/demo/pdf/page-15.png"
     }
   ],
   "visual_review": {
-    "reviewer": "Codex visual inspection",
-    "reviewed_at_utc": "2026-10-17T22:35:45.831162+00:00",
-    "scope": "All 13 PDF pages viewed during draft iterations; final changed pages 3, 4 and 6 re-inspected after the last copy refinement.",
-    "finding": "No unintended overlap, clipping, missing title or extra page observed.",
-    "release_status": "draft, awaiting final full source verification and rebuild"
+    "status": "passed",
+    "at_utc": "2026-10-18T01:42:51.004978+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "pdf_sha256": "81cf96c6d0bec1f4a232d6528caf86f71011dcf14e9159aee57876cd7022f73d",
+    "finding": "All 15 final PDF pages individually viewed; headings, tables, screenshots, footers and model limitations legible; no clipping or blocking overlap observed. Pages 6 and 12 rechecked after the earlier copy/layout correction."
   }
 }

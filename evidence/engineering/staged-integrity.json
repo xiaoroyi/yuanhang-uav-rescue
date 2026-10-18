@@ -1,0 +1,285 @@
+{
+  "at_utc": "2026-10-18T01:45:30.519029+00:00",
+  "passed": true,
+  "checked_files": 46,
+  "files": [
+    {
+      "path": "deliverables/yuanhang-demo.html",
+      "bytes": 2685699,
+      "staged_sha256": "5337959f7625e33bdb9f9504da664cad049095e2bc45c6910cd5bcdf4f1e9b51",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/yuanhang-demo.pdf",
+      "bytes": 2268171,
+      "staged_sha256": "81cf96c6d0bec1f4a232d6528caf86f71011dcf14e9159aee57876cd7022f73d",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/walkthrough.html",
+      "bytes": 5674,
+      "staged_sha256": "a7adaaecd80bf0c9bca32d077b0160c02a3f0f59b32cf60c31c5f5e94bea3312",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/yuanhang-walkthrough.webm",
+      "bytes": 15248137,
+      "staged_sha256": "310925f8fd173c2f8f2f34e33105ce2afdf5875967215d43624b37d250c131a6",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/yuanhang-walkthrough.zh.vtt",
+      "bytes": 1888,
+      "staged_sha256": "760072b1c3d8683212a9cd6ee2ade44a4fbb4db78803876d8e6f0115b6bd27d0",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/walkthrough-poster.png",
+      "bytes": 400594,
+      "staged_sha256": "5a1cc9fef786ef0b17bd3b336d5e263a81c2bca9b49181b20f661baa9daf4b69",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "deliverables/walkthrough-analysis.json",
+      "bytes": 28342,
+      "staged_sha256": "6c9fae7dd96f89666dec76b1edfec6102d33c618952d270e6fa464e966898208",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/demo/manifest.json",
+      "bytes": 4987,
+      "staged_sha256": "b50910d5c4f71e3a13e08dc3e612fb7b551354eead1ec4fed0c174a523af4323",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/demo/pdf-qa.json",
+      "bytes": 3307,
+      "staged_sha256": "ba762d4ad32cbc8d7bf4f949bd9e4abb5da6e805b5b4694f330392326790afcc",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/video/recording.json",
+      "bytes": 129754,
+      "staged_sha256": "1f03486e282cb9b7702caa43b5bc5a990761ba8a70bc0b5f5723bf3b40018251",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/video/playback-qa.json",
+      "bytes": 2948,
+      "staged_sha256": "accb1a8f514e88f915702d17175de3c219bb258e3b98ed2f9406be9515e6ef97",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/verification/latest.json",
+      "bytes": 11544,
+      "staged_sha256": "cd6961649b6e30d0dd03a7d6e1e618d05be3194e530731c99944c83bcf70b20d",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/verification/github-ci-3a8b8b6.json",
+      "bytes": 3928,
+      "staged_sha256": "b6ac1517e9c84a871d7ff7b58ef315d107491244bfb02f66380a36f029a48bbe",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/engineering/final-startup.json",
+      "bytes": 1578,
+      "staged_sha256": "1950b79550aa6901de6f7643f4c5819baea6c754212f06012403d2c86740d53b",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/engineering/final-runtime-backup.json",
+      "bytes": 1000,
+      "staged_sha256": "27b87f3865274a4267d211e5a2946f57056544aed86c9fcd28d876f63788f414",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/engineering/local-ready.json",
+      "bytes": 1493,
+      "staged_sha256": "731fa19a8caf157605fbf4c33de5bd53f8a8d2017ddb1840c10e2d1b242595e2",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/engineering/curated-demo.json",
+      "bytes": 221547,
+      "staged_sha256": "c0b75fae439fccb151f420f0d2e28a3f1dcd2b3904b51a58bea19c165d6c7e34",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/print-report-qa.json",
+      "bytes": 1753,
+      "staged_sha256": "3f7a0ad686db803b1533ba4dbc5bb86ff6b14bed78c9a312ee757e77c049d9b3",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/joint-report-final-page-qa.json",
+      "bytes": 1978,
+      "staged_sha256": "e7065c2c99c8aea4281aba18b117fb9ec0db26c7a27b692ba120448cb8a0b681",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/initial-charge-report-final-page-qa.json",
+      "bytes": 2044,
+      "staged_sha256": "f04652e71644dc3e6647985115521aa118e3fe8612e352ca1028840955db8506",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/print-report.pdf",
+      "bytes": 224039,
+      "staged_sha256": "13d10d4a9dd39ed5a0530515a431600b437a23d2077fc75aec80f24c31190930",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/joint-report.pdf",
+      "bytes": 265871,
+      "staged_sha256": "ca05d9976d37a250c46146b87fde00a451e3f02ea5653eaa3c2373310580778f",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/initial-charge-report.pdf",
+      "bytes": 232552,
+      "staged_sha256": "89f32b4be30223afb2590bbffbb190f18f6f40c17f8fbdb2e3115a961725ac58",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "submission/examples/scenario-demo.json",
+      "bytes": 21881,
+      "staged_sha256": "6d8189d0165a40cf55fd1156b18f845730bddabb7505ae3ac87142b2958dcc6b",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "submission/examples/scenario-preferences.json",
+      "bytes": 21828,
+      "staged_sha256": "55530be174bf95a03192888d96bcb0f972d241134d394790fb52ce23824bf1e5",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "submission/examples/solve-result.json",
+      "bytes": 44265,
+      "staged_sha256": "4f51345354f868f3a204896356aaf033b282b7608af6c984d09a223b5e47d112",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/verification/example-revalidation.json",
+      "bytes": 2058,
+      "staged_sha256": "081416773d830700cbbf5fee74e7d434d85f6f06b86c500fdee2fbcf5d5f3560",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/nominal-contest.json",
+      "bytes": 97858,
+      "staged_sha256": "bcdaafe06c9d272f349ef719773a1bff97496ed0f758bccb8c39645bdcc5ab40",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/nominal-compact.json",
+      "bytes": 41361,
+      "staged_sha256": "6c6ca0a261fab2d688683dd65dcf9fb0c0be38bc62bea09627038aa58707fd5f",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/joint-contest-recomputed.json",
+      "bytes": 132916,
+      "staged_sha256": "d75cb42e1d9121f7ff9e9bdbbe266991feec14364331734ef2515dfaf96caaf5",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/frozen-partition-contest.json",
+      "bytes": 123467,
+      "staged_sha256": "d51f41e4d4726a169e259b761618059fda9bd793233417a63a3480e3c7aad543",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/battery-replan.json",
+      "bytes": 82056,
+      "staged_sha256": "d7c19f43b61cf327df3006798bb78da1127e8b99ead30b81337b81164efcfa79",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/urgent-demand.json",
+      "bytes": 103966,
+      "staged_sha256": "d1aa15c2fae4275f3773399adbcf97e93bba50a578377eaa3790345cacc8ce43",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/capacity-compact.json",
+      "bytes": 36423,
+      "staged_sha256": "1a641e36e6712aeb1534f685c7ad2976f58e10c59e74b507cc28857406083bbd",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/solver/capacity-contest.json",
+      "bytes": 81878,
+      "staged_sha256": "442dbcaab389abf0c36b63ec94a1212e14ece12b0ff65e3536e6483448499b1b",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/verification/check-01.txt",
+      "bytes": 2401,
+      "staged_sha256": "18940a24856f59e75a9b35d9b74b2e28e468bfcde427151ba6cf6b7b5ff005e6",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/e2e-results.json",
+      "bytes": 31832,
+      "staged_sha256": "d705410c8008e395ecacf6c8f642704738b6f31c27608857217a5834be912009",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/workspace-1440.png",
+      "bytes": 398243,
+      "staged_sha256": "8a78d9a57bae0523540e606f81ff39ef342673cfaa5536e8d29766ce48851794",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/ground-timeline-expanded-1440.png",
+      "bytes": 94212,
+      "staged_sha256": "3402b1194b7884fdc108ac9abec8f861e98628d4bd4eeb30ac45a1fa7bfed4fd",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/battery-fault-changes-1280.png",
+      "bytes": 316906,
+      "staged_sha256": "07da3ddb709e4c0b8b86ec5489f969d0e484b605643f65f82b907db0d4a3df46",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/urgent-demand-result-1440.png",
+      "bytes": 442200,
+      "staged_sha256": "dd37f6474f160d5c978e462d5fd2884e0c0b96573a1c5562c77696d8510f49ca",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/zone-detour-1440.png",
+      "bytes": 397664,
+      "staged_sha256": "7cfbc6bba19bcd3512d9293e4a4c4aa24ed453bdb027a7b3318d757006018c9d",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/joint-resource-windows-1440.png",
+      "bytes": 103164,
+      "staged_sha256": "ce6ada361ecf224864cb618cdd59843ad64dab54b2a9ca91cbce6d75383f94f8",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/frozen-partition-1440.png",
+      "bytes": 123162,
+      "staged_sha256": "e38ed5b2f8f6b36076d6371dafcd1bafabc93aad35b2b665f4b3f0425db12f71",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/browser/verified/resource-analysis-1440.png",
+      "bytes": 125618,
+      "staged_sha256": "10227f53599d249d9069f3a8da1be791e692c4cff6f5c88fa8b65b7706c81e80",
+      "working_and_declared_hash_match": true
+    },
+    {
+      "path": "evidence/engineering/delivery-manifest.json",
+      "bytes": 5916,
+      "staged_sha256": "e2ad173b5ce589bc4928556bc2160c3907380c93399ad89889fdce17e9d7841e",
+      "working_and_declared_hash_match": true
+    }
+  ],
+  "verification_source_sha256": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "note": "Compared actual staged Git blobs, working bytes and declared material/source hashes. Evidence is -text to preserve exact bytes; HTML/VTT use LF. This proof excludes itself and later CI observation records."
+}

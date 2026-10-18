@@ -1,8 +1,8 @@
 # 援航 · 无人机救援调度
 
-本地运行的灾害应急运输规划系统。编辑逐箱物资、需求与实际机队，真实求解，查看离线地图与资源甘特，比较时间/能耗策略，并模拟机体故障后重新规划。默认5点32箱动态演练，保留原题15点80箱入口。
+本地运行的灾害应急运输与通信规划系统。编辑逐箱物资、需求与实际机队，真实求解，查看离线地图与资源甘特，比较时间/能耗/均衡策略，并在资源退出或紧急插单后重新规划。默认5点32箱动态演练，保留原题15点80箱入口。
 
-当前实现位于 `feat/solo-fullstack-v0`，仍在持续完善。范围、测试与未完成功能以 [真实实现状态](docs/IMPLEMENTATION_STATUS.md) 为准。输出是在声明模型内的规划辅助，不发送飞控指令。
+当前实现位于 [feat/solo-fullstack-v0](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/solo-fullstack-v0)，由[草稿PR #1](https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1)供A/B评审；main保留原状态。评审前请切换到该功能分支运行。范围、测试与未完成功能以 [真实实现状态](docs/IMPLEMENTATION_STATUS.md) 为准。输出是在声明模型内的规划辅助，不发送飞控指令。
 
 ## 本机直接使用
 
@@ -14,7 +14,7 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 另有可离线放映的[系统演示材料](deliverables/README.md)：双击demo.cmd打开单文件HTML，或阅读PDF。素材来自真实界面与已保存的计算结果，源码和证据有hash对应；正式比赛模板和PPTX仍需后续整理。
 
-事件复盘中的“资源分析与试算”提供真实占用图、期望延期/硬截止余量、增配与能耗/SOH情景、三档压力测试和可恢复历史；每个试算均保存独立输入并真实计算，见 [统计口径](docs/RESOURCE_ANALYSIS.md)。
+事件复盘中的“资源分析与试算”提供真实占用图、期望延期/硬截止余量、增配与能耗/SOH情景、有限准备工位/充电端口增配、三档压力测试和可恢复历史；每个试算均保存独立输入并真实计算，见 [统计口径](docs/RESOURCE_ANALYSIS.md)。
 
 已有方案可继续“深入优化30秒”，沿用同一快照并保留有效基线，见 [算法范围](docs/DEEP_OPTIMIZATION.md)。场景页可管理静态限制区，真实绕行见 [空间模型](docs/SPATIAL_ROUTING.md)；也可上传本地GeoTIFF，地图与净空使用同一绑定栅格。交接给队友时一并下载/导入完整DEM资产包以保留hash，见 [资产说明](docs/TERRAIN_ASSETS.md)。
 
@@ -26,7 +26,7 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 场景页“单点运输诊断”提供额定安全载重、真实箱件组批、基线和返航余量敏感性。它对应单点运输物理模型，未分配实际机体/电池；执行前仍须正式求解。模型和独立CLI见 [诊断说明](docs/NOMINAL_ANALYSIS.md)。
 
-故障事件现支持零时刻机体或运输电池退出，普通运输和联合通信均可真实重规划，并保留原方案；页面分别统计机体、电池改派箱件。事件范围、完整版本链和能源状态保留见 [事件说明](docs/EVENTS.md)。Linux CI增加类型漂移和两条浏览器烟测，范围见 [自动化检查](docs/CI_CHECKS.md)。
+事件现支持整个场景尚未执行时的零时刻机体、运输电池或中继能源组件退出，以及已有点位的紧急需求与实物库存插入。普通运输和联合通信均真实重规划，保留原方案；页面区分新增安排与原箱件的机体/电池改派。事件范围、完整版本链和能源状态保留见 [事件说明](docs/EVENTS.md)。Linux CI增加类型漂移和两条浏览器烟测，范围见 [自动化检查](docs/CI_CHECKS.md)。
 
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 

@@ -1,0 +1,45 @@
+{
+  "requested_sha": "73069f4b0d33733961295a409d164fd6228bbeb9",
+  "runs": [
+    {
+      "id": 39081629031,
+      "head_sha": "73069f4b0d33733961295a409d164fd6228bbeb9",
+      "name": "Application checks",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/actions/runs/39081629031",
+      "created_at": "2026-10-18T00:07:58Z",
+      "updated_at": "2026-10-18T00:13:38Z",
+      "jobs": [
+        {
+          "id": 117539581197,
+          "name": "integration",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "test_summary_lines": [
+        "2026-10-18T00:12:15.2076555Z 245 passed, 10 warnings, 8 subtests passed in 196.90s (0:03:16)",
+        "2026-10-18T00:13:32.6304976Z   2 passed (40.0s)",
+        "2026-10-18T00:12:15.2076553Z 245 passed, 10 warnings, 8 subtests passed in 196.90s (0:03:16)",
+        "2026-10-18T00:13:32.6304969Z   2 passed (40.0s)"
+      ],
+      "artifacts": [
+        {
+          "id": 12119765315,
+          "name": "browser-smoke-73069f4b0d33733961295a409d164fd6228bbeb9",
+          "size_in_bytes": 2228,
+          "expired": false
+        }
+      ],
+      "downloaded_browser_stats": {
+        "startTime": "2026-10-18T00:12:52.603Z",
+        "duration": 40025.966,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ]
+}

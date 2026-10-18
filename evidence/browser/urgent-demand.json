@@ -1,14 +1,14 @@
 {
   "original_snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-1FBA3DF5C26D4A29",
-    "scenario_id": "SCN-8BBE951218A2428A",
+    "snapshot_id": "SNAP-0DEFE33297A44681",
+    "scenario_id": "SCN-AB02AD296C554FA4",
     "scenario_state_version": 1,
-    "content_hash": "7dd172c001ecb9f13bf4a4c87866aba065966c818b8fd4375cebff2968411476",
-    "created_at": "2026-10-17T23:07:08.167445Z",
+    "content_hash": "ab14c0c7e70100471768fe8a0043ebb80543f6640a3ea7ba3ded4e47c769b492",
+    "created_at": "2026-10-18T01:26:02.826124Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-8BBE951218A2428A",
+      "scenario_id": "SCN-AB02AD296C554FA4",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 1,
       "mode": "simulation",
@@ -894,9 +894,9 @@
   },
   "original_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-F7FD3EE982A943FC",
-    "scenario_id": "SCN-8BBE951218A2428A",
-    "snapshot_id": "SNAP-1FBA3DF5C26D4A29",
+    "plan_id": "PLAN-C6DEDB9673FC491B",
+    "scenario_id": "SCN-AB02AD296C554FA4",
+    "snapshot_id": "SNAP-0DEFE33297A44681",
     "scenario_state_version": 1,
     "data_origin": "solver",
     "objective": "time",
@@ -1403,7 +1403,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T23:07:09.846738Z",
+    "generated_at": "2026-10-18T01:26:04.824723Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1417,18 +1417,18 @@
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-745d3db8-2f2b-4b",
-    "scenario_id": "SCN-8BBE951218A2428A",
+    "event_id": "EVT-da24365c-bb26-4c",
+    "scenario_id": "SCN-AB02AD296C554FA4",
     "expected_state_version": 1,
     "event_type": "demand.added",
-    "occurred_at": "2026-10-17T23:07:20.742000Z",
-    "received_at": "2026-10-17T23:07:20.750666Z",
+    "occurred_at": "2026-10-18T01:26:14.539000Z",
+    "received_at": "2026-10-18T01:26:14.550658Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：已有点位紧急物资需求",
     "payload": {
       "demand": {
-        "demand_id": "URG-29209dcf-66a",
+        "demand_id": "URG-d3c0e56b-e29",
         "site_id": "S011",
         "cargo_type": "MED",
         "required_quantity": 2,
@@ -1439,8 +1439,8 @@
       },
       "cargo_items": [
         {
-          "cargo_id": "URG-29209dcf-66a-BOX-01",
-          "demand_id": "URG-29209dcf-66a",
+          "cargo_id": "URG-d3c0e56b-e29-BOX-01",
+          "demand_id": "URG-d3c0e56b-e29",
           "type": "MED",
           "mass_kg": 3,
           "volume_l": 12,
@@ -1448,8 +1448,8 @@
           "location_id": "O01"
         },
         {
-          "cargo_id": "URG-29209dcf-66a-BOX-02",
-          "demand_id": "URG-29209dcf-66a",
+          "cargo_id": "URG-d3c0e56b-e29-BOX-02",
+          "demand_id": "URG-d3c0e56b-e29",
           "type": "MED",
           "mass_kg": 3,
           "volume_l": 12,
@@ -1461,14 +1461,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-E89C9FF9D126406C",
-    "scenario_id": "SCN-8BBE951218A2428A",
+    "snapshot_id": "SNAP-52BC2A736DB54B9D",
+    "scenario_id": "SCN-AB02AD296C554FA4",
     "scenario_state_version": 2,
-    "content_hash": "fa29844379df0fb434862e55d7438e9636c3966cca555d0021ca99d3abe40b18",
-    "created_at": "2026-10-17T23:07:20.819022Z",
+    "content_hash": "beb95b0794184eedff6a1ca5d380209b7be4d3236f429d6d04e9d3a1c0596a6b",
+    "created_at": "2026-10-18T01:26:14.643497Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-8BBE951218A2428A",
+      "scenario_id": "SCN-AB02AD296C554FA4",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -1867,7 +1867,7 @@
           "mandatory": true
         },
         {
-          "demand_id": "URG-29209dcf-66a",
+          "demand_id": "URG-d3c0e56b-e29",
           "site_id": "S011",
           "cargo_type": "MED",
           "required_quantity": 2,
@@ -2167,8 +2167,8 @@
           "location_id": "O01"
         },
         {
-          "cargo_id": "URG-29209dcf-66a-BOX-01",
-          "demand_id": "URG-29209dcf-66a",
+          "cargo_id": "URG-d3c0e56b-e29-BOX-01",
+          "demand_id": "URG-d3c0e56b-e29",
           "type": "MED",
           "mass_kg": 3,
           "volume_l": 12,
@@ -2176,8 +2176,8 @@
           "location_id": "O01"
         },
         {
-          "cargo_id": "URG-29209dcf-66a-BOX-02",
-          "demand_id": "URG-29209dcf-66a",
+          "cargo_id": "URG-d3c0e56b-e29-BOX-02",
+          "demand_id": "URG-d3c0e56b-e29",
           "type": "MED",
           "mass_kg": 3,
           "volume_l": 12,
@@ -2382,9 +2382,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-B86A4AB7E250438A",
-    "scenario_id": "SCN-8BBE951218A2428A",
-    "snapshot_id": "SNAP-E89C9FF9D126406C",
+    "plan_id": "PLAN-7B1D4226E45F4D3A",
+    "scenario_id": "SCN-AB02AD296C554FA4",
+    "snapshot_id": "SNAP-52BC2A736DB54B9D",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -2587,7 +2587,7 @@
         "communication_status": "not_evaluated"
       },
       {
-        "sortie_id": "SRT-730f0d90be45",
+        "sortie_id": "SRT-f9df21142c88",
         "kind": "transport",
         "drone_id": "U07",
         "battery_id": "BAT-C-02",
@@ -2598,8 +2598,8 @@
           "S006-FOD-01",
           "S006-HYG-01",
           "S011-WAT-01",
-          "URG-29209dcf-66a-BOX-01",
-          "URG-29209dcf-66a-BOX-02"
+          "URG-d3c0e56b-e29-BOX-01",
+          "URG-d3c0e56b-e29-BOX-02"
         ],
         "visits": [
           {
@@ -2617,8 +2617,8 @@
             "site_id": "S011",
             "cargo_ids": [
               "S011-WAT-01",
-              "URG-29209dcf-66a-BOX-01",
-              "URG-29209dcf-66a-BOX-02"
+              "URG-d3c0e56b-e29-BOX-01",
+              "URG-d3c0e56b-e29-BOX-02"
             ],
             "delivery_complete_s": 4200.208925150894
           }
@@ -2875,7 +2875,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T23:07:22.705114Z",
+    "generated_at": "2026-10-18T01:26:16.308283Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -2884,8 +2884,8 @@
       "通信未评估；输出为仿真/规划建议，不是实飞许可。",
       "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
     ],
-    "parent_plan_id": "PLAN-F7FD3EE982A943FC",
-    "event_id": "EVT-745d3db8-2f2b-4b",
+    "parent_plan_id": "PLAN-C6DEDB9673FC491B",
+    "event_id": "EVT-da24365c-bb26-4c",
     "change_summary": {
       "preserved_sortie_ids": [
         "SRT-0effebcce24d",
@@ -2900,32 +2900,32 @@
       ],
       "added_sortie_ids": [
         "SRT-62d12a706c71",
-        "SRT-730f0d90be45",
         "SRT-80cfe650f675",
-        "SRT-e6786f2cb91a"
+        "SRT-e6786f2cb91a",
+        "SRT-f9df21142c88"
       ]
     }
   },
   "impossible_job": {
     "schema_version": "0.1.0-draft",
-    "job_id": "JOB-5A115A4374E8478F",
-    "scenario_id": "SCN-8BBE951218A2428A",
-    "snapshot_id": "SNAP-E08A1FCF34F04DAF",
-    "reserved_plan_id": "PLAN-7F89E176513E4E02",
+    "job_id": "JOB-2D2871FE427C4927",
+    "scenario_id": "SCN-AB02AD296C554FA4",
+    "snapshot_id": "SNAP-8E698F019AD3477A",
+    "reserved_plan_id": "PLAN-A4FD5C95D649456F",
     "job_state": "completed",
     "solver_status": "UNKNOWN",
     "plan_id": null,
     "has_validated_plan": false,
-    "runtime_s": 0.6386023000231944,
+    "runtime_s": 0.46871759998612106,
     "stop_reason": "finished",
-    "created_at": "2026-10-17T23:07:33.250061Z",
-    "started_at": "2026-10-17T23:07:33.257059Z",
-    "finished_at": "2026-10-17T23:07:35.092835Z",
+    "created_at": "2026-10-18T01:26:27.138078Z",
+    "started_at": "2026-10-18T01:26:27.147081Z",
+    "finished_at": "2026-10-18T01:26:28.488203Z",
     "error": null
   },
   "impossible_scene": {
     "schema_version": "0.1.0-draft",
-    "scenario_id": "SCN-8BBE951218A2428A",
+    "scenario_id": "SCN-AB02AD296C554FA4",
     "name": "镇龙乡 · 应急运输演练",
     "state_version": 3,
     "mode": "simulation",
@@ -3324,7 +3324,7 @@
         "mandatory": true
       },
       {
-        "demand_id": "URG-29209dcf-66a",
+        "demand_id": "URG-d3c0e56b-e29",
         "site_id": "S011",
         "cargo_type": "MED",
         "required_quantity": 2,
@@ -3334,7 +3334,7 @@
         "mandatory": true
       },
       {
-        "demand_id": "URG-0b3dcfc3-d20",
+        "demand_id": "URG-644c7020-929",
         "site_id": "S011",
         "cargo_type": "MED",
         "required_quantity": 1,
@@ -3634,8 +3634,8 @@
         "location_id": "O01"
       },
       {
-        "cargo_id": "URG-29209dcf-66a-BOX-01",
-        "demand_id": "URG-29209dcf-66a",
+        "cargo_id": "URG-d3c0e56b-e29-BOX-01",
+        "demand_id": "URG-d3c0e56b-e29",
         "type": "MED",
         "mass_kg": 3,
         "volume_l": 12,
@@ -3643,8 +3643,8 @@
         "location_id": "O01"
       },
       {
-        "cargo_id": "URG-29209dcf-66a-BOX-02",
-        "demand_id": "URG-29209dcf-66a",
+        "cargo_id": "URG-d3c0e56b-e29-BOX-02",
+        "demand_id": "URG-d3c0e56b-e29",
         "type": "MED",
         "mass_kg": 3,
         "volume_l": 12,
@@ -3652,8 +3652,8 @@
         "location_id": "O01"
       },
       {
-        "cargo_id": "URG-0b3dcfc3-d20-BOX-01",
-        "demand_id": "URG-0b3dcfc3-d20",
+        "cargo_id": "URG-644c7020-929-BOX-01",
+        "demand_id": "URG-644c7020-929",
         "type": "MED",
         "mass_kg": 3,
         "volume_l": 12,

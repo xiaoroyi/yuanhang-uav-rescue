@@ -1,14 +1,14 @@
 {
   "sourceSnapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-2E71542A178D4E07",
-    "scenario_id": "SCN-9EDE156F2F124292",
+    "snapshot_id": "SNAP-703AB82660744F9A",
+    "scenario_id": "SCN-2E7882D9C11C4044",
     "scenario_state_version": 2,
-    "content_hash": "29a373560ed7976766cc1bb5368384d54a626d1770ade9451da168275695f8b2",
-    "created_at": "2026-10-18T00:54:55.805429Z",
+    "content_hash": "d222a7fff879ba2161fe22e9d6322b273e2064efde506a20895ecafcac3b2b6e",
+    "created_at": "2026-10-18T01:32:51.292918Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-9EDE156F2F124292",
+      "scenario_id": "SCN-2E7882D9C11C4044",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -898,9 +898,9 @@
   },
   "baseline": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-303237CA70D744AC",
-    "scenario_id": "SCN-9EDE156F2F124292",
-    "snapshot_id": "SNAP-2E71542A178D4E07",
+    "plan_id": "PLAN-ABB710643F25499C",
+    "scenario_id": "SCN-2E7882D9C11C4044",
+    "snapshot_id": "SNAP-703AB82660744F9A",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1454,7 +1454,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T00:54:57.311851Z",
+    "generated_at": "2026-10-18T01:32:53.368922Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1470,7 +1470,7 @@
   "receipt": {
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-47886287A8254616",
+      "scenario_id": "SCN-EE98574268C74AEB",
       "name": "镇龙乡 · 应急运输演练 · 资源与余量试算",
       "state_version": 1,
       "mode": "simulation",
@@ -2359,14 +2359,14 @@
     },
     "origin": {
       "kind": "what_if",
-      "source_scenario_id": "SCN-9EDE156F2F124292",
+      "source_scenario_id": "SCN-2E7882D9C11C4044",
       "source_state_version": 2,
-      "source_content_hash": "29a373560ed7976766cc1bb5368384d54a626d1770ade9451da168275695f8b2",
-      "source_plan_id": "PLAN-303237CA70D744AC",
+      "source_content_hash": "d222a7fff879ba2161fe22e9d6322b273e2064efde506a20895ecafcac3b2b6e",
+      "source_plan_id": "PLAN-ABB710643F25499C",
       "transformation_version": "what_if_v2_ground_capacity",
       "parameters": {
         "expected_state_version": 2,
-        "source_plan_id": "PLAN-303237CA70D744AC",
+        "source_plan_id": "PLAN-ABB710643F25499C",
         "name": "资源与余量试算",
         "additions": [
           {
@@ -2394,14 +2394,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-5CDE72232BAA4746",
-    "scenario_id": "SCN-47886287A8254616",
+    "snapshot_id": "SNAP-24ECFEB2BC8D4648",
+    "scenario_id": "SCN-EE98574268C74AEB",
     "scenario_state_version": 1,
-    "content_hash": "2c06b86b3058d2bc6cc62a5fd61df1684a43dac54de099aa37ba5e2159450da1",
-    "created_at": "2026-10-18T00:55:00.180287Z",
+    "content_hash": "eeb9f20640128d9b750d206f81d1c9aff5ec8e0878d3ff63ffdc750b7c734b13",
+    "created_at": "2026-10-18T01:32:56.671343Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-47886287A8254616",
+      "scenario_id": "SCN-EE98574268C74AEB",
       "name": "镇龙乡 · 应急运输演练 · 资源与余量试算",
       "state_version": 1,
       "mode": "simulation",
@@ -3291,9 +3291,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-4AF2B2EA196C4663",
-    "scenario_id": "SCN-47886287A8254616",
-    "snapshot_id": "SNAP-5CDE72232BAA4746",
+    "plan_id": "PLAN-4FB93167887A4F50",
+    "scenario_id": "SCN-EE98574268C74AEB",
+    "snapshot_id": "SNAP-24ECFEB2BC8D4648",
     "scenario_state_version": 1,
     "data_origin": "solver",
     "objective": "time",
@@ -3814,7 +3814,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T00:55:01.661163Z",
+    "generated_at": "2026-10-18T01:32:58.421427Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -3828,8 +3828,8 @@
     "initial_charges": []
   },
   "analysis": {
-    "plan_id": "PLAN-4AF2B2EA196C4663",
-    "snapshot_id": "SNAP-5CDE72232BAA4746",
+    "plan_id": "PLAN-4FB93167887A4F50",
+    "snapshot_id": "SNAP-24ECFEB2BC8D4648",
     "scenario_state_version": 1,
     "model_scope": [
       "cargo_unique",
@@ -3846,9 +3846,9 @@
       "model_id": "transport_capacity_relaxation_v1",
       "status": "ready",
       "reason": null,
-      "snapshot_id": "SNAP-5CDE72232BAA4746",
+      "snapshot_id": "SNAP-24ECFEB2BC8D4648",
       "scenario_state_version": 1,
-      "snapshot_content_hash": "2c06b86b3058d2bc6cc62a5fd61df1684a43dac54de099aa37ba5e2159450da1",
+      "snapshot_content_hash": "eeb9f20640128d9b750d206f81d1c9aff5ec8e0878d3ff63ffdc750b7c734b13",
       "required_box_count": 32,
       "eligible_type_ids": [
         "A",

@@ -1,0 +1,147 @@
+{
+  "at_utc": "2026-10-18T01:42:51.004978+00:00",
+  "branch": "feat/solo-fullstack-v0",
+  "tested_source_commit": "3a8b8b61295c5d5b77d73274d8ee51230be652fe",
+  "verification_source_sha256": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "full_verification_passed": true,
+  "python_passed": 258,
+  "python_subtests_passed": 8,
+  "browser_passed": 27,
+  "browser_unexpected": 0,
+  "browser_flaky": 0,
+  "browser_skipped": 0,
+  "slides": 15,
+  "final_slide_pdf_individually_reviewed_pages": 15,
+  "final_plan_report_individually_reviewed_pages": 20,
+  "video_duration_s": 70.52,
+  "video_chapters": 12,
+  "task_counts": {
+    "done": 32,
+    "in_progress": 16,
+    "todo": 8
+  },
+  "files": {
+    "deliverables/yuanhang-demo.html": {
+      "bytes": 2685699,
+      "sha256": "5337959f7625e33bdb9f9504da664cad049095e2bc45c6910cd5bcdf4f1e9b51"
+    },
+    "deliverables/yuanhang-demo.pdf": {
+      "bytes": 2268171,
+      "sha256": "81cf96c6d0bec1f4a232d6528caf86f71011dcf14e9159aee57876cd7022f73d"
+    },
+    "deliverables/walkthrough.html": {
+      "bytes": 5674,
+      "sha256": "a7adaaecd80bf0c9bca32d077b0160c02a3f0f59b32cf60c31c5f5e94bea3312"
+    },
+    "deliverables/yuanhang-walkthrough.webm": {
+      "bytes": 15248137,
+      "sha256": "310925f8fd173c2f8f2f34e33105ce2afdf5875967215d43624b37d250c131a6"
+    },
+    "deliverables/yuanhang-walkthrough.zh.vtt": {
+      "bytes": 1888,
+      "sha256": "760072b1c3d8683212a9cd6ee2ade44a4fbb4db78803876d8e6f0115b6bd27d0"
+    },
+    "deliverables/walkthrough-poster.png": {
+      "bytes": 400594,
+      "sha256": "5a1cc9fef786ef0b17bd3b336d5e263a81c2bca9b49181b20f661baa9daf4b69"
+    },
+    "deliverables/walkthrough-analysis.json": {
+      "bytes": 28342,
+      "sha256": "6c9fae7dd96f89666dec76b1edfec6102d33c618952d270e6fa464e966898208"
+    },
+    "evidence/demo/manifest.json": {
+      "bytes": 4987,
+      "sha256": "b50910d5c4f71e3a13e08dc3e612fb7b551354eead1ec4fed0c174a523af4323"
+    },
+    "evidence/demo/pdf-qa.json": {
+      "bytes": 3307,
+      "sha256": "ba762d4ad32cbc8d7bf4f949bd9e4abb5da6e805b5b4694f330392326790afcc"
+    },
+    "evidence/video/recording.json": {
+      "bytes": 129754,
+      "sha256": "1f03486e282cb9b7702caa43b5bc5a990761ba8a70bc0b5f5723bf3b40018251"
+    },
+    "evidence/video/playback-qa.json": {
+      "bytes": 2948,
+      "sha256": "accb1a8f514e88f915702d17175de3c219bb258e3b98ed2f9406be9515e6ef97"
+    },
+    "evidence/verification/latest.json": {
+      "bytes": 11544,
+      "sha256": "cd6961649b6e30d0dd03a7d6e1e618d05be3194e530731c99944c83bcf70b20d"
+    },
+    "evidence/verification/github-ci-3a8b8b6.json": {
+      "bytes": 3928,
+      "sha256": "b6ac1517e9c84a871d7ff7b58ef315d107491244bfb02f66380a36f029a48bbe"
+    },
+    "evidence/engineering/final-startup.json": {
+      "bytes": 1578,
+      "sha256": "1950b79550aa6901de6f7643f4c5819baea6c754212f06012403d2c86740d53b"
+    },
+    "evidence/engineering/final-runtime-backup.json": {
+      "bytes": 1000,
+      "sha256": "27b87f3865274a4267d211e5a2946f57056544aed86c9fcd28d876f63788f414"
+    },
+    "evidence/engineering/local-ready.json": {
+      "bytes": 1493,
+      "sha256": "731fa19a8caf157605fbf4c33de5bd53f8a8d2017ddb1840c10e2d1b242595e2"
+    },
+    "evidence/engineering/curated-demo.json": {
+      "bytes": 221547,
+      "sha256": "c0b75fae439fccb151f420f0d2e28a3f1dcd2b3904b51a58bea19c165d6c7e34"
+    },
+    "evidence/browser/print-report-qa.json": {
+      "bytes": 1753,
+      "sha256": "3f7a0ad686db803b1533ba4dbc5bb86ff6b14bed78c9a312ee757e77c049d9b3"
+    },
+    "evidence/browser/joint-report-final-page-qa.json": {
+      "bytes": 1978,
+      "sha256": "e7065c2c99c8aea4281aba18b117fb9ec0db26c7a27b692ba120448cb8a0b681"
+    },
+    "evidence/browser/initial-charge-report-final-page-qa.json": {
+      "bytes": 2044,
+      "sha256": "f04652e71644dc3e6647985115521aa118e3fe8612e352ca1028840955db8506"
+    },
+    "evidence/browser/verified/print-report.pdf": {
+      "bytes": 224039,
+      "sha256": "13d10d4a9dd39ed5a0530515a431600b437a23d2077fc75aec80f24c31190930"
+    },
+    "evidence/browser/verified/joint-report.pdf": {
+      "bytes": 265871,
+      "sha256": "ca05d9976d37a250c46146b87fde00a451e3f02ea5653eaa3c2373310580778f"
+    },
+    "evidence/browser/verified/initial-charge-report.pdf": {
+      "bytes": 232552,
+      "sha256": "89f32b4be30223afb2590bbffbb190f18f6f40c17f8fbdb2e3115a961725ac58"
+    },
+    "submission/examples/scenario-demo.json": {
+      "bytes": 21881,
+      "sha256": "6d8189d0165a40cf55fd1156b18f845730bddabb7505ae3ac87142b2958dcc6b"
+    },
+    "submission/examples/scenario-preferences.json": {
+      "bytes": 21828,
+      "sha256": "55530be174bf95a03192888d96bcb0f972d241134d394790fb52ce23824bf1e5"
+    },
+    "submission/examples/solve-result.json": {
+      "bytes": 44265,
+      "sha256": "4f51345354f868f3a204896356aaf033b282b7608af6c984d09a223b5e47d112"
+    },
+    "evidence/verification/example-revalidation.json": {
+      "bytes": 2058,
+      "sha256": "081416773d830700cbbf5fee74e7d434d85f6f06b86c500fdee2fbcf5d5f3560"
+    }
+  },
+  "not_in_git": [
+    "runtime data and backups",
+    ".venv",
+    "node_modules",
+    "production build cache",
+    ".local test/video runtimes"
+  ],
+  "limits": [
+    "Candidate product in declared models, not all task-board research complete.",
+    "PPTX not exported: required official artifact-tool runtime unavailable.",
+    "No teammate fresh-machine installation, SITL/real flight, AI training or official contest compliance review.",
+    "Main not merged; Schema still proposed and human approvals empty."
+  ],
+  "note": "Material/document commit may follow the tested source commit. Match source fingerprint, not just final HEAD. This manifest deliberately excludes itself and later Git/CI observation records."
+}

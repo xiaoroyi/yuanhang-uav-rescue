@@ -1,5 +1,5 @@
 {
-  "plan_id": "PLAN-C5112B7EA4F44D64",
+  "plan_id": "PLAN-FECEDB00EE594CE3",
   "page_count": 6,
   "pages": [
     {
@@ -40,11 +40,19 @@
     }
   ],
   "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "pdf_sha256": "13d10d4a9dd39ed5a0530515a431600b437a23d2077fc75aec80f24c31190930",
   "visual_review": {
-    "reviewer": "Codex visual inspection",
-    "all_pages_viewed": true,
-    "reviewed_at_utc": "2026-10-17T21:57:49.332596+00:00",
-    "pdf_sha256": "f92a507ffc42930effc8520a476e1249422600472d2aa8fc0feabed58223bd22",
-    "finding": "No unintended overlap, clipping, missing rows or broken pagination observed."
+    "status": "passed",
+    "reviewed_at_utc": "2026-10-18T01:37:15.027504+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "finding": "All six rendered pages individually viewed: headings, full rows, repeated table headers, page/Plan identity and model-scope notes legible; no unintended clipping or blank page observed."
   }
 }

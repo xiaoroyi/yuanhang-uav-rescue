@@ -1,0 +1,34 @@
+{
+  "at_utc": "2026-10-18T01:27:03.418667+00:00",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/setup.py --check",
+      "exit_code": 0,
+      "stdout": "安装条件通过：Python 3.11.15；Node v24.16.0；npm已找到。未安装或修改依赖。\n",
+      "stderr": ""
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe scripts/launch.py",
+      "exit_code": 0,
+      "stdout": "援航已在运行：http://127.0.0.1:8000\n",
+      "stderr": ""
+    }
+  ],
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "71fef265608e2407fea7ceccfd2e504ed6da3378676269b4792ec6cafa50d78a",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "6f734ca1958e6a1edc3762be521b14678e745060af6d890a2d5239518b98b4c9",
+  "frontend_artifacts_verified": true,
+  "scope": "Current Windows dependency check, production artifact validation and reuse of the matching existing service; no dependency installation. This is not a new teammate machine installation test.",
+  "verification_source_at_observation": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "dependency_lock_sha256": {
+    "requirements.lock.txt": "0d8f997b0ea1cd74990688af0c3f90632db0c39c3e611ac082c40899aaaf5f8a",
+    "frontend/package-lock.json": "294635fbb47df0ef005fff8026a5a6d2318a2dbfe0143f105b730835289173d4"
+  }
+}

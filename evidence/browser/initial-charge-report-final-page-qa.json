@@ -1,0 +1,65 @@
+{
+  "plan_id": "PLAN-C9AE1F985896497C",
+  "page_count": 7,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 664,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-1.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 1557,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-2.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 1300,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-3.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 1020,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-4.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 1372,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-5.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 1102,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-6.png"
+    },
+    {
+      "page": 7,
+      "text_characters": 672,
+      "plan_id_present": true,
+      "image": "evidence/browser/verified/initial-charge-report-final-page-7.png"
+    }
+  ],
+  "scope": "Rasterized for manual visual inspection; text metrics alone are not layout approval.",
+  "pdf_sha256": "89f32b4be30223afb2590bbffbb190f18f6f40c17f8fbdb2e3115a961725ac58",
+  "visual_review": {
+    "status": "passed",
+    "reviewed_at_utc": "2026-10-18T01:38:13.782367+00:00",
+    "reviewer": "Codex actual visual inspection",
+    "reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "finding": "All seven actual pages individually viewed, including initial charging, queuing, cargo continuation and ground-resource checks. Full rows and repeated headers/Plan/page identity legible; no unintended clipping or empty page observed."
+  }
+}

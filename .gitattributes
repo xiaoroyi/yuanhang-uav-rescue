@@ -1,4 +1,5 @@
 * text=auto
+.gitattributes text eol=lf
 *.py text eol=lf
 *.md text eol=lf
 *.json text eol=lf
@@ -16,6 +17,16 @@
 *.zip binary
 *.mat binary
 *.tif binary
+*.webm binary
+*.png binary
+deliverables/*.html text eol=lf
+deliverables/*.vtt text eol=lf
+
+# Evidence contains byte-level source/material hashes and original command logs.
+# Preserve these exact bytes, including Windows newlines and command-log whitespace.
+evidence/** -text -whitespace
+# Published input/result examples also participate in byte-level provenance.
+submission/examples/** -text -whitespace
 
 # Preserve source originals byte-for-byte, including historical CRLF/BOM/Markdown breaks.
 # Whitespace in immutable source documents is not a change to repair.

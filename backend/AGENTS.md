@@ -11,3 +11,5 @@ B 与 frontend owner 是同一人，C-* 为历史任务编号。遵守根 AGENTS
 terrain_assets.py注册本地GeoTIFF，只写本实例runtime/assets，源文件和归一化栅格内容寻址，不覆盖旧资产。请求与Worker使用同一terrain_store上下文；独立检查/确认/回放也必须能读到该库。JSON场景仅引用hash，二进制移交方式见TERRAIN_ASSETS。reports.py只输出已验证Plan绑定的Snapshot，不使用当前可变场景替代历史输入。
 
 Event现包含四个严格分支（含demand.added和relay_energy.unavailable），纯apply_event_to_scenario统一状态转移；不要在API重新手写另一套追加/退出逻辑，保留旧负载与幂等。
+
+RFC-014的WhatIfRequest.ground_addition仅给已配置有限resource_limits的源场景增加准备工位/充电端口。严格整数与总量32/64在入库前检查；新来源标签what_if_v2_ground_capacity，缺省/null保持旧v1且不补null参数。实际OpenAPI/TS同步生成，历史来源与原Plan/Snapshot不可变；不要把无限容量当0或把增配等同最少购买证明。

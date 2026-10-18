@@ -14,6 +14,9 @@
 | D008 | proposed | 后端预分配 Plan ID；统一 `/api/v1/solve-jobs`，重规划也走该入口 | RFC-001；消除 Word 与 ZIP 的不同路由 |
 | D009 | proposed | success outcome 必须独立验证通过；验证失败进入 ERROR，无 Plan 可发布 | RFC-001，消除原文含糊组合 |
 | D010 | proposed | JSON Schema 派生业务类型，实现 OpenAPI 派生 HTTP 类型；双向结构检查而非手写重复模型 | C-01/B-01 实现，G0 仅固定流程 |
+| D011 | confirmed | 本轮在feat/solo-fullstack-v0临时跨算法、前端、后端和工程集成持续实现候选版本，不改写main；长期A/B两人职责不变 | 用户随后明确授予12小时单人全栈开发范围，覆盖G0历史停止条款 |
+| D012 | confirmed | 默认这台Windows电脑本地离线演示、无需登录；较小真实场景优先展示动态调度，保留原题入口 | 用户对两项环境/演示选择的明确答复 |
+| D013 | adopted_for_branch | RFC-003至014已按用户授权在候选分支实施并测试；机器Schema和生成消费者同步，正式契约批准与main合并仍待A/B | CONTRACT_CHANGELOG、对应RFC与真实验收；不代填approved_by |
 
 ## 本次需要 A/B 确认的六项
 

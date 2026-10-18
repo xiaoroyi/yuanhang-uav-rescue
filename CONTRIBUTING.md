@@ -2,7 +2,11 @@
 
 A 维护算法并最终合并；B 维护前端、后端与系统集成。每人各自 clone，不共享同一个 Git 工作目录。
 
+当前候选在`feat/solo-fullstack-v0`与[草稿PR #1](https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1)，main保留原初始状态。评审前切换到该功能分支；第一次clone可加`--branch feat/solo-fullstack-v0`。先读docs/SOLO_DELIVERY.md与IMPLEMENTATION_STATUS，不从G0重新创建业务模块。
+
 ## 每个任务的流程
+
+候选合并main后，按下列正常流程创建任务分支；评审期间从团队已接受的候选提交开分支，并在PR说明基线。
 
 ```powershell
 git switch main
@@ -16,7 +20,7 @@ git commit -m "feat(solver): A-01 适配基础物理输入"
 git push -u origin feat/solver-A-01
 ```
 
-在 GitHub 创建 PR，写任务 ID、验收结果和接口影响，A 审核合并。B 的任务分支例如 `feat/system-C-01` 或 `feat/frontend-B-01`。当前规范分支为 `docs/g0-governance`。
+在 GitHub 创建 PR，写任务 ID、验收结果和接口影响，A 审核合并。B 的任务分支例如 `feat/system-C-01` 或 `feat/frontend-B-01`。历史规范初始化分支为`docs/g0-governance`；其规则已包含在当前候选中。
 
 已有未提交改动时先检查，不直接切回主分支拉取；有冲突先保留双方工作并解决，不用 `reset --hard`、强推或复制覆盖规避。更新功能分支可合并最新 `origin/main`，不改写已共享的提交历史。
 

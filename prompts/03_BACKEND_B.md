@@ -1,6 +1,6 @@
 # B 的长期开发提示词｜FastAPI 后端、版本、数据与集成
 
-> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准 V1 或已实现 API。
+> 本仓库适配说明：仅 A（算法/项目负责人）与 B（前端+后端+集成）两人。`C-*` 只保留为后端任务编号。原始 ZIP 留存于 `references/source/original-handoff.zip`。当前缺少旧版机器契约；新建 `0.1.0-draft` 仅为评审草案，状态见 `docs/DECISIONS.md`，不是已批准V1；当前已实现能力与实际API以docs/IMPLEMENTATION_STATUS.md、docs/SOLO_DELIVERY.md和实际OpenAPI为准。先核对候选分支与最新验收，不从G0重复搭建已有模块。
 
 这是 B 的后端模块检查清单；B 与前端负责人是同一人，统一启动入口为 `prompts/02_SYSTEM_B.md`，A 负责最终合并。系统必须支持真实输入、统一快照、后台算法调用、计划历史、幂等事件、事务确认和可复现导出。
 

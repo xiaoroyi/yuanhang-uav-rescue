@@ -1,14 +1,14 @@
 {
   "previous_snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-E9D648596FF6428C",
-    "scenario_id": "SCN-66E6C2B965D04CE2",
+    "snapshot_id": "SNAP-5E5C1151FEF445CF",
+    "scenario_id": "SCN-BDDD00774EB84397",
     "scenario_state_version": 2,
-    "content_hash": "b0b3ed01e3c91c45104c2d324c278634bbf1c8c06816f95f6b84576ab81ed4e0",
-    "created_at": "2026-10-17T23:12:25.415012Z",
+    "content_hash": "352c95eb891068326c592121bfed9101fdeea56916988d4633139f731005ee5e",
+    "created_at": "2026-10-18T01:28:33.533338Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-66E6C2B965D04CE2",
+      "scenario_id": "SCN-BDDD00774EB84397",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -1135,9 +1135,9 @@
   },
   "previous_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-188DF0D24A7544DC",
-    "scenario_id": "SCN-66E6C2B965D04CE2",
-    "snapshot_id": "SNAP-E9D648596FF6428C",
+    "plan_id": "PLAN-C485E9FB388F4C9A",
+    "scenario_id": "SCN-BDDD00774EB84397",
+    "snapshot_id": "SNAP-5E5C1151FEF445CF",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1645,7 +1645,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T23:12:31.533409Z",
+    "generated_at": "2026-10-18T01:28:41.201627Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -1899,13 +1899,13 @@
         {
           "stage": "priority_delay",
           "status": "OPTIMAL",
-          "seconds": 0.5104521000000001,
+          "seconds": 0.5977029,
           "objective": 7832256
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.3850969,
+          "seconds": 0.48970210000000003,
           "objective": 764021
         }
       ]
@@ -1913,14 +1913,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-D6C7E41C35E24C96",
-    "scenario_id": "SCN-66E6C2B965D04CE2",
+    "snapshot_id": "SNAP-753E9A59C9554819",
+    "scenario_id": "SCN-BDDD00774EB84397",
     "scenario_state_version": 3,
-    "content_hash": "0fe6e27c607a9cb996e7d7f1fc2b1345c68a7cde9a910260c2eb64e65aaff9df",
-    "created_at": "2026-10-17T23:12:36.017806Z",
+    "content_hash": "f395ce9de30d2a0bb3790854a82381bdfcbbc184e296c9c2f40a6e0d14a932d5",
+    "created_at": "2026-10-18T01:28:44.607102Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-66E6C2B965D04CE2",
+      "scenario_id": "SCN-BDDD00774EB84397",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 3,
       "mode": "simulation",
@@ -3047,12 +3047,12 @@
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-c568367c-a7f2-40",
-    "scenario_id": "SCN-66E6C2B965D04CE2",
+    "event_id": "EVT-d9ac831e-f52b-44",
+    "scenario_id": "SCN-BDDD00774EB84397",
     "expected_state_version": 2,
     "event_type": "relay_energy.unavailable",
-    "occurred_at": "2026-10-17T23:12:35.962000Z",
-    "received_at": "2026-10-17T23:12:35.968064Z",
+    "occurred_at": "2026-10-18T01:28:44.551000Z",
+    "received_at": "2026-10-18T01:28:44.557392Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：中继能源组件退出",
@@ -3062,9 +3062,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-3B13CC73A2D84387",
-    "scenario_id": "SCN-66E6C2B965D04CE2",
-    "snapshot_id": "SNAP-D6C7E41C35E24C96",
+    "plan_id": "PLAN-00843AC504AF4D81",
+    "scenario_id": "SCN-BDDD00774EB84397",
+    "snapshot_id": "SNAP-753E9A59C9554819",
     "scenario_state_version": 3,
     "data_origin": "solver",
     "objective": "time",
@@ -3572,7 +3572,7 @@
         }
       ]
     },
-    "generated_at": "2026-10-17T23:12:42.207386Z",
+    "generated_at": "2026-10-18T01:28:52.253930Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
       "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
@@ -3584,8 +3584,8 @@
       "有限联合候选：16个悬停位置、94段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
       "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
     ],
-    "parent_plan_id": "PLAN-188DF0D24A7544DC",
-    "event_id": "EVT-c568367c-a7f2-40",
+    "parent_plan_id": "PLAN-C485E9FB388F4C9A",
+    "event_id": "EVT-d9ac831e-f52b-44",
     "change_summary": {
       "preserved_sortie_ids": [
         "SRT-08c16e45e379",
@@ -3839,13 +3839,13 @@
         {
           "stage": "priority_delay",
           "status": "OPTIMAL",
-          "seconds": 0.4859024,
+          "seconds": 0.6092528,
           "objective": 7832256
         },
         {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.40515500000000004,
+          "seconds": 0.48903120000000005,
           "objective": 764021
         }
       ]

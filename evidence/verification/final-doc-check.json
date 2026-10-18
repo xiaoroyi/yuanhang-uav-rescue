@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-10-18T01:45:30.519029+00:00",
+  "command": "scripts/check_governance.py",
+  "exit_code": 0,
+  "output": "evidence/verification/final-doc-check.txt",
+  "git_cached_diff_check_exit_code": 0,
+  "verification_source_sha256": "45eeaa457267a8b28e672561a5b150ae4c920082b6388de0004ebc54ec07c45a",
+  "scope": "Supplemental final documentation and task-board checks after the full application run; does not replace original check-03."
+}

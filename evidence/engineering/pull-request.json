@@ -1,0 +1,14 @@
+{
+  "number": 1,
+  "html_url": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+  "title": "feat: 援航本机离线调度系统候选版本",
+  "draft": true,
+  "created_at": "2026-10-18T00:33:23Z",
+  "updated_at": "2026-10-18T01:46:07Z",
+  "state": "open",
+  "head_sha_at_observation": "3a8b8b61295c5d5b77d73274d8ee51230be652fe",
+  "base_ref": "main",
+  "base_sha_at_observation": "8f89af12d0384cd974c5707c95094f72a15c04a0",
+  "head_ref": "feat/solo-fullstack-v0",
+  "note": "Draft for A/B review; no reviewers assigned, no comments sent, no merge performed. Head advances when the feature branch is pushed."
+}
