@@ -1,0 +1,16 @@
+{
+  "created_at_utc": "2026-10-18T14:53:03.164158+00:00",
+  "package_path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\releases\\yuanhang-v2-development-983e4c3b.zip",
+  "package_sha256": "9b12cb3eecbd9e862c59c804cd540ecb7d204969548ec322cb3fed04be84ed0e",
+  "package_bytes": 274071167,
+  "source_commit": "983e4c3b3a0cd00cedba89d4892277759354d547",
+  "service_source_sha256": "2e307f63b2f1594e67bd3ffc9b18a1b29b512d5611024814d6498c8a40f4cc30",
+  "frontend_source_sha256": "e71175fe9c4c09672af09c20aa01a91e1334fea3a3d97e0e76a8e6500aad7c9e",
+  "verification_source_sha256": "4f63f6178945eac4c6867700d09140e514cfc8c42c6ce63afba3ed77ae7f9be4",
+  "verification_report": "evidence/redesign-v2/DELIVERY_CHECKS.json",
+  "verification_scope": "targeted-release-checks",
+  "archive_validation": "Completed archive reopened: CRC check passed; initial in-writer check failed before append handle closed",
+  "contents": "Committed source, provenance/evidence and verified frontend/dist; no runtime, environments or credentials",
+  "first_install_requires_dependencies": true,
+  "anonymous_submission": false
+}

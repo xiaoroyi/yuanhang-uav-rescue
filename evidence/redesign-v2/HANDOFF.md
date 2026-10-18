@@ -1,3 +1,19 @@
+## 本机V2交付就绪（2026-10-18 22:54）
+
+这是当前入口，以下所有历史继续点/旧PID不再适用。用户最后要求尽快交付、不要大范围反复核验，已停止增加测试与新功能。源码提交983e4c3b3a0cd00cedba89d4892277759354d547，分支feat/mission-workspace-v2；后续提交仅补交接/包元数据，包对应上述准确源码提交。
+
+- 直接打开http://127.0.0.1:8000/；本机未运行时双击项目根start.cmd。首页点“运行示例演练”，随后准备/检查→实际计算→地图/调度明细/分析→确认→创建并启动模拟→暂停上报变化→差异采纳→复盘。详见DEMO_GUIDE。
+- 最后3浏览器、2后端、lint和strict build通过；DELIVERY_CHECKS记录准确范围。补丁后没有再跑全部323 Python/52浏览器，保留旧整轮失败与成功专项，不能更改统计。短屏完整分析两张新图已实际查看。
+- 当前生产PID57384/start1792334825453/launcher21891，日志.local/v2-production-release-service.log；backend 2e307f63b2f1594e67bd3ffc9b18a1b29b512d5611024814d6498c8a40f4cc30，frontend e71175fe9c4c09672af09c20aa01a91e1334fea3a3d97e0e76a8e6500aad7c9e。原10场景/10Snapshot/14Plan/15Job/0Mission/0Execution，旧Plan/Snapshot原JSON未变。备份051a6c299f3038406e9d9040f4d10054218f014cccfb9400c1b663828ed4c2dc，见final-current-deployment。
+- 477份历史证据已保护，93份本轮新输出归档legacy-final-regression后原字节恢复；evidence/README随后有明确新增V2导航，非原结果改写。42原件哈希与治理已核对，main/V1分支保持不变。
+- 开发运行包E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.local\releases\yuanhang-v2-development-983e4c3b.zip，274071167字节，SHA256 9b12cb3eecbd9e862c59c804cd540ecb7d204969548ec322cb3fed04be84ed0e，完整ZIP重新打开CRC通过。包含源码/证据/已构建前端，不含个人runtime、依赖或凭据；新电脑需先setup，不是免安装或匿名赛事包。初次在未关闭append句柄内校验失败，关闭后重新打开实际通过，原有效包未冒充损坏包或跳过校验。
+
+未完成的研究、真机/SITL、ODM航片、多基地、全部扩展分析与正式赛事材料均保留在任务板/KNOWN_LIMITATIONS。下一次继续从这些具体剩余项领取，不重复初始化；本次按用户要求在可用版本处交付。A算法兼负责人，B同一人前后端；契约仍proposed且未代签。
+
+---
+
+以下为历史记录。
+
 ## 当前交付（2026-10-18 22:48，覆盖下方所有继续点）
 
 用户最新明确“不要过度测试，基础功能没问题先尽快给我”。因此不再启动任何新的全量回归或研究开发。最终补丁为短屏分析Modal、联合初解使用总预算18%/最多30秒、深入刷新等待真实受理；3浏览器/2后端/lint/strict build均通过。DELIVERY_CHECKS.json记录当前指纹和实际命令；完整旧轮321通过/2失败、52浏览器50通过/2失败原样留存，失败已定向复核通过，不声称最新整套通过。
