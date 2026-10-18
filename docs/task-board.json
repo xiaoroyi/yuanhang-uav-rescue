@@ -1629,7 +1629,12 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "docs/CONTRACT_RFC_025.md",
+        "tests/backend/test_experiments_v2.py",
+        "frontend/tests/experiments-v2.spec.ts",
+        "evidence/redesign-v2/EXPERIMENT_SMOKE/MANIFEST.json",
+        "evidence/redesign-v2/experiments-dialog-regression-results.json"
       ]
     },
     {

@@ -1,3 +1,23 @@
+## 最新继续点：R16静态评测检查点通过，继续R15（2026-10-18 20:26）
+
+R16代码/模型/消费者/原始包已完成静态专项，准备提交此检查点：4后端44.19s、早先16组合105.95s、10浏览器组合全过约1.7m。首次区域camera v2修复、V2/legacy Portal UIContext隔离已测；MapLibre metadata不能代表瓦片，已改actual tile.loaded才ready，真实挂起12秒回退+50点故障2项23.8s通过。lint零警告/build通过。详细TEST_REPORT、EXPERIMENT_SMOKE/MANIFEST；动态/学习消融仍未完成，不把静态对照称贡献证明。
+
+当前8000 PID62360/start1792325491757/launcher88473/source25c71f621ac16bb166b13a1b4216de20c6400e0a0e3f9fddec9fdebd0e531865；experiment-deployment.json已核对当前dist/source与原14Plan/10Snapshot不变。源8d4c926已推，R16本次提交/推送后继续，不停工。副工作树33e7fe4已合勿再合；8012仍旧服务不能当最新验证。
+
+下一优先R15：当前执行残余仍全量quick，纯solver仅零时刻_try_local_repair；需要新增明确纯Python repair_remaining入口和原Plan/Snapshot原文引用，不能伪造旧Plan身份来调用零时刻replan。基于事实冻结后，未来资源退出可依赖局部修复，独立验证整个残余，失败用剩余预算全量回退；其他新需求/天气先明确全量，不篡改旧Event语义。补命名空间依赖图/受影响任务点击、实际修复方法与改派指标；之后同模型预算对照、R14/R22可做研究及最终全量/视觉。真实外部ODM/设备/SITL/多基地任务保留具体缺口，不用Mock。
+
+## 最新进行中：R16真实评测与新用户镜头修复（2026-10-18 20:17）
+
+主V2提交8d4c926已推送。当前未提交R16：RFC025、严格43操作模型/82HTTP路径、experiment.run/create后台协调器、真实quick/improve/三偏好批处理、1—3种子/预算、失败分母、冻结独立副本、后台派发/取消/重启、base64原始四文件证据；frontend ExperimentCenter已取代旧演练任务列表，带散点/表/环境/历史/日志/Plan地图与甘特。4项后端44.19s及之前16项组合105.95s通过；UI2项29.0s通过。没有动态/通信/学习消融冒充完成。
+
+视觉发现Portal不继承V2，已用UIContext(v2/legacy)经React portal传递，v2-dialog共享变量及按钮/地图样式，旧路由默认legacy不污染。5项组合4过/1新用户失败：空白世界镜头被保留到设置基地/加入第一个点，需求点无法直接找到。已加camera记录version2/region_key，首次设置/移动基地或0→非零需求点重新fit，日常轮询/选择/resize保留；补空白保存基地后缩放断言。
+
+当前冻结源码跑10项浏览器：session43518，.local/v2-experiments-map-regression.log，报告experiments-dialog-regression-results.json。涵盖新用户、全部4地图、W1、独立偏好、评测2项、在途档案。先读结果再改，不把此前失败轮称通过。frontend lint/build通过，最新build已生成。R16原始实际包在EXPERIMENT_SMOKE/strategy-benchmark.json。要查看最新弹窗/桌面与窄屏截图，修实质问题后提交R16完整消费者与证据。
+
+8000现owned PID62360/start1792325491757，launcher88473，.local/v2-production-experiment-service.log，已加载R16后端。source25c71f621ac16bb166b13a1b4216de20c6400e0a0e3f9fddec9fdebd0e531865；workspace860bc839513f/runtime23afa25c2bda。experiment-deployment.json记录重启、备份108cf5...fd95及原14Plan/10Snapshot原JSON与6表行数不变。UI后续改镜头后需要再次核对frontend fingerprint，后台source未变。8012仍旧隔离服务不可作最新验收。
+
+完成本检查点后继续R15：在途依赖传播链/变化有效性与真实局部修复（当前执行残余是全量quick，不能声称依赖局部修复）；纯solver已有零时刻_try_local_repair可复用但不能伪造旧Plan身份链。先保留安全承诺/独立检查，再实现明确新合同与真实对比。之后R14/R22研究、完整最终回归和全状态视觉；不在本检查点停止。
+
 ## 最新继续点：地图专项通过并继续R15/R16（2026-10-18 19:50）
 
 V2主分支05489b5已推GitHub；地图增量待本次提交。RFC023设备独立读回、RFC024事实边界均合入；地图6项浏览器55.8s、W1不遮点专项1项13.8s、lint零警告/12单元/build通过，截图实际查看。详情TEST_REPORT，不能重复初始化或在此停止。

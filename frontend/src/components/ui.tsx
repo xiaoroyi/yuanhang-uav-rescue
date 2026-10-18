@@ -1,7 +1,9 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { AlertCircle, CheckCircle2, LoaderCircle, X } from 'lucide-react'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { useContext } from 'react'
 import clsx from 'clsx'
+import { UIContext } from './UIContext'
 
 export function Button({
   children,
@@ -48,11 +50,14 @@ export function Modal({
   children: ReactNode
   wide?: boolean
 }) {
+  const context = useContext(UIContext)
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="dialog-overlay" />
-        <Dialog.Content className={clsx('dialog-content', wide && 'dialog-wide')}>
+        <Dialog.Content
+          className={clsx('dialog-content', wide && 'dialog-wide', context === 'v2' && 'v2-dialog')}
+        >
           <div className="dialog-header">
             <div>
               <Dialog.Title className="dialog-title">{title}</Dialog.Title>

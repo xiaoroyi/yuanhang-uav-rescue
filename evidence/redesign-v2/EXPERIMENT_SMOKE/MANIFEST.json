@@ -1,0 +1,31 @@
+{
+  "source": "actual isolated Playwright benchmark download",
+  "artifact": "strategy-benchmark.json",
+  "artifact_sha256": "363f50a47d3519abdad333ed6e80b370b6905e2ba0075787b60177a9df226d94",
+  "bundle_content_sha256": "c45e6e2c13f297ab91e1e1c0a545b971083bdba0254ca62f672475e8c53fd911",
+  "experiment_id": "EXP-A0737083202440F3",
+  "captured_at": "2026-10-18T12:21:42.868122Z",
+  "source_snapshot_id": "SNAP-5D2DAF90B96C4145",
+  "analysis_snapshot_id": "SNAP-0150F8BC1AC44435",
+  "data_origin": "verified_dataset",
+  "case_count": 3,
+  "plan_count": 3,
+  "snapshot_count": 2,
+  "artifact_count": 12,
+  "missing_artifacts": [],
+  "environment": {
+    "service_source_sha256": "25c71f621ac16bb166b13a1b4216de20c6400e0a0e3f9fddec9fdebd0e531865",
+    "git_commit": "8d4c9266767f329d86ecf64ae51ece94bc8b1d00",
+    "git_worktree_dirty": true,
+    "python_version": "3.11.15",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "logical_cpu_count": 20,
+    "ortools_version": "9.15.6755",
+    "numpy_version": "2.4.6",
+    "worker_serial_limit": 1,
+    "cp_sat_threads": 1,
+    "cache_policy": "每例独立Worker进程；OS文件缓存不重置。runtime_s为Solver报告时间，非端到端/设备响应。"
+  },
+  "scope": "One static smoke comparison, not statistically representative ablation or real-device evidence."
+}

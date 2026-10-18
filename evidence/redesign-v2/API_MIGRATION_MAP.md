@@ -30,3 +30,7 @@ execution export默认v1保留；version=2新增严格执行包/文档封装。3
 进度读取暂态Windows共享错误保留最近有效样本，不变更Job领域接口。新增GET `/executions/{execution_id}/devices/{device_id}/mission-state`，CommandView可选observed_state，DeviceApplication可选activation_command_id及expired/rejected上传状态。状态独立持久化simulation.device_state；ACK不代表完成，完成必须实际执行模拟动作并独立读回。通用activate只可核对当前已批准目标，候选走差异确认/逐机上传启用。档案同步检查observed_state的执行、机体和Plan引用；旧缺字段不补造。
 
 TelemetrySample新增可空availability/reason；当前阶段与未来资源可用性分开。0秒/暂停承诺按loaded/relay_started事实判定，只读不推进账本。Pydantic/操作Schema/OpenAPI/TS已同步。地图MapScene只为前端空间视图允许未设基地，未引入伪造Scenario或变更领域契约。
+
+## RFC-025评测增量
+
+新增4个HTTP路径（创建/列表共一路径，详情、取消、导出），实际API共82路径/43严格操作模型。运行存OperationRecordRow的experiment.run/create，原领域表不改列。每轮从不可变源Snapshot复制独立分析Scenario/Snapshot，所有例共用，原任务状态/预约/事实不更新。后台协调器调用既有create_job/JobManager，保留UNKNOWN/ERROR/取消/派发未确定及原始日志。取消真实终止已派发Job，503暂退队列不算失败；完成例不因重启重发。输出Pydantic归一化后封装总SHA，原始文档/字节各自SHA。前端由实际OpenAPI生成，未用any。

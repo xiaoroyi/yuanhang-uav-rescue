@@ -66,6 +66,7 @@ export function RescueMap({
   const placeLabels = useRef<maplibregl.Marker[]>([])
   const updateSiteLayout = useRef<(() => void) | null>(null)
   const cameraOwner = useRef<string | null>(null)
+  const cameraRegion = useRef<string | null>(null)
   const [routeChoices, setRouteChoices] = useState<RouteChoice[]>([])
   const [siteChoices, setSiteChoices] = useState<Scenario['sites']>([])
   const [deviceChoices, setDeviceChoices] = useState<Telemetry[]>([])
@@ -153,11 +154,17 @@ export function RescueMap({
   const restoreView = useCallback(() => {
     const m = map.current
     const owner = latest.current.viewKey
-    if (!m || cameraOwner.current === owner) return
+    const scene = latest.current.scenario
+    const region = JSON.stringify({
+      base: scene.base?.coordinates || null,
+      hasSites: scene.sites.length > 0,
+    })
+    if (!m || (cameraOwner.current === owner && cameraRegion.current === region)) return
     setRouteChoices([])
     setSiteChoices([])
     setDeviceChoices([])
     cameraOwner.current = owner
+    cameraRegion.current = region
     try {
       const saved: unknown = JSON.parse(
         sessionStorage.getItem('yuanhang-map-camera:' + owner) || 'null',
@@ -167,6 +174,10 @@ export function RescueMap({
         typeof saved === 'object' &&
         'center' in saved &&
         'zoom' in saved &&
+        'version' in saved &&
+        saved.version === 2 &&
+        'region_key' in saved &&
+        saved.region_key === region &&
         Array.isArray(saved.center) &&
         saved.center.length === 2 &&
         saved.center.every((n) => typeof n === 'number' && Number.isFinite(n)) &&
@@ -259,6 +270,7 @@ export function RescueMap({
     }
     map.current = m
     cameraOwner.current = null
+    cameraRegion.current = null
     m.on('movestart', () => setRouteChoices([]))
     m.on('moveend', () => {
       if (!cameraOwner.current) return
@@ -266,7 +278,12 @@ export function RescueMap({
         const center = m.getCenter()
         sessionStorage.setItem(
           'yuanhang-map-camera:' + cameraOwner.current,
-          JSON.stringify({ center: [center.lng, center.lat], zoom: m.getZoom() }),
+          JSON.stringify({
+            version: 2,
+            region_key: cameraRegion.current,
+            center: [center.lng, center.lat],
+            zoom: m.getZoom(),
+          }),
         )
       } catch {
         /* Optional persistence, no business state is stored here. */
@@ -617,7 +634,15 @@ export function RescueMap({
         fail()
     }
     const onData = (event: maplibregl.MapSourceDataEvent) => {
-      if (event.sourceId === 'satellite-imagery' && event.sourceDataType === 'content') {
+      // Raster sources announce metadata/content before any image has arrived.
+      const tile: unknown = event.tile
+      if (
+        event.sourceId === 'satellite-imagery' &&
+        tile &&
+        typeof tile === 'object' &&
+        'state' in tile &&
+        tile.state === 'loaded'
+      ) {
         loaded = true
         setSatelliteState('ready')
       }
@@ -1050,6 +1075,7 @@ export function RescueMap({
     <div
       className={`rescue-map ${compact ? 'map-compact' : ''}`}
       data-basemap={basemap}
+      data-imagery-state={satelliteState}
       data-context={contextVisible}
     >
       <div ref={container} className="map-canvas" />

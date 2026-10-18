@@ -62,6 +62,10 @@ test('V2 blank mission map accepts coordinates without inventing a saved base or
     path: '../evidence/redesign-v2/blank-region-map-1440.png',
     fullPage: true,
   })
+  await page.getByLabel('地面高程 / m').fill('480')
+  await page.getByRole('button', { name: '保存基地', exact: true }).click()
+  await expect(page.locator('.v2-prepare-map .map-marker-base')).toBeVisible()
+  await expect.poll(async () => (await camera(page, mission.mission_id))?.zoom).toBeGreaterThan(10)
 })
 
 test('V2 fifty long-name points remain selectable and camera survives inspection, resize, reload and failed imagery', async ({
@@ -140,9 +144,14 @@ test('V2 fifty long-name points remain selectable and camera survives inspection
   await expect
     .poll(async () => (await camera(page, mission.mission_id))?.zoom)
     .toBeCloseTo(before!.zoom, 3)
-  await page.route('https://server.arcgisonline.com/**', (route) => route.abort())
+  let blockedImageryRequests = 0
+  await page.route(/^https:\/\/[^/]*\.arcgisonline\.com\//, (route) => {
+    blockedImageryRequests++
+    return route.abort()
+  })
   await page.getByRole('button', { name: /卫星影像/ }).click()
   await expect(page.locator('.map-satellite-warning')).toBeVisible({ timeout: 20000 })
+  expect(blockedImageryRequests).toBeGreaterThan(0)
   expect((await camera(page, mission.mission_id))?.zoom).toBeCloseTo(before!.zoom, 3)
 })
 
@@ -240,4 +249,30 @@ test('V2 unavailable WebGL keeps input and table controls usable', async ({ page
     path: '../evidence/redesign-v2/map-webgl-unavailable.png',
     fullPage: true,
   })
+})
+
+test('V2 stalled imagery is not declared ready from source metadata and falls back after the loading deadline', async ({
+  page,
+  request,
+}) => {
+  const { mission } = await compact(request)
+  const held: import('@playwright/test').Route[] = []
+  await page.route(/^https:\/\/[^/]*\.arcgisonline\.com\//, (route) => {
+    held.push(route)
+  })
+  try {
+    await page.goto('/#/missions/' + mission.mission_id + '/plans')
+    await expect(page.locator('.rescue-map')).toHaveAttribute('data-context', 'true')
+    await page.getByRole('button', { name: /卫星影像/ }).click()
+    await expect(page.locator('.rescue-map')).toHaveAttribute('data-imagery-state', 'loading')
+    await expect(page.locator('.map-satellite-warning')).toBeVisible({ timeout: 17000 })
+    expect(held.length).toBeGreaterThan(0)
+    await expect(page.locator('.rescue-map')).toHaveAttribute('data-basemap', 'offline')
+    await page.screenshot({
+      path: '../evidence/redesign-v2/map-imagery-stalled.png',
+      fullPage: true,
+    })
+  } finally {
+    await Promise.all(held.map((route) => route.abort().catch(() => {})))
+  }
 })

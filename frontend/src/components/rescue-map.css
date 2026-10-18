@@ -193,7 +193,7 @@
   color: #475569;
   font-size: 11px;
 }
-.v2-app .map-weather-context {
+:is(.v2-app, .v2-dialog) .map-weather-context {
   left: auto;
   right: 62px;
   top: 13px;

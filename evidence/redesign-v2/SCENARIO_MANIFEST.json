@@ -73,5 +73,12 @@
   ],
   "execution_id": "EXE-CC37EFED10264ECF",
   "facts_cursor": 53,
-  "delivered_quantity": 33
+  "delivered_quantity": 33,
+  "experiment_smoke": {
+    "manifest": "EXPERIMENT_SMOKE/MANIFEST.json",
+    "artifact_sha256": "363f50a47d3519abdad333ed6e80b370b6905e2ba0075787b60177a9df226d94",
+    "source": "actual isolated browser API + worker",
+    "static_cases": 3,
+    "real_devices": false
+  }
 }

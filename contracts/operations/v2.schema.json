@@ -1294,6 +1294,55 @@
       "title": "DeviceMissionState",
       "type": "object"
     },
+    "Diagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "minLength": 1,
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field Path"
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Object Id"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "field_path",
+        "object_id"
+      ],
+      "title": "Diagnostic",
+      "type": "object"
+    },
     "DraftImportPreview": {
       "additionalProperties": false,
       "properties": {
@@ -2355,6 +2404,699 @@
         "updated_at"
       ],
       "title": "ExecutionView",
+      "type": "object"
+    },
+    "ExperimentArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "name": {
+          "enum": [
+            "input.json",
+            "outcome.json",
+            "progress.json",
+            "worker.log"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "byte_count": {
+          "title": "Byte Count",
+          "type": "integer"
+        },
+        "content_sha256": {
+          "title": "Content Sha256",
+          "type": "string"
+        },
+        "content_base64": {
+          "title": "Content Base64",
+          "type": "string"
+        }
+      },
+      "required": [
+        "case_id",
+        "name",
+        "byte_count",
+        "content_sha256",
+        "content_base64"
+      ],
+      "title": "ExperimentArtifact",
+      "type": "object"
+    },
+    "ExperimentBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "bundle_version": {
+          "const": "experiment-v1",
+          "default": "experiment-v1",
+          "title": "Bundle Version",
+          "type": "string"
+        },
+        "captured_at": {
+          "format": "date-time",
+          "title": "Captured At",
+          "type": "string"
+        },
+        "run": {
+          "$ref": "#/$defs/ExperimentView"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/FrozenDocument"
+          },
+          "title": "Documents",
+          "type": "array"
+        },
+        "artifacts": {
+          "items": {
+            "$ref": "#/$defs/ExperimentArtifact"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "missing_artifacts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Artifacts",
+          "type": "array"
+        },
+        "content_sha256": {
+          "title": "Content Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "captured_at",
+        "run",
+        "documents",
+        "artifacts",
+        "missing_artifacts",
+        "content_sha256"
+      ],
+      "title": "ExperimentBundle",
+      "type": "object"
+    },
+    "ExperimentCase": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "quick",
+            "improve"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "objective": {
+          "enum": [
+            "time",
+            "energy",
+            "balanced"
+          ],
+          "title": "Objective",
+          "type": "string"
+        },
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "time_limit_s": {
+          "title": "Time Limit S",
+          "type": "number"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "dispatching",
+            "running",
+            "completed",
+            "failed",
+            "canceled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "job": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SolveJob"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "first_feasible_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "First Feasible S"
+        },
+        "candidate_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Candidate Count"
+        },
+        "runtime_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Runtime S"
+        },
+        "energy_kwh": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Energy Kwh"
+        },
+        "makespan_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Makespan S"
+        },
+        "last_delivery_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Delivery S"
+        },
+        "weighted_tardiness_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Weighted Tardiness S"
+        },
+        "min_return_soc": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Min Return Soc"
+        },
+        "allocated_quantity": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Allocated Quantity"
+        },
+        "model_scope": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Model Scope",
+          "type": "array"
+        },
+        "validation_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Validation Status"
+        },
+        "diagnostics": {
+          "items": {
+            "$ref": "#/$defs/Diagnostic"
+          },
+          "title": "Diagnostics",
+          "type": "array"
+        },
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Message"
+        }
+      },
+      "required": [
+        "case_id",
+        "method",
+        "objective",
+        "seed",
+        "time_limit_s",
+        "status",
+        "job",
+        "first_feasible_s",
+        "candidate_count",
+        "runtime_s",
+        "energy_kwh",
+        "makespan_s",
+        "last_delivery_s",
+        "weighted_tardiness_s",
+        "min_return_soc",
+        "allocated_quantity",
+        "model_scope",
+        "validation_status",
+        "diagnostics",
+        "message"
+      ],
+      "title": "ExperimentCase",
+      "type": "object"
+    },
+    "ExperimentEnvironment": {
+      "additionalProperties": false,
+      "properties": {
+        "service_source_sha256": {
+          "title": "Service Source Sha256",
+          "type": "string"
+        },
+        "git_commit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Git Commit"
+        },
+        "git_worktree_dirty": {
+          "title": "Git Worktree Dirty",
+          "type": "boolean"
+        },
+        "python_version": {
+          "title": "Python Version",
+          "type": "string"
+        },
+        "platform": {
+          "title": "Platform",
+          "type": "string"
+        },
+        "processor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Processor"
+        },
+        "logical_cpu_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Logical Cpu Count"
+        },
+        "ortools_version": {
+          "title": "Ortools Version",
+          "type": "string"
+        },
+        "numpy_version": {
+          "title": "Numpy Version",
+          "type": "string"
+        },
+        "worker_serial_limit": {
+          "const": 1,
+          "default": 1,
+          "title": "Worker Serial Limit",
+          "type": "integer"
+        },
+        "cp_sat_threads": {
+          "const": 1,
+          "default": 1,
+          "title": "Cp Sat Threads",
+          "type": "integer"
+        },
+        "cache_policy": {
+          "title": "Cache Policy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "service_source_sha256",
+        "git_commit",
+        "git_worktree_dirty",
+        "python_version",
+        "platform",
+        "processor",
+        "logical_cpu_count",
+        "ortools_version",
+        "numpy_version",
+        "cache_policy"
+      ],
+      "title": "ExperimentEnvironment",
+      "type": "object"
+    },
+    "ExperimentGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "objective": {
+          "title": "Objective",
+          "type": "string"
+        },
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "finished": {
+          "title": "Finished",
+          "type": "integer"
+        },
+        "feasible": {
+          "title": "Feasible",
+          "type": "integer"
+        },
+        "failed_or_unvalidated": {
+          "title": "Failed Or Unvalidated",
+          "type": "integer"
+        },
+        "canceled": {
+          "title": "Canceled",
+          "type": "integer"
+        },
+        "runtime_sample_count": {
+          "title": "Runtime Sample Count",
+          "type": "integer"
+        },
+        "runtime_p50_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Runtime P50 S"
+        },
+        "runtime_p95_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Runtime P95 S"
+        },
+        "feasible_energy_median_kwh": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Feasible Energy Median Kwh"
+        },
+        "feasible_makespan_median_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Feasible Makespan Median S"
+        }
+      },
+      "required": [
+        "method",
+        "objective",
+        "total",
+        "finished",
+        "feasible",
+        "failed_or_unvalidated",
+        "canceled",
+        "runtime_sample_count",
+        "runtime_p50_s",
+        "runtime_p95_s",
+        "feasible_energy_median_kwh",
+        "feasible_makespan_median_s"
+      ],
+      "title": "ExperimentGroup",
+      "type": "object"
+    },
+    "ExperimentRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "source_snapshot_id": {
+          "title": "Source Snapshot Id",
+          "type": "string"
+        },
+        "suite": {
+          "enum": [
+            "strategy",
+            "search"
+          ],
+          "title": "Suite",
+          "type": "string"
+        },
+        "objective": {
+          "default": "time",
+          "enum": [
+            "time",
+            "energy",
+            "balanced"
+          ],
+          "title": "Objective",
+          "type": "string"
+        },
+        "objective_policy": {
+          "default": "tradeoff_v2",
+          "enum": [
+            "deadline_first_v1",
+            "tradeoff_v2"
+          ],
+          "title": "Objective Policy",
+          "type": "string"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Seeds",
+          "type": "array"
+        },
+        "time_limit_s": {
+          "maximum": 30,
+          "minimum": 1,
+          "title": "Time Limit S",
+          "type": "number"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "source_snapshot_id",
+        "suite",
+        "seeds",
+        "time_limit_s",
+        "idempotency_key"
+      ],
+      "title": "ExperimentRequest",
+      "type": "object"
+    },
+    "ExperimentView": {
+      "additionalProperties": false,
+      "properties": {
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "source_snapshot_id": {
+          "title": "Source Snapshot Id",
+          "type": "string"
+        },
+        "source_content_hash": {
+          "title": "Source Content Hash",
+          "type": "string"
+        },
+        "snapshot_id": {
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "snapshot_content_hash": {
+          "title": "Snapshot Content Hash",
+          "type": "string"
+        },
+        "data_origin": {
+          "title": "Data Origin",
+          "type": "string"
+        },
+        "suite": {
+          "enum": [
+            "strategy",
+            "search"
+          ],
+          "title": "Suite",
+          "type": "string"
+        },
+        "objective_policy": {
+          "enum": [
+            "deadline_first_v1",
+            "tradeoff_v2"
+          ],
+          "title": "Objective Policy",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "completed",
+            "canceled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "cancel_requested": {
+          "title": "Cancel Requested",
+          "type": "boolean"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Finished At"
+        },
+        "environment": {
+          "$ref": "#/$defs/ExperimentEnvironment"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/ExperimentCase"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "groups": {
+          "items": {
+            "$ref": "#/$defs/ExperimentGroup"
+          },
+          "title": "Groups",
+          "type": "array"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "experiment_id",
+        "name",
+        "source_snapshot_id",
+        "source_content_hash",
+        "snapshot_id",
+        "snapshot_content_hash",
+        "data_origin",
+        "suite",
+        "objective_policy",
+        "status",
+        "cancel_requested",
+        "created_at",
+        "finished_at",
+        "environment",
+        "cases",
+        "groups",
+        "message"
+      ],
+      "title": "ExperimentView",
       "type": "object"
     },
     "FrozenDocument": {

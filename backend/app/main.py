@@ -319,7 +319,16 @@ def create_app(runtime_dir: Path | None = None):
         app.state.simulation = SimulationEngine(
             database, AppError, command_tick=app.state.simulation_commands_tick
         )
+        from backend.app.experiments import ExperimentCoordinator
+
+        app.state.experiments = ExperimentCoordinator(
+            database,
+            app.state.create_experiment_job,
+            app.state.experiment_solve_request,
+            manager,
+        )
         yield
+        app.state.experiments.close()
         app.state.simulation.close()
         manager.close()
         database.engine.dispose()
@@ -1670,6 +1679,11 @@ def create_app(runtime_dir: Path | None = None):
     from backend.app.executions import register_executions
 
     register_executions(app, database, AppError, create_job, SolveRequest, snapshot_for)
+    from backend.app.experiments import register_experiments
+
+    register_experiments(
+        app, database, AppError, create_job, SolveRequest, snapshot_for
+    )
 
     frontend = ROOT / "frontend/dist"
     if frontend.is_dir():

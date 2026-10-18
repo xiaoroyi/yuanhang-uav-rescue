@@ -71,3 +71,13 @@ full-browser-results.json：完整42条，41 passed、1 failed，21.8m。唯一�
 正式浏览器组合6 passed（55.8s）：空白草稿地图选坐标且不造基地/高程；50长名/同坐标点可分别选择；1440/1280/1024镜头、刷新、缩放、标签不遮点、控件不被详情挡住；在线影像请求失败自动降级；真实求解重叠航线选择正确架次/箱件；WebGL失败仍可录入；在途插单/逐机读回/复盘/档案闭环；W1真实求解与地图显隐。weather浮层再移至保留上沿后专项1 passed（13.8s），增加不遮任何点位的DOM几何断言。lint零警告、strict TS/build、12前端单元通过。map-workspace-browser-results.json与weather-map-clearance-results.json分别记录，不能相加冒充一次完整回归。
 
 首轮3 passed/2 failed：测试误写卫星按钮可访问名称（实际含空格），以及异步快照到达时测试分两次取marker矩形遇到节点替换。次轮4 passed/1 failed：断言了界面不存在的“箱件”固定词。修正为实际同帧几何、所选sortie_id及真实cargo_id，第三轮5 passed；追加标签不遮点/控件几何与W1后6 passed。失败JSON保留。视觉检查发现窄屏详情遮控件和聚合基地缺详情，修复为流内面板、1024时收起对象列表、基地独立详情；实际截图已查看，不用强制点击绕过。
+
+## R16 / RFC-025 真实评测与Portal样式
+
+后端初轮3 passed（33.00s）；与设备读回/事实边界/任务输入/契约组合16 passed（105.95s）；追加真实Job排队取消及注入2次503后继续真实Worker的恢复测试，最终4 passed（44.19s）。原输入/Plan/执行行不变、同分析快照的三偏好、失败不置零/保留分母、导出原始四文件SHA/base64、重启恢复、派发结果未知不盲重试均覆盖。仅静态策略/quick-improve对照，不冒充动态/学习消融。
+
+正式UI两流程初轮2 passed（30.8s），表格与截图滚动修正后2 passed（29.0s）。Portal共享UIContext后10项组合全部通过，见experiments-dialog-regression-results.json（评测2项、新用户CSV闭环、偏好独立、在途档案、4项地图、W1）。中间5项4过/1失败暴露真实新用户镜头问题：空白视角被错误保留到基地/首个需求点；修复camera version2/region_key，首次建立区域才fit，轮询/选择/resize仍保留。下一轮9过/1失败则为断网注入误写实际影像域名，修正正则覆盖真实arcgisonline子域并断言确有请求被阻断，10项全过，原失败JSON保留。
+
+检查MapLibre当前安装源代码发现content也会在影像元信息就绪时发出，不能等于已有瓦片。改为实际tile.state=loaded才标ready，挂起请求超过12秒自动离线回退。强制失败+真正挂起两项2 passed（23.8s），imagery-deadline-browser-results.json。lint零警告/strict TS/build通过。现有12项前端单元在地图检查点已过；没有把专项数量相加成当前全量。
+
+实际包EXPERIMENT_SMOKE/strategy-benchmark.json来自浏览器下载，含3个真实求解结果、2份输入原文、3份Plan原文和12个原始Worker文件，来源与字节哈希见同目录MANIFEST.json；不使用固定数据冒充新求解。

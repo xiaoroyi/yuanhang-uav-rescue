@@ -1,5 +1,6 @@
 /* V2 task workspace: restrained surfaces, fixed viewport, explicit scrolling. */
-.v2-app {
+.v2-app,
+.v2-dialog {
   --v2-bg: #f3f5f8;
   --v2-surface: #fff;
   --v2-soft: #f8fafc;
@@ -7,6 +8,8 @@
   --v2-muted: #526276;
   --v2-border: #dce3eb;
   --v2-blue: #2563eb;
+}
+.v2-app {
   display: flex;
   height: 100dvh;
   width: 100%;
@@ -17,7 +20,8 @@
   overflow: hidden;
   font-variant-numeric: tabular-nums;
 }
-[data-theme='midnight'] .v2-app {
+[data-theme='midnight'] .v2-app,
+[data-theme='midnight'] .v2-dialog {
   --v2-bg: #111824;
   --v2-surface: #192331;
   --v2-soft: #202d3e;
@@ -26,28 +30,28 @@
   --v2-border: #344254;
   --v2-blue: #75a8ff;
 }
-.v2-app h1 {
+:is(.v2-app, .v2-dialog) h1 {
   font-size: 23px;
   font-weight: 650;
   letter-spacing: 0;
   line-height: 1.4;
 }
-.v2-app h2 {
+:is(.v2-app, .v2-dialog) h2 {
   font-size: 16px;
   font-weight: 650;
 }
-.v2-app h3 {
+:is(.v2-app, .v2-dialog) h3 {
   font-size: 14px;
   font-weight: 650;
 }
-.v2-app button {
+:is(.v2-app, .v2-dialog) button {
   border: 0;
   background: none;
   color: inherit;
 }
-.v2-app input,
-.v2-app select,
-.v2-app textarea {
+:is(.v2-app, .v2-dialog) input,
+:is(.v2-app, .v2-dialog) select,
+:is(.v2-app, .v2-dialog) textarea {
   background: var(--v2-surface);
   color: var(--v2-text);
   border: 1px solid var(--v2-border);
@@ -56,10 +60,10 @@
   padding: 7px 10px;
   max-width: 100%;
 }
-.v2-app a:hover {
+:is(.v2-app, .v2-dialog) a:hover {
   color: var(--v2-blue);
 }
-.v2-app .button {
+:is(.v2-app, .v2-dialog) .button {
   border: 1px solid var(--v2-border);
   border-radius: 6px;
   min-height: 36px;
@@ -72,15 +76,15 @@
   white-space: nowrap;
   box-shadow: none;
 }
-.v2-app .button-primary {
+:is(.v2-app, .v2-dialog) .button-primary {
   background: #2563eb;
   color: #fff;
   border-color: #2563eb;
 }
-.v2-app .button:hover {
+:is(.v2-app, .v2-dialog) .button:hover {
   border-color: var(--v2-blue);
 }
-.v2-app .button:disabled {
+:is(.v2-app, .v2-dialog) .button:disabled {
   opacity: 0.48;
 }
 .v2-app :focus-visible {
@@ -759,6 +763,228 @@
   overflow-wrap: anywhere;
   margin-top: 4px;
 }
+.v2-experiment-workbench {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.v2-experiment-setup {
+  padding: 20px;
+}
+.v2-experiment-setup h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.v2-experiment-setup label {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.v2-experiment-setup select,
+.v2-experiment-setup input {
+  width: 100%;
+  min-height: 36px;
+}
+.v2-experiment-setup p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--v2-muted);
+}
+.v2-experiment-results {
+  min-width: 0;
+  display: grid;
+  gap: 16px;
+}
+.v2-experiment-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  flex-wrap: wrap;
+}
+.v2-experiment-heading h2 {
+  margin: 0;
+  font-size: 17px;
+}
+.v2-experiment-heading p {
+  margin: 8px 0 0;
+  color: var(--v2-muted);
+  font-size: 12px;
+}
+.v2-experiment-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--v2-border);
+  border-radius: 8px;
+  background: var(--v2-surface);
+}
+.v2-experiment-metrics > div {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+}
+.v2-experiment-metrics > div + div {
+  border-left: 1px solid var(--v2-border);
+}
+.v2-experiment-metrics small {
+  color: var(--v2-muted);
+  font-size: 11px;
+}
+.v2-experiment-metrics b {
+  font-size: 22px;
+}
+.v2-experiment-chart {
+  padding: 18px;
+}
+.v2-experiment-chart h3 {
+  margin: 0;
+}
+.v2-experiment-chart > small {
+  display: block;
+  color: var(--v2-muted);
+  line-height: 1.6;
+}
+.v2-experiment-table-wrap {
+  overflow: auto;
+}
+.v2-experiment-table-wrap table {
+  min-width: 900px;
+}
+.v2-experiment-table-wrap td {
+  max-width: 240px;
+}
+.v2-experiment-table-wrap table th:last-child,
+.v2-experiment-table-wrap table td:last-child {
+  position: sticky;
+  right: 0;
+  background: var(--v2-surface);
+  border-left: 1px solid var(--v2-border);
+}
+.v2-experiment-table-wrap .v2-section-bar {
+  padding: 12px 18px;
+  min-width: 500px;
+}
+.v2-experiment-table-wrap .v2-section-bar h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.v2-experiment-table-wrap .v2-section-bar small {
+  color: var(--v2-muted);
+}
+.v2-experiment-table-wrap details summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--v2-blue);
+}
+.v2-experiment-table-wrap .button {
+  white-space: nowrap;
+}
+.v2-experiment-evidence {
+  padding: 18px;
+  overflow: auto;
+}
+.v2-experiment-evidence summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.v2-experiment-evidence p {
+  font-size: 12px;
+  color: var(--v2-muted);
+  line-height: 1.6;
+}
+.v2-experiment-evidence dl {
+  margin-top: 20px;
+  grid-template-columns: 150px minmax(0, 1fr);
+}
+.v2-experiment-evidence code,
+.v2-experiment-logs code {
+  overflow-wrap: anywhere;
+}
+.v2-experiment-history {
+  margin-top: 20px;
+  padding: 20px;
+}
+.v2-experiment-history h2 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+.v2-experiment-history > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px;
+}
+.v2-app .v2-experiment-history button {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  text-align: left;
+  border: 1px solid var(--v2-border);
+  border-radius: 6px;
+}
+.v2-app .v2-experiment-history button.active {
+  border-color: var(--v2-blue);
+  background: var(--v2-soft);
+}
+.v2-experiment-history small {
+  color: var(--v2-muted);
+}
+.v2-experiment-logs {
+  display: grid;
+  gap: 14px;
+}
+.v2-experiment-logs label {
+  display: grid;
+  gap: 8px;
+}
+.v2-experiment-logs p {
+  margin: 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.v2-experiment-logs pre {
+  max-height: 55vh;
+  overflow: auto;
+  background: var(--v2-soft);
+  border: 1px solid var(--v2-border);
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.v2-experiment-plan-map {
+  height: 330px;
+}
+.v2-experiment-plan-map > .rescue-map {
+  height: 100%;
+}
+.v2-experiment-plan > p {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  line-height: 1.8;
+}
+@media (max-width: 1100px) {
+  .v2-experiment-workbench {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .v2-experiment-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 800px) {
+  .v2-experiment-workbench {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v2-experiment-evidence dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .v2-visit {
   margin: 12px 0;
   padding: 12px;
@@ -1220,7 +1446,7 @@ body:has(.v2-app) .dialog-content {
 body:has(.v2-app) .dialog-wide {
   width: min(1120px, 94vw);
 }
-.v2-app .rescue-map .map-header {
+:is(.v2-app, .v2-dialog) .rescue-map .map-header {
   top: 10px;
   left: 12px;
   padding-bottom: 0;
@@ -1302,17 +1528,17 @@ body:has(.v2-app) .dialog-wide {
 .editor-embedded .table-tools .text-button {
   display: none;
 }
-.v2-app .rescue-map .map-header > span {
+:is(.v2-app, .v2-dialog) .rescue-map .map-header > span {
   background: var(--v2-surface);
   color: var(--v2-text);
   border: 1px solid var(--v2-border);
   font-size: 11px;
   box-shadow: none;
 }
-.v2-app .rescue-map .map-mode {
+:is(.v2-app, .v2-dialog) .rescue-map .map-mode {
   display: none;
 }
-.v2-app .rescue-map .map-basemap-switch {
+:is(.v2-app, .v2-dialog) .rescue-map .map-basemap-switch {
   top: 46px;
   left: 12px;
   border-radius: 6px;
@@ -1321,15 +1547,15 @@ body:has(.v2-app) .dialog-wide {
   backdrop-filter: none;
   box-shadow: none;
 }
-.v2-app .rescue-map .map-basemap-switch button {
+:is(.v2-app, .v2-dialog) .rescue-map .map-basemap-switch button {
   color: var(--v2-muted);
   font-size: 11px;
 }
-.v2-app .rescue-map .map-basemap-switch button[aria-pressed='true'] {
+:is(.v2-app, .v2-dialog) .rescue-map .map-basemap-switch button[aria-pressed='true'] {
   background: #eaf0fd;
   color: #2057b8;
 }
-.v2-app .map-marker-label {
+:is(.v2-app, .v2-dialog) .map-marker-label {
   font-size: 11px;
   border-radius: 4px;
   background: #fff;
@@ -1341,22 +1567,22 @@ body:has(.v2-app) .dialog-wide {
   white-space: nowrap;
   padding: 3px 6px;
 }
-.v2-app .map-marker-label[hidden] {
+:is(.v2-app, .v2-dialog) .map-marker-label[hidden] {
   display: none !important;
 }
-.v2-app .map-marker.selected-site {
+:is(.v2-app, .v2-dialog) .map-marker.selected-site {
   z-index: 6;
 }
-.v2-app .map-marker-dot {
+:is(.v2-app, .v2-dialog) .map-marker-dot {
   width: 22px;
   height: 22px;
   font-size: 10px;
 }
-.v2-app .rescue-map .map-legend {
+:is(.v2-app, .v2-dialog) .rescue-map .map-legend {
   font-size: 10px;
   padding: 6px 9px;
 }
-.v2-app .stale-aircraft {
+:is(.v2-app, .v2-dialog) .stale-aircraft {
   filter: grayscale(1);
   opacity: 0.7;
 }
@@ -1797,4 +2023,11 @@ body:has(.v2-app) .dialog-wide {
   font-size: 12px;
   color: var(--v2-muted);
   margin: 6px 0 10px;
+}
+
+.v2-dialog {
+  color: var(--v2-text);
+  background: var(--v2-surface);
+  font-size: 14px;
+  line-height: 1.5;
 }

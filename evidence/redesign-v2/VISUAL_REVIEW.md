@@ -22,3 +22,9 @@
 已实际查看dense-map-1440/1280/1024.png、overlapping-routes-1440.png、blank-region-map-1440.png、device-state-readback-1440.png及weather-plan-1440.png。50点来源为合成布局，未声称这50点经过求解或实际测绘；重叠航线来自独立真实Worker的5点32箱方案。重复坐标提供列表选择；图标聚合不改实际坐标。真实路线22px拾取区不改变绘制宽度，候选选择后详情显示对应架次和箱件。
 
 已修：1360以下详情覆盖地图控件→流内280px面板；1100以下打开详情先收起对象列表；聚合基地打开空详情→基地详情；密集点名称盖住邻点→标签同时避让可见点图标与控件；气象浮层遮原5点之一→移到上沿保留区并加零遮点断言。镜头按任务在sessionStorage保存，resize/轮询/底图切换不强行fit；想看全局可点适配全部点位。新增6条组合与W1位置专项均已通过，完整旧页面最终回归/长时资源量测与真人试用仍非本增量结论。
+
+## 演练评测与跨Portal复查
+
+实际查看experiment-results-1440/1024.png、experiment-failed-cases.png及experiment-plan-audit.png。首轮截图因测试打开下方统计后未复位滚动而缺页头，已在采图前回到独立滚动区顶部；逐例表证据列固定，窄屏可横向滚动指标。无可行结果不绘零值点，失败/未验证数量保留。
+
+发现Portal弹窗不继承.v2-app，地图回退旧配色/黑色顶栏。新增UIContext只在V2提供v2，Portal根v2-dialog共享变量与输入/按钮/地图样式，旧路由保留legacy。再次实际查看新experiment-plan-audit.png，真实DEM与点/路线、甘特及浅色顶栏可见；浏览器校验实际本地地理上下文已加载且header.backgroundImage=none。10项跨模块回归通过，含新用户CSV和偏好隔离。又查看map-imagery-stalled.png，12秒无实际瓦片后警示和离线底图可见；并未据此宣称在线影像成功显示。

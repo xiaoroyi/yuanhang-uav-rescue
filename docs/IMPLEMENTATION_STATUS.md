@@ -2,6 +2,8 @@
 
 当前 V2 重构仍在持续实施，入口 evidence/redesign-v2/INDEX.md 与 HANDOFF.md。新首页/任务流程、服务器模拟和承诺前缀修复已有代码及专项测试；下文是 V1 历史交付，不能当作 V2 全量验收。分支 feat/mission-workspace-v2，不改写 main。
 
+当前增量：独立演练评测（RFC025）已连真实Worker，含隔离快照/偏好与搜索对照/预算种子/失败分母/原始证据；设备读回与0秒事实边界（RFC023—024）、50点/1024地图与首次区域镜头已专项验证。组合10项浏览器通过，影像挂起另2项通过。当前源码完整回归尚需最后重跑，不能用下方V1计数冒充；准确进度见evidence/redesign-v2/HANDOFF.md。
+
 候选集成分支为 `feat/solo-fullstack-v0`，本轮展示与分析体验在 `feat/experience-v1` 开发，验证后同步候选分支，main 未改写。长期两人分工：A 负责算法兼项目负责人，B 同一人负责前后端与集成。Schema 为 `0.1.0-draft / proposed`，`approved_by=[]`；按用户授权实施草案，正式冻结由 A/B 评审。
 
 ## 策略与调度补充

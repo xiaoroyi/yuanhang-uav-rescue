@@ -26,6 +26,8 @@ import { LocalProfileDialog, useLocalProfile } from '../components/LocalProfile'
 import LegacyApp from '../App'
 import { MissionWorkspace } from './MissionWorkspace'
 import { ResourceCenter } from './ResourceCenter'
+import { ExperimentCenter } from './ExperimentCenter'
+import { UIContext } from '../components/UIContext'
 import './operations.css'
 
 export function navigate(path: string) {
@@ -162,175 +164,186 @@ export default function OperationsApp() {
       </>
     )
   return (
-    <div className={`v2-app ${inMission ? 'mission-shell' : ''}`}>
-      <aside className="v2-sidebar">
-        <a className="v2-brand" href="#/home" aria-label="援航首页">
-          <span>
-            <Plane size={24} />
-          </span>
-          <b>
-            援航<small>救援任务协同</small>
-          </b>
-        </a>
-        <nav aria-label="主要导航">
-          {nav.map((n) => (
-            <a
-              key={n.path}
-              href={`#/${n.path}`}
-              title={n.title}
-              className={path === n.path || (n.path === 'missions' && inMission) ? 'active' : ''}
-            >
-              <n.icon size={19} />
-              <span>{n.title}</span>
-            </a>
-          ))}
-        </nav>
-        <div className="v2-sidebar-bottom">
-          <a href="#/settings" title="设置与接入">
-            <Settings2 size={18} />
-            <span>设置与接入</span>
-          </a>
-          <a href="#/help" title="使用帮助">
-            <CircleHelp size={18} />
-            <span>使用帮助</span>
-          </a>
-          <button onClick={() => setProfileOpen(true)} title="本机档案">
-            <i>{profile.displayName.slice(0, 1)}</i>
-            <span>{profile.displayName}</span>
-          </button>
-        </div>
-      </aside>
-      <div className="v2-main">
-        <header className="v2-topbar">
-          <div>
-            <a href="#/home">救援工作空间</a>
-            {inMission && (
-              <>
-                <span>/</span>
-                <a href="#/missions">救援任务</a>
-                <span>/</span>
-                <b>{current?.name || '加载任务…'}</b>
-              </>
-            )}
-          </div>
-          <div>
-            <span className={`v2-service ${health.isError ? 'offline' : ''}`}>
-              {health.isError ? '本机服务不可用' : health.data ? '本机服务已连接' : '连接中…'}
+    <UIContext.Provider value="v2">
+      <div className={`v2-app ${inMission ? 'mission-shell' : ''}`}>
+        <aside className="v2-sidebar">
+          <a className="v2-brand" href="#/home" aria-label="援航首页">
+            <span>
+              <Plane size={24} />
             </span>
-            <button
-              className="icon-button"
-              aria-label="切换主题"
-              onClick={() => setTheme(theme === 'light' ? 'midnight' : 'light')}
-            >
-              {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
-            </button>
-            <a href="#/help" aria-label="帮助">
-              <CircleHelp size={18} />
-            </a>
-          </div>
-        </header>
-        {inMission ? (
-          <MissionWorkspace
-            key={match[1]}
-            missionId={match[1]}
-            stage={(match[2] || 'prepare') as 'prepare' | 'plans' | 'execute' | 'review'}
-            notify={notify}
-          />
-        ) : path === 'resources' ? (
-          <ResourceCenter notify={notify} />
-        ) : path === 'settings' ? (
-          <Settings />
-        ) : path === 'help' ? (
-          <Help />
-        ) : (
-          <MissionHome
-            missions={missions.data || []}
-            loading={missions.isPending}
-            error={missions.error}
-            list={path === 'missions'}
-            experiments={path === 'experiments'}
-            onNew={newTask}
-            notify={notify}
-            onRefresh={refresh}
-          />
-        )}
-      </div>
-      <Modal
-        title="新建救援任务"
-        description="创建独立模拟任务。只保存输入，不复制其他任务的执行事实。"
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-      >
-        <form
-          className="v2-create-form"
-          onSubmit={(e) => {
-            e.preventDefault()
-            void create()
-          }}
-        >
-          <label>
-            任务名称
-            <input
-              autoFocus
-              value={name}
-              maxLength={120}
-              placeholder="例如：镇龙乡山洪应急运输"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <fieldset>
-            <legend>从哪里开始</legend>
-            {(
-              [
-                { value: 'blank', title: '空白任务', text: '自行配置基地、需求和资源' },
-                {
-                  value: 'compact',
-                  title: '小规模入门演练',
-                  text: '5 个需求点 · 32 箱 · 独立副本',
-                },
-                { value: 'contest', title: '原题回归演练', text: '15 个需求点 · 80 箱 · 原题模型' },
-              ] as const
-            ).map((t) => (
-              <label
-                className={`v2-template ${template === t.value ? 'active' : ''}`}
-                key={t.value}
+            <b>
+              援航<small>救援任务协同</small>
+            </b>
+          </a>
+          <nav aria-label="主要导航">
+            {nav.map((n) => (
+              <a
+                key={n.path}
+                href={`#/${n.path}`}
+                title={n.title}
+                className={path === n.path || (n.path === 'missions' && inMission) ? 'active' : ''}
               >
-                <input
-                  type="radio"
-                  name="template"
-                  checked={template === t.value}
-                  onChange={() => setTemplate(t.value)}
-                />
-                <span>
-                  <b>{t.title}</b>
-                  <small>{t.text}</small>
-                </span>
-              </label>
+                <n.icon size={19} />
+                <span>{n.title}</span>
+              </a>
             ))}
-          </fieldset>
-          <p className="v2-subtle">运行类型：仿真演练 · 本机计算 · 资源与交付账本隔离</p>
-          <div className="v2-form-actions">
-            <Button onClick={() => setCreateOpen(false)} type="button">
-              取消
-            </Button>
-            <Button variant="primary" busy={busy} type="submit">
-              创建并准备任务
-              <ArrowRight size={15} />
-            </Button>
+          </nav>
+          <div className="v2-sidebar-bottom">
+            <a href="#/settings" title="设置与接入">
+              <Settings2 size={18} />
+              <span>设置与接入</span>
+            </a>
+            <a href="#/help" title="使用帮助">
+              <CircleHelp size={18} />
+              <span>使用帮助</span>
+            </a>
+            <button onClick={() => setProfileOpen(true)} title="本机档案">
+              <i>{profile.displayName.slice(0, 1)}</i>
+              <span>{profile.displayName}</span>
+            </button>
           </div>
-        </form>
-      </Modal>
-      <LocalProfileDialog
-        open={profileOpen}
-        onOpenChange={setProfileOpen}
-        profile={profile}
-        onSave={saveProfile}
-      />
-      <Toasts
-        messages={messages}
-        dismiss={(id) => setMessages((m) => m.filter((x) => x.id !== id))}
-      />
-    </div>
+        </aside>
+        <div className="v2-main">
+          <header className="v2-topbar">
+            <div>
+              <a href="#/home">救援工作空间</a>
+              {inMission && (
+                <>
+                  <span>/</span>
+                  <a href="#/missions">救援任务</a>
+                  <span>/</span>
+                  <b>{current?.name || '加载任务…'}</b>
+                </>
+              )}
+            </div>
+            <div>
+              <span className={`v2-service ${health.isError ? 'offline' : ''}`}>
+                {health.isError ? '本机服务不可用' : health.data ? '本机服务已连接' : '连接中…'}
+              </span>
+              <button
+                className="icon-button"
+                aria-label="切换主题"
+                onClick={() => setTheme(theme === 'light' ? 'midnight' : 'light')}
+              >
+                {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+              </button>
+              <a href="#/help" aria-label="帮助">
+                <CircleHelp size={18} />
+              </a>
+            </div>
+          </header>
+          {inMission ? (
+            <MissionWorkspace
+              key={match[1]}
+              missionId={match[1]}
+              stage={(match[2] || 'prepare') as 'prepare' | 'plans' | 'execute' | 'review'}
+              notify={notify}
+            />
+          ) : path === 'resources' ? (
+            <ResourceCenter notify={notify} />
+          ) : path === 'experiments' ? (
+            <ExperimentCenter
+              missions={missions.data || []}
+              onNew={() => newTask('compact')}
+              notify={notify}
+            />
+          ) : path === 'settings' ? (
+            <Settings />
+          ) : path === 'help' ? (
+            <Help />
+          ) : (
+            <MissionHome
+              missions={missions.data || []}
+              loading={missions.isPending}
+              error={missions.error}
+              list={path === 'missions'}
+              onNew={newTask}
+              notify={notify}
+              onRefresh={refresh}
+            />
+          )}
+        </div>
+        <Modal
+          title="新建救援任务"
+          description="创建独立模拟任务。只保存输入，不复制其他任务的执行事实。"
+          open={createOpen}
+          onOpenChange={setCreateOpen}
+        >
+          <form
+            className="v2-create-form"
+            onSubmit={(e) => {
+              e.preventDefault()
+              void create()
+            }}
+          >
+            <label>
+              任务名称
+              <input
+                autoFocus
+                value={name}
+                maxLength={120}
+                placeholder="例如：镇龙乡山洪应急运输"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </label>
+            <fieldset>
+              <legend>从哪里开始</legend>
+              {(
+                [
+                  { value: 'blank', title: '空白任务', text: '自行配置基地、需求和资源' },
+                  {
+                    value: 'compact',
+                    title: '小规模入门演练',
+                    text: '5 个需求点 · 32 箱 · 独立副本',
+                  },
+                  {
+                    value: 'contest',
+                    title: '原题回归演练',
+                    text: '15 个需求点 · 80 箱 · 原题模型',
+                  },
+                ] as const
+              ).map((t) => (
+                <label
+                  className={`v2-template ${template === t.value ? 'active' : ''}`}
+                  key={t.value}
+                >
+                  <input
+                    type="radio"
+                    name="template"
+                    checked={template === t.value}
+                    onChange={() => setTemplate(t.value)}
+                  />
+                  <span>
+                    <b>{t.title}</b>
+                    <small>{t.text}</small>
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+            <p className="v2-subtle">运行类型：仿真演练 · 本机计算 · 资源与交付账本隔离</p>
+            <div className="v2-form-actions">
+              <Button onClick={() => setCreateOpen(false)} type="button">
+                取消
+              </Button>
+              <Button variant="primary" busy={busy} type="submit">
+                创建并准备任务
+                <ArrowRight size={15} />
+              </Button>
+            </div>
+          </form>
+        </Modal>
+        <LocalProfileDialog
+          open={profileOpen}
+          onOpenChange={setProfileOpen}
+          profile={profile}
+          onSave={saveProfile}
+        />
+        <Toasts
+          messages={messages}
+          dismiss={(id) => setMessages((m) => m.filter((x) => x.id !== id))}
+        />
+      </div>
+    </UIContext.Provider>
   )
 }
 
@@ -339,7 +352,6 @@ function MissionHome({
   loading,
   error,
   list,
-  experiments,
   onNew,
   notify,
   onRefresh,
@@ -348,7 +360,6 @@ function MissionHome({
   loading: boolean
   error: Error | null
   list: boolean
-  experiments: boolean
   onNew: (t: 'blank' | 'compact' | 'contest') => void
   notify: (m: string, e?: boolean) => void
   onRefresh: () => void
@@ -368,13 +379,9 @@ function MissionHome({
     <main className="v2-content">
       <div className="v2-page-heading">
         <div>
-          <h1>{experiments ? '演练评测' : list ? '救援任务' : '救援工作首页'}</h1>
+          <h1>{list ? '救援任务' : '救援工作首页'}</h1>
           <p>
-            {experiments
-              ? '复制案例进行隔离演练，方案和事实可追溯。'
-              : list
-                ? '管理输入、方案、运行与复盘记录。'
-                : '从任务准备到模拟复盘，在同一任务中完成。'}
+            {list ? '管理输入、方案、运行与复盘记录。' : '从任务准备到模拟复盘，在同一任务中完成。'}
           </p>
         </div>
         <Button variant="primary" onClick={() => onNew('blank')}>
@@ -419,7 +426,7 @@ function MissionHome({
       <section className="v2-card">
         <div className="v2-section-bar">
           <h2>
-            {experiments ? '演练记录' : '任务记录'} <span>{rows.length}</span>
+            任务记录 <span>{rows.length}</span>
           </h2>
           <div className="v2-table-tools">
             <label className="v2-search">
@@ -570,17 +577,6 @@ function MissionHome({
               </div>
             ))}
         </details>
-      )}
-      {experiments && (
-        <section className="v2-card v2-experiment-cases">
-          <h2>案例与评测入口</h2>
-          <p>资源增配、三档压力和 Q4 冻结分区在任务复盘中运行，均创建独立输入并真实求解。</p>
-          <Button onClick={() => onNew('contest')}>创建原题回归演练</Button>
-          <a href="#/missions">
-            选择已有任务进行对照
-            <ArrowRight size={14} />
-          </a>
-        </section>
       )}
     </main>
   )

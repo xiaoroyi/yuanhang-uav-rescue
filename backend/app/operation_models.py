@@ -6,7 +6,14 @@ from datetime import datetime
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictInt,
+    field_validator,
+)
 from backend.app.generated.domain import (
     Base,
     Site,
@@ -25,6 +32,7 @@ from backend.app.generated.domain import (
     Weather,
     Plan,
     Snapshot,
+    Diagnostic,
 )
 
 
@@ -534,3 +542,114 @@ class ExecutionArchiveView(OperationDTO):
     plans: list[Plan]
     snapshots: list[Snapshot]
     analysis: ExecutionAnalysis
+
+
+class ExperimentRequest(OperationDTO):
+    name: str = Field(min_length=1, max_length=160)
+    source_snapshot_id: str
+    suite: Literal["strategy", "search"]
+    objective: Literal["time", "energy", "balanced"] = "time"
+    objective_policy: Literal["deadline_first_v1", "tradeoff_v2"] = "tradeoff_v2"
+    seeds: list[StrictInt] = Field(min_length=1, max_length=3)
+    time_limit_s: float = Field(ge=1, le=30)
+    idempotency_key: str = Field(min_length=1, max_length=128)
+
+    @field_validator("seeds")
+    @classmethod
+    def distinct_seeds(cls, value):
+        if len(set(value)) != len(value) or any(v < 0 or v > 2147483647 for v in value):
+            raise ValueError("seeds须为不重复的0至2147483647整数。")
+        return value
+
+
+class ExperimentEnvironment(OperationDTO):
+    service_source_sha256: str
+    git_commit: str | None
+    git_worktree_dirty: bool
+    python_version: str
+    platform: str
+    processor: str | None
+    logical_cpu_count: int | None
+    ortools_version: str
+    numpy_version: str
+    worker_serial_limit: Literal[1] = 1
+    cp_sat_threads: Literal[1] = 1
+    cache_policy: str
+
+
+class ExperimentCase(OperationDTO):
+    case_id: str
+    method: Literal["quick", "improve"]
+    objective: Literal["time", "energy", "balanced"]
+    seed: int
+    time_limit_s: float
+    status: Literal[
+        "queued", "dispatching", "running", "completed", "failed", "canceled"
+    ]
+    job: SolveJob | None
+    first_feasible_s: float | None
+    candidate_count: int | None
+    runtime_s: float | None
+    energy_kwh: float | None
+    makespan_s: float | None
+    last_delivery_s: float | None
+    weighted_tardiness_s: float | None
+    min_return_soc: float | None
+    allocated_quantity: int | None
+    model_scope: list[str]
+    validation_status: str | None
+    diagnostics: list[Diagnostic]
+    message: str | None
+
+
+class ExperimentGroup(OperationDTO):
+    method: str
+    objective: str
+    total: int
+    finished: int
+    feasible: int
+    failed_or_unvalidated: int
+    canceled: int
+    runtime_sample_count: int
+    runtime_p50_s: float | None
+    runtime_p95_s: float | None
+    feasible_energy_median_kwh: float | None
+    feasible_makespan_median_s: float | None
+
+
+class ExperimentView(OperationDTO):
+    experiment_id: str
+    name: str
+    source_snapshot_id: str
+    source_content_hash: str
+    snapshot_id: str
+    snapshot_content_hash: str
+    data_origin: str
+    suite: Literal["strategy", "search"]
+    objective_policy: Literal["deadline_first_v1", "tradeoff_v2"]
+    status: Literal["queued", "running", "completed", "canceled"]
+    cancel_requested: bool
+    created_at: AwareDatetime
+    finished_at: AwareDatetime | None
+    environment: ExperimentEnvironment
+    cases: list[ExperimentCase]
+    groups: list[ExperimentGroup]
+    message: str
+
+
+class ExperimentArtifact(OperationDTO):
+    case_id: str
+    name: Literal["input.json", "outcome.json", "progress.json", "worker.log"]
+    byte_count: int
+    content_sha256: str
+    content_base64: str
+
+
+class ExperimentBundle(OperationDTO):
+    bundle_version: Literal["experiment-v1"] = "experiment-v1"
+    captured_at: AwareDatetime
+    run: ExperimentView
+    documents: list[FrozenDocument]
+    artifacts: list[ExperimentArtifact]
+    missing_artifacts: list[str]
+    content_sha256: str

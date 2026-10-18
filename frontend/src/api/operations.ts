@@ -15,8 +15,18 @@ export type ArchiveSummary = components['schemas']['ExecutionArchiveSummary']
 export type ExecutionArchive = components['schemas']['ExecutionArchiveView']
 export type DeviceMissionState = components['schemas']['DeviceMissionState']
 export type Command = components['schemas']['CommandView']
+export type Experiment = components['schemas']['ExperimentView']
+export type ExperimentSpec = components['schemas']['ExperimentRequest']
+export type ExperimentBundle = components['schemas']['ExperimentBundle']
 export const key = () => crypto.randomUUID()
 export const ops = {
+  experiments: () => request<Experiment[]>('/experiments'),
+  experiment: (id: string) => request<Experiment>(`/experiments/${encodeURIComponent(id)}`),
+  createExperiment: (body: ExperimentSpec) => request<Experiment>('/experiments', body),
+  cancelExperiment: (id: string) =>
+    request<Experiment>(`/experiments/${encodeURIComponent(id)}/cancel`, {}),
+  exportExperiment: (id: string) =>
+    request<ExperimentBundle>(`/experiments/${encodeURIComponent(id)}/export`),
   deviceState: (execution: string, device: string) =>
     request<DeviceMissionState>(
       `/executions/${encodeURIComponent(execution)}/devices/${encodeURIComponent(device)}/mission-state`,

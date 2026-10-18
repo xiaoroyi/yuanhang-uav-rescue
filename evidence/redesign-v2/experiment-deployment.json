@@ -1,0 +1,29 @@
+{
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "25c71f621ac16bb166b13a1b4216de20c6400e0a0e3f9fddec9fdebd0e531865",
+    "runtime_id": "23afa25c2bda"
+  },
+  "counts": {
+    "scenarios": 10,
+    "snapshots": 10,
+    "plans": 14,
+    "jobs": 15,
+    "missions": 0,
+    "executions": 0
+  },
+  "old_plan_snapshot_json_unchanged": true,
+  "frontend_source_sha256": "bf7bc6f0a7e354a50d98c2e4aa54d9d1bf1c28315bfb1311af14515d047ce518",
+  "backup": {
+    "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\v2-before-experiment\\yuanhang-backup-20261018T121022Z-e709b81b.zip",
+    "sha256": "108cf5c345e22497a9c69d203b8bd4e054a78d2c0d9f4552e195905acf56fd95"
+  },
+  "backend_pid": 62360,
+  "backend_start_epoch_ms": 1792325491757,
+  "launcher_session": 88473,
+  "frontend_verification": "After Portal, first-region viewport and actual raster-tile readiness fixes"
+}
