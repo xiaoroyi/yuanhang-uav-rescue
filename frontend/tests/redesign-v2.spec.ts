@@ -1,7 +1,107 @@
 import { test, expect, type Page } from '@playwright/test'
 import type { Scenario, Plan } from '../src/api/client'
+import type { Mission, Execution } from '../src/api/operations'
 
 test.setTimeout(180000)
+
+test('V2 pending events freeze manual advance and an audited misreport correction restores the simulation', async ({
+  page,
+  request,
+}) => {
+  const mission: Mission = await (
+    await request.post('/api/v1/missions', {
+      data: {
+        name: 'Correction exercise ' + Date.now(),
+        template: 'compact',
+        idempotency_key: crypto.randomUUID(),
+      },
+    })
+  ).json()
+  const scene: Scenario = await (
+    await request.get('/api/v1/scenarios/' + mission.current_scenario_id)
+  ).json()
+  const snap = await (
+    await request.post(`/api/v1/scenarios/${scene.scenario_id}/snapshots`, {
+      data: { expected_state_version: scene.state_version },
+    })
+  ).json()
+  const job = await (
+    await request.post('/api/v1/solve-jobs', {
+      data: { snapshot_id: snap.snapshot_id, time_limit_s: 5 },
+    })
+  ).json()
+  let pid = ''
+  await expect
+    .poll(
+      async () => {
+        const result = await (await request.get('/api/v1/solve-jobs/' + job.job_id)).json()
+        pid = result.plan_id || ''
+        return result.job_state
+      },
+      { timeout: 45000 },
+    )
+    .toBe('completed')
+  const plan: Plan = await (await request.get('/api/v1/plans/' + pid)).json()
+  expect(
+    (
+      await request.post(`/api/v1/plans/${pid}/confirm`, {
+        data: { expected_state_version: scene.state_version, idempotency_key: crypto.randomUUID() },
+      })
+    ).ok(),
+  ).toBeTruthy()
+  let execution: Execution = await (
+    await request.post('/api/v1/executions', {
+      data: {
+        mission_id: mission.mission_id,
+        confirmed_plan_id: pid,
+        expected_revision: mission.revision,
+        idempotency_key: crypto.randomUUID(),
+      },
+    })
+  ).json()
+  execution = await (
+    await request.post(`/api/v1/executions/${execution.execution_id}/simulation/actions`, {
+      data: {
+        action: 'advance',
+        target_time_s: 1,
+        expected_revision: execution.revision,
+        idempotency_key: crypto.randomUUID(),
+      },
+    })
+  ).json()
+  const committed = plan.sorties.find((r) => r.prepare_start_s <= 1)!
+  const event = await request.post(`/api/v1/executions/${execution.execution_id}/events`, {
+    data: {
+      event_id: crypto.randomUUID(),
+      event_type: 'drone.unavailable',
+      object_id: committed.drone_id,
+      expected_revision: execution.revision,
+      reason: '演练上报需要核实',
+    },
+  })
+  expect(event.status()).toBe(201)
+  await page.goto('/#/missions/' + mission.mission_id + '/execute')
+  await expect(page.getByRole('button', { name: '推进至下一事件', exact: true })).toBeDisabled()
+  await expect(page.getByRole('button', { name: '继续演练', exact: true })).toBeDisabled()
+  await expect(page.locator('.v2-event-list')).toContainText('需人工协调')
+  await page.screenshot({ path: '../evidence/redesign-v2/event-manual-1440.png', fullPage: true })
+  await page.getByRole('button', { name: '核实误报', exact: true }).click()
+  await page
+    .getByLabel('核实依据（至少10个字符）')
+    .fill('模拟演练操作人员已重新核实，机体正常，此前为测试误报')
+  await page.getByRole('button', { name: '记录纠错', exact: true }).click()
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await expect(page.locator('.v2-event-list')).toContainText('已核实误报')
+  await expect(page.getByRole('button', { name: '继续演练', exact: true })).toBeEnabled()
+  const unchanged: Execution = await (
+    await request.get('/api/v1/executions/' + execution.execution_id)
+  ).json()
+  expect(unchanged.facts).toEqual(execution.facts)
+  await page.getByRole('button', { name: '继续演练', exact: true }).click()
+  await expect(page.getByRole('button', { name: '暂停演练', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: '暂停演练', exact: true }).click()
+  await expect(page.getByRole('button', { name: '继续演练', exact: true })).toBeVisible()
+})
 
 test('V2 manual weather input changes real type selection and remains traceable on the map', async ({
   page,

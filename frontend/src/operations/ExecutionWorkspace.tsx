@@ -12,7 +12,13 @@ import {
   WifiOff,
 } from 'lucide-react'
 import { api, type Plan, type Scenario } from '../api/client'
-import { ops, type Execution, type Mission, type Repair } from '../api/operations'
+import {
+  ops,
+  type Execution,
+  type ExecutionEvent,
+  type Mission,
+  type Repair,
+} from '../api/operations'
 import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
 import { ResourceTimeline } from '../components/ResourceTimeline'
@@ -44,6 +50,8 @@ export function ExecutionWorkspace({
   const [preview, setPreview] = useState<Repair | null>(null)
   const [fault, setFault] = useState(false)
   const [communicationOpen, setCommunicationOpen] = useState(false)
+  const [resolution, setResolution] = useState<ExecutionEvent | null>(null)
+  const [resolutionReason, setResolutionReason] = useState('')
   const execution = useQuery({
     queryKey: ['execution', id],
     queryFn: () => ops.execution(id),
@@ -193,6 +201,9 @@ export function ExecutionWorkspace({
     )
   if (!e || !baseScenario) return <p className="v2-loading">恢复服务器演练状态…</p>
   const selectedDevice = e.telemetry.find((x) => x.device_id === selected)
+  const pendingEvents = (events.data || []).filter(
+    (event) => event.status !== 'withdrawn' && !e.applied_event_ids?.includes(event.event_id),
+  )
   const routeSets = e.schedule_parts.flatMap((part, i) =>
     partPlans[i].data ? [{ plan: partPlans[i].data!, sortieIds: part.sortie_ids }] : [],
   )
@@ -211,7 +222,9 @@ export function ExecutionWorkspace({
         <Button
           variant="primary"
           busy={busy}
-          disabled={e.status === 'completed'}
+          disabled={
+            e.status === 'completed' || (e.status !== 'running' && pendingEvents.length > 0)
+          }
           onClick={() =>
             void act(e.status === 'running' ? 'pause' : e.status === 'ready' ? 'start' : 'resume')
           }
@@ -231,7 +244,7 @@ export function ExecutionWorkspace({
           ))}
         </select>
         <Button
-          disabled={busy || !['paused', 'ready'].includes(e.status)}
+          disabled={busy || !['paused', 'ready'].includes(e.status) || pendingEvents.length > 0}
           onClick={() => {
             const next = routeSets
               .flatMap((part) =>
@@ -258,7 +271,9 @@ export function ExecutionWorkspace({
           上报变化
         </Button>
         <Button
-          disabled={(e.status !== 'paused' && e.status !== 'ready') || !events.data?.length || busy}
+          disabled={
+            (e.status !== 'paused' && e.status !== 'ready') || !pendingEvents.length || busy
+          }
           onClick={() => void repair()}
         >
           <RefreshCw size={14} />
@@ -357,6 +372,21 @@ export function ExecutionWorkspace({
                   </small>
                   {event.missing_inventory > 0 && <em>缺少 {event.missing_inventory} 箱库存</em>}
                   {event.status === 'requires_manual' && <em>涉及已开始承诺，需人工协调</em>}
+                  {event.status === 'withdrawn' ? (
+                    <small>已核实误报 · {event.resolution_reason}</small>
+                  ) : e.applied_event_ids?.includes(event.event_id) ? (
+                    <small>已纳入采纳方案</small>
+                  ) : (
+                    <Button
+                      disabled={busy || !['paused', 'ready'].includes(e.status)}
+                      onClick={() => {
+                        setResolution(event)
+                        setResolutionReason('')
+                      }}
+                    >
+                      核实误报
+                    </Button>
+                  )}
                 </div>
               ))
             ) : (
@@ -466,6 +496,49 @@ export function ExecutionWorkspace({
             }}
           />
         )}
+      </Modal>
+      <Modal
+        title="核实并纠正误报"
+        description="仅用于确认此前上报不属实。真实故障仍需保持暂停并人工协调，不能通过撤销事件清除风险。"
+        open={!!resolution}
+        onOpenChange={(open) => !open && setResolution(null)}
+      >
+        <div className="v2-create-form">
+          <p>{resolution?.reason}</p>
+          <label>
+            核实依据（至少10个字符）
+            <textarea
+              value={resolutionReason}
+              onChange={(event) => setResolutionReason(event.target.value)}
+              maxLength={500}
+              rows={3}
+            />
+          </label>
+          <p>将保留原始事件、输入和全部模拟事实，并新增纠错记录。已采纳事件不能撤销。</p>
+          <div className="v2-form-actions">
+            <Button onClick={() => setResolution(null)}>取消</Button>
+            <Button
+              variant="primary"
+              busy={busy}
+              disabled={resolutionReason.trim().length < 10}
+              onClick={() => {
+                if (!resolution) return
+                setBusy(true)
+                void ops
+                  .resolveEvent(e, resolution.event_id, resolutionReason)
+                  .then(() => {
+                    setResolution(null)
+                    refresh()
+                    notify('误报纠正已留档，原事件和事实保留。')
+                  })
+                  .catch((err: Error) => notify(err.message, true))
+                  .finally(() => setBusy(false))
+              }}
+            >
+              记录纠错
+            </Button>
+          </div>
+        </div>
       </Modal>
       {!!changes.data?.length && (
         <div className="v2-change-list">

@@ -16,3 +16,7 @@
 
 Scenario与MissionDraft可选weather；旧输入不强制补字段，原Snapshot/Plan不重写。weather_window加入领域范围枚举，真实Worker对携带weather的新请求补齐必检范围。操作气象信息/阈值能力为true，weather_energy保持false。执行事件新增weather.changed完整严格对象，服务端拒绝混合字段；风险涉及已开始架次时保留承诺并阻断自动修复。JSON Schema、Pydantic、实际OpenAPI与HTTP TypeScript同批生成。现有HTTP路径与无气象调用兼容。
 
+# RFC-020增量
+
+ExecutionView兼容增加applied_event_ids；事件投影增加withdrawn/纠错时间与依据，原事件原输入只读保留。新增POST `/executions/{id}/events/{event_id}/resolve`，只允许未采纳的本机误报；状态/幂等/版本检查和独立审计记录。SSE支持cursor/Last-Event-ID、超前游标409与连接状态，同步读取转线程池。旧控制路由继续保留，但advance与start/resume统一阻断未处理事件。
+

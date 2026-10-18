@@ -5,7 +5,8 @@ import copy
 from datetime import datetime, timezone, timedelta
 import json
 
-from fastapi import Request
+from fastapi import Request, Query
+from starlette.concurrency import run_in_threadpool
 from fastapi.responses import StreamingResponse
 from sqlalchemy import select
 
@@ -15,6 +16,7 @@ from backend.app.operation_models import (
     SimulationAction,
     ExecutionEventInput,
     ExecutionEventView,
+    EventResolution,
     RepairRequest,
     RepairView,
     ApplyRepair,
@@ -73,6 +75,31 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 content=copy.deepcopy(content),
             )
         )
+
+    def events_for(session, execution_id):
+        """Project append-only corrections without rewriting the original event/input."""
+        row = require(session, ExecutionRow, execution_id, error)
+        raw = {
+            v["event_id"]: v
+            for v in engine().records(session, execution_id, "execution.event")
+        }
+        resolutions = {
+            v["event_id"]: v
+            for v in engine().records(
+                session, execution_id, "execution.event.resolution"
+            )
+        }
+        result = []
+        for eid in row.content["event_ids"]:
+            v = copy.deepcopy(raw[eid])
+            if eid in resolutions:
+                v.update(
+                    status="withdrawn",
+                    resolved_at=resolutions[eid]["created_at"],
+                    resolution_reason=resolutions[eid]["reason"],
+                )
+            result.append(v)
+        return result
 
     @app.post("/api/v1/executions", response_model=ExecutionView, status_code=201)
     def create_execution(body: ExecutionCreate):
@@ -199,17 +226,22 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 )
             value = copy.deepcopy(row.content)
             current = value["status"]
+            pending_events = any(
+                v["status"] != "withdrawn"
+                and v["event_id"] not in value["applied_event_ids"]
+                for v in events_for(session, execution_id)
+            )
+            if body.action in ("start", "resume", "advance") and pending_events:
+                raise error(
+                    409,
+                    "PENDING_EVENTS",
+                    "仍有未处理变化；请采纳调整或核实误报，不能推进未来排程。",
+                )
             if body.action in ("start", "resume"):
                 expected = "ready" if body.action == "start" else "paused"
                 if current != expected:
                     raise error(
                         422, "EXECUTION_STATE_INVALID", "当前执行状态不能开始或恢复。"
-                    )
-                if set(value["event_ids"]) - set(value["applied_event_ids"]):
-                    raise error(
-                        409,
-                        "PENDING_EVENTS",
-                        "仍有未处理变化，请修复采纳或保持暂停转人工处理。",
                     )
                 value["status"] = "running"
             elif body.action == "pause":
@@ -346,7 +378,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     )
                 if d["demand_id"] in {x["demand_id"] for x in s["demands"]}:
                     raise error(409, "REFERENCE_INVALID", "新增需求编号已存在。")
-                previous = engine().records(session, execution_id, "execution.event")
+                previous = events_for(session, execution_id)
                 for e in previous:
                     raw = require(
                         session,
@@ -473,7 +505,95 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
     def list_events(execution_id: str):
         with database.session() as session:
             require(session, ExecutionRow, execution_id, error)
-            return engine().records(session, execution_id, "execution.event")
+            return events_for(session, execution_id)
+
+    @app.post(
+        "/api/v1/executions/{execution_id}/events/{event_id}/resolve",
+        response_model=ExecutionEventView,
+    )
+    def resolve_event(execution_id: str, event_id: str, body: EventResolution):
+        with database.session(immediate=True) as session:
+            old, digest = receipt(
+                session,
+                "execution.event.resolve",
+                execution_id + ":" + body.idempotency_key,
+                body,
+                execution_id,
+            )
+            if old:
+                if old["event_id"] != event_id:
+                    raise error(409, "IDEMPOTENCY_CONFLICT", "纠错键已用于其它事件。")
+                return old
+            row = require(session, ExecutionRow, execution_id, error)
+            revision(row.content, body.expected_revision, error)
+            if row.content["status"] not in ("paused", "ready"):
+                raise error(422, "PAUSE_REQUIRED", "请先暂停，再核实并纠正误报。")
+            if not body.reason.strip() or len(body.reason.strip()) < 10:
+                raise error(
+                    422, "REASON_REQUIRED", "请明确说明误报的核实依据，至少10个字符。"
+                )
+            event = next(
+                (
+                    v
+                    for v in events_for(session, execution_id)
+                    if v["event_id"] == event_id
+                ),
+                None,
+            )
+            if not event:
+                raise error(404, "REFERENCE_INVALID", "事件不存在。")
+            if (
+                event_id in row.content["applied_event_ids"]
+                or event["status"] == "withdrawn"
+            ):
+                raise error(
+                    409, "EVENT_ALREADY_RESOLVED", "已采纳或已纠正事件不能再次撤销。"
+                )
+            if any(
+                v["status"] in ("applying", "partially_applied")
+                for v in engine().records(session, execution_id, "execution.change")
+            ):
+                raise error(
+                    409,
+                    "APPLICATION_UNRESOLVED",
+                    "存在应用中或未确定的指令，先核对设备状态。",
+                )
+            at = now()
+            value = {
+                **event,
+                "status": "withdrawn",
+                "resolved_at": at,
+                "resolution_reason": body.reason.strip(),
+            }
+            store(
+                session,
+                "execution.event.resolution",
+                execution_id + ":" + event_id,
+                execution_id,
+                digest,
+                {
+                    "event_id": event_id,
+                    "created_at": at,
+                    "reason": body.reason.strip(),
+                    "action": body.action,
+                    "actor": "local_simulation_operator",
+                    "facts_cursor": row.content["facts_cursor"],
+                },
+            )
+            store(
+                session,
+                "execution.event.resolve",
+                execution_id + ":" + body.idempotency_key,
+                execution_id,
+                digest,
+                value,
+            )
+            row.content = {
+                **row.content,
+                "revision": row.content["revision"] + 1,
+                "updated_at": at,
+            }
+            return value
 
     @app.post(
         "/api/v1/executions/{execution_id}/replan-jobs",
@@ -510,8 +630,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     "UNSUPPORTED_SCOPE",
                     "当前承诺前缀修复尚未覆盖中继联合窗口；请保留原计划并人工协调，不关闭通信约束。",
                 )
-            events = engine().records(session, execution_id, "execution.event")
-            if not events:
+            events = events_for(session, execution_id)
+            if not any(e["status"] != "withdrawn" for e in events):
                 raise error(422, "EVENT_REQUIRED", "请先记录执行中的变化。")
             if any(
                 e["status"] == "requires_manual"
@@ -524,6 +644,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     "变化涉及已开始架次，不能自动撤销或换机；请先人工协调现有承诺。",
                 )
             for e in events:
+                if e["status"] == "withdrawn":
+                    continue
                 raw = require(
                     session,
                     OperationRecordRow,
@@ -739,7 +861,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         a["activation_state"] = "indeterminate"
             elif all(x == "succeeded" for x in states):
                 row = require(session, ExecutionRow, v["execution_id"], error)
-                events = engine().records(session, row.id, "execution.event")
+                events = events_for(session, row.id)
                 if (
                     row.content["revision"] != v["execution_revision"]
                     or row.content["facts_cursor"] != v["facts_cursor"]
@@ -762,7 +884,9 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         schedule_parts=pending["schedule_parts"],
                         desired_plan_id=pending["desired_plan_id"],
                         revision=value["revision"] + 1,
-                        applied_event_ids=list(value["event_ids"]),
+                        applied_event_ids=[
+                            e["event_id"] for e in events if e["status"] != "withdrawn"
+                        ],
                         updated_at=now(),
                     )
                     row.content = value
@@ -831,7 +955,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             if rec.owner_id != execution_id:
                 raise error(404, "REFERENCE_INVALID", "调整不属于当前执行。")
             v = change_view(session, rec)
-            events = engine().records(session, execution_id, "execution.event")
+            events = events_for(session, execution_id)
             if (
                 row.content["status"] not in ("paused", "ready")
                 or row.content["revision"] != v["execution_revision"]
@@ -1139,9 +1263,9 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             allocated = {c for _, _, r, _ in schedule for c in r["cargo_ids"]}
             initial, snap, _ = engine().plan_data(session, v["initial_plan_id"])
             required = sum(d["required_quantity"] for d in snap["scenario"]["demands"])
-            events = engine().records(session, row.id, "execution.event")
+            events = events_for(session, row.id)
             for e in events:
-                if e["event_type"] == "demand.added":
+                if e["event_type"] == "demand.added" and e["status"] != "withdrawn":
                     raw = require(
                         session,
                         OperationRecordRow,
@@ -1188,14 +1312,35 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             }
 
     @app.get("/api/v1/executions/{execution_id}/stream")
-    async def stream(execution_id: str, request: Request, cursor: int = 0):
+    async def stream(
+        execution_id: str, request: Request, cursor: int = Query(default=0, ge=0)
+    ):
         # SSE reconnect is snapshot + ordered immutable facts; duplicate cursors are safe.
         import asyncio
 
+        if "cursor" not in request.query_params and request.headers.get(
+            "last-event-id"
+        ):
+            try:
+                cursor = int(request.headers["last-event-id"])
+            except ValueError:
+                raise error(422, "CURSOR_INVALID", "Last-Event-ID必须是事实游标整数。")
+        first = await run_in_threadpool(get_execution, execution_id)
+        if cursor < 0 or cursor > first["facts_cursor"]:
+            raise error(
+                409, "CURSOR_INVALID", "事实游标超出当前执行记录，先重新读取快照。"
+            )
+
         async def messages():
             current = cursor
+            snapshot = first
             while not await request.is_disconnected():
-                v = get_execution(execution_id)
+                v = (
+                    snapshot
+                    if snapshot is not None
+                    else await run_in_threadpool(get_execution, execution_id)
+                )
+                snapshot = None
                 new = [f for f in v["facts"] if f["cursor"] > current]
                 if new:
                     current = max(f["cursor"] for f in new)
@@ -1208,6 +1353,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         "time_s": v["time_s"],
                         "revision": v["revision"],
                         "status": v["status"],
+                        "connected": v["connected"],
                     },
                     ensure_ascii=False,
                 ) + "\n\n"
@@ -1227,7 +1373,7 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             return {
                 "bundle_version": "execution-simulation-v1",
                 "execution": view,
-                "events": engine().records(session, row.id, "execution.event"),
+                "events": events_for(session, row.id),
                 "changes": [
                     change_view(session, r)
                     for r in session.scalars(

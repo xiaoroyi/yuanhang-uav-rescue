@@ -1136,6 +1136,41 @@
       "title": "Error1",
       "type": "object"
     },
+    "EventResolution": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_revision": {
+          "minimum": 1,
+          "title": "Expected Revision",
+          "type": "integer"
+        },
+        "idempotency_key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Idempotency Key",
+          "type": "string"
+        },
+        "action": {
+          "const": "withdraw_misreport",
+          "title": "Action",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 500,
+          "minLength": 10,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "idempotency_key",
+        "action",
+        "reason"
+      ],
+      "title": "EventResolution",
+      "type": "object"
+    },
     "ExecutionAnalysis": {
       "additionalProperties": false,
       "properties": {
@@ -1414,7 +1449,8 @@
         "status": {
           "enum": [
             "recorded",
-            "requires_manual"
+            "requires_manual",
+            "withdrawn"
           ],
           "title": "Status",
           "type": "string"
@@ -1429,6 +1465,31 @@
             }
           ],
           "default": null
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolved At"
+        },
+        "resolution_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolution Reason"
         }
       },
       "required": [
@@ -1670,6 +1731,13 @@
             "type": "string"
           },
           "title": "Delivered Cargo Ids",
+          "type": "array"
+        },
+        "applied_event_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Applied Event Ids",
           "type": "array"
         },
         "facts": {

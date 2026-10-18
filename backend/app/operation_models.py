@@ -283,6 +283,7 @@ class ExecutionView(OperationDTO):
     connected: bool
     schedule_parts: list[ExecutionSchedulePart]
     delivered_cargo_ids: list[str]
+    applied_event_ids: list[str] = Field(default_factory=list)
     facts: list[ExecutionFact]
     telemetry: list[TelemetrySample]
     created_at: AwareDatetime
@@ -319,8 +320,17 @@ class ExecutionEventView(OperationDTO):
     preserved_sortie_ids: list[str]
     committed_sortie_ids: list[str]
     missing_inventory: int
-    status: Literal["recorded", "requires_manual"]
+    status: Literal["recorded", "requires_manual", "withdrawn"]
     weather: Weather | None = None
+    resolved_at: AwareDatetime | None = None
+    resolution_reason: str | None = None
+
+
+class EventResolution(OperationDTO):
+    expected_revision: int = Field(ge=1)
+    idempotency_key: str = Field(min_length=1, max_length=128)
+    action: Literal["withdraw_misreport"]
+    reason: str = Field(min_length=10, max_length=500)
 
 
 class RepairRequest(OperationDTO):

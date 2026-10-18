@@ -2918,6 +2918,64 @@
         }
       }
     },
+    "/api/v1/executions/{execution_id}/events/{event_id}/resolve": {
+      "post": {
+        "summary": "Resolve Event",
+        "operationId": "resolve_event_api_v1_executions__execution_id__events__event_id__resolve_post",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          },
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventResolution"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionEventView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/executions/{execution_id}/replan-jobs": {
       "post": {
         "summary": "Repair",
@@ -3291,6 +3349,7 @@
             "required": false,
             "schema": {
               "type": "integer",
+              "minimum": 0,
               "default": 0,
               "title": "Cursor"
             }
@@ -5693,6 +5752,41 @@
         ],
         "title": "EventReceipt"
       },
+      "EventResolution": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "action": {
+            "type": "string",
+            "const": "withdraw_misreport",
+            "title": "Action"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 10,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "idempotency_key",
+          "action",
+          "reason"
+        ],
+        "title": "EventResolution"
+      },
       "ExampleRequest": {
         "properties": {
           "example": {
@@ -5984,7 +6078,8 @@
             "type": "string",
             "enum": [
               "recorded",
-              "requires_manual"
+              "requires_manual",
+              "withdrawn"
             ],
             "title": "Status"
           },
@@ -5997,6 +6092,29 @@
                 "type": "null"
               }
             ]
+          },
+          "resolved_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolved At"
+          },
+          "resolution_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resolution Reason"
           }
         },
         "additionalProperties": false,
@@ -6238,6 +6356,13 @@
             },
             "type": "array",
             "title": "Delivered Cargo Ids"
+          },
+          "applied_event_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Applied Event Ids"
           },
           "facts": {
             "items": {

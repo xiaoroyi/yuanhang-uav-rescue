@@ -79,6 +79,13 @@ export const ops = {
       expected_revision: e.revision,
       ...body,
     }),
+  resolveEvent: (e: Execution, eventId: string, reason: string) =>
+    request<ExecutionEvent>(`/executions/${e.execution_id}/events/${eventId}/resolve`, {
+      expected_revision: e.revision,
+      idempotency_key: key(),
+      action: 'withdraw_misreport',
+      reason,
+    }),
   repair: (e: Execution) =>
     request<Repair>(`/executions/${e.execution_id}/replan-jobs`, {
       expected_revision: e.revision,

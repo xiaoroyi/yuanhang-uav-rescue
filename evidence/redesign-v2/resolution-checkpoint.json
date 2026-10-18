@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-18T10:18:32.410771+00:00",
+  "service_source_sha256": "8fb36e172f7556cb821afb7bf515b3d209f22109e09823ec5196a7ad45a63581",
+  "frontend_source_sha256": "bc688bdf2b7481b5dd83d8a3baa136ca1784a7303ff364e26d82e03b82aba652",
+  "verification_source_sha256": "602bcecc75a5d1272f3696a0bc4ed6a94d2e72faa0ccd75839c190005c2b369b",
+  "python_passed": 6,
+  "python_duration_s": 70.11,
+  "browser_passed": 1,
+  "browser_duration_s": 14.0,
+  "lint": true,
+  "typescript_build": true,
+  "full_regression": false,
+  "deployed_to_8000": false
+}

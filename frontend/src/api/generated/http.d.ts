@@ -1076,6 +1076,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/executions/{execution_id}/events/{event_id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resolve Event */
+        post: operations["resolve_event_api_v1_executions__execution_id__events__event_id__resolve_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/executions/{execution_id}/replan-jobs": {
         parameters: {
             query?: never;
@@ -2047,6 +2064,20 @@ export interface components {
             /** Applied */
             applied: boolean;
         };
+        /** EventResolution */
+        EventResolution: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /**
+             * Action
+             * @constant
+             */
+            action: "withdraw_misreport";
+            /** Reason */
+            reason: string;
+        };
         /** ExampleRequest */
         ExampleRequest: {
             /**
@@ -2159,8 +2190,12 @@ export interface components {
              * Status
              * @enum {string}
              */
-            status: "recorded" | "requires_manual";
+            status: "recorded" | "requires_manual" | "withdrawn";
             weather?: components["schemas"]["Weather"] | null;
+            /** Resolved At */
+            resolved_at?: string | null;
+            /** Resolution Reason */
+            resolution_reason?: string | null;
         };
         /** ExecutionFact */
         ExecutionFact: {
@@ -2244,6 +2279,8 @@ export interface components {
             schedule_parts: components["schemas"]["ExecutionSchedulePart"][];
             /** Delivered Cargo Ids */
             delivered_cargo_ids: string[];
+            /** Applied Event Ids */
+            applied_event_ids?: string[];
             /** Facts */
             facts: components["schemas"]["ExecutionFact"][];
             /** Telemetry */
@@ -6604,6 +6641,42 @@ export interface operations {
         responses: {
             /** @description Successful Response */
             201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionEventView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resolve_event_api_v1_executions__execution_id__events__event_id__resolve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+                event_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EventResolution"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };

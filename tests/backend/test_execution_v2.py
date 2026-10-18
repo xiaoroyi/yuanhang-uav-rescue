@@ -153,6 +153,71 @@ def test_simulation_clock_refresh_idempotence_reconnect_and_commands(tmp_path):
         time.sleep(0.9)
         unknown = c.get("/api/v1/commands/" + cmd["command_id"]).json()
         assert unknown["status"] == "indeterminate" and unknown["completed_at"] is None
+        completion = post(
+            c,
+            "/commands",
+            {
+                **command,
+                "idempotency_key": "completion-timeout",
+                "simulation_fault": "completion_timeout",
+            },
+            202,
+        )
+        rejected = post(
+            c,
+            "/commands",
+            {**command, "idempotency_key": "rejected", "simulation_fault": "reject"},
+            202,
+        )
+        expired = post(
+            c,
+            "/commands",
+            {
+                **command,
+                "idempotency_key": "short-ttl",
+                "simulation_fault": "none",
+                "expires_at": (
+                    datetime.now(timezone.utc) + timedelta(seconds=0.2)
+                ).isoformat(),
+            },
+            202,
+        )
+        assert (
+            c.post(
+                "/api/v1/commands",
+                json={**command, "idempotency_key": "actor", "actor": "administrator"},
+            ).status_code
+            == 422
+        )
+        assert (
+            c.post(
+                "/api/v1/commands",
+                json={
+                    **command,
+                    "idempotency_key": "foreign",
+                    "device_id": "FOREIGN-DEVICE",
+                },
+            ).status_code
+            == 403
+        )
+        time.sleep(0.9)
+        state = c.get("/api/v1/commands/" + completion["command_id"]).json()
+        assert state["status"] == "acknowledged" and state["completed_at"] is None
+        time.sleep(0.5)
+        state = c.get("/api/v1/commands/" + completion["command_id"]).json()
+        assert (
+            state["status"] == "indeterminate"
+            and state["acknowledged_at"] is not None
+            and state["completed_at"] is None
+        )
+        assert (
+            c.get("/api/v1/commands/" + rejected["command_id"]).json()["status"]
+            == "rejected"
+        )
+        assert (
+            c.get("/api/v1/commands/" + expired["command_id"]).json()["status"]
+            == "expired"
+        )
         bad = {
             **command,
             "idempotency_key": "cmd-bad",
@@ -375,7 +440,7 @@ def test_partial_device_apply_retains_schedule_and_stale_candidate_rejected(tmp_
             202,
         )
         assert await_job(c, change["job"])["has_validated_plan"]
-        moved = act(c, e, "advance", target_time_s=e["time_s"] + 1)
+        moved = act(c, e, "speed", speed=5)
         stale = c.post(
             f"/api/v1/executions/{e['execution_id']}/plan-changes/{change['change_id']}/apply",
             json={"expected_revision": moved["revision"], "idempotency_key": "stale"},
@@ -524,4 +589,121 @@ def test_inflight_weather_event_uses_real_repair_and_protects_unsafe_commitments
         assert (
             response.status_code == 422
             and response.json()["error"]["code"] == "COMMITMENT_REQUIRES_MANUAL"
+        )
+
+
+def test_misreport_resolution_preserves_event_input_and_facts_and_stream_cursor(
+    tmp_path,
+):
+    import asyncio
+    import json
+    from backend.app.storage import OperationRecordRow
+
+    app = create_app(tmp_path / "runtime")
+    with TestClient(app) as c:
+        m, s, p, e = setup(c)
+        e = act(c, e, "advance", target_time_s=1)
+        before = copy.deepcopy(e["facts"])
+        row = next(r for r in p["sorties"] if r["prepare_start_s"] <= 1)
+        raw = {
+            "event_id": "misreport",
+            "expected_revision": e["revision"],
+            "event_type": "drone.unavailable",
+            "object_id": row["drone_id"],
+            "reason": "Mistaken exercise report",
+        }
+        event = post(c, f"/executions/{e['execution_id']}/events", raw, 201)
+        assert event["status"] == "requires_manual"
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        for action in ("advance", "resume"):
+            response = c.post(
+                f"/api/v1/executions/{e['execution_id']}/simulation/actions",
+                json={
+                    "action": action,
+                    "expected_revision": e["revision"],
+                    "idempotency_key": action,
+                    "target_time_s": 100,
+                },
+            )
+            assert (
+                response.status_code == 409
+                and response.json()["error"]["code"] == "PENDING_EVENTS"
+            )
+        endpoint = f"/executions/{e['execution_id']}/events/misreport/resolve"
+        body = {
+            "expected_revision": e["revision"],
+            "idempotency_key": "resolve",
+            "action": "withdraw_misreport",
+            "reason": "Exercise operator rechecked that the device is functioning",
+        }
+        resolved = post(c, endpoint, body)
+        assert resolved["status"] == "withdrawn"
+        assert post(c, endpoint, body) == resolved
+        assert (
+            c.post(
+                "/api/v1" + endpoint,
+                json={**body, "reason": "Changed payload is not the same resolution"},
+            ).status_code
+            == 409
+        )
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert e["facts"] == before and e["revision"] == body["expected_revision"] + 1
+        assert (
+            c.get(f"/api/v1/executions/{e['execution_id']}/events").json()[0]["status"]
+            == "withdrawn"
+        )
+        # The append-only original event record remains unchanged by the correction.
+        with app.state.database.session() as session:
+            stored = session.get(
+                OperationRecordRow,
+                ("execution.event", e["execution_id"] + ":misreport"),
+            ).content
+            assert (
+                stored["status"] == "requires_manual"
+                and stored["reason"] == raw["reason"]
+            )
+        e = act(c, e, "resume")
+        e = act(c, e, "pause")
+        e = act(c, e, "advance", target_time_s=2)
+        # Exercise the real stream endpoint generator without an infinite HTTP client read.
+        stream = next(
+            route.endpoint
+            for route in app.routes
+            if getattr(route, "path", "") == "/api/v1/executions/{execution_id}/stream"
+        )
+
+        class Connection:
+            query_params = {"cursor": "0"}
+            headers = {}
+
+            async def is_disconnected(self):
+                return False
+
+        async def packet(cursor):
+            response = await stream(e["execution_id"], Connection(), cursor)
+            generator = response.body_iterator
+            item = await anext(generator)
+            await generator.aclose()
+            return json.loads(item.split("data: ", 1)[1])
+
+        first = asyncio.run(packet(0))
+        assert [v["cursor"] for v in first["facts"]] == list(
+            range(1, e["facts_cursor"] + 1)
+        )
+        reconnect = asyncio.run(packet(first["facts_cursor"]))
+        assert (
+            reconnect["facts"] == []
+            and reconnect["facts_cursor"] == first["facts_cursor"]
+        )
+        assert (
+            c.get(
+                f"/api/v1/executions/{e['execution_id']}/stream?cursor={e['facts_cursor']+1}"
+            ).status_code
+            == 409
+        )
+        assert (
+            c.get(
+                f"/api/v1/executions/{e['execution_id']}/stream?cursor=-1"
+            ).status_code
+            == 422
         )
