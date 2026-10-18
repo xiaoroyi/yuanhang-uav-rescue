@@ -163,8 +163,8 @@ const sensitivity = nominal.sensitivity.filter((row) =>
 );
 slide(
   "紧急需求与实物库存一起插入",
-  `<div class="image-copy"><div><div class="big-number">${new Set(urgent.plan.sorties.flatMap((r) => r.cargo_ids)).size}<small>箱重新完整排程</small></div>${bullets([`新增${urgent.event.payload.demand.required_quantity}箱需求，同时登记基地实物库存。`, "新输入、新版本、新快照和全量求解，旧记录保留。", "再加入零秒硬截止时未发布新方案，旧版确认禁用。", "仅支持未执行场景与已有救援点。"])}</div>${await picture("urgent-demand-result-1440", "紧急新增物资后的真实全量重规划")}</div>`,
-  "来源：urgent-demand.json；新增箱件不计为旧箱件改派，不用历史Plan冒充新结果",
+  `<div class="image-copy"><div><div class="big-number">${new Set(urgent.plan.sorties.flatMap((r) => r.cargo_ids)).size}<small>箱重新完整排程</small></div>${bullets([`新增${urgent.event.payload.demand.required_quantity}箱需求，同时登记等量基地库存。`, "形成新版本与快照，全量重算，保留旧记录。", "零秒硬截止未发布新方案，旧版确认禁用。"])}</div>${await picture("urgent-demand-result-1440", "紧急新增物资后的真实全量重规划")}</div>`,
+  "来源：urgent-demand.json；仅限未执行场景和已有点位，新增箱件不计为旧箱件改派",
 );
 slide(
   "单点额定运输诊断",
