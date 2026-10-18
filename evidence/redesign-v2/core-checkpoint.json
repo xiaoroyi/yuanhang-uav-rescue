@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-18T09:35:30.915116+00:00",
+  "checkpoint": "vertical implementation; not final full acceptance",
+  "head_before_commit": "606e16b450435e1a3d337554d2887e5dc5a0c0f0",
+  "service_source_sha256": "472e003a19376e577fcd1a284052a9a6e8a585a7fefaa5a04651e73165fcf242",
+  "frontend_source_sha256": "2788800cfb7d351fa4ac59ee54178a204599900fddba42b69577860b34b3fed1",
+  "verification_source_sha256": "ba435e5648d8df3a40abc25e80d04a26656dd3cc958bdb3dd0e53cf754ddab86",
+  "python": {
+    "command": ".venv/Scripts/python -m pytest tests/backend/test_operations.py tests/backend/test_execution_v2.py tests/test_operation_contracts.py -q",
+    "passed": 10,
+    "duration_s": 47.42,
+    "scope": "new operation core only; not entire old suite"
+  },
+  "browser": {
+    "report": "evidence/redesign-v2/core-browser-results.json",
+    "passed": 2,
+    "scope": "new blank task CSV flow + existing real two-strategy workflow"
+  },
+  "frontend_units": 12,
+  "lint": true,
+  "typescript_build": true,
+  "full_regression": false,
+  "visual_snapshot_is_earlier_checkpoint": "evidence/redesign-v2/browser-review.json",
+  "known_failure": "parallel 2s baseline fixture returned UNKNOWN/time_limit/no candidate, 9 passed 1 failed; fixture budget changed to5s, complete10 pass; failure retained .local/v2-core-frozen.log"
+}

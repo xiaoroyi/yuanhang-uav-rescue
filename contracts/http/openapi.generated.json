@@ -2113,6 +2113,122 @@
         }
       }
     },
+    "/api/v1/missions/{mission_id}/input-preview": {
+      "post": {
+        "summary": "Input Preview",
+        "operationId": "input_preview_api_v1_missions__mission_id__input_preview_post",
+        "parameters": [
+          {
+            "name": "mission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mission Id"
+            }
+          },
+          {
+            "name": "entity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "cargo_items",
+              "title": "Entity"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_input_preview_api_v1_missions__mission_id__input_preview_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftImportPreview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/missions/{mission_id}/input-template": {
+      "get": {
+        "summary": "Input Template",
+        "operationId": "input_template_api_v1_missions__mission_id__input_template_get",
+        "parameters": [
+          {
+            "name": "mission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mission Id"
+            }
+          },
+          {
+            "name": "entity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "cargo_items",
+              "title": "Entity"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "xlsx",
+              "title": "Format"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/missions": {
       "get": {
         "summary": "List Missions",
@@ -2443,6 +2559,49 @@
         }
       }
     },
+    "/api/v1/missions/{mission_id}/preflight-reports": {
+      "get": {
+        "summary": "List Reports",
+        "operationId": "list_reports_api_v1_missions__mission_id__preflight_reports_get",
+        "parameters": [
+          {
+            "name": "mission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PreflightReport"
+                  },
+                  "title": "Response List Reports Api V1 Missions  Mission Id  Preflight Reports Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/plans/{plan_id}/stages": {
       "get": {
         "summary": "Stages",
@@ -2481,6 +2640,720 @@
           }
         }
       }
+    },
+    "/api/v1/meta/operations-capabilities": {
+      "get": {
+        "summary": "Operation Capabilities",
+        "operationId": "operation_capabilities_api_v1_meta_operations_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationCapabilities"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions": {
+      "post": {
+        "summary": "Create Execution",
+        "operationId": "create_execution_api_v1_executions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/missions/{mission_id}/executions": {
+      "get": {
+        "summary": "List Executions",
+        "operationId": "list_executions_api_v1_missions__mission_id__executions_get",
+        "parameters": [
+          {
+            "name": "mission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Mission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExecutionView"
+                  },
+                  "title": "Response List Executions Api V1 Missions  Mission Id  Executions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}": {
+      "get": {
+        "summary": "Get Execution",
+        "operationId": "get_execution_api_v1_executions__execution_id__get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/simulation/actions": {
+      "post": {
+        "summary": "Action",
+        "operationId": "action_api_v1_executions__execution_id__simulation_actions_post",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/events": {
+      "post": {
+        "summary": "Event",
+        "operationId": "event_api_v1_executions__execution_id__events_post",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutionEventInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionEventView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Events",
+        "operationId": "list_events_api_v1_executions__execution_id__events_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExecutionEventView"
+                  },
+                  "title": "Response List Events Api V1 Executions  Execution Id  Events Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/replan-jobs": {
+      "post": {
+        "summary": "Repair",
+        "operationId": "repair_api_v1_executions__execution_id__replan_jobs_post",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/plan-changes": {
+      "get": {
+        "summary": "List Changes",
+        "operationId": "list_changes_api_v1_executions__execution_id__plan_changes_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RepairView"
+                  },
+                  "title": "Response List Changes Api V1 Executions  Execution Id  Plan Changes Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/plan-changes/{change_id}": {
+      "get": {
+        "summary": "Get Change",
+        "operationId": "get_change_api_v1_executions__execution_id__plan_changes__change_id__get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          },
+          {
+            "name": "change_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Change Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/plan-changes/{change_id}/apply": {
+      "post": {
+        "summary": "Apply Change",
+        "operationId": "apply_change_api_v1_executions__execution_id__plan_changes__change_id__apply_post",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          },
+          {
+            "name": "change_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Change Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyRepair"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepairView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/devices/{device_id}/capabilities": {
+      "get": {
+        "summary": "Device Capabilities",
+        "operationId": "device_capabilities_api_v1_devices__device_id__capabilities_get",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceCapabilities"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commands": {
+      "post": {
+        "summary": "Command",
+        "operationId": "command_api_v1_commands_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommandRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/commands/{command_id}": {
+      "get": {
+        "summary": "Get Command",
+        "operationId": "get_command_api_v1_commands__command_id__get",
+        "parameters": [
+          {
+            "name": "command_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Command Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandView"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/analysis": {
+      "get": {
+        "summary": "Analysis",
+        "operationId": "analysis_api_v1_executions__execution_id__analysis_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionAnalysis"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/stream": {
+      "get": {
+        "summary": "Stream",
+        "operationId": "stream_api_v1_executions__execution_id__stream_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/executions/{execution_id}/export": {
+      "get": {
+        "summary": "Export Execution",
+        "operationId": "export_execution_api_v1_executions__execution_id__export_get",
+        "parameters": [
+          {
+            "name": "execution_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Execution Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2499,6 +3372,36 @@
         "minLength": 1,
         "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
         "title": "AddedSortieId"
+      },
+      "ApplyRepair": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "ack_timeout_device_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 20,
+            "title": "Ack Timeout Device Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "idempotency_key"
+        ],
+        "title": "ApplyRepair"
       },
       "Base": {
         "properties": {
@@ -2695,6 +3598,20 @@
           "file"
         ],
         "title": "Body_import_file_api_v1_scenarios_import_file_post"
+      },
+      "Body_input_preview_api_v1_missions__mission_id__input_preview_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_input_preview_api_v1_missions__mission_id__input_preview_post"
       },
       "Body_upload_terrain_api_v1_terrain_assets_post": {
         "properties": {
@@ -3385,6 +4302,174 @@
         ],
         "title": "Code1"
       },
+      "CommandRequest": {
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "command_type": {
+            "type": "string",
+            "enum": [
+              "mission.upload",
+              "mission.activate",
+              "state.query"
+            ],
+            "title": "Command Type"
+          },
+          "desired_plan_id": {
+            "type": "string",
+            "title": "Desired Plan Id"
+          },
+          "expected_execution_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Execution Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "simulation_fault": {
+            "type": "string",
+            "enum": [
+              "none",
+              "reject",
+              "ack_timeout",
+              "completion_timeout"
+            ],
+            "title": "Simulation Fault",
+            "default": "none"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "execution_id",
+          "device_id",
+          "command_type",
+          "desired_plan_id",
+          "expected_execution_revision",
+          "idempotency_key",
+          "expires_at"
+        ],
+        "title": "CommandRequest"
+      },
+      "CommandView": {
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "title": "Command Id"
+          },
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "command_type": {
+            "type": "string",
+            "title": "Command Type"
+          },
+          "mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Mode",
+            "default": "simulation"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "sent",
+              "acknowledged",
+              "succeeded",
+              "rejected",
+              "expired",
+              "indeterminate"
+            ],
+            "title": "Status"
+          },
+          "desired_plan_id": {
+            "type": "string",
+            "title": "Desired Plan Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "acknowledged_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Acknowledged At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "command_id",
+          "execution_id",
+          "device_id",
+          "command_type",
+          "status",
+          "desired_plan_id",
+          "created_at",
+          "expires_at",
+          "acknowledged_at",
+          "completed_at",
+          "evidence"
+        ],
+        "title": "CommandView"
+      },
       "Communication": {
         "properties": {
           "model_id": {
@@ -3855,6 +4940,59 @@
         ],
         "title": "DeliveryAnalysis"
       },
+      "DeliveryDeviation": {
+        "properties": {
+          "cargo_id": {
+            "type": "string",
+            "title": "Cargo Id"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "sortie_id": {
+            "type": "string",
+            "title": "Sortie Id"
+          },
+          "initial_expected_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Initial Expected S"
+          },
+          "delivered_s": {
+            "type": "number",
+            "title": "Delivered S"
+          },
+          "difference_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Difference S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cargo_id",
+          "plan_id",
+          "sortie_id",
+          "initial_expected_s",
+          "delivered_s",
+          "difference_s"
+        ],
+        "title": "DeliveryDeviation"
+      },
       "Demand": {
         "properties": {
           "demand_id": {
@@ -4092,6 +5230,152 @@
           "hard_satisfied"
         ],
         "title": "DemandDelivery"
+      },
+      "DeviceApplication": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "desired_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Desired Plan Id"
+          },
+          "active_plan_id": {
+            "type": "string",
+            "title": "Active Plan Id"
+          },
+          "upload_state": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "acknowledged",
+              "succeeded",
+              "indeterminate"
+            ],
+            "title": "Upload State"
+          },
+          "activation_state": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "active",
+              "indeterminate"
+            ],
+            "title": "Activation State"
+          },
+          "command_id": {
+            "type": "string",
+            "title": "Command Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id",
+          "desired_plan_id",
+          "active_plan_id",
+          "upload_state",
+          "activation_state",
+          "command_id"
+        ],
+        "title": "DeviceApplication"
+      },
+      "DeviceCapabilities": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "adapter": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Adapter",
+            "default": "simulation"
+          },
+          "mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Mode",
+            "default": "simulation"
+          },
+          "supports_upload": {
+            "type": "boolean",
+            "const": true,
+            "title": "Supports Upload",
+            "default": true
+          },
+          "supports_inflight_replacement": {
+            "type": "boolean",
+            "const": false,
+            "title": "Supports Inflight Replacement",
+            "default": false
+          },
+          "supports_future_schedule_update": {
+            "type": "boolean",
+            "const": true,
+            "title": "Supports Future Schedule Update",
+            "default": true
+          },
+          "command_types": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "mission.upload",
+                "mission.activate",
+                "state.query"
+              ]
+            },
+            "type": "array",
+            "title": "Command Types"
+          },
+          "real_device_connected": {
+            "type": "boolean",
+            "const": false,
+            "title": "Real Device Connected",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id",
+          "command_types"
+        ],
+        "title": "DeviceCapabilities"
+      },
+      "DraftImportPreview": {
+        "properties": {
+          "draft": {
+            "$ref": "#/components/schemas/MissionDraft"
+          },
+          "row_count": {
+            "type": "integer",
+            "title": "Row Count"
+          },
+          "notices": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notices"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "draft",
+          "row_count",
+          "notices"
+        ],
+        "title": "DraftImportPreview"
       },
       "Drone": {
         "properties": {
@@ -4423,6 +5707,539 @@
         "additionalProperties": false,
         "type": "object",
         "title": "ExampleRequest"
+      },
+      "ExecutionAnalysis": {
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "source": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Source",
+            "default": "simulation"
+          },
+          "allocated_quantity": {
+            "type": "integer",
+            "title": "Allocated Quantity"
+          },
+          "delivered_quantity": {
+            "type": "integer",
+            "title": "Delivered Quantity"
+          },
+          "unserved_quantity": {
+            "type": "integer",
+            "title": "Unserved Quantity"
+          },
+          "delivery_rows": {
+            "items": {
+              "$ref": "#/components/schemas/ExecutionFact"
+            },
+            "type": "array",
+            "title": "Delivery Rows"
+          },
+          "initial_plan_id": {
+            "type": "string",
+            "title": "Initial Plan Id"
+          },
+          "active_plan_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Active Plan Ids"
+          },
+          "event_count": {
+            "type": "integer",
+            "title": "Event Count"
+          },
+          "change_count": {
+            "type": "integer",
+            "title": "Change Count"
+          },
+          "deviation_rows": {
+            "items": {
+              "$ref": "#/components/schemas/DeliveryDeviation"
+            },
+            "type": "array",
+            "title": "Deviation Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "execution_id",
+          "facts_cursor",
+          "allocated_quantity",
+          "delivered_quantity",
+          "unserved_quantity",
+          "delivery_rows",
+          "initial_plan_id",
+          "active_plan_ids",
+          "event_count",
+          "change_count"
+        ],
+        "title": "ExecutionAnalysis"
+      },
+      "ExecutionCreate": {
+        "properties": {
+          "mission_id": {
+            "type": "string",
+            "title": "Mission Id"
+          },
+          "confirmed_plan_id": {
+            "type": "string",
+            "title": "Confirmed Plan Id"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Mode",
+            "default": "simulation"
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Seed",
+            "default": 42
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mission_id",
+          "confirmed_plan_id",
+          "expected_revision",
+          "idempotency_key"
+        ],
+        "title": "ExecutionCreate"
+      },
+      "ExecutionEventInput": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Event Id"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "drone.unavailable",
+              "battery.unavailable",
+              "demand.added",
+              "site.unavailable"
+            ],
+            "title": "Event Type"
+          },
+          "object_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Object Id"
+          },
+          "demand": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Demand"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cargo_items": {
+            "items": {
+              "$ref": "#/components/schemas/CargoItem"
+            },
+            "type": "array",
+            "maxItems": 200,
+            "title": "Cargo Items"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "expected_revision",
+          "event_type",
+          "reason"
+        ],
+        "title": "ExecutionEventInput"
+      },
+      "ExecutionEventView": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "title": "Event Id"
+          },
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "event_type": {
+            "type": "string",
+            "title": "Event Type"
+          },
+          "object_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Object Id"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "affected_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Affected Sortie Ids"
+          },
+          "propagated_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Propagated Sortie Ids"
+          },
+          "preserved_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Preserved Sortie Ids"
+          },
+          "committed_sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Committed Sortie Ids"
+          },
+          "missing_inventory": {
+            "type": "integer",
+            "title": "Missing Inventory"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "recorded",
+              "requires_manual"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "execution_id",
+          "event_type",
+          "object_id",
+          "reason",
+          "time_s",
+          "facts_cursor",
+          "affected_sortie_ids",
+          "propagated_sortie_ids",
+          "preserved_sortie_ids",
+          "committed_sortie_ids",
+          "missing_inventory",
+          "status"
+        ],
+        "title": "ExecutionEventView"
+      },
+      "ExecutionFact": {
+        "properties": {
+          "fact_id": {
+            "type": "string",
+            "title": "Fact Id"
+          },
+          "cursor": {
+            "type": "integer",
+            "title": "Cursor"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "loaded",
+              "takeoff",
+              "delivered",
+              "returned",
+              "released",
+              "battery_ready",
+              "plan_adopted"
+            ],
+            "title": "Kind"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "sortie_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sortie Id"
+          },
+          "drone_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drone Id"
+          },
+          "battery_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Battery Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cargo Ids"
+          },
+          "source": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Source",
+            "default": "simulation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "fact_id",
+          "cursor",
+          "time_s",
+          "kind",
+          "plan_id",
+          "sortie_id",
+          "drone_id",
+          "battery_id",
+          "cargo_ids"
+        ],
+        "title": "ExecutionFact"
+      },
+      "ExecutionSchedulePart": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "sortie_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sortie Ids"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "initial",
+              "commitment",
+              "future"
+            ],
+            "title": "Role"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "sortie_ids",
+          "role"
+        ],
+        "title": "ExecutionSchedulePart"
+      },
+      "ExecutionView": {
+        "properties": {
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "mission_id": {
+            "type": "string",
+            "title": "Mission Id"
+          },
+          "mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Mode"
+          },
+          "initial_plan_id": {
+            "type": "string",
+            "title": "Initial Plan Id"
+          },
+          "desired_plan_id": {
+            "type": "string",
+            "title": "Desired Plan Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "running",
+              "paused",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "revision": {
+            "type": "integer",
+            "title": "Revision"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "speed": {
+            "type": "number",
+            "title": "Speed"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "connected": {
+            "type": "boolean",
+            "title": "Connected"
+          },
+          "schedule_parts": {
+            "items": {
+              "$ref": "#/components/schemas/ExecutionSchedulePart"
+            },
+            "type": "array",
+            "title": "Schedule Parts"
+          },
+          "delivered_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Delivered Cargo Ids"
+          },
+          "facts": {
+            "items": {
+              "$ref": "#/components/schemas/ExecutionFact"
+            },
+            "type": "array",
+            "title": "Facts"
+          },
+          "telemetry": {
+            "items": {
+              "$ref": "#/components/schemas/TelemetrySample"
+            },
+            "type": "array",
+            "title": "Telemetry"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "execution_id",
+          "mission_id",
+          "mode",
+          "initial_plan_id",
+          "desired_plan_id",
+          "status",
+          "revision",
+          "facts_cursor",
+          "time_s",
+          "speed",
+          "seed",
+          "connected",
+          "schedule_parts",
+          "delivered_cargo_ids",
+          "facts",
+          "telemetry",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ExecutionView"
       },
       "Features": {
         "properties": {
@@ -5315,8 +7132,7 @@
           },
           "timezone": {
             "type": "string",
-            "title": "Timezone",
-            "default": "Asia/Shanghai"
+            "title": "Timezone"
           },
           "base": {
             "anyOf": [
@@ -5415,6 +7231,14 @@
         "type": "object",
         "required": [
           "start_time",
+          "timezone",
+          "base",
+          "sites",
+          "demands",
+          "cargo_items",
+          "drone_types",
+          "drones",
+          "batteries",
           "terrain",
           "policy"
         ],
@@ -6174,6 +7998,84 @@
           "tradeoff_v2"
         ],
         "title": "ObjectivePolicy"
+      },
+      "OperationCapabilities": {
+        "properties": {
+          "modes": {
+            "items": {
+              "type": "string",
+              "const": "simulation"
+            },
+            "type": "array",
+            "title": "Modes"
+          },
+          "real_dispatch": {
+            "type": "boolean",
+            "const": false,
+            "title": "Real Dispatch",
+            "default": false
+          },
+          "sitl": {
+            "type": "boolean",
+            "const": false,
+            "title": "Sitl",
+            "default": false
+          },
+          "persistent_simulation": {
+            "type": "boolean",
+            "const": true,
+            "title": "Persistent Simulation",
+            "default": true
+          },
+          "commitment_repair": {
+            "type": "string",
+            "const": "transport_committed_prefix_future_only",
+            "title": "Commitment Repair",
+            "default": "transport_committed_prefix_future_only"
+          },
+          "relay_simulation": {
+            "type": "boolean",
+            "const": false,
+            "title": "Relay Simulation",
+            "default": false
+          },
+          "weather_information": {
+            "type": "boolean",
+            "const": false,
+            "title": "Weather Information",
+            "default": false
+          },
+          "weather_thresholds": {
+            "type": "boolean",
+            "const": false,
+            "title": "Weather Thresholds",
+            "default": false
+          },
+          "weather_energy": {
+            "type": "boolean",
+            "const": false,
+            "title": "Weather Energy",
+            "default": false
+          },
+          "learning_search": {
+            "type": "boolean",
+            "const": false,
+            "title": "Learning Search",
+            "default": false
+          },
+          "position_source": {
+            "type": "string",
+            "const": "business_model_phases",
+            "title": "Position Source",
+            "default": "business_model_phases"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "modes"
+        ],
+        "title": "OperationCapabilities"
       },
       "PartitionAssignment": {
         "properties": {
@@ -8058,6 +9960,165 @@
         "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
         "title": "RemovedSortieId"
       },
+      "RepairRequest": {
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "objective": {
+            "type": "string",
+            "enum": [
+              "time",
+              "energy",
+              "balanced"
+            ],
+            "title": "Objective",
+            "default": "time"
+          },
+          "time_limit_s": {
+            "type": "number",
+            "maximum": 120.0,
+            "minimum": 1.0,
+            "title": "Time Limit S",
+            "default": 10
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_revision",
+          "idempotency_key"
+        ],
+        "title": "RepairRequest"
+      },
+      "RepairView": {
+        "properties": {
+          "change_id": {
+            "type": "string",
+            "title": "Change Id"
+          },
+          "execution_id": {
+            "type": "string",
+            "title": "Execution Id"
+          },
+          "execution_revision": {
+            "type": "integer",
+            "title": "Execution Revision"
+          },
+          "facts_cursor": {
+            "type": "integer",
+            "title": "Facts Cursor"
+          },
+          "event_fingerprint": {
+            "type": "string",
+            "title": "Event Fingerprint"
+          },
+          "committed_parts": {
+            "items": {
+              "$ref": "#/components/schemas/ExecutionSchedulePart"
+            },
+            "type": "array",
+            "title": "Committed Parts"
+          },
+          "committed_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Committed Cargo Ids"
+          },
+          "future_not_before_s": {
+            "type": "number",
+            "title": "Future Not Before S"
+          },
+          "job": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SolveJob"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidate_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Plan Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "computing",
+              "ready",
+              "no_remaining",
+              "applying",
+              "failed",
+              "partially_applied",
+              "applied"
+            ],
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "changed_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Changed Cargo Ids"
+          },
+          "retained_cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Retained Cargo Ids"
+          },
+          "applications": {
+            "items": {
+              "$ref": "#/components/schemas/DeviceApplication"
+            },
+            "type": "array",
+            "title": "Applications"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "change_id",
+          "execution_id",
+          "execution_revision",
+          "facts_cursor",
+          "event_fingerprint",
+          "committed_parts",
+          "committed_cargo_ids",
+          "future_not_before_s",
+          "job",
+          "candidate_plan_id",
+          "status",
+          "message",
+          "changed_cargo_ids",
+          "retained_cargo_ids"
+        ],
+        "title": "RepairView"
+      },
       "ResourceAddition": {
         "properties": {
           "type_id": {
@@ -8644,6 +10705,67 @@
         "minLength": 1,
         "title": "SchemaVersion"
       },
+      "SimulationAction": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "start",
+              "pause",
+              "resume",
+              "speed",
+              "advance",
+              "disconnect",
+              "reconnect"
+            ],
+            "title": "Action"
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Revision"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Idempotency Key"
+          },
+          "speed": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speed"
+          },
+          "target_time_s": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Time S"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action",
+          "expected_revision",
+          "idempotency_key"
+        ],
+        "title": "SimulationAction"
+      },
       "Site": {
         "properties": {
           "id": {
@@ -9148,6 +11270,65 @@
         ],
         "title": "Sortie"
       },
+      "SortieLoad": {
+        "properties": {
+          "sortie_id": {
+            "type": "string",
+            "title": "Sortie Id"
+          },
+          "drone_id": {
+            "type": "string",
+            "title": "Drone Id"
+          },
+          "type_id": {
+            "type": "string",
+            "title": "Type Id"
+          },
+          "cargo_count": {
+            "type": "integer",
+            "title": "Cargo Count"
+          },
+          "mass_kg": {
+            "type": "number",
+            "title": "Mass Kg"
+          },
+          "volume_l": {
+            "type": "number",
+            "title": "Volume L"
+          },
+          "max_payload_kg": {
+            "type": "number",
+            "title": "Max Payload Kg"
+          },
+          "max_volume_l": {
+            "type": "number",
+            "title": "Max Volume L"
+          },
+          "mass_utilization": {
+            "type": "number",
+            "title": "Mass Utilization"
+          },
+          "volume_utilization": {
+            "type": "number",
+            "title": "Volume Utilization"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "sortie_id",
+          "drone_id",
+          "type_id",
+          "cargo_count",
+          "mass_kg",
+          "volume_l",
+          "max_payload_kg",
+          "max_volume_l",
+          "mass_utilization",
+          "volume_utilization"
+        ],
+        "title": "SortieLoad"
+      },
       "Source": {
         "type": "string",
         "enum": [
@@ -9227,6 +11408,13 @@
             },
             "type": "array",
             "title": "Trajectory Segments"
+          },
+          "sortie_loads": {
+            "items": {
+              "$ref": "#/components/schemas/SortieLoad"
+            },
+            "type": "array",
+            "title": "Sortie Loads"
           }
         },
         "additionalProperties": false,
@@ -9385,6 +11573,168 @@
           "balanced"
         ],
         "title": "SupportedObjective"
+      },
+      "TelemetrySample": {
+        "properties": {
+          "device_id": {
+            "type": "string",
+            "title": "Device Id"
+          },
+          "device_session_id": {
+            "type": "string",
+            "title": "Device Session Id"
+          },
+          "device_sequence": {
+            "type": "integer",
+            "title": "Device Sequence"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observed At"
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Received At"
+          },
+          "time_s": {
+            "type": "number",
+            "title": "Time S"
+          },
+          "coordinates": {
+            "anyOf": [
+              {
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "type": "array",
+                "maxItems": 2,
+                "minItems": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coordinates"
+          },
+          "elevation_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Elevation M"
+          },
+          "vertical_datum": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vertical Datum"
+          },
+          "soc": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc"
+          },
+          "soc_sample_time_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc Sample Time S"
+          },
+          "phase": {
+            "type": "string",
+            "title": "Phase"
+          },
+          "sortie_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sortie Id"
+          },
+          "battery_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Battery Id"
+          },
+          "cargo_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cargo Ids"
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "simulated",
+              "stale",
+              "missing"
+            ],
+            "title": "Quality"
+          },
+          "active_plan_id": {
+            "type": "string",
+            "title": "Active Plan Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "device_id",
+          "device_session_id",
+          "device_sequence",
+          "observed_at",
+          "received_at",
+          "time_s",
+          "coordinates",
+          "elevation_m",
+          "vertical_datum",
+          "soc",
+          "soc_sample_time_s",
+          "phase",
+          "sortie_id",
+          "cargo_ids",
+          "quality",
+          "active_plan_id"
+        ],
+        "title": "TelemetrySample"
       },
       "Terrain": {
         "properties": {

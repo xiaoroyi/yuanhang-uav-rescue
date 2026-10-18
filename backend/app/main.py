@@ -314,7 +314,10 @@ def create_app(runtime_dir: Path | None = None):
         manager = JobManager(database)
         manager.recover()
         app.state.jobs = manager
+        from backend.app.simulation import SimulationEngine
+        app.state.simulation = SimulationEngine(database, AppError)
         yield
+        app.state.simulation.close()
         manager.close()
         database.engine.dispose()
 
@@ -325,7 +328,7 @@ def create_app(runtime_dir: Path | None = None):
         CORSMiddleware,
         allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
         allow_credentials=False,
-        allow_methods=["GET", "POST", "PUT"],
+        allow_methods=["GET", "POST", "PUT", "PATCH"],
         allow_headers=["Content-Type", "X-Request-ID"],
     )
 
@@ -1655,9 +1658,14 @@ def create_app(runtime_dir: Path | None = None):
 
     from backend.app.missions import register_missions
     register_missions(app, database, AppError, save_new, snapshot_for)
+    from backend.app.executions import register_executions
+    register_executions(app, database, AppError, create_job, SolveRequest, snapshot_for)
 
     frontend = ROOT / "frontend/dist"
     if frontend.is_dir():
+        maps = frontend / "maps"
+        if maps.is_dir():
+            app.mount("/maps", StaticFiles(directory=maps), name="ui-offline-maps")
         assets = frontend / "assets"
         if assets.is_dir():
             app.mount("/assets", StaticFiles(directory=assets), name="ui-assets")

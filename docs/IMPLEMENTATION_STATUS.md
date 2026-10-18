@@ -1,5 +1,7 @@
 # 真实实现状态
 
+当前 V2 重构仍在持续实施，入口 evidence/redesign-v2/INDEX.md 与 HANDOFF.md。新首页/任务流程、服务器模拟和承诺前缀修复已有代码及专项测试；下文是 V1 历史交付，不能当作 V2 全量验收。分支 feat/mission-workspace-v2，不改写 main。
+
 候选集成分支为 `feat/solo-fullstack-v0`，本轮展示与分析体验在 `feat/experience-v1` 开发，验证后同步候选分支，main 未改写。长期两人分工：A 负责算法兼项目负责人，B 同一人负责前后端与集成。Schema 为 `0.1.0-draft / proposed`，`approved_by=[]`；按用户授权实施草案，正式冻结由 A/B 评审。
 
 ## 策略与调度补充

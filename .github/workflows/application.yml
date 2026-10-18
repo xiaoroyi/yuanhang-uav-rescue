@@ -28,8 +28,9 @@ jobs:
       - run: npm --prefix frontend run build
       - run: .venv/bin/python scripts/generate_models.py
       - run: .venv/bin/python scripts/export_openapi.py
+      - run: .venv/bin/python scripts/export_operations.py
       - run: node frontend/scripts/generate-types.mjs
-      - run: git diff --exit-code -- backend/app/generated/domain.py contracts/http/openapi.generated.json frontend/src/api/generated/http.d.ts
+      - run: git diff --exit-code -- backend/app/generated/domain.py contracts/http/openapi.generated.json contracts/operations/v2.schema.json frontend/src/api/generated/http.d.ts
       - name: Install project-local Chromium
         env:
           PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.local/ms-playwright

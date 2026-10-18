@@ -1,0 +1,437 @@
+"""Actual worker + persistent simulation + commitment repair integration tests."""
+
+import copy
+from datetime import datetime, timedelta, timezone
+import time
+
+from fastapi.testclient import TestClient
+import pytest
+
+from backend.app.main import create_app
+
+
+def post(c, path, data, status=200):
+    r = c.post("/api/v1" + path, json=data)
+    assert r.status_code == status, r.text
+    return r.json()
+
+
+def await_job(c, job):
+    for _ in range(350):
+        job = c.get("/api/v1/solve-jobs/" + job["job_id"]).json()
+        if job["job_state"] not in ("queued", "running"):
+            return job
+        time.sleep(0.05)
+    raise AssertionError(job)
+
+
+def setup(c):
+    m = post(
+        c,
+        "/missions",
+        {
+            "name": "Execution contract test",
+            "template": "compact",
+            "idempotency_key": "create",
+        },
+        201,
+    )
+    s = c.get("/api/v1/scenarios/" + m["current_scenario_id"]).json()
+    # Keep one available entity at the base for the in-flight future-failure scenario.
+    s["drones"][-1]["available_after_s"] = 20000
+    r = c.put(
+        "/api/v1/scenarios/" + s["scenario_id"],
+        json={"expected_state_version": 1, "scenario": s},
+    )
+    assert r.status_code == 200, r.text
+    s = r.json()
+    snap = post(
+        c,
+        f"/scenarios/{s['scenario_id']}/snapshots",
+        {"expected_state_version": 2},
+        201,
+    )
+    job = await_job(
+        c,
+        post(
+            c,
+            "/solve-jobs",
+            {
+                "snapshot_id": snap["snapshot_id"],
+                "time_limit_s": 5,
+                "objective_policy": "tradeoff_v2",
+            },
+            202,
+        ),
+    )
+    assert job["has_validated_plan"], job
+    p = c.get("/api/v1/plans/" + job["plan_id"]).json()
+    post(
+        c,
+        f"/plans/{p['plan_id']}/confirm",
+        {"expected_state_version": 2, "idempotency_key": "confirm"},
+    )
+    e = post(
+        c,
+        "/executions",
+        {
+            "mission_id": m["mission_id"],
+            "confirmed_plan_id": p["plan_id"],
+            "expected_revision": 1,
+            "idempotency_key": "exec",
+        },
+        201,
+    )
+    return m, s, p, e
+
+
+def act(c, e, kind, **options):
+    return post(
+        c,
+        f"/executions/{e['execution_id']}/simulation/actions",
+        {
+            "action": kind,
+            "expected_revision": e["revision"],
+            "idempotency_key": f"{kind}-{e['revision']}",
+            **options,
+        },
+    )
+
+
+def test_simulation_clock_refresh_idempotence_reconnect_and_commands(tmp_path):
+    directory = tmp_path / "runtime"
+    with TestClient(create_app(directory)) as c:
+        m, s, p, e = setup(c)
+        assert c.get("/api/v1/executions/" + e["execution_id"]).json()["facts"] == []
+        e = act(c, e, "start")
+        time.sleep(0.1)
+        e = act(c, e, "pause")
+        first = (
+            min(v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]) + 1
+        )
+        e = act(c, e, "advance", target_time_s=first)
+        assert e["delivered_cargo_ids"]
+        paused = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        time.sleep(0.1)
+        same = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert paused["time_s"] == same["time_s"] and paused["facts"] == same["facts"]
+        assert (
+            same["telemetry"][0]["device_sequence"]
+            > paused["telemetry"][0]["device_sequence"]
+        )
+        assert len({f["fact_id"] for f in same["facts"]}) == same["facts_cursor"]
+        old_position = {x["device_id"]: x["coordinates"] for x in e["telemetry"]}
+        e = act(c, e, "disconnect")
+        e = act(c, e, "advance", target_time_s=first + 100)
+        assert all(
+            x["quality"] == "stale" and x["coordinates"] == old_position[x["device_id"]]
+            for x in e["telemetry"]
+        )
+        old_session = e["telemetry"][0]["device_session_id"]
+        e = act(c, e, "reconnect")
+        assert e["telemetry"][0]["device_session_id"] != old_session
+        expires = (datetime.now(timezone.utc) + timedelta(seconds=30)).isoformat()
+        command = {
+            "execution_id": e["execution_id"],
+            "device_id": s["drones"][0]["drone_id"],
+            "command_type": "mission.upload",
+            "desired_plan_id": p["plan_id"],
+            "expected_execution_revision": e["revision"],
+            "idempotency_key": "cmd-1",
+            "expires_at": expires,
+            "simulation_fault": "ack_timeout",
+        }
+        cmd = post(c, "/commands", command, 202)
+        assert cmd["status"] == "queued" and cmd["completed_at"] is None
+        assert post(c, "/commands", command, 202) == cmd
+        assert (
+            c.post(
+                "/api/v1/commands", json={**command, "device_id": "UNKNOWN"}
+            ).status_code
+            == 409
+        )
+        time.sleep(0.9)
+        unknown = c.get("/api/v1/commands/" + cmd["command_id"]).json()
+        assert unknown["status"] == "indeterminate" and unknown["completed_at"] is None
+        bad = {
+            **command,
+            "idempotency_key": "cmd-bad",
+            "expected_execution_revision": e["revision"] - 1,
+        }
+        assert c.post("/api/v1/commands", json=bad).status_code == 409
+        assert (
+            c.post(
+                "/api/v1/commands",
+                json={**command, "idempotency_key": "cmd-real", "mode": "real"},
+            ).status_code
+            == 422
+        )
+        saved = c.get("/api/v1/executions/" + e["execution_id"]).json()
+    with TestClient(create_app(directory)) as c:
+        restored = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert (
+            restored["time_s"] == saved["time_s"]
+            and restored["facts"] == saved["facts"]
+        )
+
+
+def test_inflight_repair_preserves_facts_and_resource_release(tmp_path):
+    with TestClient(create_app(tmp_path / "runtime")) as c:
+        m, s, p, e = setup(c)
+        first = (
+            min(v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]) + 1
+        )
+        e = act(c, e, "advance", target_time_s=first)
+        assert any(
+            x["phase"] in ("climb", "cruise", "descent", "handover")
+            for x in e["telemetry"]
+        )
+        delivered = list(e["delivered_cargo_ids"])
+        facts = copy.deepcopy(e["facts"])
+        failure = {
+            "event_id": "future-failure",
+            "expected_revision": e["revision"],
+            "event_type": "drone.unavailable",
+            "object_id": s["drones"][-1]["drone_id"],
+            "reason": "future entity unavailable",
+        }
+        event = post(c, f"/executions/{e['execution_id']}/events", failure, 201)
+        assert event["status"] == "recorded"
+        assert post(c, f"/executions/{e['execution_id']}/events", failure, 201) == event
+        assert (
+            c.post(
+                f"/api/v1/executions/{e['execution_id']}/events",
+                json={**failure, "reason": "different"},
+            ).status_code
+            == 409
+        )
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        extra = {
+            "demand_id": "DYNAMIC-1",
+            "site_id": s["sites"][0]["id"],
+            "cargo_type": "medical",
+            "required_quantity": 1,
+            "priority": 1,
+            "expected_deadline_s": None,
+            "hard_deadline_s": None,
+            "mandatory": True,
+        }
+        cargo = {
+            "cargo_id": "BOX-NEW",
+            "demand_id": "DYNAMIC-1",
+            "type": "medical",
+            "mass_kg": 1,
+            "volume_l": 1,
+            "status": "available",
+            "location_id": s["base"]["id"],
+        }
+        post(
+            c,
+            f"/executions/{e['execution_id']}/events",
+            {
+                "event_id": "urgent",
+                "expected_revision": e["revision"],
+                "event_type": "demand.added",
+                "demand": extra,
+                "cargo_items": [cargo],
+                "reason": "explicit new stock",
+            },
+            201,
+        )
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        change = post(
+            c,
+            f"/executions/{e['execution_id']}/replan-jobs",
+            {
+                "expected_revision": e["revision"],
+                "idempotency_key": "repair",
+                "time_limit_s": 3,
+            },
+            202,
+        )
+        assert change["committed_cargo_ids"] and set(delivered) <= set(
+            change["committed_cargo_ids"]
+        )
+        job = await_job(c, change["job"])
+        assert job["has_validated_plan"], job
+        change = c.get(
+            f"/api/v1/executions/{e['execution_id']}/plan-changes/{change['change_id']}"
+        ).json()
+        assert change["status"] == "ready"
+        candidate = c.get("/api/v1/plans/" + change["candidate_plan_id"]).json()
+        assert all(
+            r["prepare_start_s"] >= change["future_not_before_s"]
+            for r in candidate["sorties"]
+        )
+        assert not set(change["committed_cargo_ids"]) & {
+            x for r in candidate["sorties"] for x in r["cargo_ids"]
+        }
+        assert all(
+            r["drone_id"] != s["drones"][-1]["drone_id"] for r in candidate["sorties"]
+        )
+        applied = post(
+            c,
+            f"/executions/{e['execution_id']}/plan-changes/{change['change_id']}/apply",
+            {"expected_revision": e["revision"], "idempotency_key": "apply"},
+        )
+        assert applied["status"] == "applying" and all(
+            a["activation_state"] == "not_started" for a in applied["applications"]
+        )
+        for _ in range(60):
+            applied = c.get(
+                f"/api/v1/executions/{e['execution_id']}/plan-changes/{change['change_id']}"
+            ).json()
+            if applied["status"] != "applying":
+                break
+            time.sleep(0.05)
+        assert applied["status"] == "applied" and all(
+            a["activation_state"] == "active" for a in applied["applications"]
+        )
+        after = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert after["facts"] == facts and set(delivered) <= set(
+            after["delivered_cargo_ids"]
+        )
+        assert c.get("/api/v1/plans/" + p["plan_id"]).json() == p
+        finish = max(r["battery_released_s"] for r in candidate["sorties"]) + 1
+        after = act(c, after, "advance", target_time_s=finish)
+        assert "BOX-NEW" in after["delivered_cargo_ids"]
+        assert after["status"] == "completed"
+        assert len(after["delivered_cargo_ids"]) == len(s["cargo_items"]) + 1
+        summary = c.get(f"/api/v1/executions/{e['execution_id']}/analysis").json()
+        assert summary["delivered_quantity"] == 33 and summary["unserved_quantity"] == 0
+        assert (
+            next(r for r in summary["deviation_rows"] if r["cargo_id"] == "BOX-NEW")[
+                "difference_s"
+            ]
+            is None
+        )
+
+
+def test_partial_device_apply_retains_schedule_and_stale_candidate_rejected(tmp_path):
+    with TestClient(create_app(tmp_path / "runtime")) as c:
+        m, s, p, e = setup(c)
+        e = act(
+            c,
+            e,
+            "advance",
+            target_time_s=min(
+                v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]
+            )
+            + 1,
+        )
+        event = {
+            "event_id": "future",
+            "expected_revision": e["revision"],
+            "event_type": "drone.unavailable",
+            "object_id": s["drones"][-1]["drone_id"],
+            "reason": "do not dispatch future aircraft",
+        }
+        post(c, f"/executions/{e['execution_id']}/events", event, 201)
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        before = copy.deepcopy(e["schedule_parts"])
+        change = post(
+            c,
+            f"/executions/{e['execution_id']}/replan-jobs",
+            {
+                "expected_revision": e["revision"],
+                "idempotency_key": "one",
+                "time_limit_s": 3,
+            },
+            202,
+        )
+        assert await_job(c, change["job"])["has_validated_plan"]
+        endpoint = f"/executions/{e['execution_id']}/plan-changes/{change['change_id']}"
+        applied = post(
+            c,
+            endpoint + "/apply",
+            {
+                "expected_revision": e["revision"],
+                "idempotency_key": "timeout",
+                "ack_timeout_device_ids": [s["drones"][0]["drone_id"]],
+            },
+        )
+        assert applied["status"] == "applying"
+        time.sleep(1.3)
+        partial = c.get("/api/v1" + endpoint).json()
+        assert partial["status"] == "partially_applied"
+        assert any(
+            a["upload_state"] == "indeterminate" for a in partial["applications"]
+        )
+        assert not any(
+            a["activation_state"] == "active" for a in partial["applications"]
+        )
+        unchanged = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert (
+            unchanged["schedule_parts"] == before and unchanged["facts"] == e["facts"]
+        )
+        change = post(
+            c,
+            f"/executions/{e['execution_id']}/replan-jobs",
+            {
+                "expected_revision": e["revision"],
+                "idempotency_key": "two",
+                "time_limit_s": 3,
+            },
+            202,
+        )
+        assert await_job(c, change["job"])["has_validated_plan"]
+        moved = act(c, e, "advance", target_time_s=e["time_s"] + 1)
+        stale = c.post(
+            f"/api/v1/executions/{e['execution_id']}/plan-changes/{change['change_id']}/apply",
+            json={"expected_revision": moved["revision"], "idempotency_key": "stale"},
+        )
+        assert stale.status_code == 409
+
+
+def test_missing_stock_and_committed_failure_are_not_silently_rewritten(tmp_path):
+    with TestClient(create_app(tmp_path / "runtime")) as c:
+        m, s, p, e = setup(c)
+        e = act(c, e, "advance", target_time_s=1)
+        loaded = next(r for r in p["sorties"] if r["prepare_start_s"] <= 1)
+        ev = post(
+            c,
+            f"/executions/{e['execution_id']}/events",
+            {
+                "event_id": "loaded",
+                "expected_revision": e["revision"],
+                "event_type": "drone.unavailable",
+                "object_id": loaded["drone_id"],
+                "reason": "already loaded entity cannot teleport cargo",
+            },
+            201,
+        )
+        assert ev["status"] == "requires_manual"
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        blocked = c.post(
+            f"/api/v1/executions/{e['execution_id']}/replan-jobs",
+            json={"expected_revision": e["revision"], "idempotency_key": "blocked"},
+        )
+        assert (
+            blocked.status_code == 422
+            and blocked.json()["error"]["code"] == "COMMITMENT_REQUIRES_MANUAL"
+        )
+        demand = {
+            "demand_id": "NO-STOCK",
+            "site_id": s["sites"][0]["id"],
+            "cargo_type": "MED",
+            "required_quantity": 2,
+            "priority": 1,
+            "expected_deadline_s": None,
+            "hard_deadline_s": None,
+            "mandatory": True,
+        }
+        ev = post(
+            c,
+            f"/executions/{e['execution_id']}/events",
+            {
+                "event_id": "no-stock",
+                "expected_revision": e["revision"],
+                "event_type": "demand.added",
+                "demand": demand,
+                "cargo_items": [],
+                "reason": "new demand without stock",
+            },
+            201,
+        )
+        assert ev["missing_inventory"] == 2
+        assert c.get("/api/v1/plans/" + p["plan_id"]).json() == p

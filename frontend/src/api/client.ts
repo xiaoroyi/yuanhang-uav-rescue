@@ -40,7 +40,7 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(url: string, body?: unknown, method?: string): Promise<T> {
+export async function request<T>(url: string, body?: unknown, method?: string): Promise<T> {
   const response = await fetch('/api/v1' + url, {
     method: method || (body === undefined ? 'GET' : 'POST'),
     headers: body === undefined ? {} : { 'Content-Type': 'application/json' },

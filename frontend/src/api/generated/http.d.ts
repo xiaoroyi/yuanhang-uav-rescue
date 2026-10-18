@@ -801,6 +801,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/missions/{mission_id}/input-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Input Preview */
+        post: operations["input_preview_api_v1_missions__mission_id__input_preview_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}/input-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Input Template */
+        get: operations["input_template_api_v1_missions__mission_id__input_template_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/missions": {
         parameters: {
             query?: never;
@@ -905,6 +939,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/missions/{mission_id}/preflight-reports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Reports */
+        get: operations["list_reports_api_v1_missions__mission_id__preflight_reports_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/plans/{plan_id}/stages": {
         parameters: {
             query?: never;
@@ -914,6 +965,279 @@ export interface paths {
         };
         /** Stages */
         get: operations["stages_api_v1_plans__plan_id__stages_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/meta/operations-capabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Operation Capabilities */
+        get: operations["operation_capabilities_api_v1_meta_operations_capabilities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Execution */
+        post: operations["create_execution_api_v1_executions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/missions/{mission_id}/executions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Executions */
+        get: operations["list_executions_api_v1_missions__mission_id__executions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Execution */
+        get: operations["get_execution_api_v1_executions__execution_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/simulation/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Action */
+        post: operations["action_api_v1_executions__execution_id__simulation_actions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Events */
+        get: operations["list_events_api_v1_executions__execution_id__events_get"];
+        put?: never;
+        /** Event */
+        post: operations["event_api_v1_executions__execution_id__events_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/replan-jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Repair */
+        post: operations["repair_api_v1_executions__execution_id__replan_jobs_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/plan-changes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Changes */
+        get: operations["list_changes_api_v1_executions__execution_id__plan_changes_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/plan-changes/{change_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Change */
+        get: operations["get_change_api_v1_executions__execution_id__plan_changes__change_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/plan-changes/{change_id}/apply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Change */
+        post: operations["apply_change_api_v1_executions__execution_id__plan_changes__change_id__apply_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/devices/{device_id}/capabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Device Capabilities */
+        get: operations["device_capabilities_api_v1_devices__device_id__capabilities_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/commands": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Command */
+        post: operations["command_api_v1_commands_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/commands/{command_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Command */
+        get: operations["get_command_api_v1_commands__command_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/analysis": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Analysis */
+        get: operations["analysis_api_v1_executions__execution_id__analysis_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/stream": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Stream */
+        get: operations["stream_api_v1_executions__execution_id__stream_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/executions/{execution_id}/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Execution */
+        get: operations["export_execution_api_v1_executions__execution_id__export_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -933,6 +1257,15 @@ export interface components {
         Actor: "simulation" | "operator";
         /** AddedSortieId */
         AddedSortieId: string;
+        /** ApplyRepair */
+        ApplyRepair: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Ack Timeout Device Ids */
+            ack_timeout_device_ids?: string[];
+        };
         /** Base */
         Base: {
             /** Id */
@@ -1000,6 +1333,11 @@ export interface components {
         };
         /** Body_import_file_api_v1_scenarios_import_file_post */
         Body_import_file_api_v1_scenarios_import_file_post: {
+            /** File */
+            file: string;
+        };
+        /** Body_input_preview_api_v1_missions__mission_id__input_preview_post */
+        Body_input_preview_api_v1_missions__mission_id__input_preview_post: {
             /** File */
             file: string;
         };
@@ -1206,6 +1544,75 @@ export interface components {
          * @enum {string}
          */
         Code1: "SCHEMA_INVALID" | "REFERENCE_INVALID" | "RESOURCE_CONFLICT" | "STATE_VERSION_CONFLICT" | "SNAPSHOT_STALE" | "UNSUPPORTED_SCOPE" | "INPUT_NOT_READY" | "NO_VALIDATED_PLAN" | "UNSUPPORTED_EVENT_STATE" | "SOLVER_BUSY" | "CANCELED" | "EXTERNAL_ASSET_UNAVAILABLE" | "INTERNAL_ERROR";
+        /** CommandRequest */
+        CommandRequest: {
+            /** Execution Id */
+            execution_id: string;
+            /** Device Id */
+            device_id: string;
+            /**
+             * Command Type
+             * @enum {string}
+             */
+            command_type: "mission.upload" | "mission.activate" | "state.query";
+            /** Desired Plan Id */
+            desired_plan_id: string;
+            /** Expected Execution Revision */
+            expected_execution_revision: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+            /**
+             * Simulation Fault
+             * @default none
+             * @enum {string}
+             */
+            simulation_fault: "none" | "reject" | "ack_timeout" | "completion_timeout";
+        };
+        /** CommandView */
+        CommandView: {
+            /** Command Id */
+            command_id: string;
+            /** Execution Id */
+            execution_id: string;
+            /** Device Id */
+            device_id: string;
+            /** Command Type */
+            command_type: string;
+            /**
+             * Mode
+             * @default simulation
+             * @constant
+             */
+            mode: "simulation";
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "queued" | "sent" | "acknowledged" | "succeeded" | "rejected" | "expired" | "indeterminate";
+            /** Desired Plan Id */
+            desired_plan_id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+            /** Acknowledged At */
+            acknowledged_at: string | null;
+            /** Completed At */
+            completed_at: string | null;
+            /** Evidence */
+            evidence: string | null;
+        };
         /** Communication */
         Communication: {
             /**
@@ -1368,6 +1775,21 @@ export interface components {
             /** Hard Violation Count */
             hard_violation_count: number;
         };
+        /** DeliveryDeviation */
+        DeliveryDeviation: {
+            /** Cargo Id */
+            cargo_id: string;
+            /** Plan Id */
+            plan_id: string;
+            /** Sortie Id */
+            sortie_id: string;
+            /** Initial Expected S */
+            initial_expected_s: number | null;
+            /** Delivered S */
+            delivered_s: number;
+            /** Difference S */
+            difference_s: number | null;
+        };
         /** Demand */
         Demand: {
             /** Demand Id */
@@ -1442,6 +1864,78 @@ export interface components {
             delay_s: number | null;
             /** Hard Satisfied */
             hard_satisfied: boolean | null;
+        };
+        /** DeviceApplication */
+        DeviceApplication: {
+            /** Device Id */
+            device_id: string;
+            /** Desired Plan Id */
+            desired_plan_id: string | null;
+            /** Active Plan Id */
+            active_plan_id: string;
+            /**
+             * Upload State
+             * @enum {string}
+             */
+            upload_state: "queued" | "acknowledged" | "succeeded" | "indeterminate";
+            /**
+             * Activation State
+             * @enum {string}
+             */
+            activation_state: "not_started" | "active" | "indeterminate";
+            /** Command Id */
+            command_id: string;
+        };
+        /** DeviceCapabilities */
+        DeviceCapabilities: {
+            /** Device Id */
+            device_id: string;
+            /**
+             * Adapter
+             * @default simulation
+             * @constant
+             */
+            adapter: "simulation";
+            /**
+             * Mode
+             * @default simulation
+             * @constant
+             */
+            mode: "simulation";
+            /**
+             * Supports Upload
+             * @default true
+             * @constant
+             */
+            supports_upload: true;
+            /**
+             * Supports Inflight Replacement
+             * @default false
+             * @constant
+             */
+            supports_inflight_replacement: false;
+            /**
+             * Supports Future Schedule Update
+             * @default true
+             * @constant
+             */
+            supports_future_schedule_update: true;
+            /** Command Types */
+            command_types: ("mission.upload" | "mission.activate" | "state.query")[];
+            /**
+             * Real Device Connected
+             * @default false
+             * @constant
+             */
+            real_device_connected: false;
+        };
+        /** DraftImportPreview */
+        DraftImportPreview: {
+            draft: components["schemas"]["MissionDraft"];
+            /** Row Count */
+            row_count: number;
+            /** Notices */
+            notices: string[];
         };
         /** Drone */
         Drone: {
@@ -1561,6 +2055,203 @@ export interface components {
              * @enum {string}
              */
             example: "compact" | "contest";
+        };
+        /** ExecutionAnalysis */
+        ExecutionAnalysis: {
+            /** Execution Id */
+            execution_id: string;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /**
+             * Source
+             * @default simulation
+             * @constant
+             */
+            source: "simulation";
+            /** Allocated Quantity */
+            allocated_quantity: number;
+            /** Delivered Quantity */
+            delivered_quantity: number;
+            /** Unserved Quantity */
+            unserved_quantity: number;
+            /** Delivery Rows */
+            delivery_rows: components["schemas"]["ExecutionFact"][];
+            /** Initial Plan Id */
+            initial_plan_id: string;
+            /** Active Plan Ids */
+            active_plan_ids: string[];
+            /** Event Count */
+            event_count: number;
+            /** Change Count */
+            change_count: number;
+            /** Deviation Rows */
+            deviation_rows?: components["schemas"]["DeliveryDeviation"][];
+        };
+        /** ExecutionCreate */
+        ExecutionCreate: {
+            /** Mission Id */
+            mission_id: string;
+            /** Confirmed Plan Id */
+            confirmed_plan_id: string;
+            /** Expected Revision */
+            expected_revision: number;
+            /**
+             * Mode
+             * @default simulation
+             * @constant
+             */
+            mode: "simulation";
+            /**
+             * Seed
+             * @default 42
+             */
+            seed: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+        };
+        /** ExecutionEventInput */
+        ExecutionEventInput: {
+            /** Event Id */
+            event_id: string;
+            /** Expected Revision */
+            expected_revision: number;
+            /**
+             * Event Type
+             * @enum {string}
+             */
+            event_type: "drone.unavailable" | "battery.unavailable" | "demand.added" | "site.unavailable";
+            /** Object Id */
+            object_id?: string | null;
+            demand?: components["schemas"]["Demand"] | null;
+            /** Cargo Items */
+            cargo_items?: components["schemas"]["CargoItem"][];
+            /** Reason */
+            reason: string;
+        };
+        /** ExecutionEventView */
+        ExecutionEventView: {
+            /** Event Id */
+            event_id: string;
+            /** Execution Id */
+            execution_id: string;
+            /** Event Type */
+            event_type: string;
+            /** Object Id */
+            object_id: string | null;
+            /** Reason */
+            reason: string;
+            /** Time S */
+            time_s: number;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /** Affected Sortie Ids */
+            affected_sortie_ids: string[];
+            /** Propagated Sortie Ids */
+            propagated_sortie_ids: string[];
+            /** Preserved Sortie Ids */
+            preserved_sortie_ids: string[];
+            /** Committed Sortie Ids */
+            committed_sortie_ids: string[];
+            /** Missing Inventory */
+            missing_inventory: number;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "recorded" | "requires_manual";
+        };
+        /** ExecutionFact */
+        ExecutionFact: {
+            /** Fact Id */
+            fact_id: string;
+            /** Cursor */
+            cursor: number;
+            /** Time S */
+            time_s: number;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "loaded" | "takeoff" | "delivered" | "returned" | "released" | "battery_ready" | "plan_adopted";
+            /** Plan Id */
+            plan_id: string;
+            /** Sortie Id */
+            sortie_id: string | null;
+            /** Drone Id */
+            drone_id: string | null;
+            /** Battery Id */
+            battery_id: string | null;
+            /** Cargo Ids */
+            cargo_ids: string[];
+            /**
+             * Source
+             * @default simulation
+             * @constant
+             */
+            source: "simulation";
+        };
+        /** ExecutionSchedulePart */
+        ExecutionSchedulePart: {
+            /** Plan Id */
+            plan_id: string;
+            /** Sortie Ids */
+            sortie_ids: string[];
+            /**
+             * Role
+             * @enum {string}
+             */
+            role: "initial" | "commitment" | "future";
+        };
+        /** ExecutionView */
+        ExecutionView: {
+            /** Execution Id */
+            execution_id: string;
+            /** Mission Id */
+            mission_id: string;
+            /**
+             * Mode
+             * @constant
+             */
+            mode: "simulation";
+            /** Initial Plan Id */
+            initial_plan_id: string;
+            /** Desired Plan Id */
+            desired_plan_id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "ready" | "running" | "paused" | "completed";
+            /** Revision */
+            revision: number;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /** Time S */
+            time_s: number;
+            /** Speed */
+            speed: number;
+            /** Seed */
+            seed: number;
+            /** Connected */
+            connected: boolean;
+            /** Schedule Parts */
+            schedule_parts: components["schemas"]["ExecutionSchedulePart"][];
+            /** Delivered Cargo Ids */
+            delivered_cargo_ids: string[];
+            /** Facts */
+            facts: components["schemas"]["ExecutionFact"][];
+            /** Telemetry */
+            telemetry: components["schemas"]["TelemetrySample"][];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
         };
         /** Features */
         Features: {
@@ -1867,24 +2558,21 @@ export interface components {
              * Format: date-time
              */
             start_time: string;
-            /**
-             * Timezone
-             * @default Asia/Shanghai
-             */
+            /** Timezone */
             timezone: string;
-            base?: components["schemas"]["Base"] | null;
+            base: components["schemas"]["Base"] | null;
             /** Sites */
-            sites?: components["schemas"]["Site"][];
+            sites: components["schemas"]["Site"][];
             /** Demands */
-            demands?: components["schemas"]["Demand"][];
+            demands: components["schemas"]["Demand"][];
             /** Cargo Items */
-            cargo_items?: components["schemas"]["CargoItem"][];
+            cargo_items: components["schemas"]["CargoItem"][];
             /** Drone Types */
-            drone_types?: components["schemas"]["DroneType"][];
+            drone_types: components["schemas"]["DroneType"][];
             /** Drones */
-            drones?: components["schemas"]["Drone"][];
+            drones: components["schemas"]["Drone"][];
             /** Batteries */
-            batteries?: components["schemas"]["Battery"][];
+            batteries: components["schemas"]["Battery"][];
             terrain: components["schemas"]["Terrain"];
             policy: components["schemas"]["Policy"];
             /** Restricted Zones */
@@ -2128,6 +2816,71 @@ export interface components {
          * @enum {string}
          */
         ObjectivePolicy: "deadline_first_v1" | "tradeoff_v2";
+        /** OperationCapabilities */
+        OperationCapabilities: {
+            /** Modes */
+            modes: "simulation"[];
+            /**
+             * Real Dispatch
+             * @default false
+             * @constant
+             */
+            real_dispatch: false;
+            /**
+             * Sitl
+             * @default false
+             * @constant
+             */
+            sitl: false;
+            /**
+             * Persistent Simulation
+             * @default true
+             * @constant
+             */
+            persistent_simulation: true;
+            /**
+             * Commitment Repair
+             * @default transport_committed_prefix_future_only
+             * @constant
+             */
+            commitment_repair: "transport_committed_prefix_future_only";
+            /**
+             * Relay Simulation
+             * @default false
+             * @constant
+             */
+            relay_simulation: false;
+            /**
+             * Weather Information
+             * @default false
+             * @constant
+             */
+            weather_information: false;
+            /**
+             * Weather Thresholds
+             * @default false
+             * @constant
+             */
+            weather_thresholds: false;
+            /**
+             * Weather Energy
+             * @default false
+             * @constant
+             */
+            weather_energy: false;
+            /**
+             * Learning Search
+             * @default false
+             * @constant
+             */
+            learning_search: false;
+            /**
+             * Position Source
+             * @default business_model_phases
+             * @constant
+             */
+            position_source: "business_model_phases";
+        };
         /** PartitionAssignment */
         PartitionAssignment: {
             /** Task Id */
@@ -2741,6 +3494,59 @@ export interface components {
         };
         /** RemovedSortieId */
         RemovedSortieId: string;
+        /** RepairRequest */
+        RepairRequest: {
+            /** Expected Revision */
+            expected_revision: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /**
+             * Objective
+             * @default time
+             * @enum {string}
+             */
+            objective: "time" | "energy" | "balanced";
+            /**
+             * Time Limit S
+             * @default 10
+             */
+            time_limit_s: number;
+        };
+        /** RepairView */
+        RepairView: {
+            /** Change Id */
+            change_id: string;
+            /** Execution Id */
+            execution_id: string;
+            /** Execution Revision */
+            execution_revision: number;
+            /** Facts Cursor */
+            facts_cursor: number;
+            /** Event Fingerprint */
+            event_fingerprint: string;
+            /** Committed Parts */
+            committed_parts: components["schemas"]["ExecutionSchedulePart"][];
+            /** Committed Cargo Ids */
+            committed_cargo_ids: string[];
+            /** Future Not Before S */
+            future_not_before_s: number;
+            job: components["schemas"]["SolveJob"] | null;
+            /** Candidate Plan Id */
+            candidate_plan_id: string | null;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "computing" | "ready" | "no_remaining" | "applying" | "failed" | "partially_applied" | "applied";
+            /** Message */
+            message: string;
+            /** Changed Cargo Ids */
+            changed_cargo_ids: string[];
+            /** Retained Cargo Ids */
+            retained_cargo_ids: string[];
+            /** Applications */
+            applications?: components["schemas"]["DeviceApplication"][];
+        };
         /** ResourceAddition */
         ResourceAddition: {
             /** Type Id */
@@ -2946,6 +3752,22 @@ export interface components {
         };
         /** SchemaVersion */
         SchemaVersion: string;
+        /** SimulationAction */
+        SimulationAction: {
+            /**
+             * Action
+             * @enum {string}
+             */
+            action: "start" | "pause" | "resume" | "speed" | "advance" | "disconnect" | "reconnect";
+            /** Expected Revision */
+            expected_revision: number;
+            /** Idempotency Key */
+            idempotency_key: string;
+            /** Speed */
+            speed?: number | null;
+            /** Target Time S */
+            target_time_s?: number | null;
+        };
         /** Site */
         Site: {
             /** Id */
@@ -3107,6 +3929,29 @@ export interface components {
             /** Charge Start S */
             charge_start_s?: number | null;
         };
+        /** SortieLoad */
+        SortieLoad: {
+            /** Sortie Id */
+            sortie_id: string;
+            /** Drone Id */
+            drone_id: string;
+            /** Type Id */
+            type_id: string;
+            /** Cargo Count */
+            cargo_count: number;
+            /** Mass Kg */
+            mass_kg: number;
+            /** Volume L */
+            volume_l: number;
+            /** Max Payload Kg */
+            max_payload_kg: number;
+            /** Max Volume L */
+            max_volume_l: number;
+            /** Mass Utilization */
+            mass_utilization: number;
+            /** Volume Utilization */
+            volume_utilization: number;
+        };
         /**
          * Source
          * @enum {string}
@@ -3149,6 +3994,8 @@ export interface components {
             soc_semantics: "computed_phase_endpoints_only";
             /** Trajectory Segments */
             trajectory_segments: components["schemas"]["TrajectorySegment"][];
+            /** Sortie Loads */
+            sortie_loads?: components["schemas"]["SortieLoad"][];
         };
         /** StationCoordinate */
         StationCoordinate: number;
@@ -3215,6 +4062,55 @@ export interface components {
          * @enum {string}
          */
         SupportedObjective: "time" | "energy" | "balanced";
+        /** TelemetrySample */
+        TelemetrySample: {
+            /** Device Id */
+            device_id: string;
+            /** Device Session Id */
+            device_session_id: string;
+            /** Device Sequence */
+            device_sequence: number;
+            /**
+             * Observed At
+             * Format: date-time
+             */
+            observed_at: string;
+            /**
+             * Received At
+             * Format: date-time
+             */
+            received_at: string;
+            /** Time S */
+            time_s: number;
+            /** Coordinates */
+            coordinates: [
+                number,
+                number
+            ] | null;
+            /** Elevation M */
+            elevation_m: number | null;
+            /** Vertical Datum */
+            vertical_datum: string | null;
+            /** Soc */
+            soc: number | null;
+            /** Soc Sample Time S */
+            soc_sample_time_s: number | null;
+            /** Phase */
+            phase: string;
+            /** Sortie Id */
+            sortie_id: string | null;
+            /** Battery Id */
+            battery_id?: string | null;
+            /** Cargo Ids */
+            cargo_ids: string[];
+            /**
+             * Quality
+             * @enum {string}
+             */
+            quality: "simulated" | "stale" | "missing";
+            /** Active Plan Id */
+            active_plan_id: string;
+        };
         /** Terrain */
         Terrain: {
             status: components["schemas"]["Status4"];
@@ -5050,6 +5946,77 @@ export interface operations {
             };
         };
     };
+    input_preview_api_v1_missions__mission_id__input_preview_post: {
+        parameters: {
+            query?: {
+                entity?: string;
+            };
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_input_preview_api_v1_missions__mission_id__input_preview_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DraftImportPreview"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    input_template_api_v1_missions__mission_id__input_template_get: {
+        parameters: {
+            query?: {
+                entity?: string;
+                format?: string;
+            };
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_missions_api_v1_missions_get: {
         parameters: {
             query?: never;
@@ -5305,6 +6272,37 @@ export interface operations {
             };
         };
     };
+    list_reports_api_v1_missions__mission_id__preflight_reports_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PreflightReport"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     stages_api_v1_plans__plan_id__stages_get: {
         parameters: {
             query?: never;
@@ -5323,6 +6321,546 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StageAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    operation_capabilities_api_v1_meta_operations_capabilities_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OperationCapabilities"];
+                };
+            };
+        };
+    };
+    create_execution_api_v1_executions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExecutionCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_executions_api_v1_missions__mission_id__executions_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mission_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionView"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_execution_api_v1_executions__execution_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    action_api_v1_executions__execution_id__simulation_actions_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SimulationAction"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_events_api_v1_executions__execution_id__events_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionEventView"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    event_api_v1_executions__execution_id__events_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExecutionEventInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionEventView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    repair_api_v1_executions__execution_id__replan_jobs_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RepairRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RepairView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_changes_api_v1_executions__execution_id__plan_changes_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RepairView"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_change_api_v1_executions__execution_id__plan_changes__change_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+                change_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RepairView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    apply_change_api_v1_executions__execution_id__plan_changes__change_id__apply_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+                change_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApplyRepair"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RepairView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    device_capabilities_api_v1_devices__device_id__capabilities_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                device_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeviceCapabilities"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    command_api_v1_commands_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CommandRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommandView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_command_api_v1_commands__command_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                command_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommandView"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    analysis_api_v1_executions__execution_id__analysis_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExecutionAnalysis"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stream_api_v1_executions__execution_id__stream_get: {
+        parameters: {
+            query?: {
+                cursor?: number;
+            };
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_execution_api_v1_executions__execution_id__export_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                execution_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
             /** @description Validation Error */

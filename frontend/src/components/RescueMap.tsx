@@ -5,6 +5,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { Crosshair, Layers, MapPinned, Minus, Plus, Mountain, Satellite } from 'lucide-react'
 import type { FeatureCollection, LineString, Polygon } from 'geojson'
 import type { Plan, Scenario, Playback, TerrainMap } from '../api/client'
+import type { Telemetry } from '../api/operations'
 import { colorFor } from '../lib/format'
 import {
   loadTownContextMetadata,
@@ -27,6 +28,10 @@ type Props = {
   compact?: boolean
   playTime?: number | null
   playback?: Playback
+  telemetry?: Telemetry[]
+  selectedSite?: string | null
+  onPickCoordinates?: (coordinates: [number, number]) => void
+  routeSets?: { plan: Plan; sortieIds: string[] }[]
 }
 export function RescueMap({
   scenario,
@@ -38,6 +43,10 @@ export function RescueMap({
   compact = false,
   playTime,
   playback,
+  telemetry,
+  selectedSite,
+  onPickCoordinates,
+  routeSets,
 }: Props) {
   const container = useRef<HTMLDivElement>(null),
     map = useRef<maplibregl.Map | null>(null),
@@ -45,8 +54,25 @@ export function RescueMap({
   const aircraft = useRef<maplibregl.Marker[]>([])
   const relayMarkers = useRef<maplibregl.Marker[]>([])
   const placeLabels = useRef<maplibregl.Marker[]>([])
-  const latest = useRef({ scenario, plan, selected, onSelect, onSelectSite })
-  latest.current = { scenario, plan, selected, onSelect, onSelectSite }
+  const updateSiteLayout = useRef<(() => void) | null>(null)
+  const latest = useRef({
+    scenario,
+    plan,
+    selected,
+    selectedSite,
+    onSelect,
+    onSelectSite,
+    onPickCoordinates,
+  })
+  latest.current = {
+    scenario,
+    plan,
+    selected,
+    selectedSite,
+    onSelect,
+    onSelectSite,
+    onPickCoordinates,
+  }
   const [ready, setReady] = useState(false),
     [showRoutes, setShowRoutes] = useState(true),
     [showOld, setShowOld] = useState(true),
@@ -61,7 +87,7 @@ export function RescueMap({
   const [townData, setTownData] = useState<TownContextData | null>(null)
   const [contextLoaded, setContextLoaded] = useState(false)
   const [showContext, setShowContext] = useState(true)
-  const [showPlaceNames, setShowPlaceNames] = useState(true)
+  const [showPlaceNames, setShowPlaceNames] = useState(false)
   const [showBoundary, setShowBoundary] = useState(true)
   const contextApplies = !!townMetadata && townContextApplies(scenario, townMetadata)
   const contextVisible = contextLoaded && (showContext || showPlaceNames || showBoundary)
@@ -136,7 +162,7 @@ export function RescueMap({
               id: 'terrain-preview',
               type: 'raster',
               source: 'terrain-preview',
-              paint: { 'raster-opacity': 0.92, 'raster-saturation': -0.55 },
+              paint: { 'raster-opacity': 0.42, 'raster-saturation': -0.72 },
             },
             'grid',
           )
@@ -169,7 +195,7 @@ export function RescueMap({
         style: {
           version: 8,
           sources: {},
-          layers: [{ id: 'ground', type: 'background', paint: { 'background-color': '#b8b9b7' } }],
+          layers: [{ id: 'ground', type: 'background', paint: { 'background-color': '#dce6e2' } }],
         },
       })
     } catch {
@@ -177,6 +203,10 @@ export function RescueMap({
       return
     }
     map.current = m
+    m.on('contextmenu', (event) => {
+      event.preventDefault()
+      latest.current.onPickCoordinates?.([event.lngLat.lng, event.lngLat.lat])
+    })
     const markOverview = () => {
       m.getContainer().dataset.overview = String(m.getZoom() < 10.5)
     }
@@ -553,22 +583,34 @@ export function RescueMap({
     for (const [i, n] of [scenario.base, ...scenario.sites].entries()) {
       bounds.extend(n.coordinates as [number, number])
       const button = document.createElement('button')
+      button.dataset.siteId = n.id
       button.className = `map-marker ${i === 0 ? 'map-marker-base' : ''} ${!n.available ? 'unavailable' : ''}`
       const dot = document.createElement('span')
       dot.className = 'map-marker-dot'
       dot.textContent = i === 0 ? 'O' : String(i)
+      button.dataset.dotText = dot.textContent
       const label = document.createElement('span')
       label.className = 'map-marker-label'
-      label.textContent = i === 0 ? '临时调度中心' : n.name
+      label.textContent = i === 0 ? n.name.slice(0, 8) : n.id
+      if (i !== 0 && scenario.sites.length > 8) label.hidden = true
       button.append(dot, label)
       button.title = `${n.id} · ${n.coordinates.join(', ')}`
       button.setAttribute('aria-label', `定位${n.name}`)
-      button.onclick = () => {
+      button.onclick = (event) => {
+        event.stopPropagation()
+        if (Number(button.dataset.clusterCount || 1) > 1) {
+          m.easeTo({
+            center: n.coordinates as [number, number],
+            zoom: m.getZoom() + 1.5,
+            duration: 180,
+          })
+          return
+        }
         latest.current.onSelectSite?.(n.id)
         const route = latest.current.plan?.sorties.find((r) =>
           r.visits.some((v) => v.site_id === n.id),
         )
-        if (route) latest.current.onSelect(route.sortie_id)
+        if (route && !latest.current.onSelectSite) latest.current.onSelect(route.sortie_id)
         m.easeTo({ center: n.coordinates as [number, number], duration: 400 })
       }
       markers.current.push(
@@ -618,8 +660,76 @@ export function RescueMap({
       })),
     }
     ;(m.getSource('zones') as maplibregl.GeoJSONSource).setData(zones)
+    const arrange = () => {
+      const occupied: { x: number; y: number; marker: maplibregl.Marker; count: number }[] = []
+      const order = [...markers.current].sort(
+        (a, b) =>
+          Number(b.getElement().dataset.siteId === latest.current.selectedSite) -
+          Number(a.getElement().dataset.siteId === latest.current.selectedSite),
+      )
+      for (const marker of order) {
+        const element = marker.getElement(),
+          point = m.project(marker.getLngLat())
+        const dot = element.querySelector<HTMLElement>('.map-marker-dot')
+        element.style.visibility = 'visible'
+        element.dataset.clusterCount = '1'
+        if (dot) dot.textContent = element.dataset.dotText || ''
+        const near = occupied.find((p) => Math.hypot(point.x - p.x, point.y - p.y) < 29)
+        if (near) {
+          element.style.visibility = 'hidden'
+          near.count++
+          near.marker.getElement().dataset.clusterCount = String(near.count)
+          const firstDot = near.marker.getElement().querySelector<HTMLElement>('.map-marker-dot')
+          if (firstDot) firstDot.textContent = `+${near.count}`
+        } else occupied.push({ x: point.x, y: point.y, marker, count: 1 })
+      }
+      const boxes: DOMRect[] = []
+      for (const marker of order) {
+        const el = marker.getElement(),
+          label = el.querySelector<HTMLElement>('.map-marker-label')
+        if (!label || label.hidden || el.style.visibility === 'hidden') continue
+        label.style.visibility = 'visible'
+        const rect = label.getBoundingClientRect()
+        if (
+          boxes.some(
+            (b) =>
+              rect.left < b.right + 4 &&
+              rect.right > b.left - 4 &&
+              rect.top < b.bottom + 4 &&
+              rect.bottom > b.top - 4,
+          )
+        )
+          label.style.visibility = 'hidden'
+        else boxes.push(rect)
+      }
+    }
+    updateSiteLayout.current = arrange
+    m.on('moveend', arrange)
     fit()
+    arrange()
+    return () => {
+      m.off('moveend', arrange)
+      if (updateSiteLayout.current === arrange) updateSiteLayout.current = null
+    }
   }, [ready, scenario, fit])
+  useEffect(() => {
+    for (const marker of markers.current) {
+      const element = marker.getElement()
+      const node = [scenario.base, ...scenario.sites].find((n) => n.id === element.dataset.siteId)
+      const label = element.querySelector<HTMLElement>('.map-marker-label')
+      if (node && label) {
+        const active = node.id === selectedSite
+        label.textContent = active
+          ? node.name
+          : node.id === scenario.base.id
+            ? node.name.slice(0, 8)
+            : node.id
+        label.hidden = !active && node.id !== scenario.base.id && scenario.sites.length > 8
+        element.classList.toggle('selected-site', active)
+      }
+    }
+    updateSiteLayout.current?.()
+  }, [ready, selectedSite, scenario])
   useEffect(() => {
     if (
       !map.current ||
@@ -647,12 +757,29 @@ export function RescueMap({
         geometry: r.route_geometry as LineString,
       })),
     })
-    ;(m.getSource('routes') as maplibregl.GeoJSONSource).setData(collection(plan))
+    const current = routeSets
+      ? {
+          type: 'FeatureCollection' as const,
+          features: routeSets.flatMap((set) =>
+            collection(set.plan)
+              .features.filter((f) => set.sortieIds.includes(String(f.properties?.id)))
+              .map((f) => ({
+                ...f,
+                properties: {
+                  ...f.properties,
+                  id: `${set.plan.plan_id}:${f.properties?.id}`,
+                  selected: selected === `${set.plan.plan_id}:${f.properties?.id}`,
+                },
+              })),
+          ),
+        }
+      : collection(plan)
+    ;(m.getSource('routes') as maplibregl.GeoJSONSource).setData(current)
     ;(m.getSource('old-routes') as maplibregl.GeoJSONSource).setData(collection(oldPlan))
     m.setLayoutProperty('routes', 'visibility', showRoutes ? 'visible' : 'none')
     m.setLayoutProperty('routes-halo', 'visibility', showRoutes ? 'visible' : 'none')
     m.setLayoutProperty('old-routes', 'visibility', showOld ? 'visible' : 'none')
-  }, [ready, plan, oldPlan, selected, showRoutes, showOld])
+  }, [ready, plan, oldPlan, selected, showRoutes, showOld, routeSets])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !m.getSource('relay-routes') || !m.getSource('relay-backhaul')) return
@@ -730,6 +857,26 @@ export function RescueMap({
     if (!m || !ready || !m.getSource('grid')) return
     aircraft.current.forEach((x) => x.remove())
     aircraft.current = []
+    if (telemetry) {
+      for (const sample of telemetry) {
+        if (!sample.coordinates || sample.phase === 'available') continue
+        const button = document.createElement('button')
+        button.className = `planned-aircraft simulated-aircraft ${sample.quality === 'stale' ? 'stale-aircraft' : ''}`
+        button.textContent = '✈'
+        const tag = document.createElement('span')
+        tag.textContent = `${sample.device_id}${sample.quality === 'stale' ? ' · 失联' : ' · 模拟'}`
+        button.append(tag)
+        button.title = `${sample.device_id} · ${sample.phase} · ${sample.observed_at}`
+        button.onclick = (event) => {
+          event.stopPropagation()
+          if (sample.sortie_id) latest.current.onSelect(sample.sortie_id)
+        }
+        aircraft.current.push(
+          new maplibregl.Marker({ element: button }).setLngLat(sample.coordinates).addTo(m),
+        )
+      }
+      return
+    }
     if (playTime == null || !playback) return
     for (const phase of playback.phases.filter(
       (p) => p.start_s <= playTime && playTime < p.end_s,
@@ -748,7 +895,10 @@ export function RescueMap({
       button.textContent = '✈'
       button.title = `${phase.drone_id} · ${label} · 计划位置示意`
       button.setAttribute('aria-label', `${phase.drone_id}计划位置`)
-      button.onclick = () => latest.current.onSelect(phase.sortie_id)
+      button.onclick = (event) => {
+        event.stopPropagation()
+        latest.current.onSelect(phase.sortie_id)
+      }
       const tag = document.createElement('span')
       tag.textContent = `${phase.drone_id} ${label}`
       button.append(tag)
@@ -758,7 +908,7 @@ export function RescueMap({
           .addTo(m),
       )
     }
-  }, [ready, playTime, playback])
+  }, [ready, playTime, playback, telemetry])
   return (
     <div
       className={`rescue-map ${compact ? 'map-compact' : ''}`}

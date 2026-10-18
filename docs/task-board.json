@@ -1325,7 +1325,10 @@
       "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R02",
@@ -1337,10 +1340,13 @@
       "dependencies": [
         "R00"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R03",
@@ -1353,10 +1359,13 @@
         "R01",
         "R02"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R04",
@@ -1369,10 +1378,13 @@
         "R01",
         "R02"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R05",
@@ -1385,10 +1397,13 @@
         "R01",
         "R04"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R06",
@@ -1401,10 +1416,13 @@
         "R01",
         "R02"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R07",
@@ -1417,10 +1435,13 @@
         "R01",
         "R04"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R08",
@@ -1433,10 +1454,13 @@
         "R06",
         "R07"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R09",
@@ -1452,10 +1476,13 @@
         "R07",
         "R08"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R10",
@@ -1468,10 +1495,13 @@
         "R01",
         "R09"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R11",
@@ -1484,10 +1514,13 @@
         "R01",
         "R10"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R12",
@@ -1501,10 +1534,13 @@
         "R10",
         "R11"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R13",
@@ -1518,10 +1554,13 @@
         "R07",
         "R08"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R14",
@@ -1553,10 +1592,13 @@
         "R13",
         "R14"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R16",
@@ -1570,10 +1612,13 @@
         "R10",
         "R12"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R17",
@@ -1587,10 +1632,13 @@
         "R10",
         "R12"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R18",
@@ -1604,10 +1652,13 @@
         "R09",
         "R10"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R19",
@@ -1620,10 +1671,13 @@
         "R01",
         "R11"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R20",
@@ -1651,10 +1705,13 @@
         "R18",
         "R19"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "evidence/redesign-v2/HANDOFF.md",
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+      ]
     },
     {
       "id": "R21",

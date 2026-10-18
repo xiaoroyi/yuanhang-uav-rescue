@@ -142,14 +142,18 @@ export function ScenarioEditor({
   onCreated,
   notify,
   onWorkspace,
+  allowedGroups,
+  embedded = false,
 }: {
   scenario: Scenario
   onSave: (s: Scenario) => Promise<void>
   onCreated: (s: Scenario) => void
   notify: (message: string, error?: boolean) => void
   onWorkspace: () => void
+  allowedGroups?: Group[]
+  embedded?: boolean
 }) {
-  const [group, setGroup] = useState<Group>('cargo_items'),
+  const [group, setGroup] = useState<Group>(allowedGroups?.[0] || 'cargo_items'),
     [search, setSearch] = useState(''),
     [editing, setEditing] = useState<{ index: number; row: Row } | null>(null),
     [values, setValues] = useState<Record<string, string>>({}),
@@ -294,7 +298,7 @@ export function ScenarioEditor({
         },
         demands: {
           demand_id: 'D-NEW',
-          site_id: scenario.sites[0].id,
+          site_id: scenario.sites[0]?.id || '',
           cargo_type: 'MED',
           required_quantity: 1,
           priority: 1,
@@ -304,8 +308,8 @@ export function ScenarioEditor({
         },
         cargo_items: {
           cargo_id: 'BOX-NEW',
-          demand_id: scenario.demands[0].demand_id,
-          type: scenario.demands[0].cargo_type,
+          demand_id: scenario.demands[0]?.demand_id || '',
+          type: scenario.demands[0]?.cargo_type || 'MED',
           mass_kg: 1,
           volume_l: 1,
           status: 'available',
@@ -313,14 +317,14 @@ export function ScenarioEditor({
         },
         drones: {
           drone_id: 'U-NEW',
-          type_id: scenario.drone_types[0].type_id,
+          type_id: scenario.drone_types[0]?.type_id || '',
           status: 'available',
           location_id: scenario.base.id,
           available_after_s: 0,
         },
         batteries: {
           battery_id: 'BAT-NEW',
-          compatible_type_id: scenario.drone_types[0].type_id,
+          compatible_type_id: scenario.drone_types[0]?.type_id || '',
           capacity_kwh: 4,
           soc: 1,
           soh: 1,
@@ -421,7 +425,7 @@ export function ScenarioEditor({
     return typeof value === 'number' ? number(value, 2) : String(value)
   }
   return (
-    <div className="scenario-page">
+    <div className={`scenario-page ${embedded ? 'editor-embedded' : ''}`}>
       <div className="page-heading">
         <div>
           <div className="eyebrow">SCENARIO & RESOURCES</div>
@@ -538,7 +542,7 @@ export function ScenarioEditor({
             </div>
           </div>
           <div className="resource-tabs">
-            {groups.map((g) => (
+            {groups.filter((g) => !allowedGroups || allowedGroups.includes(g.key)).map((g) => (
               <button
                 key={g.key}
                 className={group === g.key ? 'active' : ''}

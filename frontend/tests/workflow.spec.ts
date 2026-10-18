@@ -926,7 +926,7 @@ test('生产构建只允许本机请求，真实求解与事件闭环离线可�
       await route.abort('internetdisconnected')
     } else await route.continue()
   })
-  await page.goto('http://127.0.0.1:8011/')
+  await page.goto('http://127.0.0.1:8011/#/workspace')
   await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeVisible()
   await solve(page)
   await expect(page.locator('.map-mode')).toHaveText('题设DEM · 离线')
@@ -981,7 +981,7 @@ test.beforeEach(async ({ request, page }) => {
   await page.addInitScript((id) => {
     if (!localStorage.getItem('yuanhang-scenario')) localStorage.setItem('yuanhang-scenario', id)
   }, scene.scenario_id)
-  await page.goto('/')
+  await page.goto('/#/workspace')
   await expect(page.getByRole('button', { name: '生成真实方案', exact: true })).toBeVisible()
 })
 

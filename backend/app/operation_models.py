@@ -1,4 +1,5 @@
 """Strict, additive V2 operation contracts. HTTP types derive from OpenAPI."""
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -7,8 +8,20 @@ from zoneinfo import ZoneInfo
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
 from backend.app.generated.domain import (
-    Base, Site, Demand, CargoItem, DroneType, Drone, Battery, Terrain, Policy,
-    RestrictedZone, ResourceLimits, Communication, Scenario, SolveJob,
+    Base,
+    Site,
+    Demand,
+    CargoItem,
+    DroneType,
+    Drone,
+    Battery,
+    Terrain,
+    Policy,
+    RestrictedZone,
+    ResourceLimits,
+    Communication,
+    Scenario,
+    SolveJob,
 )
 
 
@@ -18,14 +31,14 @@ class OperationDTO(BaseModel):
 
 class MissionDraft(OperationDTO):
     start_time: AwareDatetime
-    timezone: str = "Asia/Shanghai"
-    base: Base | None = None
-    sites: list[Site] = Field(default_factory=list)
-    demands: list[Demand] = Field(default_factory=list)
-    cargo_items: list[CargoItem] = Field(default_factory=list)
-    drone_types: list[DroneType] = Field(default_factory=list)
-    drones: list[Drone] = Field(default_factory=list)
-    batteries: list[Battery] = Field(default_factory=list)
+    timezone: str
+    base: Base | None
+    sites: list[Site]
+    demands: list[Demand]
+    cargo_items: list[CargoItem]
+    drone_types: list[DroneType]
+    drones: list[Drone]
+    batteries: list[Battery]
     terrain: Terrain
     policy: Policy
     restricted_zones: list[RestrictedZone] | None = None
@@ -59,12 +72,20 @@ class MissionDraftUpdate(OperationDTO):
     publish: bool = False
 
 
+class DraftImportPreview(OperationDTO):
+    draft: MissionDraft
+    row_count: int
+    notices: list[str]
+
+
 class MissionView(OperationDTO):
     mission_id: str
     name: str
     mode: Literal["simulation", "planning_assist"]
     timezone: str
-    lifecycle: Literal["draft", "planning", "ready", "executing", "paused", "completed", "archived"]
+    lifecycle: Literal[
+        "draft", "planning", "ready", "executing", "paused", "completed", "archived"
+    ]
     revision: int
     current_scenario_id: str | None
     active_plan_id: str | None
@@ -78,7 +99,9 @@ class MissionView(OperationDTO):
 
 class CheckItem(OperationDTO):
     code: str
-    group: Literal["map", "inventory", "fleet", "weather", "communication", "model", "execution"]
+    group: Literal[
+        "map", "inventory", "fleet", "weather", "communication", "model", "execution"
+    ]
     status: Literal["passed", "warning", "blocked", "unknown", "not_applicable"]
     message: str
     affected_objects: list[str] = Field(default_factory=list)
@@ -92,7 +115,9 @@ class CheckItem(OperationDTO):
 
 class PreflightRequest(OperationDTO):
     expected_revision: int = Field(ge=1)
-    check_kind: Literal["planning_readiness", "simulation_readiness", "real_dispatch"] = "planning_readiness"
+    check_kind: Literal[
+        "planning_readiness", "simulation_readiness", "real_dispatch"
+    ] = "planning_readiness"
     plan_id: str | None = None
 
 
@@ -114,7 +139,16 @@ class TrajectorySegment(OperationDTO):
     sortie_id: str
     drone_id: str
     phase_id: str
-    phase: Literal["prepare", "climb", "cruise", "descent", "handover", "turnaround", "charge_wait", "charge"]
+    phase: Literal[
+        "prepare",
+        "climb",
+        "cruise",
+        "descent",
+        "handover",
+        "turnaround",
+        "charge_wait",
+        "charge",
+    ]
     start_s: float
     end_s: float
     from_coordinates: tuple[float, float]
@@ -129,13 +163,29 @@ class TrajectorySegment(OperationDTO):
     cargo_ids: list[str]
 
 
+class SortieLoad(OperationDTO):
+    sortie_id: str
+    drone_id: str
+    type_id: str
+    cargo_count: int
+    mass_kg: float
+    volume_l: float
+    max_payload_kg: float
+    max_volume_l: float
+    mass_utilization: float
+    volume_utilization: float
+
+
 class StageAnalysis(OperationDTO):
     plan_id: str
     snapshot_id: str
     analysis_version: Literal["stages-v1"] = "stages-v1"
     position_semantics: Literal["model_phase_geodesic"] = "model_phase_geodesic"
-    soc_semantics: Literal["computed_phase_endpoints_only"] = "computed_phase_endpoints_only"
+    soc_semantics: Literal["computed_phase_endpoints_only"] = (
+        "computed_phase_endpoints_only"
+    )
     trajectory_segments: list[TrajectorySegment]
+    sortie_loads: list[SortieLoad] = Field(default_factory=list)
 
 
 class ExecutionCreate(OperationDTO):
@@ -148,7 +198,9 @@ class ExecutionCreate(OperationDTO):
 
 
 class SimulationAction(OperationDTO):
-    action: Literal["start", "pause", "resume", "speed", "advance", "disconnect", "reconnect"]
+    action: Literal[
+        "start", "pause", "resume", "speed", "advance", "disconnect", "reconnect"
+    ]
     expected_revision: int = Field(ge=1)
     idempotency_key: str = Field(min_length=1, max_length=128)
     speed: float | None = Field(default=None, ge=0.1, le=100)
@@ -159,7 +211,15 @@ class ExecutionFact(OperationDTO):
     fact_id: str
     cursor: int
     time_s: float
-    kind: Literal["loaded", "takeoff", "delivered", "returned", "released", "battery_ready", "plan_adopted"]
+    kind: Literal[
+        "loaded",
+        "takeoff",
+        "delivered",
+        "returned",
+        "released",
+        "battery_ready",
+        "plan_adopted",
+    ]
     plan_id: str
     sortie_id: str | None
     drone_id: str | None
@@ -182,6 +242,7 @@ class TelemetrySample(OperationDTO):
     soc_sample_time_s: float | None
     phase: str
     sortie_id: str | None
+    battery_id: str | None = None
     cargo_ids: list[str]
     quality: Literal["simulated", "stale", "missing"]
     active_plan_id: str
@@ -217,7 +278,9 @@ class ExecutionView(OperationDTO):
 class ExecutionEventInput(OperationDTO):
     event_id: str = Field(min_length=1, max_length=128)
     expected_revision: int = Field(ge=1)
-    event_type: Literal["drone.unavailable", "battery.unavailable", "demand.added", "site.unavailable"]
+    event_type: Literal[
+        "drone.unavailable", "battery.unavailable", "demand.added", "site.unavailable"
+    ]
     object_id: str | None = None
     demand: Demand | None = None
     cargo_items: list[CargoItem] = Field(default_factory=list, max_length=200)
@@ -247,6 +310,15 @@ class RepairRequest(OperationDTO):
     time_limit_s: float = Field(default=10, ge=1, le=120)
 
 
+class DeviceApplication(OperationDTO):
+    device_id: str
+    desired_plan_id: str | None
+    active_plan_id: str
+    upload_state: Literal["queued", "acknowledged", "succeeded", "indeterminate"]
+    activation_state: Literal["not_started", "active", "indeterminate"]
+    command_id: str
+
+
 class RepairView(OperationDTO):
     change_id: str
     execution_id: str
@@ -258,10 +330,19 @@ class RepairView(OperationDTO):
     future_not_before_s: float
     job: SolveJob | None
     candidate_plan_id: str | None
-    status: Literal["computing", "ready", "no_remaining", "failed", "partially_applied", "applied"]
+    status: Literal[
+        "computing",
+        "ready",
+        "no_remaining",
+        "applying",
+        "failed",
+        "partially_applied",
+        "applied",
+    ]
     message: str
     changed_cargo_ids: list[str]
     retained_cargo_ids: list[str]
+    applications: list[DeviceApplication] = Field(default_factory=list)
 
 
 class ApplyRepair(OperationDTO):
@@ -290,7 +371,9 @@ class CommandRequest(OperationDTO):
     expected_execution_revision: int = Field(ge=1)
     idempotency_key: str = Field(min_length=1, max_length=128)
     expires_at: AwareDatetime
-    simulation_fault: Literal["none", "reject", "ack_timeout", "completion_timeout"] = "none"
+    simulation_fault: Literal["none", "reject", "ack_timeout", "completion_timeout"] = (
+        "none"
+    )
 
 
 class CommandView(OperationDTO):
@@ -299,13 +382,30 @@ class CommandView(OperationDTO):
     device_id: str
     command_type: str
     mode: Literal["simulation"] = "simulation"
-    status: Literal["queued", "sent", "acknowledged", "succeeded", "rejected", "expired", "indeterminate"]
+    status: Literal[
+        "queued",
+        "sent",
+        "acknowledged",
+        "succeeded",
+        "rejected",
+        "expired",
+        "indeterminate",
+    ]
     desired_plan_id: str
     created_at: AwareDatetime
     expires_at: AwareDatetime
     acknowledged_at: AwareDatetime | None
     completed_at: AwareDatetime | None
     evidence: str | None
+
+
+class DeliveryDeviation(OperationDTO):
+    cargo_id: str
+    plan_id: str
+    sortie_id: str
+    initial_expected_s: float | None
+    delivered_s: float
+    difference_s: float | None
 
 
 class ExecutionAnalysis(OperationDTO):
@@ -320,3 +420,20 @@ class ExecutionAnalysis(OperationDTO):
     active_plan_ids: list[str]
     event_count: int
     change_count: int
+    deviation_rows: list[DeliveryDeviation] = Field(default_factory=list)
+
+
+class OperationCapabilities(OperationDTO):
+    modes: list[Literal["simulation"]]
+    real_dispatch: Literal[False] = False
+    sitl: Literal[False] = False
+    persistent_simulation: Literal[True] = True
+    commitment_repair: Literal["transport_committed_prefix_future_only"] = (
+        "transport_committed_prefix_future_only"
+    )
+    relay_simulation: Literal[False] = False
+    weather_information: Literal[False] = False
+    weather_thresholds: Literal[False] = False
+    weather_energy: Literal[False] = False
+    learning_search: Literal[False] = False
+    position_source: Literal["business_model_phases"] = "business_model_phases"

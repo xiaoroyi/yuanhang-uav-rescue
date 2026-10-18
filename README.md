@@ -1,5 +1,7 @@
 # 援航 · 无人机救援调度
 
+当前正在 `feat/mission-workspace-v2` 实施新版任务流程与服务器仿真。根地址为独立首页，任务内部按准备/规划/执行/复盘组织；V1兼容入口保留。继续开发先读 [V2索引](evidence/redesign-v2/INDEX.md)、[准确进度](evidence/redesign-v2/HANDOFF.md)；下文V1发布与测试是历史证据，不能代替V2最终验收。两人A算法、B一人前后端不变，main不改写。
+
 本地运行的灾害应急运输与通信规划系统。编辑逐箱物资、需求与实际机队，真实求解，查看地图、三维地形、飞行高度剖面、调度安排与资源甘特，比较时间/能耗/时间能耗折中策略，并在资源退出或紧急插单后重新规划。默认5点32箱动态演练，保留原题15点80箱入口。
 
 候选集成分支为 [feat/solo-fullstack-v0](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/solo-fullstack-v0)，由[草稿PR #1](https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1)供A/B评审；main保留原状态。本轮在 `feat/experience-v1` 完善九页面与分析体验，验证和同步情况见 [体验迭代交接](docs/EXPERIENCE_RELEASE.md)，已推送提交以PR为准。范围、测试与未完成功能以 [真实实现状态](docs/IMPLEMENTATION_STATUS.md) 为准。输出是在声明模型内的规划辅助，不发送飞控指令。

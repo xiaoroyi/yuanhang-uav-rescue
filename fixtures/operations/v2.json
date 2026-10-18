@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "data_origin": "mock",
+    "purpose": "Strict operation wire examples only; no real solve, device or delivery evidence"
+  },
+  "valid": [
+    {"model": "MissionCreate", "data": {"name": "MOCK draft", "template": "blank", "idempotency_key": "MOCK-CREATE"}},
+    {"model": "SimulationAction", "data": {"action": "pause", "expected_revision": 3, "idempotency_key": "MOCK-PAUSE"}},
+    {"model": "ExecutionEventInput", "data": {"event_id": "MOCK-EVENT", "expected_revision": 4, "event_type": "drone.unavailable", "object_id": "MOCK-U1", "reason": "synthetic unavailable future entity"}},
+    {"model": "CommandRequest", "data": {"execution_id": "MOCK-EXE", "device_id": "MOCK-U1", "command_type": "mission.upload", "desired_plan_id": "MOCK-PLAN", "expected_execution_revision": 4, "idempotency_key": "MOCK-COMMAND", "expires_at": "2026-10-18T12:00:00+08:00"}}
+  ],
+  "invalid": [
+    {"model": "MissionCreate", "data": {"name": "MOCK", "idempotency_key": "KEY", "mode": "real"}},
+    {"model": "SimulationAction", "data": {"action": "pause", "expected_revision": 1, "idempotency_key": "KEY", "actor": "admin"}},
+    {"model": "ExecutionEventInput", "data": {"event_id": "E", "expected_revision": 1, "event_type": "unknown", "reason": "MOCK"}}
+  ]
+}
