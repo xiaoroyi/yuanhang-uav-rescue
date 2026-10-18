@@ -12,3 +12,7 @@
 | 无服务器执行 | Execution + facts + SimulationAdapter + commands | 新表，simulation 命名空间；不读写实际库存；回退旧分支忽略新表 |
 
 迁移为可重复的 SQLAlchemy create_all 增表，无删除/列重写。验证用隔离数据库；正式本机服务切换前保存 SQLite backup 与原 Plan/Snapshot 哈希清单。详细端点及错误形态以实际生成 OpenAPI 为准，未实现部分不列已完成。
+# RFC-019增量
+
+Scenario与MissionDraft可选weather；旧输入不强制补字段，原Snapshot/Plan不重写。weather_window加入领域范围枚举，真实Worker对携带weather的新请求补齐必检范围。操作气象信息/阈值能力为true，weather_energy保持false。执行事件新增weather.changed完整严格对象，服务端拒绝混合字段；风险涉及已开始架次时保留承诺并阻断自动修复。JSON Schema、Pydantic、实际OpenAPI与HTTP TypeScript同批生成。现有HTTP路径与无气象调用兼容。
+

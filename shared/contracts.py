@@ -121,6 +121,39 @@ def validate_scenario(s):
     sites = {item["id"] for item in s["sites"]}
     demands = index(s["demands"], "demand_id")
     types = index(s["drone_types"], "type_id")
+    weather = s.get("weather")
+    if weather:
+        require(
+            weather["valid_until_s"] > weather["valid_from_s"],
+            "weather window must have positive duration",
+        )
+        require(
+            bool(weather["source_ref"].strip()),
+            "manual weather source must be explicit",
+        )
+        rules = index(weather["rules"], "type_id")
+        for typ, rule in rules.items():
+            require(typ in types, "weather rule references missing drone type")
+            require(
+                bool(rule["source_ref"].strip()),
+                "weather threshold source must be explicit",
+            )
+            keys = [
+                "max_wind_mps",
+                "max_gust_mps",
+                "min_temperature_c",
+                "max_temperature_c",
+                "max_precipitation_mm_h",
+            ]
+            require(
+                any(rule[k] is not None for k in keys),
+                "weather rule must configure at least one limit",
+            )
+            low, high = rule["min_temperature_c"], rule["max_temperature_c"]
+            require(
+                low is None or high is None or low <= high,
+                "weather temperature limits reversed",
+            )
     index(s["cargo_items"], "cargo_id")
     index(s["drones"], "drone_id")
     index(s["batteries"], "battery_id")
@@ -229,6 +262,8 @@ def validate_options(options, snapshot):
         required.add("restricted_zone")
     if snapshot["scenario"].get("resource_limits"):
         required.add("ground_resource")
+    if snapshot["scenario"].get("weather"):
+        required.add("weather_window")
     require(
         required <= set(options["requested_model_scope"]),
         "requested scope omits required policy checks",
@@ -462,6 +497,8 @@ def validate_plan(plan, snapshot):
             required.add("restricted_zone")
         if s.get("resource_limits"):
             required.add("ground_resource")
+        if s.get("weather"):
+            required.add("weather_window")
         require(
             required <= set(plan["model_scope"]),
             "validated plan scope missing required check",

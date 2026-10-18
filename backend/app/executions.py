@@ -37,10 +37,11 @@ from backend.app.storage import (
 from backend.app.jobs import now
 from backend.app.missions import identity, require, revision
 from backend.app.simulation import timestamp
-from shared.contracts import content_hash, validate_scenario
+from shared.contracts import content_hash, validate_scenario, ContractError
 from solver.public_api import validate
 from solver.dependencies import affected_closure
 from backend.app.device_adapter import SimulationAdapter
+from solver.weather import eligible_types as weather_eligible_types
 
 
 def register_executions(app, database, error, create_job, solve_request, snapshot_for):
@@ -296,8 +297,43 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
             direct = set()
             manual = False
             missing = 0
-            if body.event_type == "demand.added":
-                if body.object_id is not None or body.demand is None:
+            if body.event_type == "weather.changed":
+                if (
+                    body.weather is None
+                    or body.object_id is not None
+                    or body.demand is not None
+                    or body.cargo_items
+                ):
+                    raise error(
+                        422,
+                        "SCHEMA_INVALID",
+                        "气象变化只接受完整人工weather情景，不混用其它事件字段。",
+                    )
+                probe = copy.deepcopy(s)
+                probe["weather"] = body.weather.model_dump(mode="json")
+                try:
+                    validate_scenario(probe)
+                except ContractError as exc:
+                    raise error(422, "WEATHER_INVALID", str(exc)) from exc
+                eligible = weather_eligible_types(probe)
+                types = {d["drone_id"]: d["type_id"] for d in s["drones"]}
+                for r in all_sorties:
+                    if (
+                        r["return_s"] > tick
+                        and r["return_s"] > probe["weather"]["valid_from_s"]
+                    ):
+                        direct.add(r["sortie_id"])
+                        if r["prepare_start_s"] <= tick and (
+                            types[r["drone_id"]] not in eligible
+                            or r["return_s"] > probe["weather"]["valid_until_s"]
+                        ):
+                            manual = True
+            elif body.event_type == "demand.added":
+                if (
+                    body.object_id is not None
+                    or body.demand is None
+                    or body.weather is not None
+                ):
                     raise error(
                         422,
                         "SCHEMA_INVALID",
@@ -350,7 +386,12 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     )
                 missing = max(0, d["required_quantity"] - len(cargos))
             else:
-                if not body.object_id or body.demand is not None or body.cargo_items:
+                if (
+                    not body.object_id
+                    or body.demand is not None
+                    or body.cargo_items
+                    or body.weather is not None
+                ):
                     raise error(422, "SCHEMA_INVALID", "退出事件只接受目标 object_id。")
                 if body.event_type == "drone.unavailable":
                     known = {x["drone_id"] for x in s["drones"]}
@@ -394,6 +435,11 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 ],
                 "committed_sortie_ids": committed,
                 "missing_inventory": missing,
+                **(
+                    {"weather": body.weather.model_dump(mode="json")}
+                    if body.weather is not None
+                    else {}
+                ),
                 "status": "requires_manual" if manual else "recorded",
             }
             store(
@@ -499,6 +545,8 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                     next(n for n in s["sites"] if n["id"] == e["object_id"])[
                         "available"
                     ] = False
+                elif e["event_type"] == "weather.changed":
+                    s["weather"] = copy.deepcopy(raw["weather"])
             tick = row.content["time_s"]
             schedule = current_schedule(session, row)
             committed = [

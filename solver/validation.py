@@ -14,6 +14,7 @@ from shared.contracts import (
 from solver.physics import InputNotReady, charge_seconds, leg, parameters
 from solver.routing import path_is_clear
 from solver.numerics import CAPACITY_TOLERANCE
+from solver.weather import check_plan as check_weather_plan
 
 BASE_SCOPE = [
     "cargo_unique",
@@ -368,12 +369,23 @@ def validate(snapshot, plan):
             ),
             "静态限制区及缓冲按测地航段20m弦检查；若航段输入无效则未完成，不含空域许可",
         )
+    if s.get("weather") or "weather_window" in plan["model_scope"]:
+        problems = check_weather_plan(s, plan)
+        for message in problems:
+            add("weather_window", "failed", message)
+        if not problems:
+            add(
+                "weather_window",
+                "passed",
+                "逐架次机型限值与人工气象有效窗口独立复核；未评估风致能耗/时长。",
+            )
     required = sorted(
         set(
             BASE_SCOPE
             + plan["model_scope"]
             + (["ground_resource"] if limits else [])
             + (["restricted_zone"] if s.get("restricted_zones") else [])
+            + (["weather_window"] if s.get("weather") else [])
             + [d for d in ["terrain", "communication"] if s["policy"]["requires_" + d]]
         )
     )

@@ -80,8 +80,22 @@ export default function OperationsApp() {
   const notify = (message: string, error = false) =>
     setMessages((m) => [
       ...m.slice(-3),
-      { id: Date.now(), message, tone: error ? 'error' : 'success' },
+      {
+        id: Math.max(Date.now(), (m.at(-1)?.id || 0) + 1),
+        message,
+        tone: error ? 'error' : 'success',
+      },
     ])
+  useEffect(() => {
+    if (!messages.length) return
+    const first = messages[0]
+    const delay = Math.max(0, first.id + (first.tone === 'error' ? 12000 : 4500) - Date.now())
+    const timer = window.setTimeout(
+      () => setMessages((current) => current.filter((m) => m.id !== first.id)),
+      delay,
+    )
+    return () => window.clearTimeout(timer)
+  }, [messages])
   const refresh = () => {
     void query.invalidateQueries({ queryKey: ['missions'] })
     void query.invalidateQueries({ queryKey: ['mission'] })
@@ -585,7 +599,7 @@ function Settings() {
           <dt>设备接入</dt>
           <dd>SimulationAdapter；SITL / 真机未配置</dd>
           <dt>气象</dt>
-          <dd>题设无风参数；外部预报与机型标定未绑定</dd>
+          <dd>支持人工情景、机型阈值与作业窗口；外部预报、风致能源和机型标定未绑定</dd>
           <dt>离线数据</dt>
           <dd>本地 DEM、地理上下文与前端依赖；卫星图需手动联网启用</dd>
           <dt>账户</dt>

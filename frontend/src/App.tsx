@@ -2110,6 +2110,7 @@ export default function App() {
                         inventory: '库存与站点',
                         aircraft: '机体占用',
                         battery: '电池与充电',
+                        weather_window: '人工气象限值与窗口',
                         time_window: '时间与硬截止',
                         energy: '能耗与储备',
                         terrain: '地形净空',

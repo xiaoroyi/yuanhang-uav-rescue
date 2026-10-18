@@ -41,6 +41,7 @@ from shared.contracts import content_hash, validate_scenario, ContractError
 from solver.adapters.contest import compact_scenario, contest_scenario
 from solver.physics import parameters, leg, InputNotReady
 from solver.stages import stage_analysis
+from solver.weather import type_checks as weather_type_checks
 from backend.app.imports import GROUPS, parse_rows
 from backend.app.generated.domain import (
     Site,
@@ -79,7 +80,16 @@ def mission_view(session, row):
     scenario = session.get(ScenarioRow, row.scenario_id) if row.scenario_id else None
     if scenario:
         view["draft"] = draft_from(scenario.content)
-        view["active_plan_id"] = scenario.active_plan_id
+        active_plan = (
+            session.get(PlanRow, scenario.active_plan_id)
+            if scenario.active_plan_id
+            else None
+        )
+        view["active_plan_id"] = (
+            active_plan.id
+            if active_plan and active_plan.version == scenario.version
+            else None
+        )
         view["site_count"] = len(scenario.content["sites"])
         view["cargo_count"] = len(scenario.content["cargo_items"])
         view["timezone"] = scenario.content["timezone"]
@@ -113,7 +123,7 @@ def mission_view(session, row):
                     select(PlanRow).where(PlanRow.scenario_id == scenario.id)
                 )
             )
-            if scenario.active_plan_id:
+            if view["active_plan_id"]:
                 view.update(lifecycle="ready", next_action="execute")
             elif plans or any(j.state in ("queued", "running") for j in jobs):
                 view.update(lifecycle="planning", next_action="plans")
@@ -713,13 +723,51 @@ def register_missions(app, database, error, save_new, snapshot_for):
                             "region",
                             [site["id"]],
                         )
-            add(
-                "WEATHER_NOT_CONFIGURED",
-                "weather",
-                "unknown",
-                "未绑定气象；当前为显式无风题设参数演练",
-                "settings",
-            )
+            if s.get("weather"):
+                weather = s["weather"]
+                add(
+                    "WEATHER_SOURCE",
+                    "weather",
+                    "passed",
+                    f"人工统一情景：{weather['source_ref']}；窗口{weather['valid_from_s']:g}—{weather['valid_until_s']:g}s，仅检查作业限值",
+                    "fleet",
+                )
+                rules = weather_type_checks(s)
+                any_allowed = any(r["allowed"] for r in rules)
+                for r in rules:
+                    add(
+                        "WEATHER_TYPE:" + r["type_id"],
+                        "weather",
+                        (
+                            "passed"
+                            if r["allowed"]
+                            else "warning" if any_allowed else "blocked"
+                        ),
+                        r["type_id"]
+                        + (
+                            " 满足所配置气象限值"
+                            if r["allowed"]
+                            else " 将不参与排程：" + "；".join(r["issues"])
+                        ),
+                        "fleet",
+                        [r["type_id"]],
+                    )
+                if s["policy"]["requires_communication"]:
+                    add(
+                        "WEATHER_COMBINATION",
+                        "weather",
+                        "blocked",
+                        "气象窗口与联合通信组合尚未支持，不能忽略其中任一约束。",
+                        "fleet",
+                    )
+            else:
+                add(
+                    "WEATHER_NOT_CONFIGURED",
+                    "weather",
+                    "unknown",
+                    "未绑定气象；当前为显式无风题设参数演练",
+                    "fleet",
+                )
             comm = s["policy"]["requires_communication"]
             add(
                 "COMMUNICATION",

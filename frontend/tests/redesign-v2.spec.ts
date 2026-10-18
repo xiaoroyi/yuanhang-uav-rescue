@@ -1,6 +1,84 @@
 import { test, expect, type Page } from '@playwright/test'
+import type { Scenario, Plan } from '../src/api/client'
 
 test.setTimeout(180000)
+
+test('V2 manual weather input changes real type selection and remains traceable on the map', async ({
+  page,
+  request,
+}) => {
+  const response = await request.post('/api/v1/missions', {
+    data: {
+      name: 'W1 browser exercise ' + Date.now(),
+      template: 'compact',
+      idempotency_key: crypto.randomUUID(),
+    },
+  })
+  expect(response.status()).toBe(201)
+  const mission = await response.json()
+  const scene: Scenario = await (
+    await request.get('/api/v1/scenarios/' + mission.current_scenario_id)
+  ).json()
+  scene.cargo_items = scene.cargo_items.slice(0, 2).map((c) => ({ ...c, mass_kg: 1, volume_l: 1 }))
+  scene.demands = scene.demands
+    .filter((d) => scene.cargo_items.some((c) => c.demand_id === d.demand_id))
+    .map((d) => ({
+      ...d,
+      required_quantity: scene.cargo_items.filter((c) => c.demand_id === d.demand_id).length,
+      hard_deadline_s: null,
+      expected_deadline_s: null,
+    }))
+  expect(
+    (
+      await request.put('/api/v1/scenarios/' + scene.scenario_id, {
+        data: { expected_state_version: scene.state_version, scenario: scene },
+      })
+    ).ok(),
+  ).toBeTruthy()
+  await page.goto('/#/missions/' + mission.mission_id + '/prepare')
+  await page.getByRole('button', { name: /机队保障/ }).click()
+  await page.getByRole('button', { name: '配置人工气象情景', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await dialog.getByLabel('情景来源 / 假设说明').fill('Browser test uniform manual assumption')
+  await dialog.getByLabel('机型限值来源').fill('Synthetic limits for regression only')
+  await dialog.getByLabel('起始 / 相对分钟').fill('10')
+  await dialog.getByLabel('结束 / 相对分钟').fill('300')
+  await dialog.getByLabel('风速 / m/s', { exact: true }).fill('8')
+  await dialog.getByLabel('A 最大风速 / m/s', { exact: true }).fill('4')
+  await dialog.getByLabel('B 最大风速 / m/s', { exact: true }).fill('12')
+  await dialog.getByRole('checkbox').check()
+  await dialog.getByRole('button', { name: '保存气象条件', exact: true }).click()
+  await expect(dialog).toHaveCount(0)
+  await page.getByRole('button', { name: /条件检查/ }).click()
+  await page.getByRole('button', { name: '运行检查', exact: true }).click()
+  await expect(page.locator('.v2-check-summary')).toContainText('0 项待处理')
+  await expect(page.locator('.v2-check-list')).toContainText('A')
+  await page.screenshot({
+    path: '../evidence/redesign-v2/weather-preflight-1440.png',
+    fullPage: true,
+  })
+  await page.getByRole('button', { name: /进入方案计算/ }).click()
+  await page.getByRole('button', { name: '生成方案', exact: true }).click()
+  await expect(page.locator('.v2-metrics-line')).toContainText('2 箱', { timeout: 60000 })
+  const plan: Plan = await (
+    await request.get('/api/v1/plans/' + (await page.getByLabel('选择调度方案').inputValue()))
+  ).json()
+  expect(plan.model_scope).toContain('weather_window')
+  expect(
+    plan.sorties.every(
+      (r) =>
+        r.takeoff_s >= 600 && scene.drones.find((d) => d.drone_id === r.drone_id)?.type_id === 'B',
+    ),
+  ).toBeTruthy()
+  await expect(page.locator('.map-weather-context')).toContainText('8 m/s')
+  await page.screenshot({ path: '../evidence/redesign-v2/weather-plan-1440.png', fullPage: true })
+  await page.getByRole('button', { name: '图层管理', exact: true }).click()
+  await page.getByLabel('人工气象信息（仅显隐）').uncheck()
+  await expect(page.locator('.map-weather-context')).toHaveCount(0)
+  expect((await (await request.get('/api/v1/plans/' + plan.plan_id)).json()).model_scope).toContain(
+    'weather_window',
+  )
+})
 
 function csv(rows: Record<string, unknown>[]) {
   const keys = Object.keys(rows[0])

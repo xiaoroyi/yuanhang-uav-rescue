@@ -435,3 +435,93 @@ def test_missing_stock_and_committed_failure_are_not_silently_rewritten(tmp_path
         )
         assert ev["missing_inventory"] == 2
         assert c.get("/api/v1/plans/" + p["plan_id"]).json() == p
+
+
+def test_inflight_weather_event_uses_real_repair_and_protects_unsafe_commitments(
+    tmp_path,
+):
+    from pathlib import Path
+    import json
+
+    weather = json.loads(
+        (
+            Path(__file__).resolve().parents[2]
+            / "fixtures/operations/weather-manual.json"
+        ).read_text(encoding="utf-8")
+    )["weather"]
+    with TestClient(create_app(tmp_path / "runtime")) as c:
+        m, s, p, e = setup(c)
+        first = (
+            min(v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]) + 1
+        )
+        e = act(c, e, "advance", target_time_s=first)
+        facts = copy.deepcopy(e["facts"])
+        weather.update(valid_from_s=0, valid_until_s=100000, wind_speed_mps=1)
+        template = copy.deepcopy(weather["rules"][0])
+        weather["rules"] = [
+            {**template, "type_id": t["type_id"], "max_wind_mps": 20}
+            for t in s["drone_types"]
+        ]
+        body = {
+            "event_id": "weather-safe",
+            "expected_revision": e["revision"],
+            "event_type": "weather.changed",
+            "weather": weather,
+            "reason": "Synthetic W1 exercise",
+        }
+        mixed = c.post(
+            f"/api/v1/executions/{e['execution_id']}/events",
+            json={**body, "object_id": s["drones"][0]["drone_id"]},
+        )
+        assert mixed.status_code == 422
+        ev = post(c, f"/executions/{e['execution_id']}/events", body, 201)
+        assert ev["status"] == "recorded" and ev["weather"] == weather
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert e["facts"] == facts
+        change = post(
+            c,
+            f"/executions/{e['execution_id']}/replan-jobs",
+            {
+                "expected_revision": e["revision"],
+                "idempotency_key": "weather-repair",
+                "time_limit_s": 5,
+            },
+            202,
+        )
+        job = await_job(c, change["job"])
+        assert job["has_validated_plan"], job
+        candidate = c.get("/api/v1/plans/" + job["plan_id"]).json()
+        assert "weather_window" in candidate["model_scope"]
+        assert not (
+            set(change["committed_cargo_ids"])
+            & {box for r in candidate["sorties"] for box in r["cargo_ids"]}
+        )
+        assert c.get("/api/v1/plans/" + p["plan_id"]).json() == p
+        # A later update cannot teleport an already started aircraft through unsafe weather.
+        unsafe = copy.deepcopy(weather)
+        unsafe["wind_speed_mps"] = 30
+        ev = post(
+            c,
+            f"/executions/{e['execution_id']}/events",
+            {
+                **body,
+                "event_id": "weather-unsafe",
+                "expected_revision": e["revision"],
+                "weather": unsafe,
+            },
+            201,
+        )
+        assert ev["status"] == "requires_manual"
+        e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+        assert e["facts"] == facts
+        response = c.post(
+            f"/api/v1/executions/{e['execution_id']}/replan-jobs",
+            json={
+                "expected_revision": e["revision"],
+                "idempotency_key": "unsafe-repair",
+            },
+        )
+        assert (
+            response.status_code == 422
+            and response.json()["error"]["code"] == "COMMITMENT_REQUIRES_MANUAL"
+        )

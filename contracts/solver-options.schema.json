@@ -82,7 +82,8 @@
           "terrain",
           "communication",
           "restricted_zone",
-          "ground_resource"
+          "ground_resource",
+          "weather_window"
         ]
       },
       "uniqueItems": true

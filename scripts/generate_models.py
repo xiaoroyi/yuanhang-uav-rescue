@@ -39,7 +39,7 @@ def main():
     subprocess.run([sys.executable,'-m','datamodel_code_generator','--input',str(temp),'--input-file-type','jsonschema',
                     '--output',str(target),'--output-model-type','pydantic_v2.BaseModel','--target-python-version','3.11',
                     '--use-standard-collections','--use-union-operator','--use-title-as-name','--disable-timestamp','--extra-fields','forbid',
-                    '--use-double-quotes','--formatters','black','isort'],check=True,cwd=ROOT)
+                    '--use-double-quotes','--strict-refs','--formatters','black','isort'],check=True,cwd=ROOT)
     # Remove machine-local paths from generated headers; source stays in the tracked schema files.
     lines=target.read_text(encoding='utf-8').splitlines()
     target.write_text('\n'.join('#   filename: contracts/*.schema.json (local bundle)' if line.startswith('#   filename:') else line for line in lines)+'\n',encoding='utf-8')

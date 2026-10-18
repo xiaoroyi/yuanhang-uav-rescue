@@ -1538,7 +1538,7 @@ export interface components {
          * Code
          * @enum {string}
          */
-        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
+        Code: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource" | "weather_window";
         /**
          * Code1
          * @enum {string}
@@ -2119,12 +2119,13 @@ export interface components {
              * Event Type
              * @enum {string}
              */
-            event_type: "drone.unavailable" | "battery.unavailable" | "demand.added" | "site.unavailable";
+            event_type: "drone.unavailable" | "battery.unavailable" | "demand.added" | "site.unavailable" | "weather.changed";
             /** Object Id */
             object_id?: string | null;
             demand?: components["schemas"]["Demand"] | null;
             /** Cargo Items */
             cargo_items?: components["schemas"]["CargoItem"][];
+            weather?: components["schemas"]["Weather"] | null;
             /** Reason */
             reason: string;
         };
@@ -2159,6 +2160,7 @@ export interface components {
              * @enum {string}
              */
             status: "recorded" | "requires_manual";
+            weather?: components["schemas"]["Weather"] | null;
         };
         /** ExecutionFact */
         ExecutionFact: {
@@ -2583,6 +2585,7 @@ export interface components {
             restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
             resource_limits?: components["schemas"]["ResourceLimits"] | null;
             communication?: components["schemas"]["Communication"] | null;
+            weather?: components["schemas"]["Weather"] | null;
         };
         /** MissionDraftUpdate */
         MissionDraftUpdate: {
@@ -2655,7 +2658,7 @@ export interface components {
          * ModelScopeEnum
          * @enum {string}
          */
-        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
+        ModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource" | "weather_window";
         /** NominalBatch */
         NominalBatch: {
             /** Batch Id */
@@ -2856,16 +2859,16 @@ export interface components {
             relay_simulation: true;
             /**
              * Weather Information
-             * @default false
+             * @default true
              * @constant
              */
-            weather_information: false;
+            weather_information: true;
             /**
              * Weather Thresholds
-             * @default false
+             * @default true
              * @constant
              */
-            weather_thresholds: false;
+            weather_thresholds: true;
             /**
              * Weather Energy
              * @default false
@@ -3675,6 +3678,7 @@ export interface components {
             restricted_zones?: components["schemas"]["RestrictedZone"][] | null;
             resource_limits?: components["schemas"]["ResourceLimits"] | null;
             communication?: components["schemas"]["Communication"] | null;
+            weather?: components["schemas"]["Weather"] | null;
         };
         /** ScenarioOrigin */
         ScenarioOrigin: {
@@ -4060,7 +4064,7 @@ export interface components {
          * SupportedModelScopeEnum
          * @enum {string}
          */
-        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource";
+        SupportedModelScopeEnum: "cargo_unique" | "capacity" | "inventory" | "aircraft" | "battery" | "time_window" | "energy" | "terrain" | "communication" | "restricted_zone" | "ground_resource" | "weather_window";
         /**
          * SupportedObjective
          * @enum {string}
@@ -4329,6 +4333,68 @@ export interface components {
             cargo_ids: components["schemas"]["CargoId"][];
             /** Delivery Complete S */
             delivery_complete_s: number;
+        };
+        /** Weather */
+        Weather: {
+            /**
+             * Model Id
+             * @constant
+             */
+            model_id: "manual_operating_window_v1";
+            /** Weather Id */
+            weather_id: string;
+            /**
+             * Source Kind
+             * @constant
+             */
+            source_kind: "manual_scenario";
+            /** Source Ref */
+            source_ref: string;
+            /**
+             * Issued At
+             * Format: date-time
+             */
+            issued_at: string;
+            /** Valid From S */
+            valid_from_s: number;
+            /** Valid Until S */
+            valid_until_s: number;
+            /** Height M */
+            height_m: number;
+            /**
+             * Height Reference
+             * @constant
+             */
+            height_reference: "AGL";
+            /** Wind Speed Mps */
+            wind_speed_mps: number | null;
+            /** Gust Mps */
+            gust_mps: number | null;
+            /** Wind Direction From Deg */
+            wind_direction_from_deg: number | null;
+            /** Temperature C */
+            temperature_c: number | null;
+            /** Precipitation Mm H */
+            precipitation_mm_h: number | null;
+            /** Rules */
+            rules: components["schemas"]["WeatherRule"][];
+        };
+        /** WeatherRule */
+        WeatherRule: {
+            /** Type Id */
+            type_id: string;
+            /** Source Ref */
+            source_ref: string;
+            /** Max Wind Mps */
+            max_wind_mps: number | null;
+            /** Max Gust Mps */
+            max_gust_mps: number | null;
+            /** Min Temperature C */
+            min_temperature_c: number | null;
+            /** Max Temperature C */
+            max_temperature_c: number | null;
+            /** Max Precipitation Mm H */
+            max_precipitation_mm_h: number | null;
         };
         /** WhatIfHistory */
         WhatIfHistory: {

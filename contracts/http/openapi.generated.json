@@ -4279,7 +4279,8 @@
           "terrain",
           "communication",
           "restricted_zone",
-          "ground_resource"
+          "ground_resource",
+          "weather_window"
         ],
         "title": "Code"
       },
@@ -5849,7 +5850,8 @@
               "drone.unavailable",
               "battery.unavailable",
               "demand.added",
-              "site.unavailable"
+              "site.unavailable",
+              "weather.changed"
             ],
             "title": "Event Type"
           },
@@ -5881,6 +5883,16 @@
             "type": "array",
             "maxItems": 200,
             "title": "Cargo Items"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Weather"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "reason": {
             "type": "string",
@@ -5975,6 +5987,16 @@
               "requires_manual"
             ],
             "title": "Status"
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Weather"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -7250,6 +7272,16 @@
                 "type": "null"
               }
             ]
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Weather"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -7472,7 +7504,8 @@
           "terrain",
           "communication",
           "restricted_zone",
-          "ground_resource"
+          "ground_resource",
+          "weather_window"
         ],
         "title": "ModelScopeEnum"
       },
@@ -8066,15 +8099,15 @@
           },
           "weather_information": {
             "type": "boolean",
-            "const": false,
+            "const": true,
             "title": "Weather Information",
-            "default": false
+            "default": true
           },
           "weather_thresholds": {
             "type": "boolean",
-            "const": false,
+            "const": true,
             "title": "Weather Thresholds",
-            "default": false
+            "default": true
           },
           "weather_energy": {
             "type": "boolean",
@@ -10485,6 +10518,16 @@
                 "type": "null"
               }
             ]
+          },
+          "weather": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Weather"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -11586,7 +11629,8 @@
           "terrain",
           "communication",
           "restricted_zone",
-          "ground_resource"
+          "ground_resource",
+          "weather_window"
         ],
         "title": "SupportedModelScopeEnum"
       },
@@ -12481,6 +12525,244 @@
           "delivery_complete_s"
         ],
         "title": "Visit"
+      },
+      "Weather": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "const": "manual_operating_window_v1",
+            "title": "Model Id"
+          },
+          "weather_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Weather Id"
+          },
+          "source_kind": {
+            "type": "string",
+            "const": "manual_scenario",
+            "title": "Source Kind"
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "issued_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Issued At"
+          },
+          "valid_from_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Valid From S"
+          },
+          "valid_until_s": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Valid Until S"
+          },
+          "height_m": {
+            "type": "number",
+            "maximum": 20000.0,
+            "minimum": 0.0,
+            "title": "Height M"
+          },
+          "height_reference": {
+            "type": "string",
+            "const": "AGL",
+            "title": "Height Reference"
+          },
+          "wind_speed_mps": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Speed Mps"
+          },
+          "gust_mps": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gust Mps"
+          },
+          "wind_direction_from_deg": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 360.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wind Direction From Deg"
+          },
+          "temperature_c": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": -100.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Temperature C"
+          },
+          "precipitation_mm_h": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Precipitation Mm H"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/WeatherRule"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Rules"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "model_id",
+          "weather_id",
+          "source_kind",
+          "source_ref",
+          "issued_at",
+          "valid_from_s",
+          "valid_until_s",
+          "height_m",
+          "height_reference",
+          "wind_speed_mps",
+          "gust_mps",
+          "wind_direction_from_deg",
+          "temperature_c",
+          "precipitation_mm_h",
+          "rules"
+        ],
+        "title": "Weather"
+      },
+      "WeatherRule": {
+        "properties": {
+          "type_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Type Id"
+          },
+          "source_ref": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Ref"
+          },
+          "max_wind_mps": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Wind Mps"
+          },
+          "max_gust_mps": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 200.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Gust Mps"
+          },
+          "min_temperature_c": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": -100.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Temperature C"
+          },
+          "max_temperature_c": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": -100.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Temperature C"
+          },
+          "max_precipitation_mm_h": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 1000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Precipitation Mm H"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "type_id",
+          "source_ref",
+          "max_wind_mps",
+          "max_gust_mps",
+          "min_temperature_c",
+          "max_temperature_c",
+          "max_precipitation_mm_h"
+        ],
+        "title": "WeatherRule"
       },
       "WhatIfHistory": {
         "properties": {

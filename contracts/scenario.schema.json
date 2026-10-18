@@ -660,6 +660,16 @@
     },
     "communication": {
       "$ref": "https://yuanhang.example/contracts/common.schema.json#/$defs/communication"
+    },
+    "weather": {
+      "anyOf": [
+        {
+          "$ref": "https://yuanhang.example/contracts/weather.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "required": [

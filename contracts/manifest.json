@@ -13,7 +13,8 @@
     "solver-outcome.schema.json",
     "solve-job.schema.json",
     "error.schema.json",
-    "capabilities.schema.json"
+    "capabilities.schema.json",
+    "weather.schema.json"
   ],
   "type_generation": {
     "python": "JSON Schema -> generated Pydantic in backend; solver uses JSON mappings",

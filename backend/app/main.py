@@ -315,6 +315,7 @@ def create_app(runtime_dir: Path | None = None):
         manager.recover()
         app.state.jobs = manager
         from backend.app.simulation import SimulationEngine
+
         app.state.simulation = SimulationEngine(database, AppError)
         yield
         app.state.simulation.close()
@@ -1048,6 +1049,11 @@ def create_app(runtime_dir: Path | None = None):
                 and "communication" not in options["requested_model_scope"]
             ):
                 options["requested_model_scope"].append("communication")
+            if (
+                snap["scenario"].get("weather")
+                and "weather_window" not in options["requested_model_scope"]
+            ):
+                options["requested_model_scope"].append("weather_window")
             try:
                 validate_options(options, snap)
             except ContractError as exc:
@@ -1657,8 +1663,10 @@ def create_app(runtime_dir: Path | None = None):
             }
 
     from backend.app.missions import register_missions
+
     register_missions(app, database, AppError, save_new, snapshot_for)
     from backend.app.executions import register_executions
+
     register_executions(app, database, AppError, create_job, SolveRequest, snapshot_for)
 
     frontend = ROOT / "frontend/dist"

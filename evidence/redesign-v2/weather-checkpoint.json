@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-18T10:10:02.763115+00:00",
+  "service_source_sha256": "762f4d7041b92f293aaff6ac1827c3fa86dd6d0d6cd051cc6e9bc031d07d6792",
+  "frontend_source_sha256": "e61217a67920107bd3438aec95dd8b72c7c7dcb79e84ed6bed04bf2c1fb8112a",
+  "verification_source_sha256": "251fec237027be1344824d775b5d036e1d04941256d9d2c408103f8c4d9e2f2a",
+  "python": {
+    "passed": 17,
+    "duration_s": 65.84,
+    "full_regression": false
+  },
+  "browser": {
+    "passed": 2,
+    "duration_s": 22.3,
+    "evidence": "weather-browser-results.json"
+  },
+  "frontend_unit_passed": 12,
+  "lint": true,
+  "typescript_build": true,
+  "real_devices": false,
+  "deployed_to_8000": false
+}

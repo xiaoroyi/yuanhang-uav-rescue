@@ -17,6 +17,7 @@ import { Button, Modal } from '../components/ui'
 import { RescueMap } from '../components/RescueMap'
 import { ResourceTimeline } from '../components/ResourceTimeline'
 import { CommunicationPanel } from '../components/CommunicationPanel'
+import { WeatherEditor } from './WeatherEditor'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { navigate } from './App'
@@ -597,7 +598,11 @@ function EventForm({
   onSaved: () => void
 }) {
   const [kind, setKind] = useState<
-    'drone.unavailable' | 'battery.unavailable' | 'demand.added' | 'site.unavailable'
+    | 'drone.unavailable'
+    | 'battery.unavailable'
+    | 'demand.added'
+    | 'site.unavailable'
+    | 'weather.changed'
   >('drone.unavailable')
   const [object, setObject] = useState('')
   const [reason, setReason] = useState('')
@@ -656,6 +661,38 @@ function EventForm({
       : kind === 'battery.unavailable'
         ? scenario.batteries.map((b) => ({ id: b.battery_id, text: b.battery_id }))
         : scenario.sites.map((s) => ({ id: s.id, text: s.name }))
+  if (kind === 'weather.changed')
+    return (
+      <div className="v2-create-form">
+        <label>
+          变化类型
+          <select value={kind} onChange={(e) => setKind(e.target.value as typeof kind)}>
+            <option value="drone.unavailable">机体退出未来任务</option>
+            <option value="demand.added">新增需求</option>
+            <option value="weather.changed">人工气象条件更新</option>
+          </select>
+        </label>
+        <label>
+          变化原因
+          <textarea value={reason} onChange={(e) => setReason(e.target.value)} />
+        </label>
+        <WeatherEditor
+          purpose="event"
+          scenario={scenario}
+          notify={notify}
+          onSave={async (next) => {
+            if (!reason.trim()) throw new Error('请说明气象变化原因。')
+            if (!next.weather) throw new Error('执行中更新需提供明确情景，不能移除约束。')
+            await ops.event(execution, {
+              event_type: 'weather.changed',
+              weather: next.weather,
+              reason,
+            })
+            onSaved()
+          }}
+        />
+      </div>
+    )
   return (
     <form
       className="v2-create-form"
@@ -677,6 +714,7 @@ function EventForm({
           <option value="battery.unavailable">电池退出未来任务</option>
           <option value="demand.added">已有点位新增医疗需求</option>
           <option value="site.unavailable">落点关闭</option>
+          <option value="weather.changed">人工气象条件更新</option>
         </select>
       </label>
       {kind === 'demand.added' ? (

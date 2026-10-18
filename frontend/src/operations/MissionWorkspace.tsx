@@ -34,6 +34,7 @@ import { StageCharts } from './StageCharts'
 import { InputImport } from './InputImport'
 import { PlanInsights } from './PlanInsights'
 import { CommunicationPanel } from '../components/CommunicationPanel'
+import { WeatherEditor } from './WeatherEditor'
 
 type Stage = 'prepare' | 'plans' | 'execute' | 'review'
 type Notify = (m: string, e?: boolean) => void
@@ -749,6 +750,7 @@ function Preparation({
         restricted_zones,
         resource_limits,
         communication,
+        weather,
       } = s
       await persist({
         start_time,
@@ -765,6 +767,7 @@ function Preparation({
         restricted_zones,
         resource_limits,
         communication,
+        weather,
       })
     }
   }
@@ -998,6 +1001,14 @@ function Preparation({
             />
             {step === 'fleet' && scenario && (
               <CommunicationManager scenario={scenario} onSave={save} notify={notify} />
+            )}
+            {step === 'fleet' && (
+              <WeatherEditor
+                key={scenario?.state_version || mission.revision}
+                scenario={live}
+                onSave={saveEditor}
+                notify={notify}
+              />
             )}
           </>
         ) : (

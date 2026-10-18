@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "data_origin": "mock",
+    "purpose": "uniform synthetic weather fixture; not observations or manufacturer certification"
+  },
+  "weather": {
+    "model_id": "manual_operating_window_v1",
+    "weather_id": "WX-TEST",
+    "source_kind": "manual_scenario",
+    "source_ref": "synthetic uniform exercise",
+    "issued_at": "2026-10-18T08:00:00+08:00",
+    "valid_from_s": 600.0,
+    "valid_until_s": 18000.0,
+    "height_m": 10.0,
+    "height_reference": "AGL",
+    "wind_speed_mps": 5.0,
+    "gust_mps": null,
+    "wind_direction_from_deg": null,
+    "temperature_c": null,
+    "precipitation_mm_h": null,
+    "rules": [
+      {
+        "type_id": "B",
+        "source_ref": "synthetic exercise rule; not a manufacturer limit",
+        "max_wind_mps": 10.0,
+        "max_gust_mps": null,
+        "min_temperature_c": null,
+        "max_temperature_c": null,
+        "max_precipitation_mm_h": null
+      }
+    ]
+  }
+}

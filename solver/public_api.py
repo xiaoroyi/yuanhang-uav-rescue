@@ -35,6 +35,11 @@ from solver.analysis import analyze
 from solver.ground import earliest_slot, initial_schedule
 from solver.identities import sortie_id
 from solver.nominal import analyze_single_site
+from solver.weather import (
+    eligible_types as weather_types,
+    qualify as qualify_weather,
+    window as weather_window,
+)
 
 
 def capabilities():
@@ -50,7 +55,13 @@ def capabilities():
             "relay_energy.unavailable",
         ],
         "supported_model_scope": BASE_SCOPE
-        + ["terrain", "restricted_zone", "ground_resource", "communication"],
+        + [
+            "terrain",
+            "restricted_zone",
+            "ground_resource",
+            "communication",
+            "weather_window",
+        ],
         "supported_energy_models": [ENERGY_MODEL],
         "supported_charge_models": [CHARGE_MODEL],
         "features": {
@@ -112,6 +123,7 @@ def _required_cargos(s, seed=0):
         for d in s["drones"]
         if d["status"] == "available" and d["location_id"] == s["base"]["id"]
     }
+    active &= weather_types(s)
     equipped = {
         b["compatible_type_id"]
         for b in s["batteries"]
@@ -163,6 +175,9 @@ def _construct(
     fixed_routes=(),
 ):
     rng = random.Random(seed)
+    weather_start, weather_end = weather_window(s)
+    start_floor = max(start_floor, weather_start)
+    eligible = weather_types(s)
     cargos = {c["cargo_id"]: c for c in s["cargo_items"]}
     demands = {d["demand_id"]: d for d in s["demands"]}
     types = {t["type_id"]: t for t in s["drone_types"]}
@@ -190,7 +205,9 @@ def _construct(
     drones = {
         d["drone_id"]: {**d, "ready": max(start_floor, d["available_after_s"])}
         for d in s["drones"]
-        if d["status"] == "available" and d["location_id"] == s["base"]["id"]
+        if d["status"] == "available"
+        and d["location_id"] == s["base"]["id"]
+        and d["type_id"] in eligible
     }
     batteries = {
         b["battery_id"]: {**b, "ready": max(start_floor, b["available_after_s"])}
@@ -295,6 +312,8 @@ def _construct(
                     for v in route["visits"]
                     for c in v["cargo_ids"]
                 ):
+                    continue
+                if start + route["duration_s"] > weather_end + 1e-7:
                     continue
                 choices.append(
                     (start + route["duration_s"], start, uid, bid, soc, charge_start)
@@ -440,7 +459,8 @@ def _make_plan(snapshot, options, routes, initial_charges=None):
         "model_scope": BASE_SCOPE
         + (["terrain"] if s["terrain"]["status"] == "available" else [])
         + (["restricted_zone"] if s.get("restricted_zones") else [])
-        + (["ground_resource"] if s.get("resource_limits") else []),
+        + (["ground_resource"] if s.get("resource_limits") else [])
+        + (["weather_window"] if s.get("weather") else []),
         **(
             {"initial_charges": copy.deepcopy(initial_charges or [])}
             if s.get("resource_limits")
@@ -465,6 +485,13 @@ def _make_plan(snapshot, options, routes, initial_charges=None):
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "solver_notes": [
             "真实限时多起点插入启发式；未证明全局最优。",
+            *(
+                [
+                    "manual_operating_window_v1：人工空间均匀气象情景，仅检查逐机型作业限值和飞行窗口；未建模风致能耗/时长，未代表实测或预报。"
+                ]
+                if s.get("weather")
+                else []
+            ),
             (
                 "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。"
                 if objective_policy(options) == "tradeoff_v2"
@@ -520,6 +547,23 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
         validate_snapshot(snapshot)
         validate_options(options, snapshot)
         s = snapshot["scenario"]
+        if s.get("weather"):
+            qualify_weather(s)
+            if s["policy"]["requires_communication"] or options["mode"] == "improve":
+                return _outcome(
+                    "UNKNOWN",
+                    options,
+                    started,
+                    reason="unsupported_scope",
+                    diagnostics=[
+                        diagnostic(
+                            "UNSUPPORTED_WEATHER_COMBINATION",
+                            "人工气象作业窗口当前接入运输快速/重规划；联合通信与有限池深入组合尚未支持，不会忽略气象。",
+                        )
+                    ],
+                )
+        elif "weather_window" in options["requested_model_scope"]:
+            raise InputNotReady("请求了气象检查，但输入未绑定人工气象情景。")
         if has_execution_facts(s):
             return _outcome(
                 "UNKNOWN",

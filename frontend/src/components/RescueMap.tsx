@@ -83,6 +83,7 @@ export function RescueMap({
   const [terrainLabel, setTerrainLabel] = useState('')
   const [showZones, setShowZones] = useState(true)
   const [showRelays, setShowRelays] = useState(true)
+  const [showWeather, setShowWeather] = useState(true)
   const [townMetadata, setTownMetadata] = useState<TownContextMetadata | null>(null)
   const [townData, setTownData] = useState<TownContextData | null>(null)
   const [contextLoaded, setContextLoaded] = useState(false)
@@ -957,6 +958,19 @@ export function RescueMap({
           在线影像暂不可用，已恢复离线地形。点位与计算不受影响。
         </div>
       )}
+      {scenario.weather && showWeather && (
+        <div
+          className="map-weather-context"
+          title={`${scenario.weather.source_ref} · 发布 ${scenario.weather.issued_at} · 高度 AGL ${scenario.weather.height_m} m`}
+        >
+          <strong>人工气象情景 · W1</strong>
+          <span>
+            风 {scenario.weather.wind_speed_mps ?? '未知'} m/s ·{' '}
+            {scenario.weather.valid_from_s / 60}—{scenario.weather.valid_until_s / 60} min
+          </span>
+          <small>全区域均匀假设 · 阈值/窗口约束</small>
+        </div>
+      )}
       <div className="map-controls">
         <button aria-label="放大地图" onClick={() => map.current?.zoomIn()}>
           <Plus size={17} />
@@ -977,6 +991,16 @@ export function RescueMap({
       </div>
       {layersOpen && (
         <div className="map-layers">
+          {scenario.weather && (
+            <label>
+              <input
+                type="checkbox"
+                checked={showWeather}
+                onChange={(e) => setShowWeather(e.target.checked)}
+              />
+              人工气象信息（仅显隐）
+            </label>
+          )}
           {contextLoaded && (
             <>
               <button

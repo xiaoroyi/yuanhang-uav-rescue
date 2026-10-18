@@ -45,6 +45,7 @@ class SupportedModelScopeEnum(Enum):
     communication = "communication"
     restricted_zone = "restricted_zone"
     ground_resource = "ground_resource"
+    weather_window = "weather_window"
 
 
 class SupportedEnergyModel(
@@ -125,6 +126,7 @@ class ScopeEnum(Enum):
     communication = "communication"
     restricted_zone = "restricted_zone"
     ground_resource = "ground_resource"
+    weather_window = "weather_window"
 
 
 class Scope(RootModel[list[ScopeEnum]]):
@@ -150,6 +152,7 @@ class Code(Enum):
     communication = "communication"
     restricted_zone = "restricted_zone"
     ground_resource = "ground_resource"
+    weather_window = "weather_window"
 
 
 class Status1(Enum):
@@ -577,6 +580,7 @@ class ModelScopeEnum(Enum):
     communication = "communication"
     restricted_zone = "restricted_zone"
     ground_resource = "ground_resource"
+    weather_window = "weather_window"
 
 
 class Metrics(BaseModel):
@@ -1029,52 +1033,6 @@ class ResourceLimits(BaseModel):
     charging_ports: conint(ge=1, le=64)
 
 
-class Scenario(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    schema_version: Literal["0.1.0-draft"]
-    scenario_id: constr(
-        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
-    )
-    name: constr(min_length=1)
-    state_version: conint(ge=1)
-    mode: Mode
-    data_origin: DataOrigin1
-    start_time: AwareDatetime
-    timezone: constr(min_length=1)
-    coordinate_system: Literal["EPSG:4326"]
-    terrain: Terrain
-    base: Base
-    sites: list[Site] = Field(..., min_length=1)
-    demands: list[Demand] = Field(..., min_length=1)
-    cargo_items: list[CargoItem] = Field(..., min_length=0)
-    drone_types: list[DroneType] = Field(..., min_length=1)
-    drones: list[Drone] = Field(..., min_length=0)
-    batteries: list[Battery] = Field(..., min_length=0)
-    policy: Policy
-    restricted_zones: list[RestrictedZone] | None = Field(None, max_length=12)
-    resource_limits: ResourceLimits | None = None
-    communication: Communication | None = None
-
-
-class Snapshot(BaseModel):
-    model_config = ConfigDict(
-        extra="forbid",
-    )
-    schema_version: Literal["0.1.0-draft"]
-    snapshot_id: constr(
-        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
-    )
-    scenario_id: constr(
-        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
-    )
-    scenario_state_version: conint(ge=1)
-    content_hash: constr(pattern=r"^[a-f0-9]{64}$")
-    created_at: AwareDatetime
-    scenario: Scenario
-
-
 class JobState(Enum):
     queued = "queued"
     running = "running"
@@ -1133,6 +1091,7 @@ class RequestedModelScopeEnum(Enum):
     communication = "communication"
     restricted_zone = "restricted_zone"
     ground_resource = "ground_resource"
+    weather_window = "weather_window"
 
 
 class SolverOptions(BaseModel):
@@ -1240,6 +1199,19 @@ class ItemsModel(BaseModel):
     mandatory: bool
 
 
+class WeatherRule(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    type_id: constr(min_length=1)
+    source_ref: constr(min_length=1, max_length=500)
+    max_wind_mps: confloat(ge=0.0, le=200.0) | None
+    max_gust_mps: confloat(ge=0.0, le=200.0) | None
+    min_temperature_c: confloat(ge=-100.0, le=100.0) | None
+    max_temperature_c: confloat(ge=-100.0, le=100.0) | None
+    max_precipitation_mm_h: confloat(ge=0.0, le=1000.0) | None
+
+
 class Payload2(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -1308,6 +1280,74 @@ class SolverOutcome(BaseModel):
     joint_search: JointSearchModel | None = None
 
 
+class Weather(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    model_id: Literal["manual_operating_window_v1"]
+    weather_id: constr(min_length=1, max_length=128)
+    source_kind: Literal["manual_scenario"]
+    source_ref: constr(min_length=1, max_length=500)
+    issued_at: AwareDatetime
+    valid_from_s: confloat(ge=0.0)
+    valid_until_s: confloat(ge=0.0)
+    height_m: confloat(ge=0.0, le=20000.0)
+    height_reference: Literal["AGL"]
+    wind_speed_mps: confloat(ge=0.0, le=200.0) | None
+    gust_mps: confloat(ge=0.0, le=200.0) | None
+    wind_direction_from_deg: confloat(ge=0.0, le=360.0) | None
+    temperature_c: confloat(ge=-100.0, le=100.0) | None
+    precipitation_mm_h: confloat(ge=0.0, le=1000.0) | None
+    rules: list[WeatherRule] = Field(..., max_length=100, min_length=1)
+
+
+class Scenario(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    schema_version: Literal["0.1.0-draft"]
+    scenario_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    name: constr(min_length=1)
+    state_version: conint(ge=1)
+    mode: Mode
+    data_origin: DataOrigin1
+    start_time: AwareDatetime
+    timezone: constr(min_length=1)
+    coordinate_system: Literal["EPSG:4326"]
+    terrain: Terrain
+    base: Base
+    sites: list[Site] = Field(..., min_length=1)
+    demands: list[Demand] = Field(..., min_length=1)
+    cargo_items: list[CargoItem] = Field(..., min_length=0)
+    drone_types: list[DroneType] = Field(..., min_length=1)
+    drones: list[Drone] = Field(..., min_length=0)
+    batteries: list[Battery] = Field(..., min_length=0)
+    policy: Policy
+    restricted_zones: list[RestrictedZone] | None = Field(None, max_length=12)
+    resource_limits: ResourceLimits | None = None
+    communication: Communication | None = None
+    weather: Weather | None = None
+
+
+class Snapshot(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    schema_version: Literal["0.1.0-draft"]
+    snapshot_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    scenario_id: constr(
+        pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:-]*$", min_length=1, max_length=128
+    )
+    scenario_state_version: conint(ge=1)
+    content_hash: constr(pattern=r"^[a-f0-9]{64}$")
+    created_at: AwareDatetime
+    scenario: Scenario
+
+
 class DomainContracts(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -1321,3 +1361,4 @@ class DomainContracts(BaseModel):
     solve_job: SolveJob | None = Field(None, alias="solve-job")
     solver_options: SolverOptions | None = Field(None, alias="solver-options")
     solver_outcome: SolverOutcome | None = Field(None, alias="solver-outcome")
+    weather: Weather | None = None

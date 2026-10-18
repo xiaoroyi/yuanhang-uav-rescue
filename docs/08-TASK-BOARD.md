@@ -92,7 +92,7 @@
 | C-09 | P1 | B | A-11, C-04 | 资源增配情景 API，独立分叉快照与打印/导出；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 | B-09 | P1 | B | C-09, B-05 | 资源增配前端比较与打印任务单；验收：增配单独建新场景/快照并真实求解 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/RESOURCE_ANALYSIS.md; tests/backend/test_analytics.py; evidence/browser/e2e-results.json; evidence/browser/print-report-qa.json |
 | R13 | P1 | A+B | R06, R07, R08 | 通信中继与连续验证；验收：直连与接入/回传、窗口、组件、通信时间轴与剖面；明确连续/采样边界 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
-| R14 | P1 | A+B | R01, R05, R07 | 气象、现实电量和地面保障；验收：手工/预报适配、数据年龄、机型阈值、SOC/容量定义、充电端口/起降与装卸能力 | todo | feat/mission-workspace-v2 |
+| R14 | P1 | A+B | R01, R05, R07 | 气象、现实电量和地面保障；验收：手工/预报适配、数据年龄、机型阈值、SOC/容量定义、充电端口/起降与装卸能力 | in_progress | feat/mission-workspace-v2; docs/CONTRACT_RFC_019.md; tests/solver/test_weather.py; tests/backend/test_weather_v2.py; evidence/redesign-v2/weather-browser-results.json |
 | R15 | P1 | A+B | R08, R12, R13, R14 | 条件变化有效性与增配诊断；验收：I1—I3 可操作界面、受影响对象、真实 what-if 计算、保留原 Plan | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R16 | P1 | A+B | R07, R10, R12 | 演练评测与算法消融；验收：从 UI 运行场景/事件/方法对比；预算/种子/日志/失败记录；研究功能独立 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 

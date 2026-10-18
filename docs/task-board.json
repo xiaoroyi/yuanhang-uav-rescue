@@ -1574,10 +1574,15 @@
         "R05",
         "R07"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
-      "evidence": []
+      "evidence": [
+        "docs/CONTRACT_RFC_019.md",
+        "tests/solver/test_weather.py",
+        "tests/backend/test_weather_v2.py",
+        "evidence/redesign-v2/weather-browser-results.json"
+      ]
     },
     {
       "id": "R15",

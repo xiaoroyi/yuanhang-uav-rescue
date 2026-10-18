@@ -24,3 +24,11 @@
 ## R13中继执行增量
 
 新增test_relay_execution_v2.py：对已有小场景联合候选先执行当前独立validate，再重建中继阶段/能源/SOC、运行服务器模拟至服务中与最终组件释放、核对32箱事实与Plan数据库原JSON未改。专项1 passed 10.93s；与全部新增核心及操作契约组合11 passed 53.71s；lint与strict TS/build通过。首次专项末尾比较HTTP的UTC `Z` 与原候选`+00:00`文本而失败，实际阶段和账本断言已过；改为核对数据库原JSON不变，避免将等价日期序列化误判为数据改写。失败日志保留。此增量未声明浏览器/全量算法已经验证。
+# R14 / RFC-019 W1增量检查点
+
+当前W1与V2核心组合：17 passed，65.84s，命令为`.venv\Scripts\python -m pytest tests/backend/test_operations.py tests/backend/test_execution_v2.py tests/backend/test_weather_v2.py tests/backend/test_relay_execution_v2.py tests/solver/test_weather.py tests/test_operation_contracts.py -q`。含真实Worker自动必检范围、机型排除/窗口、独立负例、旧Plan不变/过期确认阻断、在飞承诺冻结与气象事件真实残余重算；不是完整旧算法回归。
+
+正式Playwright两条V2流程2 passed，22.3s，见weather-browser-results.json；人工W1输入→预检→真实B型排程→地图信息显隐，以及非原题空白CSV导入闭环。第一轮发现通知遮住下一步，修改自动收起及点击穿透后重新运行；不依赖强制点击绕过缺陷。weather-plan-1440.png已实际查看，天气浮层仍可能遮住附近点位标签，列入R06后续避让检查。
+
+lint、strict TS/build、12项前端单元通过；11领域Schema/18旧Mock/16旧草案HTTP契约通过，89任务/42原件哈希/18旧源码AST治理检查通过。WeatherRule解析曾因相对引用缺失回落Any，已改完整$id并开启生成器严格引用；新生成类型为具体WeatherRule。风致能耗/时长、预报与联合W1未伪称通过。
+

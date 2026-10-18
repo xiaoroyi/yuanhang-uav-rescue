@@ -22,6 +22,7 @@ from backend.app.generated.domain import (
     Communication,
     Scenario,
     SolveJob,
+    Weather,
 )
 
 
@@ -44,6 +45,7 @@ class MissionDraft(OperationDTO):
     restricted_zones: list[RestrictedZone] | None = None
     resource_limits: ResourceLimits | None = None
     communication: Communication | None = None
+    weather: Weather | None = None
 
     @field_validator("timezone")
     @classmethod
@@ -291,11 +293,16 @@ class ExecutionEventInput(OperationDTO):
     event_id: str = Field(min_length=1, max_length=128)
     expected_revision: int = Field(ge=1)
     event_type: Literal[
-        "drone.unavailable", "battery.unavailable", "demand.added", "site.unavailable"
+        "drone.unavailable",
+        "battery.unavailable",
+        "demand.added",
+        "site.unavailable",
+        "weather.changed",
     ]
     object_id: str | None = None
     demand: Demand | None = None
     cargo_items: list[CargoItem] = Field(default_factory=list, max_length=200)
+    weather: Weather | None = None
     reason: str = Field(min_length=1, max_length=500)
 
 
@@ -313,6 +320,7 @@ class ExecutionEventView(OperationDTO):
     committed_sortie_ids: list[str]
     missing_inventory: int
     status: Literal["recorded", "requires_manual"]
+    weather: Weather | None = None
 
 
 class RepairRequest(OperationDTO):
@@ -444,8 +452,8 @@ class OperationCapabilities(OperationDTO):
         "transport_committed_prefix_future_only"
     )
     relay_simulation: Literal[True] = True
-    weather_information: Literal[False] = False
-    weather_thresholds: Literal[False] = False
+    weather_information: Literal[True] = True
+    weather_thresholds: Literal[True] = True
     weather_energy: Literal[False] = False
     learning_search: Literal[False] = False
     position_source: Literal["business_model_phases"] = "business_model_phases"
