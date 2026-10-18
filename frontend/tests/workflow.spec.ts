@@ -1388,9 +1388,16 @@ test('任务刷新恢复，重新载入页面不重复提交求解', async ({ pa
   expect(jobs.length).toBe(1)
   expect(jobs[0].job_state).toBe('completed')
   expect(jobs[0].has_validated_plan).toBe(true)
+  const storedPlan = await (await request.get(`/api/v1/plans/${jobs[0].plan_id}`)).json()
+  const storedSnapshot = await (
+    await request.get(`/api/v1/snapshots/${storedPlan.snapshot_id}`)
+  ).json()
+  expect(storedPlan.validation.status).toBe('passed')
+  expect(storedPlan.snapshot_id).toBe(jobs[0].snapshot_id)
 
   // A plans read can precede the worker commit while job metadata follows it.
-  // Only the first list response is stale; the stored result remains real.
+  // A persisted selection can load its real Plan directly despite that stale list.
+  // Assert the displayed identity and immutable input, not redundant list reads.
   let planReads = 0
   await page.route(`**/api/v1/scenarios/${sceneId}/plans`, async (route) => {
     planReads++
@@ -1401,13 +1408,37 @@ test('任务刷新恢复，重新载入页面不重复提交求解', async ({ pa
     await new Promise((resolve) => setTimeout(resolve, 250))
     await route.continue()
   })
+  const submittedJobs: string[] = []
+  page.on('request', (r) => {
+    if (r.method() === 'POST' && new URL(r.url()).pathname === '/api/v1/solve-jobs')
+      submittedJobs.push(r.url())
+  })
+  const staleListResponse = page.waitForResponse(
+    (r) => new URL(r.url()).pathname === `/api/v1/scenarios/${sceneId}/plans`,
+  )
+  const restoredPlanResponse = page.waitForResponse(
+    (r) => new URL(r.url()).pathname === `/api/v1/plans/${storedPlan.plan_id}`,
+  )
+  const restoredSnapshotResponse = page.waitForResponse(
+    (r) => new URL(r.url()).pathname === `/api/v1/snapshots/${storedPlan.snapshot_id}`,
+  )
   await page.reload()
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
-  await expect.poll(() => planReads).toBeGreaterThan(1)
+  expect(await (await staleListResponse).json()).toEqual([])
+  expect(await (await restoredPlanResponse).json()).toEqual(storedPlan)
+  expect(await (await restoredSnapshotResponse).json()).toEqual(storedSnapshot)
+  await expect(page.getByRole('link', { name: '计划JSON', exact: true })).toHaveAttribute(
+    'href',
+    new RegExp(`/plans/${storedPlan.plan_id}/export`),
+  )
+  await expect(page.getByRole('status', { name: '方案快照绑定', exact: true })).toHaveCount(0)
   await expect(page.locator('.toast').filter({ hasText: '真实计算完成' })).toHaveCount(0)
   const recovered = await (await request.get(`/api/v1/scenarios/${sceneId}/solve-jobs`)).json()
   expect(recovered).toHaveLength(1)
   expect(recovered[0].job_id).toBe(jobs[0].job_id)
+  expect(recovered[0].plan_id).toBe(storedPlan.plan_id)
+  expect(recovered[0].snapshot_id).toBe(storedSnapshot.snapshot_id)
+  expect(submittedJobs).toEqual([])
 })
 
 test('打印报告包含真实任务并可离线保存PDF', async ({ page }) => {
