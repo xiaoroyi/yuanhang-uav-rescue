@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-10-18T14:16:25.128Z",
+  "base": "http://127.0.0.1:8000",
+  "mode": "GET/HEAD-only browser; all mutations and external requests blocked",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "adb89ce253164155baa64da50d5edccc5f219da23a2f543eb81025159ff575f9",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "a52f4fd6dd6a0a2c852410efa338ffd8c6759095430689a71be847d86cb1bb17",
+  "errors": [],
+  "writes": [],
+  "screenshots": [
+    "home-1440.png",
+    "home-1280.png",
+    "missions-1440.png",
+    "missions-1280.png",
+    "resources-1440.png",
+    "resources-1280.png",
+    "experiments-1440.png",
+    "experiments-1280.png",
+    "help-1440.png",
+    "help-1280.png",
+    "help-dark-1280.png"
+  ]
+}

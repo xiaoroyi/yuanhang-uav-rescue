@@ -1,0 +1,50 @@
+{
+  "at_utc": "2026-10-18T14:01:56.566471+00:00",
+  "head": "233f1f381449d4588230efae2a98961e3a1f6d8f",
+  "branch": "feat/mission-workspace-v2",
+  "working_tree_diff_sha256": "f930c4ac3e3b3a15b94a4af32f633a747a85b4a7a4a3f5eafe4c701094c39bd6",
+  "note": "This report may precede the checkpoint commit; untracked files are listed separately.",
+  "status": " M README.md\n M backend/app/executions.py\n M backend/app/experiments.py\n M backend/app/main.py\n M evidence/browser/capacity-bound.json\n M evidence/browser/communication-source.json\n M evidence/browser/nominal-diagnostic.json\n M evidence/browser/production-offline.json\n M evidence/browser/three-preferences.json\n M evidence/browser/urgent-demand.json\n M evidence/browser/verified/battery-fault-1280.png\n M evidence/browser/verified/battery-fault-1440.png\n M evidence/browser/verified/battery-fault-changes-1280.png\n M evidence/browser/verified/battery-fault-changes-390.png\n M evidence/browser/verified/capacity-bound-1280.png\n M evidence/browser/verified/capacity-bound-1440.png\n M evidence/browser/verified/capacity-bound-390.png\n M evidence/browser/verified/communication-config-1280.png\n M evidence/browser/verified/communication-source-1280.png\n M evidence/browser/verified/communication-source-1440.png\n M evidence/browser/verified/communication-source-detail-1280.png\n M evidence/browser/verified/communication-source-detail-mobile.png\n M evidence/browser/verified/communication-source-mobile.png\n M evidence/browser/verified/frozen-partition-1440.png\n M evidence/browser/verified/frozen-partition-groups-1440.png\n M evidence/browser/verified/frozen-partition-mobile.png\n M evidence/browser/verified/frozen-partition-resources-1280.png\n M evidence/browser/verified/joint-battery-fault-1280.png\n M evidence/browser/verified/joint-battery-fault-1440.png\n M evidence/browser/verified/joint-battery-fault-changes-1280.png\n M evidence/browser/verified/joint-battery-fault-changes-390.png\n M evidence/browser/verified/joint-report.pdf\n M evidence/browser/verified/joint-resource-analysis-1440.png\n M evidence/browser/verified/joint-resource-windows-1440.png\n M evidence/browser/verified/joint-workspace-1280.png\n M evidence/browser/verified/joint-workspace-1440.png\n M evidence/browser/verified/nominal-batches-1440.png\n M evidence/browser/verified/nominal-capacity-1440.png\n M evidence/browser/verified/nominal-sensitivity-1280.png\n M evidence/browser/verified/nominal-sensitivity-390.png\n M evidence/browser/verified/production-offline-1280.png\n M evidence/browser/verified/production-offline-1440.png\n M evidence/browser/verified/relay-energy-fault-1280.png\n M evidence/browser/verified/relay-energy-fault-1440.png\n M evidence/browser/verified/relay-energy-windows-1280.png\n M evidence/browser/verified/relay-fault-differences-1440.png\n M evidence/browser/verified/relay-fault-replan-1440.png\n M evidence/browser/verified/replan-1280.png\n M evidence/browser/verified/replan-1440.png\n M evidence/browser/verified/scenario-1440.png\n M evidence/browser/verified/scenario-mobile.png\n M evidence/browser/verified/scenario-with-nominal-1440.png\n M evidence/browser/verified/three-preferences-1280.png\n M evidence/browser/verified/three-preferences-1440.png\n M evidence/browser/verified/three-preferences-390.png\n M evidence/browser/verified/three-preferences-panel-390.png\n M evidence/browser/verified/urgent-demand-form-1280.png\n M evidence/browser/verified/urgent-demand-form-1440.png\n M evidence/browser/verified/urgent-demand-form-390.png\n M evidence/browser/verified/urgent-demand-form-footer-390.png\n M evidence/browser/verified/urgent-demand-no-result-1440.png\n M evidence/browser/verified/urgent-demand-result-1440.png\n M evidence/browser/verified/workspace-1440.png\n M evidence/redesign-v2/DEPENDENCY_SMOKE/battery-exit-execution.json\n M evidence/redesign-v2/EXPERIMENT_SMOKE/strategy-benchmark.json\n M evidence/redesign-v2/HANDOFF.md\n M evidence/redesign-v2/REPAIR_EXPERIMENT_SMOKE/method-comparison.json\n M evidence/redesign-v2/archive-event-diff-1440.png\n M evidence/redesign-v2/blank-region-map-1440.png\n M evidence/redesign-v2/dense-map-1024.png\n M evidence/redesign-v2/dense-map-1280.png\n M evidence/redesign-v2/dense-map-1440.png\n M evidence/redesign-v2/dependency-battery-diff-1280.png\n M evidence/redesign-v2/dependency-battery-diff-1440.png\n M evidence/redesign-v2/dependency-inflight-adopted-1280.png\n M evidence/redesign-v2/device-state-readback-1440.png\n M evidence/redesign-v2/event-impact-1280.png\n M evidence/redesign-v2/event-impact-1440.png\n M evidence/redesign-v2/event-manual-1440.png\n M evidence/redesign-v2/execution-active-gantt-1440.png\n M evidence/redesign-v2/experiment-failed-cases.png\n M evidence/redesign-v2/experiment-plan-audit.png\n M evidence/redesign-v2/experiment-results-1024.png\n M evidence/redesign-v2/experiment-results-1280.png\n M evidence/redesign-v2/experiment-results-1440.png\n M evidence/redesign-v2/map-imagery-stalled.png\n M evidence/redesign-v2/map-webgl-unavailable.png\n M evidence/redesign-v2/overlapping-routes-1440.png\n M evidence/redesign-v2/readonly-archive-1280.png\n M evidence/redesign-v2/readonly-archive-1440.png\n M evidence/redesign-v2/repair-method-comparison-1280.png\n M evidence/redesign-v2/repair-method-comparison-1440.png\n M evidence/redesign-v2/resource-without-baseline-1280.png\n M evidence/redesign-v2/retrospective-1280.png\n M evidence/redesign-v2/retrospective-1440.png\n M evidence/redesign-v2/weather-plan-1440.png\n M evidence/redesign-v2/weather-preflight-1440.png\n M evidence/solver/battery-replan.json\n M evidence/solver/joint-battery-replan.json\n M evidence/solver/joint-replan.json\n M evidence/solver/relay-energy-replan.json\n M evidence/strategy-v2/ambient-on.png\n M evidence/strategy-v2/browser-solve.json\n M evidence/strategy-v2/schedule-1280.png\n M evidence/strategy-v2/schedule-1440.png\n M evidence/strategy-v2/schedule-390.png\n M evidence/strategy-v2/strategies-1440.png\n M evidence/strategy-v2/trial-policy-v1.json\n M evidence/strategy-v2/trial-policy-v2.json\n?? backend/app/request_identity.py\n?? docs/CONTRACT_RFC_029.md\n?? evidence/redesign-v2/final-verification/\n?? evidence/redesign-v2/frozen-deployment.json\n?? evidence/redesign-v2/production-visual/\n?? evidence/redesign-v2/protocol-compatibility-probe.json\n?? evidence/redesign-v2/repair-concurrency-probe.json\n?? tests/backend/test_request_replay_v2.py\n",
+  "checks": [
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe -m pytest tests -q",
+      "exit_code": 1,
+      "elapsed_s": 1254.876,
+      "output": "evidence/redesign-v2/final-verification/check-01.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_contracts.py",
+      "exit_code": 0,
+      "elapsed_s": 0.578,
+      "output": "evidence/redesign-v2/final-verification/check-02.txt"
+    },
+    {
+      "command": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.venv\\Scripts\\python.exe scripts/check_governance.py",
+      "exit_code": 0,
+      "elapsed_s": 1.681,
+      "output": "evidence/redesign-v2/final-verification/check-03.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run lint",
+      "exit_code": 0,
+      "elapsed_s": 26.644,
+      "output": "evidence/redesign-v2/final-verification/check-04.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run test:unit",
+      "exit_code": 0,
+      "elapsed_s": 2.632,
+      "output": "evidence/redesign-v2/final-verification/check-05.txt"
+    },
+    {
+      "command": "\"C:\\Program Files\\nodejs\\npm.cmd\" --prefix frontend run build",
+      "exit_code": 0,
+      "elapsed_s": 42.426,
+      "output": "evidence/redesign-v2/final-verification/check-06.txt"
+    }
+  ],
+  "verification_source_before_sha256": "50be8853b8ff64fc82ff7b7c498619cc7b51d4537a699b5a01ce9263a02085c5",
+  "verification_source_after_sha256": "8b55c8b975772a4fc32944a18eb4579715d384e979a377c83c24e66892648da7",
+  "source_unchanged": false,
+  "passed": false
+}

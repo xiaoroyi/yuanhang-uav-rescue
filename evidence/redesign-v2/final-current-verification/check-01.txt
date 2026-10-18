@@ -1,0 +1,121 @@
+.....................................................................F.. [ 22%]
+.................................F.................................... [ 43%]
+.................................................................. [ 64%]
+........................................................................ [ 86%]
+...........................................                              [100%]
+================================== FAILURES ===================================
+_ test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export _
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-133/test_strategy_campaign_uses_re0')
+
+    def test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export(
+        tmp_path,
+    ):
+        directory = tmp_path / "runtime"
+        app = create_app(directory)
+        with TestClient(app) as c:
+            _, s, p, e = setup(c)
+            with app.state.database.session() as session:
+                original = [
+                    copy.deepcopy(session.get(model, key).content)
+                    for model, key in (
+                        (ScenarioRow, s["scenario_id"]),
+                        (SnapshotRow, p["snapshot_id"]),
+                        (PlanRow, p["plan_id"]),
+                        (ExecutionRow, e["execution_id"]),
+                    )
+                ]
+            body = spec(p["snapshot_id"])
+            run = post(c, "/experiments", body, 202)
+            eid = run["experiment_id"]
+            assert post(c, "/experiments", body, 202)["experiment_id"] == eid
+            assert (
+                c.post("/api/v1/experiments", json={**body, "name": "changed"}).status_code
+                == 409
+            )
+            assert run["snapshot_id"] != p["snapshot_id"] and len(run["cases"]) == 3
+            done = finished(c, eid)
+            assert done["status"] == "completed"
+            assert {case["objective"] for case in done["cases"]} == {
+                "time",
+                "energy",
+                "balanced",
+            }
+>           assert all(
+                case["job"]
+                and case["status"] == "completed"
+                and case["job"]["has_validated_plan"]
+                for case in done["cases"]
+            ), done
+E           AssertionError: {'experiment_id': 'EXP-1DBE69217ECC4DB9', 'name': 'Reproducible comparison', 'source_snapshot_id': 'SNAP-401480088DE94BD8', 'source_content_hash': 'd21b82107cb2a13548dbdadcdaba6ac0da4f6135d30bcfa12ade058006011571', ...}
+E           assert False
+E            +  where False = all(<generator object test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export.<locals>.<genexpr> at 0x000002B1EBC09700>)
+
+tests\backend\test_experiments_v2.py:77: AssertionError
+_ test_real_joint_relay_energy_withdrawal_preserves_history_and_reconfirms_new_resources _
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-133/test_real_joint_relay_energy_w0')
+
+    def test_real_joint_relay_energy_withdrawal_preserves_history_and_reconfirms_new_resources(
+        tmp_path,
+    ):
+        app = create_app(tmp_path / "runtime")
+        with TestClient(app) as c:
+            s = configured(c)
+            sid = s["scenario_id"]
+            snap = c.post(
+                f"/api/v1/scenarios/{sid}/snapshots", json={"expected_state_version": 2}
+            ).json()
+>           old = real_plan(c, snap)
+                  ^^^^^^^^^^^^^^^^^^
+
+tests\backend\test_relay_energy_events.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+client = <starlette.testclient.TestClient object at 0x000002B1ECF01D90>
+snapshot = {'schema_version': '0.1.0-draft', 'snapshot_id': 'SNAP-8D84A4FC350542F6', 'scenario_id': 'SCN-5D63B622D7974691', 'scenario_state_version': 2, ...}
+extra = {}
+
+    def real_plan(client, snapshot, **extra):
+        response = client.post(
+            "/api/v1/solve-jobs",
+            json={"snapshot_id": snapshot["snapshot_id"], "time_limit_s": 60, **extra},
+        )
+        assert response.status_code == 202, response.text
+        job = response.json()
+        until = time.monotonic() + 90
+        while time.monotonic() < until:
+            job = client.get("/api/v1/solve-jobs/" + job["job_id"]).json()
+            if job["job_state"] not in ["queued", "running"]:
+                break
+            time.sleep(0.1)
+>       assert job["has_validated_plan"], job
+E       AssertionError: {'schema_version': '0.1.0-draft', 'job_id': 'JOB-49A0331167ED4DF4', 'scenario_id': 'SCN-5D63B622D7974691', 'snapshot_id': 'SNAP-8D84A4FC350542F6', ...}
+E       assert False
+
+tests\backend\test_relay_energy_events.py:64: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:4326]
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:3857]
+tests/backend/test_terrain_assets.py::test_registry_hash_is_rechecked_after_file_changes
+tests/backend/test_terrain_assets.py::test_invalid_raster_and_missing_crs_are_structured_and_do_not_bind_scene
+tests/backend/test_terrain_packages.py::test_portable_package_preserves_exact_hash_in_second_instance
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[hash]
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[extra_path]
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[large_array_header]
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\rasterio\transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:3857]
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\rasterio\transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/backend/test_experiments_v2.py::test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export
+FAILED tests/backend/test_relay_energy_events.py::test_real_joint_relay_energy_withdrawal_preserves_history_and_reconfirms_new_resources
+2 failed, 321 passed, 10 warnings, 8 subtests passed in 1396.51s (0:23:16)

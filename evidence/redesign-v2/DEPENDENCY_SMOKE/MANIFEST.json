@@ -1,74 +1,47 @@
 {
   "artifact": "battery-exit-execution.json",
-  "artifact_sha256": "5058a11981c4894c3a726ed56bb2d20755b17a099554210167f0ade431e2219f",
-  "bundle_content_sha256": "de58144a3e1ad4872363d07dd4f00c6b03689838c410b343c829f12e47c701e2",
-  "captured_at": "2026-10-18T13:32:00.341889Z",
-  "source": "Actual isolated Playwright workflow, real Worker outputs; no hardware evidence",
+  "artifact_sha256": "52b26fc8d64e9af86a408f17400586c84e861829a57914761214c8696b9d3fd4",
+  "bundle_content_sha256": "ad29ea2410043490db75e7d6e185e3a902c3258b2bb768f404e8905fdaaee1c5",
+  "captured_at": "2026-10-18T14:14:00.315653Z",
+  "source": "Actual isolated Worker/Playwright workflow; not real hardware",
   "documents": [
     {
       "kind": "plan",
-      "id": "PLAN-CA2B45C0F5834D33",
-      "sha256": "c1ada4347250043c100d1055bab4d9f20aebb8d81118ae2d693ab4ba8c86cc69"
+      "id": "PLAN-7580122E93B640A6",
+      "sha256": "2c761b21f790899d6c7fdca2af372830972278f29b353cbc8cc5239019cff81d"
     },
     {
       "kind": "plan",
-      "id": "PLAN-F19C5BDCE8A24FAC",
-      "sha256": "97327bccc64d5e40f9d8c43e6cacbdf5db74b3d1d88c8e31238f37006d6ae097"
+      "id": "PLAN-FA7E07A25CD446EA",
+      "sha256": "1f87f13f92468c8590809d38b4d7b4c6032d2b53bf9cf567e50840073363740e"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-1C826CFB50B54562",
-      "sha256": "e7c4b205dad2c20d48c3cc2e60b7e9c41624d6e3c78a6812208e219624b4ef76"
+      "id": "SNAP-B753C33BCA76443A",
+      "sha256": "5f3f6f9062732419e23815dff113ee68e554f0ec34af60f4b16572d177ed88d0"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-8324FEE454144EA7",
-      "sha256": "dd98b26ffaf35b2109b51cead2773108e1e6ff8d5524b933a90145fb7b42926b"
+      "id": "SNAP-DBE871190FF54CB6",
+      "sha256": "c26ac5223efe8bc56d217893854d113f65e9584b1fda949c55e1089b393841ad"
     },
     {
       "kind": "repair_reference",
-      "id": "RRF-3529C3A62D614A1B",
-      "sha256": "78362f5d518980753d7d57fa1dc77b2b1177a671368c9e706b0949ff37377fca"
+      "id": "RRF-56AFA7B8EF864F2F",
+      "sha256": "b7adcbb2030c7f44e6f46d90372e6fadd7e402223e39cfb7a6dc67f03d4ed669"
     },
     {
       "kind": "repair_evidence",
-      "id": "RRF-3529C3A62D614A1B",
-      "sha256": "ab27d8c34ead1c34b294993ec3b2973876817cae14a70a6538930f1339d58bc9"
+      "id": "RRF-56AFA7B8EF864F2F",
+      "sha256": "bd3f3a43216f743e0480e37fedb7b2ffbbc46a40d9a21fe73cfe2fc4a6f70fcc"
     },
     {
       "kind": "event_input",
-      "id": "bb13a487-8294-4077-95ef-9c098e602d7a",
-      "sha256": "7ff7da4f117574c06bd38779951e6f19006292a0a0449b3646b0717e4b76f461"
+      "id": "32f42f1c-1681-45c3-99d9-0220fa43dd26",
+      "sha256": "41206c9be07ed5884649602f85057550cea4e61e9a0c569925f7565434014bc4"
     }
   ],
-  "execution_id": "EXE-5ED85B60E946418A",
+  "execution_id": "EXE-51B345C288C141BF",
   "facts": 12,
-  "completed_deliveries": 2,
-  "calculation_method": "dependency_local",
-  "diff": {
-    "committed_quantity": 1,
-    "retained_future_sortie_count": 0,
-    "drone_reassigned_quantity": 0,
-    "battery_reassigned_quantity": 1,
-    "time_shifted_quantity": 1,
-    "unchanged_future_quantity": 0,
-    "new_quantity": 0,
-    "rows": [
-      {
-        "cargo_id": "S001-MED-02",
-        "previous_plan_id": "PLAN-F19C5BDCE8A24FAC",
-        "previous_sortie_id": "SRT-0709c59e25dc",
-        "previous_drone_id": "U01",
-        "previous_battery_id": "BAT-A-02",
-        "candidate_sortie_id": "SRT-bb3d51031af8",
-        "candidate_drone_id": "U01",
-        "candidate_battery_id": "BAT-A-01",
-        "change_kind": "modified",
-        "drone_changed": false,
-        "battery_changed": true,
-        "takeoff_delta_s": 879.2296490945703,
-        "delivery_delta_s": 879.2296490945703
-      }
-    ]
-  }
+  "calculation_method": "dependency_local"
 }

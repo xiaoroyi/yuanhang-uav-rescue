@@ -1,0 +1,565 @@
+{
+  "scope": "Only exact tracked historical outputs protected before this final test run; old bytes restored without Git reset",
+  "backup_sha256": "7b51e7388ea0c0e11fc6b54facf4afafc4da9e0fc8a5c1c70810cc995ade76d8",
+  "protected_files": 477,
+  "changed": [
+    {
+      "original_path": "evidence/browser/capacity-bound.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/capacity-bound.json",
+      "original_sha256": "c5f89ba568584399349f6a5ddb02ed16c72b883a9d7b4d7c815c8ac6dcf081e5",
+      "current_sha256": "d08f5513a7c7df639696ac3c2095ad3d2f5da2195feda60e4428dd4f3b9578be"
+    },
+    {
+      "original_path": "evidence/browser/communication-source.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/communication-source.json",
+      "original_sha256": "a9905a660a672923f4e3f90e3af4582f2e7fc31dd39faa731ae4395f37190eda",
+      "current_sha256": "d8697445ccb21650fc8f8c6b75f41994764b29675a9175526917fbc1c378c7e4"
+    },
+    {
+      "original_path": "evidence/browser/ground-capacity-trial.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/ground-capacity-trial.json",
+      "original_sha256": "caaaa9b376c9c1e0c6d5334c89d60381f0b754feefbb3a49c988c872966a0a2d",
+      "current_sha256": "dacdce28f454e816f8b3bc487063eb9d1a1d35c16170decd1a9aa72cb4d647a3"
+    },
+    {
+      "original_path": "evidence/browser/map-visibility.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/map-visibility.json",
+      "original_sha256": "426f2b1c4ad7a940cded8422d73d9099bca83d9ea48440a6867888e116dfe5f3",
+      "current_sha256": "ee22a6beca5b30c68d7927fbdbeb47b7abec0b8df7c78d76acc951467cfe1e00"
+    },
+    {
+      "original_path": "evidence/browser/nominal-diagnostic.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/nominal-diagnostic.json",
+      "original_sha256": "cbd7cfc4841bdbc524cf8e64a0c57ad56e51458f9f62b011cbdfed337c3d9fe4",
+      "current_sha256": "956bdb2457892208d84ff544aa0b0a25a855f20618f4c012838d80bc0c7023a0"
+    },
+    {
+      "original_path": "evidence/browser/production-offline.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/production-offline.json",
+      "original_sha256": "47e1d03271b28a208530cebca11508f18c7248236cf30be9974139af9f2c650e",
+      "current_sha256": "e839390364afa0e02fd2c00b7b67935097fec76514def2d2588aa87f7ca5007d"
+    },
+    {
+      "original_path": "evidence/browser/three-preferences.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/three-preferences.json",
+      "original_sha256": "7cedb3a6e1f78f04cfbc5a31924326858a143b73058f33b9ad42637740fae521",
+      "current_sha256": "cbdc1d9ea94d0347f23212f3dc83b9f7d9212652bdac9e7d89b8681bedea117d"
+    },
+    {
+      "original_path": "evidence/browser/urgent-demand.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/urgent-demand.json",
+      "original_sha256": "71529f49894cc41c1ab7ab7233ecd85f1e1fc5b6e9f271de86375d207501c61b",
+      "current_sha256": "803a7fa227695a85095a017821713e5004fc02e72341d6424cad13bcf6126b7d"
+    },
+    {
+      "original_path": "evidence/browser/verified/battery-fault-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/battery-fault-1280.png",
+      "original_sha256": "009ccf6ec46477ef83b88590dc2bfb20b81765348920dd078a0a59b1ca8f6dfb",
+      "current_sha256": "1ca9e2fd16b4a52c79df490cd412212be8eb72557791645db17c35df91ad1ce9"
+    },
+    {
+      "original_path": "evidence/browser/verified/battery-fault-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/battery-fault-1440.png",
+      "original_sha256": "d79b0795e7142fb24e610cd15e62ec41227c69483b577258418de2a3ef7bb3af",
+      "current_sha256": "436916b0819b25aef0dfc837467af51d5428884bef4634e9529a8d503159cc15"
+    },
+    {
+      "original_path": "evidence/browser/verified/battery-fault-changes-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/battery-fault-changes-1280.png",
+      "original_sha256": "3302e51f69180a414bf3caeadd7ec2837db5b36ec896bbfb60393efc1a9aed11",
+      "current_sha256": "07a7c72b8157f0a468fb2e4179b84bd5308c6ee103e673042c633f78c71526e9"
+    },
+    {
+      "original_path": "evidence/browser/verified/battery-fault-changes-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/battery-fault-changes-390.png",
+      "original_sha256": "39693dcad9d42d04df7e452db49aac50a3a014b9ce7d8914325bad6be021e2d3",
+      "current_sha256": "fe8802683e6bbb89f3d256b58593d3fe0cd6df78be86fb92d514be9fb3d8c777"
+    },
+    {
+      "original_path": "evidence/browser/verified/capacity-bound-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/capacity-bound-1280.png",
+      "original_sha256": "02ac6541d50afd6e52791c98b69863dc56e73e540d71541bf21253515da5c88c",
+      "current_sha256": "8b01b42bc2c4e2715a64590c0a952919bcec850232d93e95ed87f3b57ab4ccd2"
+    },
+    {
+      "original_path": "evidence/browser/verified/capacity-bound-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/capacity-bound-1440.png",
+      "original_sha256": "bdddb233355a00f2383f3a674a7eec966bc27fe431ea42127e90226f349ad88a",
+      "current_sha256": "f7bfbdb53ac600c2a473a4adb9ac1e62f277f7ea026aa92e5338319fed8d1c64"
+    },
+    {
+      "original_path": "evidence/browser/verified/capacity-bound-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/capacity-bound-390.png",
+      "original_sha256": "567518e2998ec0c29a112be40c2014b50d3a454c6022cf1845dff68e8e3a548e",
+      "current_sha256": "3921f849d2adee89e97d84fa3725c5dcb6873ce844617ec8c192f2c2abf59252"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-config-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-config-1280.png",
+      "original_sha256": "1a95a9967f4f14823b90849b440cd069043344b8f50c27a0cf5dbf44b81d0175",
+      "current_sha256": "a0a789236e64a502d5112d95037ec2e0b6242f95bc7fbe71b7eda285b0b560f3"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-source-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-source-1280.png",
+      "original_sha256": "4e9789be86e66a4668d4aa3b43f1c94810452fa9a54d811962a237e80d50a146",
+      "current_sha256": "61fb9cc817d59775b2fd68cfd9478d797c43a01fd2bb0277067247b3361b9370"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-source-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-source-1440.png",
+      "original_sha256": "9ea9799c215c00ac8c7c6b47d581b4d3294465bc8cd17f0716539051a5c00bb5",
+      "current_sha256": "3c27a2c35c0fc2b621f895098c4015c922ccf865f0fe0e3aaa26fba8bf1f98ad"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-source-detail-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-source-detail-1280.png",
+      "original_sha256": "bceaa48298ffd3f0442a2e9a78be9e505878b596b4d7deeead7f46f830fa42cc",
+      "current_sha256": "30a016f5abfcba6b44fa3845f501d3e5c1d825609a382cf9d2a95f0158d4992a"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-source-detail-mobile.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-source-detail-mobile.png",
+      "original_sha256": "4df081451004a256df3be917f17fa44c343643b7d77411abe594720fefd01dd8",
+      "current_sha256": "774ddd09de3dce3178745d78f9df604f86994cdbc3185302d6d166b3aabfe6d9"
+    },
+    {
+      "original_path": "evidence/browser/verified/communication-source-mobile.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/communication-source-mobile.png",
+      "original_sha256": "73730f8d6acffe957a027e98887c27a0a2ac97f9b2bebd81c35dfa8f4f750643",
+      "current_sha256": "7fe7e0bb18771cc8e834a1a9fca59545bd7da63df3a868435660e9b1e0221e62"
+    },
+    {
+      "original_path": "evidence/browser/verified/deep-optimization-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/deep-optimization-1440.png",
+      "original_sha256": "5d0758f1b9581d0c81a58820e93c69f398f361841db64dbbd52770f4558ffb03",
+      "current_sha256": "815ad2efa20042457e2ac04724bacbf805903cf099259430891302fd1951fc1d"
+    },
+    {
+      "original_path": "evidence/browser/verified/frozen-partition-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/frozen-partition-1440.png",
+      "original_sha256": "3deea1cc43321eeab8647aa87b200c8fb8aaabea83dc86842aa12fb8cecf39b3",
+      "current_sha256": "c176c95d455ae0ec3214b2ac7571aaa44ad7f9cb901764839175912ef7aae988"
+    },
+    {
+      "original_path": "evidence/browser/verified/frozen-partition-groups-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/frozen-partition-groups-1440.png",
+      "original_sha256": "2b7432241cdb1edd9cdc1d516667d99a1cad02ada404f47f1f1ba7495eac2e0f",
+      "current_sha256": "9809ce192011b4a817bb204112cfe24d887fabf8557ec8f9fef87f6f6336b9d0"
+    },
+    {
+      "original_path": "evidence/browser/verified/frozen-partition-mobile.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/frozen-partition-mobile.png",
+      "original_sha256": "3a9cd249aeca892ae418dc8baf22fd92517f4ed0ff600c09216b6ff76da9d22c",
+      "current_sha256": "ae5b3fd4ad4843aa254533a3e0068a6dffcd5fdd76cea061cfc118a9a2f825fe"
+    },
+    {
+      "original_path": "evidence/browser/verified/frozen-partition-resources-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/frozen-partition-resources-1280.png",
+      "original_sha256": "716c16e026142a9d19c5df43a00746a971ca78a47bce8dfbcf2d1a8818793d8b",
+      "current_sha256": "e53887daed469201126c5c89ae9ffcdcf0b04435afe1d904d3a61ff289baafcb"
+    },
+    {
+      "original_path": "evidence/browser/verified/ground-calendars-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/ground-calendars-1440.png",
+      "original_sha256": "728e2c51ef1b1d25f5ea8e2361d52e7ccafbb2676d8fb2a39d1e3ea59f6405c0",
+      "current_sha256": "6913fac00a97537c32f800aa6eb271bf08fb68b99ad944d73661aae92b0120bc"
+    },
+    {
+      "original_path": "evidence/browser/verified/ground-timeline-expanded-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/ground-timeline-expanded-1440.png",
+      "original_sha256": "b125b673be119eee7c0b37b09b8dbd95b9c9d163585702fbbb74ab003a1a46fb",
+      "current_sha256": "b589a98b3b9553daf685202eeee5f9ff017388bf346e49cffe2733497d6b009d"
+    },
+    {
+      "original_path": "evidence/browser/verified/ground-trial-form-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/ground-trial-form-1280.png",
+      "original_sha256": "4cde8c9aa11a8eb05df07bbff4f243db092b5850fa8ef6d0c96e6938d723dcbe",
+      "current_sha256": "d6c77eac5a3d3a08f54b74bef17f320501b817520f9ae42d8269791615060b83"
+    },
+    {
+      "original_path": "evidence/browser/verified/ground-trial-form-footer-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/ground-trial-form-footer-1280.png",
+      "original_sha256": "d4d8c78b507cfc4839f2b501559aeaf31d6123ab2542842687fc0aa902480260",
+      "current_sha256": "345c6e81932148809f2d68f3aecfd7504b31d03c3f8dd65b0338fef4af7e59a5"
+    },
+    {
+      "original_path": "evidence/browser/verified/ground-trial-result-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/ground-trial-result-1280.png",
+      "original_sha256": "b4535e3a1aaf7a6478e3dbbbda5c0e0eb752ef8bc07ff8c58ec88a697c882633",
+      "current_sha256": "67974c2bab6f4055eae8b1cc47506314fdd16e6cf6d177dfe08efc7ef4c95995"
+    },
+    {
+      "original_path": "evidence/browser/verified/initial-charge-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/initial-charge-1440.png",
+      "original_sha256": "9405aa992ab7e54e06df8c50ff8b0add9f2ff41269f715b9ca0434f19b278cf1",
+      "current_sha256": "f2276fe69fc83715b49a5e7a7c8388cc2b529028f5af7d6d362eadd3338f921d"
+    },
+    {
+      "original_path": "evidence/browser/verified/initial-charge-report.pdf",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/initial-charge-report.pdf",
+      "original_sha256": "ce6e11c81cab52e79958178dc47949b29ce1bc1726eeb3282699f798df91fe64",
+      "current_sha256": "8e11cdede967e57e53278c6fbe605ef562651e805411d5d78c5ff4da2ebb38a2"
+    },
+    {
+      "original_path": "evidence/browser/verified/initial-charge-timeline-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/initial-charge-timeline-1440.png",
+      "original_sha256": "462a9920eedfd9520f0766612429c3a40ef0c3199b2d19dc86659a35882c18d6",
+      "current_sha256": "518064ef3751835e71909bab60880a93c4f34cc6d68ecb877b8e4e5ece30099e"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-battery-fault-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-battery-fault-1280.png",
+      "original_sha256": "1835c1ebc924f3093bdcae1e8c6155917852e98251051fe1b31e7526b02bf3c2",
+      "current_sha256": "6a59d1717951b467667294fe65d8232ae99df1da6868906c2a00b75ecc973893"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-battery-fault-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-battery-fault-1440.png",
+      "original_sha256": "da911434778025f177708408a37c62559d31ab68dbd40003fcdd5573a28e8b34",
+      "current_sha256": "a2aec2684f1a2bf58f07df2f2f14fc39877008cc87148295c422d93485dfedde"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-battery-fault-changes-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-battery-fault-changes-1280.png",
+      "original_sha256": "8b22096aa733dbb37b0c2d692b3b252124a54335f6d88137b0e5df9732b99cff",
+      "current_sha256": "397449833777a0d75b2a99bfc10e702c57f13d0272774ceb1f9e9298f9883d8a"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-battery-fault-changes-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-battery-fault-changes-390.png",
+      "original_sha256": "b13672a8f697ac11d2c4682c7304247be374990d4a50949a16910728b097bcb1",
+      "current_sha256": "b5c7bee0ebc63705fac260cbc82c074b40829dddb08b1ab507bf7fdb497d6b59"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-report.pdf",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-report.pdf",
+      "original_sha256": "d251cab4f2e5e0164b6c2f2ffd081ef85bac647743007a75171c70a9e48570c2",
+      "current_sha256": "f9060f721cef7637b2deaf079d4e13beba56f241646c17f6ebca7d8a62ae9a84"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-resource-analysis-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-resource-analysis-1440.png",
+      "original_sha256": "eaebefac691a24b6d21f2fdd17270077f3202944bbfcb717ff6ab7a06ffdd95f",
+      "current_sha256": "61f298b506ab3f8cdf6da2e1d72d27f723219bf2e38fdc6b33602d1896f803ec"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-resource-windows-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-resource-windows-1440.png",
+      "original_sha256": "5ba3f4c53f4e7ea8cd1f95ba4c38f519e0ed7d3d750d367970b679a3d1d0bfae",
+      "current_sha256": "d1ed685cda894a59295af527584eae674365aeffb4d861efeede85332a0a073c"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-workspace-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-workspace-1280.png",
+      "original_sha256": "999aa169b3c83990ce5baab86fef92aca7344141d2c5f51fe30d6ae74cec5b5a",
+      "current_sha256": "016af445e7e22ec4a4ecea9e18326aa32e2bd62fede6d4dbd2fe9c353dc6f922"
+    },
+    {
+      "original_path": "evidence/browser/verified/joint-workspace-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/joint-workspace-1440.png",
+      "original_sha256": "90497fb809ee986438172cc0e8e4f49adc5e2d078a392a5603556f2e9138a3eb",
+      "current_sha256": "c15e5d701b514fd1bba3a6dea1151449c6d10ff5131200b52d35921a2f4a7e48"
+    },
+    {
+      "original_path": "evidence/browser/verified/nominal-batches-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/nominal-batches-1440.png",
+      "original_sha256": "85fc91546c814daf361f5d116edc3b92fa501b474f58295027efdbede015dccb",
+      "current_sha256": "29ce525eff95e498c756a30a8b4f1a01209bc38183c042a5bddefca84872abf0"
+    },
+    {
+      "original_path": "evidence/browser/verified/nominal-capacity-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/nominal-capacity-1440.png",
+      "original_sha256": "da2e2c9e257af46123a7636d4e9ac2929dd7ed638f76c60fbd7c36120d182b90",
+      "current_sha256": "d5c2c03904ddd935d5a6eccffdb6d432616998f291a6f1ce688864e38da244c6"
+    },
+    {
+      "original_path": "evidence/browser/verified/nominal-sensitivity-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/nominal-sensitivity-1280.png",
+      "original_sha256": "86042ca1e0da205ce07f39046b68ae10099038401b0404731c40ba153fd2d1f0",
+      "current_sha256": "d3c3e112126429b43de081069456517cd31af955ab7b43a25a1ade6c18005e9a"
+    },
+    {
+      "original_path": "evidence/browser/verified/nominal-sensitivity-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/nominal-sensitivity-390.png",
+      "original_sha256": "25cc85873e74176c8a3ca04f27136426befce2f17346012a8213dc812bb8ad9a",
+      "current_sha256": "5e828c051732098e31f9e163b869d342c58417d51e50d61374bc8fa45d1743ab"
+    },
+    {
+      "original_path": "evidence/browser/verified/print-report-screen.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/print-report-screen.png",
+      "original_sha256": "e47d08c8f62e2d698e1bd3657437600a6a307054dd11015286846b15acc86dd9",
+      "current_sha256": "dc48dc6b6714bfcdb6844acea2c6afefbb4640372024b4d560360ea545760fa9"
+    },
+    {
+      "original_path": "evidence/browser/verified/print-report.pdf",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/print-report.pdf",
+      "original_sha256": "d6f0698094288b9fd4bf2924592562353ebc9be34de4907354889e981e552f38",
+      "current_sha256": "a7ed3f71fed080b62e978a9340a5b5a9182ec67178f16c6fb0f1b643d715f850"
+    },
+    {
+      "original_path": "evidence/browser/verified/production-offline-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/production-offline-1280.png",
+      "original_sha256": "b4a6505027948bd82c0bbaf2ce4a42fe54311762d65c2933db4a368bbd4099d9",
+      "current_sha256": "92b53c4a7d1357124f673cd75b6782181c9ba9b048c9556ec180d9cc33cb5ce8"
+    },
+    {
+      "original_path": "evidence/browser/verified/production-offline-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/production-offline-1440.png",
+      "original_sha256": "1c6a184cffd8678c92ec06bf3ed60840dd63551034e197c85018d34bd9947aaa",
+      "current_sha256": "ff59484cc9e8cc3008c3b1cd9fa8843238d54138814147f61024ee945479001d"
+    },
+    {
+      "original_path": "evidence/browser/verified/relay-energy-fault-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/relay-energy-fault-1280.png",
+      "original_sha256": "7ca94c50561973e8d5eb4307012876eb255984f6d010869644c652cdb07cb1c6",
+      "current_sha256": "4d2c0fbc6c7cbf690fe8b4ff6de506fd7a5e8bfdc7c6e7142cd7a5e256f04d0b"
+    },
+    {
+      "original_path": "evidence/browser/verified/relay-energy-fault-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/relay-energy-fault-1440.png",
+      "original_sha256": "f60e51b659a2624178a2687363277e252c8061f72638b4da438aee102ad5e8d9",
+      "current_sha256": "60763c90bcc27dccf881167cae37c44fd8fcd06b37cc7f015e54c0e5b924698a"
+    },
+    {
+      "original_path": "evidence/browser/verified/relay-energy-windows-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/relay-energy-windows-1280.png",
+      "original_sha256": "8d3d2debb46e0b1f60d91263ee4a0732cf3653a6f63ccca6eaa2f41d832b08a7",
+      "current_sha256": "4f1efce5161e9738cb5060b505c04d359ba1dbe5c00584047c75ee5ef5790691"
+    },
+    {
+      "original_path": "evidence/browser/verified/relay-fault-differences-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/relay-fault-differences-1440.png",
+      "original_sha256": "2fc5b737dfe84efdf8968597aec3f16e80f640e2d51c0923a543f6d7b10dffbe",
+      "current_sha256": "cd37afdc889e2de30a9bf93c4a3d5f8c6859a41e464bf98ad80467d2c86706ad"
+    },
+    {
+      "original_path": "evidence/browser/verified/relay-fault-replan-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/relay-fault-replan-1440.png",
+      "original_sha256": "97404c92a1b2c4b745ee54927c5c2df9b0bf50a19825127fc18240402e7e974c",
+      "current_sha256": "b9a62b27a9ba958abe0f06897a1fbdd788fe5d394471d852db9619ac5e8e4525"
+    },
+    {
+      "original_path": "evidence/browser/verified/replan-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/replan-1280.png",
+      "original_sha256": "5ea2657f20f43dafce28523b357013bd542b36a53fccba087723309815092926",
+      "current_sha256": "8496395284c8d0e4e7346e2f33f01643e2db9aebc14afd64b2a71e859548d43e"
+    },
+    {
+      "original_path": "evidence/browser/verified/replan-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/replan-1440.png",
+      "original_sha256": "8262a31b8ede6c3e7ff7039c4d2d5f4e4c84e94a797cd940b7127f887d172a86",
+      "current_sha256": "c2909455fa3d00aa9f9e9a511554cb866e4676753888178921e66b8cc5a03033"
+    },
+    {
+      "original_path": "evidence/browser/verified/resource-analysis-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/resource-analysis-1280.png",
+      "original_sha256": "bc872ed38d988b88792a6e2e60faf47f4f146e027a65d533781d30a905aa85d3",
+      "current_sha256": "e726c480de90bb11d455dcb8599dfdd9872be0ecf690a9e18282f77e7ff91274"
+    },
+    {
+      "original_path": "evidence/browser/verified/resource-analysis-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/resource-analysis-1440.png",
+      "original_sha256": "ff425d0989b768ef17929db9a7bc140651300fd12d471a2e3892a9c923c5c41b",
+      "current_sha256": "a87c20317066ee5ac58ce88b7bb34ff6ae0c06f8c90744ec4d27e9083b00ecc6"
+    },
+    {
+      "original_path": "evidence/browser/verified/scenario-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/scenario-1440.png",
+      "original_sha256": "8c010a41aaf188da9bb9d272b1140fe3c9c3a6e943ce8da09d94ba724d4b4897",
+      "current_sha256": "22a7389dfc5ffa7a3f1e9fcc2488b88cfb69935249e28c55f5ab719e72f936a1"
+    },
+    {
+      "original_path": "evidence/browser/verified/scenario-mobile.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/scenario-mobile.png",
+      "original_sha256": "4895b6d5fe353d86e621d0b9f991b4aa275bc4c5f4080b5dbd06abead0353357",
+      "current_sha256": "7f6780bcfb4a00062559f18672406bef31a76049dc7e28dff4f3b9b6a52dbaf7"
+    },
+    {
+      "original_path": "evidence/browser/verified/scenario-with-nominal-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/scenario-with-nominal-1440.png",
+      "original_sha256": "e5808dd73acc0bec539ad396de43fcdafd6e8e248b52b6e8932f1de3cac93649",
+      "current_sha256": "1c26ee83f689538e9d8b09a20cf73002410350baee5f07c5b83a5d06eddbcf1d"
+    },
+    {
+      "original_path": "evidence/browser/verified/stress-history-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/stress-history-1440.png",
+      "original_sha256": "c3a4abf60ebde4d770918f23bc27b4b640b3db0075f4f8fcd356ea0814d3a880",
+      "current_sha256": "7b3cfa9875f1d0a3840c151b440317d1d5c8c1630b84b4bb0720a477c3baa081"
+    },
+    {
+      "original_path": "evidence/browser/verified/terrain-assets-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/terrain-assets-1280.png",
+      "original_sha256": "f039ad1a6a5d3aa4aaa7bb53124f26179f9b4adb82841a0ade20fe909782b027",
+      "current_sha256": "4f7194f59aa898d771b9d992e61dca29a8a35bdda484b712bfd23c65d926ec72"
+    },
+    {
+      "original_path": "evidence/browser/verified/terrain-assets-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/terrain-assets-1440.png",
+      "original_sha256": "ed72c772e187b3f1c1bb533abfe3d4923c34e6609dcab05ec0b9c5a812151f2c",
+      "current_sha256": "913221c825b5fcf49eac003de58b27f036c81da3340155b58f74aa7c56666f78"
+    },
+    {
+      "original_path": "evidence/browser/verified/terrain-bound-workspace-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/terrain-bound-workspace-1440.png",
+      "original_sha256": "d28382fb375d52228a9fcdb80102b0fd82d32bb3504fa866a2465201fe501f03",
+      "current_sha256": "8eac3384db0126c9760dbdb8bfb77d166063fb950b7dc5dda7ac6a465664481d"
+    },
+    {
+      "original_path": "evidence/browser/verified/three-preferences-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/three-preferences-1280.png",
+      "original_sha256": "d9127a2040976d98267d2b91478822b05ecb786f95f1ee0c8aa963f290cb9c6b",
+      "current_sha256": "62f08b74aeac72b33bfce6ce83a5cd80c0b45fb4242b04be30207b5f44d78c57"
+    },
+    {
+      "original_path": "evidence/browser/verified/three-preferences-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/three-preferences-1440.png",
+      "original_sha256": "e7babb68d8a69ccc371e99a8a1821746552716a38df3dc90b8e414e48c43b1b7",
+      "current_sha256": "1895abe411517bf07234027c1417a72d8cf82f03bd97a5dcc509cd0866336ffc"
+    },
+    {
+      "original_path": "evidence/browser/verified/three-preferences-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/three-preferences-390.png",
+      "original_sha256": "bd4019cabea044916b902a5d6e1b17e693b9c3fd5433f5589efcec431dd9e4f9",
+      "current_sha256": "47815db7a4ef8a0d4f389083f01f08634b9824d0f8ddbc26621991f0d464ceb3"
+    },
+    {
+      "original_path": "evidence/browser/verified/three-preferences-panel-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/three-preferences-panel-390.png",
+      "original_sha256": "9a1ace141bca51f64161fc0ee51a27b191a333f12b98c5e8717f66ca80ffed15",
+      "current_sha256": "3ea9b11df4ae0544f6abec65168dae2607629405b8a567c3b063b733134ff11a"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-form-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-form-1280.png",
+      "original_sha256": "ef99e49e5cb7e81a01fb1dd03e6491eaf08030f4c24f454e3b498a7b8097eb8f",
+      "current_sha256": "8a51440797b2e2cbeabe9c362bd217e2debe8825317f9a96974bd0f139589100"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-form-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-form-1440.png",
+      "original_sha256": "9bcaa5650614c183d9453d5328ab773abf7715f4d522391f6f8e62625041aa58",
+      "current_sha256": "74707a5ae2af2cd867ce8ed3c8d4cd7e87d2c0e7da69ab906d5d1d528985adfb"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-form-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-form-390.png",
+      "original_sha256": "970bafd6d5310710b6b59de51c2398ded6ebdc1837f895bab74f9da9b2c50876",
+      "current_sha256": "811a5873d70d054822877cdbd2b58495b87a1c423eb623fd61ff9283e2bf768c"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-form-footer-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-form-footer-390.png",
+      "original_sha256": "8d4fc7d2cd77bc7bcd668c467a2d3b4776c71da51f00870afa4193c3b1efce2f",
+      "current_sha256": "bed1bfb1343abeb6e2d1b3bfc9ef98cb3baeb329dc7cc2edb9ae2bddd2d35d05"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-no-result-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-no-result-1440.png",
+      "original_sha256": "9238efbfbe055bf2f5302496e2c0e3019bb8085f0c8d23e4612a5b8481e9da96",
+      "current_sha256": "ddad6d3170d1a9a0558fcf958b22656e0c5ec3fcb7c4f2e23109fe1daefd3fc2"
+    },
+    {
+      "original_path": "evidence/browser/verified/urgent-demand-result-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/urgent-demand-result-1440.png",
+      "original_sha256": "964b152e2b5ddf99356803737fa5f99ee72069a9aae0196aacda5022add759f9",
+      "current_sha256": "df981f467f801060ef27ef8b8c47cba34d505d7d6ebe7ba3143c6d8141dfd281"
+    },
+    {
+      "original_path": "evidence/browser/verified/workspace-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/workspace-1280.png",
+      "original_sha256": "cfb5476b0abf45cedd8bc37be095c6449b323a5c53082d630eb80c95ba0d72c4",
+      "current_sha256": "e5c94db499264d04ab4a35b68aed6683cea4a5e5bd78c493536b6ca8a600ca96"
+    },
+    {
+      "original_path": "evidence/browser/verified/workspace-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/workspace-1440.png",
+      "original_sha256": "69395eaf4a687115614c49325d10148e14dd49f1444bc9e024602898d5fb0dce",
+      "current_sha256": "2ac7e195ef9b863bc99818277e871fdad8717f21390db26c83a238dc845fbd62"
+    },
+    {
+      "original_path": "evidence/browser/verified/zone-detour-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/zone-detour-1440.png",
+      "original_sha256": "9cf3d50965f5d918e559d6a2837f045252b934144fd8e9662ea0b423925c3b3b",
+      "current_sha256": "3053828eda2cdc499f77701ee1aa537aca94e2b5a4d32780ab11bd2f24fde845"
+    },
+    {
+      "original_path": "evidence/browser/verified/zone-editor-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/browser/verified/zone-editor-1440.png",
+      "original_sha256": "59cd40f321a39dfd626148baeea02b6ca5ef277e6a1637546adf81301bb85586",
+      "current_sha256": "cc5b7e1f061536342f056d19b93f21c11fea71c04e7722e1686fb87c389d45b3"
+    },
+    {
+      "original_path": "evidence/solver/battery-replan.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/solver/battery-replan.json",
+      "original_sha256": "4abccd9f0c13469e785fd7da62861ac6309933a45b08c7f3696d9b255e5ce371",
+      "current_sha256": "ab47b610146397de78f608662dffe6618dac83ff26f7146b91b878497e37807d"
+    },
+    {
+      "original_path": "evidence/solver/joint-battery-replan.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/solver/joint-battery-replan.json",
+      "original_sha256": "9c40002864982be880230e1b4c254a6348231464f617600aa82709ece587267e",
+      "current_sha256": "aed978c440fac1ed564810565984c9a461bb4211a20d76943ab4981ebb5f3f93"
+    },
+    {
+      "original_path": "evidence/solver/joint-replan.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/solver/joint-replan.json",
+      "original_sha256": "117ad9af7a18f667b903323009b39732e94b60b1662a42bc8c76498f1331fa51",
+      "current_sha256": "88f38b48bdba5ff095dfc1f40ff6eade431ed7ca72afbccc5a2d614817a3bbb1"
+    },
+    {
+      "original_path": "evidence/solver/relay-energy-replan.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/solver/relay-energy-replan.json",
+      "original_sha256": "e8501862d9e78310e2d450b4ef871ea291c804a5a9d507274a512cc48ea9938d",
+      "current_sha256": "0a1fa543d136dad550072a2bde8d2e9195ab9e1c038526ac239a5e5d29c99dbc"
+    },
+    {
+      "original_path": "evidence/strategy-v2/ambient-on.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/ambient-on.png",
+      "original_sha256": "e7a62b764780d0ad02cc7f1b000440ec1ed398d412150056bb1b03a12e9f9798",
+      "current_sha256": "b5b8d7e4786525a44518b28188008ce252a761215ea6b1102e52c9d8426c3929"
+    },
+    {
+      "original_path": "evidence/strategy-v2/browser-solve.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/browser-solve.json",
+      "original_sha256": "1b03db70a457321c1b51e95af84070dcdd6d7f31ca6d7e15bcae47e7bb12d67e",
+      "current_sha256": "47f74cbc653e22c3120950d3eb9e89184eea6450e1c39cd4e853862a21516d12"
+    },
+    {
+      "original_path": "evidence/strategy-v2/schedule-1280.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/schedule-1280.png",
+      "original_sha256": "5e44d4a3e7708b1908f978f0399b9402604703b674382c8e0aeedc48d4f44d3e",
+      "current_sha256": "008353eebbfe88bc5c4a3edd52635df8aac6b57df2c28dae0b97b211ed8372c4"
+    },
+    {
+      "original_path": "evidence/strategy-v2/schedule-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/schedule-1440.png",
+      "original_sha256": "f4e0160c994f6b66f15a655fe4712d8e5165abb7bc1d5c98cfeef3133cfc83ee",
+      "current_sha256": "a221d2958e5be2e21f3b48ed59e162907b59150491b69a4c96fc22bd5bb7044c"
+    },
+    {
+      "original_path": "evidence/strategy-v2/schedule-390.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/schedule-390.png",
+      "original_sha256": "29de053f29c0282196efd9cd69b93ea0c501613f01f8f98f3cbf4379f6c30217",
+      "current_sha256": "d0b785659c8e7ed29a715d4ef6d40ab3de4a5161d4e7669eab6e865b350f75b1"
+    },
+    {
+      "original_path": "evidence/strategy-v2/strategies-1440.png",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/strategies-1440.png",
+      "original_sha256": "6e070fe3507c48bbec931b056cb49bb2fd2b2215ca9db1dfadb40d745fb937b2",
+      "current_sha256": "486cbc511bc114fad333fba2d95b2939896d38075e41fef95c238260dde17d6c"
+    },
+    {
+      "original_path": "evidence/strategy-v2/trial-policy-v1.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/trial-policy-v1.json",
+      "original_sha256": "1c8e619d9120ac6df8f4bd2f7c50b06c0a110da9c48e6cdd1697b826d14ac71f",
+      "current_sha256": "8ed878d7ef61e0ad610385394c626c247b95c704c1f466af845d0d0ab1b4b42a"
+    },
+    {
+      "original_path": "evidence/strategy-v2/trial-policy-v2.json",
+      "current_output_path": "evidence/redesign-v2/legacy-final-regression/evidence/strategy-v2/trial-policy-v2.json",
+      "original_sha256": "fac6d8473419fb7007bc7c1e730deec21c82145957c1c9a5d33a360b568d366b",
+      "current_sha256": "862ba10b0434be0432ca406568837d3e73538e98e9ad3064cc7b5d3634c739b9"
+    }
+  ]
+}

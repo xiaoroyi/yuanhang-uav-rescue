@@ -1,3 +1,35 @@
+## 当前交付（2026-10-18 22:48，覆盖下方所有继续点）
+
+用户最新明确“不要过度测试，基础功能没问题先尽快给我”。因此不再启动任何新的全量回归或研究开发。最终补丁为短屏分析Modal、联合初解使用总预算18%/最多30秒、深入刷新等待真实受理；3浏览器/2后端/lint/strict build均通过。DELIVERY_CHECKS.json记录当前指纹和实际命令；完整旧轮321通过/2失败、52浏览器50通过/2失败原样留存，失败已定向复核通过，不声称最新整套通过。
+
+本机使用start.cmd与8000。主流程及I1—I3/真实静态动态评测/独立模拟设备状态/只读档案已可用，详细操作DEMO_GUIDE；外部和未完成研究/图表/材料见KNOWN_LIMITATIONS，任务唯一来源docs/task-board.json。长期两位成员：A算法兼负责人，B同一人前后端。无真实设备/收费API，无main合并，无契约伪批准。
+
+交付前将按已完成备份安全同步本机服务、恢复477份旧证据并归档新输出、提交推GitHub及生成不含个人runtime/依赖/密钥的开发运行包。后续仅核对部署/打包/提交结果，不重新启动全量。最终生产身份和原数据核对在final-current-deployment.json，包在DEVELOPMENT_PACKAGE.json；旧进程说明全部失效。
+
+## 当前最终验收：96d7d63（2026-10-18 22:26）
+
+覆盖下方旧继续点。代码已冻结并推送96d7d63；RFC029旧请求哈希兼容、并发调整单次入队、启动时未绑定调整明确失败、旧地图resize适配以及刷新测试实际HTTP202前提已修。16后端专项317.22s、4浏览器专项全部通过；没有继续开发研究功能。
+
+当前非浏览器全量会话72723，.local/v2-final-current-verification.log，输出final-current-verification；当前52条浏览器会话45857，.local/v2-final-current-browser.log，输出final-current-browser-results.json，前30条已过。两轮运行期间不得修改源/测试/Schema；报告尚未生成前不称通过。第一轮全量3失败/316通过、第一轮浏览器2失败/50通过原样留存，原因与修复将写TEST_REPORT。
+
+新版完整GUI14张截图已于14:18UTC跑通，browser-review.json passed=true：准备/检查/真实计算/确认/运行/暂停/真实插单/差异/采纳/复盘；当前实际脚本保存visual-acceptance.mjs，8013隔离实例，原scripts脚本未改。生产只读11张也已验。还要补核对短屏各状态。
+
+生产8000已配套加载当前源码：PID31644/start1792332914583/launcher52281，.local/v2-production-final-current-service.log，source adb89ce253164155baa64da50d5edccc5f219da23a2f543eb81025159ff575f9，frontend a52f4fd6dd6a0a2c852410efa338ffd8c6759095430689a71be847d86cb1bb17；final-current-deployment.json记录原14Plan/10Snapshot原JSON不变和备份060621df...9c92f。8013测试PID16132/start1792333025063/launcher38502；只可核对该身份后停止，数据留在.local/final-visual-runtime。
+
+接下来等当前全量/52浏览器结束→恢复477旧证据并归档新输出（.local/preserve_final_regression.py after，勿重做before）→刷新3份SMOKE manifest→更新状态/真实测试与视觉记录→核对生产/原数据→提交推送→对成功当前verify报告运行.local/package_v2_development.py，开发运行包不是免安装或匿名比赛包。deadline约23:28北京时间，不在检查点停工；main/V1不改，真实设备/外部建图/学习训练/真人试用/PPT视频缺口继续保留。
+
+## 最后验收运行中，兼容重试需修（2026-10-18 21:52）
+
+用户21:27断线后要求2小时内，目标23:28前稳定本机版。功能已冻结233f1f3且已推GitHub；RFC028动态同条件修复评测、生成时事件证据、无可行基线增配诊断/教程全部专项已过。不要重开研究功能，不在检查点停工。README已更新当前V2入口并折叠旧九页历史，尚未提交；不改程序源码/测试直到当前整轮完。
+
+**正在跑233f1f3的第一轮最终全量**：verify会话29645，日志.local/v2-final-verification.log，输出evidence/redesign-v2/final-verification；全部Playwright会话78860，日志.local/v2-final-browser.log，报告final-browser-results.json，共52条，已过前30条（后续读日志），没有已知失败。13:39UTC启动，完整Python预期约15分钟、浏览器约25分钟。不得当还未完成的通过。原历史477文件已保存.local/v2-before-final-regression.zip/json，58,322,780字节，SHA7b51e7388ea0c0e11fc6b54facf4afafc4da9e0fc8a5c1c70810cc995ade76d8；所有最终尝试结束后用.local/preserve_final_regression.py after归档变动到legacy-final-regression并恢复原字节。不重新before覆盖这份备份。
+
+**验收审计新发现**：protocol-compatibility-probe.json在临时DB真实复现旧RFC025实验请求receipt哈希因新增repair_reference_id=null而重试409。需要兼容旧哈希；同类RepairRequest在RFC026新增repair_policy也需审查。当前尚未修代码！先让本轮结束保留准确源码全量，然后补向后兼容测试/修复并再次冻结、完整当前源码验证。预计仍在两小时预算内。旧实验哈希＝当前model_dump去repair_reference_id，允许仅None场景；其他参数变化仍409。旧RepairRequest哈希去repair_policy，只有旧未提供字段或明确full可接受；新显式dependency不能借旧receipt掩盖语义变化。owner/execution检查仍保留。不要为了赶时限忽略确认的兼容问题。
+
+**8000已真实同步**：之前33876服务因断线已退出，未盲停进程。核对离线DB与上次基线后SQLite一致备份312d178...0b2a，新服务PID47988/start1792330887392/launcher98529，日志.local/v2-production-frozen-service.log。source be89bedd21cf853ad61d34fa0ba9aac61d4c9ad4d3a29d3da933079c355421bf；frontend47a83e...2cd7c，frozen-deployment.json已核对原14Plan/10Snapshot原JSON和全部6表行数。production-visual/REVIEW.json实际生产构建GET/HEAD-only检查11张图通过，无写请求/脚本错误；home1440已查看。
+
+**后续**：修兼容/测试→当前源码最终全量与全部浏览器→恢复旧证据→看最新真实结果图（首页/准备/检查/地图/甘特/架次分析/执行/事件/复盘双尺寸）→更新任务状态/真实结果/文档→安全配套重启→提交推送→开发运行包。本地打包脚本.local/package_v2_development.py已准备，参数为最终verify报告路径；它校验source_unchanged及当前指纹，git archive HEAD+已验证dist，无runtime/依赖/密钥，不是免安装或匿名参赛包；等最终文档提交后再运行。R22—24和设备/外部材料缺口在KNOWN_LIMITATIONS，不伪造完成。原main/V1不改，外部权限不扩大。
+
 ## 功能冻结，进入最终全量（2026-10-18 21:38）
 
 用户21:27要求两小时内稳定可演示版本，截止约23:28北京时间。不再扩功能，余下只修验收失败/打包/文档/配套服务与GitHub同步。a28ef79已推。RFC028成对修复/冻结事件证据、无可行基线资源诊断、教程新增入口已实现：10后端90.87s、3浏览器约1分钟、资源新流程1项8秒，lint/严格build过。51操作模型/82HTTP路径。REPAIR_EXPERIMENT_SMOKE和feature-freeze-validation有真实包/日志；比较1280与资源1280已查看。R22等缺口准确列KNOWN_LIMITATIONS，不标AI完成。
@@ -114,3 +146,7 @@ RFC-024事实驱动的承诺、暂停只读、退出/误报与未来就绪遥测
 6. **R21/R23/R24**：完善运行/许可/匿名材料；航片ODM、硬件/SITL、多基地等按缺数据/环境具体追踪，不能静默删任务或用Mock充能力。3名新用户试用缺真人，不能由自动脚本代替。
 
 任务唯一状态为docs/task-board.json；大部分R仍in_progress。INDEX、FEATURE_TRACEABILITY、API_MIGRATION_MAP、TEST_REPORT、VISUAL_REVIEW、DEMO_GUIDE、KNOWN_LIMITATIONS同步维护。完整输入在docs/redesign-v2/，初次已读，不每个小任务反复全文读取。
+
+## 22:32新增视觉发现（最终必须修复）
+
+短屏补图short-screen-review.json虽无横向溢出，但实际查看发现规划页@media(max-height:800px)无条件隐藏底部图，因此“展开”仍看不到高程/甘特。不能声称短屏图表已完整可用。待当前两轮结束保留报告后，做最小修复：短屏点击底部/高程入口打开完整分析Modal，默认仍保证地图面积；同一真实Plan补自动断言和截图。随后冻结新源码重跑当前完整验证/浏览器，时间仍约23:28截止。执行页已有“查看完整排程”Modal不受该问题影响。当前52浏览器第31条联合通信无候选UNKNOWN，界面诚实保留；结束后单独复核不改物理断言。

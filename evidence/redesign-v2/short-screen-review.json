@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "at": "2026-10-18T14:29:42.377Z",
+  "source_story": "browser-review.json",
+  "mission": "MIS-3467A9D6D39D4F61",
+  "base": "http://127.0.0.1:8013",
+  "errors": [],
+  "screenshots": [
+    "prepare-1280.png",
+    "checks-1280.png",
+    "sortie-profile-1280.png",
+    "gantt-1280.png",
+    "execution-paused-1280.png",
+    "review-short-1280.png"
+  ],
+  "geometry": [
+    {
+      "name": "prepare-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "name": "checks-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "name": "sortie-profile-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "name": "gantt-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "name": "execution-paused-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    },
+    {
+      "name": "review-short-1280",
+      "width": 1280,
+      "scrollWidth": 1280
+    }
+  ]
+}

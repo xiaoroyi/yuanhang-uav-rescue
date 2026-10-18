@@ -1,0 +1,16 @@
+{
+  "scope": "Synthetic pre-RFC028 idempotency receipt in an isolated temporary DB; production data untouched",
+  "source_commit": "233f1f3",
+  "legacy_receipt_sha256": "31f726d1f68e369a3384bab366fbb8585733761e1072acd5a011af8b37a7e56d",
+  "new_normalized_sha256": "1bfde47ea306bc31a133d3ac23de8f68dac382feb4da8119889427da5eeb15a3",
+  "replay_http_status": 409,
+  "replay": {
+    "error": {
+      "code": "IDEMPOTENCY_CONFLICT",
+      "message": "评测幂等键对应不同输入。",
+      "field_path": null,
+      "details": {},
+      "request_id": "REQ-8D6A5B9BE11B41A9"
+    }
+  }
+}

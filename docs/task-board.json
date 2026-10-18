@@ -13,7 +13,7 @@
     "G5": "in_progress",
     "G6": "in_progress"
   },
-  "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。 V2按R00-R24实施，原包C职责归同一位B。",
+  "note": "C-*由B负责。用户已授权feat/solo-fullstack-v0跨模块实现；契约仍待团队复核，不伪造冻结。部分实现不等于整项验收。 V2按R00-R24实施，原包C职责归同一位B。 V2本机候选按用户最新指示完成基础检查后交付；最新源码没有重新全量验证。外部研究/正式赛事材料与剩余图表保留，不全标done。",
   "tasks": [
     {
       "id": "G0-01",
@@ -1322,12 +1322,14 @@
       "dependencies": [
         "R00"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1340,12 +1342,14 @@
       "dependencies": [
         "R00"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1364,7 +1368,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1378,12 +1384,14 @@
         "R01",
         "R02"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1397,12 +1405,14 @@
         "R01",
         "R04"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1423,7 +1433,9 @@
         "evidence/redesign-v2/HANDOFF.md",
         "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
         "frontend/tests/map-workspace-v2.spec.ts",
-        "evidence/redesign-v2/map-workspace-browser-results.json"
+        "evidence/redesign-v2/map-workspace-browser-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1437,12 +1449,14 @@
         "R01",
         "R04"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1461,7 +1475,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1478,12 +1494,14 @@
         "R07",
         "R08"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1497,12 +1515,14 @@
         "R01",
         "R09"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1524,7 +1544,9 @@
         "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
         "docs/CONTRACT_RFC_023.md",
         "tests/backend/test_device_readback_v2.py",
-        "evidence/redesign-v2/device-readback-browser-results.json"
+        "evidence/redesign-v2/device-readback-browser-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1546,7 +1568,9 @@
         "evidence/redesign-v2/HANDOFF.md",
         "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
         "docs/CONTRACT_RFC_024.md",
-        "tests/backend/test_execution_boundaries_v2.py"
+        "tests/backend/test_execution_boundaries_v2.py",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1566,7 +1590,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1588,7 +1614,9 @@
         "docs/CONTRACT_RFC_019.md",
         "tests/solver/test_weather.py",
         "tests/backend/test_weather_v2.py",
-        "evidence/redesign-v2/weather-browser-results.json"
+        "evidence/redesign-v2/weather-browser-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1604,7 +1632,7 @@
         "R13",
         "R14"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
@@ -1619,7 +1647,9 @@
         "tests/backend/test_execution_impact_v2.py",
         "evidence/redesign-v2/impact-browser-results.json",
         "frontend/tests/resource-diagnosis-v2.spec.ts",
-        "evidence/redesign-v2/resource-diagnosis-browser-results.json"
+        "evidence/redesign-v2/resource-diagnosis-browser-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1648,7 +1678,9 @@
         "docs/CONTRACT_RFC_028.md",
         "tests/backend/test_repair_experiments_v2.py",
         "evidence/redesign-v2/REPAIR_EXPERIMENT_SMOKE/MANIFEST.json",
-        "evidence/redesign-v2/repair-experiment-browser-results.json"
+        "evidence/redesign-v2/repair-experiment-browser-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1671,7 +1703,9 @@
         "tests/backend/test_execution_archive.py",
         "frontend/tests/archive-v2.spec.ts",
         "evidence/redesign-v2/archive-browser-visual-results.json",
-        "evidence/redesign-v2/SCENARIO_MANIFEST.json"
+        "evidence/redesign-v2/SCENARIO_MANIFEST.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1691,7 +1725,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1710,7 +1746,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1747,7 +1785,9 @@
         "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
         "evidence/redesign-v2/full-verification/latest.json",
         "evidence/redesign-v2/map-workspace-browser-results.json",
-        "evidence/redesign-v2/weather-map-clearance-results.json"
+        "evidence/redesign-v2/weather-map-clearance-results.json",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1767,7 +1807,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/DEMO_GUIDE.md",
-        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1784,7 +1826,9 @@
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
-        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1801,7 +1845,9 @@
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
-        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     },
     {
@@ -1821,7 +1867,9 @@
       "branch": "feat/mission-workspace-v2",
       "pr": null,
       "evidence": [
-        "evidence/redesign-v2/KNOWN_LIMITATIONS.md"
+        "evidence/redesign-v2/KNOWN_LIMITATIONS.md",
+        "evidence/redesign-v2/TEST_REPORT.md",
+        "evidence/redesign-v2/DELIVERY_CHECKS.json"
       ]
     }
   ]

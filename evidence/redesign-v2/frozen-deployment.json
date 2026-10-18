@@ -1,0 +1,30 @@
+{
+  "checked_at_utc": "2026-10-18T13:41:30.516722+00:00",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "be89bedd21cf853ad61d34fa0ba9aac61d4c9ad4d3a29d3da933079c355421bf",
+    "runtime_id": "23afa25c2bda"
+  },
+  "counts": {
+    "scenarios": 10,
+    "snapshots": 10,
+    "plans": 14,
+    "jobs": 15,
+    "missions": 0,
+    "executions": 0
+  },
+  "old_plan_snapshot_json_unchanged": true,
+  "frontend_source_sha256": "47a83ea3862b55f863a92b88eacd38a32096dc8f9fd7702970ee505e91b2cd7c",
+  "backup": {
+    "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\v2-before-frozen-deployment\\yuanhang-backup-20261018T134100Z-631435e5.zip",
+    "sha256": "312d178cc6069ab4d834f928aefe527c326a7d4c0337f36f3f941e196feb0b2a"
+  },
+  "scope": "Feature-frozen source paired on localhost; regression report is independent and may still be running",
+  "backend_pid": 47988,
+  "backend_start_epoch_ms": 1792330887392,
+  "launcher_session": 98529
+}

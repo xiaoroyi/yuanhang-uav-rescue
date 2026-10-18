@@ -1,42 +1,42 @@
 {
   "artifact": "strategy-benchmark.json",
-  "artifact_sha256": "33a7001cd6bd2636997862dc5c8aa3c326f3169333e8ba308339ece5908fb70c",
-  "bundle_content_sha256": "1c44ebae586edbe99190c8a603ce341cd190fed58e842aa47d2d377295164b3f",
-  "captured_at": "2026-10-18T13:32:24.491758Z",
-  "source": "Actual isolated Playwright workflow, real Worker outputs; no hardware evidence",
+  "artifact_sha256": "5096649dabe22e9cdcd3a7bf552c902f0dd9f39232a7a536756205b8ceca1013",
+  "bundle_content_sha256": "df59e52ca71767b6107c45040ff8affe32a3cfc41b4b98b0a12e72e286fd9ca0",
+  "captured_at": "2026-10-18T14:15:05.937947Z",
+  "source": "Actual isolated Worker/Playwright workflow; not real hardware",
   "documents": [
     {
       "kind": "snapshot",
-      "id": "SNAP-CBFDDEC80F3E4F07",
-      "sha256": "fc7197e46d07966ed7a805d12984204b1fa2ed8613a4ed22b80804bef5b54105"
+      "id": "SNAP-3B5F616DCFEE47B4",
+      "sha256": "7441e77c184e60d1e4bd025a7df7a89c036a1369bb110f22034191d164e351a5"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-27BE40FD01F34ECF",
-      "sha256": "98181112d4f3c042e8f9d55e6335c885ae17de9f3b0b97d5c40e39e047e799d0"
+      "id": "SNAP-6BE4568410EB42D2",
+      "sha256": "fa92847513c33205cd2e05fa110c17a7fbb91b1dbd68a23dc2d8da3d31cb4a04"
     },
     {
       "kind": "plan",
-      "id": "PLAN-D32BD8716A6B4059",
-      "sha256": "171677a31a9a05e9036a6f79a2560594227e8609619f437a50cdda2d16f6ea59"
+      "id": "PLAN-084FF6F83F4E47C3",
+      "sha256": "53c62652cbbe10dcdac1edaf27f6ec2a188644513923c9a97e89fb76192fe79b"
     },
     {
       "kind": "plan",
-      "id": "PLAN-3E252BA78B7044DA",
-      "sha256": "402f7d025d1cbb4a76a6c69f24094da75cb27db9642a0ff5e66050e205350f66"
+      "id": "PLAN-5E3DAD5193E842AB",
+      "sha256": "c02466ba75fade1a7a0c3144e7307c5aa1a68b20e51f3cbfbdcd6e7e880ba2d8"
     },
     {
       "kind": "plan",
-      "id": "PLAN-637BA5FC06AE4899",
-      "sha256": "d6b04b5aef05f3332796c5fa97e100ba5dacab4bc6265722a8e3325b9663ab4e"
+      "id": "PLAN-F493709FFCFA46C0",
+      "sha256": "2244f1a533e9e27f6374756a25016e77cd75a6f3e0d29497234a933af0982e77"
     }
   ],
-  "experiment_id": "EXP-FA6AFDF2182D4AE4",
+  "experiment_id": "EXP-E3F44EC726654D51",
   "suite": "strategy",
   "data_origin": "verified_dataset",
   "environment": {
-    "service_source_sha256": "be89bedd21cf853ad61d34fa0ba9aac61d4c9ad4d3a29d3da933079c355421bf",
-    "git_commit": "a28ef794542d9f10902181c2eb0fb6eaebe5514c",
+    "service_source_sha256": "adb89ce253164155baa64da50d5edccc5f219da23a2f543eb81025159ff575f9",
+    "git_commit": "96d7d63ca96106ce0458b67cf9cd0d607b4ae023",
     "git_worktree_dirty": true,
     "python_version": "3.11.15",
     "platform": "Windows-10-10.0.26300-SP0",
@@ -53,27 +53,24 @@
       "method": "quick",
       "seed": 11,
       "time_limit_s": 3.0,
-      "runtime_s": 2.722537200024817,
+      "runtime_s": 2.726830300001893,
       "calculation_method": null,
-      "repair_difference": null,
       "validated": true
     },
     {
       "method": "quick",
       "seed": 11,
       "time_limit_s": 3.0,
-      "runtime_s": 2.75759900000412,
+      "runtime_s": 2.7061304000089876,
       "calculation_method": null,
-      "repair_difference": null,
       "validated": true
     },
     {
       "method": "quick",
       "seed": 11,
       "time_limit_s": 3.0,
-      "runtime_s": 2.7149234999669716,
+      "runtime_s": 2.703617299965117,
       "calculation_method": null,
-      "repair_difference": null,
       "validated": true
     }
   ],

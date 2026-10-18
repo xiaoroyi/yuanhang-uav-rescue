@@ -1,0 +1,104 @@
+{
+  "baseline_plan_id": "PLAN-AC0F61A4874B4FE3",
+  "expected": "deadline_first_v1",
+  "requests": [
+    {
+      "snapshot_id": "SNAP-9CEC35BF434C4D5B",
+      "objective": "time",
+      "objective_policy": "deadline_first_v1",
+      "time_limit_s": 15,
+      "seed": 42
+    },
+    {
+      "snapshot_id": "SNAP-03EF96FEF16B404D",
+      "objective": "time",
+      "objective_policy": "deadline_first_v1",
+      "time_limit_s": 15,
+      "seed": 42
+    },
+    {
+      "snapshot_id": "SNAP-23F30B6EDBDE4482",
+      "objective": "time",
+      "objective_policy": "deadline_first_v1",
+      "time_limit_s": 15,
+      "seed": 42
+    },
+    {
+      "snapshot_id": "SNAP-AB9E757CD1304549",
+      "objective": "time",
+      "objective_policy": "deadline_first_v1",
+      "time_limit_s": 15,
+      "seed": 42
+    }
+  ],
+  "jobs": [
+    {
+      "schema_version": "0.1.0-draft",
+      "job_id": "JOB-3B80DEC6754C4C6C",
+      "scenario_id": "SCN-D1EDDDEB7829497B",
+      "snapshot_id": "SNAP-9CEC35BF434C4D5B",
+      "reserved_plan_id": "PLAN-1DFFEAA7F2084F9F",
+      "job_state": "completed",
+      "solver_status": "FEASIBLE",
+      "plan_id": "PLAN-1DFFEAA7F2084F9F",
+      "has_validated_plan": true,
+      "runtime_s": 7.960779600020032,
+      "stop_reason": "finished",
+      "created_at": "2026-10-18T14:16:46.544354Z",
+      "started_at": "2026-10-18T14:16:46.563884Z",
+      "finished_at": "2026-10-18T14:16:57.357322Z",
+      "error": null
+    },
+    {
+      "schema_version": "0.1.0-draft",
+      "job_id": "JOB-BEC919B8D2884EBA",
+      "scenario_id": "SCN-7509BC62496B4FDA",
+      "snapshot_id": "SNAP-03EF96FEF16B404D",
+      "reserved_plan_id": "PLAN-8960BEA6C7404760",
+      "job_state": "completed",
+      "solver_status": "FEASIBLE",
+      "plan_id": "PLAN-8960BEA6C7404760",
+      "has_validated_plan": true,
+      "runtime_s": 7.486872199981008,
+      "stop_reason": "finished",
+      "created_at": "2026-10-18T14:16:58.548920Z",
+      "started_at": "2026-10-18T14:16:58.565741Z",
+      "finished_at": "2026-10-18T14:17:09.177532Z",
+      "error": null
+    },
+    {
+      "schema_version": "0.1.0-draft",
+      "job_id": "JOB-ED2CC735FAD9458C",
+      "scenario_id": "SCN-58B82C0F628842AC",
+      "snapshot_id": "SNAP-23F30B6EDBDE4482",
+      "reserved_plan_id": "PLAN-68956980132D46B8",
+      "job_state": "completed",
+      "solver_status": "FEASIBLE",
+      "plan_id": "PLAN-68956980132D46B8",
+      "has_validated_plan": true,
+      "runtime_s": 9.28287639998598,
+      "stop_reason": "finished",
+      "created_at": "2026-10-18T14:16:58.674030Z",
+      "started_at": "2026-10-18T14:17:09.192400Z",
+      "finished_at": "2026-10-18T14:17:22.192468Z",
+      "error": null
+    },
+    {
+      "schema_version": "0.1.0-draft",
+      "job_id": "JOB-93EE9A5E5ABC4802",
+      "scenario_id": "SCN-71377D8583D14B94",
+      "snapshot_id": "SNAP-AB9E757CD1304549",
+      "reserved_plan_id": "PLAN-57EBDA0D0B4A4335",
+      "job_state": "completed",
+      "solver_status": "FEASIBLE",
+      "plan_id": "PLAN-57EBDA0D0B4A4335",
+      "has_validated_plan": true,
+      "runtime_s": 13.51726619998226,
+      "stop_reason": "time_limit",
+      "created_at": "2026-10-18T14:16:58.785966Z",
+      "started_at": "2026-10-18T14:17:22.211054Z",
+      "finished_at": "2026-10-18T14:17:39.004877Z",
+      "error": null
+    }
+  ]
+}

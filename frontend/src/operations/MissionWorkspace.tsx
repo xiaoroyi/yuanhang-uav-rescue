@@ -89,6 +89,23 @@ export function MissionWorkspace({
   const [tableOpen, setTableOpen] = useState(false)
   const [diagnosisOpen, setDiagnosisOpen] = useState(false)
   const [bottom, setBottom] = useState<'timeline' | 'profile' | 'none'>('timeline')
+  const [compactHeight, setCompactHeight] = useState(
+    () => window.matchMedia('(max-height: 800px)').matches,
+  )
+  const [analysisOpen, setAnalysisOpen] = useState<'timeline' | 'profile' | null>(null)
+  useEffect(() => {
+    const media = window.matchMedia('(max-height: 800px)')
+    const changed = () => {
+      setCompactHeight(media.matches)
+      if (!media.matches) setAnalysisOpen(null)
+    }
+    media.addEventListener('change', changed)
+    return () => media.removeEventListener('change', changed)
+  }, [])
+  const showAnalysis = (kind: 'timeline' | 'profile') => {
+    setBottom(kind)
+    if (compactHeight) setAnalysisOpen(kind)
+  }
   const [list, setList] = useState<'demands' | 'sorties'>('demands')
   const [report, setReport] = useState<CheckReport | null>(null)
   const reports = useQuery({
@@ -503,23 +520,33 @@ export function MissionWorkspace({
                 selected={selected}
                 siteId={siteId}
                 onClose={() => setDetails(false)}
-                onProfile={() => setBottom('profile')}
+                onProfile={() => showAnalysis('profile')}
               />
             )}
           </div>
           <div className={`v2-bottom ${bottom === 'none' ? 'collapsed' : ''}`}>
             <div className="v2-bottom-tabs">
-              <button onClick={() => setBottom(bottom === 'timeline' ? 'none' : 'timeline')}>
+              <button
+                onClick={() =>
+                  compactHeight
+                    ? showAnalysis('timeline')
+                    : setBottom(bottom === 'timeline' ? 'none' : 'timeline')
+                }
+              >
                 机体 / 电池排程
               </button>
-              <button disabled={!selected} onClick={() => setBottom('profile')}>
+              <button disabled={!selected} onClick={() => showAnalysis('profile')}>
                 选中架次分析
               </button>
               <button
                 className="v2-push-right"
-                onClick={() => setBottom(bottom === 'none' ? 'timeline' : 'none')}
+                onClick={() =>
+                  compactHeight
+                    ? showAnalysis(bottom === 'profile' ? 'profile' : 'timeline')
+                    : setBottom(bottom === 'none' ? 'timeline' : 'none')
+                }
               >
-                {bottom === 'none' ? '展开' : '收起'}
+                {compactHeight ? '查看完整分析' : bottom === 'none' ? '展开' : '收起'}
               </button>
             </div>
             {plan.data && activeScenario && bottom === 'timeline' ? (
@@ -539,6 +566,28 @@ export function MissionWorkspace({
               bottom !== 'none' && <p className="v2-subtle">生成方案后查看资源安排。</p>
             )}
           </div>
+          <Modal
+            title={analysisOpen === 'profile' ? '架次完整分析' : '完整资源排程'}
+            description="来自当前所选方案的真实箱件、资源与阶段数据；关闭后返回地图。"
+            open={analysisOpen !== null}
+            onOpenChange={(open) => {
+              if (!open) setAnalysisOpen(null)
+            }}
+            wide
+          >
+            {plan.data && activeScenario && analysisOpen === 'timeline' ? (
+              <ResourceTimeline
+                scenario={activeScenario}
+                plan={plan.data}
+                selected={selected}
+                onSelect={setSelected}
+              />
+            ) : plan.data && selected && analysisOpen === 'profile' ? (
+              <StageCharts plan={plan.data} selected={selected} />
+            ) : (
+              <p className="v2-subtle">选择真实方案与架次后查看分析。</p>
+            )}
+          </Modal>
           <Modal title="方案比较" open={compareOpen} onOpenChange={setCompareOpen} wide>
             <CompareCenter
               scenario={scene.data}

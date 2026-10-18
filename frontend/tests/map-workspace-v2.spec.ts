@@ -228,6 +228,25 @@ test('V2 real computed overlapping flights offer a choice and keep the camera wh
   await expect(page.locator('.v2-inspector')).toContainText(chosen!.cargo_ids[0])
   await expect(chooser).toHaveCount(0)
   expect((await camera(page, mission.mission_id))?.zoom).toBeCloseTo(before!.zoom, 3)
+  // Short-height CSS hides the inline panel; real analysis must still open.
+  await page.setViewportSize({ width: 1280, height: 720 })
+  await page.getByRole('button', { name: '查看高程 / 载荷 / 电量', exact: true }).click()
+  const profile = page.getByRole('dialog', { name: '架次完整分析' })
+  await expect(profile).toContainText(chosenId)
+  await expect(profile.getByRole('button', { name: '高程剖面', exact: true })).toBeVisible()
+  await expect(profile.locator('canvas').first()).toBeVisible()
+  await page.screenshot({ path: '../evidence/redesign-v2/profile-modal-1280.png' })
+  await profile.getByRole('button', { name: '关闭弹窗', exact: true }).click()
+  await page.getByRole('button', { name: '机体 / 电池排程', exact: true }).click()
+  const timeline = page.getByRole('dialog', { name: '完整资源排程' })
+  await expect(timeline.locator('.timeline-row').first()).toBeVisible()
+  await expect(timeline).toContainText(chosen!.drone_id)
+  await page.screenshot({ path: '../evidence/redesign-v2/timeline-modal-1280.png' })
+  await timeline.getByRole('button', { name: '关闭弹窗', exact: true }).click()
+  expect(
+    await page.locator('.v2-map-main').evaluate((e) => e.getBoundingClientRect().height),
+  ).toBeGreaterThanOrEqual(340)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280)
 })
 
 test('V2 unavailable WebGL keeps input and table controls usable', async ({ page, request }) => {

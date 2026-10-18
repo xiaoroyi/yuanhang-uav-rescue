@@ -1,0 +1,13 @@
+Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+
+Running 3 tests using 1 worker
+
+(node:25928) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+22:44:41 [vite] (client) [console.warn] [ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.
+22:44:41 [vite] (client) [console.warn] [ECharts] Can't get DOM width or height. Please check dom.clientWidth and dom.clientHeight. They should not be 0.For example, you may need to call this in the callback of window.onload.
+  ok 1 tests\map-workspace-v2.spec.ts:158:1 › V2 real computed overlapping flights offer a choice and keep the camera when opening details (9.7s)
+  ok 2 tests\workflow.spec.ts:373:1 › 点击真实架次追溯通信来源，窗口导出与地图联动保持原始快照 (36.7s)
+  ok 3 tests\workflow.spec.ts:1476:1 › 深入优化保留同快照基线，刷新后继续真实计算 (57.6s)
+
+  3 passed (1.8m)

@@ -1,0 +1,46 @@
+{
+  "at_utc": "2026-10-18T14:48:58.784753+00:00",
+  "scope": "targeted-release-checks",
+  "passed": true,
+  "note": "User requested prompt delivery and no further full-suite rerun. Each exit code was observed from its completed tool session; this is not a full-suite pass. Identity captured after the scoped checks.",
+  "head_before_release_commit": "96d7d63ca96106ce0458b67cf9cd0d607b4ae023",
+  "verification_source_after_sha256": "4f63f6178945eac4c6867700d09140e514cfc8c42c6ce63afba3ed77ae7f9be4",
+  "service_source_sha256": "2e307f63b2f1594e67bd3ffc9b18a1b29b512d5611024814d6498c8a40f4cc30",
+  "frontend_source_sha256": "e71175fe9c4c09672af09c20aa01a91e1334fea3a3d97e0e76a8e6500aad7c9e",
+  "checks": [
+    {
+      "command": "npm.cmd --prefix frontend run lint",
+      "exit_code": 0,
+      "output": "evidence/redesign-v2/release-checks/lint.txt"
+    },
+    {
+      "command": "npm.cmd --prefix frontend run build",
+      "exit_code": 0,
+      "output": "evidence/redesign-v2/release-checks/build.txt"
+    },
+    {
+      "command": ".venv/Scripts/python -m pytest tests/backend/test_experiments_v2.py::test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export tests/backend/test_relay_energy_events.py::test_real_joint_relay_energy_withdrawal_preserves_history_and_reconfirms_new_resources -q",
+      "exit_code": 0,
+      "output": "evidence/redesign-v2/release-checks/backend.txt"
+    },
+    {
+      "command": "node frontend/scripts/run-e2e.mjs --grep \"V2 real computed overlapping|深入优化保留同快照基线|点击真实架次追溯通信来源\"",
+      "exit_code": 0,
+      "output": "evidence/redesign-v2/release-checks/browser.txt"
+    }
+  ],
+  "previous_complete_nonbrowser": "final-current-verification/latest.json",
+  "previous_complete_browser": "final-current-browser-results.json",
+  "python_targeted": {
+    "passed": 2,
+    "duration_s": 94.33
+  },
+  "browser_targeted": {
+    "startTime": "2026-10-18T14:44:32.138Z",
+    "duration": 106466.36,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

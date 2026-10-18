@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "at": "2026-10-18T14:18:42.004Z",
+  "base": "http://127.0.0.1:8013",
+  "mission": "MIS-3467A9D6D39D4F61",
+  "plan": "PLAN-9C7C05FDD31843E3",
+  "execution": "EXE-4B42611244C84B8E",
+  "errors": [],
+  "external_requests": [],
+  "screenshots": [
+    "new-1440.png",
+    "prepare-1440.png",
+    "checks-1440.png",
+    "plans-1440.png",
+    "plans-1280.png",
+    "sortie-profile-1440.png",
+    "gantt-1440.png",
+    "execution-running-1440.png",
+    "execution-paused-1440.png",
+    "repair-diff-1440.png",
+    "review-1440.png",
+    "review-1280.png",
+    "home-1280.png",
+    "home-1440.png"
+  ],
+  "geometry": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "mapHeight": 464,
+      "mapWidth": 1116,
+      "pageWidth": 1440
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "mapHeight": 458,
+      "mapWidth": 976,
+      "pageWidth": 1280
+    }
+  ]
+}

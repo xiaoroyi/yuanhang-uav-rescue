@@ -1,0 +1,221 @@
+................................................................F....F.. [ 22%]
+............................................F......................... [ 44%]
+.................................................................. [ 65%]
+........................................................................ [ 87%]
+.......................................                                  [100%]
+================================== FAILURES ===================================
+__________ test_inflight_repair_preserves_facts_and_resource_release __________
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-130/test_inflight_repair_preserves0')
+
+    def test_inflight_repair_preserves_facts_and_resource_release(tmp_path):
+        with TestClient(create_app(tmp_path / "runtime")) as c:
+>           m, s, p, e = setup(c)
+                         ^^^^^^^^
+
+tests\backend\test_execution_v2.py:252: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x0000015B797A4DD0>
+configure = None
+
+    def setup(c, configure=None):
+        m = post(
+            c,
+            "/missions",
+            {
+                "name": "Execution contract test",
+                "template": "compact",
+                "idempotency_key": "create",
+            },
+            201,
+        )
+        s = c.get("/api/v1/scenarios/" + m["current_scenario_id"]).json()
+        # Keep one available entity at the base for the in-flight future-failure scenario.
+        s["drones"][-1]["available_after_s"] = 20000
+        if configure:
+            configure(s)
+        r = c.put(
+            "/api/v1/scenarios/" + s["scenario_id"],
+            json={"expected_state_version": 1, "scenario": s},
+        )
+        assert r.status_code == 200, r.text
+        s = r.json()
+        snap = post(
+            c,
+            f"/scenarios/{s['scenario_id']}/snapshots",
+            {"expected_state_version": 2},
+            201,
+        )
+        job = await_job(
+            c,
+            post(
+                c,
+                "/solve-jobs",
+                {
+                    "snapshot_id": snap["snapshot_id"],
+                    "time_limit_s": 5,
+                    "objective_policy": "tradeoff_v2",
+                },
+                202,
+            ),
+        )
+>       assert job["has_validated_plan"], job
+E       AssertionError: {'schema_version': '0.1.0-draft', 'job_id': 'JOB-6F40BC211C614A33', 'scenario_id': 'SCN-798B4641A7864CDA', 'snapshot_id': 'SNAP-9374E272574540FE', ...}
+E       assert False
+
+tests\backend\test_execution_v2.py:69: AssertionError
+_ test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export _
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-130/test_strategy_campaign_uses_re0')
+
+    def test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export(
+        tmp_path,
+    ):
+        directory = tmp_path / "runtime"
+        app = create_app(directory)
+        with TestClient(app) as c:
+            _, s, p, e = setup(c)
+            with app.state.database.session() as session:
+                original = [
+                    copy.deepcopy(session.get(model, key).content)
+                    for model, key in (
+                        (ScenarioRow, s["scenario_id"]),
+                        (SnapshotRow, p["snapshot_id"]),
+                        (PlanRow, p["plan_id"]),
+                        (ExecutionRow, e["execution_id"]),
+                    )
+                ]
+            body = spec(p["snapshot_id"])
+            run = post(c, "/experiments", body, 202)
+            eid = run["experiment_id"]
+            assert post(c, "/experiments", body, 202)["experiment_id"] == eid
+            assert (
+                c.post("/api/v1/experiments", json={**body, "name": "changed"}).status_code
+                == 409
+            )
+            assert run["snapshot_id"] != p["snapshot_id"] and len(run["cases"]) == 3
+            done = finished(c, eid)
+            assert done["status"] == "completed"
+            assert {case["objective"] for case in done["cases"]} == {
+                "time",
+                "energy",
+                "balanced",
+            }
+>           assert all(
+                case["job"]
+                and case["status"] == "completed"
+                and case["job"]["has_validated_plan"]
+                for case in done["cases"]
+            ), done
+E           AssertionError: {'experiment_id': 'EXP-57B0423936414938', 'name': 'Reproducible comparison', 'source_snapshot_id': 'SNAP-4E56C6E553D94239', 'source_content_hash': '33a8d8fc21357429377f5274727b6d34785e88d7ba9fbc67d920f8014b8411c0', ...}
+E           assert False
+E            +  where False = all(<generator object test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export.<locals>.<genexpr> at 0x0000015B0175FED0>)
+
+tests\backend\test_experiments_v2.py:77: AssertionError
+_ test_dynamic_campaign_pairs_constraints_and_frozen_evidence_without_changing_execution _
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-130/test_dynamic_campaign_pairs_co0')
+
+    def test_dynamic_campaign_pairs_constraints_and_frozen_evidence_without_changing_execution(
+        tmp_path,
+    ):
+        app = create_app(tmp_path / "runtime")
+        with TestClient(app) as c:
+            p, e, repair = prepare(c)
+            with app.state.database.session() as session:
+                original = copy.deepcopy(
+                    session.get(ExecutionRow, e["execution_id"]).content
+                )
+                old_plan = copy.deepcopy(session.get(PlanRow, p["plan_id"]).content)
+                original_snap = copy.deepcopy(
+                    session.get(SnapshotRow, repair["job"]["snapshot_id"]).content
+                )
+            body = spec(repair)
+            assert (
+                c.post(
+                    "/api/v1/experiments",
+                    json={**body, "source_snapshot_id": p["snapshot_id"]},
+                ).status_code
+                == 409
+            )
+            assert (
+                c.post("/api/v1/experiments", json={**body, "suite": "search"}).status_code
+                == 422
+            )
+            run = post(c, "/experiments", body, 202)
+            assert (
+                post(c, "/experiments", body, 202)["experiment_id"] == run["experiment_id"]
+            )
+            assert run["repair_context"]["committed_quantity"] == len(
+                repair["committed_cargo_ids"]
+            )
+            assert run["repair_context"]["facts_cursor"] == e["facts_cursor"]
+            done = finished(c, run["experiment_id"])
+            assert len(done["cases"]) == 4
+            assert {x["method"] for x in done["cases"]} == {"dependency", "full_recompute"}
+            assert all(x["job"]["has_validated_plan"] for x in done["cases"]), done
+            with app.state.database.session() as session:
+                analysis = copy.deepcopy(
+                    session.get(SnapshotRow, run["snapshot_id"]).content
+                )
+                assert (
+                    comparison_input_hash(analysis["scenario"])
+                    == comparison_input_hash(original_snap["scenario"])
+                    == run["repair_context"]["comparison_input_sha256"]
+                )
+                assert session.get(ExecutionRow, e["execution_id"]).content == original
+                assert session.get(PlanRow, p["plan_id"]).content == old_plan
+                assert (
+                    session.get(SnapshotRow, repair["job"]["snapshot_id"]).content
+                    == original_snap
+                )
+                refs = []
+                for case in done["cases"]:
+                    job = session.get(JobRow, case["job"]["job_id"])
+                    assert (
+                        job.options["seed"] == case["seed"]
+                        and job.options["time_limit_s"] == 3
+                    )
+                    candidate = session.get(PlanRow, case["job"]["plan_id"]).content
+                    assert candidate["snapshot_id"] == run["snapshot_id"]
+                    assert validate(analysis, candidate)["status"] == "passed"
+                    assert case["repair_difference"] is not None
+                    expected = (
+                        "dependency_local"
+                        if case["method"] == "dependency"
+                        else "full_recompute"
+                    )
+>                   assert case["calculation_method"] == expected
+E                   AssertionError: assert 'full_recompute' == 'dependency_local'
+E                     
+E                     - dependency_local
+E                     + full_recompute
+
+tests\backend\test_repair_experiments_v2.py:126: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:4326]
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:3857]
+tests/backend/test_terrain_assets.py::test_registry_hash_is_rechecked_after_file_changes
+tests/backend/test_terrain_assets.py::test_invalid_raster_and_missing_crs_are_structured_and_do_not_bind_scene
+tests/backend/test_terrain_packages.py::test_portable_package_preserves_exact_hash_in_second_instance
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[hash]
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[extra_path]
+tests/backend/test_terrain_packages.py::test_invalid_package_is_rejected_before_any_registry_write[large_array_header]
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\rasterio\transform.py:178: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(xsize, -ysize)
+
+tests/backend/test_terrain_assets.py::test_nodata_survives_preparation_and_registry_context_isolated[EPSG:3857]
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\rasterio\transform.py:189: PendingDeprecationWarning: Use `@` matmul instead of `*` mul operator for matrix multiplication
+    return Affine.translation(west, north) * Affine.scale(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/backend/test_execution_v2.py::test_inflight_repair_preserves_facts_and_resource_release
+FAILED tests/backend/test_experiments_v2.py::test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export
+FAILED tests/backend/test_repair_experiments_v2.py::test_dynamic_campaign_pairs_constraints_and_frozen_evidence_without_changing_execution
+3 failed, 316 passed, 10 warnings, 8 subtests passed in 1250.10s (0:20:50)

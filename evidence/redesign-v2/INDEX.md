@@ -1,3 +1,7 @@
+# V2当前可用入口
+
+本机http://127.0.0.1:8000/；双击项目根目录start.cmd。独立分支feat/mission-workspace-v2。按用户最新要求只完成必要基础检查后交付，准确范围见[TEST_REPORT](TEST_REPORT.md)和DELIVERY_CHECKS.json；使用[DEMO_GUIDE](DEMO_GUIDE.md)、[限制](KNOWN_LIMITATIONS.md)、[交接](HANDOFF.md)。原开发需求和剩余研究任务全部保留。
+
 # V2 实施索引
 
 - 输入规范：[产品](../../docs/redesign-v2/docs/01_PRODUCT_UX_SPEC.md)、[地图与 V01—V14](../../docs/redesign-v2/docs/02_MAP_ANALYTICS_SPEC.md)、[契约与执行](../../docs/redesign-v2/docs/03_CONTRACTS_EXECUTION_SPEC.md)、[算法](../../docs/redesign-v2/docs/04_ALGORITHM_REALISM_SPEC.md)、[R00—R24 / U、M、D、E 验收](../../docs/redesign-v2/docs/05_TASKS_ACCEPTANCE.md)、[来源](../../docs/redesign-v2/docs/06_RESEARCH_NOTES.md)。首次已全文阅读，后续按任务精读。

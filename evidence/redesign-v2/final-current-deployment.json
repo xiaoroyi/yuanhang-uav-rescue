@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-10-18T14:49:02.514115+00:00",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "2e307f63b2f1594e67bd3ffc9b18a1b29b512d5611024814d6498c8a40f4cc30",
+    "runtime_id": "23afa25c2bda"
+  },
+  "counts": {
+    "scenarios": 10,
+    "snapshots": 10,
+    "plans": 14,
+    "jobs": 15,
+    "missions": 0,
+    "executions": 0
+  },
+  "old_plan_snapshot_json_unchanged": true,
+  "frontend_source_sha256": "e71175fe9c4c09672af09c20aa01a91e1334fea3a3d97e0e76a8e6500aad7c9e",
+  "backup": {
+    "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\v2-before-release-delivery\\yuanhang-backup-20261018T144646Z-18574d5d.zip",
+    "sha256": "051a6c299f3038406e9d9040f4d10054218f014cccfb9400c1b663828ed4c2dc"
+  },
+  "scope": "Delivered local version with targeted checks; full rerun intentionally omitted at user request",
+  "owned_process": {
+    "pid": 57384,
+    "start_epoch_ms": 1792334825453,
+    "launcher_session": 21891,
+    "executable": "D:/miniconda/miniconda3/envs/lqb/python.exe"
+  }
+}

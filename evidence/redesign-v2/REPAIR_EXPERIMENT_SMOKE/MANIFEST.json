@@ -1,72 +1,72 @@
 {
   "artifact": "method-comparison.json",
-  "artifact_sha256": "99b337e0a835d4a5d13743082b488e8fc78322a7e4987699dd6e23d74ea76b27",
-  "bundle_content_sha256": "20038ac7d62bfbcc3b50838ade5a403c3b18d621467ea6b1cfd1622ab2bf2497",
-  "captured_at": "2026-10-18T13:32:06.649617Z",
-  "source": "Actual isolated Playwright workflow, real Worker outputs; no hardware evidence",
+  "artifact_sha256": "494c32f96e927b7a9f26a390de6209c8102e6681c34f907d12b8084bd2e65d66",
+  "bundle_content_sha256": "88bda09ff0bd96a30cd2e5eb304b25a8502405f2ed5926d4b182041aacff9b71",
+  "captured_at": "2026-10-18T14:14:05.296943Z",
+  "source": "Actual isolated Worker/Playwright workflow; not real hardware",
   "documents": [
     {
       "kind": "snapshot",
-      "id": "SNAP-A8B6A47DFB064F4D",
-      "sha256": "85c1d2ebcafb968fa823d108a1747e6399ec13ad840e851fe97b75c22b8708c4"
+      "id": "SNAP-3918EBC125EC48E4",
+      "sha256": "f4036788f16327e0ead7cfab34acb2ff8ae876f620eb3d15029574056e3fe0f1"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-1C826CFB50B54562",
-      "sha256": "e7c4b205dad2c20d48c3cc2e60b7e9c41624d6e3c78a6812208e219624b4ef76"
+      "id": "SNAP-B753C33BCA76443A",
+      "sha256": "5f3f6f9062732419e23815dff113ee68e554f0ec34af60f4b16572d177ed88d0"
     },
     {
       "kind": "repair_reference",
-      "id": "RRF-3529C3A62D614A1B",
-      "sha256": "78362f5d518980753d7d57fa1dc77b2b1177a671368c9e706b0949ff37377fca"
+      "id": "RRF-56AFA7B8EF864F2F",
+      "sha256": "b7adcbb2030c7f44e6f46d90372e6fadd7e402223e39cfb7a6dc67f03d4ed669"
     },
     {
       "kind": "repair_evidence",
-      "id": "RRF-3529C3A62D614A1B",
-      "sha256": "ab27d8c34ead1c34b294993ec3b2973876817cae14a70a6538930f1339d58bc9"
+      "id": "RRF-56AFA7B8EF864F2F",
+      "sha256": "bd3f3a43216f743e0480e37fedb7b2ffbbc46a40d9a21fe73cfe2fc4a6f70fcc"
     },
     {
       "kind": "plan",
-      "id": "PLAN-F19C5BDCE8A24FAC",
-      "sha256": "97327bccc64d5e40f9d8c43e6cacbdf5db74b3d1d88c8e31238f37006d6ae097"
+      "id": "PLAN-FA7E07A25CD446EA",
+      "sha256": "1f87f13f92468c8590809d38b4d7b4c6032d2b53bf9cf567e50840073363740e"
     },
     {
       "kind": "snapshot",
-      "id": "SNAP-8324FEE454144EA7",
-      "sha256": "dd98b26ffaf35b2109b51cead2773108e1e6ff8d5524b933a90145fb7b42926b"
+      "id": "SNAP-DBE871190FF54CB6",
+      "sha256": "c26ac5223efe8bc56d217893854d113f65e9584b1fda949c55e1089b393841ad"
     },
     {
       "kind": "event_input",
-      "id": "bb13a487-8294-4077-95ef-9c098e602d7a",
-      "sha256": "7ff7da4f117574c06bd38779951e6f19006292a0a0449b3646b0717e4b76f461"
+      "id": "32f42f1c-1681-45c3-99d9-0220fa43dd26",
+      "sha256": "41206c9be07ed5884649602f85057550cea4e61e9a0c569925f7565434014bc4"
     },
     {
       "kind": "repair_reference",
-      "id": "RRF-C3C7E45AE1E3472A",
-      "sha256": "039b727350c00b86a128ebe8c8ead746f4f12557312db92c6662ac5975851855"
+      "id": "RRF-F71394EF7C4E4A7B",
+      "sha256": "1f35b799d7fbf162c007a6953772970e51f1112e7388cafed0ac333f8f9bfa9c"
     },
     {
       "kind": "repair_reference",
-      "id": "RRF-00ED2E55626A47D0",
-      "sha256": "cf354c7f522df255548b7ffdc16878d586d2f03de82087a4abac9341bcb51ec3"
+      "id": "RRF-F8C115B7C62249A2",
+      "sha256": "cd3b1fa4d6792816bb5fea010561b1c72b8141f10f01005cf8512a91cb8ae61f"
     },
     {
       "kind": "plan",
-      "id": "PLAN-545D28FAA48A4DE2",
-      "sha256": "178493b81497dd362c0dfab48e3c901dbd5f2ff4d522a5db39acedc3e5fd6ca5"
+      "id": "PLAN-3C5EFD74ED18484C",
+      "sha256": "048037ed517f1f29f2279f58de3844546467198ef5c9a214f40b8c8d695342e4"
     },
     {
       "kind": "plan",
-      "id": "PLAN-094FCE28D8884C36",
-      "sha256": "a5f53916acb3ebbad033115838cc09a7b01adb0a91805f06bc54b2710b8e840c"
+      "id": "PLAN-1B85B228E3284CB5",
+      "sha256": "481b8ec6eb517b6c44bb0f32eefb6a90ecff17109eb4fb203a2d6eb2461b4c3b"
     }
   ],
-  "experiment_id": "EXP-2289AD424DB440F0",
+  "experiment_id": "EXP-B90523970AF5480D",
   "suite": "repair",
   "data_origin": "user_input",
   "environment": {
-    "service_source_sha256": "be89bedd21cf853ad61d34fa0ba9aac61d4c9ad4d3a29d3da933079c355421bf",
-    "git_commit": "a28ef794542d9f10902181c2eb0fb6eaebe5514c",
+    "service_source_sha256": "adb89ce253164155baa64da50d5edccc5f219da23a2f543eb81025159ff575f9",
+    "git_commit": "96d7d63ca96106ce0458b67cf9cd0d607b4ae023",
     "git_worktree_dirty": true,
     "python_version": "3.11.15",
     "platform": "Windows-10-10.0.26300-SP0",
@@ -83,68 +83,16 @@
       "method": "dependency",
       "seed": 7,
       "time_limit_s": 3,
-      "runtime_s": 0.6685646999976598,
+      "runtime_s": 0.48903699999209493,
       "calculation_method": "dependency_local",
-      "repair_difference": {
-        "committed_quantity": 1,
-        "retained_future_sortie_count": 0,
-        "drone_reassigned_quantity": 0,
-        "battery_reassigned_quantity": 1,
-        "time_shifted_quantity": 1,
-        "unchanged_future_quantity": 0,
-        "new_quantity": 0,
-        "rows": [
-          {
-            "cargo_id": "S001-MED-02",
-            "previous_plan_id": "PLAN-F19C5BDCE8A24FAC",
-            "previous_sortie_id": "SRT-0709c59e25dc",
-            "previous_drone_id": "U01",
-            "previous_battery_id": "BAT-A-02",
-            "candidate_sortie_id": "SRT-bb3d51031af8",
-            "candidate_drone_id": "U01",
-            "candidate_battery_id": "BAT-A-01",
-            "change_kind": "modified",
-            "drone_changed": false,
-            "battery_changed": true,
-            "takeoff_delta_s": 879.2296490945703,
-            "delivery_delta_s": 879.2296490945703
-          }
-        ]
-      },
       "validated": true
     },
     {
       "method": "full_recompute",
       "seed": 7,
       "time_limit_s": 3,
-      "runtime_s": 0.7480692000244744,
+      "runtime_s": 0.6104811999830417,
       "calculation_method": "full_recompute",
-      "repair_difference": {
-        "committed_quantity": 1,
-        "retained_future_sortie_count": 0,
-        "drone_reassigned_quantity": 0,
-        "battery_reassigned_quantity": 1,
-        "time_shifted_quantity": 1,
-        "unchanged_future_quantity": 0,
-        "new_quantity": 0,
-        "rows": [
-          {
-            "cargo_id": "S001-MED-02",
-            "previous_plan_id": "PLAN-F19C5BDCE8A24FAC",
-            "previous_sortie_id": "SRT-0709c59e25dc",
-            "previous_drone_id": "U01",
-            "previous_battery_id": "BAT-A-02",
-            "candidate_sortie_id": "SRT-bb3d51031af8",
-            "candidate_drone_id": "U01",
-            "candidate_battery_id": "BAT-A-01",
-            "change_kind": "modified",
-            "drone_changed": false,
-            "battery_changed": true,
-            "takeoff_delta_s": 879.2296490945703,
-            "delivery_delta_s": 879.2296490945703
-          }
-        ]
-      },
       "validated": true
     }
   ],

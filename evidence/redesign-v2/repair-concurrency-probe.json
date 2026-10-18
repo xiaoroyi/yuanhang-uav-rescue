@@ -1,0 +1,13 @@
+{
+  "scope": "Isolated temporary DB, deliberate delay after first job record creation; production untouched",
+  "first_request": {
+    "exception": "IntegrityError"
+  },
+  "second_request": {
+    "status": 202,
+    "change_id": "CHG-CF9F3A67DC254FA4"
+  },
+  "job_dispatch_calls": 2,
+  "change_count": 2,
+  "duplicate_dispatch_confirmed": true
+}

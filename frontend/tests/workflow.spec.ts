@@ -1477,11 +1477,25 @@ test('深入优化保留同快照基线，刷新后继续真实计算', async ({
   await solve(page)
   const sceneId = await page.getByLabel('选择场景').inputValue()
   const old = (await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json())[0]
+  const accepted = page.waitForResponse(
+    (r) =>
+      new URL(r.url()).pathname === '/api/v1/solve-jobs' &&
+      r.request().method() === 'POST' &&
+      r.status() === 202,
+  )
   await page.getByRole('button', { name: '深入优化30秒', exact: true }).click()
   await expect(page.locator('.job-banner')).toBeVisible()
+  const submitted = await (await accepted).json()
+  expect(submitted.job_id).toBeTruthy()
   await page.reload()
-  await expect(page.locator('.job-banner')).toBeVisible()
   await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
+  await expect
+    .poll(
+      async () =>
+        (await (await request.get('/api/v1/solve-jobs/' + submitted.job_id)).json()).job_state,
+      { timeout: 45000 },
+    )
+    .toBe('completed')
   await expect(page.getByTestId('sortie-card').first()).toBeVisible()
   const plans = await (await request.get(`/api/v1/scenarios/${sceneId}/plans`)).json()
   expect(plans).toHaveLength(2)

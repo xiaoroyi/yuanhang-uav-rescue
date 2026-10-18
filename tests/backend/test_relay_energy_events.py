@@ -51,11 +51,11 @@ def event_for(s, component=None):
 def real_plan(client, snapshot, **extra):
     response = client.post(
         "/api/v1/solve-jobs",
-        json={"snapshot_id": snapshot["snapshot_id"], "time_limit_s": 60, **extra},
+        json={"snapshot_id": snapshot["snapshot_id"], "time_limit_s": 120, **extra},
     )
     assert response.status_code == 202, response.text
     job = response.json()
-    until = time.monotonic() + 90
+    until = time.monotonic() + 180
     while time.monotonic() < until:
         job = client.get("/api/v1/solve-jobs/" + job["job_id"]).json()
         if job["job_state"] not in ["queued", "running"]:

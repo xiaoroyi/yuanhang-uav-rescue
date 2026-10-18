@@ -1,3 +1,15 @@
+# 当前交付：援航V2本机候选
+
+分支feat/mission-workspace-v2。首页→任务准备→真实方案→地图/逐箱/资源排程→持久服务器模拟→在途事件/影响/差异采纳→复盘与只读档案已贯通，I1—I3和真实静态/动态评测有入口。
+
+用户最后要求基础检查后尽快交付；最后3项浏览器、2项后端、lint和严格构建通过，未再重跑最新源码整套。准确范围与原失败保留见[evidence/redesign-v2/TEST_REPORT.md](../evidence/redesign-v2/TEST_REPORT.md)。使用[DEMO_GUIDE](../evidence/redesign-v2/DEMO_GUIDE.md)，交接[HANDOFF](../evidence/redesign-v2/HANDOFF.md)，边界[KNOWN_LIMITATIONS](../evidence/redesign-v2/KNOWN_LIMITATIONS.md)。
+
+真机/SITL、训练学习、ODM航片、多基地、完整额外图表/消融与正式匿名视频/PPT仍未完成；任务板保留。原main/V1与原始材料、旧Plan/Snapshot保留，契约仍proposed，未代替A/B批准。
+
+---
+
+以下为历史过程，不能当当前状态。
+
 # 真实实现状态
 
 当前 V2 重构仍在持续实施，入口 evidence/redesign-v2/INDEX.md 与 HANDOFF.md。新首页/任务流程、服务器模拟和承诺前缀修复已有代码及专项测试；下文是 V1 历史交付，不能当作 V2 全量验收。分支 feat/mission-workspace-v2，不改写 main。

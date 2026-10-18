@@ -1,3 +1,9 @@
+最后交付补丁没有修改HTTP/领域字段，仍51严格操作模型/82路径。短屏复用现有Modal与原Plan数据；联合初解仅调整总预算内的搜索分配，未放宽物理、库存、截止、承诺或独立检查。原Plan/Snapshot和旧请求语义继续保留。
+
+## RFC029兼容与单次受理（当前）
+
+不增加HTTP字段，仍为51操作模型/82路径。旧静态实验repair_reference_id缺省null、旧事件weather缺省null、旧全量修复repair_policy缺省的receipt显式兼容旧哈希；显式dependency不冒充旧full语义，owner或参数变化仍409。调整提案、残余输入与request receipt在入队前同事务保存，并发同键返回同一change/job；启动后丢失绑定明确failed/unconfirmed，不盲目补发。详见docs/CONTRACT_RFC_029.md及test_request_replay_v2.py。
+
 # V2 接口迁移映射
 
 实施依据 RFC-017。旧 47 路径、10 领域 Schema 不改含义；全部新 DTO extra=forbid，未知数值 null。实际 OpenAPI 与生成 TS 是 HTTP 真值；新增操作 JSON Schema 由 scripts/export_operations.py 导出。

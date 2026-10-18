@@ -1,0 +1,207 @@
+...F.FF.......                                                           [100%]
+================================== FAILURES ===================================
+____ test_restart_marks_unbound_admission_uncertain_without_redispatching _____
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-131/test_restart_marks_unbound_adm0')
+
+    def test_restart_marks_unbound_admission_uncertain_without_redispatching(tmp_path):
+        directory = tmp_path / "runtime"
+        app = create_app(directory)
+        with TestClient(app) as c:
+>           _, e, _ = prepare(c)
+                      ^^^^^^^^^^
+
+tests\backend\test_request_replay_v2.py:201: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\backend\test_request_replay_v2.py:21: in prepare
+    _, s, p, e = setup(c)
+                 ^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x000001C4E0B4A4D0>
+configure = None
+
+    def setup(c, configure=None):
+        m = post(
+            c,
+            "/missions",
+            {
+                "name": "Execution contract test",
+                "template": "compact",
+                "idempotency_key": "create",
+            },
+            201,
+        )
+        s = c.get("/api/v1/scenarios/" + m["current_scenario_id"]).json()
+        # Keep one available entity at the base for the in-flight future-failure scenario.
+        s["drones"][-1]["available_after_s"] = 20000
+        if configure:
+            configure(s)
+        r = c.put(
+            "/api/v1/scenarios/" + s["scenario_id"],
+            json={"expected_state_version": 1, "scenario": s},
+        )
+        assert r.status_code == 200, r.text
+        s = r.json()
+        snap = post(
+            c,
+            f"/scenarios/{s['scenario_id']}/snapshots",
+            {"expected_state_version": 2},
+            201,
+        )
+        job = await_job(
+            c,
+            post(
+                c,
+                "/solve-jobs",
+                {
+                    "snapshot_id": snap["snapshot_id"],
+                    "time_limit_s": 5,
+                    "objective_policy": "tradeoff_v2",
+                },
+                202,
+            ),
+        )
+>       assert job["has_validated_plan"], job
+E       AssertionError: {'schema_version': '0.1.0-draft', 'job_id': 'JOB-A9A4FF63E08C4093', 'scenario_id': 'SCN-28F203966CD14F4C', 'snapshot_id': 'SNAP-A7658AB040BE4B42', ...}
+E       assert False
+
+tests\backend\test_execution_v2.py:69: AssertionError
+__________ test_inflight_repair_preserves_facts_and_resource_release __________
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-131/test_inflight_repair_preserves0')
+
+    def test_inflight_repair_preserves_facts_and_resource_release(tmp_path):
+        with TestClient(create_app(tmp_path / "runtime")) as c:
+            m, s, p, e = setup(c)
+            first = (
+                min(v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]) + 1
+            )
+            e = act(c, e, "advance", target_time_s=first)
+            assert any(
+                x["phase"] in ("climb", "cruise", "descent", "handover")
+                for x in e["telemetry"]
+            )
+            delivered = list(e["delivered_cargo_ids"])
+            facts = copy.deepcopy(e["facts"])
+            failure = {
+                "event_id": "future-failure",
+                "expected_revision": e["revision"],
+                "event_type": "drone.unavailable",
+                "object_id": s["drones"][-1]["drone_id"],
+                "reason": "future entity unavailable",
+            }
+            event = post(c, f"/executions/{e['execution_id']}/events", failure, 201)
+            assert event["status"] == "recorded"
+            assert post(c, f"/executions/{e['execution_id']}/events", failure, 201) == event
+            assert (
+                c.post(
+                    f"/api/v1/executions/{e['execution_id']}/events",
+                    json={**failure, "reason": "different"},
+                ).status_code
+                == 409
+            )
+            e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+            extra = {
+                "demand_id": "DYNAMIC-1",
+                "site_id": s["sites"][0]["id"],
+                "cargo_type": "medical",
+                "required_quantity": 1,
+                "priority": 1,
+                "expected_deadline_s": None,
+                "hard_deadline_s": None,
+                "mandatory": True,
+            }
+            cargo = {
+                "cargo_id": "BOX-NEW",
+                "demand_id": "DYNAMIC-1",
+                "type": "medical",
+                "mass_kg": 1,
+                "volume_l": 1,
+                "status": "available",
+                "location_id": s["base"]["id"],
+            }
+            post(
+                c,
+                f"/executions/{e['execution_id']}/events",
+                {
+                    "event_id": "urgent",
+                    "expected_revision": e["revision"],
+                    "event_type": "demand.added",
+                    "demand": extra,
+                    "cargo_items": [cargo],
+                    "reason": "explicit new stock",
+                },
+                201,
+            )
+            e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+            change = post(
+                c,
+                f"/executions/{e['execution_id']}/replan-jobs",
+                {
+                    "expected_revision": e["revision"],
+                    "idempotency_key": "repair",
+                    "time_limit_s": 3,
+                },
+                202,
+            )
+            assert change["committed_cargo_ids"] and set(delivered) <= set(
+                change["committed_cargo_ids"]
+            )
+            job = await_job(c, change["job"])
+>           assert job["has_validated_plan"], job
+E           AssertionError: {'schema_version': '0.1.0-draft', 'job_id': 'JOB-C06FD25D72C24DCE', 'scenario_id': 'SCN-8BD0D8D325174889', 'snapshot_id': 'SNAP-4455F468B4E742C0', ...}
+E           assert False
+
+tests\backend\test_execution_v2.py:328: AssertionError
+___ test_partial_device_apply_retains_schedule_and_stale_candidate_rejected ___
+
+tmp_path = WindowsPath('C:/Users/26099/AppData/Local/Temp/pytest-of-26099/pytest-131/test_partial_device_apply_reta0')
+
+    def test_partial_device_apply_retains_schedule_and_stale_candidate_rejected(tmp_path):
+        with TestClient(create_app(tmp_path / "runtime")) as c:
+            m, s, p, e = setup(c)
+            e = act(
+                c,
+                e,
+                "advance",
+                target_time_s=min(
+                    v["delivery_complete_s"] for r in p["sorties"] for v in r["visits"]
+                )
+                + 1,
+            )
+            event = {
+                "event_id": "future",
+                "expected_revision": e["revision"],
+                "event_type": "drone.unavailable",
+                "object_id": s["drones"][-1]["drone_id"],
+                "reason": "do not dispatch future aircraft",
+            }
+            post(c, f"/executions/{e['execution_id']}/events", event, 201)
+            e = c.get("/api/v1/executions/" + e["execution_id"]).json()
+            before = copy.deepcopy(e["schedule_parts"])
+            change = post(
+                c,
+                f"/executions/{e['execution_id']}/replan-jobs",
+                {
+                    "expected_revision": e["revision"],
+                    "idempotency_key": "one",
+                    "time_limit_s": 3,
+                },
+                202,
+            )
+>           assert await_job(c, change["job"])["has_validated_plan"]
+E           assert False
+
+tests\backend\test_execution_v2.py:437: AssertionError
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  E:\成电\成电研一\服务器工作区\yuanhang-uav-rescue\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/backend/test_request_replay_v2.py::test_restart_marks_unbound_admission_uncertain_without_redispatching
+FAILED tests/backend/test_execution_v2.py::test_inflight_repair_preserves_facts_and_resource_release
+FAILED tests/backend/test_execution_v2.py::test_partial_device_apply_retains_schedule_and_stale_candidate_rejected
+3 failed, 11 passed, 1 warning in 213.49s (0:03:33)

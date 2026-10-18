@@ -1,3 +1,9 @@
+## 交付时实景检查
+
+已实际查看最新profile-modal-1280.png和timeline-modal-1280.png：真实所选Plan的高程与机体/电池图可打开、关闭，回地图无整页横向溢出，地图高度仍满足340px；3项浏览器专项实际通过。旧短屏截图虽然无溢出但图表被CSS隐藏，已留short-height-failure，不再称其图表已通过。
+
+此前同日完整GUI14图已贯通首页/准备/检查/真实求解/确认/运行暂停/真实插单/差异采纳/复盘，生产只读11图也已检查；browser-review.json和production-visual为对应当时构建证据，不冒充最后补丁后的全部复验。最后按用户要求停止大范围重复核验，准确范围见DELIVERY_CHECKS.json。
+
 # V2 视觉检查记录（中间检查点）
 
 在无扩展的项目 Chromium、关闭外网、1440×900与1280×720实测。第二轮完整操作证据在 browser-review.json；截图在 screenshots/，并非静态原型。已逐张查看首页、方案和执行暂停截图。

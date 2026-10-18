@@ -1,3 +1,11 @@
+## 本次交付：按用户要求完成基础检查，不再重跑整套
+
+最后修改包括：短屏高程/甘特通过完整分析弹窗打开；联合求解的运输初解从固定最多5秒改为总预算18%、最多30秒，仍受剩余总期限约束；深入优化刷新测试先等服务端真实HTTP202；成功前提的实验/联合案例使用明确20/120秒预算，保留全部物理、引用和历史断言。
+
+最后检查全部通过：前端lint零警告；TypeScript与生产build；2项后端真实案例94.33s；3项真实浏览器1.8分钟（短屏真实图表/地图返回、通信窗口导出与原快照、深入优化受理后刷新恢复）。准确命令/原始日志与源码身份在DELIVERY_CHECKS.json、release-checks/和release-fixes-browser-results.json。
+
+此前完整轮为321 passed、2 failed、8 subtests（1396.51s）；契约、治理、12单元、lint/build通过。此前52浏览器为50通过、2失败。失败分别是限时无候选与刷新早于提交受理，原报告final-current-verification/latest.json / final-current-browser-results.json及current-final-failures保留。最后专项覆盖并通过这些失败案例；用户随后明确要求尽快交付，因此没有再重跑最新源码整套，不能写成“最新323/52全部通过”。第一轮更早的失败也继续保留。
+
 # V2 测试记录（持续更新）
 
 本轮使用 Windows / Python 3.11.15 / Node 24.16.0，隔离临时 SQLite。V1 历史计数不当作 V2 结果。
@@ -107,3 +115,13 @@ repair_experiments + experiments + dependency + archive组合10 passed，90.87s�
 浏览器3流程全过，约1分钟（19.7s/21.5s/18.9s）：在飞电池退出与真实修复、相同旧残余的局部/全量实际比较与下载证据、静态三偏好、运行档案只读。REPAIR_EXPERIMENT_SMOKE有原始完整下载；双尺寸比较截图实际查看，不预设局部优于全量。资源无基线新增流程1 passed，8.0s：全部原机体不可用、没有任何原Plan，新增一架A型真实求解2箱，原场景/原Plan列表不变，独立任务打开。
 
 资源诊断首轮严格TS发现遗漏WhatIfRequest四个必填倍率；已显式传1，未用any绕过。lint零警告/strict build随后通过。资源诊断1280截图实际查看；帮助页追加真实入口说明。当前冻结功能后将运行全部Python/契约/治理/单元/构建和全部浏览器，专项不等于全量。
+
+## RFC029最终审计与第一轮失败原样保留
+
+第一轮final-verification/latest.json：316 passed、8 subtests、3 failed，1250.10s；期间修复审计问题导致source_unchanged=false，整轮不通过。两个成功前提fixture限时过短，在并行运行下没有候选；一个动态比较测试错误要求dependency一定不回退。已把成功前提预算提高至8/10秒，保留原物理/独立验证/历史不变断言；真实失败/取消/超时用例没有放宽。依赖方法应按diagnostic核对真实局部或全量回退，不预设优于全量。
+
+第一轮52条浏览器为50通过/2失败。旧工作台窗口变化没有适配所有点位，已把旧fit行为与V2保存镜头区分；刷新测试在后端真正受理前重载，trace中没有计算POST，已等待HTTP202/job_id再验证刷新身份与无重复。原图/trace保存在first-final-failures，不将失败报告改成通过。
+
+兼容探针真实复现旧静态实验receipt重试409；并发探针真实复现同幂等键入队两次/IntegrityError。RFC029显式支持缺省新字段的旧哈希，保留改变语义409；提案/输入/receipt先同事务受理，入队结果只更新绑定。启动恢复不盲重发未确定请求。新增4项有意义回归覆盖旧实验、旧事件与full修复、并发一次受理、重启丢绑定；组合16 passed，317.22s，见audit-fixes-validation/final-audit-fixes-regression.txt。此前11通过/3个fixture预算失败的原记录也保留。
+
+四项浏览器专项全部通过：旧双策略地图resize、实际受理后刷新恢复、V2密集50点镜头、重叠航线选择；audit-fixes-browser-results.json。严格lint零警告与构建通过。以上是专项；96d7d63当前最终全量仍在运行，结果另记。

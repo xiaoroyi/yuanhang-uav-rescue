@@ -910,7 +910,9 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
         "snapshot_id": relaxed["snapshot_id"],
         "plan_id": "PLAN-PRIVATE-RELAXED",
         "mode": "quick",
-        "time_limit_s": min(5, budget * 0.18),
+        # Keep the seed inside the shared deadline, but let a larger user budget
+        # actually fund transport search instead of silently capping it at 5s.
+        "time_limit_s": min(30, budget * 0.18),
         "parent_plan_id": None,
         "event_id": None,
         "requested_model_scope": [

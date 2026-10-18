@@ -1,0 +1,15 @@
+Readiness still pending http://127.0.0.1:8011/api/v1/health ECONNREFUSED
+
+Running 4 tests using 1 worker
+
+(node:49140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+22:11:42 [vite] (client) [console.error] Error: AJAXError: Failed to fetch (0): /api/v1/map/terrain/contest-dem-30m/c68703e0cc8f94f4bd52ff6e9974b66a2dae33865f0723ad71c04b6694bf4fbf.png?v=stone-v2
+    at In (http://127.0.0.1:5174/node_modules/.vite/deps/maplibre-gl.js?v=758a7e94:1106:21)
+    at async c (http://127.0.0.1:5174/node_modules/.vite/deps/maplibre-gl.js?v=758a7e94:1242:12)
+  ok 1 tests\map-workspace-v2.spec.ts:71:1 › V2 fifty long-name points remain selectable and camera survives inspection, resize, reload and failed imagery (4.5s)
+  ok 2 tests\map-workspace-v2.spec.ts:158:1 › V2 real computed overlapping flights offer a choice and keep the camera when opening details (7.0s)
+  ok 3 tests\workflow.spec.ts:988:1 › 真实双策略、地图与甘特联动、计划回放、确认导出及历史恢复 (35.1s)
+  ok 4 tests\workflow.spec.ts:1381:1 › 任务刷新恢复，重新载入页面不重复提交求解 (15.9s)
+
+  4 passed (1.1m)

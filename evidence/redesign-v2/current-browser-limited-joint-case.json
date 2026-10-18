@@ -1,0 +1,76 @@
+{
+  "scope": "Current full browser communication provenance precondition; real UNKNOWN preserved, not a model infeasibility claim",
+  "job": {
+    "schema_version": "0.1.0-draft",
+    "job_id": "JOB-BA392B87A63F403B",
+    "scenario_id": "SCN-798CB61E1EF84708",
+    "snapshot_id": "SNAP-22BE731D3ADA4030",
+    "reserved_plan_id": "PLAN-8F0DBEEDC1AC44F6",
+    "job_state": "completed",
+    "solver_status": "UNKNOWN",
+    "plan_id": null,
+    "has_validated_plan": false,
+    "runtime_s": 10.49076250003418,
+    "stop_reason": "finished",
+    "created_at": "2026-10-18T14:24:32.915943+00:00",
+    "started_at": "2026-10-18T14:24:32.953031+00:00",
+    "finished_at": "2026-10-18T14:24:47.335564+00:00",
+    "error": null
+  },
+  "options": {
+    "schema_version": "0.1.0-draft",
+    "plan_id": "PLAN-8F0DBEEDC1AC44F6",
+    "snapshot_id": "SNAP-22BE731D3ADA4030",
+    "objective": "time",
+    "objective_policy": "tradeoff_v2",
+    "mode": "quick",
+    "time_limit_s": 60.0,
+    "seed": 42,
+    "parent_plan_id": null,
+    "event_id": null,
+    "requested_model_scope": [
+      "cargo_unique",
+      "capacity",
+      "inventory",
+      "aircraft",
+      "battery",
+      "time_window",
+      "energy",
+      "terrain",
+      "communication"
+    ],
+    "allow_partial_service": false
+  },
+  "outcome": {
+    "schema_version": "0.1.0-draft",
+    "solver_status": "UNKNOWN",
+    "plan": null,
+    "model_scope": [],
+    "algorithm_mode": "quick",
+    "runtime_s": 10.49076250003418,
+    "first_feasible_s": null,
+    "candidate_count": 0,
+    "seed": 42,
+    "stop_reason": "finished",
+    "validation": {
+      "status": "not_run",
+      "checks": []
+    },
+    "diagnostics": [
+      {
+        "code": "JOINT_CANDIDATE_NOT_FOUND",
+        "message": "当前候选与预算内未得到可验证的联合方案。当前预算和候选范围内未找到完整可行方案，可增加预算、设备或调整非关键时限。这不证明原问题不可行。",
+        "field_path": null,
+        "object_id": null
+      }
+    ],
+    "joint_search": {
+      "method": "fixed_grouping_joint_cp_v1",
+      "status": "NO_TRANSPORT_SEED",
+      "station_count": 0,
+      "coverage_atom_count": 0,
+      "relay_slot_limit": 0,
+      "stages": []
+    }
+  }
+}
