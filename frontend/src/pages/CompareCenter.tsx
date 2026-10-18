@@ -13,6 +13,7 @@ import { api, downloadJson, type Plan, type PlanSummary, type Scenario } from '.
 import { Badge, Button, Empty } from '../components/ui'
 import { DataChart } from '../components/DataChart'
 import { number, duration, percent } from '../lib/format'
+import { policyLabel } from '../lib/strategies'
 import { preferenceName, dateTime } from './HistoryCenter'
 import './history-compare.css'
 
@@ -292,7 +293,9 @@ export function CompareCenter({
                             {preferenceName[p.objective]} <Badge>v{p.scenario_state_version}</Badge>
                           </strong>
                           <code>{p.plan_id}</code>
-                          <small>快照 {p.snapshot_id}</small>
+                          <small>
+                            快照 {p.snapshot_id} · {policyLabel(p)}
+                          </small>
                           <p>
                             {p.validation.status === 'passed' ? '独立检查通过' : '未通过独立检查'} ·{' '}
                             {p.solver_status}

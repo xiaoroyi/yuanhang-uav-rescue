@@ -463,7 +463,12 @@ def schedule(
         raise ValueError(error)
     evidence = []
     chosen_solver = None
-    for stage, expression in [("priority_delay", primary), ("joint_objective", goal)]:
+    from solver.metrics import objective_policy, TRADEOFF_POLICY
+
+    stages = [("priority_delay", primary), ("joint_objective", goal)]
+    if objective_policy(options) == TRADEOFF_POLICY:
+        stages.reverse()
+    for stage_index, (stage, expression) in enumerate(stages):
         remaining = deadline - time.perf_counter()
         if remaining <= 0.1:
             break
@@ -475,7 +480,7 @@ def schedule(
         model.minimize(expression)
         solver = cp.CpSolver()
         solver.parameters.max_time_in_seconds = (
-            remaining * 0.52 if stage == "priority_delay" else remaining * 0.95
+            remaining * 0.52 if stage_index == 0 else remaining * 0.95
         )
         solver.parameters.num_search_workers = 1
         solver.parameters.random_seed = options["seed"]

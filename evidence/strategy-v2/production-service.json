@@ -1,0 +1,16 @@
+{
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "9d828caeb54a2b70c3fe7b122fd90adeba2136ee4fe682701e3d509f831a76e4",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "63269312d69804ad1b1bbabb68ceaa4271d0f6bb0fed12690649a182f4312044",
+  "historical_plan_count": 12,
+  "historical_snapshot_count": 9,
+  "historical_content_unchanged": true,
+  "note": "Actual owned localhost service restarted; source/build identities verified. No database migration or old Plan/Snapshot overwrite."
+}

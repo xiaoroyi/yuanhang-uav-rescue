@@ -27,3 +27,5 @@
 - [RFC-015](CONTRACT_RFC_015.md)：新增四个只读HTTP路径：绑定资产ID/hash的DEM表面、绑定原Plan/Snapshot的架次高度剖面、输入版本列表及版本明细。真实OpenAPI由43增至47路径并生成前端TS；不改核心Scenario/Snapshot/Plan、Solver边界或数据库结构。NoData/未知值保留null，高度区分地面、模型作业/巡航高程及显示倍率；历史版本无创建时间时不编造时间。卫星底图与本机档案不进入求解或认证契约。专项检查及最终统一验收范围见 [体验迭代交接](EXPERIENCE_RELEASE.md)，不沿用v0计数宣称新UI通过。状态为adopted_for_branch，正式批准仍待A/B。
 
 上述扩展在本功能分支按影响范围同步Schema/fixture、生成类型、实际OpenAPI/TS、消费者和测试。Event严格联合和新的变换版本标签需要A/B共同升级消费者；不能因JSON结构向后可读就假定旧客户端具备新增处理能力。所有RFC仍待团队复核，未代填approved_by。
+
+- RFC-016：Plan/SolverOptions增加可选objective_policy，缺省v1保留旧含义，新界面显式v2直接比较所选目标；同步Schema/两个mock示例/Pydantic/实际OpenAPI/TS，历史不改写。PlanSummary解析规则，深入跨版本拒绝，比较跨版本不可比；调度安排页与CSV均绑定原Snapshot。状态adopted_for_branch，正式批准仍待A/B。

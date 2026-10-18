@@ -1,13 +1,13 @@
 {
-  "scenario_id": "SCN-8DF07AAD1B3C4C5A",
+  "scenario_id": "SCN-9EDFCD34E1B14926",
   "report": {
     "model_id": "single_site_nominal_transport_v1",
     "status": "complete",
     "reason": null,
-    "snapshot_id": "SNAP-BBBB0276A4404AA1",
-    "scenario_id": "SCN-8DF07AAD1B3C4C5A",
+    "snapshot_id": "SNAP-751DF891A6EE4A28",
+    "scenario_id": "SCN-9EDFCD34E1B14926",
     "scenario_state_version": 1,
-    "snapshot_content_hash": "f2012f0c9be031c5ddc9099989a708fe9fb57fbfc78b38f7cb0b3294922ea5a9",
+    "snapshot_content_hash": "cb7ca5a7fd3ad084b9607001a8a818fff23923d83460135c2d12c08927367178",
     "required_box_count": 80,
     "available_box_count": 80,
     "parameters": {
@@ -21,7 +21,7 @@
         "operation_s"
       ]
     },
-    "analysis_input_hash": "bcc68341323bf46f5b71137a513eb7f761de58ad3c94ebab880bc65a9636b1e2",
+    "analysis_input_hash": "33711297c6a199b7ac80e01dd2274624726037fd4c1209084da7fe3c42983df8",
     "capacities": [
       {
         "site_id": "S001",
@@ -1316,7 +1316,7 @@
       "累计作业时长",
       "当前地形与静态路径模型"
     ],
-    "runtime_s": 1.5448227999731898,
+    "runtime_s": 4.117344400030561,
     "notes": [
       "额定满电、SOH=100%的单点运输物理诊断，不是实际实体调度Plan。",
       "不考虑机体/电池数量、充电、并发、物资时限与通信；确认方案仍须正式求解。",

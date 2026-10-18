@@ -1,5 +1,7 @@
 # A 算法模块
 
+RFC-016新增objective_policy：缺省v1保留软延期共同首目标；v2直接按时间/能耗/T+300E排序，软延期为同分次目标。快速评分、深入CP和联合排程一致，旧Plan不改写；深入基线必须同规则版本。完整任务保障与全部硬截止保持不变，不为制造策略差异删除期望截止。见docs/STRATEGY_V2_RELEASE.md。
+
 遵守根 AGENTS。维护算法、适配器、独立检查与实验，跨共享契约先 RFC。先读 docs/05、LEGACY_BASELINE_AUDIT与IMPLEMENTATION_STATUS。当前已有public_api，不重新搭空壳。
 
 保持纯 Python JSON 边界，不 import backend，不在导入时写文件、下载数据或运行搜索。路径从配置/参数进入，禁止绑定个人绝对路径。先封装已核验物理模型，再做快速初解。独立验证不能只复用优化器的 passed 布尔结论。adapters/joint_patterns.py仅提取历史分组与驻点候选；其私有pattern_only记录没有可行性，必须经当前物理、联合排程和独立检查后才能发布。

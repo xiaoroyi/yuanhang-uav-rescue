@@ -98,26 +98,26 @@ body {
   height: 65vw;
   max-height: 1000px;
   border-radius: 50%;
-  opacity: 0.43;
+  opacity: 0.9;
   filter: none;
-  background: radial-gradient(ellipse, #3062ae40, transparent 65%);
-  top: -50%;
-  left: 10%;
-  animation: aurora-drift 28s ease-in-out infinite alternate;
+  background: radial-gradient(ellipse, #357ceba6, transparent 65%);
+  top: -30%;
+  left: 12%;
+  animation: aurora-drift 13s ease-in-out infinite alternate;
   will-change: transform;
 }
 .ambient-background > i:nth-child(2) {
-  background: radial-gradient(ellipse, #7959ce35, transparent 65%);
+  background: radial-gradient(ellipse, #8756db80, transparent 65%);
   top: 12%;
   left: 60%;
-  animation-duration: 37s;
+  animation-duration: 17s;
   animation-delay: -9s;
 }
 .ambient-background > i:nth-child(3) {
-  background: radial-gradient(ellipse, #157a9828, transparent 65%);
+  background: radial-gradient(ellipse, #159fcf66, transparent 65%);
   top: 50%;
   left: 0;
-  animation-duration: 32s;
+  animation-duration: 15s;
   animation-delay: -17s;
 }
 .ambient-grid {

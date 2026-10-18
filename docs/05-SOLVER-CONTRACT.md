@@ -31,9 +31,9 @@ first_feasible_s 表示首个**独立检查通过**的候选时间，不是优�
 
 ## 限时深入优化
 
-`mode=improve` 在快速构造后使用 OR-Tools CP-SAT 对有限路线池重分箱件并联合安排机体/电池。可选只读 `initial_plan` 必须为同一快照、相同目标的真实 Solver 方案，并重新通过独立检查。HTTP 使用独立 `SolveRequest.initial_plan_id` 加载它，不向核心 SolverOptions 暗加字段；旧三参数调用保持兼容。
+`mode=improve` 在快速构造后使用 OR-Tools CP-SAT 对有限路线池重分箱件并联合安排机体/电池。可选只读 `initial_plan` 必须为同一快照、相同目标及objective_policy的真实 Solver 方案，并重新通过独立检查。HTTP 使用独立 `SolveRequest.initial_plan_id` 加载它，不向核心 SolverOptions 暗加字段；旧三参数调用保持兼容。
 
-搜索采用10毫秒向上取整的资源占用时间网格、单线程和显式种子。共同目标先比较逐箱优先级加权期望延期，再比较所选时间/能耗/均衡目标；只有完整浮点物理重算通过且严格改善时才替换有效基线。有限池状态OPTIMAL仅说明该离散池模型；对外仍为FEASIBLE，不声称全路线空间全局最优。非满初始SOC、预算不足或整数范围过大时跳过该优化，保留快速方案。取消仍取消本次Job，旧Plan保持不变。
+搜索采用10毫秒向上取整的资源占用时间网格、单线程和显式种子。目标按显式objective_policy：缺省v1先比较逐箱加权期望延期；v2先比较所选时间/能耗/折中目标，延期为同分次目标（RFC-016）。只有完整浮点物理重算通过且严格改善时才替换有效基线。有限池状态OPTIMAL仅说明该离散池模型；对外仍为FEASIBLE，不声称全路线空间全局最优。非满初始SOC、预算不足或整数范围过大时跳过该优化，保留快速方案。取消仍取消本次Job，旧Plan保持不变。
 
 可选resource_limits要求ground_resource检查；准备/端口容量、初始补能与等待的语义见RFC-005和GROUND_RESOURCES。满初始SOC的深层模型支持Cumulative容量；非满初始SOC仍有真实有限日历构造与独立检查，深层阶段不暗重置SOC。
 

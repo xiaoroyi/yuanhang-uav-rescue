@@ -89,6 +89,14 @@
     },
     "allow_partial_service": {
       "const": false
+    },
+    "objective_policy": {
+      "enum": [
+        "deadline_first_v1",
+        "tradeoff_v2"
+      ],
+      "default": "deadline_first_v1",
+      "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
     }
   },
   "required": [

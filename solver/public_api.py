@@ -30,7 +30,7 @@ from solver.physics import (
 from solver.validation import BASE_SCOPE, validate
 from solver.presentation import playback
 from solver.dependencies import affected_closure
-from solver.metrics import objective_score
+from solver.metrics import delivery_analysis, objective_policy, objective_score
 from solver.analysis import analyze
 from solver.ground import earliest_slot, initial_schedule
 from solver.identities import sortie_id
@@ -434,6 +434,7 @@ def _make_plan(snapshot, options, routes, initial_charges=None):
         "scenario_state_version": s["state_version"],
         "data_origin": "solver",
         "objective": options["objective"],
+        "objective_policy": objective_policy(options),
         "solver_status": "FEASIBLE",
         "has_validated_plan": True,
         "model_scope": BASE_SCOPE
@@ -464,7 +465,11 @@ def _make_plan(snapshot, options, routes, initial_charges=None):
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "solver_notes": [
             "真实限时多起点插入启发式；未证明全局最优。",
-            "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
+            (
+                "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。"
+                if objective_policy(options) == "tradeoff_v2"
+                else "deadline_first_v1：先减少优先级加权逐箱期望延期，再比较所选时间/能耗/折中目标。"
+            ),
             (
                 f"有限保障：准备工位{s['resource_limits']['prep_slots']}、充电端口{s['resource_limits']['charging_ports']}，初始低SOC先补满并记录等待。"
                 if s.get("resource_limits")
@@ -641,6 +646,7 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
                 options["mode"] != "improve"
                 or initial_plan["snapshot_id"] != snapshot["snapshot_id"]
                 or initial_plan["objective"] != options["objective"]
+                or objective_policy(initial_plan) != objective_policy(options)
             ):
                 raise InputNotReady("深入优化基线必须来自同一快照，且mode=improve。")
             if validate(snapshot, initial_plan)["status"] != "passed":
@@ -662,7 +668,9 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
             count = 1
         progress("计算航段与箱件插入")
         non_improving = 0
-        primary_best = best[0][0] if best else math.inf
+        primary_best = (
+            delivery_analysis(s, best[1])["weighted_box_delay_s"] if best else math.inf
+        )
         for iteration in range(48):
             if time.perf_counter() >= deadline:
                 break
@@ -702,10 +710,11 @@ def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
             score = objective_score(s, candidate, options["objective"])
             if best is None or score < best[0]:
                 best = (score, candidate)
-            # The construction portfolio and its early stop use the common
-            # primary goal, so strategy comparisons explore the same sequence.
-            if score[0] < primary_best - 1e-7:
-                primary_best = score[0]
+            # Keep portfolio exploration independent of the requested preference.
+            # Soft lateness controls search stagnation, not v2 candidate ranking.
+            search_progress = delivery_analysis(s, candidate)["weighted_box_delay_s"]
+            if search_progress < primary_best - 1e-7:
+                primary_best = search_progress
                 non_improving = 0
             else:
                 non_improving += 1
@@ -824,6 +833,7 @@ def _solve_joint(snapshot, options, started, progress_callback, initial_plan):
             or not initial_plan["has_validated_plan"]
             or initial_plan["snapshot_id"] != snapshot["snapshot_id"]
             or initial_plan["objective"] != options["objective"]
+            or objective_policy(initial_plan) != objective_policy(options)
             or fresh_validation["status"] != "passed"
         ):
             raise InputNotReady("联合深入优化基线必须是同一快照/策略的已验证方案。")

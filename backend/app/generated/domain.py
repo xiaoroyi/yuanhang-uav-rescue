@@ -742,6 +742,11 @@ class JointSearch(BaseModel):
     stages: list[Stage]
 
 
+class ObjectivePolicy(Enum):
+    deadline_first_v1 = "deadline_first_v1"
+    tradeoff_v2 = "tradeoff_v2"
+
+
 class Plan(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -782,6 +787,10 @@ class Plan(BaseModel):
     joint_metrics: JointMetrics | None = None
     communication_report: CommunicationReport | None = None
     joint_search: JointSearch | None = None
+    objective_policy: ObjectivePolicy | None = Field(
+        "deadline_first_v1",
+        description="Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
+    )
 
 
 class Mode(Enum):
@@ -1151,6 +1160,10 @@ class SolverOptions(BaseModel):
     )
     requested_model_scope: list[RequestedModelScopeEnum]
     allow_partial_service: Literal[False]
+    objective_policy: ObjectivePolicy | None = Field(
+        "deadline_first_v1",
+        description="Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
+    )
 
 
 class AlgorithmMode(Enum):

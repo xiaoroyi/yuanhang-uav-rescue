@@ -1,5 +1,7 @@
 # B 系统线前端模块
 
+用户最新补充见docs/CONTRACT_RFC_016.md和STRATEGY_V2_RELEASE.md：现为九页，增加SchedulePage及schedule-data安排表/CSV/双资源时间轴；真实数据绑定Plan原Snapshot。新计算显式tradeoff_v2，历史缺省deadline_first_v1；策略配对按Snapshot和规则版本，三卡统一联合/运输范围。背景所有动画遵守开关/系统减少动态效果，不驱动业务时钟。
+
 2026-10-18体验迭代将入口扩为8页：数据大屏、场景资源、地图地形、调度、对比、事件、历史、新手教程。分析/3D组件见VisualAnalysis与TerrainScene；只读高度/版本API来自生成OpenAPI，规则见RFC-015。三维视觉倍率、采样孔洞与路线地表投影不得冒充真实飞行；本机档案不是登录权限。卫星显式启用、默认无外网、失败降级，图层归属必须保留。优先读docs/EXPERIENCE_RELEASE.md查看本轮验证，不把下文历史“三页”目标当作当前只有三页。
 
 与 backend owner 为同一位 B。遵守根 AGENTS，先读 docs/04、UI_ACCEPTANCE、总纲第6章。

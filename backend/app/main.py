@@ -183,6 +183,7 @@ class CopyRequest(StrictModel):
 class SolveRequest(StrictModel):
     snapshot_id: str
     objective: Literal["time", "energy", "balanced"] = "time"
+    objective_policy: Literal["deadline_first_v1", "tradeoff_v2"] = "deadline_first_v1"
     mode: Literal["quick", "improve", "replan"] = "quick"
     time_limit_s: float = Field(default=15, gt=0, le=300)
     seed: int = Field(default=42, ge=0)
@@ -236,6 +237,7 @@ class PlanSummary(StrictModel):
     scenario_id: str
     scenario_state_version: int
     objective: str
+    objective_policy: Literal["deadline_first_v1", "tradeoff_v2"] = "deadline_first_v1"
     generated_at: str
     solver_status: str
     metrics: dict
@@ -1057,11 +1059,13 @@ def create_app(runtime_dir: Path | None = None):
                 if (
                     base.snapshot_id != body.snapshot_id
                     or base.content["objective"] != body.objective
+                    or base.content.get("objective_policy", "deadline_first_v1")
+                    != body.objective_policy
                 ):
                     raise AppError(
                         409,
                         "SNAPSHOT_STALE",
-                        "深入优化基线必须来自同一快照和相同目标。",
+                        "深入优化基线必须来自同一快照、相同目标和目标规则版本。",
                     )
                 payload["initial_plan"] = base.content
                 session.add(PlanRefinementRow(plan_id=plan_id, source_plan_id=base.id))
@@ -1189,6 +1193,9 @@ def create_app(runtime_dir: Path | None = None):
                     ]
                 }
                 | {
+                    "objective_policy": r.content.get(
+                        "objective_policy", "deadline_first_v1"
+                    ),
                     "confirmed_at": r.confirmed_at,
                     "algorithm_mode": modes.get(r.id, "quick"),
                     "source_plan_id": (
@@ -1216,6 +1223,12 @@ def create_app(runtime_dir: Path | None = None):
             warnings.append("来自不同场景，只能查看差异。")
         if not same:
             warnings.append("不同快照：这是状态变化前后对比，不是同条件策略优势。")
+        if a.get("objective_policy", "deadline_first_v1") != b.get(
+            "objective_policy", "deadline_first_v1"
+        ):
+            warnings.append(
+                "目标规则版本不同：旧版先最小化期望延期，新版直接比较时间/能耗。请按同一规则重新计算。"
+            )
         if a["model_scope"] != b["model_scope"]:
             warnings.append("验证范围不同。")
         differences = {

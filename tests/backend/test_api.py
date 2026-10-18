@@ -90,6 +90,37 @@ def test_true_subprocess_pipeline_and_exports(client):
         )
 
 
+def test_strategy_policy_is_persisted_and_incompatible_baselines_rejected(client):
+    s = example(client)
+    snap = snapshot(client, s)
+    _, old = solve(client, snap)
+    assert old["objective_policy"] == "deadline_first_v1"
+    _, new = solve(client, snap, objective_policy="tradeoff_v2")
+    assert new["objective_policy"] == "tradeoff_v2"
+    comparison = client.get(
+        f"/api/v1/plans/{old['plan_id']}/comparison",
+        params={"other_plan_id": new["plan_id"]},
+    ).json()
+    assert comparison["same_snapshot"] and not comparison["comparable"]
+    assert any("目标规则版本不同" in w for w in comparison["warnings"])
+    response = client.post(
+        "/api/v1/solve-jobs",
+        json={
+            "snapshot_id": snap["snapshot_id"],
+            "mode": "improve",
+            "initial_plan_id": old["plan_id"],
+            "objective_policy": "tradeoff_v2",
+        },
+    )
+    assert response.status_code == 409
+    summaries = client.get(f"/api/v1/scenarios/{s['scenario_id']}/plans").json()
+    assert {p["objective_policy"] for p in summaries} == {
+        "deadline_first_v1",
+        "tradeoff_v2",
+    }
+    assert client.get(f"/api/v1/plans/{old['plan_id']}").json() == old
+
+
 def test_versioning_preserves_snapshot_and_rejects_old_confirm(client):
     s = example(client)
     snap = snapshot(client, s)

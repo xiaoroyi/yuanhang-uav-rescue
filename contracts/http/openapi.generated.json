@@ -5335,6 +5335,14 @@
         ],
         "title": "Objective"
       },
+      "ObjectivePolicy": {
+        "type": "string",
+        "enum": [
+          "deadline_first_v1",
+          "tradeoff_v2"
+        ],
+        "title": "ObjectivePolicy"
+      },
       "PartitionAssignment": {
         "properties": {
           "task_id": {
@@ -6158,6 +6166,18 @@
                 "type": "null"
               }
             ]
+          },
+          "objective_policy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ObjectivePolicy"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
+            "default": "deadline_first_v1"
           }
         },
         "additionalProperties": false,
@@ -6322,6 +6342,15 @@
           "objective": {
             "type": "string",
             "title": "Objective"
+          },
+          "objective_policy": {
+            "type": "string",
+            "enum": [
+              "deadline_first_v1",
+              "tradeoff_v2"
+            ],
+            "title": "Objective Policy",
+            "default": "deadline_first_v1"
           },
           "generated_at": {
             "type": "string",
@@ -7921,6 +7950,15 @@
             ],
             "title": "Objective",
             "default": "time"
+          },
+          "objective_policy": {
+            "type": "string",
+            "enum": [
+              "deadline_first_v1",
+              "tradeoff_v2"
+            ],
+            "title": "Objective Policy",
+            "default": "deadline_first_v1"
           },
           "mode": {
             "type": "string",

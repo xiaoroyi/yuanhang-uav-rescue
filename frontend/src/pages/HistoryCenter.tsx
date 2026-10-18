@@ -14,13 +14,14 @@ import {
 } from 'lucide-react'
 import { api, downloadJson, type Scenario, type PlanSummary } from '../api/client'
 import { Badge, Button, Empty, Modal } from '../components/ui'
+import { policyLabel } from '../lib/strategies'
 import { duration, number } from '../lib/format'
 import './history-compare.css'
 
 export const preferenceName: Record<string, string> = {
   time: '时间优先',
   energy: '能耗优先',
-  balanced: '均衡偏好',
+  balanced: '时间能耗折中',
 }
 export const dateTime = (value: string) =>
   new Date(value).toLocaleString('zh-CN', { hour12: false })
@@ -187,7 +188,9 @@ export function HistoryCenter({
                       <h3>
                         {modeName[p.algorithm_mode]} <small>v{p.scenario_state_version}</small>
                       </h3>
-                      <p className="archive-time">{dateTime(p.generated_at)}</p>
+                      <p className="archive-time">
+                        {dateTime(p.generated_at)} · {policyLabel(p)}
+                      </p>
                       <div className="archive-card-metrics">
                         <div>
                           <small>最后返航</small>

@@ -115,6 +115,33 @@ def test_real_joint_plan_reconstructs_coverage_resources_and_metrics(joint_case)
     assert "通信未评估" not in "".join(plan["solver_notes"])
 
 
+@pytest.mark.parametrize("objective", ["time", "energy", "balanced"])
+def test_v2_joint_policies_publish_only_independently_validated_joint_plans(
+    case, objective
+):
+    snap, options = case
+    s = snap["scenario"]
+    s["communication"] = contest_communication(s)
+    s["policy"]["requires_communication"] = True
+    snap["content_hash"] = content_hash(s)
+    opts = {
+        **options,
+        "objective": objective,
+        "objective_policy": "tradeoff_v2",
+        "time_limit_s": 60,
+    }
+    opts["requested_model_scope"] = [*options["requested_model_scope"], "communication"]
+    result = solve(snap, opts)
+    validate_outcome(result, snap)
+    p = result["plan"]
+    assert p, result["diagnostics"]
+    assert p["objective_policy"] == "tradeoff_v2"
+    assert validate(snap, p)["status"] == "passed"
+    assert p["communication_report"]["coverage_gap_s"] == 0
+    assert p["joint_metrics"]["joint_energy_kwh"] > p["metrics"]["energy_kwh"]
+    assert p["joint_search"]["stages"][0]["stage"] == "joint_objective"
+
+
 def test_removed_relays_cannot_keep_forged_passed_communication(joint_case):
     snap, result = joint_case
     plan = copy.deepcopy(result["plan"])

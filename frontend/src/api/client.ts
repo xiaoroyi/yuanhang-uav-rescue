@@ -120,6 +120,7 @@ export const api = {
     request<SolveJob>('/solve-jobs', {
       snapshot_id,
       objective,
+      objective_policy: 'tradeoff_v2',
       time_limit_s: 15,
       seed: 42,
       ...options,

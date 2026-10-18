@@ -177,10 +177,16 @@ def optimize(s, incumbent, objective, seconds, seed, progress=None):
             else horizon + 300 * SCALE // ENERGY_SCALE * energy_bound
         )
     )
-    if (
-        horizon > 100_000_000
-        or horizon * max(1, total_priority) * (goal_bound + 1) > 2**60
-    ):
+    from solver.metrics import objective_policy, TRADEOFF_POLICY
+
+    tradeoff = objective_policy(incumbent) == TRADEOFF_POLICY
+    late_bound = horizon * max(1, total_priority)
+    integer_bound = (
+        goal_bound * (late_bound + 1) + late_bound
+        if tradeoff
+        else late_bound * (goal_bound + 1) + goal_bound
+    )
+    if horizon > 100_000_000 or integer_bound > 2**60:
         return None, {**stats, "status": "SKIPPED_INTEGER_RANGE"}
     model = cp_model.CpModel()
     windows = defaultdict(list)
@@ -352,7 +358,11 @@ def optimize(s, incumbent, objective, seconds, seed, progress=None):
             else makespan + (300 * SCALE // ENERGY_SCALE) * energy
         )
     )
-    model.minimize(sum(late_terms) * (goal_bound + 1) + goal)
+    model.minimize(
+        goal * (late_bound + 1) + sum(late_terms)
+        if tradeoff
+        else sum(late_terms) * (goal_bound + 1) + goal
+    )
     invalid = model.validate()
     if invalid:
         return None, {**stats, "status": "MODEL_INVALID", "detail": invalid[:400]}

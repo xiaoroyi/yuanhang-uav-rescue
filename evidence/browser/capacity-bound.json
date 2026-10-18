@@ -1,7 +1,7 @@
 {
   "analysis": {
-    "plan_id": "PLAN-CEF927603E7D4574",
-    "snapshot_id": "SNAP-43D5E03F232743CE",
+    "plan_id": "PLAN-D9CC9F2BCA0B41FD",
+    "snapshot_id": "SNAP-363952A8D6914FEA",
     "scenario_state_version": 1,
     "model_scope": [
       "cargo_unique",
@@ -17,9 +17,9 @@
       "model_id": "transport_capacity_relaxation_v1",
       "status": "ready",
       "reason": null,
-      "snapshot_id": "SNAP-43D5E03F232743CE",
+      "snapshot_id": "SNAP-363952A8D6914FEA",
       "scenario_state_version": 1,
-      "snapshot_content_hash": "b27e22f41bfae1ef24908a172d1496c981fdf43a3b6dcc296347fd24d7aaa1b5",
+      "snapshot_content_hash": "36feba5dbd486e2622377c3a059a6dddcf918b73653481fe44efecdba9749895",
       "required_box_count": 32,
       "eligible_type_ids": [
         "A",
@@ -522,10 +522,10 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 2493.948835960434,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 3600,
           "hard_deadline_s": null,
-          "delay_s": 0,
+          "delay_s": 3329.7742766069596,
           "hard_satisfied": null
         },
         {
@@ -533,10 +533,10 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 2493.948835960434,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 3600,
           "hard_deadline_s": null,
-          "delay_s": 0,
+          "delay_s": 3329.7742766069596,
           "hard_satisfied": null
         },
         {
@@ -544,10 +544,10 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 7328.291973527146,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 3600,
           "hard_deadline_s": null,
-          "delay_s": 3728.291973527146,
+          "delay_s": 3329.7742766069596,
           "hard_satisfied": null
         },
         {
@@ -566,10 +566,10 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 7328.291973527146,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 7200,
           "hard_deadline_s": null,
-          "delay_s": 128.29197352714618,
+          "delay_s": 0,
           "hard_satisfied": null
         },
         {
@@ -577,10 +577,10 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 7328.291973527146,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 7200,
           "hard_deadline_s": null,
-          "delay_s": 128.29197352714618,
+          "delay_s": 0,
           "hard_satisfied": null
         },
         {
@@ -588,7 +588,7 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 7328.291973527146,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 10800,
           "hard_deadline_s": null,
           "delay_s": 0,
@@ -599,7 +599,7 @@
           "site_id": "S001",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 7328.291973527146,
+          "complete_s": 6929.77427660696,
           "expected_deadline_s": 10800,
           "hard_deadline_s": null,
           "delay_s": 0,
@@ -698,10 +698,10 @@
           "site_id": "S007",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 6184.700307816971,
+          "complete_s": 2702.0530984706365,
           "expected_deadline_s": 3600,
           "hard_deadline_s": null,
-          "delay_s": 2584.700307816971,
+          "delay_s": 0,
           "hard_satisfied": null
         },
         {
@@ -720,7 +720,7 @@
           "site_id": "S007",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 6184.700307816971,
+          "complete_s": 2702.0530984706365,
           "expected_deadline_s": 10800,
           "hard_deadline_s": null,
           "delay_s": 0,
@@ -753,7 +753,7 @@
           "site_id": "S010",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 3296.682214309536,
+          "complete_s": 6095.11628467494,
           "expected_deadline_s": 7200,
           "hard_deadline_s": null,
           "delay_s": 0,
@@ -786,15 +786,15 @@
           "site_id": "S011",
           "required_quantity": 1,
           "served_quantity": 1,
-          "complete_s": 6739.443358190667,
+          "complete_s": 3084.9123238621833,
           "expected_deadline_s": 14400,
           "hard_deadline_s": null,
           "delay_s": 0,
           "hard_satisfied": null
         }
       ],
-      "weighted_box_delay_s": 78321.74684667232,
-      "late_demand_count": 4,
+      "weighted_box_delay_s": 119871.87395785053,
+      "late_demand_count": 3,
       "expected_demand_count": 32,
       "hard_violation_count": 0
     },
@@ -804,32 +804,32 @@
         "resource_id": "U01",
         "type_id": "A",
         "sortie_count": 2,
-        "occupied_s": 3846.5769114191617,
-        "flight_s": 3126.5769114191617,
-        "energy_kwh": 4.663240711849139,
-        "horizon_s": 7640.191512191726,
-        "utilization": 0.5034660329235258
+        "occupied_s": 3413.737130524456,
+        "flight_s": 2693.737130524456,
+        "energy_kwh": 3.896750197439702,
+        "horizon_s": 7241.673815271539,
+        "utilization": 0.47140167005664174
       },
       {
         "kind": "drone",
         "resource_id": "U05",
         "type_id": "B",
         "sortie_count": 2,
-        "occupied_s": 2785.3756062737766,
-        "flight_s": 2035.3756062737766,
-        "energy_kwh": 3.00044045006838,
-        "horizon_s": 7640.191512191726,
-        "utilization": 0.36456882027486526
+        "occupied_s": 3212.5507979608487,
+        "flight_s": 2462.5507979608487,
+        "energy_kwh": 3.436516652531258,
+        "horizon_s": 7241.673815271539,
+        "utilization": 0.44361992543575907
       },
       {
         "kind": "drone",
         "resource_id": "U07",
         "type_id": "C",
         "sortie_count": 3,
-        "occupied_s": 7640.191512191726,
-        "flight_s": 6050.191512191726,
-        "energy_kwh": 15.646547925835366,
-        "horizon_s": 7640.191512191726,
+        "occupied_s": 7241.673815271539,
+        "flight_s": 5651.673815271539,
+        "energy_kwh": 16.093250656243967,
+        "horizon_s": 7241.673815271539,
         "utilization": 1
       },
       {
@@ -840,19 +840,19 @@
         "occupied_s": 3559.246156633708,
         "flight_s": 1861.7141838665775,
         "energy_kwh": 2.795302982655452,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.35407773077085386
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.364131233204148
       },
       {
         "kind": "battery",
         "resource_id": "BAT-A-02",
         "type_id": "A",
         "sortie_count": 1,
-        "occupied_s": 2634.489182652983,
-        "flight_s": 1264.8627275525841,
-        "energy_kwh": 1.8679377291936867,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.26208188770410135
+        "occupied_s": 1980.2188087066615,
+        "flight_s": 832.0229466578785,
+        "energy_kwh": 1.10144721478425,
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.2025877068054138
       },
       {
         "kind": "battery",
@@ -862,30 +862,30 @@
         "occupied_s": 3074.2852937582384,
         "flight_s": 1246.2753989804244,
         "energy_kwh": 1.7800228341026476,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.3058332895934484
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.3145169639787768
       },
       {
         "kind": "battery",
         "resource_id": "BAT-B-02",
         "type_id": "B",
         "sortie_count": 1,
-        "occupied_s": 2344.6145075451695,
-        "flight_s": 789.1002072933522,
-        "energy_kwh": 1.2204176159657325,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.2332448355157281
+        "occupied_s": 2960.756053632822,
+        "flight_s": 1216.2753989804244,
+        "energy_kwh": 1.6564938184286104,
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.30290227356615973
       },
       {
         "kind": "battery",
         "resource_id": "BAT-C-01",
         "type_id": "C",
         "sortie_count": 2,
-        "occupied_s": 9643.348523217077,
-        "flight_s": 4028.2558373899838,
-        "energy_kwh": 10.59111145536157,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.959330940280499
+        "occupied_s": 9365.81281578255,
+        "flight_s": 3629.7381404697962,
+        "energy_kwh": 11.037814185770173,
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.9581762037486091
       },
       {
         "kind": "battery",
@@ -895,8 +895,8 @@
         "occupied_s": 4734.449718888395,
         "flight_s": 2021.9356748017426,
         "energy_kwh": 5.055436470473794,
-        "horizon_s": 10052.160436311431,
-        "utilization": 0.47098827648891645
+        "horizon_s": 9774.624728876905,
+        "utilization": 0.48436127730832884
       }
     ],
     "charge_windows": [
@@ -927,18 +927,18 @@
       {
         "battery_id": "BAT-B-02",
         "type_id": "B",
-        "start_s": 2785.3756062737766,
-        "end_s": 3980.889906525594,
+        "start_s": 3212.5507979608487,
+        "end_s": 4597.031452613246,
         "is_initial": false,
-        "sortie_id": "SRT-3147f654c6cd"
+        "sortie_id": "SRT-e6786f2cb91a"
       },
       {
         "battery_id": "BAT-A-02",
         "type_id": "A",
-        "start_s": 3846.5769114191617,
-        "end_s": 4886.20336651956,
+        "start_s": 3413.737130524456,
+        "end_s": 4231.932992573239,
         "is_initial": false,
-        "sortie_id": "SRT-c7fb7356a90d"
+        "sortie_id": "SRT-7285ee29cb6c"
       },
       {
         "battery_id": "BAT-C-02",
@@ -951,16 +951,16 @@
       {
         "battery_id": "BAT-C-01",
         "type_id": "C",
-        "start_s": 7640.191512191726,
-        "end_s": 10052.160436311431,
+        "start_s": 7241.673815271539,
+        "end_s": 9774.624728876905,
         "is_initial": false,
-        "sortie_id": "SRT-cf3a18537124"
+        "sortie_id": "SRT-6edfcc0593e2"
       }
     ],
     "charge_peak": 4,
     "charge_peak_by_type": {
-      "A": 1,
-      "B": 2,
+      "A": 2,
+      "B": 1,
       "C": 1
     },
     "min_hard_slack_s": 73.55666166895662,

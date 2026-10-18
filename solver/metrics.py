@@ -69,6 +69,15 @@ def delivery_analysis(scenario, plan):
     }
 
 
+LEGACY_POLICY = "deadline_first_v1"
+TRADEOFF_POLICY = "tradeoff_v2"
+
+
+def objective_policy(record):
+    """Missing policy preserves the meaning of existing requests and saved plans."""
+    return record.get("objective_policy", LEGACY_POLICY)
+
+
 def objective_score(scenario, plan, objective):
     late = delivery_analysis(scenario, plan)["weighted_box_delay_s"]
     m = plan["metrics"]
@@ -78,6 +87,12 @@ def objective_score(scenario, plan, objective):
             "energy_kwh": plan["joint_metrics"]["joint_energy_kwh"],
             "makespan_s": plan["joint_metrics"]["joint_makespan_s"],
         }
+    if objective_policy(plan) == TRADEOFF_POLICY:
+        if objective == "energy":
+            return m["energy_kwh"], late, m["makespan_s"]
+        if objective == "balanced":
+            return m["makespan_s"] + 300 * m["energy_kwh"], late, m["makespan_s"]
+        return m["makespan_s"], late, m["energy_kwh"]
     if objective == "energy":
         return late, m["energy_kwh"], m["makespan_s"]
     if objective == "balanced":

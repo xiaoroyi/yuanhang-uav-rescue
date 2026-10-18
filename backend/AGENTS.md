@@ -1,5 +1,7 @@
 # B 系统线后端模块
 
+RFC-016的SolveRequest.objective_policy省略仍为v1，前端新计算显式v2；PlanSummary解析历史缺省，比较API跨规则标不可比，深入基线跨规则拒绝409。历史JSON/SQLite不迁移或覆盖，事件重规划由客户端显式继承所选Plan规则。
+
 RFC-015新增只读map/surface、Plan flight-profile和Scenario版本读取。surface按原hash最多73×73且NoData=null；flight-profile只读绑定原Snapshot，复用已有leg/leg_values并核对历史路线，保留真实高程基准、全240采样上限和能耗分解。版本created_at未存则null，不借用updated_at；读取不恢复或写入。不可把采样/三维网格用于替换原闭像元认证。对应显式DTO在map_models.py、flight_profiles.py、version_views.py，实际OpenAPI/TS同次生成。
 
 RFC-010的Event由Schema生成RootModel联合，model_dump仍是原始JSON对象，不在HTTP增加root层；严格区分机体与运输电池负载。服务器先去重，再用自身received_at校验新事件；初次应用检查版本、执行事实与可退出状态。只修改指定资源status，保留能源/位置，并清除当前规划预约。Snapshot单点诊断见RFC-009，不持久化为Plan或Job。

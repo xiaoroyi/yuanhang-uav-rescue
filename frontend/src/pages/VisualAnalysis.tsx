@@ -53,7 +53,7 @@ registerCharts([
 ])
 
 const namedKind = (kind: string) => category[kind] || kind
-const objectiveLabel = { time: '时间优先', energy: '能耗优先', balanced: '均衡偏好' }
+const objectiveLabel = { time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }
 const axisStyle = { color: '#8398b6', fontSize: 10 }
 const splitStyle = { lineStyle: { color: '#ffffff0b', type: 'dashed' } }
 const chartTooltip = {

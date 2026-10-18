@@ -1853,6 +1853,11 @@ export interface components {
          * @enum {string}
          */
         Objective: "time" | "energy" | "balanced";
+        /**
+         * ObjectivePolicy
+         * @enum {string}
+         */
+        ObjectivePolicy: "deadline_first_v1" | "tradeoff_v2";
         /** PartitionAssignment */
         PartitionAssignment: {
             /** Task Id */
@@ -2110,6 +2115,11 @@ export interface components {
             joint_metrics?: components["schemas"]["JointMetrics"] | null;
             communication_report?: components["schemas"]["CommunicationReport"] | null;
             joint_search?: components["schemas"]["JointSearch"] | null;
+            /**
+             * @description Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.
+             * @default deadline_first_v1
+             */
+            objective_policy: components["schemas"]["ObjectivePolicy"] | null;
         };
         /** PlanAnalysis */
         PlanAnalysis: {
@@ -2155,6 +2165,12 @@ export interface components {
             scenario_state_version: number;
             /** Objective */
             objective: string;
+            /**
+             * Objective Policy
+             * @default deadline_first_v1
+             * @enum {string}
+             */
+            objective_policy: "deadline_first_v1" | "tradeoff_v2";
             /** Generated At */
             generated_at: string;
             /** Solver Status */
@@ -2699,6 +2715,12 @@ export interface components {
              * @enum {string}
              */
             objective: "time" | "energy" | "balanced";
+            /**
+             * Objective Policy
+             * @default deadline_first_v1
+             * @enum {string}
+             */
+            objective_policy: "deadline_first_v1" | "tradeoff_v2";
             /**
              * Mode
              * @default quick

@@ -47,6 +47,14 @@ import {
 } from 'lucide-react'
 import { api, ApiError, downloadJson, type Scenario, type Event } from './api/client'
 import { Badge, Button, Empty, Modal, Toasts, type ToastMessage } from './components/ui'
+import {
+  policyOf,
+  policyLabel,
+  strategyDescription,
+  strategyMetrics,
+  equalityExplanation,
+} from './lib/strategies'
+import { StrategyFacts } from './components/StrategyFacts'
 import { RescueMap } from './components/RescueMap'
 import { ResourceTimeline } from './components/ResourceTimeline'
 import { CommunicationPanel } from './components/CommunicationPanel'
@@ -56,6 +64,7 @@ import { PartitionAnalysis } from './pages/PartitionAnalysis'
 import { UrgentDemandForm, type UrgentPayload } from './pages/UrgentDemandForm'
 import { category, clock, colorFor, duration, number, percent, statusLabel } from './lib/format'
 import './components/strategy-balance.css'
+import { SchedulePage } from './pages/SchedulePage'
 import { VisualAnalysis } from './pages/VisualAnalysis'
 import { MapCenter } from './pages/MapCenter'
 import { HistoryCenter } from './pages/HistoryCenter'
@@ -64,9 +73,18 @@ import { GuidePage } from './pages/GuidePage'
 import { LocalProfileDialog, useLocalProfile } from './components/LocalProfile'
 
 type Page =
-  'workspace' | 'scenario' | 'events' | 'analysis' | 'maps' | 'history' | 'compare' | 'guide'
+  | 'workspace'
+  | 'scenario'
+  | 'events'
+  | 'analysis'
+  | 'maps'
+  | 'history'
+  | 'compare'
+  | 'guide'
+  | 'schedule'
 const pageLabels: Record<Page, string> = {
   workspace: '调度工作台',
+  schedule: '调度安排',
   scenario: '场景与资源',
   events: '事件复盘',
   analysis: '数据大屏',
@@ -75,7 +93,7 @@ const pageLabels: Record<Page, string> = {
   compare: '方案对比',
   guide: '新手教程',
 }
-const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced: '均衡策略' }
+const objectiveLabels = { time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }
 function pageFromHash(): Page {
   const value = location.hash.replace(/^#\/?/, '')
   return Object.hasOwn(pageLabels, value) ? (value as Page) : 'workspace'
@@ -242,6 +260,7 @@ export default function App() {
     planSnapshot.data.scenario_state_version === selectedPlan.scenario_state_version
   )
   const plan = snapshotBound ? selectedPlan : null
+  const strategyPolicy = plan || { objective_policy: 'tradeoff_v2' as const }
   const bindingUnavailable = !!selectedPlan && !snapshotBound
   const viewScenario = plan ? planSnapshot.data!.scenario : scenario
   const isBusy = !!(
@@ -261,8 +280,12 @@ export default function App() {
     .filter((objective) => objective !== plan?.objective)
     .map(
       (objective) =>
-        sortedPlans.find((p) => p.snapshot_id === plan?.snapshot_id && p.objective === objective)
-          ?.plan_id,
+        sortedPlans.find(
+          (p) =>
+            p.snapshot_id === plan?.snapshot_id &&
+            p.objective === objective &&
+            policyOf(p) === policyOf(plan),
+        )?.plan_id,
     )
     .filter((id): id is string => !!id)
   const comparisonQueries = useQueries({
@@ -426,6 +449,7 @@ export default function App() {
               mode: 'improve',
               time_limit_s: scenario.policy.requires_communication ? 60 : 30,
               initial_plan_id: plan?.plan_id,
+              objective_policy: policyOf(plan),
             }
           : { time_limit_s: scenario.policy.requires_communication ? 60 : 15 },
       )
@@ -477,6 +501,7 @@ export default function App() {
         plan.objective as 'time' | 'energy' | 'balanced',
         {
           mode: 'replan',
+          objective_policy: policyOf(plan),
           parent_plan_id: plan.plan_id,
           event_id: event.event.event_id,
           time_limit_s: updated.policy.requires_communication ? 60 : 15,
@@ -620,6 +645,20 @@ export default function App() {
         <i />
         <i />
         <div className="ambient-grid" />
+        <div className="ambient-beam" />
+        <div className="ambient-particles">
+          {Array.from({ length: 18 }, (_, i) => (
+            <span
+              key={i}
+              style={{
+                left: `${(i * 37 + 11) % 100}%`,
+                top: `${(i * 23 + 7) % 100}%`,
+                animationDelay: `${-i * 1.7}s`,
+                animationDuration: `${11 + (i % 6) * 2}s`,
+              }}
+            />
+          ))}
+        </div>
       </div>
       {mobileNav && (
         <button
@@ -662,6 +701,7 @@ export default function App() {
               { id: 'scenario', label: '场景与资源', icon: Database },
               { id: 'maps', label: '地图与地形', icon: Globe2 },
               { id: 'workspace', label: '调度工作台', icon: MapIcon },
+              { id: 'schedule', label: '调度安排', icon: Layers },
               { id: 'compare', label: '方案对比', icon: GitCompareArrows },
               { id: 'events', label: '事件复盘', icon: Activity },
               { id: 'history', label: '历史档案', icon: History },
@@ -936,6 +976,30 @@ export default function App() {
                   }}
                   onWorkspace={() => setPage('workspace')}
                 />
+              ) : page === 'schedule' ? (
+                bindingUnavailable ? (
+                  <div className="alert alert-amber">
+                    <TriangleAlert size={17} />
+                    <span>
+                      {planSnapshot.isError
+                        ? '方案原始输入读取失败，无法展示调度安排。'
+                        : '正在绑定方案原始输入…'}
+                    </span>
+                    {planSnapshot.isError && (
+                      <Button onClick={() => void planSnapshot.refetch()}>重试加载快照</Button>
+                    )}
+                  </div>
+                ) : (
+                  <SchedulePage
+                    plan={plan}
+                    scenario={viewScenario || scenario}
+                    plans={sortedPlans}
+                    selected={selected}
+                    onSelect={setSelected}
+                    onPlan={choosePlan}
+                    onMap={() => setPage('workspace')}
+                  />
+                )
               ) : page === 'scenario' ? (
                 <ScenarioEditor
                   scenario={scenario}
@@ -997,6 +1061,12 @@ export default function App() {
                         <ShieldCheck size={15} />
                         检查报告
                       </Button>
+                      {page === 'workspace' && plan && (
+                        <Button onClick={() => setPage('schedule')}>
+                          <Layers size={14} />
+                          查看调度安排
+                        </Button>
+                      )}
                       {page === 'workspace' && plan && (
                         <Button
                           disabled={isBusy || stale || scenario.data_origin === 'mock'}
@@ -1198,7 +1268,7 @@ export default function App() {
                           {quality.data.resource_limits.charging_ports} 端口
                         </span>
                       )}
-                      <small>先减少优先级加权期望延期，再比较时间 / 能耗</small>
+                      <small>{policyLabel(strategyPolicy)} · 硬截止与完整物资保障始终必选</small>
                     </div>
                   )}
                   {page === 'events' && eventTab === 'partition' ? (
@@ -1684,7 +1754,7 @@ export default function App() {
                           <div className="panel-heading">
                             <div>
                               <h3>策略方案</h3>
-                              <p>同一快照 · 相同保障要求</p>
+                              <p>同一快照 · 相同保障要求 · {policyLabel(strategyPolicy)}</p>
                             </div>
                             <Layers size={16} />
                           </div>
@@ -1713,17 +1783,14 @@ export default function App() {
                                   <strong>{objectiveLabels[objective]}</strong>
                                   {plan?.objective === objective && <CheckCircle2 size={15} />}
                                 </div>
-                                <p>
-                                  {objective === 'time'
-                                    ? '先减加权期望延期，再缩短完成时间'
-                                    : '先减加权期望延期，再降低能源消耗'}
-                                </p>
+                                <p>{strategyDescription(objective, p || strategyPolicy)}</p>
                                 {p ? (
                                   <>
                                     <div className="strategy-metrics">
-                                      <span>{duration(p.metrics.makespan_s)}</span>
-                                      <span>{number(p.metrics.energy_kwh, 2)} kWh</span>
+                                      <span>{duration(strategyMetrics(p).makespan_s)}</span>
+                                      <span>{number(strategyMetrics(p).energy_kwh, 2)} kWh</span>
                                     </div>
+                                    <StrategyFacts plan={p} />
                                     <button onClick={() => choosePlan(p.plan_id)}>
                                       {p.plan_id === plan?.plan_id ? '当前展示方案' : '查看此方案'}
                                       <ChevronRight size={12} />
@@ -1750,12 +1817,16 @@ export default function App() {
                           })}
                           <div
                             className={`balanced-strategy ${plan?.objective === 'balanced' ? 'is-active' : ''}`}
-                            title="延期相同后，比较最后返航秒数 + 300 × 能耗(kWh)；启用通信时使用联合指标"
+                            title={strategyDescription('balanced', balancedPlan || strategyPolicy)}
                           >
                             <div>
                               <Scale size={15} />
-                              <strong>均衡偏好</strong>
-                              <small>同样先减期望延期</small>
+                              <strong>时间能耗折中</strong>
+                              <small>
+                                {policyOf(balancedPlan || strategyPolicy) === 'tradeoff_v2'
+                                  ? '每 1 kWh 折合 300 秒'
+                                  : '旧版 · 先减期望延期'}
+                              </small>
                             </div>
                             {balancedPlan ? (
                               <>
@@ -1773,10 +1844,11 @@ export default function App() {
                                   )}{' '}
                                   kWh
                                 </span>
+                                <StrategyFacts plan={balancedPlan} />
                                 <button onClick={() => choosePlan(balancedPlan.plan_id)}>
                                   {plan?.plan_id === balancedPlan.plan_id
-                                    ? '当前均衡方案'
-                                    : '查看均衡方案'}
+                                    ? '当前折中方案'
+                                    : '查看折中方案'}
                                   <ChevronRight size={12} />
                                 </button>
                               </>
@@ -1792,7 +1864,7 @@ export default function App() {
                                 }
                                 onClick={() => void runSolver('balanced')}
                               >
-                                真实计算均衡策略
+                                真实计算折中策略
                                 <ArrowRight size={12} />
                               </button>
                             )}
@@ -1808,9 +1880,42 @@ export default function App() {
                               保存方案读取失败，点击重试
                             </button>
                           )}
-                          <p className="strategy-footnote">
-                            费用未配置，不显示人民币。共同延期目标优先，三种偏好可能得到相同方案。
-                          </p>
+                          <div className="strategy-policy-note">
+                            <strong>
+                              {plan?.joint_metrics
+                                ? '全部卡片使用运输 + 通信联合口径'
+                                : '全部卡片使用运输口径'}
+                            </strong>
+                            <p>
+                              硬截止、容量、SOC
+                              与完整物资保障不可突破；期望截止是软目标，节能可能增加延期。折中权重为
+                              300 秒/kWh，不代表服务区保障公平。
+                            </p>
+                            <p>
+                              {equalityExplanation(
+                                [plan, ...comparisonPlans].filter(
+                                  (p): p is NonNullable<typeof p> => !!p,
+                                ),
+                              ) ||
+                                '不同目标可以得到相同结果；请先计算同快照、同规则的三个策略，再核对排程和交付分析。'}
+                            </p>
+                            <small>
+                              限时搜索的已验证候选，未证明全局最优；费用未配置，不显示人民币。
+                            </small>
+                            {plan && policyOf(plan) === 'deadline_first_v1' && (
+                              <Button
+                                disabled={
+                                  isBusy ||
+                                  stale ||
+                                  bindingUnavailable ||
+                                  scenario.data_origin === 'mock'
+                                }
+                                onClick={() => void runSolver(plan?.objective || 'time')}
+                              >
+                                按新规则重新计算
+                              </Button>
+                            )}
+                          </div>
                         </section>
                         {route && (
                           <section className="panel sortie-detail">

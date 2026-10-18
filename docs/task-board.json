@@ -1268,6 +1268,25 @@
         "docs/EXPERIENCE_RELEASE.md",
         "evidence/experience/map/source-review.json"
       ]
+    },
+    {
+      "id": "FIX-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "版本化策略取舍、动态背景与调度安排",
+      "acceptance": "保留期限/硬约束的真实三策略，旧规则兼容，统一联合口径，明确相同结果，调度表/箱件/资源时间轴与背景开关真实验收",
+      "dependencies": [
+        "UX-06"
+      ],
+      "status": "in_progress",
+      "branch": "feat/experience-v1",
+      "pr": "https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1",
+      "evidence": [
+        "docs/CONTRACT_RFC_016.md",
+        "tests/solver/test_strategy_policy.py",
+        "frontend/src/pages/SchedulePage.tsx"
+      ]
     }
   ]
 }

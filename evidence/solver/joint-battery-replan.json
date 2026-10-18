@@ -1,14 +1,14 @@
 {
   "old_snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-AEDDBE61F8644DAC",
-    "scenario_id": "SCN-8504C7B7EFC6438A",
+    "snapshot_id": "SNAP-49C4504311554FB3",
+    "scenario_id": "SCN-DB765ACBE2374484",
     "scenario_state_version": 2,
-    "content_hash": "0c1166da6c1f749701a6f028e3f8ebe6fce84c7ce58bd7f2f19cccb036edc2d1",
-    "created_at": "2026-10-18T03:27:49.514104Z",
+    "content_hash": "0f0552a8df462e97af157b237549fc4841a17b905c88810e06ae84fed37467f8",
+    "created_at": "2026-10-18T07:09:08.300980Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-8504C7B7EFC6438A",
+      "scenario_id": "SCN-DB765ACBE2374484",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 2,
       "mode": "simulation",
@@ -1135,9 +1135,9 @@
   },
   "old_plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-3103F06511614BAA",
-    "scenario_id": "SCN-8504C7B7EFC6438A",
-    "snapshot_id": "SNAP-AEDDBE61F8644DAC",
+    "plan_id": "PLAN-255EFC02E0724AFE",
+    "scenario_id": "SCN-DB765ACBE2374484",
+    "snapshot_id": "SNAP-49C4504311554FB3",
     "scenario_state_version": 2,
     "data_origin": "solver",
     "objective": "time",
@@ -1155,15 +1155,15 @@
       "communication"
     ],
     "metrics": {
-      "last_delivery_s": 7328.304894375193,
-      "makespan_s": 7640.204433039773,
-      "energy_kwh": 23.310229087752884,
+      "last_delivery_s": 6929.787197455006,
+      "makespan_s": 7241.6867361195855,
+      "energy_kwh": 23.42651750621493,
       "cost_cny": null,
       "sortie_count": 7,
       "unserved_demand_count": 0,
       "mandatory_served_count": 32,
       "mandatory_total_count": 32,
-      "min_return_soc": 0.27139895809859826
+      "min_return_soc": 0.215561116797523
     },
     "sorties": [
       {
@@ -1235,6 +1235,54 @@
         "communication_status": "passed"
       },
       {
+        "sortie_id": "SRT-493807468ae3",
+        "kind": "transport",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-FOD-01"
+        ],
+        "visits": [
+          {
+            "site_id": "S007",
+            "cargo_ids": [
+              "S007-MED-01",
+              "S007-WAT-01",
+              "S007-FOD-01"
+            ],
+            "delivery_complete_s": 1125.7776994902122
+          }
+        ],
+        "route_geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              109.2308517,
+              23.0085095
+            ],
+            [
+              109.1928191,
+              23.0294186
+            ],
+            [
+              109.2308517,
+              23.0085095
+            ]
+          ]
+        },
+        "prepare_start_s": 0,
+        "takeoff_s": 390,
+        "return_s": 1636.2753989804244,
+        "drone_released_s": 1636.2753989804244,
+        "battery_released_s": 3074.2852937582384,
+        "energy_kwh": 1.7800228341026476,
+        "return_soc": 0.5549942914743381,
+        "terrain_status": "passed",
+        "communication_status": "passed"
+      },
+      {
         "sortie_id": "SRT-0effebcce24d",
         "kind": "transport",
         "drone_id": "U01",
@@ -1293,70 +1341,22 @@
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-1dbb732b0634",
-        "kind": "transport",
-        "drone_id": "U05",
-        "battery_id": "BAT-B-01",
-        "cargo_ids": [
-          "S001-WAT-06",
-          "S001-WAT-07"
-        ],
-        "visits": [
-          {
-            "site_id": "S001",
-            "cargo_ids": [
-              "S001-WAT-06",
-              "S001-WAT-07"
-            ],
-            "delivery_complete_s": 857.6734369800095
-          }
-        ],
-        "route_geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [
-              109.2308517,
-              23.0085095
-            ],
-            [
-              109.2432319,
-              23.0335927
-            ],
-            [
-              109.2308517,
-              23.0085095
-            ]
-          ]
-        },
-        "prepare_start_s": 0,
-        "takeoff_s": 360,
-        "return_s": 1149.1002072933522,
-        "drone_released_s": 1149.1002072933522,
-        "battery_released_s": 2344.6145075451695,
-        "energy_kwh": 1.2204176159657325,
-        "return_soc": 0.6948955960085669,
-        "terrain_status": "passed",
-        "communication_status": "passed"
-      },
-      {
-        "sortie_id": "SRT-57efb67fef34",
+        "sortie_id": "SRT-ab72eb71704a",
         "kind": "transport",
         "drone_id": "U05",
         "battery_id": "BAT-B-02",
         "cargo_ids": [
-          "S007-MED-01",
-          "S007-WAT-01",
-          "S007-FOD-01"
+          "S007-WAT-02",
+          "S007-HYG-01"
         ],
         "visits": [
           {
             "site_id": "S007",
             "cargo_ids": [
-              "S007-MED-01",
-              "S007-WAT-01",
-              "S007-FOD-01"
+              "S007-WAT-02",
+              "S007-HYG-01"
             ],
-            "delivery_complete_s": 2274.887699490212
+            "delivery_complete_s": 2702.057699490212
           }
         ],
         "route_geometry": {
@@ -1376,31 +1376,31 @@
             ]
           ]
         },
-        "prepare_start_s": 1149.11,
-        "takeoff_s": 1539.11,
-        "return_s": 2785.3853989804243,
-        "drone_released_s": 2785.3853989804243,
-        "battery_released_s": 4223.395293758238,
-        "energy_kwh": 1.7800228341026476,
-        "return_soc": 0.5549942914743381,
+        "prepare_start_s": 1636.28,
+        "takeoff_s": 1996.28,
+        "return_s": 3212.5553989804243,
+        "drone_released_s": 3212.5553989804243,
+        "battery_released_s": 4597.036053632823,
+        "energy_kwh": 1.6564938184286104,
+        "return_soc": 0.5858765453928474,
         "terrain_status": "passed",
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-3a8ee4a0fd14",
+        "sortie_id": "SRT-3ba3e7acc086",
         "kind": "transport",
         "drone_id": "U01",
         "battery_id": "BAT-A-02",
         "cargo_ids": [
-          "S010-FOD-01"
+          "S011-FOD-01"
         ],
         "visits": [
           {
-            "site_id": "S010",
+            "site_id": "S011",
             "cargo_ids": [
-              "S010-FOD-01"
+              "S011-FOD-01"
             ],
-            "delivery_complete_s": 3296.6880304429583
+            "delivery_complete_s": 3084.9181399956055
           }
         ],
         "route_geometry": {
@@ -1411,8 +1411,8 @@
               23.0085095
             ],
             [
-              109.2760168,
-              23.0194009
+              109.2203356,
+              23.0319231
             ],
             [
               109.2308517,
@@ -1422,11 +1422,11 @@
         },
         "prepare_start_s": 2251.72,
         "takeoff_s": 2581.72,
-        "return_s": 3846.582727552584,
-        "drone_released_s": 3846.582727552584,
-        "battery_released_s": 4886.209182652982,
-        "energy_kwh": 1.8679377291936867,
-        "return_soc": 0.5849027268458473,
+        "return_s": 3413.7429466578783,
+        "drone_released_s": 3413.7429466578783,
+        "battery_released_s": 4231.938808706662,
+        "energy_kwh": 1.10144721478425,
+        "return_soc": 0.7552339522701667,
         "terrain_status": "passed",
         "communication_status": "passed"
       },
@@ -1507,14 +1507,14 @@
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-08c16e45e379",
+        "sortie_id": "SRT-2234cbddc22a",
         "kind": "transport",
         "drone_id": "U07",
         "battery_id": "BAT-C-01",
         "cargo_ids": [
-          "S007-WAT-02",
-          "S007-HYG-01",
-          "S011-FOD-01",
+          "S010-FOD-01",
+          "S001-WAT-06",
+          "S001-WAT-07",
           "S001-WAT-08",
           "S001-FOD-02",
           "S001-FOD-03",
@@ -1523,30 +1523,24 @@
         ],
         "visits": [
           {
-            "site_id": "S007",
+            "site_id": "S010",
             "cargo_ids": [
-              "S007-WAT-02",
-              "S007-HYG-01"
+              "S010-FOD-01"
             ],
-            "delivery_complete_s": 6184.713228665018
-          },
-          {
-            "site_id": "S011",
-            "cargo_ids": [
-              "S011-FOD-01"
-            ],
-            "delivery_complete_s": 6739.456279038714
+            "delivery_complete_s": 6095.129205522987
           },
           {
             "site_id": "S001",
             "cargo_ids": [
+              "S001-WAT-06",
+              "S001-WAT-07",
               "S001-WAT-08",
               "S001-FOD-02",
               "S001-FOD-03",
               "S001-HYG-01",
               "S001-HYG-02"
             ],
-            "delivery_complete_s": 7328.304894375193
+            "delivery_complete_s": 6929.787197455006
           }
         ],
         "route_geometry": {
@@ -1557,12 +1551,8 @@
               23.0085095
             ],
             [
-              109.1928191,
-              23.0294186
-            ],
-            [
-              109.2203356,
-              23.0319231
+              109.2760168,
+              23.0194009
             ],
             [
               109.2432319,
@@ -1576,11 +1566,11 @@
         },
         "prepare_start_s": 4854.97,
         "takeoff_s": 5394.97,
-        "return_s": 7640.204433039773,
-        "drone_released_s": 7640.204433039773,
-        "battery_released_s": 10052.173357159478,
-        "energy_kwh": 5.828808335211214,
-        "return_soc": 0.27139895809859826,
+        "return_s": 7241.6867361195855,
+        "drone_released_s": 7241.6867361195855,
+        "battery_released_s": 9774.637649724951,
+        "energy_kwh": 6.275511065619816,
+        "return_soc": 0.215561116797523,
         "terrain_status": "passed",
         "communication_status": "passed"
       }
@@ -1641,14 +1631,14 @@
           "code": "communication",
           "status": "passed",
           "object_id": null,
-          "message": "投影DEM连续区间模型：直连9506.91秒、中继1705.23秒、缺口0；非现实链路认证"
+          "message": "投影DEM连续区间模型：直连9110.83秒、中继1697.13秒、缺口0；非现实链路认证"
         }
       ]
     },
-    "generated_at": "2026-10-18T03:28:03.172379Z",
+    "generated_at": "2026-10-18T07:09:24.309024Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
-      "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
+      "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
       "题设载荷能耗、两段充电；充电端口无限。",
       "航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。",
       "有限运输组批/访问顺序与悬停候选上的联合排程；解析连续覆盖，未证明原问题全局最优。",
@@ -1661,7 +1651,7 @@
     "change_summary": null,
     "relay_sorties": [
       {
-        "relay_sortie_id": "RLY-b144128a4431",
+        "relay_sortie_id": "RLY-b8fe3f1465a9",
         "drone_id": "R01",
         "component_id": "R-COMP-01",
         "station_id": "RS-MID-S010",
@@ -1671,17 +1661,17 @@
         ],
         "station_agl_m": 300,
         "station_elevation_m": 633.7569885253906,
-        "prepare_start_s": 879.66,
-        "takeoff_s": 1059.6599999999999,
-        "arrival_s": 1345.6604034967138,
-        "service_start_s": 1375.6604034967138,
-        "service_end_s": 6271.87,
-        "return_s": 6600.041819207163,
-        "drone_released_s": 6900.041819207163,
-        "charge_start_s": 6600.041819207163,
-        "component_released_s": 7771.221193265293,
-        "energy_kwh": 1.6521338438353972,
-        "return_soc": 0.4837081738014384,
+        "prepare_start_s": 0,
+        "takeoff_s": 180,
+        "arrival_s": 466.00040349671383,
+        "service_start_s": 496.00040349671383,
+        "service_end_s": 6205.85,
+        "return_s": 6534.021819207163,
+        "drone_released_s": 6834.021819207163,
+        "charge_start_s": 6534.021819207163,
+        "component_released_s": 7806.199908543072,
+        "energy_kwh": 1.9007460660576196,
+        "return_soc": 0.40601685435699386,
         "route_geometry": {
           "type": "LineString",
           "coordinates": [
@@ -1701,7 +1691,7 @@
         }
       },
       {
-        "relay_sortie_id": "RLY-8dab61a60a5b",
+        "relay_sortie_id": "RLY-3221ff50acad",
         "drone_id": "R02",
         "component_id": "R-COMP-02",
         "station_id": "RS-S007-150",
@@ -1711,17 +1701,17 @@
         ],
         "station_agl_m": 150,
         "station_elevation_m": 464.2220458984375,
-        "prepare_start_s": 879.66,
-        "takeoff_s": 1059.6599999999999,
-        "arrival_s": 1473.9427079334087,
-        "service_start_s": 1503.9427079334087,
-        "service_end_s": 6268.22,
-        "return_s": 6710.546211758279,
-        "drone_released_s": 7010.546211758279,
-        "charge_start_s": 6710.546211758279,
-        "component_released_s": 7899.740055836252,
-        "energy_kwh": 1.6964771546534734,
-        "return_soc": 0.46985088917078965,
+        "prepare_start_s": 0,
+        "takeoff_s": 180,
+        "arrival_s": 594.2827079334088,
+        "service_start_s": 624.2827079334088,
+        "service_end_s": 2768.73,
+        "return_s": 3211.0562117582786,
+        "drone_released_s": 3511.0562117582786,
+        "charge_start_s": 3211.0562117582786,
+        "component_released_s": 4075.045463822363,
+        "energy_kwh": 0.8959735435423618,
+        "return_soc": 0.720008267643012,
         "route_geometry": {
           "type": "LineString",
           "coordinates": [
@@ -1742,22 +1732,57 @@
       }
     ],
     "joint_metrics": {
-      "relay_energy_kwh": 3.3486109984888706,
-      "joint_energy_kwh": 26.658840086241753,
-      "joint_makespan_s": 7640.204433039773,
+      "relay_energy_kwh": 2.7967196095999816,
+      "joint_energy_kwh": 26.22323711581491,
+      "joint_makespan_s": 7241.6867361195855,
       "relay_sortie_count": 2
     },
     "communication_report": {
       "model_id": "projected_dem_radio_v1",
-      "transport_active_s": 11212.1440298859,
-      "direct_s": 9506.914271961921,
-      "relay_s": 1705.2297579239787,
+      "transport_active_s": 10807.961743757414,
+      "direct_s": 9110.830526532545,
+      "relay_s": 1697.1312172248768,
       "coverage_gap_s": 0,
       "windows": [
         {
           "sortie_id": "SRT-6396ff71573f",
           "start_s": 540,
           "end_s": 2323.0214043502683,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 390,
+          "end_s": 780.7201129646638,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 780.7201129646638,
+          "end_s": 808.2088305330955,
+          "source": "relay",
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 808.2088305330955,
+          "end_s": 1192.4483567773566,
+          "source": "relay",
+          "relay_sortie_id": "RLY-3221ff50acad"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 1192.4483567773566,
+          "end_s": 1219.9370743457625,
+          "source": "relay",
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 1219.9370743457625,
+          "end_s": 1636.275398980274,
           "source": "gateway",
           "relay_sortie_id": null
         },
@@ -1773,7 +1798,7 @@
           "start_s": 1375.6748354463662,
           "end_s": 1799.72179413423,
           "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
         },
         {
           "sortie_id": "SRT-0effebcce24d",
@@ -1783,65 +1808,44 @@
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-1dbb732b0634",
-          "start_s": 360,
-          "end_s": 1149.100207293527,
+          "sortie_id": "SRT-ab72eb71704a",
+          "start_s": 1996.28,
+          "end_s": 2387.000112964663,
           "source": "gateway",
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-57efb67fef34",
-          "start_s": 1539.11,
-          "end_s": 1929.8301129646632,
+          "sortie_id": "SRT-ab72eb71704a",
+          "start_s": 2387.000112964663,
+          "end_s": 2414.4888305330946,
+          "source": "relay",
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
+        },
+        {
+          "sortie_id": "SRT-ab72eb71704a",
+          "start_s": 2414.4888305330946,
+          "end_s": 2768.728356777356,
+          "source": "relay",
+          "relay_sortie_id": "RLY-3221ff50acad"
+        },
+        {
+          "sortie_id": "SRT-ab72eb71704a",
+          "start_s": 2768.728356777356,
+          "end_s": 2796.217074345762,
+          "source": "relay",
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
+        },
+        {
+          "sortie_id": "SRT-ab72eb71704a",
+          "start_s": 2796.217074345762,
+          "end_s": 3212.5553989802725,
           "source": "gateway",
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-57efb67fef34",
-          "start_s": 1929.8301129646632,
-          "end_s": 1957.3188305330948,
-          "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
-        },
-        {
-          "sortie_id": "SRT-57efb67fef34",
-          "start_s": 1957.3188305330948,
-          "end_s": 2341.558356777356,
-          "source": "relay",
-          "relay_sortie_id": "RLY-8dab61a60a5b"
-        },
-        {
-          "sortie_id": "SRT-57efb67fef34",
-          "start_s": 2341.558356777356,
-          "end_s": 2369.0470743457618,
-          "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
-        },
-        {
-          "sortie_id": "SRT-57efb67fef34",
-          "start_s": 2369.0470743457618,
-          "end_s": 2785.3853989802724,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
-          "sortie_id": "SRT-3a8ee4a0fd14",
+          "sortie_id": "SRT-3ba3e7acc086",
           "start_s": 2581.72,
-          "end_s": 3013.18328735614,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
-          "sortie_id": "SRT-3a8ee4a0fd14",
-          "start_s": 3013.18328735614,
-          "end_s": 3394.5903378200765,
-          "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
-        },
-        {
-          "sortie_id": "SRT-3a8ee4a0fd14",
-          "start_s": 3394.5903378200765,
-          "end_s": 3846.5827275528354,
+          "end_s": 3413.7429466578205,
           "source": "gateway",
           "relay_sortie_id": null
         },
@@ -1853,37 +1857,23 @@
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-08c16e45e379",
+          "sortie_id": "SRT-2234cbddc22a",
           "start_s": 5394.97,
-          "end_s": 5811.308324634587,
+          "end_s": 5781.198832637516,
           "source": "gateway",
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-08c16e45e379",
-          "start_s": 5811.308324634587,
-          "end_s": 5838.797042203019,
+          "sortie_id": "SRT-2234cbddc22a",
+          "start_s": 5781.198832637516,
+          "end_s": 6205.849168412331,
           "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
+          "relay_sortie_id": "RLY-b8fe3f1465a9"
         },
         {
-          "sortie_id": "SRT-08c16e45e379",
-          "start_s": 5838.797042203019,
-          "end_s": 6233.7131186009,
-          "source": "relay",
-          "relay_sortie_id": "RLY-8dab61a60a5b"
-        },
-        {
-          "sortie_id": "SRT-08c16e45e379",
-          "start_s": 6233.7131186009,
-          "end_s": 6271.867112025667,
-          "source": "relay",
-          "relay_sortie_id": "RLY-b144128a4431"
-        },
-        {
-          "sortie_id": "SRT-08c16e45e379",
-          "start_s": 6271.867112025667,
-          "end_s": 7640.204433039879,
+          "sortie_id": "SRT-2234cbddc22a",
+          "start_s": 6205.849168412331,
+          "end_s": 7241.6867361196655,
           "source": "gateway",
           "relay_sortie_id": null
         }
@@ -1897,28 +1887,29 @@
       "relay_slot_limit": 7,
       "stages": [
         {
-          "stage": "priority_delay",
-          "status": "OPTIMAL",
-          "seconds": 1.0276156,
-          "objective": 7832256
-        },
-        {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 0.8659778,
-          "objective": 764021
+          "seconds": 1.1971462000000002,
+          "objective": 724169
+        },
+        {
+          "stage": "priority_delay",
+          "status": "OPTIMAL",
+          "seconds": 0.9089345000000001,
+          "objective": 11987244
         }
       ]
-    }
+    },
+    "objective_policy": "tradeoff_v2"
   },
   "event": {
     "schema_version": "0.1.0-draft",
-    "event_id": "EVT-3ddf515b-91cd-45",
-    "scenario_id": "SCN-8504C7B7EFC6438A",
+    "event_id": "EVT-3a34ce6f-e8de-4f",
+    "scenario_id": "SCN-DB765ACBE2374484",
     "expected_state_version": 2,
     "event_type": "battery.unavailable",
-    "occurred_at": "2026-10-18T03:28:10.685000Z",
-    "received_at": "2026-10-18T03:28:10.693302Z",
+    "occurred_at": "2026-10-18T07:09:35.386000Z",
+    "received_at": "2026-10-18T07:09:35.394757Z",
     "effective_time_s": 0,
     "actor": "simulation",
     "reason": "模拟演练：运输电池退出",
@@ -1928,14 +1919,14 @@
   },
   "snapshot": {
     "schema_version": "0.1.0-draft",
-    "snapshot_id": "SNAP-3F387ABC222E4863",
-    "scenario_id": "SCN-8504C7B7EFC6438A",
+    "snapshot_id": "SNAP-99DDF1DB9DDD47D3",
+    "scenario_id": "SCN-DB765ACBE2374484",
     "scenario_state_version": 3,
-    "content_hash": "7b6f72ff6152d48548fd583aee508f6a68bdc329829e93e3d2dd1df26eb3c21a",
-    "created_at": "2026-10-18T03:28:10.755633Z",
+    "content_hash": "15ed468fc328cc005a30a1b9fd842fa33e61227c40e39295478224016e8abf1c",
+    "created_at": "2026-10-18T07:09:35.583489Z",
     "scenario": {
       "schema_version": "0.1.0-draft",
-      "scenario_id": "SCN-8504C7B7EFC6438A",
+      "scenario_id": "SCN-DB765ACBE2374484",
       "name": "镇龙乡 · 应急运输演练",
       "state_version": 3,
       "mode": "simulation",
@@ -3062,9 +3053,9 @@
   },
   "plan": {
     "schema_version": "0.1.0-draft",
-    "plan_id": "PLAN-E4674459D42E4E83",
-    "scenario_id": "SCN-8504C7B7EFC6438A",
-    "snapshot_id": "SNAP-3F387ABC222E4863",
+    "plan_id": "PLAN-E4D656E91C104B21",
+    "scenario_id": "SCN-DB765ACBE2374484",
+    "snapshot_id": "SNAP-99DDF1DB9DDD47D3",
     "scenario_state_version": 3,
     "data_origin": "solver",
     "objective": "time",
@@ -3082,9 +3073,9 @@
       "communication"
     ],
     "metrics": {
-      "last_delivery_s": 6966.023084371984,
+      "last_delivery_s": 6978.55343698001,
       "makespan_s": 7308.349502077302,
-      "energy_kwh": 25.34168363833843,
+      "energy_kwh": 25.341683638338427,
       "cost_cny": null,
       "sortie_count": 11,
       "unserved_demand_count": 0,
@@ -3162,6 +3153,54 @@
         "communication_status": "passed"
       },
       {
+        "sortie_id": "SRT-493807468ae3",
+        "kind": "transport",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S007-MED-01",
+          "S007-WAT-01",
+          "S007-FOD-01"
+        ],
+        "visits": [
+          {
+            "site_id": "S007",
+            "cargo_ids": [
+              "S007-MED-01",
+              "S007-WAT-01",
+              "S007-FOD-01"
+            ],
+            "delivery_complete_s": 1125.7776994902122
+          }
+        ],
+        "route_geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              109.2308517,
+              23.0085095
+            ],
+            [
+              109.1928191,
+              23.0294186
+            ],
+            [
+              109.2308517,
+              23.0085095
+            ]
+          ]
+        },
+        "prepare_start_s": 0,
+        "takeoff_s": 390,
+        "return_s": 1636.2753989804244,
+        "drone_released_s": 1636.2753989804244,
+        "battery_released_s": 3074.2852937582384,
+        "energy_kwh": 1.7800228341026476,
+        "return_soc": 0.5549942914743381,
+        "terrain_status": "passed",
+        "communication_status": "passed"
+      },
+      {
         "sortie_id": "SRT-0effebcce24d",
         "kind": "transport",
         "drone_id": "U01",
@@ -3220,10 +3259,10 @@
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-9e2227259974",
+        "sortie_id": "SRT-6589ee975d11",
         "kind": "transport",
         "drone_id": "U05",
-        "battery_id": "BAT-B-01",
+        "battery_id": "BAT-B-02",
         "cargo_ids": [
           "S006-WAT-01",
           "S006-WAT-02"
@@ -3235,7 +3274,7 @@
               "S006-WAT-01",
               "S006-WAT-02"
             ],
-            "delivery_complete_s": 882.3989607549208
+            "delivery_complete_s": 2518.678960754921
           }
         ],
         "route_geometry": {
@@ -3255,61 +3294,13 @@
             ]
           ]
         },
-        "prepare_start_s": 0,
-        "takeoff_s": 360,
-        "return_s": 1207.2712548431753,
-        "drone_released_s": 1207.2712548431753,
-        "battery_released_s": 2434.47815749193,
+        "prepare_start_s": 1636.28,
+        "takeoff_s": 1996.28,
+        "return_s": 2843.5512548431752,
+        "drone_released_s": 2843.5512548431752,
+        "battery_released_s": 4070.7581574919295,
         "energy_kwh": 1.2935543907278946,
         "return_soc": 0.6766114023180263,
-        "terrain_status": "passed",
-        "communication_status": "passed"
-      },
-      {
-        "sortie_id": "SRT-ca508668dcd4",
-        "kind": "transport",
-        "drone_id": "U05",
-        "battery_id": "BAT-B-02",
-        "cargo_ids": [
-          "S007-MED-01",
-          "S007-WAT-01",
-          "S007-FOD-01"
-        ],
-        "visits": [
-          {
-            "site_id": "S007",
-            "cargo_ids": [
-              "S007-MED-01",
-              "S007-WAT-01",
-              "S007-FOD-01"
-            ],
-            "delivery_complete_s": 2333.057699490212
-          }
-        ],
-        "route_geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [
-              109.2308517,
-              23.0085095
-            ],
-            [
-              109.1928191,
-              23.0294186
-            ],
-            [
-              109.2308517,
-              23.0085095
-            ]
-          ]
-        },
-        "prepare_start_s": 1207.28,
-        "takeoff_s": 1597.28,
-        "return_s": 2843.5553989804243,
-        "drone_released_s": 2843.5553989804243,
-        "battery_released_s": 4281.565293758238,
-        "energy_kwh": 1.7800228341026476,
-        "return_soc": 0.5549942914743381,
         "terrain_status": "passed",
         "communication_status": "passed"
       },
@@ -3370,7 +3361,7 @@
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-aee610b66dfa",
+        "sortie_id": "SRT-e320fe1af824",
         "kind": "transport",
         "drone_id": "U05",
         "battery_id": "BAT-B-01",
@@ -3385,7 +3376,7 @@
               "S006-FOD-01",
               "S006-HYG-01"
             ],
-            "delivery_complete_s": 3725.958960754921
+            "delivery_complete_s": 3956.688960754921
           }
         ],
         "route_geometry": {
@@ -3405,33 +3396,39 @@
             ]
           ]
         },
-        "prepare_start_s": 2843.56,
-        "takeoff_s": 3203.56,
-        "return_s": 4050.8312548431754,
-        "drone_released_s": 4050.8312548431754,
-        "battery_released_s": 5179.5498317744095,
+        "prepare_start_s": 3074.29,
+        "takeoff_s": 3434.29,
+        "return_s": 4281.561254843175,
+        "drone_released_s": 4281.561254843175,
+        "battery_released_s": 5410.27983177441,
         "energy_kwh": 1.0662736390720797,
         "return_soc": 0.7334315902319801,
         "terrain_status": "passed",
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-74206425ddca",
+        "sortie_id": "SRT-f851af29d63b",
         "kind": "transport",
         "drone_id": "U05",
         "battery_id": "BAT-B-02",
         "cargo_ids": [
-          "S001-FOD-02",
-          "S001-FOD-03"
+          "S001-HYG-01",
+          "S010-FOD-01"
         ],
         "visits": [
           {
             "site_id": "S001",
             "cargo_ids": [
-              "S001-FOD-02",
-              "S001-FOD-03"
+              "S001-HYG-01"
             ],
-            "delivery_complete_s": 5139.2434369800085
+            "delivery_complete_s": 5109.243436980009
+          },
+          {
+            "site_id": "S010",
+            "cargo_ids": [
+              "S010-FOD-01"
+            ],
+            "delivery_complete_s": 5650.721482012614
           }
         ],
         "route_geometry": {
@@ -3446,6 +3443,10 @@
               23.0335927
             ],
             [
+              109.2760168,
+              23.0194009
+            ],
+            [
               109.2308517,
               23.0085095
             ]
@@ -3453,11 +3454,11 @@
         },
         "prepare_start_s": 4281.57,
         "takeoff_s": 4641.57,
-        "return_s": 5430.670207293352,
-        "drone_released_s": 5430.670207293352,
-        "battery_released_s": 6542.133469121107,
-        "energy_kwh": 1.0264536811409721,
-        "return_soc": 0.743386579714757,
+        "return_s": 6120.874598261513,
+        "drone_released_s": 6120.874598261513,
+        "battery_released_s": 7604.134269037186,
+        "energy_kwh": 1.8844453940977077,
+        "return_soc": 0.5288886514755731,
         "terrain_status": "passed",
         "communication_status": "passed"
       },
@@ -3580,62 +3581,6 @@
         "communication_status": "passed"
       },
       {
-        "sortie_id": "SRT-04f9ad195b41",
-        "kind": "transport",
-        "drone_id": "U05",
-        "battery_id": "BAT-B-01",
-        "cargo_ids": [
-          "S001-HYG-01",
-          "S010-FOD-01"
-        ],
-        "visits": [
-          {
-            "site_id": "S001",
-            "cargo_ids": [
-              "S001-HYG-01"
-            ],
-            "delivery_complete_s": 6258.35343698001
-          },
-          {
-            "site_id": "S010",
-            "cargo_ids": [
-              "S010-FOD-01"
-            ],
-            "delivery_complete_s": 6799.831482012614
-          }
-        ],
-        "route_geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [
-              109.2308517,
-              23.0085095
-            ],
-            [
-              109.2432319,
-              23.0335927
-            ],
-            [
-              109.2760168,
-              23.0194009
-            ],
-            [
-              109.2308517,
-              23.0085095
-            ]
-          ]
-        },
-        "prepare_start_s": 5430.68,
-        "takeoff_s": 5790.68,
-        "return_s": 7269.984598261513,
-        "drone_released_s": 7269.984598261513,
-        "battery_released_s": 8753.244269037186,
-        "energy_kwh": 1.8844453940977077,
-        "return_soc": 0.5288886514755731,
-        "terrain_status": "passed",
-        "communication_status": "passed"
-      },
-      {
         "sortie_id": "SRT-425369a05e7d",
         "kind": "transport",
         "drone_id": "U01",
@@ -3676,6 +3621,52 @@
         "battery_released_s": 8148.682088568383,
         "energy_kwh": 1.1780743378537417,
         "return_soc": 0.7382057026991685,
+        "terrain_status": "passed",
+        "communication_status": "passed"
+      },
+      {
+        "sortie_id": "SRT-035ed638cc4f",
+        "kind": "transport",
+        "drone_id": "U05",
+        "battery_id": "BAT-B-01",
+        "cargo_ids": [
+          "S001-FOD-02",
+          "S001-FOD-03"
+        ],
+        "visits": [
+          {
+            "site_id": "S001",
+            "cargo_ids": [
+              "S001-FOD-02",
+              "S001-FOD-03"
+            ],
+            "delivery_complete_s": 6978.55343698001
+          }
+        ],
+        "route_geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              109.2308517,
+              23.0085095
+            ],
+            [
+              109.2432319,
+              23.0335927
+            ],
+            [
+              109.2308517,
+              23.0085095
+            ]
+          ]
+        },
+        "prepare_start_s": 6120.88,
+        "takeoff_s": 6480.88,
+        "return_s": 7269.980207293353,
+        "drone_released_s": 7269.980207293353,
+        "battery_released_s": 8381.443469121106,
+        "energy_kwh": 1.0264536811409721,
+        "return_soc": 0.743386579714757,
         "terrain_status": "passed",
         "communication_status": "passed"
       }
@@ -3740,10 +3731,10 @@
         }
       ]
     },
-    "generated_at": "2026-10-18T03:28:26.266017Z",
+    "generated_at": "2026-10-18T07:09:58.007949Z",
     "solver_notes": [
       "真实限时多起点插入启发式；未证明全局最优。",
-      "共同排序先减少优先级加权逐箱期望延期，再比较所选时间/能耗/均衡目标；更优方案可能增加另一指标。",
+      "tradeoff_v2：先比较所选最后返航/总能耗/时间能源折中目标，同分时再减加权期望延期；全部硬截止与完整保障不变。节能可能增加期望延期。",
       "题设载荷能耗、两段充电；充电端口无限。",
       "航段为WGS84测地线近似；不包含风雨、实时障碍与全航程多机避碰。",
       "有限运输组批/访问顺序与悬停候选上的联合排程；解析连续覆盖，未证明原问题全局最优。",
@@ -3752,36 +3743,35 @@
       "有限联合候选：16个悬停位置、117段覆盖需求；详细搜索状态见计划JSON，不代表原问题全局最优。",
       "局部修复不适用或未找到可行候选，已在剩余预算内全量回退。"
     ],
-    "parent_plan_id": "PLAN-3103F06511614BAA",
-    "event_id": "EVT-3ddf515b-91cd-45",
+    "parent_plan_id": "PLAN-255EFC02E0724AFE",
+    "event_id": "EVT-3a34ce6f-e8de-4f",
     "change_summary": {
       "preserved_sortie_ids": [
-        "SRT-0effebcce24d"
+        "SRT-0effebcce24d",
+        "SRT-493807468ae3"
       ],
       "removed_sortie_ids": [
-        "SRT-08c16e45e379",
-        "SRT-1dbb732b0634",
-        "SRT-3a8ee4a0fd14",
+        "SRT-2234cbddc22a",
+        "SRT-3ba3e7acc086",
         "SRT-3bebd893af9b",
-        "SRT-57efb67fef34",
-        "SRT-6396ff71573f"
+        "SRT-6396ff71573f",
+        "SRT-ab72eb71704a"
       ],
       "added_sortie_ids": [
-        "SRT-04f9ad195b41",
+        "SRT-035ed638cc4f",
         "SRT-425369a05e7d",
         "SRT-6067c92933cd",
-        "SRT-74206425ddca",
+        "SRT-6589ee975d11",
         "SRT-93e57c7b2fd7",
-        "SRT-9e2227259974",
         "SRT-9fcf75dcc73c",
-        "SRT-aee610b66dfa",
-        "SRT-ca508668dcd4",
-        "SRT-dd80cf3ce46b"
+        "SRT-dd80cf3ce46b",
+        "SRT-e320fe1af824",
+        "SRT-f851af29d63b"
       ]
     },
     "relay_sorties": [
       {
-        "relay_sortie_id": "RLY-45addade8050",
+        "relay_sortie_id": "RLY-93804d44fc95",
         "drone_id": "R01",
         "component_id": "R-COMP-01",
         "station_id": "RS-MID-S010",
@@ -3791,17 +3781,17 @@
         ],
         "station_agl_m": 300,
         "station_elevation_m": 633.7569885253906,
-        "prepare_start_s": 879.66,
-        "takeoff_s": 1059.6599999999999,
-        "arrival_s": 1345.6604034967138,
-        "service_start_s": 1375.6604034967138,
-        "service_end_s": 5270.76,
-        "return_s": 5598.931819207163,
-        "drone_released_s": 5898.931819207163,
-        "charge_start_s": 5598.931819207163,
-        "component_released_s": 6645.841462362516,
-        "energy_kwh": 1.3462391216131753,
-        "return_soc": 0.5793002744958827,
+        "prepare_start_s": 183.91,
+        "takeoff_s": 363.90999999999997,
+        "arrival_s": 649.9104034967138,
+        "service_start_s": 679.9104034967138,
+        "service_end_s": 6826.35,
+        "return_s": 7154.521819207163,
+        "drone_released_s": 7454.521819207163,
+        "charge_start_s": 7154.521819207163,
+        "component_released_s": 8480.894674168072,
+        "energy_kwh": 2.03414856605762,
+        "return_soc": 0.36432857310699385,
         "route_geometry": {
           "type": "LineString",
           "coordinates": [
@@ -3821,7 +3811,7 @@
         }
       },
       {
-        "relay_sortie_id": "RLY-15a30af07b78",
+        "relay_sortie_id": "RLY-6ea1f070c2ab",
         "drone_id": "R02",
         "component_id": "R-COMP-02",
         "station_id": "RS-S007-150",
@@ -3831,17 +3821,17 @@
         ],
         "station_agl_m": 150,
         "station_elevation_m": 464.2220458984375,
-        "prepare_start_s": 879.66,
-        "takeoff_s": 1059.6599999999999,
-        "arrival_s": 1473.9427079334087,
-        "service_start_s": 1503.9427079334087,
-        "service_end_s": 5635.45,
-        "return_s": 6077.776211758279,
-        "drone_released_s": 6377.776211758279,
-        "charge_start_s": 6077.776211758279,
-        "component_released_s": 7188.423085350141,
-        "energy_kwh": 1.5031307657645843,
-        "return_soc": 0.5302716356985675,
+        "prepare_start_s": 183.91,
+        "takeoff_s": 363.90999999999997,
+        "arrival_s": 778.1927079334088,
+        "service_start_s": 808.1927079334088,
+        "service_end_s": 6866.02,
+        "return_s": 7308.346211758279,
+        "drone_released_s": 7608.346211758279,
+        "charge_start_s": 7308.346211758279,
+        "component_released_s": 8658.110932572365,
+        "energy_kwh": 2.091728543542362,
+        "return_soc": 0.3463348301430119,
         "route_geometry": {
           "type": "LineString",
           "coordinates": [
@@ -3859,65 +3849,60 @@
             ]
           ]
         }
-      },
-      {
-        "relay_sortie_id": "RLY-3ffae10d0790",
-        "drone_id": "R01",
-        "component_id": "R-COMP-03",
-        "station_id": "RS-MID-S010",
-        "station_coordinates": [
-          109.25343425,
-          23.013955199999998
-        ],
-        "station_agl_m": 300,
-        "station_elevation_m": 633.7569885253906,
-        "prepare_start_s": 6013.1,
-        "takeoff_s": 6193.1,
-        "arrival_s": 6479.1004034967145,
-        "service_start_s": 6509.1004034967145,
-        "service_end_s": 6883.76,
-        "return_s": 7211.931819207163,
-        "drone_released_s": 7511.931819207163,
-        "charge_start_s": 7211.931819207163,
-        "component_released_s": 7744.575402383101,
-        "energy_kwh": 0.270549121613175,
-        "return_soc": 0.9154533994958828,
-        "route_geometry": {
-          "type": "LineString",
-          "coordinates": [
-            [
-              109.2308517,
-              23.0085095
-            ],
-            [
-              109.25343425,
-              23.013955199999998
-            ],
-            [
-              109.2308517,
-              23.0085095
-            ]
-          ]
-        }
       }
     ],
     "joint_metrics": {
-      "relay_energy_kwh": 3.1199190089909346,
-      "joint_energy_kwh": 28.461602647329364,
+      "relay_energy_kwh": 4.1258771095999816,
+      "joint_energy_kwh": 29.467560747938407,
       "joint_makespan_s": 7308.349502077302,
-      "relay_sortie_count": 3
+      "relay_sortie_count": 2
     },
     "communication_report": {
       "model_id": "projected_dem_radio_v1",
       "transport_active_s": 14876.514885921857,
-      "direct_s": 12856.112329788717,
-      "relay_s": 2020.402556133144,
+      "direct_s": 12856.112329788713,
+      "relay_s": 2020.4025561331441,
       "coverage_gap_s": 0,
       "windows": [
         {
           "sortie_id": "SRT-6067c92933cd",
           "start_s": 540,
           "end_s": 2323.0214043502683,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 390,
+          "end_s": 780.7201129646638,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 780.7201129646638,
+          "end_s": 808.2088305330955,
+          "source": "relay",
+          "relay_sortie_id": "RLY-93804d44fc95"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 808.2088305330955,
+          "end_s": 1192.4483567773566,
+          "source": "relay",
+          "relay_sortie_id": "RLY-6ea1f070c2ab"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 1192.4483567773566,
+          "end_s": 1219.9370743457625,
+          "source": "relay",
+          "relay_sortie_id": "RLY-93804d44fc95"
+        },
+        {
+          "sortie_id": "SRT-493807468ae3",
+          "start_s": 1219.9370743457625,
+          "end_s": 1636.275398980274,
           "source": "gateway",
           "relay_sortie_id": null
         },
@@ -3933,7 +3918,7 @@
           "start_s": 1375.6748354463662,
           "end_s": 1799.72179413423,
           "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
+          "relay_sortie_id": "RLY-93804d44fc95"
         },
         {
           "sortie_id": "SRT-0effebcce24d",
@@ -3943,44 +3928,9 @@
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-9e2227259974",
-          "start_s": 360,
-          "end_s": 1207.2712548433701,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
-          "sortie_id": "SRT-ca508668dcd4",
-          "start_s": 1597.28,
-          "end_s": 1988.0001129646632,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
-          "sortie_id": "SRT-ca508668dcd4",
-          "start_s": 1988.0001129646632,
-          "end_s": 2015.4888305330949,
-          "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
-        },
-        {
-          "sortie_id": "SRT-ca508668dcd4",
-          "start_s": 2015.4888305330949,
-          "end_s": 2399.728356777356,
-          "source": "relay",
-          "relay_sortie_id": "RLY-15a30af07b78"
-        },
-        {
-          "sortie_id": "SRT-ca508668dcd4",
-          "start_s": 2399.728356777356,
-          "end_s": 2427.217074345762,
-          "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
-        },
-        {
-          "sortie_id": "SRT-ca508668dcd4",
-          "start_s": 2427.217074345762,
-          "end_s": 2843.5553989802725,
+          "sortie_id": "SRT-6589ee975d11",
+          "start_s": 1996.28,
+          "end_s": 2843.5512548433694,
           "source": "gateway",
           "relay_sortie_id": null
         },
@@ -3996,21 +3946,21 @@
           "start_s": 3584.5784563445586,
           "end_s": 3631.81722981874,
           "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
+          "relay_sortie_id": "RLY-93804d44fc95"
         },
         {
           "sortie_id": "SRT-dd80cf3ce46b",
           "start_s": 3631.81722981874,
           "end_s": 3933.660834313419,
           "source": "relay",
-          "relay_sortie_id": "RLY-15a30af07b78"
+          "relay_sortie_id": "RLY-6ea1f070c2ab"
         },
         {
           "sortie_id": "SRT-dd80cf3ce46b",
           "start_s": 3933.660834313419,
           "end_s": 3968.0217312739264,
           "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
+          "relay_sortie_id": "RLY-93804d44fc95"
         },
         {
           "sortie_id": "SRT-dd80cf3ce46b",
@@ -4020,16 +3970,30 @@
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-aee610b66dfa",
-          "start_s": 3203.56,
-          "end_s": 4050.83125484337,
+          "sortie_id": "SRT-e320fe1af824",
+          "start_s": 3434.29,
+          "end_s": 4281.56125484337,
           "source": "gateway",
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-74206425ddca",
+          "sortie_id": "SRT-f851af29d63b",
           "start_s": 4641.57,
-          "end_s": 5430.670207293526,
+          "end_s": 5360.001519123193,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-f851af29d63b",
+          "start_s": 5360.001519123193,
+          "end_s": 5734.645765623919,
+          "source": "relay",
+          "relay_sortie_id": "RLY-93804d44fc95"
+        },
+        {
+          "sortie_id": "SRT-f851af29d63b",
+          "start_s": 5734.645765623919,
+          "end_s": 6120.874598261689,
           "source": "gateway",
           "relay_sortie_id": null
         },
@@ -4052,14 +4016,21 @@
           "start_s": 5236.39737911843,
           "end_s": 5270.758276078969,
           "source": "relay",
-          "relay_sortie_id": "RLY-45addade8050"
+          "relay_sortie_id": "RLY-93804d44fc95"
         },
         {
           "sortie_id": "SRT-9fcf75dcc73c",
           "start_s": 5270.758276078969,
+          "end_s": 5601.08759679201,
+          "source": "relay",
+          "relay_sortie_id": "RLY-6ea1f070c2ab"
+        },
+        {
+          "sortie_id": "SRT-9fcf75dcc73c",
+          "start_s": 5601.08759679201,
           "end_s": 5635.448493752518,
           "source": "relay",
-          "relay_sortie_id": "RLY-15a30af07b78"
+          "relay_sortie_id": "RLY-93804d44fc95"
         },
         {
           "sortie_id": "SRT-9fcf75dcc73c",
@@ -4069,30 +4040,16 @@
           "relay_sortie_id": null
         },
         {
-          "sortie_id": "SRT-04f9ad195b41",
-          "start_s": 5790.68,
-          "end_s": 6509.111519123194,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
-          "sortie_id": "SRT-04f9ad195b41",
-          "start_s": 6509.111519123194,
-          "end_s": 6883.75576562392,
-          "source": "relay",
-          "relay_sortie_id": "RLY-3ffae10d0790"
-        },
-        {
-          "sortie_id": "SRT-04f9ad195b41",
-          "start_s": 6883.75576562392,
-          "end_s": 7269.98459826169,
-          "source": "gateway",
-          "relay_sortie_id": null
-        },
-        {
           "sortie_id": "SRT-425369a05e7d",
           "start_s": 6447.45,
           "end_s": 7308.349502077518,
+          "source": "gateway",
+          "relay_sortie_id": null
+        },
+        {
+          "sortie_id": "SRT-035ed638cc4f",
+          "start_s": 6480.88,
+          "end_s": 7269.980207293526,
           "source": "gateway",
           "relay_sortie_id": null
         }
@@ -4106,19 +4063,20 @@
       "relay_slot_limit": 11,
       "stages": [
         {
-          "stage": "priority_delay",
-          "status": "OPTIMAL",
-          "seconds": 2.9539547,
-          "objective": 10782252
-        },
-        {
           "stage": "joint_objective",
           "status": "OPTIMAL",
-          "seconds": 2.6572524,
+          "seconds": 4.147454300000001,
           "objective": 730835
+        },
+        {
+          "stage": "priority_delay",
+          "status": "OPTIMAL",
+          "seconds": 3.002371,
+          "objective": 10782252
         }
       ]
-    }
+    },
+    "objective_policy": "tradeoff_v2"
   },
   "page_errors": []
 }

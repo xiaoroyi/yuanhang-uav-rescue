@@ -1,5 +1,7 @@
 # 展示与分析体验迭代
 
+本文件保留23f0141体验检查点的历史交接。本轮策略/调度安排补充见[新交付记录](STRATEGY_V2_RELEASE.md)；旧完整回归原始输出已另存evidence/strategy-v2/previous-verification-23f0141/，evidence/verification/latest.json将记录新版本，不用旧计数宣称新源码通过。
+
 本轮承接v0的真实计算系统，按用户2026-10-18要求改进视觉、数据分析、地图、历史、新人使用和创新点呈现。长期仍为A算法、B同一人负责前后端。开发分支feat/experience-v1；最终验证后同步候选集成分支feat/solo-fullstack-v0，main仍由负责人评审合并。
 
 本轮功能和完整集成验收已完成。当前八页面、真实高度分析及数据大屏的结果以本报告和evidence/verification/latest.json为准；v0记录保留为历史。

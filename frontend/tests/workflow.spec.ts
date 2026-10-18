@@ -1120,10 +1120,10 @@ test('三种偏好共享真实快照，保留硬截止并分别计算与恢复',
   await expect(page.locator('.job-banner')).toBeVisible()
   await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
   await expect(page.locator('.strategy-metrics')).toHaveCount(2)
-  await page.getByRole('button', { name: '真实计算均衡策略', exact: true }).click()
+  await page.getByRole('button', { name: '真实计算折中策略', exact: true }).click()
   await expect(page.locator('.job-banner')).toBeVisible()
   await expect(page.locator('.job-banner')).toBeHidden({ timeout: 45000 })
-  await expect(page.getByRole('button', { name: '当前均衡方案', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '当前折中方案', exact: true })).toBeVisible()
   await expect(page.locator('.strategy-metrics')).toHaveCount(2)
   const summaries = await (await request.get(`/api/v1/scenarios/${sid}/plans`)).json()
   expect(summaries).toHaveLength(3)
@@ -1177,7 +1177,7 @@ test('三种偏好共享真实快照，保留硬截止并分别计算与恢复',
     ).toBeLessThanOrEqual(2)
   }
   await page.reload()
-  await expect(page.getByRole('button', { name: '当前均衡方案', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '当前折中方案', exact: true })).toBeVisible()
   await expect(page.locator('.strategy-metrics')).toHaveCount(2)
   expect((await (await request.get(`/api/v1/scenarios/${sid}/solve-jobs`)).json()).length).toBe(3)
   await fs.writeFile(

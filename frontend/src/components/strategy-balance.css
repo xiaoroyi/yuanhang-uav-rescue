@@ -1,3 +1,4 @@
+@import './ambient-upgrade.css';
 .balanced-strategy {
   grid-column: 1 / -1;
   margin: 3px 11px 8px;
