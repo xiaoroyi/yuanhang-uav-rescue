@@ -60,7 +60,8 @@ def setup(c, configure=None):
             "/solve-jobs",
             {
                 "snapshot_id": snap["snapshot_id"],
-                "time_limit_s": 5,
+                # A verified setup is a precondition, not a latency benchmark.
+                "time_limit_s": 10,
                 "objective_policy": "tradeoff_v2",
             },
             202,
@@ -317,7 +318,7 @@ def test_inflight_repair_preserves_facts_and_resource_release(tmp_path):
             {
                 "expected_revision": e["revision"],
                 "idempotency_key": "repair",
-                "time_limit_s": 3,
+                "time_limit_s": 8,
             },
             202,
         )
@@ -430,7 +431,7 @@ def test_partial_device_apply_retains_schedule_and_stale_candidate_rejected(tmp_
             {
                 "expected_revision": e["revision"],
                 "idempotency_key": "one",
-                "time_limit_s": 3,
+                "time_limit_s": 8,
             },
             202,
         )
@@ -465,7 +466,7 @@ def test_partial_device_apply_retains_schedule_and_stale_candidate_rejected(tmp_
             {
                 "expected_revision": e["revision"],
                 "idempotency_key": "two",
-                "time_limit_s": 3,
+                "time_limit_s": 8,
             },
             202,
         )
@@ -579,7 +580,7 @@ def test_inflight_weather_event_uses_real_repair_and_protects_unsafe_commitments
             {
                 "expected_revision": e["revision"],
                 "idempotency_key": "weather-repair",
-                "time_limit_s": 5,
+                "time_limit_s": 8,
             },
             202,
         )

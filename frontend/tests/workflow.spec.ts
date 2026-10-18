@@ -1380,8 +1380,18 @@ test('三档压力测试分别真实计算，刷新后保留各情景历史', as
 
 test('任务刷新恢复，重新载入页面不重复提交求解', async ({ page, request }) => {
   const sceneId = await page.getByLabel('选择场景').inputValue()
+  // The creation indicator can precede submission while the Snapshot is being
+  // saved. Refresh recovery starts from an actual server-accepted SolveJob.
+  const accepted = page.waitForResponse(
+    (r) =>
+      new URL(r.url()).pathname === '/api/v1/solve-jobs' &&
+      r.request().method() === 'POST' &&
+      r.status() === 202,
+  )
   await page.getByRole('button', { name: '生成真实方案', exact: true }).click()
   await expect(page.locator('.job-banner')).toBeVisible()
+  const submitted = await (await accepted).json()
+  expect(submitted.job_id).toBeTruthy()
   await page.reload()
   await expect(page.getByTestId('sortie-card').first()).toBeVisible({ timeout: 45000 })
   const jobs = await (await request.get(`/api/v1/scenarios/${sceneId}/solve-jobs`)).json()

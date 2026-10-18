@@ -315,6 +315,7 @@ def create_app(runtime_dir: Path | None = None):
         database.initialize()
         manager = JobManager(database)
         manager.recover()
+        app.state.recover_execution_changes()
         app.state.jobs = manager
         from backend.app.simulation import SimulationEngine
 

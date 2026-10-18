@@ -45,6 +45,7 @@ from backend.app.simulation import timestamp
 from shared.contracts import content_hash, validate_scenario, ContractError
 from solver.public_api import validate
 from backend.app.execution_impact import build_impact
+from backend.app.request_identity import request_hashes
 from backend.app.device_adapter import SimulationAdapter
 from backend.app.device_state import SimulationDeviceStore
 from solver.weather import eligible_types as weather_eligible_types
@@ -61,10 +62,10 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
         return {"modes": ["simulation"]}
 
     def receipt(session, namespace, key, body, owner):
-        digest = content_hash(body.model_dump(mode="json"))
+        digest, compatible = request_hashes(body)
         previous = session.get(OperationRecordRow, (namespace, key))
         if previous:
-            if previous.owner_id != owner or previous.request_hash != digest:
+            if previous.owner_id != owner or previous.request_hash not in compatible:
                 raise error(409, "IDEMPOTENCY_CONFLICT", "幂等键内容或所属执行冲突。")
             return previous.content, digest
         return None, digest
@@ -79,6 +80,25 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 content=copy.deepcopy(content),
             )
         )
+
+    def recover_unbound_repairs():
+        # A crash between durable admission and binding a Job is uncertain. Do
+        # not dispatch again or infer success from an unrelated matching input.
+        with database.session(immediate=True) as session:
+            for record in session.scalars(
+                select(OperationRecordRow).where(
+                    OperationRecordRow.namespace == "execution.change"
+                )
+            ):
+                value = record.content
+                if value.get("status") == "computing" and value.get("job") is None:
+                    record.content = {
+                        **value,
+                        "status": "failed",
+                        "message": "服务重启前的计算派发未确认；原输入与承诺保留，本次不会自动重发。请核对后重新生成调整。",
+                    }
+
+    app.state.recover_execution_changes = recover_unbound_repairs
 
     def events_for(session, execution_id):
         """Project append-only corrections without rewriting the original event/input."""
@@ -692,7 +712,15 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 execution_id,
             )
             if old:
-                return old
+                return change_view(
+                    session,
+                    require(
+                        session,
+                        OperationRecordRow,
+                        ("execution.change", old["change_id"]),
+                        error,
+                    ),
+                )
             row = require(session, ExecutionRow, execution_id, error)
             revision(row.content, body.expected_revision, error)
             if (
@@ -948,6 +976,16 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 digest,
                 change,
             )
+            # Reserve the request in the same transaction as the proposal/input,
+            # before releasing the SQLite lock to dispatch an independent Job.
+            store(
+                session,
+                "execution.repair.request",
+                execution_id + ":" + body.idempotency_key,
+                execution_id,
+                digest,
+                change,
+            )
             session.flush()
         if snap:
             parent = require_plan(row.content["desired_plan_id"])
@@ -980,14 +1018,12 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                 ("execution.change", change["change_id"]),
                 error,
             ).content = copy.deepcopy(change)
-            store(
+            require(
                 session,
-                "execution.repair.request",
-                execution_id + ":" + body.idempotency_key,
-                execution_id,
-                digest,
-                change,
-            )
+                OperationRecordRow,
+                ("execution.repair.request", execution_id + ":" + body.idempotency_key),
+                error,
+            ).content = copy.deepcopy(change)
         return change
 
     def require_plan(plan_id):

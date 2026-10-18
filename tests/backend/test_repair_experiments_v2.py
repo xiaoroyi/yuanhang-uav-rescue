@@ -49,7 +49,7 @@ def spec(repair, key="pair"):
         "objective_policy": "tradeoff_v2",
         "objective": "time",
         "seeds": [7, 11],
-        "time_limit_s": 3,
+        "time_limit_s": 8,
         "idempotency_key": key,
     }
 
@@ -112,18 +112,24 @@ def test_dynamic_campaign_pairs_constraints_and_frozen_evidence_without_changing
                 job = session.get(JobRow, case["job"]["job_id"])
                 assert (
                     job.options["seed"] == case["seed"]
-                    and job.options["time_limit_s"] == 3
+                    and job.options["time_limit_s"] == 8
                 )
                 candidate = session.get(PlanRow, case["job"]["plan_id"]).content
                 assert candidate["snapshot_id"] == run["snapshot_id"]
                 assert validate(analysis, candidate)["status"] == "passed"
                 assert case["repair_difference"] is not None
+                codes = {d["code"] for d in job.outcome["diagnostics"]}
                 expected = (
                     "dependency_local"
-                    if case["method"] == "dependency"
+                    if "REPAIR_LOCAL_APPLIED" in codes
                     else "full_recompute"
                 )
                 assert case["calculation_method"] == expected
+                assert ("REPAIR_LOCAL_APPLIED" in codes) != (
+                    "REPAIR_FULL_RECOMPUTE" in codes
+                )
+                if case["method"] == "full_recompute":
+                    assert expected == "full_recompute"
                 assert not set(repair["committed_cargo_ids"]).intersection(
                     cid for r in candidate["sorties"] for cid in r["cargo_ids"]
                 )

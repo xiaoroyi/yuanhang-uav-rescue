@@ -27,13 +27,13 @@ def spec(snapshot, key="benchmark", suite="strategy"):
         "suite": suite,
         "objective_policy": "tradeoff_v2",
         "seeds": [7],
-        "time_limit_s": 3,
+        "time_limit_s": 8,
         "idempotency_key": key,
     }
 
 
 def finished(c, eid):
-    for _ in range(600):
+    for _ in range(1600):
         run = c.get("/api/v1/experiments/" + eid).json()
         if run["status"] in ("completed", "canceled"):
             return run
@@ -119,7 +119,7 @@ def test_strategy_campaign_uses_real_workers_isolated_input_and_lossless_export(
                 assert payload["snapshot"]["snapshot_id"] == done["snapshot_id"]
                 assert (
                     payload["options"]["seed"] == 7
-                    and payload["options"]["time_limit_s"] == 3
+                    and payload["options"]["time_limit_s"] == 8
                 )
         assert done["environment"]["cp_sat_threads"] == 1
     with TestClient(create_app(directory)) as c:

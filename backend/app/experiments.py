@@ -37,6 +37,7 @@ from shared.contracts import content_hash, validate_scenario
 from solver.metrics import delivery_analysis
 from backend.app.repair_evidence import validate_evidence, comparison_input_hash
 from backend.app.repair_diff import reference_sorties, compare_future
+from backend.app.request_identity import request_hashes
 
 ROOT = Path(__file__).resolve().parents[2]
 TERMINAL = {"completed", "failed", "canceled"}
@@ -353,12 +354,12 @@ def register_experiments(app, database, error, create_job, solve_request, snapsh
     def create_experiment(body: ExperimentRequest):
         with app.state.experiments.lock:
             with database.session(immediate=True) as session:
-                digest = content_hash(body.model_dump(mode="json"))
+                digest, compatible = request_hashes(body)
                 old = session.get(
                     OperationRecordRow, ("experiment.create", body.idempotency_key)
                 )
                 if old:
-                    if old.request_hash != digest:
+                    if old.request_hash not in compatible:
                         raise error(
                             409, "IDEMPOTENCY_CONFLICT", "评测幂等键对应不同输入。"
                         )

@@ -5,6 +5,12 @@ import fs from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
 const frontend = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const root = path.resolve(frontend, '..')
+const runtime = path.resolve(
+  process.env.YUANHANG_E2E_RUNTIME || path.join(root, '.local/e2e-runtime'),
+)
+const runtimeRelative = path.relative(path.join(root, '.local'), runtime)
+if (!runtimeRelative || runtimeRelative.startsWith('..') || path.isAbsolute(runtimeRelative))
+  throw new Error('E2E runtime must be a named directory inside this project .local/')
 const stopFile = path.join(root, '.local/e2e-control', randomUUID() + '.stop')
 await fs.mkdir(path.dirname(stopFile), { recursive: true })
 const env = {
@@ -12,7 +18,7 @@ const env = {
   NO_PROXY: '127.0.0.1,localhost,::1',
   no_proxy: '127.0.0.1,localhost,::1',
   PLAYWRIGHT_BROWSERS_PATH: path.join(root, '.local/ms-playwright'),
-  YUANHANG_RUNTIME: path.join(root, '.local/e2e-runtime'),
+  YUANHANG_RUNTIME: runtime,
   YUANHANG_API_URL: 'http://127.0.0.1:8011',
   YUANHANG_E2E_STOP_FILE: stopFile,
   YUANHANG_E2E_REPORT:

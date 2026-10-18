@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
@@ -15,6 +15,7 @@ import {
   type TownContextData,
 } from '../lib/map-context'
 import './rescue-map.css'
+import { UIContext } from './UIContext'
 
 maplibregl.setWorkerUrl(workerUrl)
 
@@ -58,6 +59,8 @@ export function RescueMap({
   onPickCoordinates,
   routeSets,
 }: Props) {
+  const uiContext = useContext(UIContext)
+  const preserveCamera = uiContext === 'v2' || !!viewKey
   const container = useRef<HTMLDivElement>(null),
     map = useRef<maplibregl.Map | null>(null),
     markers = useRef<maplibregl.Marker[]>([])
@@ -80,6 +83,7 @@ export function RescueMap({
     onSelectDevice,
     onPickCoordinates,
     viewKey: viewKey || scenario.scenario_id || 'draft',
+    preserveCamera,
   })
   latest.current = {
     scenario,
@@ -91,6 +95,7 @@ export function RescueMap({
     onSelectDevice,
     onPickCoordinates,
     viewKey: viewKey || scenario.scenario_id || 'draft',
+    preserveCamera,
   }
   const [ready, setReady] = useState(false),
     [showRoutes, setShowRoutes] = useState(true),
@@ -165,6 +170,10 @@ export function RescueMap({
     setDeviceChoices([])
     cameraOwner.current = owner
     cameraRegion.current = region
+    if (!latest.current.preserveCamera) {
+      fit(0)
+      return
+    }
     try {
       const saved: unknown = JSON.parse(
         sessionStorage.getItem('yuanhang-map-camera:' + owner) || 'null',
@@ -273,7 +282,7 @@ export function RescueMap({
     cameraRegion.current = null
     m.on('movestart', () => setRouteChoices([]))
     m.on('moveend', () => {
-      if (!cameraOwner.current) return
+      if (!cameraOwner.current || !latest.current.preserveCamera) return
       try {
         const center = m.getCenter()
         sessionStorage.setItem(
@@ -403,6 +412,9 @@ export function RescueMap({
     })
     const observer = new ResizeObserver(() => {
       m.resize()
+      // Legacy workspaces kept the entire small scenario visible on resize.
+      // V2 task workspaces retain the user's inspection camera instead.
+      if (!latest.current.preserveCamera) fit(0)
     })
     observer.observe(container.current)
     return () => {

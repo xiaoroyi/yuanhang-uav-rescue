@@ -1,6 +1,17 @@
 # 援航 · 无人机救援调度
 
-当前正在 `feat/mission-workspace-v2` 实施新版任务流程与服务器仿真。根地址为独立首页，任务内部按准备/规划/执行/复盘组织；V1兼容入口保留。继续开发先读 [V2索引](evidence/redesign-v2/INDEX.md)、[准确进度](evidence/redesign-v2/HANDOFF.md)；下文V1发布与测试是历史证据，不能代替V2最终验收。两人A算法、B一人前后端不变，main不改写。
+当前版本位于 [`feat/mission-workspace-v2`](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/mission-workspace-v2)。根地址进入救援工作首页，主导航为首页、救援任务、资源中心、演练评测；任务内部依次为准备、规划、执行和复盘。两人分工：A负责算法及项目，B一人负责前后端；main保持原状态。
+
+Windows本机双击 **start.cmd**，打开 **http://127.0.0.1:8000/**。当前电脑已安装依赖；离线可计算和展示路线。新电脑先安装Python3.11/3.12与Node24并联网运行setup.cmd。数据保存在runtime/，用backup.cmd作一致备份。
+
+首次使用点“运行示例演练”，按准备→条件检查→真实计算→核对地图/箱件/双资源排程→确认→创建并启动模拟→暂停上报变化→核对影响链及差异→采纳→复盘操作。没有可行基线时，规划页的“资源诊断与增配”可真实计算独立反事实；演练评测可比较静态策略或同冻结执行输入下的修复方法。
+
+完整步骤见 [V2操作指南](evidence/redesign-v2/DEMO_GUIDE.md)，功能边界见 [当前限制](evidence/redesign-v2/KNOWN_LIMITATIONS.md)。继续开发先读 [V2索引](evidence/redesign-v2/INDEX.md)、[准确交接](evidence/redesign-v2/HANDOFF.md)和[唯一任务板](docs/08-TASK-BOARD.md)。本版仅进行服务器业务仿真，尚未连接真机/SITL，未把研究任务或外部依赖标为完成。实际验收记录见 [测试报告](evidence/redesign-v2/TEST_REPORT.md)。
+
+<details>
+<summary>V1历史发布与旧九页面使用说明（保留追溯）</summary>
+
+以下为旧界面和历史验收，不替代当前V2入口、实现状态或最终测试。
 
 本地运行的灾害应急运输与通信规划系统。编辑逐箱物资、需求与实际机队，真实求解，查看地图、三维地形、飞行高度剖面、调度安排与资源甘特，比较时间/能耗/时间能耗折中策略，并在资源退出或紧急插单后重新规划。默认5点32箱动态演练，保留原题15点80箱入口。
 
@@ -40,6 +51,8 @@ Windows双击 **start.cmd**，浏览器打开 **http://127.0.0.1:8000/**。已�
 
 新电脑首次需要Python3.11或3.12、Node.js24；联网运行 setup.cmd。若没有 py 启动器，使用相应Python执行 `python scripts/setup.py`。Linux/macOS运行 `python3.11 scripts/setup.py` 后 `.venv/bin/python scripts/launch.py --open`。安装不修改全局Python环境。
 
+</details>
+
 ## 开发和验收
 
 在仓库根目录执行；Windows用 npm.cmd 避免PowerShell脚本策略问题。Linux/macOS将 `.venv\Scripts\python` 换为 `.venv/bin/python`，npm.cmd 换为 npm。
@@ -69,6 +82,7 @@ E2E使用独立8011/5174端口与 .local/e2e-runtime/ 数据库，不覆盖演�
 
 ```powershell
 .venv\Scripts\python scripts/generate_models.py
+.venv\Scripts\python scripts/export_operations.py
 .venv\Scripts\python scripts/export_openapi.py
 node frontend/scripts/generate-types.mjs
 ```
@@ -85,7 +99,7 @@ node frontend/scripts/generate-types.mjs
 |---|---|
 | solver/ | 纯Python物理、调度、独立验证、只读展示数据 |
 | backend/ | FastAPI、SQLite、版本/Job/Worker/确认/事件/导出 |
-| frontend/ | React/TypeScript、八页面、离线/卫星地图、三维地形、图表与甘特 |
+| frontend/ | React/TypeScript任务工作空间、离线/卫星地图、图表/甘特与V1兼容视图 |
 | shared/、contracts/ | 同一套Schema检查、生成类型、HTTP实际快照与历史设计草案 |
 | fixtures/ | 明确标为mock的开发样例，不冒充算法结果 |
 | tests/、evidence/ | 自动化回归与真实运行证据 |
