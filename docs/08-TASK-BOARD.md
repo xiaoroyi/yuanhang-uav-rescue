@@ -39,7 +39,7 @@
 | R03 | P0 | A+B | R01, R02 | 首页和任务管理；验收：创建、继续、复制、搜索、归档、示例演练；不复制实际执行事实 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R04 | P0 | A+B | R01, R02 | 任务准备流程；验收：区域/基地、需求/库存、机队/保障、条件检查 4 步；草稿保存与修复定位 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R05 | P0 | A+B | R01, R04 | 条件检查服务与界面；验收：planning/execution 检查报告、必检范围、未知/失败/提醒分开；能一键定位问题 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
-| R06 | P0 | A+B | R01, R02 | 统一地图与空间资产；验收：真正交互地图、图层、紧凑标签、选中联动、CRS/DEM/离线、限制区编辑和缓存失效 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
+| R06 | P0 | A+B | R01, R02 | 统一地图与空间资产；验收：真正交互地图、图层、紧凑标签、选中联动、CRS/DEM/离线、限制区编辑和缓存失效 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md; frontend/tests/map-workspace-v2.spec.ts; evidence/redesign-v2/map-workspace-browser-results.json |
 | R07 | P0 | A+B | R01, R04 | Solver 适配和计算作业；验收：原算法回归、实际新输入计算、限时/取消、候选、错误语义、独立验证 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R08 | P0 | A+B | R06, R07 | 结果数据与分析图；验收：同源 PlanAnalysis、V01—V09、单位和阶段一致；逐箱/机体/电池追踪 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R09 | P0 | A+B | R02, R05, R06, R07, R08 | 方案工作台与确认；验收：地图主视图、任务表、资源甘特、比较、确认/导出；同条件与事件差异分开 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
@@ -68,8 +68,8 @@
 | B-05 | P0 | B | B-04, C-05 | 事件输入、旧新地图叠加、差异清单、时间轴；验收：可清楚定位受影响任务和未完成原因 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; evidence/browser/e2e-results.json |
 | X-03 | P0 | A+B | A-05, A-06, C-05, B-05, X-02 | 事件端到端：原计划→事件→新快照→重算→复盘；验收：旧 Plan 未覆盖，重复事件不重复预约 | done | feat/solo-fullstack-v0; https://github.com/xiaoroyi/yuanhang-uav-rescue/pull/1; docs/CHECKPOINT_001.md; evidence/browser/e2e-results.json |
 | R10 | P0 | A+B | R01, R09 | 服务器业务仿真与回放；验收：独立执行实例/时钟/账本，开始暂停倍速恢复，刷新不丢进度；回放不改事实 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
-| R11 | P0 | A+B | R01, R10 | 遥测和设备适配合同；验收：SimulationAdapter、能力查询、指令状态、断线/重连；SITL 接入按环境验证 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
-| R12 | P0 | A+B | R07, R10, R11 | 执行中事件与计划变更；验收：已装载/在飞事实冻结、依赖影响、真实重算、差异确认、分设备应用及失败状态 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
+| R11 | P0 | A+B | R01, R10 | 遥测和设备适配合同；验收：SimulationAdapter、能力查询、指令状态、断线/重连；SITL 接入按环境验证 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md; docs/CONTRACT_RFC_023.md; tests/backend/test_device_readback_v2.py; evidence/redesign-v2/device-readback-browser-results.json |
+| R12 | P0 | A+B | R07, R10, R11 | 执行中事件与计划变更；验收：已装载/在飞事实冻结、依赖影响、真实重算、差异确认、分设备应用及失败状态 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md; docs/CONTRACT_RFC_024.md; tests/backend/test_execution_boundaries_v2.py |
 
 ## G4
 
@@ -136,7 +136,7 @@
 | R17 | P1 | A+B | R08, R10, R12 | 复盘、档案与导出；验收：计划/模拟/实况分开、轨迹/服务/能源/通信分析、可重载任务包 | in_progress | feat/mission-workspace-v2; docs/CONTRACT_RFC_021.md; tests/backend/test_execution_archive.py; frontend/tests/archive-v2.spec.ts; evidence/redesign-v2/archive-browser-visual-results.json; evidence/redesign-v2/SCENARIO_MANIFEST.json |
 | R18 | P1 | A+B | R06, R09, R10 | 离线、性能与异常降级；验收：授权地图包、字体图标本地化、无网/无 WebGL 降级、订阅清理和任务限流 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
 | R19 | P1 | A+B | R01, R11 | 安全、隐私与权限；验收：模式隔离、认证、指令审批/幂等/TTL、敏感信息与 XSS/上传路径防护 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
-| R20 | P1 | A+B | R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19 | 全流程和视觉验收；验收：真实浏览器操作、指定尺寸截图、数据/日志、失败态测试、重复运行 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md |
+| R20 | P1 | A+B | R03, R04, R05, R06, R07, R08, R09, R10, R11, R12, R13, R14, R15, R16, R17, R18, R19 | 全流程和视觉验收；验收：真实浏览器操作、指定尺寸截图、数据/日志、失败态测试、重复运行 | in_progress | feat/mission-workspace-v2; evidence/redesign-v2/HANDOFF.md; evidence/redesign-v2/FEATURE_TRACEABILITY.md; evidence/redesign-v2/full-verification/latest.json; evidence/redesign-v2/map-workspace-browser-results.json; evidence/redesign-v2/weather-map-clearance-results.json |
 | R21 | P1 | A+B | R16, R17, R20 | 演示与参赛交付；验收：项目说明书实况更新、真实图表、视频/PPT素材、运行包、许可/匿名检查 | todo | feat/mission-workspace-v2 |
 | R22 | P2 | A | R16 | 学习辅助搜索；验收：规则基线、训练/测试隔离、消融、开销；无证据不显示 AI 成功 | todo | feat/mission-workspace-v2 |
 | R23 | P2 | A+B | R06 | 影像测绘与高级三维；验收：ODM 异步处理、质量确认；必要时 Cesium 的真三维剖面与轨迹 | todo | feat/mission-workspace-v2 |

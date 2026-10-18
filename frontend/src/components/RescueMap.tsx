@@ -18,13 +18,21 @@ import './rescue-map.css'
 
 maplibregl.setWorkerUrl(workerUrl)
 
+type MapScene = Pick<Scenario, 'sites' | 'terrain' | 'restricted_zones' | 'weather'> & {
+  base: Scenario['base'] | null
+  scenario_id?: string
+}
+const mapNodes = (scene: MapScene) => (scene.base ? [scene.base, ...scene.sites] : scene.sites)
+type RouteChoice = { id: string; drone: string; cargo: number; stops: string }
 type Props = {
-  scenario: Scenario
+  scenario: MapScene
+  viewKey?: string
   plan?: Plan | null
   oldPlan?: Plan | null
   selected: string | null
   onSelect: (id: string) => void
   onSelectSite?: (id: string) => void
+  onSelectDevice?: (id: string) => void
   compact?: boolean
   playTime?: number | null
   playback?: Playback
@@ -35,11 +43,13 @@ type Props = {
 }
 export function RescueMap({
   scenario,
+  viewKey,
   plan,
   oldPlan,
   selected,
   onSelect,
   onSelectSite,
+  onSelectDevice,
   compact = false,
   playTime,
   playback,
@@ -55,6 +65,10 @@ export function RescueMap({
   const relayMarkers = useRef<maplibregl.Marker[]>([])
   const placeLabels = useRef<maplibregl.Marker[]>([])
   const updateSiteLayout = useRef<(() => void) | null>(null)
+  const cameraOwner = useRef<string | null>(null)
+  const [routeChoices, setRouteChoices] = useState<RouteChoice[]>([])
+  const [siteChoices, setSiteChoices] = useState<Scenario['sites']>([])
+  const [deviceChoices, setDeviceChoices] = useState<Telemetry[]>([])
   const latest = useRef({
     scenario,
     plan,
@@ -62,7 +76,9 @@ export function RescueMap({
     selectedSite,
     onSelect,
     onSelectSite,
+    onSelectDevice,
     onPickCoordinates,
+    viewKey: viewKey || scenario.scenario_id || 'draft',
   })
   latest.current = {
     scenario,
@@ -71,7 +87,9 @@ export function RescueMap({
     selectedSite,
     onSelect,
     onSelectSite,
+    onSelectDevice,
     onPickCoordinates,
+    viewKey: viewKey || scenario.scenario_id || 'draft',
   }
   const [ready, setReady] = useState(false),
     [showRoutes, setShowRoutes] = useState(true),
@@ -112,10 +130,13 @@ export function RescueMap({
   const fit = useCallback((duration = 500) => {
     const scenario = latest.current.scenario
     const bounds = new maplibregl.LngLatBounds()
-    for (const n of [scenario.base, ...scenario.sites])
-      bounds.extend(n.coordinates as [number, number])
+    for (const n of mapNodes(scenario)) bounds.extend(n.coordinates as [number, number])
     for (const r of latest.current.plan?.relay_sorties || [])
       bounds.extend(r.station_coordinates as [number, number])
+    if (bounds.isEmpty()) {
+      map.current?.jumpTo({ center: [0, 20], zoom: 1.5 })
+      return
+    }
     const width = map.current?.getContainer().clientWidth || 1000
     map.current?.fitBounds(bounds, {
       // Keep the lowest site markers above the bottom legend and scale controls.
@@ -129,9 +150,41 @@ export function RescueMap({
       duration,
     })
   }, [])
-  useEffect(() => {
-    if (ready && plan?.relay_sorties?.length) fit()
-  }, [ready, plan, fit])
+  const restoreView = useCallback(() => {
+    const m = map.current
+    const owner = latest.current.viewKey
+    if (!m || cameraOwner.current === owner) return
+    setRouteChoices([])
+    setSiteChoices([])
+    setDeviceChoices([])
+    cameraOwner.current = owner
+    try {
+      const saved: unknown = JSON.parse(
+        sessionStorage.getItem('yuanhang-map-camera:' + owner) || 'null',
+      )
+      if (
+        saved &&
+        typeof saved === 'object' &&
+        'center' in saved &&
+        'zoom' in saved &&
+        Array.isArray(saved.center) &&
+        saved.center.length === 2 &&
+        saved.center.every((n) => typeof n === 'number' && Number.isFinite(n)) &&
+        typeof saved.zoom === 'number' &&
+        Number.isFinite(saved.zoom) &&
+        Math.abs(saved.center[0]) <= 180 &&
+        Math.abs(saved.center[1]) <= 85 &&
+        saved.zoom >= 0 &&
+        saved.zoom <= 22
+      ) {
+        m.jumpTo({ center: saved.center as [number, number], zoom: saved.zoom })
+        return
+      }
+    } catch {
+      /* Browser storage may be disabled; the map remains usable. */
+    }
+    fit(0)
+  }, [fit])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !m.getSource('grid')) return
@@ -190,8 +243,9 @@ export function RescueMap({
     try {
       m = new maplibregl.Map({
         container: container.current,
-        center: latest.current.scenario.base.coordinates as [number, number],
-        zoom: 11,
+        center: (latest.current.scenario.base?.coordinates ||
+          latest.current.scenario.sites[0]?.coordinates || [0, 20]) as [number, number],
+        zoom: latest.current.scenario.base ? 11 : 1.5,
         attributionControl: false,
         style: {
           version: 8,
@@ -204,6 +258,20 @@ export function RescueMap({
       return
     }
     map.current = m
+    cameraOwner.current = null
+    m.on('movestart', () => setRouteChoices([]))
+    m.on('moveend', () => {
+      if (!cameraOwner.current) return
+      try {
+        const center = m.getCenter()
+        sessionStorage.setItem(
+          'yuanhang-map-camera:' + cameraOwner.current,
+          JSON.stringify({ center: [center.lng, center.lat], zoom: m.getZoom() }),
+        )
+      } catch {
+        /* Optional persistence, no business state is stored here. */
+      }
+    })
     m.on('contextmenu', (event) => {
       event.preventDefault()
       latest.current.onPickCoordinates?.([event.lngLat.lng, event.lngLat.lat])
@@ -282,14 +350,34 @@ export function RescueMap({
           'line-opacity': ['case', ['get', 'dim'], 0.2, 0.85],
         },
       })
-      m.on('click', 'routes', (e) => {
-        const id = e.features?.[0]?.properties?.id
-        if (id) latest.current.onSelect(id)
+      m.addLayer({
+        id: 'route-pick',
+        type: 'line',
+        source: 'routes',
+        paint: { 'line-width': 22, 'line-opacity': 0, 'line-color': '#000000' },
       })
-      m.on('mouseenter', 'routes', () => {
+      m.on('click', 'route-pick', (e) => {
+        const choices = new Map<string, RouteChoice>()
+        for (const feature of e.features || []) {
+          const p = feature.properties
+          if (p && typeof p.id === 'string')
+            choices.set(p.id, {
+              id: p.id,
+              drone: String(p.drone || ''),
+              cargo: Number(p.cargo || 0),
+              stops: String(p.stops || ''),
+            })
+        }
+        const rows = [...choices.values()]
+        if (rows.length === 1) {
+          setRouteChoices([])
+          latest.current.onSelect(rows[0].id)
+        } else setRouteChoices(rows)
+      })
+      m.on('mouseenter', 'route-pick', () => {
         m.getCanvas().style.cursor = 'pointer'
       })
-      m.on('mouseleave', 'routes', () => {
+      m.on('mouseleave', 'route-pick', () => {
         m.getCanvas().style.cursor = ''
       })
       m.moveLayer('relay-routes')
@@ -298,7 +386,6 @@ export function RescueMap({
     })
     const observer = new ResizeObserver(() => {
       m.resize()
-      fit(0)
     })
     observer.observe(container.current)
     return () => {
@@ -573,38 +660,36 @@ export function RescueMap({
     const m = map.current
     if (!m || !ready || !m.getLayer('grid')) return
     m.setLayoutProperty('grid', 'visibility', basemap === 'satellite' ? 'none' : 'visible')
-    fit()
-  }, [ready, basemap, fit])
+  }, [ready, basemap])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !m.getSource('grid') || !m.getSource('zones')) return
     markers.current.forEach((x) => x.remove())
     markers.current = []
     const bounds = new maplibregl.LngLatBounds()
-    for (const [i, n] of [scenario.base, ...scenario.sites].entries()) {
+    for (const [i, n] of mapNodes(scenario).entries()) {
+      const isBase = n.id === scenario.base?.id
       bounds.extend(n.coordinates as [number, number])
       const button = document.createElement('button')
       button.dataset.siteId = n.id
-      button.className = `map-marker ${i === 0 ? 'map-marker-base' : ''} ${!n.available ? 'unavailable' : ''}`
+      button.className = `map-marker ${isBase ? 'map-marker-base' : ''} ${!n.available ? 'unavailable' : ''}`
       const dot = document.createElement('span')
       dot.className = 'map-marker-dot'
-      dot.textContent = i === 0 ? 'O' : String(i)
+      dot.textContent = isBase ? 'O' : String(i + (scenario.base ? 0 : 1))
       button.dataset.dotText = dot.textContent
       const label = document.createElement('span')
       label.className = 'map-marker-label'
-      label.textContent = i === 0 ? n.name.slice(0, 8) : n.id
-      if (i !== 0 && scenario.sites.length > 8) label.hidden = true
+      label.textContent = isBase ? n.name.slice(0, 8) : n.id
+      if (!isBase && scenario.sites.length > 8) label.hidden = true
       button.append(dot, label)
       button.title = `${n.id} · ${n.coordinates.join(', ')}`
       button.setAttribute('aria-label', `定位${n.name}`)
       button.onclick = (event) => {
         event.stopPropagation()
         if (Number(button.dataset.clusterCount || 1) > 1) {
-          m.easeTo({
-            center: n.coordinates as [number, number],
-            zoom: m.getZoom() + 1.5,
-            duration: 180,
-          })
+          const ids: string[] = JSON.parse(button.dataset.clusterSiteIds || '[]')
+          setRouteChoices([])
+          setSiteChoices(mapNodes(latest.current.scenario).filter((node) => ids.includes(node.id)))
           return
         }
         latest.current.onSelectSite?.(n.id)
@@ -620,6 +705,7 @@ export function RescueMap({
           .addTo(m),
       )
     }
+    if (bounds.isEmpty()) bounds.extend([-180, -70]).extend([180, 70])
     const west = bounds.getWest(),
       east = bounds.getEast(),
       south = bounds.getSouth(),
@@ -674,17 +760,33 @@ export function RescueMap({
         const dot = element.querySelector<HTMLElement>('.map-marker-dot')
         element.style.visibility = 'visible'
         element.dataset.clusterCount = '1'
+        element.dataset.clusterSiteIds = JSON.stringify([element.dataset.siteId])
         if (dot) dot.textContent = element.dataset.dotText || ''
         const near = occupied.find((p) => Math.hypot(point.x - p.x, point.y - p.y) < 29)
         if (near) {
           element.style.visibility = 'hidden'
           near.count++
           near.marker.getElement().dataset.clusterCount = String(near.count)
+          const grouped = near.marker.getElement()
+          grouped.dataset.clusterSiteIds = JSON.stringify([
+            ...JSON.parse(grouped.dataset.clusterSiteIds || '[]'),
+            element.dataset.siteId,
+          ])
           const firstDot = near.marker.getElement().querySelector<HTMLElement>('.map-marker-dot')
           if (firstDot) firstDot.textContent = `+${near.count}`
         } else occupied.push({ x: point.x, y: point.y, marker, count: 1 })
       }
-      const boxes: DOMRect[] = []
+      const boxes = [
+        ...m
+          .getContainer()
+          .parentElement!.querySelectorAll<HTMLElement>(
+            '.map-header,.map-basemap-switch,.map-weather-context,.map-controls,.map-layers,.map-legend,.map-imagery-credit,.map-satellite-warning,.map-marker-dot',
+          ),
+      ]
+        .filter(
+          (el) => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden',
+        )
+        .map((el) => el.getBoundingClientRect())
       for (const marker of order) {
         const el = marker.getElement(),
           label = el.querySelector<HTMLElement>('.map-marker-label')
@@ -706,26 +808,28 @@ export function RescueMap({
     }
     updateSiteLayout.current = arrange
     m.on('moveend', arrange)
-    fit()
+    m.on('resize', arrange)
+    restoreView()
     arrange()
     return () => {
       m.off('moveend', arrange)
+      m.off('resize', arrange)
       if (updateSiteLayout.current === arrange) updateSiteLayout.current = null
     }
-  }, [ready, scenario, fit])
+  }, [ready, scenario, restoreView, viewKey])
   useEffect(() => {
     for (const marker of markers.current) {
       const element = marker.getElement()
-      const node = [scenario.base, ...scenario.sites].find((n) => n.id === element.dataset.siteId)
+      const node = mapNodes(scenario).find((n) => n.id === element.dataset.siteId)
       const label = element.querySelector<HTMLElement>('.map-marker-label')
       if (node && label) {
         const active = node.id === selectedSite
         label.textContent = active
           ? node.name
-          : node.id === scenario.base.id
+          : node.id === scenario.base?.id
             ? node.name.slice(0, 8)
             : node.id
-        label.hidden = !active && node.id !== scenario.base.id && scenario.sites.length > 8
+        label.hidden = !active && node.id !== scenario.base?.id && scenario.sites.length > 8
         element.classList.toggle('selected-site', active)
       }
     }
@@ -754,6 +858,9 @@ export function RescueMap({
           color: colorFor(r.drone_id),
           selected: selected === r.sortie_id,
           dim: !!selected && selected !== r.sortie_id,
+          drone: r.drone_id,
+          cargo: r.cargo_ids.length,
+          stops: r.visits.map((v) => v.site_id).join(' → '),
         },
         geometry: r.route_geometry as LineString,
       })),
@@ -770,6 +877,7 @@ export function RescueMap({
                   ...f.properties,
                   id: `${set.plan.plan_id}:${f.properties?.id}`,
                   selected: selected === `${set.plan.plan_id}:${f.properties?.id}`,
+                  dim: !!selected && selected !== `${set.plan.plan_id}:${f.properties?.id}`,
                 },
               })),
           ),
@@ -779,6 +887,7 @@ export function RescueMap({
     ;(m.getSource('old-routes') as maplibregl.GeoJSONSource).setData(collection(oldPlan))
     m.setLayoutProperty('routes', 'visibility', showRoutes ? 'visible' : 'none')
     m.setLayoutProperty('routes-halo', 'visibility', showRoutes ? 'visible' : 'none')
+    m.setLayoutProperty('route-pick', 'visibility', showRoutes ? 'visible' : 'none')
     m.setLayoutProperty('old-routes', 'visibility', showOld ? 'visible' : 'none')
   }, [ready, plan, oldPlan, selected, showRoutes, showOld, routeSets])
   useEffect(() => {
@@ -799,14 +908,16 @@ export function RescueMap({
       type: 'FeatureCollection',
       features: relays
         .filter(
-          (r) => playTime == null || (r.service_start_s <= playTime && playTime <= r.service_end_s),
+          (r) =>
+            !!scenario.base &&
+            (playTime == null || (r.service_start_s <= playTime && playTime <= r.service_end_s)),
         )
         .map((r) => ({
           type: 'Feature',
           properties: { id: r.relay_sortie_id },
           geometry: {
             type: 'LineString',
-            coordinates: [scenario.base.coordinates, r.station_coordinates],
+            coordinates: [scenario.base!.coordinates, r.station_coordinates],
           },
         })),
     }
@@ -843,7 +954,7 @@ export function RescueMap({
           .addTo(m),
       )
     }
-  }, [ready, plan, showRelays, playTime, scenario.base.coordinates])
+  }, [ready, plan, showRelays, playTime, scenario.base])
   useEffect(() => {
     const m = map.current
     if (!m || !ready || !terrainShown || !m.getLayer('terrain-preview')) return
@@ -859,22 +970,46 @@ export function RescueMap({
     aircraft.current.forEach((x) => x.remove())
     aircraft.current = []
     if (telemetry) {
+      const groups: { sample: Telemetry; members: Telemetry[]; x: number; y: number }[] = []
       for (const sample of telemetry) {
-        if (!sample.coordinates || ['available', 'ready', 'unavailable'].includes(sample.phase))
+        if (
+          !sample.coordinates ||
+          ['available', 'ready', 'unavailable', 'not_ready'].includes(sample.phase)
+        )
           continue
+        const point = m.project(sample.coordinates)
+        const near = groups.find((g) => Math.hypot(g.x - point.x, g.y - point.y) < 26)
+        if (near) near.members.push(sample)
+        else groups.push({ sample, members: [sample], x: point.x, y: point.y })
+      }
+      for (const { sample, members } of groups) {
         const button = document.createElement('button')
         button.className = `planned-aircraft simulated-aircraft ${sample.quality === 'stale' ? 'stale-aircraft' : ''}`
-        button.textContent = '✈'
+        button.textContent = members.length > 1 ? `✈ ${members.length}` : '✈'
         const tag = document.createElement('span')
-        tag.textContent = `${sample.device_id}${sample.quality === 'stale' ? ' · 失联' : ' · 模拟'}`
+        tag.textContent =
+          members.length > 1
+            ? `${members.length} 架同屏机体`
+            : `${sample.device_id}${sample.quality === 'stale' ? ' · 失联' : ' · 模拟'}`
         button.append(tag)
         button.title = `${sample.device_id} · ${sample.phase} · ${sample.observed_at}`
         button.onclick = (event) => {
           event.stopPropagation()
-          if (sample.sortie_id) latest.current.onSelect(sample.sortie_id)
+          if (members.length > 1) {
+            setDeviceChoices(members)
+            setSiteChoices([])
+            setRouteChoices([])
+          } else if (latest.current.onSelectDevice) latest.current.onSelectDevice(sample.device_id)
+          else if (sample.sortie_id) latest.current.onSelect(sample.sortie_id)
         }
+        button.setAttribute(
+          'aria-label',
+          members.length > 1
+            ? `选择${members.length}架同屏模拟机体`
+            : `查看模拟机体${sample.device_id}`,
+        )
         aircraft.current.push(
-          new maplibregl.Marker({ element: button }).setLngLat(sample.coordinates).addTo(m),
+          new maplibregl.Marker({ element: button }).setLngLat(sample.coordinates!).addTo(m),
         )
       }
       return
@@ -918,6 +1053,99 @@ export function RescueMap({
       data-context={contextVisible}
     >
       <div ref={container} className="map-canvas" />
+      {siteChoices.length > 1 && (
+        <section className="map-route-choices" aria-label="聚合点位选择">
+          <div>
+            <strong>此处有 {siteChoices.length} 个点位</strong>
+            <button onClick={() => setSiteChoices([])} aria-label="关闭点位选择">
+              ×
+            </button>
+          </div>
+          <p>选择点位查看详情；相同坐标也可分别核对。</p>
+          <ul>
+            {siteChoices.map((node) => (
+              <li key={node.id}>
+                <button
+                  onClick={() => {
+                    latest.current.onSelectSite?.(node.id)
+                    const route = latest.current.plan?.sorties.find((r) =>
+                      r.visits.some((v) => v.site_id === node.id),
+                    )
+                    if (route && !latest.current.onSelectSite)
+                      latest.current.onSelect(route.sortie_id)
+                    setSiteChoices([])
+                  }}
+                >
+                  <b>{node.name}</b>
+                  <small>
+                    {node.id} · {node.coordinates.map((n) => n.toFixed(6)).join(', ')}
+                  </small>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {deviceChoices.length > 1 && (
+        <section className="map-route-choices" aria-label="同屏机体选择">
+          <div>
+            <strong>{deviceChoices.length} 架同屏模拟机体</strong>
+            <button onClick={() => setDeviceChoices([])} aria-label="关闭机体选择">
+              ×
+            </button>
+          </div>
+          <p>图标按屏幕距离聚合，实际坐标在机体详情核对。</p>
+          <ul>
+            {deviceChoices.map((sample) => (
+              <li key={sample.device_id}>
+                <button
+                  onClick={() => {
+                    if (latest.current.onSelectDevice)
+                      latest.current.onSelectDevice(sample.device_id)
+                    else if (sample.sortie_id) latest.current.onSelect(sample.sortie_id)
+                    setDeviceChoices([])
+                  }}
+                >
+                  <b>{sample.device_id}</b>
+                  <small>
+                    {sample.coordinates?.map((n) => n.toFixed(6)).join(', ')} ·{' '}
+                    {sample.cargo_ids.length} 箱
+                  </small>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {routeChoices.length > 1 && (
+        <section className="map-route-choices" aria-label="重叠航线选择">
+          <div>
+            <strong>此处有 {routeChoices.length} 条航线</strong>
+            <button onClick={() => setRouteChoices([])} aria-label="关闭航线选择">
+              ×
+            </button>
+          </div>
+          <p>选择要核对的架次</p>
+          <ul>
+            {routeChoices.map((choice) => (
+              <li key={choice.id}>
+                <button
+                  onClick={() => {
+                    latest.current.onSelect(choice.id)
+                    setRouteChoices([])
+                  }}
+                >
+                  <b>
+                    {choice.drone} · {choice.cargo} 箱
+                  </b>
+                  <small>{choice.stops}</small>
+                  <code>{choice.id}</code>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {error && (
         <div className="map-error">地图渲染不可用，点位与路线仍可在任务表和导出中查看。</div>
       )}

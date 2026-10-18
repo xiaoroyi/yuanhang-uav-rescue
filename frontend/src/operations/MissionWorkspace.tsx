@@ -474,6 +474,7 @@ export function MissionWorkspace({
             </aside>
             <div className="v2-map-main">
               <RescueMap
+                viewKey={missionId}
                 scenario={activeScenario!}
                 plan={plan.data}
                 selected={selected}
@@ -580,11 +581,19 @@ function ObjectInspector({
   onProfile: () => void
 }) {
   const sortie = plan?.sorties.find((r) => r.sortie_id === selected)
-  const site = scenario.sites.find((n) => n.id === siteId)
+  const site = [scenario.base, ...scenario.sites].find((n) => n.id === siteId)
   return (
     <aside className="v2-inspector">
       <div className="v2-section-bar">
-        <h2>{sortie ? '架次详情' : site ? '需求点详情' : '检查详情'}</h2>
+        <h2>
+          {sortie
+            ? '架次详情'
+            : site?.id === scenario.base.id
+              ? '基地详情'
+              : site
+                ? '需求点详情'
+                : '检查详情'}
+        </h2>
         <button onClick={onClose} aria-label="关闭详情">
           ×
         </button>
@@ -890,7 +899,9 @@ function Preparation({
               >
                 保存基地
               </Button>
-              <p className="v2-subtle">地图右键可选取坐标。显示底图不等于完成地形净空检查。</p>
+              <p className="v2-subtle">
+                地图右键选取基地坐标；可开启在线卫星图定位区域。选取后仍需填写地面高程并保存基地。
+              </p>
               {scenario && (
                 <>
                   <TerrainManager
@@ -903,23 +914,16 @@ function Preparation({
               )}
             </section>
             <div className="v2-prepare-map">
-              {known ? (
-                <RescueMap
-                  scenario={known}
-                  selected={null}
-                  onSelect={() => {}}
-                  onPickCoordinates={([lon, lat]) => {
-                    setLongitude(lon.toFixed(6))
-                    setLatitude(lat.toFixed(6))
-                  }}
-                />
-              ) : (
-                <Empty
-                  icon={<MapPin size={28} />}
-                  title="设置任务基地"
-                  description="输入任意地区的真实坐标和高程。保存后地图会定位本次任务，不使用原题默认中心。"
-                />
-              )}
+              <RescueMap
+                scenario={known || draft}
+                viewKey={mission.mission_id}
+                selected={null}
+                onSelect={() => {}}
+                onPickCoordinates={([lon, lat]) => {
+                  setLongitude(lon.toFixed(6))
+                  setLatitude(lat.toFixed(6))
+                }}
+              />
             </div>
           </div>
         ) : step === 'checks' ? (

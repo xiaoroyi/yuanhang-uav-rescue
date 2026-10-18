@@ -1,0 +1,341 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--grep",
+      "V2 blank mission map|V2 fifty|V2 real computed overlapping|V2 unavailable WebGL|immutable multi-plan archive"
+    ],
+    "configFile": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\playwright.config.ts",
+    "rootDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "E:/成电/成电研一/服务器工作区/yuanhang-uav-rescue/frontend/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "snapshotDir": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 90000,
+        "use": {
+          "baseURL": "http://127.0.0.1:5174",
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "screenshot": "only-on-failure",
+          "trace": "retain-on-failure",
+          "launchOptions": {
+            "args": [
+              "--use-angle=swiftshader",
+              "--enable-unsafe-swiftshader"
+            ]
+          }
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../evidence/redesign-v2/map-workspace-browser-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "archive-v2.spec.ts",
+      "file": "archive-v2.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "V2 in-flight insertion is adopted, reviewed and reloaded as an immutable multi-plan archive",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 26962,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T11:43:40.058Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8d9ebbaeb4f613129d0f-9dd9e021fc7cba180183",
+          "file": "archive-v2.spec.ts",
+          "line": 8,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "map-workspace-v2.spec.ts",
+      "file": "map-workspace-v2.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "V2 blank mission map accepts coordinates without inventing a saved base or elevation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T11:44:07.606Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8862d8e86e852f1b5d7f-97e5ef65b044ca8d3bb1",
+          "file": "map-workspace-v2.spec.ts",
+          "line": 35,
+          "column": 1
+        },
+        {
+          "title": "V2 fifty long-name points remain selectable and camera survives inspection, resize, reload and failed imagery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T11:44:09.694Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8862d8e86e852f1b5d7f-0b278500db73c4050adb",
+          "file": "map-workspace-v2.spec.ts",
+          "line": 67,
+          "column": 1
+        },
+        {
+          "title": "V2 real computed overlapping flights offer a choice and keep the camera when opening details",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 22742,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.v2-inspector')\nExpected substring: \u001b[32m\"箱件\"\u001b[39m\nReceived string:    \u001b[31m\"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.v2-inspector') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.v2-inspector')\u001b[22m\n\u001b[2m    33 × locator resolved to <aside class=\"v2-inspector\">…</aside>\u001b[22m\n\u001b[2m       - unexpected value \"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.v2-inspector')\nExpected substring: \u001b[32m\"箱件\"\u001b[39m\nReceived string:    \u001b[31m\"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.v2-inspector') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.v2-inspector')\u001b[22m\n\u001b[2m    33 × locator resolved to <aside class=\"v2-inspector\">…</aside>\u001b[22m\n\u001b[2m       - unexpected value \"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[22m\n\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\map-workspace-v2.spec.ts:195:47",
+                    "location": {
+                      "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\map-workspace-v2.spec.ts",
+                      "column": 47,
+                      "line": 195
+                    },
+                    "snippet": "  193 |   const before = await camera(page, mission.mission_id)\n  194 |   await chooser.locator('li button').last().click()\n> 195 |   await expect(page.locator('.v2-inspector')).toContainText('箱件')\n      |                                               ^\n  196 |   await expect(chooser).toHaveCount(0)\n  197 |   expect((await camera(page, mission.mission_id))?.zoom).toBeCloseTo(before!.zoom, 3)\n  198 | })"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\map-workspace-v2.spec.ts",
+                        "column": 47,
+                        "line": 195
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.v2-inspector')\nExpected substring: \u001b[32m\"箱件\"\u001b[39m\nReceived string:    \u001b[31m\"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[39m\nTimeout: 15000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('.v2-inspector') with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for locator('.v2-inspector')\u001b[22m\n\u001b[2m    33 × locator resolved to <aside class=\"v2-inspector\">…</aside>\u001b[22m\n\u001b[2m       - unexpected value \"架次详情×U01 · SRT-0effebcce24d运输电池BAT-A-01准备 / 起飞00:00:00 / 00:06:30返航 / 机体释放00:37:31 / 00:37:31电池补能结束00:59:19能耗 / 返航 SOC2.795 kWh / 37.9%访问顺序1. 那从交接完成 00:14:53 · 1 箱S011-MED-012. 镇龙乡交接完成 00:28:21 · 2 箱S010-MED-01 · S010-WAT-01查看高程 / 载荷 / 电量\"\u001b[22m\n\n\n  193 |   const before = await camera(page, mission.mission_id)\n  194 |   await chooser.locator('li button').last().click()\n> 195 |   await expect(page.locator('.v2-inspector')).toContainText('箱件')\n      |                                               ^\n  196 |   await expect(chooser).toHaveCount(0)\n  197 |   expect((await camera(page, mission.mission_id))?.zoom).toBeCloseTo(before!.zoom, 3)\n  198 | })\n    at E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\map-workspace-v2.spec.ts:195:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T11:44:17.933Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\map-workspace-v2-V2-real-c-c0339-camera-when-opening-details\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\map-workspace-v2-V2-real-c-c0339-camera-when-opening-details\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\test-results\\map-workspace-v2-V2-real-c-c0339-camera-when-opening-details\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\frontend\\tests\\map-workspace-v2.spec.ts",
+                    "column": 47,
+                    "line": 195
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8862d8e86e852f1b5d7f-8cfc68909842c65b4353",
+          "file": "map-workspace-v2.spec.ts",
+          "line": 129,
+          "column": 1
+        },
+        {
+          "title": "V2 unavailable WebGL keeps input and table controls usable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2204,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-18T11:44:42.201Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8862d8e86e852f1b5d7f-56d7c92f05b2de0415ff",
+          "file": "map-workspace-v2.spec.ts",
+          "line": 200,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-18T11:43:39.201Z",
+    "duration": 65764.394,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

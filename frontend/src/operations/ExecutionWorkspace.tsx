@@ -421,6 +421,8 @@ export function ExecutionWorkspace({
         </aside>
         <div className="v2-map-main">
           <RescueMap
+            viewKey={mission.mission_id}
+            onSelectDevice={setSelected}
             scenario={mapScenario}
             plan={initialPlan.data}
             routeSets={routeSets}
@@ -679,6 +681,7 @@ export function ExecutionWorkspace({
                 </div>
                 <div className="v2-repair-map">
                   <RescueMap
+                    viewKey={mission.mission_id + ':repair'}
                     scenario={baseScenario}
                     plan={candidate.data}
                     oldPlan={initialPlan.data}

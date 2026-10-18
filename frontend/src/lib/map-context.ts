@@ -33,9 +33,12 @@ export const loadTownContextMetadata = () =>
 export const loadTownContextData = () =>
   (data ||= local<TownContextData>('/maps/town-context.geojson'))
 
-export function townContextApplies(scenario: Scenario, metadata: TownContextMetadata): boolean {
+export function townContextApplies(
+  scenario: { base: Scenario['base'] | null; sites: Scenario['sites'] },
+  metadata: TownContextMetadata,
+): boolean {
   const [west, south, east, north] = metadata.bounds
-  return [scenario.base, ...scenario.sites].some(
+  return (scenario.base ? [scenario.base, ...scenario.sites] : scenario.sites).some(
     ({ coordinates: [x, y] }) => x >= west && x <= east && y >= south && y <= north,
   )
 }

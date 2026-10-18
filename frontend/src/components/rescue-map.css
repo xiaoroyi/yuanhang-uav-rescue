@@ -193,3 +193,68 @@
   color: #475569;
   font-size: 11px;
 }
+.v2-app .map-weather-context {
+  left: auto;
+  right: 62px;
+  top: 13px;
+  width: 205px;
+  max-width: 45%;
+}
+.rescue-map .map-route-choices {
+  position: absolute;
+  z-index: 8;
+  top: 108px;
+  right: 58px;
+  width: min(330px, calc(100% - 80px));
+  max-height: calc(100% - 165px);
+  overflow: auto;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1e293b;
+  box-shadow: 0 6px 25px #0f172a33;
+  padding: 12px;
+}
+.map-route-choices > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.map-route-choices p {
+  font-size: 12px;
+  margin: 4px 0 8px;
+}
+.map-route-choices ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.map-route-choices li + li {
+  border-top: 1px solid #cbd5e1;
+}
+.rescue-map .map-route-choices button {
+  color: #1e293b;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.rescue-map .map-route-choices li button {
+  display: grid;
+  gap: 5px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 3px;
+}
+.rescue-map .map-route-choices li button:hover {
+  background: #e2e8f0;
+}
+.map-route-choices small {
+  display: block;
+  font-size: 12px;
+}
+.map-route-choices code {
+  font-size: 10px;
+  overflow-wrap: anywhere;
+  color: #475569;
+}

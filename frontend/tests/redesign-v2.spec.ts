@@ -194,6 +194,17 @@ test('V2 manual weather input changes real type selection and remains traceable 
     ),
   ).toBeTruthy()
   await expect(page.locator('.map-weather-context')).toContainText('8 m/s')
+  const obscuredPoints = await page.evaluate(() => {
+    const panel = document.querySelector('.map-weather-context')!.getBoundingClientRect()
+    return [...document.querySelectorAll<HTMLElement>('.map-marker-dot')].filter((e) => {
+      if (getComputedStyle(e).visibility === 'hidden') return false
+      const p = e.getBoundingClientRect()
+      return (
+        p.left < panel.right && p.right > panel.left && p.top < panel.bottom && p.bottom > panel.top
+      )
+    }).length
+  })
+  expect(obscuredPoints).toBe(0)
   await page.screenshot({ path: '../evidence/redesign-v2/weather-plan-1440.png', fullPage: true })
   await page.getByRole('button', { name: '图层管理', exact: true }).click()
   await page.getByLabel('人工气象信息（仅显隐）').uncheck()

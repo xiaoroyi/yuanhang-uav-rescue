@@ -24,3 +24,9 @@ ExecutionView兼容增加applied_event_ids；事件投影增加withdrawn/纠错�
 
 execution export默认v1保留；version=2新增严格执行包/文档封装。3条execution-archives路径提供只读导入/列表/详情，存储仅OperationRecordRow新命名空间，不创建可控执行/领域行。整体及原文SHA256、Snapshot哈希、Plan结构、事实游标/箱件归属与事件/指令/Job快照引用均检查；不重跑独立物理验证冒充认证。运行时间筛选是只读，不调用simulation/actions。新HTTP/OpenAPI/操作Schema/TypeScript同步，见RFC-021。
 
+
+## RFC-022—024增量
+
+进度读取暂态Windows共享错误保留最近有效样本，不变更Job领域接口。新增GET `/executions/{execution_id}/devices/{device_id}/mission-state`，CommandView可选observed_state，DeviceApplication可选activation_command_id及expired/rejected上传状态。状态独立持久化simulation.device_state；ACK不代表完成，完成必须实际执行模拟动作并独立读回。通用activate只可核对当前已批准目标，候选走差异确认/逐机上传启用。档案同步检查observed_state的执行、机体和Plan引用；旧缺字段不补造。
+
+TelemetrySample新增可空availability/reason；当前阶段与未来资源可用性分开。0秒/暂停承诺按loaded/relay_started事实判定，只读不推进账本。Pydantic/操作Schema/OpenAPI/TS已同步。地图MapScene只为前端空间视图允许未设基地，未引入伪造Scenario或变更领域契约。

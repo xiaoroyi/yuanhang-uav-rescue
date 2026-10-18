@@ -1421,7 +1421,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "frontend/tests/map-workspace-v2.spec.ts",
+        "evidence/redesign-v2/map-workspace-browser-results.json"
       ]
     },
     {
@@ -1519,7 +1521,10 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "docs/CONTRACT_RFC_023.md",
+        "tests/backend/test_device_readback_v2.py",
+        "evidence/redesign-v2/device-readback-browser-results.json"
       ]
     },
     {
@@ -1539,7 +1544,9 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "docs/CONTRACT_RFC_024.md",
+        "tests/backend/test_execution_boundaries_v2.py"
       ]
     },
     {
@@ -1718,7 +1725,10 @@
       "pr": null,
       "evidence": [
         "evidence/redesign-v2/HANDOFF.md",
-        "evidence/redesign-v2/FEATURE_TRACEABILITY.md"
+        "evidence/redesign-v2/FEATURE_TRACEABILITY.md",
+        "evidence/redesign-v2/full-verification/latest.json",
+        "evidence/redesign-v2/map-workspace-browser-results.json",
+        "evidence/redesign-v2/weather-map-clearance-results.json"
       ]
     },
     {

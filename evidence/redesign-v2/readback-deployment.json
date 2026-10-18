@@ -1,0 +1,50 @@
+{
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "fb9b045cc59b0cd9a118ac5a6e946e690a3d74eb7c2e6127bbbc53ba65bb8f73",
+    "runtime_id": "23afa25c2bda"
+  },
+  "counts": {
+    "scenarios": 10,
+    "snapshots": 10,
+    "plans": 14,
+    "jobs": 15,
+    "missions": 0,
+    "executions": 0
+  },
+  "old_plan_snapshot_json_unchanged": true,
+  "frontend_source_sha256": "f627b27b78f2b1694a8c8d9363f2b270a4f0b0d40fcd6b4f23b549183d723444",
+  "operation_capabilities": {
+    "modes": [
+      "simulation"
+    ]
+  },
+  "backup": {
+    "backup": "E:\\成电\\成电研一\\服务器工作区\\yuanhang-uav-rescue\\.local\\v2-before-device-readback\\yuanhang-backup-20261018T113918Z-108093df.zip",
+    "sha256": "35e5dc73bb906c70deca94d4bc3c33e08264ef7ef7e0a23bcc14d06c035ab521",
+    "file_count": 1,
+    "table_counts": {
+      "scenarios": 10,
+      "scenario_versions": 12,
+      "snapshots": 10,
+      "jobs": 15,
+      "plans": 14,
+      "events": 0,
+      "reservations": 0,
+      "confirmations": 0,
+      "scenario_forks": 0,
+      "plan_refinements": 0,
+      "missions": 0,
+      "operation_records": 0,
+      "executions": 0
+    }
+  },
+  "backend_pid": 45064,
+  "backend_start_epoch_ms": 1792323612028,
+  "launcher_session": 37527,
+  "frontend_verification": "Map checkpoint after build and browser review"
+}
