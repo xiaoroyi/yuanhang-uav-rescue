@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "bytes": 266665741,
+  "sha256": "e33775d61bf2d427996f7ab3ee0e9cc7336cf4bf0dba9be17a5501ab1bfb0930",
+  "zip_entries": 11723,
+  "manifest_files": 11722,
+  "crc": "all entries passed",
+  "all_frontend_artifacts_verified": 129,
+  "internal_documents_excluded": true,
+  "data": {
+    "backup_name": "yuanhang-backup-20261019T111940Z-1ec076f7.zip",
+    "backup_sha256": "8d0aca669afa1cf47528a260f259168a79d35a0a4a47abca2cb34c542e201559",
+    "table_counts": {
+      "scenarios": 15,
+      "scenario_versions": 18,
+      "snapshots": 35,
+      "jobs": 35,
+      "plans": 31,
+      "events": 0,
+      "reservations": 362,
+      "confirmations": 4,
+      "scenario_forks": 0,
+      "plan_refinements": 0,
+      "missions": 5,
+      "operation_records": 515,
+      "executions": 4
+    }
+  },
+  "source_commit": "78f041f29b413b57ad470c85e67ea20f623c356f"
+}

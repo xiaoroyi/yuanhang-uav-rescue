@@ -1,6 +1,6 @@
 {
-  "at": "2026-10-19T11:29:44.921Z",
-  "url": "http://127.0.0.1:8026",
+  "at": "2026-10-19T11:49:09.082Z",
+  "url": "http://127.0.0.1:8027",
   "passed": true,
   "checks": [
     "Full V4 home, real DEM, fonts and original task counts render without external requests",
@@ -16,12 +16,12 @@
   "httpErrors": [],
   "health": {
     "service_id": "yuanhang-rescue",
-    "workspace_id": "63db52419f41",
+    "workspace_id": "78e90e5675eb",
     "status": "ok",
     "service_version": "0.1.0",
     "solver_ready": true,
     "service_source_sha256": "19622083612b2b33430ec438e1861efcd090f039a2210a7391c0632687353e87",
-    "runtime_id": "ad9a2d5b30cb"
+    "runtime_id": "4fe0d6959044"
   },
   "missionCount": 5,
   "originalPlan": "PLAN-99DBD9B0679D4474",
@@ -48,7 +48,7 @@
     "notice"
   ],
   "newPlan": {
-    "plan_id": "PLAN-36AA1E3652824248",
+    "plan_id": "PLAN-2DE77B3BC6FC4956",
     "sorties": 7,
     "metrics": {
       "last_delivery_s": 6912.449182328815,

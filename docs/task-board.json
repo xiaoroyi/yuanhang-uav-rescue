@@ -2227,7 +2227,7 @@
       "dependencies": [
         "V4-05"
       ],
-      "status": "in_progress",
+      "status": "done",
       "branch": "feat/mission-command-v4",
       "pr": null,
       "evidence": [
