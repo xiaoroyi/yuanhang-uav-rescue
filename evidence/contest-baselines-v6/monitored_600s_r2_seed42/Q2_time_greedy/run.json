@@ -1,0 +1,160 @@
+{
+  "question": "Q2",
+  "objective": "time",
+  "method": "greedy",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": null,
+  "search_wall_s": 602.4855730999843,
+  "process_end_elapsed_s": 602.4855730999843,
+  "process_startup_s": 3.9690915000392124,
+  "first_found_s": 1.5921233999542892,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": null,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0054685999639,
+  "attempts": 1870,
+  "complete_constructions": 636,
+  "constructor_stats": {
+    "lp_checks": 44487,
+    "complete_covers": 1869,
+    "nodes": 46724,
+    "scheduled_covers": 636,
+    "schedule_nodes": 17329440,
+    "schedule_failures": 1233,
+    "lp_infeasible": 4452,
+    "backtracks": 21
+  },
+  "decoder_calls": 0,
+  "callbacks": 0,
+  "rejections": {
+    "construction_or_schedule_failed": 1234
+  },
+  "trace": [
+    {
+      "found_s": 1.5921233999542892,
+      "origin": "independent_greedy_search",
+      "attempt": 1,
+      "completion_s": 7515.170118970684,
+      "energy_kwh": 67.34064060815456,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 3.789850600005593,
+      "origin": "independent_greedy_search",
+      "attempt": 8,
+      "completion_s": 7198.262554810564,
+      "energy_kwh": 69.10052310013899,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 60.850277699995786,
+      "origin": "independent_greedy_search",
+      "attempt": 239,
+      "completion_s": 7000.22305244214,
+      "energy_kwh": 68.27178901580737,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 194.26824060000945,
+      "origin": "independent_greedy_search",
+      "attempt": 635,
+      "completion_s": 6881.3268677036895,
+      "energy_kwh": 67.26638898955765,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    }
+  ],
+  "last_worker_phase": "search_finished",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 7198.262554810564,
+        "energy_kwh": 69.10052310013899,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 82.09264853738296
+      },
+      "best_found_s": 3.789850600005593,
+      "solution_sha256": "342b5fa4cc59033a004087b2872b32f5285fa7cce3ef55ef5813a2b3ba5d043c",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_greedy/sealed/checkpoint_30s_solution.json",
+      "source_path": "checkpoint_30s_solution.json"
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 7198.262554810564,
+        "energy_kwh": 69.10052310013899,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 82.09264853738296
+      },
+      "best_found_s": 3.789850600005593,
+      "solution_sha256": "342b5fa4cc59033a004087b2872b32f5285fa7cce3ef55ef5813a2b3ba5d043c",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_greedy/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_30s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 7000.22305244214,
+        "energy_kwh": 68.27178901580737,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 321.41523868931654
+      },
+      "best_found_s": 60.850277699995786,
+      "solution_sha256": "96769df8f893d746897e9ce621ae0b324ed7f23c6d7565a6dc48c15e851e0bec",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_greedy/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6881.3268677036895,
+        "energy_kwh": 67.26638898955765,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 645.0226874911473
+      },
+      "best_found_s": 194.26824060000945,
+      "solution_sha256": "f6600f950e5d298561960d40475b0d2ad55fc70c7a35bbac22975e88ee4dbea5",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_greedy/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_600s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_greedy"
+}

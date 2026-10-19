@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "solution_sha256": "62f93b6eebbcd5baec42945be8d9a816a335e3556f3068adf226d34ce4f61b29",
+  "transport": {
+    "summary": {
+      "valid": true,
+      "errors": 0,
+      "boxes": 80,
+      "unique_boxes": 80,
+      "mass_kg": 758,
+      "volume_L": 2011,
+      "D": 0,
+      "Cmax": 7596.142307167044,
+      "E": 82.02867704572435,
+      "N": 32,
+      "by_model": {
+        "C": 9,
+        "B": 8,
+        "A": 15
+      },
+      "min_SOC": 0.20095847325256222,
+      "min_hard_slack": 84.14233866318091,
+      "hard_boxes": 31,
+      "hard_violations": 0,
+      "on_time_rate": 1.0,
+      "nonmedical_on_time_rate": 1.0,
+      "weighted_mean_delivery": 3391.309530151274,
+      "aircraft_peak": {
+        "A": 4,
+        "B": 2,
+        "C": 2
+      },
+      "battery_peak": {
+        "A": 6,
+        "B": 4,
+        "C": 4
+      },
+      "multi_stop_sorties": 7,
+      "max_stops": 2
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "station": {
+    "boxes": 80,
+    "unique_boxes": 80,
+    "late_boxes": 0,
+    "hard_violations": 0,
+    "minimum_hard_slack_s": 84.14233866318091
+  },
+  "radio": null
+}

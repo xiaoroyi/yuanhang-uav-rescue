@@ -1,0 +1,181 @@
+{
+  "question": "Q3",
+  "objective": "time",
+  "method": "greedy",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": null,
+  "search_wall_s": 603.0170689999941,
+  "process_end_elapsed_s": 603.0170689999941,
+  "process_startup_s": 3.9505644000018947,
+  "first_found_s": 2.9625902000116184,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": null,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0263995999703,
+  "attempts": 635,
+  "complete_constructions": 340,
+  "constructor_stats": {
+    "lp_checks": 20151,
+    "lp_infeasible": 4307,
+    "complete_covers": 634,
+    "nodes": 22251,
+    "window_schedule_calls": 634,
+    "scheduled_covers": 340,
+    "window_schedule_INFEASIBLE": 293,
+    "schedule_failures": 294,
+    "proven_infeasible_cover_nogoods": 293,
+    "backtracks": 1218,
+    "window_schedule_UNKNOWN": 1
+  },
+  "decoder_calls": 340,
+  "callbacks": 0,
+  "rejections": {
+    "construction_or_schedule_failed": 294
+  },
+  "trace": [
+    {
+      "found_s": 2.9625902000116184,
+      "origin": "independent_greedy_search",
+      "attempt": 1,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.61617889626132,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 12.877687799977139,
+      "origin": "independent_greedy_search",
+      "attempt": 5,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.61073325977083,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 15.329482099972665,
+      "origin": "independent_greedy_search",
+      "attempt": 13,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.02230772801374,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 16.226457999960985,
+      "origin": "independent_greedy_search",
+      "attempt": 14,
+      "completion_s": 6073.826919003505,
+      "energy_kwh": 70.3817225619329,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 22.56267899996601,
+      "origin": "independent_greedy_search",
+      "attempt": 33,
+      "completion_s": 6040.867913324177,
+      "energy_kwh": 69.92629038397045,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 28.77928089996567,
+      "origin": "independent_greedy_search",
+      "attempt": 43,
+      "completion_s": 6024.226919003505,
+      "energy_kwh": 70.17747519431491,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    }
+  ],
+  "last_worker_phase": "cover_and_resource_schedule",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6024.226919003505,
+        "energy_kwh": 70.17747519431491,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 28.77928089996567,
+      "solution_sha256": "f031772f8ae4d74dbd5bddb709c58fed56df25e6555484438c8398f03a218a7e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_greedy/sealed/checkpoint_30s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6024.226919003505,
+        "energy_kwh": 70.17747519431491,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 28.77928089996567,
+      "solution_sha256": "f031772f8ae4d74dbd5bddb709c58fed56df25e6555484438c8398f03a218a7e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_greedy/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6024.226919003505,
+        "energy_kwh": 70.17747519431491,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 28.77928089996567,
+      "solution_sha256": "f031772f8ae4d74dbd5bddb709c58fed56df25e6555484438c8398f03a218a7e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_greedy/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6024.226919003505,
+        "energy_kwh": 70.17747519431491,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 28.77928089996567,
+      "solution_sha256": "f031772f8ae4d74dbd5bddb709c58fed56df25e6555484438c8398f03a218a7e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_greedy/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_greedy"
+}

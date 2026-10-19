@@ -1,0 +1,338 @@
+{
+  "status": "passed",
+  "solution_sha256": "c730429379ba7fd2f9060ff24f7b296cd966bd5e7a79581d817f74ebac2565cb",
+  "transport": {
+    "summary": {
+      "valid": true,
+      "errors": 0,
+      "boxes": 80,
+      "unique_boxes": 80,
+      "mass_kg": 758,
+      "volume_L": 2011,
+      "D": 0,
+      "Cmax": 5875.004336389496,
+      "E": 66.44358285354855,
+      "N": 23,
+      "by_model": {
+        "A": 11,
+        "C": 6,
+        "B": 6
+      },
+      "min_SOC": 0.20095847325256222,
+      "min_hard_slack": 309.7423386631808,
+      "hard_boxes": 31,
+      "hard_violations": 0,
+      "on_time_rate": 1.0,
+      "nonmedical_on_time_rate": 1.0,
+      "weighted_mean_delivery": 2754.1863466383224,
+      "aircraft_peak": {
+        "A": 4,
+        "B": 2,
+        "C": 2
+      },
+      "battery_peak": {
+        "A": 6,
+        "B": 4,
+        "C": 4
+      },
+      "multi_stop_sorties": 5,
+      "max_stops": 3
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "station": {
+    "boxes": 80,
+    "unique_boxes": 80,
+    "late_boxes": 0,
+    "hard_violations": 0,
+    "minimum_hard_slack_s": 279.7423386631808
+  },
+  "radio": {
+    "summary": {
+      "valid": true,
+      "errors": 0,
+      "D": 0,
+      "C_joint": 5900.276671266622,
+      "C_transport": 5875.004336389496,
+      "C_relay": 5900.276671266622,
+      "E_transport": 66.44358285354855,
+      "E_relay": 3.1195181550471545,
+      "E_total": 69.56310100859571,
+      "N_transport": 23,
+      "N_relay": 3,
+      "hard_violations": 0,
+      "min_hard_slack": 309.7423386631808,
+      "min_transport_SOC": 0.20095847325256222,
+      "min_relay_SOC": 0.4638995894002018,
+      "certified_open_intervals": 415,
+      "certified_event_points": 600,
+      "gap_seconds": 0,
+      "unknown_intervals": 0,
+      "min_active_margin_bound": -4.121147867408581e-13,
+      "direct_customer_seconds": 20677.950417378004,
+      "relay_customer_seconds": 13884.453166540017,
+      "independent_ray_checks": 63,
+      "elapsed": 9.598495960235596,
+      "geometry_scope": "frozen original-height projected convex quadrilaterals + 2 mm footprint buffer; finite precision, full temporal intervals, independent GEOS ray checks"
+    },
+    "errors": [],
+    "geometry_cross_checks": [
+      {
+        "kind": "backhaul",
+        "sortie": "Q3R-001",
+        "same": true
+      },
+      {
+        "kind": "backhaul",
+        "sortie": "Q3R-002",
+        "same": true
+      },
+      {
+        "kind": "backhaul",
+        "sortie": "Q3R-003",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "direct",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      },
+      {
+        "kind": "access",
+        "same": true
+      }
+    ]
+  }
+}

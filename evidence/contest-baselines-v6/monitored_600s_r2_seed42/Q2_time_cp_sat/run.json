@@ -1,0 +1,6206 @@
+{
+  "question": "Q2",
+  "objective": "time",
+  "method": "cp_sat",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": null,
+  "search_wall_s": 603.0324676999589,
+  "process_end_elapsed_s": 603.0324676999589,
+  "process_startup_s": 3.997586700017564,
+  "first_found_s": 4.150243100011721,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": null,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0041547999717,
+  "attempts": 0,
+  "complete_constructions": 0,
+  "constructor_stats": {},
+  "decoder_calls": 0,
+  "callbacks": 677,
+  "rejections": {},
+  "trace": [
+    {
+      "found_s": 4.150243100011721,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 11747.621669144148,
+      "energy_kwh": 89.22382083452271,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 5.405885899963323,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 10840.921669144147,
+      "energy_kwh": 89.22382083452273,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 5.527763699996285,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 10081.421669144147,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 5.84978879999835,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.52166914415,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 5.9856730999890715,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.421669144149,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.107174700009637,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.321669144148,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.219187899958342,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.22166914415,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.325612999964505,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.121669144148,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.444392399978824,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9913.02166914415,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.564809300005436,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9912.921669144149,
+      "energy_kwh": 88.41477205868595,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.691312399983872,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9678.712084592175,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 6.815079899970442,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9633.012084592174,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.03815699997358,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9632.912084592175,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.175078800006304,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9434.888584020451,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.2959556999849156,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9215.912084592175,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.422978399961721,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9114.72166914415,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.544250799983274,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 9006.321669144148,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.686771199980285,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8991.58858402045,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 7.801734099979512,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8922.68858402045,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.016017599962652,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8877.488584020452,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.153892499976791,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8854.123650111658,
+      "energy_kwh": 86.44539968838055,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.29891279997537,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8852.121669144148,
+      "energy_kwh": 86.64150738148844,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.445812299964018,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8818.488584020452,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.596955999964848,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8818.388584020451,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.811508399958257,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8704.488584020452,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 8.962369499960914,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8704.388584020451,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 9.119988399965223,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8306.18858402045,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 9.31651699997019,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8251.58858402045,
+      "energy_kwh": 85.79360992086261,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 10.185916199989151,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8239.095158195543,
+      "energy_kwh": 86.7013816666539,
+      "transport_sorties": 33,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 10.352201499976218,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 8099.204336389495,
+      "energy_kwh": 85.18993387665876,
+      "transport_sorties": 33,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 10.575231699971482,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7990.976912821858,
+      "energy_kwh": 85.18993387665876,
+      "transport_sorties": 33,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 10.711890999984462,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7990.304336389496,
+      "energy_kwh": 86.23853904382047,
+      "transport_sorties": 33,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 10.869172299979255,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7923.195158195542,
+      "energy_kwh": 86.23853904382048,
+      "transport_sorties": 33,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 11.515140599978622,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7918.004336389496,
+      "energy_kwh": 81.31564663053462,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 12.142055600008462,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7785.742307167045,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 12.405869000009261,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7774.305653004716,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 12.589381599973422,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7755.305653004716,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 12.737192299973685,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7704.205653004717,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 27.074458799965214,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7683.005653004717,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 27.539979099994525,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7662.342307167044,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 27.989372899988666,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7623.426919003506,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 28.4732670999947,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7619.526919003505,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 28.941035599971656,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7602.342307167044,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 29.727084899961483,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7596.142307167044,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 31.207402299973182,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7592.08858402045,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 31.67092770000454,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7574.144235235357,
+      "energy_kwh": 82.02867704572435,
+      "transport_sorties": 32,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 33.690903200011235,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7461.68858402045,
+      "energy_kwh": 78.79577214742258,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 34.39633730001515,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7441.888584020451,
+      "energy_kwh": 78.79577214742258,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 35.74503489997005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7434.104336389495,
+      "energy_kwh": 78.79577214742258,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 36.21298000001116,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7407.158645968171,
+      "energy_kwh": 78.79577214742258,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 36.74222269997699,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7396.9885840204515,
+      "energy_kwh": 78.79577214742258,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 45.34957550000399,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7380.095158195543,
+      "energy_kwh": 79.7165393505663,
+      "transport_sorties": 31,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 47.935746899980586,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7370.604336389495,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 50.795301000005566,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7312.042307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 51.31408669997472,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.942307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 51.858198200003244,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.842307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 52.37155209999764,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.742307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 52.88536859996384,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.642307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 53.404602299968246,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.542307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 53.940829399973154,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.442307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 54.48528969998006,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.342307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 54.991580399975646,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.242307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 55.55277329997625,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.142307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 56.02211289998377,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7311.042307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 56.49858369998401,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.942307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 57.0048717999598,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.842307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 57.51741299999412,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.742307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 58.113811999966856,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.642307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 58.62605349998921,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.542307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 59.15434119995916,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.442307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 59.71032790001482,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.342307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 60.194816900009755,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.242307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 60.673601099988446,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.142307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 61.23828140000114,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7310.042307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 61.75148320000153,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.942307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 62.00604319997365,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.842307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 62.24107499996899,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.742307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 62.76086949999444,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.642307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 62.99226520000957,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.542307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 63.241008099983446,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.442307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 63.765763200004585,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.342307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 64.02618320001056,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.242307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 64.30863769998541,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.142307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 64.62286090000998,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7309.042307167045,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 65.15287729998818,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7308.942307167044,
+      "energy_kwh": 75.95809814457172,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 141.59964289999334,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7264.142307167044,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 142.5050409999676,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7249.242307167045,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 143.36148429999594,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7249.142307167044,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 144.18349059997126,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7249.042307167045,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 144.7232103999704,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7225.1269190035055,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 146.10623400000622,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7219.195158195542,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 146.94098999997368,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7219.095158195543,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 147.83320980001008,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7189.042307167045,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 148.7017402999918,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7169.242307167045,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 149.67784469999606,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7130.926919003506,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 150.6494969999767,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7130.826919003505,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 151.904981700005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7102.3951581955425,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 152.88350469997386,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7046.105653004716,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 153.89229459996568,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7017.658645968171,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 154.87971419998212,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 7006.805653004716,
+      "energy_kwh": 77.00670331173343,
+      "transport_sorties": 30,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 155.9976091000135,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6998.305653004716,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 156.99220269999932,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6998.205653004717,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 157.96202009997796,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6941.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 158.919067299983,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 159.8978572000051,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 160.84055089997128,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 161.78329359996133,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 162.70595889998367,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 163.66880049998872,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 164.62844629999017,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 165.60218479996547,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 166.47373759996844,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 167.38898270000936,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6940.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 168.31150899996283,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 169.171196100011,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 170.0441179999616,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 170.93453639996005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 171.81336719996762,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 172.6887706000125,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 173.62950139999157,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 174.5352754999767,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 175.40379979996942,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 176.30378909996944,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6939.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 177.2077033999958,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 178.08620259998133,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 178.9673238999676,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 179.8491376999882,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 180.7700499999919,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 181.68597769999178,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 182.55448339995928,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 183.45849180000369,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 184.33703260001494,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 185.2529143000138,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6938.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 186.25141229998553,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 187.08236050000414,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 187.905079499993,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 188.69586109998636,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 189.50626409996767,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 190.32995629997458,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 191.20226049999474,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 192.02303370001027,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 192.83368879999034,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 193.70907849998912,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6937.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 194.58096059999662,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 195.48631860001478,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 196.34238659997936,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 197.23299180000322,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 198.1500622999738,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 199.19756639999105,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 200.1720234999666,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 201.14810379996197,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 201.41418610000983,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 201.65598199999658,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6936.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 202.25440729997354,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 202.5279990999843,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 202.80094769998686,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 203.1020675000036,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 203.7784554999671,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 204.0321728999843,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 204.2880112999701,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 204.86641869996674,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 205.16251499997452,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 205.3999737999984,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6935.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 205.65369279996958,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 206.2135495999828,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 206.4480029999977,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 206.70185469998978,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 206.96694429998752,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 207.60575909999898,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 207.8522678000154,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 208.10649569996167,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 208.70167350000702,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 208.93322830001125,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6934.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 209.13413389999187,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 209.35790169995744,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 209.97682029998396,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 210.24104150000494,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 210.46160849998705,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 210.69454029999906,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 211.2651809999952,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 211.50307739997515,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 211.7477963999845,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 212.3281541999895,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6933.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 212.60601509996923,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 212.86955780000426,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 213.11250679998193,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 213.69815449998714,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 213.9421638000058,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 214.20586629997706,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 214.42468900000677,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 214.9847397999838,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 215.2260752999573,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 215.5127854999737,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6932.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 216.08887289999984,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 216.3114249999635,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 216.52395760000218,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 216.7877972999704,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 217.3793478999869,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 217.61366059997818,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 217.84351269999752,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 218.42559040000197,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 218.67913969996152,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 218.942333999963,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6931.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 219.19690149999224,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 219.75643359997775,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 220.01623949996429,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.742307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 220.235976499971,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.642307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 220.795487699972,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.542307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 221.0224298000103,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.442307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 221.26209579996066,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.342307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 221.79776069999207,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.242307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 222.0436840999755,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 222.31723370001419,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6930.042307167045,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 222.5567987000104,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6929.942307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 223.20726990001276,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6929.842307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 223.46108069998445,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6881.142307167044,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 223.7297058000113,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6869.812146725356,
+      "energy_kwh": 75.83384330423002,
+      "transport_sorties": 29,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 224.7769025999587,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6851.935322673638,
+      "energy_kwh": 73.84040072372967,
+      "transport_sorties": 28,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 225.10283639997942,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6841.395260154027,
+      "energy_kwh": 73.84040072372967,
+      "transport_sorties": 28,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 227.28397689998383,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6833.726919003506,
+      "energy_kwh": 73.71032984811333,
+      "transport_sorties": 28,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 230.315249199979,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6818.484389486568,
+      "energy_kwh": 73.71032984811335,
+      "transport_sorties": 28,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 230.87301909999223,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6798.684389486568,
+      "energy_kwh": 73.71032984811335,
+      "transport_sorties": 28,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 245.2217814999749,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6544.284389486567,
+      "energy_kwh": 69.22191170487908,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 245.79221849999158,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6461.358645968171,
+      "energy_kwh": 67.83769508614508,
+      "transport_sorties": 24,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 246.33591349999188,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6428.012146725356,
+      "energy_kwh": 67.83769508614508,
+      "transport_sorties": 24,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 246.9102314999909,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6427.912146725356,
+      "energy_kwh": 67.83769508614508,
+      "transport_sorties": 24,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 247.4999947999604,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6427.812146725357,
+      "energy_kwh": 67.83769508614508,
+      "transport_sorties": 24,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 252.32098909997148,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6423.712146725356,
+      "energy_kwh": 69.2321839869997,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 252.53036649996648,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6379.673213330374,
+      "energy_kwh": 69.2321839869997,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 252.73541809996823,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.912146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 252.92021690000547,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.812146725357,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 253.15395109995734,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.712146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 253.493049599987,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.612146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 253.68820859998232,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.512146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 254.33181760000298,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.412146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 254.55298310000217,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.312146725357,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 254.76565259997733,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6361.212146725356,
+      "energy_kwh": 68.51339509275337,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 255.04484699998284,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6350.923650111658,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 255.29815809999127,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6334.204336389495,
+      "energy_kwh": 68.86641844783423,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 255.5549014999997,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6204.004336389496,
+      "energy_kwh": 68.86641844783423,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 256.84108089999063,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6190.558645968171,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 257.17537469998933,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.726919003506,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 257.4022612000117,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.6269190035055,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 257.70103639998706,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.526919003505,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 257.9651992999716,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.426919003506,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 258.23218839999754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.326919003505,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 258.47151999996277,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.226919003506,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 258.70803729997715,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.1269190035055,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 258.95436500001233,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6184.026919003505,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 259.5973515000078,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6183.926919003506,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 259.8475612999755,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6183.826919003505,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 260.08832589996746,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6183.726919003506,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 260.32410399999935,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6183.6269190035055,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 261.044431599963,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6182.642307167044,
+      "energy_kwh": 68.86641844783426,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 261.3211682999972,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6182.1269190035055,
+      "energy_kwh": 68.86641844783425,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 265.5070117000141,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6155.261066593226,
+      "energy_kwh": 68.67031075472637,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 266.1279278000002,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6155.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 266.37354689999484,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6155.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 266.6209506999585,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6155.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 267.23409539996646,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 267.4356736000045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 267.6718094999669,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 267.8960263999761,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 268.10031369997887,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 268.291524500004,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 268.49945469998056,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 268.70609469997,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 268.93750090000685,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 269.5275432000053,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6154.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 269.74376739998115,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 269.99958719999995,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 270.1898546000011,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 270.3929663999588,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 270.60887090000324,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 270.83413999999175,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 271.0669177999953,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 271.34409349999623,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 272.0134583999752,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 272.2080611999845,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6153.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 272.4414683000068,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 272.7297039999976,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 272.95409690000815,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 273.17828509997344,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 273.3953614999773,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 273.63174250000156,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 274.24907570000505,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 274.5260559999733,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 274.749408499978,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 274.9751453999779,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6152.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 275.2069409000105,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 275.43104619998485,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 275.6498308000155,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 276.2297388999723,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 276.4283431000076,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 276.65951909997966,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 276.8565008000005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 277.0408021999756,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 277.2079837999772,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 277.4048887999961,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6151.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 277.6175512999762,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 277.82992839999497,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 278.3915129000088,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 278.57978329999605,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 278.75718189997133,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 278.9351683999994,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 279.10759639996104,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 279.3001221999875,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 279.4742261999636,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 279.66743929998484,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6150.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 279.849373199977,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 280.4530467999866,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 280.646527600009,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 280.8252355000004,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.01116049999837,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.23757689999184,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.41660950001096,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.584225700004,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.7771230000071,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 281.961824900005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6149.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 282.17887760000303,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 282.3732575000031,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 282.9339287999901,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 283.1084969000076,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 283.3460439000046,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 283.53450949996477,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 283.7370799999917,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 283.9206664999947,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 284.1034007999697,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 284.2716938999947,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6148.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 284.46363039995776,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 284.64089239999885,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 285.2716071999748,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 285.43125059996964,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 285.60397140000714,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 285.75157630001195,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 285.90420900000026,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.05714029999217,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.2434661000152,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.4685238999664,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6147.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.6750419999589,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.8383968999842,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 286.9954846999608,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 287.1829409999773,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 287.3588463999913,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 287.5333862999687,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.0776168999728,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.23459889995866,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.3862398999627,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.542211699998,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6146.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.72070870001335,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 288.8922267999733,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 289.0568440000061,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 289.24451980000595,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 289.4347185000079,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 289.6234463999863,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 289.80894499999704,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 290.3441259000101,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 290.520598299976,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 290.7007446999778,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6145.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 290.867114499968,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.0379702000064,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.2307110999827,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.42236799997045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.604351099988,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.7971431000042,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 291.9808581999969,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 292.52690090000397,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 292.69571979995817,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 292.8621463999734,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6144.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.05016039998736,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.2309106999892,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.4271967000095,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.5950836999691,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.7494245999842,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 293.9067553000059,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 294.0899024999817,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 294.624995799968,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 294.8168416999979,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 294.99760170001537,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6143.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 295.19338690000586,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 295.37865099997725,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 295.5940629999968,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 295.81336269999156,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 296.02672839997103,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 296.23144689999754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 296.4284972999594,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.00631049997173,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.19991460000165,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.39965310000116,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6142.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.58075219998136,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.77040949999355,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 297.95784170000115,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 298.1536929999711,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 298.33697489998303,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 298.52424820000306,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.0691220999579,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.25042810000014,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.4309699999867,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.6215648999787,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6141.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.7930250999634,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 299.979911500006,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 300.1617014000076,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 300.3390645000036,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 300.512919700006,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 301.0681994999759,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 301.2846908000065,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 301.4624924999662,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 301.6475944999838,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 301.8316012999858,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6140.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 302.030710299965,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 302.2011100999662,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 302.3611008999869,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 302.5486899999669,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 302.7424480000045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 303.29664249997586,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 303.49885340000037,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 303.71619599999394,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 303.9435012000031,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 304.1445811999729,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6139.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 304.3803288000054,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 304.57706619997043,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 304.78684379998595,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 305.3306576999603,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 305.53188739996403,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 305.7270841000136,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 305.90883739996934,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 306.08532179996837,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 306.28832339996006,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 306.47906549996696,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6138.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 306.6507797999657,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 306.85461639997084,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 307.3967801000108,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 307.5665910000098,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 307.7450450999895,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 307.9290089000133,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 308.11313730000984,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 308.29386689997045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 308.47717430000193,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 308.66559529997176,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6137.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 308.86815940000815,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 309.4151319999946,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 309.61423399997875,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 309.81339119997574,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 309.9810339999967,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 310.1843136000098,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 310.3910548000131,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 310.56090300000506,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 310.72899079998024,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 310.9062861999846,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6136.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 311.4394553999882,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 311.62443769996753,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 311.8161720999633,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 311.9988876999705,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 312.17804209998576,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 312.35279340000125,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 312.5292935000034,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 312.6893720999942,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 312.89717449998716,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 313.0728088999749,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6135.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 313.60550539998803,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 313.7656321999966,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 313.92334549996303,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 314.09928319999017,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 314.27787250000983,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 314.4435921999975,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 314.61603480001213,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 314.79873929999303,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 315.00627399998484,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 315.59490019996883,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6134.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 315.7713164999732,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 315.99759039998753,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 316.1883156999829,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 316.3836585999816,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 316.5657772999839,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 316.7404977999977,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 316.9121441000025,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 317.0834198999801,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 317.28258329996606,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 317.8545580999926,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6133.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.0304880999611,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.20662389998324,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.41459090000717,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.59138669999084,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.7772192999837,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 318.9734466999653,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 319.17675079999026,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 319.35786990000634,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 319.5516682000016,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.112146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 319.7476276999805,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6132.012146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 320.3547492999933,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.912146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 320.58478269999614,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.812146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 320.80136219999986,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.712146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 320.98556040000403,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.612146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 321.13947659998666,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.512146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 321.30598229996394,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.412146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 321.4728468999965,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.312146725357,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 321.6403682999662,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6131.212146725356,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 321.80552279995754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6126.542307167044,
+      "energy_kwh": 68.67031075472636,
+      "transport_sorties": 26,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 322.75223400001414,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.842307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 322.96059019997483,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.742307167045,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 323.1588385999785,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.642307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 323.3695697999792,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.542307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 323.5823739999905,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.442307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 323.7918823999935,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.342307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 324.00499869999476,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.242307167045,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 324.22585549997166,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.142307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 324.4410432999721,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6122.042307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 325.0535333000007,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6121.942307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 325.2509212999721,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6121.842307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 325.4567029000027,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6121.742307167045,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 325.6736091999919,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6121.642307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 325.8960017999634,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6121.542307167044,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 326.12840629997663,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6099.312146725357,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 326.3466618999955,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6096.158645968171,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 326.5767686999752,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6077.242307167045,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 326.7836135000107,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6072.858645968171,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 327.5140104999882,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6062.726919003505,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 334.53009590000147,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6050.1269190035055,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 334.7897617999697,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6035.3610665932265,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 335.0272728999844,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 6035.261066593226,
+      "energy_kwh": 67.82375472604431,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 429.18331759999273,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 430.3371538000065,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 431.3244408000028,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 432.35837749997154,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 433.43610319995787,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 434.4447705000057,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5927.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 435.3656217000098,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 437.10819870000705,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 439.396050499985,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 441.27144360000966,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 442.97293990000617,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 444.8370228999993,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 445.0918854000047,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 445.3391938999994,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 445.58550529996864,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 445.8306524999789,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5926.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 446.098050999979,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 446.33077920001233,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 446.57053049997194,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 446.80061299999943,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 447.0250011999742,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 447.2719153999933,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 447.53312689997256,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 447.76958650001325,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 447.9865443999879,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 448.2144243000075,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5925.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 449.2582383999834,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 449.5497897999594,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 449.81117419997463,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 450.04440020001493,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 450.2829935000045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 450.54786940000486,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 450.77973609999754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 450.99821459996747,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 451.2084368999931,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 451.47384260001127,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5924.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 451.73104089999106,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 451.99778829998104,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 452.2508950000047,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 452.51328600000124,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 452.79002249997575,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 453.0588940999587,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 453.3737430999754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 453.6129620000138,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 453.8792564999894,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 454.1407654999639,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5923.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 454.3985637999722,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 454.6868940999848,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 454.9253203999833,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 455.99609849997796,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 456.2160025999765,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 456.46898939996026,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 456.73933750001015,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 457.0307870999677,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 457.2760247999686,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 457.5042747000116,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5922.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 457.6958886999637,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 457.9379423999926,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 458.16375959996367,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 458.41499640000984,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 458.67165340000065,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 458.9188098000013,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 459.15433529997244,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 459.4583054999821,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 459.6686277000117,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 459.92826849996345,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5921.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 460.1506692999974,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 460.36766569997417,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 460.5868182000122,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 460.8095300999703,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 461.05126420001034,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 461.28395849996014,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 461.53965719998814,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 462.53971539996564,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 462.72303359996295,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 462.9459704000037,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5920.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 463.181684799958,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 463.41156699997373,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 463.64825729996664,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 463.88718099996913,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 464.1481025000103,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 464.38895559997763,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 464.60306609998224,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 464.8735785000026,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 465.13303719996475,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 465.3818289999617,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5919.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 465.64057519997004,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 465.8760350999655,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 466.1243024999858,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 466.35268269997323,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 466.58594509999966,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 466.82468329998665,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 467.0665767999599,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 467.27717909996863,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 467.4812846999848,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 467.7473466999945,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5918.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 467.9908604999655,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 469.0429775000084,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 469.33390510000754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 469.64465219998965,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 469.95561850001104,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 470.2267815999803,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 470.5041588000022,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 470.79535869997926,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 471.12413700000616,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 471.39006080001127,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5917.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 471.67387850000523,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 471.9541533999727,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 472.2508721000049,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 472.5092372999643,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 472.79432899999665,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 473.2195794999716,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 474.41417130001355,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 474.78420069999993,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 475.0923417999875,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 475.35756789997686,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5916.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 475.6123453999753,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 475.8377438999596,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 476.09552569995867,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 476.35144669999136,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 476.59043479996035,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 476.84510769997723,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 477.1041000999976,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 477.37123849999625,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 477.65507290000096,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 477.9672997999587,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5915.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 478.2246866999776,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 478.4722669000039,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.826919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 478.724071500008,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.726919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 478.9825314999907,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.6269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 479.21965799998725,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.526919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 479.4796568999882,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.426919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 479.71280769997975,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.326919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 479.94833119999385,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.226919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 480.1675336000044,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.1269190035055,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 481.16700229997514,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5914.026919003505,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 481.45911359996535,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.926919003506,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 482.65748449997045,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.904336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 482.85200760001317,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.804336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 483.0447487999918,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.704336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 483.27597929997137,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.604336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 483.4629767999868,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.504336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 483.74328850000165,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.404336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 483.9608134999871,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.304336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 484.1879224999575,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.204336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 484.4182383000152,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.104336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 484.6198325000005,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5913.004336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 484.81340390001424,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.904336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 485.05096789996605,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.804336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 485.28344799997285,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.704336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 485.5101427999907,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.604336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 485.7267709999578,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.504336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 485.94315639999695,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.404336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 486.1337613000069,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.304336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 487.1101484000101,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.204336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 487.31938589998754,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.104336389495,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 487.5458376999595,
+      "origin": "independent_cp_sat",
+      "attempt": 0,
+      "completion_s": 5912.004336389496,
+      "energy_kwh": 67.2520024078808,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    }
+  ],
+  "last_worker_phase": "cp_full_pool",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 7596.142307167044,
+        "energy_kwh": 82.02867704572435,
+        "transport_sorties": 32,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 84.14233866318091
+      },
+      "best_found_s": 29.727084899961483,
+      "solution_sha256": "62f93b6eebbcd5baec42945be8d9a816a335e3556f3068adf226d34ce4f61b29",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_cp_sat/sealed/checkpoint_30s_solution.json",
+      "source_path": "checkpoint_30s_solution.json"
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 7310.342307167044,
+        "energy_kwh": 75.95809814457172,
+        "transport_sorties": 30,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 261.03152652019435
+      },
+      "best_found_s": 59.71032790001482,
+      "solution_sha256": "ddc34105d8d05a45ee3fd0537733b92ce5540cda8d1da40536ac0e8b2cfbfd6d",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_cp_sat/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_60s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6938.642307167044,
+        "energy_kwh": 75.83384330423002,
+        "transport_sorties": 29,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 481.16483748197925
+      },
+      "best_found_s": 179.8491376999882,
+      "solution_sha256": "f755287e213134d3644c038b4fd1f46b4702159a8f1f7c0865a3737ec92e9d33",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_cp_sat/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 5912.004336389496,
+        "energy_kwh": 67.2520024078808,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 260.931526520194
+      },
+      "best_found_s": 487.5458376999595,
+      "solution_sha256": "e6b420457c992fd9bc6e9d46ef73bf075ca1f7a1b1234ccb3ed6d6fddb1682b6",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_cp_sat/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_600s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_time_cp_sat"
+}

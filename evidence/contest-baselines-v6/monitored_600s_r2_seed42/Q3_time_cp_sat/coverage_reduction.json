@@ -1,0 +1,17 @@
+{
+  "original_sites": 154,
+  "restricted_sites": 3,
+  "selected_site_ids": [
+    "DENSE-103",
+    "V4-009",
+    "V4-059"
+  ],
+  "original_atoms": 35925,
+  "reduced_atoms": 845,
+  "reduction_wall_s": 0.8719821000122465,
+  "highs_threads": 1,
+  "source": "Independent set cover of physical route coverage masks; conservative adjacent merging under restricted sites",
+  "no_supplied_solution": true,
+  "candidate_restriction": true,
+  "conservative_atom_restriction": "One relay sortie per merged interval; mid-interval handovers may be excluded"
+}

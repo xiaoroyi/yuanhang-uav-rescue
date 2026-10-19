@@ -1,0 +1,129 @@
+{
+  "question": "Q3",
+  "objective": "time",
+  "method": "aco",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": null,
+  "search_wall_s": 602.9542711999966,
+  "process_end_elapsed_s": 602.9542711999966,
+  "process_startup_s": 4.004874599981122,
+  "first_found_s": 2.989383900014218,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": null,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0110226999968,
+  "attempts": 830,
+  "complete_constructions": 829,
+  "constructor_stats": {
+    "lp_checks": 19084,
+    "lp_infeasible": 17,
+    "complete_covers": 829,
+    "nodes": 19913,
+    "window_schedule_calls": 829,
+    "scheduled_covers": 829
+  },
+  "decoder_calls": 829,
+  "callbacks": 0,
+  "rejections": {},
+  "trace": [
+    {
+      "found_s": 2.989383900014218,
+      "origin": "independent_own_greedy_bootstrap",
+      "attempt": 1,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.61617889626132,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    }
+  ],
+  "last_worker_phase": "cover_and_resource_schedule",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.61617889626132,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 39.464837481978975
+      },
+      "best_found_s": 2.989383900014218,
+      "solution_sha256": "2313e3d9b3fc613bd325a5dac2b3b08bdb4d9a3c6cae27ab4a9a02d72c66400e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_aco/sealed/checkpoint_30s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.61617889626132,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 39.464837481978975
+      },
+      "best_found_s": 2.989383900014218,
+      "solution_sha256": "2313e3d9b3fc613bd325a5dac2b3b08bdb4d9a3c6cae27ab4a9a02d72c66400e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_aco/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.61617889626132,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 39.464837481978975
+      },
+      "best_found_s": 2.989383900014218,
+      "solution_sha256": "2313e3d9b3fc613bd325a5dac2b3b08bdb4d9a3c6cae27ab4a9a02d72c66400e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_aco/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.61617889626132,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 39.464837481978975
+      },
+      "best_found_s": 2.989383900014218,
+      "solution_sha256": "2313e3d9b3fc613bd325a5dac2b3b08bdb4d9a3c6cae27ab4a9a02d72c66400e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_aco/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_aco"
+}

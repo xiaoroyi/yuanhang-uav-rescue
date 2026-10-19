@@ -1,0 +1,94 @@
+{
+  "trigger_s": 45.0,
+  "all_work_inside_budget": true,
+  "no_external_solution": true,
+  "records": [
+    {
+      "template": 1,
+      "preserved_route_ids": [
+        "6a47f0f200bf5eff59",
+        "db319a6d178191afdb",
+        "ee00686a75db68aaf4",
+        "584a1ef7e1da8bdec6",
+        "62ba60313bfdd58970",
+        "d5d4a2d5d9776b4fb1",
+        "a590daa1bd5b2c39fa",
+        "5f72a61a52b6413b8c",
+        "4dbaa2ad53801b0a8f",
+        "b420d3a209ede4c257",
+        "f358cbe7f9ab7fcec8",
+        "32c3876af67d7e827a"
+      ],
+      "preserved_fraction": 0.5,
+      "proposal_routes": 25,
+      "eligible_proposal_routes": 25,
+      "evidence": [
+        {
+          "stage": "C",
+          "status": "INFEASIBLE",
+          "objective": null,
+          "best_bound": 0.0,
+          "wall_time": 0.2182331,
+          "branches": 0,
+          "conflicts": 0,
+          "pool_size": 267,
+          "q": 0.1,
+          "seed": 43,
+          "workers": 1
+        }
+      ]
+    },
+    {
+      "template": 1,
+      "preserved_route_ids": [
+        "6a47f0f200bf5eff59",
+        "db319a6d178191afdb",
+        "ee00686a75db68aaf4",
+        "584a1ef7e1da8bdec6",
+        "62ba60313bfdd58970",
+        "d5d4a2d5d9776b4fb1"
+      ],
+      "preserved_fraction": 0.25,
+      "proposal_routes": 25,
+      "eligible_proposal_routes": 25,
+      "evidence": [
+        {
+          "stage": "C",
+          "status": "INFEASIBLE",
+          "objective": null,
+          "best_bound": 0.0,
+          "wall_time": 1.5318682000000001,
+          "branches": 6379,
+          "conflicts": 427,
+          "pool_size": 267,
+          "q": 0.1,
+          "seed": 43,
+          "workers": 1
+        }
+      ]
+    },
+    {
+      "template": 1,
+      "preserved_route_ids": [],
+      "preserved_fraction": 0.0,
+      "proposal_routes": 25,
+      "eligible_proposal_routes": 25,
+      "evidence": [
+        {
+          "stage": "C",
+          "status": "FEASIBLE",
+          "objective": 59259.0,
+          "best_bound": 51996.0,
+          "wall_time": 21.7882865,
+          "branches": 45770,
+          "conflicts": 2190,
+          "pool_size": 267,
+          "q": 0.1,
+          "seed": 43,
+          "workers": 1
+        }
+      ]
+    }
+  ],
+  "elapsed_s": 25.470935499994084
+}

@@ -1,0 +1,372 @@
+{
+  "passed": true,
+  "version": "1.3",
+  "pages": 44,
+  "chapters": 25,
+  "native_equations": 7,
+  "word_tables_including_contents": 26,
+  "complete_result_tables": 4,
+  "word_numeric_rows_reconciled": 16,
+  "prompt_matches_master": true,
+  "source_sha256": "2ef2a29717e1cb98f95a678ea9d44ae01791512d747ad2eee4a11543e536932d",
+  "word_sha256": "1f6026994d63b7b50fac472400656d35f127838446e8250e80a4b759e4b06ab6",
+  "prompt_sha256": "9c3652e6b3d83b9bf5d161490a6ef773423e8226d97d98c3f9aed6dc7a63eba9",
+  "renderer": "Native Microsoft Word read-only isolated instance; bundled LibreOffice unavailable",
+  "page_visual_review": "All 44 rendered page PNGs inspected; no clipping, missing data or table overlap.",
+  "reviewed_pages": [
+    {
+      "page": 1,
+      "chars": 942,
+      "first": "1 \n援航项目实际实现与协作对接总文档 \n版本：1.3 更新日期：2026 年 10 月 19 日 产品阶段：V4 完整参考交付与 600 秒独立基线实验 \n代码基线：feat/mission-com",
+      "last": "11. 动态事件与保留执行承诺的修复 24. V4 离线启发式与案例资产实现 \n12. 资源诊断、反事实试算和演练评测 25. 独立传统基线实验与申报引用 \n13. 业务仿真、设备接口和状态流  \n ",
+      "same_as_reviewed_v12": false,
+      "sha256": "b2790fac63238ed083d103197ed07264498e02731c87703a9446c11ec146670d"
+    },
+    {
+      "page": 2,
+      "chars": 866,
+      "first": "2 \n1 项目概述与使用场景 \n1.1 项目定位 \n项目全称建议保持为“援航——面向灾害应急的无人机运输与通信协同调度系统”。当前软件是一套在 Wi\nndows 本机运行、支持离线计算的调度决策支持与",
+      "last": "、可选地面容量、可选通信协同，以及运输模式中的受控动态修复。默认小场景为 5 个需求\n点、32 箱；保留 15 个需求点、80 箱的原题输入和联合通信案例。模板每次创建独立输入，随后仍需真\n实求解。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "1bd3b44fe5f0643e20933f5e9379ffb30735a5e664da551ab0c629dd3031964d"
+    },
+    {
+      "page": 3,
+      "chars": 906,
+      "first": "3 \n不在当前完成范围内的内容包括：居民公共通信业务、多基地和移动补给车、完整多机四维避碰、实测\n风场与动力学、真实飞控、学习模型训练、完整概率鲁棒优化和航片自动建图。这些不是从任务板删除\n的功能，而",
+      "last": "独立求解进程、\n版本与幂等、确认预约事务、动态事件、保留承诺的执行残余重排、模拟账本、设备状态读回、任务工\n作空间、地图与表格联动、真实三维与剖面、通信空间采样、资源试算、实验记录、导出与本机备份。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "60f196c69cd452d0eb0cdd98a8a0612c6ccd7c3f5844981bbfe0d1b3c8bfa63a"
+    },
+    {
+      "page": 4,
+      "chars": 927,
+      "first": "4 \n算法层新增或产品化的重点包括限时多起点可行构造、有限路线池改进、机体与电池资源依赖传播修复、\n静态限制区绕行、通用 GeoTIFF 绑定、地面容量约束、人工气象作业资格和释放下界处理。不能将所\n",
+      "last": "约 38 秒实际操作短片、字\n幕、术语与页面跳转 \n本项目真实截图与录屏 \n首页与案例 \n全宽动态地形首页、四类有来源演练、本机\n任务资产与输入复用 \n真实 DEM、数据库计数、创建来源和独立任\n务 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "3e92e2c8c70246f31f8c723e226b0155654aeab04f136e9d1a44d47eead664cb"
+    },
+    {
+      "page": 5,
+      "chars": 755,
+      "first": "5 \n区域 已有功能 主要输出或依据 \n算法引擎 \n标准与 EOH 可选、本地策略导入导出、同\n输入引擎对比 \n策略包版本/SHA256/来源/实际评分调用数 \n接入中心 \n已安装模拟适配器、实际接口",
+      "last": "。 \n执行中的联合通信方案当前可查看和模拟，不能进入尚不支持的在途联合修复。已有 ready/running/pau\nsed 执行实例的任务不能用普通“确认方案”覆盖预约，必须走执行调整或新建副本。 ",
+      "same_as_reviewed_v12": true,
+      "sha256": "8d9418e7aa460519bd70894cc217eaa6b45b4d7e30b385927b9a46219ca70cde"
+    },
+    {
+      "page": 6,
+      "chars": 1072,
+      "first": "6 \n4 系统架构和技术栈 \n4.1 架构 \n浏览器任务工作空间 \n  React 页面、MapLibre 地图、ECharts 图表、Three 地形、表格与甘特 \n                ",
+      "last": "、Shapely、Rasterio、Numba \n数值、有限优化、坐标/限制区/地形/通信计算 \n输入输出 openpyxl 等 \nJSON/CSV/XLSX 输入、Excel 安排表、报告\n与归档 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "a3844eb65528065f5a3597848eb9f2187d724104e0bb9acaba4c7828715ff45d"
+    },
+    {
+      "page": 7,
+      "chars": 959,
+      "first": "7 \n层 实际使用 用途 \n检查 pytest、Node 单测、ESLint、TypeScript、\nPlaywright \n模块、契约、构建与真实浏览器流程 \n \n确切版本以 requirement",
+      "last": "选、采纳与设备状态 \n与零时刻 Event 分开，使用 revision、游标和\n幂等键 \nExperiment / Arc\nhive 独立对照与只读复盘 不自动确认、不控制原任务、不写交付事实 \n ",
+      "same_as_reviewed_v12": false,
+      "sha256": "8ed29c76c4496712b5fa06221ebc83286517deed9da446001445ccd8024ca269"
+    },
+    {
+      "page": 8,
+      "chars": 923,
+      "first": "8 \n需求与实物库存分开。Demand 表示某点需要什么、需要几箱、优先级和时限；CargoItem 是有独立 ID、\n质量、体积、位置和状态的不可拆箱。需求可由多架次分批满足，同一个实物箱不能重复分",
+      "last": "等于一套已准备好的卫星影像。 \n默认使用本地地形和地理上下文，断网仍可展示路线。在线卫星由用户主动启用，保留来源署名，失败\n时降级。需要外网不等于求解依赖外网，也不保证所有区域或网络下影像都可获取。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "0d0bd96d08fe766d6fa975e772beb662c9ae0be484568fa54947b275dc1b1091"
+    },
+    {
+      "page": 9,
+      "chars": 947,
+      "first": "9 \n6.2 DEM 资产 \n支持单波段、有 CRS、米制高程的 GeoTIFF。当前上传上限 16MiB、源和准备栅格上限 200 万像元；\n这些是当前实现限制，可在确认需求后调整。北向 EPSG:",
+      "last": " \nd、H、Δh↑、Δh\n↓ \n实际航段距离、巡航高程、爬升、下降 m \nm、M、m₀ 当前剩余载荷、额定载重、机体空质量 kg \nR₀、R₁、Eref 空载/满载参考航程、参考电量 m、m、kWh ",
+      "same_as_reviewed_v12": false,
+      "sha256": "5f8ea2f68e41e6ef2c2615ec873ca21089925b9a5840bdc57946f8565a4540df"
+    },
+    {
+      "page": 10,
+      "chars": 885,
+      "first": "10 \n符号 含义 单位 \nv、v↑、v↓、η 水平/爬升/下降速度、爬升效率 m/s、无量纲 \nC、q、s、ρ \n电池额定容量、SOH、出发 SOC、最低返\n航 SOC \nkWh、无量纲 \n \n7.",
+      "last": "𝑡𝑖𝑒/(𝐶𝑞)  ≥ 𝜌 \n默认 ρ=0.2 来自原题，可按当前策略修改。质量和总体积分别不超过机型上限；体积总和可行不等于任\n意几何形状都能装入货舱。当前没有三维装箱、温度降额或完整电化学模型。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "3ca2d4bcf1225e89057d3f1e2fa380b937a873f5659e76f224762dc156a65e1e"
+    },
+    {
+      "page": 11,
+      "chars": 883,
+      "first": "11 \n7.4 两阶段充电与资源释放 \n从 SOC 为 s 充满的时间，设满充总时长为 F：低于 90%时为 F×[0.65×(0.9−s)/0.9+0.35]；90%以上\n为 F×0.35×(1−s",
+      "last": "比较同分后的下一项。新界面显式采用 v2，旧请求缺少版本时仍按 v1，\n旧 Plan 原文不重写。系数 300 是“每 kWh 折算为 300 秒”的固定偏好系数，不是人民币、学习结果或公\n平指标。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "7a83a37f223ca6cd1b92d53e97df4808733f0e439de0a906cbb297feedb3c012"
+    },
+    {
+      "page": 12,
+      "chars": 828,
+      "first": "12 \n三策略可能在有限候选中选中同一计划，也可能只有显示精度相同。前端应说明实际排程是否相同、目\n标规则和比较范围，不能强制制造不同结果。比较必须核对 Snapshot、规则版本和运输/联合范围；不",
+      "last": "间或能源及小幅随机扰动，不是逐步贪心评分本身就等于最终目\n标，也不是学习模型或完整 ALNS。预算包含预处理和检查；会预留检查时间，但大输入、JIT 与平台\n开销仍需实测，不能承诺每个输入固定秒数。 ",
+      "same_as_reviewed_v12": true,
+      "sha256": "f125fda377f0e5ebe9f8aaa2fb9bc76a03ddb5592344ff52d6383a12bf0d2d9e"
+    },
+    {
+      "page": 13,
+      "chars": 1023,
+      "first": "13 \n9.2 有限路线池 CP-SAT \nmode=improve 可继承同一快照、同一目标和规则的已验证基线，再在剩余预算使用 solver/cp_pool.py。\n候选池最多 850 条，来源包",
+      "last": "候选或输入条件下未得到已验证方案，不\n等于物理无解 \nINFEASIBLE 有明确模型依据的不可行，需保留证据范围 \nERROR / validation_failed 计算或重建失败，候选不得发布 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "0a8fef611be3698eb91a2c3eca2a3598a1327f4e880a6af4c505c0042ffe1c19"
+    },
+    {
+      "page": 14,
+      "chars": 830,
+      "first": "14 \n结果 正确解释 \nJob canceled \n独立进程已停止；当前取消 Job 不发布可确认的中间\n计划，原有 Plan 保留 \n \nfirst_feasible_s 是首个独立检查通过候选的",
+      "last": " 3.2kW\nh 能源组件；服务能耗包含建链和服务期间的悬停/通信，不因某段没有运输机连接就自动忽略空档，也\n不按连接机数量重复相乘。机体和组件独立预约；有限地面容量开启时与运输共同竞争工位/端口。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "3a8d84ecdf7f00dcf573ae201ee13a57662ead2d5b746b325d10b744d3404773"
+    },
+    {
+      "page": 15,
+      "chars": 842,
+      "first": "15 \n求解先产生私有运输松弛的组批、访问顺序与机型，再在有限运输模式及最多 48 个悬停候选上联合选\n择开始时刻、机体、电池、中继和服务窗口。几何覆盖需求按候选集合分解为连续原子，随后 CP-SAT",
+      "last": "飞的状态塞进普通 solve()后从头规划。能力报告中的 execution_state=false 描述普通静\n态入口不接任意执行事实，不表示系统没有独立 Execution 服务和受控残余修复。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "5f0adf340494ed7f5b7567d3fec20f3325397f5f29fa96bed423945ed18ee972"
+    },
+    {
+      "page": 16,
+      "chars": 968,
+      "first": "16 \n11.2 资源依赖与局部范围 \n图节点用(plan_id,sortie_id) 精确标识，边表示同一机体或运输电池的时序后继。先求事件直接命中，\n再沿后继求闭包，区分直接影响、传播影响和已承诺",
+      "last": "、卸载换机、失效迫降和联合中继窗口重排未在此模型内完成。 \n误报更正采用追加 resolution，不删除原事件；已采纳或正在应用的变更有约束。当前尚有未处理事件\n时，继续演练和手动推进也不能绕过。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "243c8ef9ad7890d171e67dbf4ff95517b73c7ee25a1f9d005a6876d3ae1040b5"
+    },
+    {
+      "page": 17,
+      "chars": 855,
+      "first": "17 \n12 资源诊断 反事实试算和演练评测 \n12.1 单点诊断和必要下界 \n单点诊断以额定满 SOC 与 100%SOH、单站往返模型计算安全载重。空载往返不满足能源时明确不可\n行；中间质量用单调",
+      "last": "享损失”是各组专属峰值总和减全局共享峰值；“缺口”是专属总配置超出现有库存的部分。最少数量只\n针对冻结区间与同质资源条件，不能宣称重新组批和排程后的全局最少配置。新增实体建议不会自动变\n成已有实物。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "cdd0d78be77d8b3536a1f68c8da801b134f492c19cfd5469e05306874018c993"
+    },
+    {
+      "page": 18,
+      "chars": 1094,
+      "first": "18 \n12.4 评测 \n演练评测为策略对照、quick/improve 搜索对照和同一执行残余 Reference 的修复方法对照。后台协调\n器串行派发真实 Worker，记录快照、种子、预算、版本",
+      "last": "TP 受理、设备 ACK 和动作完成是三个不同状态。服务器持久存模拟设备独立状态，完成需读回核对\nPlan 及编译内容 hash。指令具有执行归属、设备能力、幂等键、版本、有效期和状态机；拒绝、ACK",
+      "same_as_reviewed_v12": false,
+      "sha256": "48c69bed30b620f31ab132187185c910f5f9dd59ec1af9c424f8d4f4155b97dd"
+    },
+    {
+      "page": 19,
+      "chars": 1144,
+      "first": "19 \n超时、完成回执丢失均保留不同结果。动作可能已发生但完成未确定时，不自动重复有副作用动作，而\n另行查询状态。 \n13.3 SSE 与档案 \n执行流支持事实 cursor 和 Last-Event",
+      "last": "#/engines、#/integrations \nCaseLibrary、EngineCenter、IntegrationCenter；co\nmmand-workspace.css 共享字体与配色 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "abc31001b6746682f5ec5c7f02ca42fe8a8bdb7566c588d7b742ee6dadb43097"
+    },
+    {
+      "page": 20,
+      "chars": 961,
+      "first": "20 \n \n资源中心先按任务分组，再管理地图、机队、电池、物资和该任务档案；不是把全部任务资源无归属混\n放。Ctrl K 搜索支持功能与任务跳转。本机资料设置不等于后端用户系统。 \n14.2 可视化数",
+      "last": "_state.py 模拟设备边界、独立状态、回执与读回 \nterrain_assets.py、terrain_packages.py、map_asset\ns.py \nDEM 注册、包移交、地理上下文 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "af2bfbae765837cab3971df4f62388567ebc2281bca9d8d2582b2a0de29e5c43"
+    },
+    {
+      "page": 21,
+      "chars": 1221,
+      "first": "21 \n模块 作用 \nflight_profiles.py、analytics.py、radio_coverage.py 绑定快照的阶段、分析和空间采样 \nexperiments.py、executi",
+      "last": "口名称调用。 \n用途 实际路径示例，均以/api/v1 为前缀 \n健康与能力 GET /health、/meta/capabilities、/meta/operations-capabilities ",
+      "same_as_reviewed_v12": false,
+      "sha256": "866a763ccce83e3da667e4e60f438ad051447ff27f8290c199d608a1c60f55a4"
+    },
+    {
+      "page": 22,
+      "chars": 1513,
+      "first": "22 \n用途 实际路径示例，均以/api/v1 为前缀 \n任务与预检 GET/POST /missions；PUT /missions/{id}/draft；POST /missions/{id}/p",
+      "last": "_reference_id 是后端加载元数据，不能直接作为未知字段塞给 SolverOptions。自\n定义 DEM 通过只读 terrain_store 上下文提供，不将本机私有绝对路径写进契约。 ",
+      "same_as_reviewed_v12": true,
+      "sha256": "add9d8edac20a070f915fdbdf2b5fc85b38a56385a47bd12730c9ad62724fdbe"
+    },
+    {
+      "page": 23,
+      "chars": 1101,
+      "first": "23 \nJSON Schema 为领域数据源，生成 Pydantic；操作 DTO 导出操作 Schema 与实际 OpenAPI，再生成\n前端 HTTP 类型。openapi.draft.json ",
+      "last": "T_REPORT.md，不能把各历史版本通过\n数累加称为本轮全系统通过。用户要求基础和专项检查，本轮没有重新运行全部历史 Python 与浏览器\n长回归；真机/SITL 和未完成研究更没有通过记录。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "c18ad078adebb2173245e555a2dffd29ef8da329c55de128503add07824b1806"
+    },
+    {
+      "page": 24,
+      "chars": 1018,
+      "first": "24 \n升级时原有 29 份 Plan、26 份 Snapshot 原文 hash 保持一致，3 个暂停执行实例保留，并有一致性备份。\n此数量是本机交付时数据保护记录，不是产品固定规模、GitHub ",
+      "last": "\n允许部分保障建\n议 \n正式求解完整保障，partial service 关闭 未找到完整方案返回准确状态 \n直线/A*等多路线\n可能路线 \n静态可见图绕行＋题设升降；有限候选 不声称通用三维最短路 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "6bb2f219cfa348b0901426ef7c8e265712148abbb6eb379c893502551e101fb2"
+    },
+    {
+      "page": 25,
+      "chars": 872,
+      "first": "25 \n原方案设想 当前实际 后续材料口径 \n全链路依赖和变\n更代价优化 \n机体/运输电池依赖闭包、保留候选、全量\n回退和实际差异 \n未完成所有通信依赖图或全局最小变更证明 \n任意在途变化 保留已开始",
+      "last": "；通过地图、地形剖面、资源时间轴和独立任务表帮助调度人员核\n对方案。任务执行采用服务器业务仿真，条件变化时冻结已发生事实和已开始架次，再对剩余任务计算、\n比较并采纳调整，最后保留完整复盘与导出记录。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "5cb67ff1b6bd1719c20349307a8e9975a3b67e6386ef5a8a7dae13be8485cb82"
+    },
+    {
+      "page": 26,
+      "chars": 1090,
+      "first": "26 \n18.2 当前能支撑的贡献点 \n可表述的贡献 已落地内容 证据与必须保留的限定 \n面向执行连续性\n的资源依赖修复 \n直接影响、机体/电池后继闭包、未受影响\n任务保留、预算内回退、冻结承诺 \nd",
+      "last": "“强化学习调度已经部署”“实时风场能耗预测”“任意灾区全局最优”“真实机群自主飞行”“公共通信全\n域覆盖”“100%安全可靠”“相比同行提升固定百分比”或“所有原方案功能均完成”。更准确的表述是本机可",
+      "same_as_reviewed_v12": false,
+      "sha256": "abb9a7a6a9abc32124d0669d3324fe44060744d8732418363277d8ffa14fa4e9"
+    },
+    {
+      "page": 27,
+      "chars": 1102,
+      "first": "27 \n运行的规划与业务演练系统、声明模型中的独立检查、现有基准的真实计算，以及有明确实验计划的后\n续扩展。 \n赛事资格、匿名、作品复用、数据授权和提交要求需按实际使用场合另行核对；原开发 Word ",
+      "last": "hon -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 \nnpm.cmd --prefix frontend run dev ",
+      "same_as_reviewed_v12": false,
+      "sha256": "781252587da30cedf3a70998ba8ebf7ca9f2be51976b1c9e35ffc6a40b7612cc"
+    },
+    {
+      "page": 28,
+      "chars": 1164,
+      "first": "28 \n两个终端分别运行；开发界面默认 5173，代理后端 8000。修改前端后正式使用需重新构建；修改后端\n需重启自己的服务。需要隔离数据时先设置 YUANHANG_RUNTIME 为项目.loca",
+      "last": "默认深蓝；卫星图仍需联网。核心地形、路线、图表、调度表、教程和计算可\n离线使用。范围及操作见 docs/REFERENCE_DELIVERY.md ；不是 macOS/Linux 或真机控制发行版。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "34a855cfaf3c1a967f3c63308164f70a4755d0b535aecd01585b2613b6efc074"
+    },
+    {
+      "page": 29,
+      "chars": 1042,
+      "first": "29 \n20 无记忆接手的阅读顺序和文件地图 \n20.1 最小必读 \n新窗口先读本文，再读下表的规则与当前状态；不需要每次全文重读所有 32 份 RFC 和原论文。本文足\n以理解整体，机器字段与变更仍",
+      "last": "c_api.replan \n执行与修复 RFC017/020/023/024/026—029/031；executions/simulation/execution_repair/repair 证据 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "4116ee5578eef2e0456234127c4cdb700f312cf7965f3bf37cb94899c7aecfcf"
+    },
+    {
+      "page": 30,
+      "chars": 1262,
+      "first": "30 \n工作 文档与关键实现 \n资源与诊断 \nRESOURCE_ANALYSIS、GROUND_RESOURCES、FROZEN_PARTITION、NOMINAL\n_ANALYSIS、CAPACIT",
+      "last": "两人协作：A 负责 solver/和算法、兼项目负责人；B 由同一人负责 frontend/、backend/、 \n数据与集成。历史 B-*和 C-*任务均归 B。本次只实施用户下面明确提出的工作， ",
+      "same_as_reviewed_v12": false,
+      "sha256": "a6f089530bff207f0f8b99930fd7d72679d9b057da29a443f6243a46030e415e"
+    },
+    {
+      "page": 31,
+      "chars": 1307,
+      "first": "31 \n不将过去夜间全栈授权当作以后任意跨模块的永久许可。 \n \n四、保持真实链路和边界：Plan/Snapshot 不覆盖；所有展示绑定原 Snapshot； \nMock/历史/本次 Solver/",
+      "last": "结果。 \n如果仅交给另一个聊天窗口写本子，发送本文和需要的申报模板即可，要求按“现有基础、当前完成、拟\n研究工作”分开撰写；没有源码访问能力的窗口不应自行补造性能、用户规模、实飞和 AI 训练结果。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "de47d213726fc64496ada97b5ced2ab6e3379a4d3e60541b62f5c88f5570d2f5"
+    },
+    {
+      "page": 32,
+      "chars": 1024,
+      "first": "32 \n22 后续工作与文档维护约定 \n22.1 当前后续工作 \n优先级由任务板和用户新任务决定，不按旧日期排期。可继续完善一般联合搜索、在途通信修复、跨地\n图/连续事件对照、独立真实演练数据、学习辅",
+      "last": "状态仍以 docs/task-board.json 为唯一机器来源，Markdown 任务板用脚本生成；契\n约仍以 Schema/实际 OpenAPI 和受控生成链为准，本文不能成为第二套接口定义。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "ca7e3a5c1bc6923cd2454a45a74ee3ffd8d1ab2ecabb216f9b50447ddc5c8195"
+    },
+    {
+      "page": 33,
+      "chars": 571,
+      "first": "33 \n每次重要交付记录：日期、基线 commit、输入和模型变化、能力与限制、证据位置、接口兼容、下一\n项任务。后续尚未重新验证的旧成果保留原时间与范围，不擦去历史失败，也不把本次未运行的检查写\n成",
+      "last": "建“增加资源或改变参数后会怎样”的真\n实计算 \nACK/完成读回 \n收到指令的回执/从独立状态核对动作结果，不能混为\n一谈 \nSSE/事实游标 \n服务器向界面推送更新/用于断线续传的已保存事实位\n置 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "9563005f28670c6ff5690d9bf4a67d649a020f2042b81b9464fefe9bf60c7ed0"
+    },
+    {
+      "page": 34,
+      "chars": 1049,
+      "first": "34 \n术语 通俗含义 \n仿真/回放/真机 \n服务器模拟产生事实/只读历史事实/实际物理设备，当\n前只完成前两类 \n \n23.2 来源地图 \n事实依据为本文代码基线的 solver/、backend/",
+      "last": "本机数据库聚合任务、方案、快照和执行数量，\n缺少数据保留空值。中文 Noto Sans SC Variable 和数字 Inter Variable 按 OFL 许可本地打包，不使用\n字体 CDN。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "46d21ce262c31ce6e46800169781adc92d03b412fb2072489502b17910714d55"
+    },
+    {
+      "page": 35,
+      "chars": 1509,
+      "first": "35 \n粒子、路径流动、策略轨道、进入过渡和数字变化使用已有 Motion、Three 与 CSS；用户开关和系统减\n少动态效果共同生效。三维循环在不可见或后台时暂停。首页背景铺满视口，正文容器最高 ",
+      "last": "\n只有显式--run 才读取模型环境变量。候选使用真实小场景评估，保存输入指纹、指标和检查结果；合格\n产物以新 ID 发布，正常调度只读本地函数。此轮运行了表达式与三例本地接入评估，没有运行外部 LL",
+      "same_as_reviewed_v12": false,
+      "sha256": "89d18f2ebf46c24a1adc6d3f3cf363b83f10530caf180e0d079ecd0e87e46256"
+    },
+    {
+      "page": 36,
+      "chars": 1209,
+      "first": "36 \nM 进化，没有形成独立留出测试、消融或通用提升结论。后续需单独配置模型环境、预算和训练/测试集\n合，保留失败证据。 \n24.4 案例与任务资产 \nCaseLibrary 内置山地断路、洪涝分级",
+      "last": "实验。先读本文、根/\n模块 AGENTS、当前状态、V4 交接、唯一任务板、RFC-032 和对应 Schema/OpenAPI，再精读相关代\n码。不从 G0 重新搭建，不在每次任务中启动模型进化。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "562cbf99da693dc046a566d1db9bcb77e81ac44871511abcb9caf659a4cb55be"
+    },
+    {
+      "page": 37,
+      "chars": 1186,
+      "first": "37 \n25 独立传统基线实验与申报引用 \n25.1 当前有效实验和主要发现 \n截至 2026 年 10 月 19 日晚，最新完整批次为 contest-baselines-v6/monitored_",
+      "last": "用 1 个 worker；保存同次搜索 30、60、180、600 秒检\n查点。整批墙钟 742.146 秒，各配置 search_wall_s 合计 9111.027 秒；这些分别是并发实验总历时和",
+      "same_as_reviewed_v12": false,
+      "sha256": "03a47909b716168639ba9ecd07c404dac5d52f727f35fd0f34721715da0dbc95"
+    },
+    {
+      "page": 38,
+      "chars": 1109,
+      "first": "38 \n累计记录时长，不能互换，也不能按独占 CPU 的速度基准解释。协议没有保存足够的 CPU 型号、内存\n和负载快照，不补造硬件性能结论。 \n本批开始于北京时间 2026 年 10 月 19 日 ",
+      "last": " 位，发现时刻 2 位；计算与比较使用原始浮点值。论文历史记录没\n有本轮搜索耗时，Q3 也没有汇总可引用的运输/中继能耗分项，统一用“—”，不反推补填。各能耗分项\n独立四舍五入，末位可能出现舍入差。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "163140780989bcaebd89497bcdc0577362ea58e361ccd53de32f8cdcd76cf7a3"
+    },
+    {
+      "page": 39,
+      "chars": 829,
+      "first": "39 \n25.5 Q2 以完成时间最短为目标 \n本组仅运输，总能耗全部来自运输。本组没有另设能耗组的全部返航上限，仍须满足各项交付与安全约\n束。 \n方法 完成时间 s 总能耗 kWh 运输架次 首解 ",
+      "last": "秒结束，有限模型最优证明发生在发现解之后。 \n25.7 Q3 以完成时间最短为目标 \n本组总能耗包含运输与中继，两类架次分列合并表示。本组没有另设能耗组的全部返航上限，仍须满足\n各项交付与安全约束。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "24158fb86184af3a659c629ec481367f570f02877f0d92c59c46f453a43971ae"
+    },
+    {
+      "page": 40,
+      "chars": 1103,
+      "first": "40 \n方法 完成时间 s 总能耗 kWh 运输 kWh 中继 kWh \n运输＋中\n继 \n首解 s 最终发现 s \nGreedy 贪心 6024.227 70.177475 67.082524 3.0",
+      "last": "搜索计时起点计。输入加载与最终父进程核验另\n计。部分终止路径记录略超过 600 秒，截止监控、终止与写记录存在开销；可采纳方案的发现时间仍必\n须不超过 600 秒，不能把超出部分包装成更长搜索预算。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "9560c814afa48146515bf4c67cc4bd6cebc5f8afcef2912523acd38b6728b93d"
+    },
+    {
+      "page": 41,
+      "chars": 1190,
+      "first": "41 \n配置 方法 首解 s 最终发现 s 记录时长 s 进程结束 s 结束方式 \nQ2 时间 Greedy 贪心 1.59 194.27 602.486 602.486 截止终止 \nQ2 时间 AC",
+      "last": "方案所有运输架\n次中的最小值，不表示每架次都恰好剩 20.095847%。全体方案最小整站硬截止裕量 39.465 秒，意味着\n在本确定性输入下仍有该余量，不构成对真实气象或测量误差的鲁棒安全保证。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "668fdd698fabf227470e335a567f202b4dc1fee4230b75b3911848b84cbd8fa7"
+    },
+    {
+      "page": 42,
+      "chars": 1091,
+      "first": "42 \n8 套 Q3 方案的连续通信缺口均 0 秒、未知区间均 0；各方案最低中继返航 SOC 范围 45.550%至 48.46\n9%。连续检查范围为冻结的原高程投影凸四边形、2 毫米足迹缓冲与有限",
+      "last": "_s，避免误用运输逐箱 summary 的同名近似\n指标；两者对首箱规则的处理口径不同。零违规和 100%交付是这 16 套已封存方案的核验结果，不能外\n推为任意输入必有解或真实机群 100%可靠。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "e8619a7e7f67f218608e8fdd1d7876aec524bcbc36d23272355f0b1c39fefc33"
+    },
+    {
+      "page": 43,
+      "chars": 983,
+      "first": "43 \n25.11 与论文历史方案的取舍 \n以下仅计算本轮 CP-SAT 方案减去对应论文历史方案的观测差值，百分比分母为历史值；正数表示更大，\n完成时间或能耗越小越好。它们用于解释结果，不是同预算算",
+      "last": "600 秒单配置预算实验。随机种子 42 下的 16 套最终方案均通过独立交付、硬截止、资源与能源检\n查，8 套通信联合方案的连续通信缺口和未知区间均为零。CP-SAT 在本批四个目标组中获得四种新跑",
+      "same_as_reviewed_v12": false,
+      "sha256": "371b4b9aabe4d65b04524fb31d18f0d65e16afc9f1040f4614db65bcc08d8039"
+    },
+    {
+      "page": 44,
+      "chars": 1340,
+      "first": "44 \n方法里的最低主目标值；其 Q3 时间方案在 5770.677 秒内完成，能源 69.964281kWh，体现可量化的时\n间能源取舍。实验仅为单实例单种子，不作全局最优、统计显著性或真实机群性能",
+      "last": "s.py 更新本章和数据投影，随后以 scripts/build\n_project_dossier.py 生成 Word 及接手提示词，实际渲染检查版面。后续新实验单独归档，并以最终结\n果更新本章。 ",
+      "same_as_reviewed_v12": false,
+      "sha256": "638e6f2e7c83ac8a8ccd2827eb3dece395f21638247ab43dba54d718c059abf1"
+    }
+  ],
+  "new_solver_runs": 0,
+  "application_code_changed": false
+}

@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "completed_runs": 16,
+  "requested_runs": 16,
+  "feasible_final_runs": 16,
+  "abort_reason": null,
+  "experiment_wall_s": 742.1464063000167,
+  "sum_search_wall_s": 9111.026716299937,
+  "source_changes": [],
+  "physical_input_changes": [],
+  "not_started": [],
+  "finished_at": "2026-10-19T14:17:02.313040+00:00"
+}

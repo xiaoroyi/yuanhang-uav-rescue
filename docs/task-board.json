@@ -2235,6 +2235,25 @@
         "evidence/reference-delivery/TEST_REPORT.md",
         "evidence/reference-delivery/runtime-review.json"
       ]
+    },
+    {
+      "id": "DOC-EXP-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "将600秒独立对比实验完整写入三份当前对接文档",
+      "acceptance": "四组16套方案、搜索时间、能耗分项、校验与比较限制完整入文；MD/Word/提示词一致，原始结果不改写",
+      "dependencies": [
+        "REF-01"
+      ],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "docs/PROJECT_DOSSIER.md",
+        "evidence/project-dossier-v13/result-reconciliation.json",
+        "docs/current-project/contest-baselines-v6/结果与引用说明.md"
+      ]
     }
   ]
 }

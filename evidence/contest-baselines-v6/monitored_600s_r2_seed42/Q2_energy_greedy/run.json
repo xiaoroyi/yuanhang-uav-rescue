@@ -1,0 +1,149 @@
+{
+  "question": "Q2",
+  "objective": "energy",
+  "method": "greedy",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": 6000.0,
+  "search_wall_s": 600.0056964000105,
+  "process_end_elapsed_s": 603.1130189999822,
+  "process_startup_s": 3.902983399981167,
+  "first_found_s": 38.73796840000432,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": false,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0069952000049,
+  "attempts": 317,
+  "complete_constructions": 14,
+  "constructor_stats": {
+    "lp_checks": 92084,
+    "lp_infeasible": 65159,
+    "backtracks": 21445,
+    "complete_covers": 227,
+    "nodes": 110312,
+    "schedule_failures": 213,
+    "schedule_nodes": 5343726,
+    "uncovered_dead_end": 1,
+    "scheduled_covers": 14
+  },
+  "decoder_calls": 0,
+  "callbacks": 0,
+  "rejections": {
+    "construction_or_schedule_failed": 303
+  },
+  "trace": [
+    {
+      "found_s": 38.73796840000432,
+      "origin": "independent_greedy_search",
+      "attempt": 17,
+      "completion_s": 5979.327773641011,
+      "energy_kwh": 67.71380552819856,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 55.663074999989476,
+      "origin": "independent_greedy_search",
+      "attempt": 25,
+      "completion_s": 5968.527486224205,
+      "energy_kwh": 67.00799846624055,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 98.42539540003054,
+      "origin": "independent_greedy_search",
+      "attempt": 50,
+      "completion_s": 5987.45186477235,
+      "energy_kwh": 66.59375147005778,
+      "transport_sorties": 25,
+      "relay_sorties": 0
+    },
+    {
+      "found_s": 232.77585079998244,
+      "origin": "independent_greedy_search",
+      "attempt": 117,
+      "completion_s": 5987.45186477235,
+      "energy_kwh": 66.44358285354855,
+      "transport_sorties": 23,
+      "relay_sorties": 0
+    }
+  ],
+  "last_worker_phase": "search_finished",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "NO_FEASIBLE_SOLUTION_FOUND",
+      "metrics": null,
+      "best_found_s": null,
+      "solution_sha256": null
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 5968.527486224205,
+        "energy_kwh": 67.00799846624055,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 242.8283292319161
+      },
+      "best_found_s": 55.663074999989476,
+      "solution_sha256": "7ee3b0ea66b1f50d92b0676952b3af3fe8ed8da991ba6ef3bbf1e070a48e27dc",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_energy_greedy/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_60s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 5987.45186477235,
+        "energy_kwh": 66.59375147005778,
+        "transport_sorties": 25,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 147.62652840197097
+      },
+      "best_found_s": 98.42539540003054,
+      "solution_sha256": "02ec1e4080f23ce2839ec9fe2d0ac6f778b4a34f73597f1a9ae96a03609226b6",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_energy_greedy/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 5987.45186477235,
+        "energy_kwh": 66.44358285354855,
+        "transport_sorties": 23,
+        "relay_sorties": 0,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 552.5135988017373
+      },
+      "best_found_s": 232.77585079998244,
+      "solution_sha256": "eaab766513ed25f3b6350356bf27a03f467a8762866bf11cb65ae97a490e589e",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_energy_greedy/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_600s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q2_energy_greedy"
+}

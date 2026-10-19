@@ -263,6 +263,17 @@ def make_doc(source_path=SOURCE, output_path=OUT, prompt_path=PROMPT):
                 4: [1.15, 1.9, 1.95, 1.94],
                 7: [1.2, .54, .78, 1.1, 1.1, 1.12, 1.1],
             }.get(count, [6.94 / count] * count)
+            # Evidence tables have explicit units and numeric columns. Keep
+            # their method names and final-discovery headings readable without
+            # changing the earlier product/architecture tables.
+            if count == 6 and data[0][0] == "方法":
+                widths = [1.28, 1.15, 1.25, .85, 1.05, 1.36]
+            elif count == 8 and data[0][0] == "方法":
+                widths = [.90, .90, .90, .88, .85, .72, .83, .96]
+            elif count == 7 and data[0][0] == "配置":
+                widths = [.81, 1.01, .74, .85, .91, .91, 1.71]
+            elif count == 6 and data[0][0] == "配置":
+                widths = [.87, 1.1, 1.05, 1.22, 1.12, 1.58]
             if count == 2 and data[0][0] in {"用途", "工作"}:
                 widths = [1.2, 5.74]
             table.autofit = False

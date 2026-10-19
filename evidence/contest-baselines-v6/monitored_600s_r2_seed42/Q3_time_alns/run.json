@@ -1,0 +1,199 @@
+{
+  "question": "Q3",
+  "objective": "time",
+  "method": "alns",
+  "seed": 42,
+  "budget_s": 600.0,
+  "status": "COMPLETED",
+  "supplied_initial_solution": false,
+  "supplied_warm_start": false,
+  "paper_solution_used": false,
+  "completion_cap_s": null,
+  "search_wall_s": 600.0156675000326,
+  "process_end_elapsed_s": 602.9398884000257,
+  "process_startup_s": 4.00934629997937,
+  "first_found_s": 2.9708104000310414,
+  "hard_stop": true,
+  "termination_reason": "deadline_hard_stop",
+  "returncode": 137,
+  "early_worker_exit": false,
+  "program_failure": false,
+  "hard_stop_requested_elapsed_s": 600.0326440000208,
+  "attempts": 652,
+  "complete_constructions": 609,
+  "constructor_stats": {
+    "lp_checks": 5063,
+    "lp_infeasible": 216,
+    "complete_covers": 652,
+    "nodes": 6021,
+    "window_schedule_calls": 652,
+    "scheduled_covers": 609,
+    "window_schedule_INFEASIBLE": 41,
+    "schedule_failures": 43,
+    "proven_infeasible_cover_nogoods": 41,
+    "backtracks": 21,
+    "window_schedule_UNKNOWN": 2
+  },
+  "decoder_calls": 609,
+  "callbacks": 0,
+  "rejections": {
+    "construction_or_schedule_failed": 43
+  },
+  "trace": [
+    {
+      "found_s": 2.9708104000310414,
+      "origin": "independent_own_greedy_bootstrap",
+      "attempt": 1,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.61617889626132,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 12.874511600006372,
+      "origin": "independent_alns_search",
+      "attempt": 5,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.02778392005979,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 13.275046000024304,
+      "origin": "independent_alns_search",
+      "attempt": 6,
+      "completion_s": 6377.370888968866,
+      "energy_kwh": 70.02230772801374,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 120.32578780001495,
+      "origin": "independent_alns_search",
+      "attempt": 233,
+      "completion_s": 6088.560376437765,
+      "energy_kwh": 70.26103776983419,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 121.36088059999747,
+      "origin": "independent_alns_search",
+      "attempt": 234,
+      "completion_s": 6024.226919003505,
+      "energy_kwh": 70.25129729521358,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 192.14354570000432,
+      "origin": "independent_alns_search",
+      "attempt": 296,
+      "completion_s": 6024.226919003505,
+      "energy_kwh": 70.17747519431491,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 325.0601878000307,
+      "origin": "independent_alns_search",
+      "attempt": 436,
+      "completion_s": 5966.826919003505,
+      "energy_kwh": 69.71659308174566,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    },
+    {
+      "found_s": 572.970443600032,
+      "origin": "independent_alns_search",
+      "attempt": 631,
+      "completion_s": 5964.226919003505,
+      "energy_kwh": 70.41749433957581,
+      "transport_sorties": 23,
+      "relay_sorties": 3
+    }
+  ],
+  "last_worker_phase": "search_finished",
+  "checkpoints": [
+    {
+      "checkpoint_s": 30.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.02230772801374,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 216.67523702982635
+      },
+      "best_found_s": 13.275046000024304,
+      "solution_sha256": "34b6611b149a4abf0da608064aa2089e8aefae7e0c56787dcf97385847259aad",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_alns/sealed/checkpoint_30s_solution.json",
+      "source_path": "checkpoint_30s_solution.json"
+    },
+    {
+      "checkpoint_s": 60.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6377.370888968866,
+        "energy_kwh": 70.02230772801374,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 216.67523702982635
+      },
+      "best_found_s": 13.275046000024304,
+      "solution_sha256": "34b6611b149a4abf0da608064aa2089e8aefae7e0c56787dcf97385847259aad",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_alns/sealed/checkpoint_60s_solution.json",
+      "source_path": "checkpoint_30s_solution.json"
+    },
+    {
+      "checkpoint_s": 180.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 6024.226919003505,
+        "energy_kwh": 70.25129729521358,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 121.36088059999747,
+      "solution_sha256": "0b6c742dc0bfe6c1939bee1726cdfec4dc477955cf6715ecc3f513e34c52c830",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_alns/sealed/checkpoint_180s_solution.json",
+      "source_path": "checkpoint_180s_solution.json"
+    },
+    {
+      "checkpoint_s": 600.0,
+      "status": "VALIDATED_FEASIBLE",
+      "metrics": {
+        "completion_s": 5964.226919003505,
+        "energy_kwh": 70.41749433957581,
+        "transport_sorties": 23,
+        "relay_sorties": 3,
+        "boxes": 80,
+        "unique_boxes": 80,
+        "late_boxes": 0,
+        "hard_violations": 0,
+        "minimum_hard_slack_s": 55.042338663181
+      },
+      "best_found_s": 572.970443600032,
+      "solution_sha256": "06768fa1afe8cdb69a88cc87148b3b601efbe1bfed03908397ad39c62788eb13",
+      "solution_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_alns/sealed/checkpoint_600s_solution.json",
+      "source_path": "checkpoint_600s_solution.json"
+    }
+  ],
+  "worker_error": null,
+  "validation_errors": [],
+  "incomplete_pair_notes": [],
+  "run_path": "evidence/contest-baselines-v6/monitored_600s_r2_seed42/Q3_time_alns"
+}

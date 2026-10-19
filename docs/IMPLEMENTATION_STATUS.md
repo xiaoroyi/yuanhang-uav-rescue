@@ -4,7 +4,7 @@
 
 本机8000已切至V4。升级前重新备份当前运行库，31份Plan与34份Snapshot原文hash全部保留，4个执行实例（3暂停、1完成）及各表数量不变。测试数据留在.local/v4/runtime，没有带入演示库。检查范围：最终16项Python专项、严格类型/隔离构建、lint、契约及真实浏览器关键流程通过；没有重跑全部旧长回归，也没有连接外部模型/天气或真实设备。
 
-入口见[evidence/experience-v4/INDEX.md](../evidence/experience-v4/INDEX.md)、[HANDOFF](../evidence/experience-v4/HANDOFF.md)、[TEST_REPORT](../evidence/experience-v4/TEST_REPORT.md)和[演示指南](../evidence/experience-v4/DEMO_GUIDE.md)。[项目总文档](PROJECT_DOSSIER.md)、对应Word与[接手提示词](../prompts/06_CURRENT_PROJECT_HANDOFF.md)已同步1.2/V4，保留内部协作和未完实验，后续按最终核验更新。原题、约束、执行承诺、独立检查和历史证据保留；真机/SITL、联合在途修复、训练消融等剩余项仍见任务板与限制，契约仍proposed。
+入口见[evidence/experience-v4/INDEX.md](../evidence/experience-v4/INDEX.md)、[HANDOFF](../evidence/experience-v4/HANDOFF.md)、[TEST_REPORT](../evidence/experience-v4/TEST_REPORT.md)和[演示指南](../evidence/experience-v4/DEMO_GUIDE.md)。[项目总文档](PROJECT_DOSSIER.md)、对应Word与[接手提示词](../prompts/06_CURRENT_PROJECT_HANDOFF.md)已同步1.3/V4，保留内部协作；第25章完整纳入v6/monitored_600s_r2_seed42的16套600秒独立实验结果与全部引用限制，原始精度CSV在docs/current-project/contest-baselines-v6/。这批传统基线不是EOH实验，也不改动在线求解器或原运行数据；LLM训练、多种子和消融仍未完成。原题、约束、执行承诺、独立检查和历史证据保留；真机/SITL、联合在途修复等剩余项仍见任务板与限制，契约仍proposed。
 
 2026-10-19追加完整演示交付：按用户最后要求，对外包只提供项目功能/算法/图文操作，不包含内部分工、提示词或实验对照。另有6页[项目演示指南](PROJECT_DEMO_GUIDE.md)，便携CPython与已构建前端、完整运行数据、原题表格和DEM；打包方法见[REFERENCE_DELIVERY](REFERENCE_DELIVERY.md)，专项证据在evidence/reference-delivery。内部总文档与对外手册按用途分开，没有改动实际算法或用户数据库。
 

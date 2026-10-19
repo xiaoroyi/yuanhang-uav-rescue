@@ -160,6 +160,7 @@
 | V4-03 | P0 | B | — | 有来源的案例与任务资产复用；验收：四类案例独立创建、最近/完成历史任务、真实聚合与来源用途明确，不复用交付事实 | done | feat/mission-command-v4; evidence/experience-v4/FEATURE_TRACEABILITY.md; evidence/experience-v4/browser-review.json |
 | V4-05 | P0 | A+B | V4-01, V4-02, V4-03, V4-04 | V4必要检查与本机数据保护交接；验收：专项检查/构建/实际页面、准确证据、主Markdown/Word/提示词同步、备份与旧Plan/Snapshot保全 | done | feat/mission-command-v4; evidence/experience-v4/INDEX.md; evidence/experience-v4/project-document-audit.json; evidence/experience-v4/production-data-after_deployment.json |
 | REF-01 | P0 | A+B | V4-05 | 同步内部完整对接资料并交付独立运行演示包；验收：内部三文档保留实验状态并提交；对外包含便携环境、完整运行数据与前端，去除内部协作与实验文档；实际解压启动检查 | done | feat/mission-command-v4; docs/REFERENCE_DELIVERY.md; evidence/reference-delivery/TEST_REPORT.md; evidence/reference-delivery/runtime-review.json |
+| DOC-EXP-01 | P0 | A+B | REF-01 | 将600秒独立对比实验完整写入三份当前对接文档；验收：四组16套方案、搜索时间、能耗分项、校验与比较限制完整入文；MD/Word/提示词一致，原始结果不改写 | done | feat/mission-command-v4; docs/PROJECT_DOSSIER.md; evidence/project-dossier-v13/result-reconciliation.json; docs/current-project/contest-baselines-v6/结果与引用说明.md |
 
 ## 当前执行入口
 
