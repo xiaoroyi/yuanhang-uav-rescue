@@ -64,7 +64,7 @@ try{
   const g=await page.locator('.v2-map-main').evaluate(el=>({viewport:[innerWidth,innerHeight],mapHeight:el.getBoundingClientRect().height,mapWidth:el.getBoundingClientRect().width,pageWidth:document.documentElement.scrollWidth}));report.geometry.push(g);if(g.mapHeight<300||g.pageWidth>w)throw Error('Map workspace geometry '+JSON.stringify(g))
   await go(`missions/${m.mission_id}/schedule`);await expect(page.locator('.v3-manifest-table tbody tr')).toHaveCount(plan.sorties.length);await shot('schedule-'+w)
  }
- await page.setViewportSize({width:1440,height:900});await go(`missions/${m.mission_id}/plans`);await page.getByRole('button',{name:'比较',exact:true}).click();await expect(page.getByRole('heading',{name:'把选择，放在同一张图上'})).toBeVisible();await shot('engine-comparison-1440');await page.keyboard.press('Escape')
+ await page.setViewportSize({width:1440,height:900});await go(`missions/${m.mission_id}/plans`);await page.getByRole('button',{name:'比较',exact:true}).click();await expect(page.getByRole('heading',{name:'把选择，放在同一张图上'})).toBeVisible();await expect(page.getByText('同快照、同模型范围 · 可比较策略结果',{exact:true})).toBeVisible();await expect(page.getByRole('heading',{name:'时间与能源取舍',exact:true})).toBeVisible();await page.waitForTimeout(350);await shot('engine-comparison-1440');await page.keyboard.press('Escape')
  m=await api('/missions/'+m.mission_id)
  if(!m.active_execution_id){
   if(m.active_plan_id!==plan.plan_id)await api('/plans/'+plan.plan_id+'/confirm',{expected_state_version:1,idempotency_key:'v4-confirm'})

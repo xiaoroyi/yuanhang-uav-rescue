@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 from typing import Literal
-import json
 import tempfile
 from pathlib import Path
 from pydantic import BaseModel, ConfigDict, ValidationError
 from fastapi import File, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import Response
 from sqlalchemy import select, func
 from backend.app.generated.domain import Scenario, HeuristicArtifact as PolicyArtifact
 from backend.app.storage import (
@@ -31,6 +30,7 @@ from solver.engines import (
     policy_store,
     read_policy,
     checked_expression,
+    policy_bytes,
 )
 
 
@@ -227,17 +227,17 @@ def register_case_library(app, database, error):
         with policy_store(database.directory / "heuristics"):
             return catalog()
 
-    @app.get(
-        "/api/v1/heuristic-packages/{policy_id}/export", response_class=JSONResponse
-    )
+    @app.get("/api/v1/heuristic-packages/{policy_id}/export", response_class=Response)
     def export_policy(policy_id: str):
         try:
             with policy_store(database.directory / "heuristics"):
-                value, _, _ = read_policy(policy_id)
+                read_policy(policy_id)
+                raw = policy_bytes(policy_id)
         except (ValueError, KeyError, OSError, SyntaxError) as exc:
             raise error(404, "REFERENCE_INVALID", str(exc)) from exc
-        return JSONResponse(
-            value,
+        return Response(
+            raw,
+            media_type="application/json",
             headers={"Content-Disposition": f'attachment; filename="{policy_id}.json"'},
         )
 
@@ -258,12 +258,8 @@ def register_case_library(app, database, error):
                     "EOH离线包需附带原始进化记录；初始化规则请选择规则来源。"
                 )
             checked_expression(package.expression)
-            content = (
-                json.dumps(normalized, ensure_ascii=False, indent=2, allow_nan=False)
-                + "\n"
-            ).encode("utf-8")
-            if len(content) > 32_768:
-                raise ValueError("规范化后的策略包超出32KiB限制。")
+            # Preserve exact bytes so export/import never breaks Plan's pinned SHA256.
+            content = raw
             directory = database.directory / "heuristics"
             directory.mkdir(exist_ok=True)
             # Validate in a private scratch directory before publishing an immutable version.

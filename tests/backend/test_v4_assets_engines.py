@@ -1,5 +1,6 @@
 import time
 import json
+import hashlib
 from pathlib import Path
 from fastapi.testclient import TestClient
 from backend.app.main import create_app
@@ -56,6 +57,14 @@ def test_policy_import_export_is_immutable_and_cannot_run_python(tmp_path):
         assert send(package).status_code == 409
         exported = c.get("/api/v1/heuristic-packages/review-seed-v1/export")
         assert exported.status_code == 200 and exported.json() == package
+        assert hashlib.sha256(exported.content).hexdigest() == imported.json()["sha256"]
+        with TestClient(create_app(tmp_path / "second-runtime")) as second:
+            restored = second.post(
+                "/api/v1/heuristic-packages/import",
+                files={"file": ("same.json", exported.content, "application/json")},
+            )
+            assert restored.status_code == 201
+            assert restored.json()["sha256"] == imported.json()["sha256"]
         for index, expression in enumerate(
             ("__import__('os')", "base_score / 0", "min(base_score)", "9" * 900)
         ):

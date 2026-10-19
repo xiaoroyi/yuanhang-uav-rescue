@@ -313,14 +313,22 @@ function CommandCanvas({
                   py = ((1 - projected.y) * h) / 2
                 const width = Math.min(116, p.label.offsetWidth || 80)
                 const x = Math.max(width / 2 + 12, Math.min(w - width / 2 - 12, px))
-                let y = py - 29
-                while (
-                  placed.some(
-                    (q) => Math.abs(q.y - y) < 25 && Math.abs(q.x - x) < (q.width + width) / 2 + 8,
-                  )
-                )
-                  y -= 27
-                y = Math.max(67 + index * 2, y)
+                const desired = Math.max(70, Math.min(h - 75, py - 29))
+                const choices = Array.from({ length: 16 }, (_, step) => [
+                  desired - step * 27,
+                  desired + step * 27,
+                ]).flat()
+                const y =
+                  choices.find(
+                    (candidate) =>
+                      candidate >= 70 &&
+                      candidate <= h - 70 &&
+                      !placed.some(
+                        (q) =>
+                          Math.abs(q.y - candidate) < 25 &&
+                          Math.abs(q.x - x) < (q.width + width) / 2 + 8,
+                      ),
+                  ) ?? 73 + index * 27
                 placed.push({ x, y, width })
                 p.label.style.transform = `translate(${x}px,${y}px) translate(-50%,-50%)`
                 const line = leaderLines[index]

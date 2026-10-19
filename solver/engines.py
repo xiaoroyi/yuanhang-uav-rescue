@@ -80,7 +80,7 @@ def _reject_json_constant(value):
     raise ValueError("策略包包含非有限JSON数字。")
 
 
-def read_policy(policy_id="eoh-seed-v1"):
+def policy_bytes(policy_id="eoh-seed-v1"):
     if (
         not isinstance(policy_id, str)
         or not policy_id
@@ -97,7 +97,11 @@ def read_policy(policy_id="eoh-seed-v1"):
         path = BUILTIN / (policy_id + ".json")
     if not path.is_file() or path.stat().st_size > 32_768:
         raise ValueError("找不到指定本地策略包。")
-    raw = path.read_bytes()
+    return path.read_bytes()
+
+
+def read_policy(policy_id="eoh-seed-v1"):
+    raw = policy_bytes(policy_id)
     value = json.loads(
         raw, object_pairs_hook=unique_pairs, parse_constant=_reject_json_constant
     )

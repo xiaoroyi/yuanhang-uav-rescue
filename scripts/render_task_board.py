@@ -17,7 +17,10 @@ def render(data):
             cells = [t['id'], t['priority'], t['owner'], ', '.join(t['dependencies']) or '—', t['title'] + '；验收：' + t['acceptance'], t['status'], '; '.join(evidence) or '—']
             lines.append('| ' + ' | '.join(str(x).replace('|', '\\|').replace('\n', ' ') for x in cells) + ' |')
         lines += ['']
-    entry = '- 当前 V2 入口为 evidence/redesign-v2/INDEX.md，分支 feat/mission-workspace-v2；旧发布证据只代表对应历史版本。' if any(t['id']=='R00' for t in data['tasks']) else '- 先读 IMPLEMENTATION_STATUS 与 SOLO_EXECUTION，沿用 feat/solo-fullstack-v0 的已验证结果。'
+    if any(t['id'] == 'V4-01' for t in data['tasks']):
+        entry = '- 当前 V4 入口为 evidence/experience-v4/INDEX.md，分支 feat/mission-command-v4；先读 docs/PROJECT_DOSSIER.md 与当前交接，历史证据保留原范围。'
+    else:
+        entry = '- 当前 V2 入口为 evidence/redesign-v2/INDEX.md，分支 feat/mission-workspace-v2；旧发布证据只代表对应历史版本。' if any(t['id']=='R00' for t in data['tasks']) else '- 先读 IMPLEMENTATION_STATUS 与 SOLO_EXECUTION，沿用 feat/solo-fullstack-v0 的已验证结果。'
     lines += ['## 当前执行入口', '', entry,
               '- 优先完成当前 in_progress 任务的剩余验收，再推进下一项依赖。不同任务的部分实现不能自动算 done。',
               '- 两人接手前共同复核 RFC-001/RFC-002、现有运行接口、测试证据和 Git 差异；不伪造契约批准记录。', '']

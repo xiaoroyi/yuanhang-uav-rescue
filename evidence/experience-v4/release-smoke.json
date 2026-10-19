@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-19T09:18:59.160Z",
+  "passed": true,
+  "url": "http://127.0.0.1:8000/",
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "19622083612b2b33430ec438e1861efcd090f039a2210a7391c0632687353e87",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "400d7173e854c758c0517d3a4ff7ddd4a0b3000cc3685c59e51dd48441aa5bf1",
+  "checks": [
+    "Production V4 home, real DEM and offline fonts",
+    "Production case library from original runtime",
+    "Production optional engine catalog",
+    "Production simulation adapter directory"
+  ],
+  "errors": []
+}

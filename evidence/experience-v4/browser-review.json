@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-19T09:16:17.566Z",
+  "passed": true,
+  "scope": "isolated real solving, engine import, navigation, layout and offline visual review",
+  "checks": [
+    "Both engines produced independently checked plans on the same Snapshot and objective",
+    "User motion switch and system reduced motion respected",
+    "Local policy import completed through the UI; source remains rule_initialization",
+    "Simulation adapter metadata and configuration export are functional",
+    "EOH plan can be confirmed and started/paused in server simulation; fleet and review render real state"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "geometry": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "width": 1440,
+      "pageWidth": 1440,
+      "font": "\"Inter Variable\", \"Noto Sans SC Variable\", sans-serif"
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "width": 1920,
+      "pageWidth": 1920,
+      "font": "\"Inter Variable\", \"Noto Sans SC Variable\", sans-serif"
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "width": 1280,
+      "pageWidth": 1280,
+      "font": "\"Inter Variable\", \"Noto Sans SC Variable\", sans-serif"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "width": 390,
+      "pageWidth": 390,
+      "font": "\"Inter Variable\", \"Noto Sans SC Variable\", sans-serif"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "mapHeight": 463,
+      "mapWidth": 1108,
+      "pageWidth": 1440
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "mapHeight": 339,
+      "mapWidth": 968,
+      "pageWidth": 1280
+    }
+  ],
+  "shots": [
+    "home-1440.png",
+    "home-1920.png",
+    "home-1280.png",
+    "home-390.png",
+    "innovations-1440.png",
+    "cases-1440.png",
+    "sources-1440.png",
+    "engines-1440.png",
+    "integrations-1440.png",
+    "plans-1440.png",
+    "schedule-1440.png",
+    "plans-1280.png",
+    "schedule-1280.png",
+    "engine-comparison-1440.png",
+    "fleet-1440.png",
+    "review-1440.png",
+    "task-assets-1440.png",
+    "guide-1440.png"
+  ],
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "19622083612b2b33430ec438e1861efcd090f039a2210a7391c0632687353e87",
+    "runtime_id": "2af69ffa0bc1"
+  },
+  "mission": "MIS-45CD1ABA8AF849AC",
+  "plans": [
+    {
+      "plan_id": "PLAN-91F18967A01B4FF8",
+      "snapshot_id": "SNAP-BABD63C92CE14D42",
+      "scenario_id": "SCN-6B2861FCD0CB4ABC",
+      "scenario_state_version": 1,
+      "objective": "time",
+      "objective_policy": "tradeoff_v2",
+      "generated_at": "2026-10-19T08:32:57.936212+00:00",
+      "solver_status": "FEASIBLE",
+      "metrics": {
+        "last_delivery_s": 6929.77427660696,
+        "makespan_s": 7241.673815271539,
+        "energy_kwh": 23.426517506214932,
+        "cost_cny": null,
+        "sortie_count": 7,
+        "unserved_demand_count": 0,
+        "mandatory_served_count": 32,
+        "mandatory_total_count": 32,
+        "min_return_soc": 0.215561116797523
+      },
+      "confirmed_at": null,
+      "algorithm_mode": "quick",
+      "source_plan_id": null,
+      "engine": {
+        "engine_type": "standard",
+        "policy_id": null,
+        "version": null,
+        "origin": "standard",
+        "sha256": null,
+        "ranking_evaluations": 0,
+        "fallback_evaluations": 0
+      }
+    },
+    {
+      "plan_id": "PLAN-40BB03D65F604C00",
+      "snapshot_id": "SNAP-BABD63C92CE14D42",
+      "scenario_id": "SCN-6B2861FCD0CB4ABC",
+      "scenario_state_version": 1,
+      "objective": "time",
+      "objective_policy": "tradeoff_v2",
+      "generated_at": "2026-10-19T08:33:01.536345+00:00",
+      "solver_status": "FEASIBLE",
+      "metrics": {
+        "last_delivery_s": 6912.449182328815,
+        "makespan_s": 7224.348720993396,
+        "energy_kwh": 20.494215322988346,
+        "cost_cny": null,
+        "sortie_count": 7,
+        "unserved_demand_count": 0,
+        "mandatory_served_count": 32,
+        "mandatory_total_count": 32,
+        "min_return_soc": 0.23265550791422862
+      },
+      "confirmed_at": "2026-10-19T08:34:41.448030+00:00",
+      "algorithm_mode": "quick",
+      "source_plan_id": null,
+      "engine": {
+        "engine_type": "eoh",
+        "policy_id": "eoh-seed-v1",
+        "version": "1.0.0",
+        "origin": "rule_initialization",
+        "sha256": "ed20350b4f9c3881a74628529bc75c794f1cb5a264f0142fe4fcd551a499ea86",
+        "ranking_evaluations": 833,
+        "fallback_evaluations": 0
+      }
+    }
+  ]
+}

@@ -2129,6 +2129,93 @@
         "evidence/experience-v3/project-document-audit.json",
         "evidence/experience-v3/project-document-layout.json"
       ]
+    },
+    {
+      "id": "V4-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "全宽指挥首页与离线视觉体系",
+      "acceptance": "真实DEM、离线字体、动效开关及1920/1440/1280/390页面无横向溢出",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "evidence/experience-v4/VISUAL_REVIEW.md",
+        "evidence/experience-v4/browser-review.json"
+      ]
+    },
+    {
+      "id": "V4-02",
+      "phase": "G5",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "可选本地EOH引擎与不可变策略包",
+      "acceptance": "同快照双引擎真实求解、独立检查、来源/SHA/实际评分数、导入导出与备份恢复；不伪称已跑LLM进化",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "docs/CONTRACT_RFC_032.md",
+        "evidence/experience-v4/TEST_REPORT.md",
+        "scripts/eoh_offline.py"
+      ]
+    },
+    {
+      "id": "V4-03",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "B",
+      "title": "有来源的案例与任务资产复用",
+      "acceptance": "四类案例独立创建、最近/完成历史任务、真实聚合与来源用途明确，不复用交付事实",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "evidence/experience-v4/FEATURE_TRACEABILITY.md",
+        "evidence/experience-v4/browser-review.json"
+      ]
+    },
+    {
+      "id": "V4-04",
+      "phase": "G4",
+      "priority": "P1",
+      "owner": "B",
+      "title": "模拟适配器与API接入目录",
+      "acceptance": "展示实际能力和路径、导出配置/OpenAPI、真实设备与外部模型关闭",
+      "dependencies": [],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "evidence/experience-v4/API_MIGRATION_MAP.md",
+        "evidence/experience-v4/release-smoke.json"
+      ]
+    },
+    {
+      "id": "V4-05",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "V4必要检查与本机数据保护交接",
+      "acceptance": "专项检查/构建/实际页面、准确证据、主Markdown/Word/提示词同步、备份与旧Plan/Snapshot保全",
+      "dependencies": [
+        "V4-01",
+        "V4-02",
+        "V4-03",
+        "V4-04"
+      ],
+      "status": "done",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "evidence/experience-v4/INDEX.md",
+        "evidence/experience-v4/project-document-audit.json",
+        "evidence/experience-v4/production-data-after_deployment.json"
+      ]
     }
   ]
 }

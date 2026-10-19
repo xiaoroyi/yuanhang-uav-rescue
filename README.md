@@ -2,7 +2,7 @@
 
 **完整项目与无记忆接手入口：** [实际实现与协作对接总文档](docs/PROJECT_DOSSIER.md)，覆盖背景、详细算法、前后端、全部业务、原方案差异、证据和后续工作。新聊天写本子先读这一份；队友Codex再按第20章读取规则与机器契约，可直接使用 [接手提示词](prompts/06_CURRENT_PROJECT_HANDOFF.md)。Word版在 [当前项目文档](docs/current-project/README.md)。
 
-当前体验版本位于 [`feat/mission-experience-v3`](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/mission-experience-v3)。独立首页展示应用与算法；任务内按准备、规划、执行、复盘推进，规划下有地图、独立调度安排、真实地形航迹、通信协同和数据分析。资源先按任务归属，帮助有实际截图、视频与术语。两人分工：A负责算法及项目，B一人负责前后端；main/V2保留。
+当前体验版本位于 [`feat/mission-command-v4`](https://github.com/xiaoroyi/yuanhang-uav-rescue/tree/feat/mission-command-v4)。全宽指挥首页、本地字体和动态真实地形；四类演练与任务资产、标准/EOH本地策略、双引擎对比及设备/API中心。任务四阶段、独立安排表、三维剖面、通信、资源、教程与原算法保留。EOH内置包为规则初始化，本轮不运行外部LLM或真机。两人分工：A负责算法及项目，B一人负责前后端；main/V2/V3保留。
 
 Windows本机双击 **start.cmd**，打开 **http://127.0.0.1:8000/**。当前电脑已安装依赖；离线可计算和展示路线。新电脑先安装Python3.11/3.12与Node24并联网运行setup.cmd。数据保存在runtime/，用backup.cmd作一致备份。
 

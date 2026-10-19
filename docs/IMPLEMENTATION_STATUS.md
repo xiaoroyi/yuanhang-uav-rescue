@@ -1,4 +1,16 @@
-# 当前交付：援航V3体验候选（2026-10-19）
+# 当前交付：援航V4指挥首页与离线引擎（2026-10-19）
+
+当前分支`feat/mission-command-v4`，从V3文档提交f49911e出发，核心功能3ff456e。全宽动态真实地形首页、离线中文与数字字体、可选标准/EOH本地评分包、同快照双引擎比较、案例/任务资产库、实际模拟适配器与API接入中心已实现。默认标准；内置EOH明确为规则初始化，没有运行LLM进化，不承诺每例提升。设计来源和用途见docs/experience-v4/RESEARCH.md。
+
+本机8000已切至V4。升级前重新备份当前运行库，31份Plan与34份Snapshot原文hash全部保留，4个执行实例（3暂停、1完成）及各表数量不变。测试数据留在.local/v4/runtime，没有带入演示库。检查范围：最终16项Python专项、严格类型/隔离构建、lint、契约及真实浏览器关键流程通过；没有重跑全部旧长回归，也没有连接外部模型/天气或真实设备。
+
+入口见[evidence/experience-v4/INDEX.md](../evidence/experience-v4/INDEX.md)、[HANDOFF](../evidence/experience-v4/HANDOFF.md)、[TEST_REPORT](../evidence/experience-v4/TEST_REPORT.md)和[演示指南](../evidence/experience-v4/DEMO_GUIDE.md)。[项目总文档](PROJECT_DOSSIER.md)、35页Word与[接手提示词](../prompts/06_CURRENT_PROJECT_HANDOFF.md)已同步1.1/V4。原题、约束、执行承诺、独立检查和历史证据保留；真机/SITL、联合在途修复、训练消融等剩余项仍见任务板与限制，契约仍proposed。
+
+---
+
+以下为V3及更早历史交付，不替代V4状态。
+
+# 援航V3体验候选（2026-10-19）
 
 2026-10-19按实际基线803c295重写 [项目总文档](PROJECT_DOSSIER.md)，集中说明背景、数模继承、详细算法、前后端、功能、边界、原方案差异、可用于本子的表述和无记忆接手顺序；[接手提示词](../prompts/06_CURRENT_PROJECT_HANDOFF.md)可直接使用，[Word版](current-project/README.md)与主Markdown同步。此项只整理文档，不将旧案例说成本轮新求解，也不新增业务完成状态。
 

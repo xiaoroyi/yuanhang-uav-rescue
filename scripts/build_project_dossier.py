@@ -174,10 +174,10 @@ def make_doc():
     page._r.addnext(field)
     page.font.size = Pt(9)
     doc.core_properties.title = "援航项目实际实现与协作对接总文档"
-    doc.core_properties.subject = "V3实际算法工程功能与两人协作交接"
+    doc.core_properties.subject = "V4实际算法工程功能与两人协作交接"
     doc.core_properties.author = "援航项目组"
     doc.core_properties.keywords = "无人机 调度 通信 地形 业务仿真 项目对接"
-    doc.core_properties.comments = "主源 docs/PROJECT_DOSSIER.md 基线803c295"
+    doc.core_properties.comments = "主源 docs/PROJECT_DOSSIER.md V4核心基线3ff456e及后续修复"
 
     lines, i, equations, tables = source.splitlines(), 0, 0, 0
     in_contents = False

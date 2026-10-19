@@ -6,11 +6,11 @@
 你正在接手援航无人机救援调度项目。你没有前置记忆，请根据仓库真实状态工作。
 
 一、先确认仓库、Git分支、未提交修改和最新提交，不重置、清理或覆盖他人文件。
-当前产品基线为feat/mission-experience-v3；若已合并或有更新，以本地/远端实际状态为准，
+当前产品基线为feat/mission-command-v4；若已合并或有更新，以本地/远端实际状态为准，
 不要自动checkout旧提交。先阅读docs/PROJECT_DOSSIER.md，建立完整项目理解。
 
 二、依次阅读根AGENTS.md、所属模块AGENTS.md、README.md、CONTRIBUTING.md、
-docs/IMPLEMENTATION_STATUS.md、evidence/experience-v3/HANDOFF.md与KNOWN_LIMITATIONS.md，
+docs/IMPLEMENTATION_STATUS.md、evidence/experience-v4/HANDOFF.md与KNOWN_LIMITATIONS.md，
 再读取docs/task-board.json。只对当前任务精读相关Schema、实际OpenAPI、RFC、源码和测试。
 不要从G0重新搭框架，不把历史三页/九页描述当当前四阶段入口，不沿用三人分工。
 
@@ -23,6 +23,8 @@ Mock/历史/本次Solver/模拟实况分开；null不等于0；新界面tradeoff
 当前仅业务仿真，无真机/SITL/多用户登录，不把时间能耗折中称公平或人民币成本。
 在途修复保留已交付与已开始完整架次，不能把全部设备重置从头求解；
 通信联合在途修复、训练学习、完整风场与多基地仍有明确未完成边界。
+V4的EOH为可选本地评分提供器，内置包来源是规则初始化；不伪称已跑LLM进化或通用提升。
+先读第24章与RFC-032，再改引擎/策略包/案例来源；不在正常求解中调用模型。
 
 五、修改接口先记录字段/单位/旧新映射和兼容RFC，同步Schema/操作DTO/实际OpenAPI/生成TS/
 样例/消费者与必要测试，不用any绕过。不要手改生成文件或代替A/B批准草案。

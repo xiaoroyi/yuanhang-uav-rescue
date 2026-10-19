@@ -105,6 +105,7 @@
 | V3-04 | P0 | A+B | V3-00 | 地形剖面/三维与论文约束核对；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
 | V3-05 | P0 | A+B | V3-04 | 真实通信演练/中继/覆盖与分析；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
 | V3-10 | P1 | A+B | V3-00 | 同类产品关键缺口与能力说明；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
+| V4-04 | P1 | B | — | 模拟适配器与API接入目录；验收：展示实际能力和路径、导出配置/OpenAPI、真实设备与外部模型关闭 | done | feat/mission-command-v4; evidence/experience-v4/API_MIGRATION_MAP.md; evidence/experience-v4/release-smoke.json |
 
 ## G5
 
@@ -119,6 +120,7 @@
 | B-10 | P2 | B | C-10 | 地图资产处理进度、审批、正射/地形版本比较；验收：数据新鲜度与限制清晰可见 | todo | — |
 | C-11 | P2 | B | X-03, C-07 | PX4 SITL/MAVSDK 仿真适配（可选）；验收：仅宣称仿真任务支持与明确指令子集 | todo | — |
 | X-12 | P2 | A+B | X-03, A-07, A-08, C-07 | 多基地、移动补给/补能、跨机构权限与审计；分别拆子任务，全部保留为P2；验收：新约束、输入契约、行为验证独立立项 | todo | — |
+| V4-02 | P0 | A+B | — | 可选本地EOH引擎与不可变策略包；验收：同快照双引擎真实求解、独立检查、来源/SHA/实际评分数、导入导出与备份恢复；不伪称已跑LLM进化 | done | feat/mission-command-v4; docs/CONTRACT_RFC_032.md; evidence/experience-v4/TEST_REPORT.md; scripts/eoh_offline.py |
 
 ## G6
 
@@ -154,9 +156,12 @@
 | V3-09 | P1 | A+B | V3-01, V3-06 | 图文帮助/引导和实际演示录屏；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
 | V3-11 | P0 | A+B | V3-01, V3-02, V3-04, V3-05, V3-06, V3-07, V3-08, V3-09, V3-10 | 关键流程/实景检查与交接；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
 | V3-12 | P1 | A+B | V3-11 | 按实际V3实现重写项目总文档与无记忆接手包；验收：独立阅读理解背景/算法/前后端/功能/边界/原方案差异；Word与主Markdown一致；明确两人阅读顺序及可复制提示词；文档检查有据 | done | feat/mission-experience-v3; docs/PROJECT_DOSSIER.md; docs/current-project/README.md; prompts/06_CURRENT_PROJECT_HANDOFF.md; evidence/experience-v3/DOCUMENT_REVIEW.md; evidence/experience-v3/project-document-audit.json; evidence/experience-v3/project-document-layout.json |
+| V4-01 | P0 | B | — | 全宽指挥首页与离线视觉体系；验收：真实DEM、离线字体、动效开关及1920/1440/1280/390页面无横向溢出 | done | feat/mission-command-v4; evidence/experience-v4/VISUAL_REVIEW.md; evidence/experience-v4/browser-review.json |
+| V4-03 | P0 | B | — | 有来源的案例与任务资产复用；验收：四类案例独立创建、最近/完成历史任务、真实聚合与来源用途明确，不复用交付事实 | done | feat/mission-command-v4; evidence/experience-v4/FEATURE_TRACEABILITY.md; evidence/experience-v4/browser-review.json |
+| V4-05 | P0 | A+B | V4-01, V4-02, V4-03, V4-04 | V4必要检查与本机数据保护交接；验收：专项检查/构建/实际页面、准确证据、主Markdown/Word/提示词同步、备份与旧Plan/Snapshot保全 | done | feat/mission-command-v4; evidence/experience-v4/INDEX.md; evidence/experience-v4/project-document-audit.json; evidence/experience-v4/production-data-after_deployment.json |
 
 ## 当前执行入口
 
-- 当前 V2 入口为 evidence/redesign-v2/INDEX.md，分支 feat/mission-workspace-v2；旧发布证据只代表对应历史版本。
+- 当前 V4 入口为 evidence/experience-v4/INDEX.md，分支 feat/mission-command-v4；先读 docs/PROJECT_DOSSIER.md 与当前交接，历史证据保留原范围。
 - 优先完成当前 in_progress 任务的剩余验收，再推进下一项依赖。不同任务的部分实现不能自动算 done。
 - 两人接手前共同复核 RFC-001/RFC-002、现有运行接口、测试证据和 Git 差异；不伪造契约批准记录。

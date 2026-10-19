@@ -1,8 +1,8 @@
 # 援航项目实际实现与协作对接总文档
 
-版本：1.0　更新日期：2026年10月19日　产品阶段：V3本机规划与业务仿真系统
+版本：1.1　更新日期：2026年10月19日　产品阶段：V4指挥首页与离线策略增强
 
-代码基线：`feat/mission-experience-v3`，提交 `803c2954a97a0e53e40fb5d3e46c8a212471d60a`。本文件是该基线的实际实现说明，后续提交应同步更新。文档版本、界面迭代V3、接口Schema版本`0.1.0-draft`是三个不同概念。契约清单仍为`proposed`，没有代替团队完成正式批准。
+代码基线：`feat/mission-command-v4`，核心功能提交 `3ff456e`及本分支后续界面修复；从V3文档提交`f49911e`出发。V4增加指挥首页、离线策略引擎、案例资产和接入中心，原有物理、联合通信、执行承诺与独立检查继续保留。文档版本、界面迭代V4、接口Schema版本`0.1.0-draft`是三个不同概念。契约清单仍为`proposed`，没有代替团队完成正式批准。
 
 本文面向项目负责人、接手开发的队友、没有聊天记忆的Codex，以及后续项目申报书、作品说明书和答辩材料的撰写者。只读本文可以了解项目定位、完整业务、关键算法、工程实现、当前证据和边界；修改代码时再按第20章定位机器契约和模块源文件。可直接复用的接手提示词在第21章，独立副本为`prompts/06_CURRENT_PROJECT_HANDOFF.md`。
 
@@ -31,6 +31,7 @@
 21. 可直接交给队友Codex的提示词
 22. 后续工作与文档维护约定
 23. 术语、来源与事实核对说明
+24. V4离线启发式与案例资产实现
 
 ## 1 项目概述与使用场景
 
@@ -94,6 +95,9 @@
 | 复盘与资源 | 计划对模拟交付、任务变更、资源占用、反事实试算、只读档案 | 账本事实、冻结输入及独立计算 |
 | 演练评测 | 策略、搜索、执行残余修复方法对照；取消和原始结果导出 | 同条件独立快照、真实Worker、完整成功失败记录 |
 | 使用帮助 | 分章节图文、约38秒实际操作短片、字幕、术语与页面跳转 | 本项目真实截图与录屏 |
+| 首页与案例 | 全宽动态地形首页、四类有来源演练、本机任务资产与输入复用 | 真实DEM、数据库计数、创建来源和独立任务 |
+| 算法引擎 | 标准与EOH可选、本地策略导入导出、同输入引擎对比 | 策略包版本/SHA256/来源/实际评分调用数 |
+| 接入中心 | 已安装模拟适配器、实际接口目录、OpenAPI与配置导出 | 当前模式与设备状态如实读取，不自动连接真机 |
 
 ### 3.2 新用户走通一次任务
 
@@ -424,7 +428,7 @@ HTTP受理、设备ACK和动作完成是三个不同状态。服务器持久存�
 
 | 当前路由或区域 | 主要文件 |
 |---|---|
-| `#/home` | LandingHome、landing.css |
+| `#/home` | CommandHome、TerrainCommandScene、command-home.css；LandingHome为保留旧实现 |
 | `#/missions`及任务四阶段 | App、MissionWorkspace、ExperienceUI |
 | `#/missions/{id}/plans` | MissionWorkspace、RescueMap、策略与检查组件 |
 | `.../schedule` | ResultsWorkspace、schedule-data、ResourceTimeline |
@@ -433,6 +437,7 @@ HTTP受理、设备ACK和动作完成是三个不同状态。服务器持久存�
 | `.../insights` | VisualAnalysis及其图表数据适配 |
 | `.../execute`与`.../review` | ExecutionWorkspace、FleetOperationsPanel、ExecutionTimeline、ExecutionInsights |
 | `#/resources`、评测、帮助 | TaskResources、ExperimentCenter、HelpHub |
+| `#/cases`、`#/engines`、`#/integrations` | CaseLibrary、EngineCenter、IntegrationCenter；command-workspace.css共享字体与配色 |
 
 资源中心先按任务分组，再管理地图、机队、电池、物资和该任务档案；不是把全部任务资源无归属混放。Ctrl K搜索支持功能与任务跳转。本机资料设置不等于后端用户系统。
 
@@ -476,7 +481,7 @@ Job为queued、running、completed、failed或canceled，与Solver的可行性�
 
 ### 15.4 核心接口索引
 
-基线实际OpenAPI含83个路径模板，部分模板有多个HTTP方法；这不是83个用户功能，也不是216个Schema都独立代表业务模块。完整字段看`contracts/http/openapi.generated.json`及本机`/docs`，不要按最初Word的示意接口名称调用。
+V4实际OpenAPI含91个路径模板，部分模板有多个HTTP方法；V3的83路径是历史范围，不是用户功能数量。新增案例/资产聚合、策略包和接入目录。完整字段看`contracts/http/openapi.generated.json`及本机`/docs`，不要按最初Word的示意接口名称调用。
 
 | 用途 | 实际路径示例，均以`/api/v1`为前缀 |
 |---|---|
@@ -553,7 +558,7 @@ V3已有真实浏览器闭环：新建、检查、计算、安排表与导出、
 | 充电、总电力、人员、起降位 | 电池SOH/初始SOC、准备工位/充电端口 | 未实现统一总功率、所有人员/起降/避碰约束 |
 | 航拍到地图自动更新 | 本地GeoTIFF、不可变资产、导入包与地图上下文 | ODM/航片重建尚未接入 |
 | 多人协同与实际设备 | 单机应用、本浏览器资料、服务器模拟Adapter | 无多用户认证、真机、厂商接口、SITL |
-| 未来规划接口示意 | 已实现83路径模板，名称按实际OpenAPI | 不直接复制原Word附录伪字段 |
+| 未来规划接口示意 | V4实际91路径模板，名称按实际OpenAPI | 不直接复制原Word附录伪字段 |
 | 原论文最好结果用于参照 | 当前真实案例、原题候选重新计算与检查 | 历史长搜索结果不冒充现场新求解 |
 
 ## 18 可用于申报材料的项目与创新表述
@@ -593,7 +598,7 @@ V3已有真实浏览器闭环：新建、检查、计算、安排表与导出、
 ### 19.2 新电脑
 
 ```powershell
-git clone --branch feat/mission-experience-v3 https://github.com/xiaoroyi/yuanhang-uav-rescue.git
+git clone --branch feat/mission-command-v4 https://github.com/xiaoroyi/yuanhang-uav-rescue.git
 cd yuanhang-uav-rescue
 .\setup.cmd --check
 .\setup.cmd
@@ -627,7 +632,7 @@ GitHub同步代码、契约、说明和已选证据，不上传数据库、依�
 |---|---|---|
 | 1 | `AGENTS.md`、目标模块`AGENTS.md`、`CONTRIBUTING.md` | 当前用户授权、两人所有权、Git与数据保护 |
 | 2 | `README.md`、`docs/IMPLEMENTATION_STATUS.md` | 当前入口、运行方式、V3与历史状态区分 |
-| 3 | `evidence/experience-v3/HANDOFF.md`、`KNOWN_LIMITATIONS.md` | 当前交接、代码位置、未完成条件 |
+| 3 | `evidence/experience-v4/HANDOFF.md`、`KNOWN_LIMITATIONS.md`；V3证据保留追溯 | 当前交接、代码位置、能力边界 |
 | 4 | `docs/task-board.json`及`docs/08-TASK-BOARD.md` | 唯一任务状态及其可读投影，不另建重复板 |
 | 5 | `contracts/manifest.json`与相关领域Schema | 版本、单位、必填和批准状态 |
 | 6 | `contracts/operations/v2.schema.json`、`contracts/http/openapi.generated.json` | 任务、执行、设备与实际HTTP，不把draft当实现 |
@@ -657,11 +662,11 @@ GitHub同步代码、契约、说明和已选证据，不上传数据库、依�
 你正在接手援航无人机救援调度项目。你没有前置记忆，请根据仓库真实状态工作。
 
 一、先确认仓库、Git分支、未提交修改和最新提交，不重置、清理或覆盖他人文件。
-当前产品基线为feat/mission-experience-v3；若已合并或有更新，以本地/远端实际状态为准，
+当前产品基线为feat/mission-command-v4；若已合并或有更新，以本地/远端实际状态为准，
 不要自动checkout旧提交。先阅读docs/PROJECT_DOSSIER.md，建立完整项目理解。
 
 二、依次阅读根AGENTS.md、所属模块AGENTS.md、README.md、CONTRIBUTING.md、
-docs/IMPLEMENTATION_STATUS.md、evidence/experience-v3/HANDOFF.md与KNOWN_LIMITATIONS.md，
+docs/IMPLEMENTATION_STATUS.md、evidence/experience-v4/HANDOFF.md与KNOWN_LIMITATIONS.md，
 再读取docs/task-board.json。只对当前任务精读相关Schema、实际OpenAPI、RFC、源码和测试。
 不要从G0重新搭框架，不把历史三页/九页描述当当前四阶段入口，不沿用三人分工。
 
@@ -674,6 +679,8 @@ Mock/历史/本次Solver/模拟实况分开；null不等于0；新界面tradeoff
 当前仅业务仿真，无真机/SITL/多用户登录，不把时间能耗折中称公平或人民币成本。
 在途修复保留已交付与已开始完整架次，不能把全部设备重置从头求解；
 通信联合在途修复、训练学习、完整风场与多基地仍有明确未完成边界。
+V4的EOH为可选本地评分提供器，内置包来源是规则初始化；不伪称已跑LLM进化或通用提升。
+先读第24章与RFC-032，再改引擎/策略包/案例来源；不在正常求解中调用模型。
 
 五、修改接口先记录字段/单位/旧新映射和兼容RFC，同步Schema/操作DTO/实际OpenAPI/生成TS/
 样例/消费者与必要测试，不用any绕过。不要手改生成文件或代替A/B批准草案。
@@ -753,7 +760,7 @@ node frontend/scripts/generate-types.mjs
 
 ### 23.2 来源地图
 
-事实依据为本文代码基线的`solver/`、`backend/app/`、`frontend/src/`、共享契约、生成OpenAPI、当前V3证据和原始只读资料。进一步定位：
+事实依据为本文代码基线的`solver/`、`backend/app/`、`frontend/src/`、共享契约、生成OpenAPI、V3/V4证据和原始只读资料。进一步定位：
 
 - 原始目标：`references/source/development-plan.docx`及同目录提取文本。
 - 原题与历史：`references/modeling/README.md`、`paper.pdf`、`answers.xlsx`，论文SHA256为`5bf6dc10dd64cb0a53a93036ed44b54aa2987c04dccbea2b9163d033f94f76d4`。
@@ -762,3 +769,47 @@ node frontend/scripts/generate-types.mjs
 - 原题约束对应：`docs/experience-v3/CONSTRAINT_TRACEABILITY.md`；开源设计参考：同目录`RESEARCH.md`与前端第三方声明。
 
 本文没有进行新的性能竞赛、用户调研或外部法规核验，不提供相应新结论。文字中的完成状态以当前代码与已有证据为依据；后续写本子时可复用说明与技术路线，正式统计、竞争优势和未实现研究需另补证据。
+
+## 24 V4离线启发式与案例资产实现
+
+### 24.1 首页与字体
+
+V4首页以CommandHome、TerrainCommandScene和command-home.css实现全宽深蓝指挥界面。主视觉读取项目实际DEM及基地、需求点坐标，最多73×73显示网格，高度显示倍率为8；流动连线是任务网络示意，不冒充求解航线或遥测。首页指标由本机数据库聚合任务、方案、快照和执行数量，缺少数据保留空值。中文Noto Sans SC Variable和数字Inter Variable按OFL许可本地打包，不使用字体CDN。
+
+粒子、路径流动、策略轨道、进入过渡和数字变化使用已有Motion、Three与CSS；用户开关和系统减少动态效果共同生效。三维循环在不可见或后台时暂停。首页背景铺满视口，正文容器最高1600px，工作台保留独立滚动与地图主体；实际检查覆盖1920、1440、1280和390宽度。
+
+### 24.2 可选引擎与实际评分
+
+标准调度保留原构造、多起点、有限候选约束优化和独立检查。EOH通过solver/engines.py在本地读取评分包，只调整已完成物理和资源分配的候选排序，不放宽硬约束，不改变最终目标。五个输入为标准评分base_score、完成时刻finish_s、航线能耗energy_kwh、箱数cargo_count、质量载荷利用率load_ratio。内置eoh-seed-v1实际使用：
+
+```python
+load_penalty = 1 + 0.12 * (1 - min(1, load_ratio))
+batch_bonus = 1 + 0.025 * min(3, cargo_count)
+score = base_score * load_penalty / batch_bonus
+```
+
+该包为人工规则初始化rule_initialization，不是LLM进化成果。它真实参与搜索，但不保证每例优于标准引擎。联合模式直接采用其他候选、或深入优化保留原基线时，评分调用可能为0，Plan和界面保留实际调用次数。方案规划支持同一Snapshot、目标和规则下的双引擎比较；资源试算、深入、事件重规划和执行剩余修复的客户端继承原引擎。评测可固定引擎，动态修复评测继承基线，不将引擎改变误归因于资源或方法。
+
+### 24.3 策略包和离线工作流
+
+唯一包合同为contracts/heuristic-artifact.schema.json，后端类型由它生成。格式yuanhang-scalar-v1，记录policy_id、name、version、origin、description、expression和可选evolution_record。在线表达式只允许有限数字、四则运算及min、max、abs、sqrt、log1p；没有导入、属性、循环、任意Python执行或网络。数值异常回退标准评分并计数。
+
+EngineCenter可导入和导出32KiB以内的包，先检查Schema、AST与数值，再以新ID不可变保存。EOH离线包需附进化记录，但其内容仍是提供者声明，不自动认证训练质量。新SolveRequest/SolverOptions可选engine_type、heuristic_policy_id和heuristic_policy_sha256；提交和Worker分别核对指纹。新Plan.engine保存包版本、来源、SHA256、ranking_evaluations和fallback_evaluations；旧Plan/Snapshot不回填、不改hash，省略引擎保持标准行为。
+
+scripts/eoh_offline.py适配官方EoH的LLMConfig、EoH和BaseProblem。默认或--describe不发请求，只有显式--run才读取模型环境变量。候选使用真实小场景评估，保存输入指纹、指标和检查结果；合格产物以新ID发布，正常调度只读本地函数。此轮运行了表达式与三例本地接入评估，没有运行外部LLM进化，没有形成独立留出测试、消融或通用提升结论。后续需单独配置模型环境、预算和训练/测试集合，保留失败证据。
+
+### 24.4 案例与任务资产
+
+CaseLibrary内置山地断路、洪涝分级补给、运输通信协同、原题多点急送四类案例。MissionCreate.case_id复用已有幂等创建事务，形成独立场景与任务，source_case_id和创建日志保留来源；不复制旧Plan或交付事实。最近任务、完成/归档任务及输入复用读取既有数据库，新任务、方案、事件与演练持续形成资产。
+
+计算仍使用项目地理、DEM、机型和箱件。洪涝案例参考Copernicus EMSR517公开背景，在项目区域合成需求优先级，不代表德国或镇龙乡实测救援。OpenTopography SRTM目录是新增区域地形资料入口，Open-Meteo历史气象文档是配置参考；本轮没有下载公共DEM替换项目数据，也没有请求天气API。用途和许可见来源页与docs/experience-v4/RESEARCH.md，不能称真实业务大规模历史库。
+
+### 24.5 接入与接口迁移
+
+IntegrationCenter显示已安装的SimulationAdapter、服务器事件流、指令下发、状态回读及适配方法，提供配置和实际OpenAPI下载。真实设备连接和外部模型在线调用均关闭，不自动连接飞控。DeviceAdapter仍是抽象合同，真机、SITL、服务身份、现场许可另行实施。
+
+新增八个/api/v1路径模板：GET /case-library、GET /case-library/{case_id}/preview、GET /asset-overview、GET /heuristic-packages、POST /heuristic-packages/import、GET /heuristic-packages/{policy_id}/export、GET /integrations、GET /integrations/configuration。领域Schema由11增至12，实际OpenAPI由83增至91路径，仍为proposed。RFC-032和V4的API_MIGRATION_MAP记录兼容映射。
+
+### 24.6 证据与接手
+
+证据入口evidence/experience-v4/INDEX.md包含专项检查、离线浏览器截图、操作指南、限制和交接。V3实跑数据与论文约束对照保留其历史范围；本轮接入检查不替代独立算法性能实验。先读本文、根/模块AGENTS、当前状态、V4交接、唯一任务板、RFC-032和对应Schema/OpenAPI，再精读相关代码。不从G0重新搭建，不在每次任务中启动模型进化。

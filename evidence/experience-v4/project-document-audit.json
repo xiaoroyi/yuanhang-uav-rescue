@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "version": "1.1 / V4",
+  "core_commit": "3ff456e",
+  "chapters": 24,
+  "native_equations": 7,
+  "tables_including_contents": 18,
+  "rendered_pages": 35,
+  "prompt_matches_master": true,
+  "actual_openapi_paths": 91,
+  "source_sha256": "643667ca7d538bfcb3e2b9c1591c96f3ba826205c35edd96ad1df6a8c8dddd0d",
+  "word_sha256": "58b7be1630cad37d689d191efb88e4f4951d67879f367de1f11793306141c071",
+  "prompt_sha256": "112a68114a066680028c96530ef026b82386e5f3af7e5ead7324575b8d466440",
+  "original_desktop_and_archive_unchanged_sha256": "1db25bbdd2b15a9840a57028ae4e348a33679d60156a0876f91b96e96aa029ca",
+  "scope": "documentation reconciliation and page review; no new performance conclusions"
+}

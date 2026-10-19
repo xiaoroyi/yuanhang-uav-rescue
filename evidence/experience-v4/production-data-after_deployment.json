@@ -1,0 +1,91 @@
+{
+  "at": "2026-10-19T09:18:58.295662+00:00",
+  "phase": "after_deployment",
+  "passed": true,
+  "baseline_counts": {
+    "scenarios": 14,
+    "scenario_versions": 17,
+    "snapshots": 34,
+    "jobs": 35,
+    "plans": 31,
+    "events": 0,
+    "reservations": 362,
+    "confirmations": 4,
+    "scenario_forks": 0,
+    "plan_refinements": 0,
+    "missions": 4,
+    "operation_records": 514,
+    "executions": 4
+  },
+  "current_counts": {
+    "scenarios": 14,
+    "scenario_versions": 17,
+    "snapshots": 34,
+    "jobs": 35,
+    "plans": 31,
+    "events": 0,
+    "reservations": 362,
+    "confirmations": 4,
+    "scenario_forks": 0,
+    "plan_refinements": 0,
+    "missions": 4,
+    "operation_records": 514,
+    "executions": 4
+  },
+  "original_payloads_preserved": {
+    "plans": 31,
+    "snapshots": 34
+  },
+  "mismatches": [],
+  "executions": [
+    {
+      "execution_id": "EXE-279601A3687941D4",
+      "status": "paused",
+      "revision": 25
+    },
+    {
+      "execution_id": "EXE-2BBF023ECDE343F1",
+      "status": "completed",
+      "revision": 61
+    },
+    {
+      "execution_id": "EXE-FADA1D0FE62141A4",
+      "status": "paused",
+      "revision": 10
+    },
+    {
+      "execution_id": "EXE-78BBF2F05861463E",
+      "status": "paused",
+      "revision": 71
+    }
+  ],
+  "backup": ".local/v4/production-backup/yuanhang-backup-20261019T091223Z-7e15d1ff.zip",
+  "backup_verified": true,
+  "backup_sha256": "0e98c4d6893210cfdce9cd5c90cef8bede1a9b9d4684c7913e90d5b1ac563d85",
+  "backup_table_counts": {
+    "scenarios": 14,
+    "scenario_versions": 17,
+    "snapshots": 34,
+    "jobs": 35,
+    "plans": 31,
+    "events": 0,
+    "reservations": 362,
+    "confirmations": 4,
+    "scenario_forks": 0,
+    "plan_refinements": 0,
+    "missions": 4,
+    "operation_records": 514,
+    "executions": 4
+  },
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "860bc839513f",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "19622083612b2b33430ec438e1861efcd090f039a2210a7391c0632687353e87",
+    "runtime_id": "23afa25c2bda"
+  },
+  "frontend_source_sha256": "400d7173e854c758c0517d3a4ff7ddd4a0b3000cc3685c59e51dd48441aa5bf1",
+  "build_artifacts_verified": 129
+}

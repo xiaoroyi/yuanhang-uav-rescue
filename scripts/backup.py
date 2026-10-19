@@ -9,6 +9,7 @@ from contextlib import closing
 import hashlib
 import json
 import os
+import re
 from pathlib import Path, PurePosixPath
 import sqlite3
 import stat
@@ -50,7 +51,9 @@ def safe_name(name):
         or path.as_posix() != name
         or name.endswith("/")
         or not (
-            name in ("manifest.json", "yuanhang.sqlite3") or name.startswith("assets/")
+            name in ("manifest.json", "yuanhang.sqlite3")
+            or name.startswith("assets/")
+            or re.fullmatch(r"heuristics/[A-Za-z0-9_-]{1,80}\.json", name)
         )
     ):
         raise ValueError("备份中包含不允许的文件路径。")
@@ -152,6 +155,24 @@ def create_backup(runtime, output_dir=None):
                 ):
                     raise ValueError("资产目录包含外部链接，未将外部文件加入备份。")
                 files.append(("assets/" + path.relative_to(assets).as_posix(), path))
+        policies = runtime / "heuristics"
+        if policies.exists():
+            if policies.is_symlink() or not policies.resolve().is_relative_to(
+                runtime.resolve()
+            ):
+                raise ValueError("策略目录包含外部链接。")
+            from solver.engines import policy_store, read_policy
+
+            with policy_store(policies):
+                for path in sorted(policies.glob("*.json")):
+                    name = "heuristics/" + path.name
+                    safe_name(name)
+                    if path.is_symlink() or not path.resolve().is_relative_to(
+                        policies.resolve()
+                    ):
+                        raise ValueError("策略文件包含外部链接。")
+                    read_policy(path.stem)
+                    files.append((name, path))
         if (
             len(files) + 1 > MAX_FILES
             or sum(path.stat().st_size for _, path in files) > MAX_BYTES - 1024 * 1024
@@ -183,7 +204,7 @@ def create_backup(runtime, output_dir=None):
             service_source_sha256=service_fingerprint(ROOT),
             table_counts=counts,
             notes=[
-                "SQLite一致性快照与不可变资产；不包含依赖环境、源码、日志或凭据。",
+                "SQLite一致性快照、不可变资产及本地策略包；不包含依赖环境、源码、日志或凭据。",
                 "恢复只写入新目录；启动时未完成任务按异常恢复规则处理，不承诺继续原进程。",
             ],
             files=[
