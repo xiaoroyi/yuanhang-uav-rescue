@@ -1,3 +1,4 @@
+import { engineOptions } from '../lib/engines'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -222,6 +223,7 @@ export function ResourceAnalysis({ scenario, plan, stale, onOpen, notify }: Prop
         {
           time_limit_s: fork.scenario.policy.requires_communication ? 60 : 15,
           objective_policy: policyOf(plan),
+          ...engineOptions(plan),
         },
       )
       setJobId(task.job_id)

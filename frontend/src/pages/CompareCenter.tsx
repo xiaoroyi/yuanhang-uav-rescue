@@ -15,10 +15,11 @@ import { DataChart } from '../components/DataChart'
 import { number, duration, percent } from '../lib/format'
 import { policyLabel } from '../lib/strategies'
 import { preferenceName, dateTime } from './HistoryCenter'
+import { engineLabel } from '../lib/engines'
 import './history-compare.css'
 
 function planOption(p: PlanSummary) {
-  return `${preferenceName[p.objective] || p.objective} · v${p.scenario_state_version} · ${dateTime(p.generated_at)} · ${p.plan_id.slice(-6)}`
+  return `${engineLabel(p)} · ${preferenceName[p.objective] || p.objective} · 输入v${p.scenario_state_version} · ${dateTime(p.generated_at)}`
 }
 export function CompareCenter({
   scenario,
@@ -97,7 +98,7 @@ export function CompareCenter({
       })),
       series: plans.flatMap((p, i) =>
         [0, 1].map((axis) => ({
-          name: `${i ? 'B' : 'A'} · ${preferenceName[p.objective]}`,
+          name: `${i ? 'B' : 'A'} · ${engineLabel(p)} · ${preferenceName[p.objective]}`,
           type: 'bar',
           xAxisIndex: axis,
           yAxisIndex: axis,
@@ -290,12 +291,24 @@ export function CompareCenter({
                         </span>
                         <div>
                           <strong>
-                            {preferenceName[p.objective]} <Badge>v{p.scenario_state_version}</Badge>
+                            {engineLabel(p)} · {preferenceName[p.objective]}{' '}
+                            <Badge>v{p.scenario_state_version}</Badge>
                           </strong>
                           <code>{p.plan_id}</code>
                           <small>
                             快照 {p.snapshot_id} · {policyLabel(p)}
                           </small>
+                          {p.engine && (
+                            <small>
+                              {p.engine.origin === 'rule_initialization'
+                                ? '规则初始化包'
+                                : p.engine.origin === 'eoh_offline'
+                                  ? '离线导入策略'
+                                  : '标准评分'}{' '}
+                              · 评分调用{p.engine.ranking_evaluations}次
+                              {p.engine.version ? ` · v${p.engine.version}` : ''}
+                            </small>
+                          )}
                           <p>
                             {p.validation.status === 'passed' ? '独立检查通过' : '未通过独立检查'} ·{' '}
                             {p.solver_status}

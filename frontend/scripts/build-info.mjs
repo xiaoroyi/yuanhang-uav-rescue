@@ -61,7 +61,10 @@ async function main() {
     console.log(source)
     return
   }
-  const dist = path.join(root, 'frontend/dist')
+  const dist = path.resolve(root, process.env.YUANHANG_BUILD_DIR || 'frontend/dist')
+  const relativeBuild = path.relative(root, dist)
+  if (relativeBuild.startsWith('..') || path.isAbsolute(relativeBuild))
+    throw new Error('Build artifacts must stay inside the project workspace.')
   const output = path.join(dist, 'assets/build-info.json')
   const artifacts = []
   for (const file of (await filesIn(dist)).sort()) {

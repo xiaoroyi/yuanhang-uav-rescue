@@ -71,6 +71,7 @@ class MissionCreate(OperationDTO):
         "blank", "compact", "contest", "compact_joint", "contest_joint"
     ] = "blank"
     scenario_id: str | None = None
+    case_id: str | None = Field(default=None, max_length=80)
     idempotency_key: str = Field(min_length=1, max_length=128)
 
 
@@ -94,6 +95,7 @@ class DraftImportPreview(OperationDTO):
 
 class MissionView(OperationDTO):
     mission_id: str
+    source_case_id: str | None = None
     name: str
     mode: Literal["simulation", "planning_assist"]
     timezone: str
@@ -659,6 +661,11 @@ class ExperimentRequest(OperationDTO):
     seeds: list[StrictInt] = Field(min_length=1, max_length=3)
     time_limit_s: float = Field(ge=1, le=30)
     idempotency_key: str = Field(min_length=1, max_length=128)
+    engine_type: Literal["standard", "eoh"] | None = None
+    heuristic_policy_id: str | None = Field(
+        default=None, pattern="^[A-Za-z0-9_-]{1,80}$"
+    )
+    heuristic_policy_sha256: str | None = Field(default=None, pattern="^[a-f0-9]{64}$")
 
     @field_validator("seeds")
     @classmethod
@@ -745,6 +752,9 @@ class ExperimentView(OperationDTO):
     cases: list[ExperimentCase]
     groups: list[ExperimentGroup]
     message: str
+    engine_type: Literal["standard", "eoh"] | None = None
+    heuristic_policy_id: str | None = None
+    heuristic_policy_sha256: str | None = None
 
 
 class ExperimentArtifact(OperationDTO):

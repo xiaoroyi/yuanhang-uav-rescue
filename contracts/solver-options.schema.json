@@ -98,6 +98,27 @@
       ],
       "default": "deadline_first_v1",
       "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
+    },
+    "engine_type": {
+      "enum": [
+        "standard",
+        "eoh"
+      ],
+      "description": "Optional; absence preserves standard engine and old Plan shape."
+    },
+    "heuristic_policy_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9_-]{1,80}$"
+    },
+    "heuristic_policy_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
     }
   },
   "required": [

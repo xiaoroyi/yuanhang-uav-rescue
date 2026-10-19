@@ -43,6 +43,7 @@ from backend.app.generated.domain import (
     SolveJob,
     Validation,
     Communication,
+    Engine,
 )
 from backend.app.analytics import (
     PlanAnalysis,
@@ -208,6 +209,11 @@ class SolveRequest(StrictModel):
     allow_partial_service: Literal[False] = False
     initial_plan_id: str | None = None
     repair_reference_id: str | None = None
+    engine_type: Literal["standard", "eoh"] | None = None
+    heuristic_policy_id: str | None = Field(
+        default=None, pattern="^[A-Za-z0-9_-]{1,80}$"
+    )
+    heuristic_policy_sha256: str | None = Field(default=None, pattern="^[a-f0-9]{64}$")
 
 
 class ConfirmRequest(VersionRequest):
@@ -250,6 +256,7 @@ class PlanSummary(StrictModel):
     confirmed_at: str | None
     algorithm_mode: Literal["quick", "improve", "replan"] = "quick"
     source_plan_id: str | None = None
+    engine: Engine | None = None
 
 
 class Progress(StrictModel):
@@ -1059,6 +1066,29 @@ def create_app(runtime_dir: Path | None = None):
 
     @app.post("/api/v1/solve-jobs", response_model=SolveJob, status_code=202)
     def create_job(body: SolveRequest):
+        policy_digest = None
+        if body.engine_type == "eoh":
+            from solver.engines import policy_store, read_policy
+
+            try:
+                with policy_store(directory / "heuristics"):
+                    _, policy_digest, _ = read_policy(
+                        body.heuristic_policy_id or "eoh-seed-v1"
+                    )
+                    if (
+                        body.heuristic_policy_sha256
+                        and policy_digest != body.heuristic_policy_sha256
+                    ):
+                        raise ValueError(
+                            "策略内容与原方案指纹不同，请恢复原策略或显式发起新的引擎比较。"
+                        )
+            except (ValueError, KeyError, OSError, SyntaxError) as exc:
+                raise AppError(422, "SCHEMA_INVALID", str(exc)) from exc
+        elif (
+            body.heuristic_policy_id is not None
+            or body.heuristic_policy_sha256 is not None
+        ):
+            raise AppError(422, "SCHEMA_INVALID", "本地启发式包仅适用于EOH增强引擎。")
         with database.session(immediate=True) as session:
             snap = require_row(session, SnapshotRow, body.snapshot_id).content
             queued = len(
@@ -1078,6 +1108,14 @@ def create_app(runtime_dir: Path | None = None):
                 "plan_id": plan_id,
                 **body.model_dump(exclude={"initial_plan_id", "repair_reference_id"}),
             }
+            if options["engine_type"] is None:
+                options.pop("engine_type")
+            if options["heuristic_policy_id"] is None:
+                options.pop("heuristic_policy_id")
+            if policy_digest:
+                options["heuristic_policy_sha256"] = policy_digest
+            else:
+                options.pop("heuristic_policy_sha256", None)
             if (
                 snap["scenario"].get("resource_limits")
                 and "ground_resource" not in options["requested_model_scope"]
@@ -1276,6 +1314,7 @@ def create_app(runtime_dir: Path | None = None):
                     ),
                     "confirmed_at": r.confirmed_at,
                     "algorithm_mode": modes.get(r.id, "quick"),
+                    "engine": r.content.get("engine"),
                     "source_plan_id": (
                         refinement.source_plan_id
                         if (refinement := session.get(PlanRefinementRow, r.id))
@@ -1765,6 +1804,12 @@ def create_app(runtime_dir: Path | None = None):
     from backend.app.missions import register_missions
 
     register_missions(app, database, AppError, save_new, snapshot_for)
+    from backend.app.case_library import register_case_library
+
+    register_case_library(app, database, AppError)
+    from backend.app.integrations import register_integrations
+
+    register_integrations(app)
     from backend.app.executions import register_executions
 
     register_executions(app, database, AppError, create_job, SolveRequest, snapshot_for)

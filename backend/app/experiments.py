@@ -298,6 +298,17 @@ class ExperimentCoordinator:
             }
             if case.get("repair_reference_id"):
                 options["repair_reference_id"] = case["repair_reference_id"]
+            options.update(
+                {
+                    k: value[k]
+                    for k in (
+                        "engine_type",
+                        "heuristic_policy_id",
+                        "heuristic_policy_sha256",
+                    )
+                    if value.get(k) is not None
+                }
+            )
         job = None
         failure = None
         try:
@@ -372,6 +383,37 @@ def register_experiments(app, database, error, create_job, solve_request, snapsh
                             error,
                         ),
                     )
+                engine_options = {
+                    k: getattr(body, k)
+                    for k in (
+                        "engine_type",
+                        "heuristic_policy_id",
+                        "heuristic_policy_sha256",
+                    )
+                    if getattr(body, k) is not None
+                }
+                if body.engine_type == "eoh":
+                    from solver.engines import policy_store, read_policy
+
+                    try:
+                        with policy_store(database.directory / "heuristics"):
+                            _, policy_sha, _ = read_policy(
+                                body.heuristic_policy_id or "eoh-seed-v1"
+                            )
+                        if (
+                            body.heuristic_policy_sha256
+                            and body.heuristic_policy_sha256 != policy_sha
+                        ):
+                            raise ValueError("策略指纹与原方案不一致。")
+                        engine_options.update(
+                            heuristic_policy_id=body.heuristic_policy_id
+                            or "eoh-seed-v1",
+                            heuristic_policy_sha256=policy_sha,
+                        )
+                    except (ValueError, KeyError, OSError, SyntaxError) as exc:
+                        raise error(422, "SCHEMA_INVALID", str(exc)) from exc
+                elif body.heuristic_policy_id or body.heuristic_policy_sha256:
+                    raise error(422, "SCHEMA_INVALID", "策略包只能用于EOH增强引擎。")
                 ongoing = [
                     r
                     for r in session.scalars(
@@ -559,6 +601,7 @@ def register_experiments(app, database, error, create_job, solve_request, snapsh
                 ]
                 value = {
                     "experiment_id": eid,
+                    **engine_options,
                     "name": body.name,
                     "source_snapshot_id": body.source_snapshot_id,
                     "source_content_hash": source["content_hash"],

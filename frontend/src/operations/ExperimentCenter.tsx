@@ -11,6 +11,8 @@ import { ResourceTimeline } from '../components/ResourceTimeline'
 import { number, percent } from '../lib/format'
 import { clock } from './format'
 import { policyOf } from '../lib/strategies'
+import { engineOptions } from '../lib/engines'
+import { command } from '../api/command'
 
 const objective = { time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }
 const method = {
@@ -46,6 +48,8 @@ export function ExperimentCenter({
   const [seeds, setSeeds] = useState('42')
   const [budget, setBudget] = useState(5)
   const [budgetEdited, setBudgetEdited] = useState(false)
+  const [engine, setEngine] = useState<'standard' | 'eoh'>('standard')
+  const policies = useQuery({ queryKey: ['heuristic-packages'], queryFn: command.engines })
   const [name, setName] = useState('')
   const [busy, setBusy] = useState(false)
   const [selected, setSelected] = useState('')
@@ -204,6 +208,12 @@ export function ExperimentCenter({
         suite,
         objective: preference,
         objective_policy: suite === 'repair' ? policyOf(repairPlan.data!) : 'tradeoff_v2',
+        ...(suite === 'repair'
+          ? engineOptions(repairPlan.data)
+          : {
+              engine_type: engine,
+              ...(engine === 'eoh' ? { heuristic_policy_id: 'eoh-seed-v1' } : {}),
+            }),
         seeds: seedValues,
         time_limit_s: budget,
         idempotency_key: key(),
@@ -351,6 +361,21 @@ export function ExperimentCenter({
                   ))}
                 </select>
               </label>
+              {suite !== 'repair' && (
+                <label>
+                  固定调度引擎
+                  <select
+                    aria-label="评测调度引擎"
+                    value={engine}
+                    onChange={(e) => setEngine(e.target.value as typeof engine)}
+                  >
+                    <option value="standard">标准调度</option>
+                    <option value="eoh" disabled={!policies.data?.length}>
+                      EOH增强 · 规则初始化
+                    </option>
+                  </select>
+                </label>
+              )}
               <label>
                 随机种子（最多3个）
                 <input

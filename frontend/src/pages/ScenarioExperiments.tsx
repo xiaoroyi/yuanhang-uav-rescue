@@ -1,3 +1,4 @@
+import { engineOptions } from '../lib/engines'
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { Download, FlaskConical, LoaderCircle, X } from 'lucide-react'
@@ -60,6 +61,7 @@ export function ScenarioExperiments({
         const snap = await api.snapshot(fork.scenario)
         await api.solve(snap.snapshot_id, plan.objective as 'time' | 'energy' | 'balanced', {
           objective_policy: policyOf(plan),
+          ...engineOptions(plan),
         })
       }
       notify('已提交3个独立压力情景，按同一策略真实计算。')

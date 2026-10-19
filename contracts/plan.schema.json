@@ -551,6 +551,61 @@
       ],
       "default": "deadline_first_v1",
       "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
+    },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "engine_type": {
+          "enum": [
+            "standard",
+            "eoh"
+          ]
+        },
+        "policy_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "standard",
+            "rule_initialization",
+            "eoh_offline"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "ranking_evaluations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fallback_evaluations": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "engine_type",
+        "policy_id",
+        "version",
+        "origin",
+        "sha256",
+        "ranking_evaluations",
+        "fallback_evaluations"
+      ]
     }
   },
   "required": [

@@ -2722,6 +2722,212 @@
         }
       }
     },
+    "/api/v1/case-library": {
+      "get": {
+        "summary": "Cases",
+        "operationId": "cases_api_v1_case_library_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseCatalog"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/case-library/{case_id}/preview": {
+      "get": {
+        "summary": "Preview",
+        "operationId": "preview_api_v1_case_library__case_id__preview_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scenario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heuristic-packages": {
+      "get": {
+        "summary": "Heuristic Packages",
+        "operationId": "heuristic_packages_api_v1_heuristic_packages_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HeuristicPackage"
+                  },
+                  "type": "array",
+                  "title": "Response Heuristic Packages Api V1 Heuristic Packages Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heuristic-packages/{policy_id}/export": {
+      "get": {
+        "summary": "Export Policy",
+        "operationId": "export_policy_api_v1_heuristic_packages__policy_id__export_get",
+        "parameters": [
+          {
+            "name": "policy_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Policy Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/heuristic-packages/import": {
+      "post": {
+        "summary": "Import Policy",
+        "operationId": "import_policy_api_v1_heuristic_packages_import_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_policy_api_v1_heuristic_packages_import_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HeuristicPackage"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/asset-overview": {
+      "get": {
+        "summary": "Overview",
+        "operationId": "overview_api_v1_asset_overview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetOverview"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/integrations": {
+      "get": {
+        "summary": "Overview",
+        "operationId": "overview_api_v1_integrations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntegrationOverview"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/integrations/configuration": {
+      "get": {
+        "summary": "Configuration",
+        "operationId": "configuration_api_v1_integrations_configuration_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/meta/operations-capabilities": {
       "get": {
         "summary": "Operation Capabilities",
@@ -3877,6 +4083,77 @@
         ],
         "title": "ApplyRepair"
       },
+      "AssetOverview": {
+        "properties": {
+          "mission_count": {
+            "type": "integer",
+            "title": "Mission Count"
+          },
+          "active_mission_count": {
+            "type": "integer",
+            "title": "Active Mission Count"
+          },
+          "archived_mission_count": {
+            "type": "integer",
+            "title": "Archived Mission Count"
+          },
+          "scenario_count": {
+            "type": "integer",
+            "title": "Scenario Count"
+          },
+          "snapshot_count": {
+            "type": "integer",
+            "title": "Snapshot Count"
+          },
+          "plan_count": {
+            "type": "integer",
+            "title": "Plan Count"
+          },
+          "execution_count": {
+            "type": "integer",
+            "title": "Execution Count"
+          },
+          "event_count": {
+            "type": "integer",
+            "title": "Event Count"
+          },
+          "completed_job_count": {
+            "type": "integer",
+            "title": "Completed Job Count"
+          },
+          "average_solve_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Average Solve S"
+          },
+          "scope": {
+            "type": "string",
+            "const": "local_workspace",
+            "title": "Scope",
+            "default": "local_workspace"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mission_count",
+          "active_mission_count",
+          "archived_mission_count",
+          "scenario_count",
+          "snapshot_count",
+          "plan_count",
+          "execution_count",
+          "event_count",
+          "completed_job_count",
+          "average_solve_s"
+        ],
+        "title": "AssetOverview"
+      },
       "Base": {
         "properties": {
           "id": {
@@ -4086,6 +4363,20 @@
           "file"
         ],
         "title": "Body_import_file_api_v1_scenarios_import_file_post"
+      },
+      "Body_import_policy_api_v1_heuristic_packages_import_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_import_policy_api_v1_heuristic_packages_import_post"
       },
       "Body_input_preview_api_v1_missions__mission_id__input_preview_post": {
         "properties": {
@@ -4629,6 +4920,30 @@
           "delivery_delta_s"
         ],
         "title": "CargoRepairDifference"
+      },
+      "CaseCatalog": {
+        "properties": {
+          "cases": {
+            "items": {
+              "$ref": "#/components/schemas/ExerciseCase"
+            },
+            "type": "array",
+            "title": "Cases"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/SourceReference"
+            },
+            "type": "array",
+            "title": "Sources"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cases",
+          "sources"
+        ],
+        "title": "CaseCatalog"
       },
       "ChangeSummary": {
         "properties": {
@@ -6448,6 +6763,80 @@
         ],
         "title": "EnergyModel"
       },
+      "Engine": {
+        "properties": {
+          "engine_type": {
+            "$ref": "#/components/schemas/EngineType"
+          },
+          "policy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policy Id"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Origin1"
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sha256"
+          },
+          "ranking_evaluations": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Ranking Evaluations"
+          },
+          "fallback_evaluations": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Fallback Evaluations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "engine_type",
+          "policy_id",
+          "version",
+          "origin",
+          "sha256",
+          "ranking_evaluations",
+          "fallback_evaluations"
+        ],
+        "title": "Engine"
+      },
+      "EngineType": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "eoh"
+        ],
+        "title": "EngineType"
+      },
       "Error1": {
         "properties": {
           "code": {
@@ -7442,6 +7831,97 @@
         ],
         "title": "ExecutionView"
       },
+      "ExerciseCase": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "Subtitle"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "mountain",
+              "flood",
+              "communication",
+              "urgent"
+            ],
+            "title": "Category"
+          },
+          "template": {
+            "type": "string",
+            "enum": [
+              "compact",
+              "contest",
+              "compact_joint",
+              "contest_joint"
+            ],
+            "title": "Template"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "learning_goals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Learning Goals"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Ids"
+          },
+          "site_count": {
+            "type": "integer",
+            "title": "Site Count"
+          },
+          "cargo_count": {
+            "type": "integer",
+            "title": "Cargo Count"
+          },
+          "communication": {
+            "type": "boolean",
+            "title": "Communication"
+          },
+          "data_statement": {
+            "type": "string",
+            "title": "Data Statement"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_id",
+          "version",
+          "name",
+          "subtitle",
+          "category",
+          "template",
+          "description",
+          "learning_goals",
+          "source_ids",
+          "site_count",
+          "cargo_count",
+          "communication",
+          "data_statement"
+        ],
+        "title": "ExerciseCase"
+      },
       "ExperimentArtifact": {
         "properties": {
           "case_id": {
@@ -8049,6 +8529,45 @@
             "maxLength": 128,
             "minLength": 1,
             "title": "Idempotency Key"
+          },
+          "engine_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "standard",
+                  "eoh"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine Type"
+          },
+          "heuristic_policy_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,80}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Id"
+          },
+          "heuristic_policy_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Sha256"
           }
         },
         "additionalProperties": false,
@@ -8171,6 +8690,43 @@
           "message": {
             "type": "string",
             "title": "Message"
+          },
+          "engine_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "standard",
+                  "eoh"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine Type"
+          },
+          "heuristic_policy_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Id"
+          },
+          "heuristic_policy_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Sha256"
           }
         },
         "additionalProperties": false,
@@ -8686,6 +9242,68 @@
         ],
         "title": "Health"
       },
+      "HeuristicPackage": {
+        "properties": {
+          "policy_id": {
+            "type": "string",
+            "title": "Policy Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "rule_initialization",
+              "eoh_offline"
+            ],
+            "title": "Origin"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "sha256": {
+            "type": "string",
+            "title": "Sha256"
+          },
+          "online_network_required": {
+            "type": "boolean",
+            "const": false,
+            "title": "Online Network Required"
+          },
+          "evolution_record": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evolution Record"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "policy_id",
+          "name",
+          "version",
+          "origin",
+          "description",
+          "sha256",
+          "online_network_required",
+          "evolution_record"
+        ],
+        "title": "HeuristicPackage"
+      },
       "ImpactEdge": {
         "properties": {
           "from_node_id": {
@@ -8869,6 +9487,100 @@
           "to_soc"
         ],
         "title": "InitialCharge"
+      },
+      "IntegrationEndpoint": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST"
+            ],
+            "title": "Method"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "method",
+          "path",
+          "description"
+        ],
+        "title": "IntegrationEndpoint"
+      },
+      "IntegrationOverview": {
+        "properties": {
+          "runtime_mode": {
+            "type": "string",
+            "const": "simulation",
+            "title": "Runtime Mode",
+            "default": "simulation"
+          },
+          "installed_adapter": {
+            "type": "string",
+            "const": "SimulationAdapter",
+            "title": "Installed Adapter",
+            "default": "SimulationAdapter"
+          },
+          "real_device_connected": {
+            "type": "boolean",
+            "const": false,
+            "title": "Real Device Connected",
+            "default": false
+          },
+          "external_model_calls_enabled": {
+            "type": "boolean",
+            "const": false,
+            "title": "External Model Calls Enabled",
+            "default": false
+          },
+          "telemetry_transport": {
+            "type": "string",
+            "const": "server_sent_events",
+            "title": "Telemetry Transport",
+            "default": "server_sent_events"
+          },
+          "command_states": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Command States"
+          },
+          "endpoints": {
+            "items": {
+              "$ref": "#/components/schemas/IntegrationEndpoint"
+            },
+            "type": "array",
+            "title": "Endpoints"
+          },
+          "adapter_methods": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Adapter Methods"
+          }
+        },
+        "type": "object",
+        "required": [
+          "command_states",
+          "endpoints",
+          "adapter_methods"
+        ],
+        "title": "IntegrationOverview"
       },
       "Items": {
         "properties": {
@@ -9221,6 +9933,18 @@
             ],
             "title": "Scenario Id"
           },
+          "case_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Case Id"
+          },
           "idempotency_key": {
             "type": "string",
             "maxLength": 128,
@@ -9435,6 +10159,17 @@
           "mission_id": {
             "type": "string",
             "title": "Mission Id"
+          },
+          "source_case_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Case Id"
           },
           "name": {
             "type": "string",
@@ -10200,6 +10935,15 @@
           "modes"
         ],
         "title": "OperationCapabilities"
+      },
+      "Origin1": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "rule_initialization",
+          "eoh_offline"
+        ],
+        "title": "Origin1"
       },
       "PartitionAssignment": {
         "properties": {
@@ -11036,6 +11780,16 @@
             ],
             "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
             "default": "deadline_first_v1"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Engine"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -11254,6 +12008,16 @@
               }
             ],
             "title": "Source Plan Id"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Engine"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "additionalProperties": false,
@@ -13553,6 +14317,45 @@
               }
             ],
             "title": "Repair Reference Id"
+          },
+          "engine_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "standard",
+                  "eoh"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine Type"
+          },
+          "heuristic_policy_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,80}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Id"
+          },
+          "heuristic_policy_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Heuristic Policy Sha256"
           }
         },
         "additionalProperties": false,
@@ -13782,6 +14585,57 @@
           "relay"
         ],
         "title": "Source"
+      },
+      "SourceReference": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "project",
+              "terrain",
+              "weather",
+              "disaster"
+            ],
+            "title": "Kind"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          },
+          "usage": {
+            "type": "string",
+            "title": "Usage"
+          },
+          "license_note": {
+            "type": "string",
+            "title": "License Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "name",
+          "kind",
+          "url",
+          "usage",
+          "license_note"
+        ],
+        "title": "SourceReference"
       },
       "Stage": {
         "properties": {

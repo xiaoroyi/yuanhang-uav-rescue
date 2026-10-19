@@ -1,0 +1,10 @@
+{
+  "format": "yuanhang-scalar-v1",
+  "policy_id": "eoh-seed-v1",
+  "name": "载荷密度与批量评分",
+  "version": "1.0.0",
+  "origin": "rule_initialization",
+  "description": "EoH兼容规则初始化包：对实际可行候选的载荷利用与逐箱合并进行评分；在线无模型调用，最终目标及独立约束检查不变。",
+  "expression": "base_score * (1 + 0.12 * (1 - min(1, load_ratio))) / (1 + 0.025 * min(3, cargo_count))",
+  "evolution_record": null
+}

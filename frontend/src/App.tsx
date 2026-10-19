@@ -1,3 +1,4 @@
+import { engineOptions } from './lib/engines'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
@@ -450,6 +451,7 @@ export default function App() {
               time_limit_s: scenario.policy.requires_communication ? 60 : 30,
               initial_plan_id: plan?.plan_id,
               objective_policy: policyOf(plan),
+              ...engineOptions(plan),
             }
           : { time_limit_s: scenario.policy.requires_communication ? 60 : 15 },
       )
@@ -502,6 +504,7 @@ export default function App() {
         {
           mode: 'replan',
           objective_policy: policyOf(plan),
+          ...engineOptions(plan),
           parent_plan_id: plan.plan_id,
           event_id: event.event.event_id,
           time_limit_s: updated.policy.requires_communication ? 60 : 15,

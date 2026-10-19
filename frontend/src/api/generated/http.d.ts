@@ -990,6 +990,142 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/case-library": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Cases */
+        get: operations["cases_api_v1_case_library_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/case-library/{case_id}/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Preview */
+        get: operations["preview_api_v1_case_library__case_id__preview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/heuristic-packages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Heuristic Packages */
+        get: operations["heuristic_packages_api_v1_heuristic_packages_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/heuristic-packages/{policy_id}/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Policy */
+        get: operations["export_policy_api_v1_heuristic_packages__policy_id__export_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/heuristic-packages/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Import Policy */
+        post: operations["import_policy_api_v1_heuristic_packages_import_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/asset-overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Overview */
+        get: operations["overview_api_v1_asset_overview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/integrations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Overview */
+        get: operations["overview_api_v1_integrations_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/integrations/configuration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Configuration */
+        get: operations["configuration_api_v1_integrations_configuration_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/meta/operations-capabilities": {
         parameters: {
             query?: never;
@@ -1437,6 +1573,35 @@ export interface components {
             /** Ack Timeout Device Ids */
             ack_timeout_device_ids?: string[];
         };
+        /** AssetOverview */
+        AssetOverview: {
+            /** Mission Count */
+            mission_count: number;
+            /** Active Mission Count */
+            active_mission_count: number;
+            /** Archived Mission Count */
+            archived_mission_count: number;
+            /** Scenario Count */
+            scenario_count: number;
+            /** Snapshot Count */
+            snapshot_count: number;
+            /** Plan Count */
+            plan_count: number;
+            /** Execution Count */
+            execution_count: number;
+            /** Event Count */
+            event_count: number;
+            /** Completed Job Count */
+            completed_job_count: number;
+            /** Average Solve S */
+            average_solve_s: number | null;
+            /**
+             * Scope
+             * @default local_workspace
+             * @constant
+             */
+            scope: "local_workspace";
+        };
         /** Base */
         Base: {
             /** Id */
@@ -1509,6 +1674,11 @@ export interface components {
         };
         /** Body_import_file_api_v1_scenarios_import_file_post */
         Body_import_file_api_v1_scenarios_import_file_post: {
+            /** File */
+            file: string;
+        };
+        /** Body_import_policy_api_v1_heuristic_packages_import_post */
+        Body_import_policy_api_v1_heuristic_packages_import_post: {
             /** File */
             file: string;
         };
@@ -1665,6 +1835,13 @@ export interface components {
             takeoff_delta_s: number | null;
             /** Delivery Delta S */
             delivery_delta_s: number | null;
+        };
+        /** CaseCatalog */
+        CaseCatalog: {
+            /** Cases */
+            cases: components["schemas"]["ExerciseCase"][];
+            /** Sources */
+            sources: components["schemas"]["SourceReference"][];
         };
         /** ChangeSummary */
         ChangeSummary: {
@@ -2298,6 +2475,26 @@ export interface components {
                 [key: string]: number;
             };
         };
+        /** Engine */
+        Engine: {
+            engine_type: components["schemas"]["EngineType"];
+            /** Policy Id */
+            policy_id: string | null;
+            /** Version */
+            version: string | null;
+            origin: components["schemas"]["Origin1"];
+            /** Sha256 */
+            sha256: string | null;
+            /** Ranking Evaluations */
+            ranking_evaluations: number;
+            /** Fallback Evaluations */
+            fallback_evaluations: number;
+        };
+        /**
+         * EngineType
+         * @enum {string}
+         */
+        EngineType: "standard" | "eoh";
         /** Error1 */
         Error1: {
             code: components["schemas"]["Code1"];
@@ -2660,6 +2857,41 @@ export interface components {
              */
             updated_at: string;
         };
+        /** ExerciseCase */
+        ExerciseCase: {
+            /** Case Id */
+            case_id: string;
+            /** Version */
+            version: string;
+            /** Name */
+            name: string;
+            /** Subtitle */
+            subtitle: string;
+            /**
+             * Category
+             * @enum {string}
+             */
+            category: "mountain" | "flood" | "communication" | "urgent";
+            /**
+             * Template
+             * @enum {string}
+             */
+            template: "compact" | "contest" | "compact_joint" | "contest_joint";
+            /** Description */
+            description: string;
+            /** Learning Goals */
+            learning_goals: string[];
+            /** Source Ids */
+            source_ids: string[];
+            /** Site Count */
+            site_count: number;
+            /** Cargo Count */
+            cargo_count: number;
+            /** Communication */
+            communication: boolean;
+            /** Data Statement */
+            data_statement: string;
+        };
         /** ExperimentArtifact */
         ExperimentArtifact: {
             /** Case Id */
@@ -2848,6 +3080,12 @@ export interface components {
             time_limit_s: number;
             /** Idempotency Key */
             idempotency_key: string;
+            /** Engine Type */
+            engine_type?: ("standard" | "eoh") | null;
+            /** Heuristic Policy Id */
+            heuristic_policy_id?: string | null;
+            /** Heuristic Policy Sha256 */
+            heuristic_policy_sha256?: string | null;
         };
         /** ExperimentView */
         ExperimentView: {
@@ -2897,6 +3135,12 @@ export interface components {
             groups: components["schemas"]["ExperimentGroup"][];
             /** Message */
             message: string;
+            /** Engine Type */
+            engine_type?: ("standard" | "eoh") | null;
+            /** Heuristic Policy Id */
+            heuristic_policy_id?: string | null;
+            /** Heuristic Policy Sha256 */
+            heuristic_policy_sha256?: string | null;
         };
         /** Features */
         Features: {
@@ -3073,6 +3317,33 @@ export interface components {
             /** Runtime Id */
             runtime_id: string;
         };
+        /** HeuristicPackage */
+        HeuristicPackage: {
+            /** Policy Id */
+            policy_id: string;
+            /** Name */
+            name: string;
+            /** Version */
+            version: string;
+            /**
+             * Origin
+             * @enum {string}
+             */
+            origin: "rule_initialization" | "eoh_offline";
+            /** Description */
+            description: string;
+            /** Sha256 */
+            sha256: string;
+            /**
+             * Online Network Required
+             * @constant
+             */
+            online_network_required: false;
+            /** Evolution Record */
+            evolution_record: {
+                [key: string]: unknown;
+            } | null;
+        };
         /** ImpactEdge */
         ImpactEdge: {
             /** From Node Id */
@@ -3143,6 +3414,59 @@ export interface components {
              * @constant
              */
             to_soc: 1;
+        };
+        /** IntegrationEndpoint */
+        IntegrationEndpoint: {
+            /** Name */
+            name: string;
+            /**
+             * Method
+             * @enum {string}
+             */
+            method: "GET" | "POST";
+            /** Path */
+            path: string;
+            /** Description */
+            description: string;
+        };
+        /** IntegrationOverview */
+        IntegrationOverview: {
+            /**
+             * Runtime Mode
+             * @default simulation
+             * @constant
+             */
+            runtime_mode: "simulation";
+            /**
+             * Installed Adapter
+             * @default SimulationAdapter
+             * @constant
+             */
+            installed_adapter: "SimulationAdapter";
+            /**
+             * Real Device Connected
+             * @default false
+             * @constant
+             */
+            real_device_connected: false;
+            /**
+             * External Model Calls Enabled
+             * @default false
+             * @constant
+             */
+            external_model_calls_enabled: false;
+            /**
+             * Telemetry Transport
+             * @default server_sent_events
+             * @constant
+             */
+            telemetry_transport: "server_sent_events";
+            /** Command States */
+            command_states: string[];
+            /** Endpoints */
+            endpoints: components["schemas"]["IntegrationEndpoint"][];
+            /** Adapter Methods */
+            adapter_methods: string[];
         };
         /** Items */
         Items: {
@@ -3252,6 +3576,8 @@ export interface components {
             template: "blank" | "compact" | "contest" | "compact_joint" | "contest_joint";
             /** Scenario Id */
             scenario_id?: string | null;
+            /** Case Id */
+            case_id?: string | null;
             /** Idempotency Key */
             idempotency_key: string;
         };
@@ -3309,6 +3635,8 @@ export interface components {
         MissionView: {
             /** Mission Id */
             mission_id: string;
+            /** Source Case Id */
+            source_case_id?: string | null;
             /** Name */
             name: string;
             /**
@@ -3586,6 +3914,11 @@ export interface components {
              */
             position_source: "business_model_phases";
         };
+        /**
+         * Origin1
+         * @enum {string}
+         */
+        Origin1: "standard" | "rule_initialization" | "eoh_offline";
         /** PartitionAssignment */
         PartitionAssignment: {
             /** Task Id */
@@ -3848,6 +4181,7 @@ export interface components {
              * @default deadline_first_v1
              */
             objective_policy: components["schemas"]["ObjectivePolicy"] | null;
+            engine?: components["schemas"]["Engine"] | null;
         };
         /** PlanAnalysis */
         PlanAnalysis: {
@@ -3917,6 +4251,7 @@ export interface components {
             algorithm_mode: "quick" | "improve" | "replan";
             /** Source Plan Id */
             source_plan_id?: string | null;
+            engine?: components["schemas"]["Engine"] | null;
         };
         /** Playback */
         Playback: {
@@ -4679,6 +5014,12 @@ export interface components {
             initial_plan_id?: string | null;
             /** Repair Reference Id */
             repair_reference_id?: string | null;
+            /** Engine Type */
+            engine_type?: ("standard" | "eoh") | null;
+            /** Heuristic Policy Id */
+            heuristic_policy_id?: string | null;
+            /** Heuristic Policy Sha256 */
+            heuristic_policy_sha256?: string | null;
         };
         /** SolverNote */
         SolverNote: string;
@@ -4752,6 +5093,24 @@ export interface components {
          * @enum {string}
          */
         Source: "gateway" | "relay";
+        /** SourceReference */
+        SourceReference: {
+            /** Source Id */
+            source_id: string;
+            /** Name */
+            name: string;
+            /**
+             * Kind
+             * @enum {string}
+             */
+            kind: "project" | "terrain" | "weather" | "disaster";
+            /** Url */
+            url: string | null;
+            /** Usage */
+            usage: string;
+            /** License Note */
+            license_note: string;
+        };
         /** Stage */
         Stage: {
             /** Stage */
@@ -7238,6 +7597,201 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    cases_api_v1_case_library_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CaseCatalog"];
+                };
+            };
+        };
+    };
+    preview_api_v1_case_library__case_id__preview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                case_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Scenario"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    heuristic_packages_api_v1_heuristic_packages_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HeuristicPackage"][];
+                };
+            };
+        };
+    };
+    export_policy_api_v1_heuristic_packages__policy_id__export_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                policy_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    import_policy_api_v1_heuristic_packages_import_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["Body_import_policy_api_v1_heuristic_packages_import_post"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HeuristicPackage"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    overview_api_v1_asset_overview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssetOverview"];
+                };
+            };
+        };
+    };
+    overview_api_v1_integrations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IntegrationOverview"];
+                };
+            };
+        };
+    };
+    configuration_api_v1_integrations_configuration_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };

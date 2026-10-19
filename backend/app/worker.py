@@ -9,6 +9,7 @@ import time
 
 from solver.public_api import replan, solve, repair_remaining
 from solver.assets import terrain_store
+from solver.engines import policy_store
 
 
 def atomic_json(path: Path, value):
@@ -32,7 +33,9 @@ def main():
     source, output, progress = map(Path, sys.argv[1:4])
     data = json.loads(source.read_text(encoding="utf-8"))
     # input.json lives in runtime/jobs/JOB-id; no user path enters core SolverOptions.
-    with terrain_store(source.parents[2] / "assets"):
+    with terrain_store(source.parents[2] / "assets"), policy_store(
+        source.parents[2] / "heuristics"
+    ):
         return run_job(data, output, progress)
 
 

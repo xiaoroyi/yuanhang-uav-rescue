@@ -999,6 +999,13 @@ def register_executions(app, database, error, create_job, solve_request, snapsho
                         ),
                         time_limit_s=body.time_limit_s,
                         repair_reference_id=change["repair_reference_id"],
+                        engine_type=(parent.get("engine") or {}).get("engine_type"),
+                        heuristic_policy_id=(parent.get("engine") or {}).get(
+                            "policy_id"
+                        ),
+                        heuristic_policy_sha256=(parent.get("engine") or {}).get(
+                            "sha256"
+                        ),
                     )
                 )
                 change["job"] = job

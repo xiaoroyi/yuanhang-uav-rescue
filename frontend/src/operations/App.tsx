@@ -14,6 +14,8 @@ import {
   MapPin,
   Moon,
   Drone,
+  Database,
+  Cpu,
   Plus,
   Search,
   Settings2,
@@ -28,9 +30,12 @@ import { MissionWorkspace, type MissionStage } from './MissionWorkspace'
 import { TaskResources } from './TaskResources'
 import { ExperimentCenter } from './ExperimentCenter'
 import { UIContext } from '../components/UIContext'
-import { LandingHome } from './LandingHome'
+import { CommandHome } from './CommandHome'
 import { HelpHub } from './HelpHub'
 import { CommandPalette } from './CommandPalette'
+import { CaseLibrary } from './CaseLibrary'
+import { EngineCenter } from './EngineCenter'
+import { IntegrationCenter } from './IntegrationCenter'
 import './operations.css'
 import '@radix-ui/colors/teal.css'
 import '@radix-ui/colors/slate.css'
@@ -80,7 +85,7 @@ export default function OperationsApp() {
   const [profileOpen, setProfileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const { profile, saveProfile } = useLocalProfile()
-  const [theme, setTheme] = useState(() => localStorage.getItem('yuanhang-v2-theme') || 'light')
+  const [theme, setTheme] = useState(() => localStorage.getItem('yuanhang-v2-theme') || 'midnight')
   const [motionEnabled, setMotionEnabled] = useState(
     () => localStorage.getItem('yuanhang-v3-motion') !== 'off',
   )
@@ -135,6 +140,7 @@ export default function OperationsApp() {
   const nav = [
     { path: 'home', title: '首页', icon: Home },
     { path: 'missions', title: '救援任务', icon: ListChecks },
+    { path: 'cases', title: '案例与档案', icon: Database },
     { path: 'resources', title: '资源中心', icon: Layers3 },
     { path: 'experiments', title: '演练评测', icon: FlaskConical },
   ]
@@ -181,7 +187,7 @@ export default function OperationsApp() {
     <UIContext.Provider value="v2">
       <div className={`v2-app v3-experience ${inMission ? 'mission-shell' : ''}`}>
         {path === 'home' ? (
-          <LandingHome
+          <CommandHome
             missions={missions.data || []}
             onNew={newTask}
             motionEnabled={motionEnabled}
@@ -206,7 +212,9 @@ export default function OperationsApp() {
                     aria-label={n.title}
                     title={n.title}
                     className={
-                      path === n.path || (n.path === 'missions' && inMission) ? 'active' : ''
+                      path.split('?')[0] === n.path || (n.path === 'missions' && inMission)
+                        ? 'active'
+                        : ''
                     }
                   >
                     <n.icon size={19} />
@@ -215,6 +223,10 @@ export default function OperationsApp() {
                 ))}
               </nav>
               <div className="v2-sidebar-bottom">
+                <a href="#/engines" title="算法引擎">
+                  <Cpu size={18} />
+                  <span>算法引擎</span>
+                </a>
                 <a href="#/settings" title="设置与接入">
                   <Settings2 size={18} />
                   <span>设置与接入</span>
@@ -279,8 +291,17 @@ export default function OperationsApp() {
                   onNewJoint={() => newTask('compact_joint')}
                   notify={notify}
                 />
-              ) : path === 'settings' ? (
-                <Settings />
+              ) : path.startsWith('cases') ? (
+                <CaseLibrary
+                  key={path}
+                  path={path}
+                  missions={missions.data || []}
+                  notify={notify}
+                />
+              ) : path === 'engines' ? (
+                <EngineCenter notify={notify} />
+              ) : path === 'settings' || path === 'integrations' ? (
+                <IntegrationCenter />
               ) : path.startsWith('help') ? (
                 <HelpHub missions={missions.data || []} onNew={newTask} />
               ) : (
@@ -436,6 +457,10 @@ function MissionHome({
             {list ? '管理输入、方案、运行与复盘记录。' : '从任务准备到模拟复盘，在同一任务中完成。'}
           </p>
         </div>
+        <a className="button" href="#/cases">
+          <Database size={15} />
+          从演练案例开始
+        </a>
         <Button variant="primary" onClick={() => onNew('blank')}>
           <Plus size={17} />
           新建救援任务
@@ -650,32 +675,6 @@ function MissionHome({
             ))}
         </details>
       )}
-    </main>
-  )
-}
-
-function Settings() {
-  return (
-    <main className="v2-content">
-      <div className="v2-page-heading">
-        <h1>设置与接入</h1>
-      </div>
-      <section className="v2-card v2-settings">
-        <h2>运行环境</h2>
-        <dl>
-          <dt>默认模式</dt>
-          <dd>本机业务仿真，无需登录</dd>
-          <dt>设备接入</dt>
-          <dd>SimulationAdapter；SITL / 真机未配置</dd>
-          <dt>气象</dt>
-          <dd>支持人工情景、机型阈值与作业窗口；外部预报、风致能源和机型标定未绑定</dd>
-          <dt>离线数据</dt>
-          <dd>本地 DEM、地理上下文与前端依赖；卫星图需手动联网启用</dd>
-          <dt>账户</dt>
-          <dd>左下角本机档案仅保存展示姓名，不授予设备控制权限</dd>
-        </dl>
-        <p>真实设备接入需独立配置受支持适配器、服务端身份与现场许可。</p>
-      </section>
     </main>
   )
 }

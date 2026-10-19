@@ -15,6 +15,7 @@ import {
   ChartNoAxesCombined,
   Play,
   RefreshCw,
+  Cpu,
 } from 'lucide-react'
 import { api, type Plan, type Scenario } from '../api/client'
 import { ops, type CheckReport, type Mission, type MissionDraft } from '../api/operations'
@@ -48,6 +49,8 @@ import { ResultsWorkspace } from './ResultsWorkspace'
 import { TerrainWorkspace } from './TerrainWorkspace'
 import { CommunicationWorkspace } from './CommunicationWorkspace'
 import { VisualAnalysis } from '../pages/VisualAnalysis'
+import { command } from '../api/command'
+import { engineLabel } from '../lib/engines'
 
 export type MissionStage =
   'prepare' | 'plans' | 'schedule' | 'terrain' | 'communication' | 'insights' | 'execute' | 'review'
@@ -94,6 +97,9 @@ export function MissionWorkspace({
   const [budget, setBudget] = useState(10)
   const [budgetEdited, setBudgetEdited] = useState(false)
   const [objective, setObjective] = useState<'time' | 'energy' | 'balanced'>('time')
+  const [engine, setEngine] = useState<'standard' | 'eoh'>('standard')
+  const [policyId, setPolicyId] = useState('eoh-seed-v1')
+  const policies = useQuery({ queryKey: ['heuristic-packages'], queryFn: command.engines })
   const [busy, setBusy] = useState(false)
   const [compareOpen, setCompareOpen] = useState(false)
   const [details, setDetails] = useState(false)
@@ -189,7 +195,7 @@ export function MissionWorkspace({
     setReport(null)
     refresh()
   }
-  async function solve(compare = false) {
+  async function solve(compare = false, compareEngines = false) {
     if (!m || !scene.data) return
     setBusy(true)
     try {
@@ -202,12 +208,28 @@ export function MissionWorkspace({
       }
       const snap = await api.snapshot(scene.data)
       const preferences = compare ? (['time', 'energy', 'balanced'] as const) : [objective]
-      for (const preference of preferences) {
-        const job = await api.solve(snap.snapshot_id, preference, { time_limit_s: budget })
+      const specs = compareEngines
+        ? [
+            { objective, engine: 'standard' as const },
+            { objective, engine: 'eoh' as const },
+          ]
+        : preferences.map((o) => ({ objective: o, engine }))
+      for (const spec of specs) {
+        const job = await api.solve(snap.snapshot_id, spec.objective, {
+          time_limit_s: budget,
+          engine_type: spec.engine,
+          ...(spec.engine === 'eoh' ? { heuristic_policy_id: policyId } : {}),
+        })
         setJobId(job.job_id)
       }
       refresh()
-      notify(compare ? '已基于同一快照提交三种偏好。' : '计算已提交，可刷新恢复。')
+      notify(
+        compareEngines
+          ? '已按同一输入和偏好提交两种引擎，结果可在“比较”中查看。'
+          : compare
+            ? '已基于同一快照提交三种偏好。'
+            : '计算已提交，可刷新恢复。',
+      )
     } catch (e) {
       notify((e as Error).message, true)
     } finally {
@@ -325,12 +347,39 @@ export function MissionWorkspace({
                   {{ time: '时间优先', energy: '能耗优先', balanced: '时间能耗折中' }[
                     p.objective
                   ] || p.objective}{' '}
-                  · 方案{(plans.data?.length || 1) - index} · 输入第{p.scenario_state_version}版
+                  · {engineLabel(p)} · 方案{(plans.data?.length || 1) - index} · 输入第
+                  {p.scenario_state_version}版
                 </option>
               ))}
             </select>
             {stage === 'plans' && (
               <>
+                <label className="v4-engine-select">
+                  <Cpu size={14} />
+                  <select
+                    aria-label="调度引擎"
+                    value={engine}
+                    onChange={(e) => setEngine(e.target.value as typeof engine)}
+                  >
+                    <option value="standard">标准调度</option>
+                    <option value="eoh" disabled={!policies.data?.length}>
+                      EOH增强 · 本地策略
+                    </option>
+                  </select>
+                </label>
+                {engine === 'eoh' && policies.data && policies.data.length > 1 && (
+                  <select
+                    aria-label="本地评分策略"
+                    value={policyId}
+                    onChange={(e) => setPolicyId(e.target.value)}
+                  >
+                    {policies.data.map((p) => (
+                      <option key={p.policy_id} value={p.policy_id}>
+                        {p.name} · v{p.version}
+                      </option>
+                    ))}
+                  </select>
+                )}
                 <select
                   aria-label="计算偏好"
                   value={objective}
@@ -365,6 +414,12 @@ export function MissionWorkspace({
                 </Button>
                 <Button disabled={pending} onClick={() => void solve(true)}>
                   比较多种偏好
+                </Button>
+                <Button
+                  disabled={pending || !policies.data?.length}
+                  onClick={() => void solve(false, true)}
+                >
+                  对比两种引擎
                 </Button>
                 <Button disabled={!plan.data} onClick={() => setCompareOpen(true)}>
                   <GitCompareArrows size={14} />
@@ -426,6 +481,18 @@ export function MissionWorkspace({
               {m.active_plan_id === planId ? '方案已确认' : '确认方案'}
             </Button>
           </div>
+          {plan.data && (
+            <div className="v4-plan-engine">
+              <Cpu size={14} />
+              <b>{engineLabel(plan.data)}</b>
+              <span>
+                {plan.data.engine?.policy_id
+                  ? `策略 v${plan.data.engine.version} · ${plan.data.engine.origin === 'rule_initialization' ? '规则初始化' : '离线导入'} · 评分${plan.data.engine.ranking_evaluations}次${plan.data.engine.fallback_evaluations ? ` · 标准回退${plan.data.engine.fallback_evaluations}次` : ''}`
+                  : '标准启发式与约束优化'}
+              </span>
+              <a href="#/engines">引擎说明与来源</a>
+            </div>
+          )}
           {pending && (
             <JobProgress
               job={

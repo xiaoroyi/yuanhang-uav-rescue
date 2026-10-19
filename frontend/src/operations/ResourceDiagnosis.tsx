@@ -1,3 +1,4 @@
+import { engineOptions } from '../lib/engines'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { api, type Scenario, type Plan, type Snapshot, type WhatIfReceipt } from '../api/client'
@@ -87,7 +88,11 @@ export function ResourceDiagnosis({
       const submitted = await api.solve(
         input.snapshot_id,
         (baseline?.objective as 'time' | 'energy' | 'balanced') || 'time',
-        { time_limit_s: budget, objective_policy: baseline ? policyOf(baseline) : 'tradeoff_v2' },
+        {
+          time_limit_s: budget,
+          objective_policy: baseline ? policyOf(baseline) : 'tradeoff_v2',
+          ...engineOptions(baseline),
+        },
       )
       setJobId(submitted.job_id)
       notify('独立增配场景已保存，正在实际求解；原任务保持原版本。')

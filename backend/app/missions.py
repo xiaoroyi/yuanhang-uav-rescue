@@ -304,7 +304,13 @@ def register_missions(app, database, error, save_new, snapshot_for):
 
     @app.post("/api/v1/missions", response_model=MissionView, status_code=201)
     def create_mission(body: MissionCreate):
-        digest = content_hash(body.model_dump(mode="json"))
+        digest = content_hash(
+            body.model_dump(
+                mode="json", exclude={"case_id"} if body.case_id is None else set()
+            )
+        )
+        if body.case_id and body.scenario_id:
+            raise error(422, "SCHEMA_INVALID", "案例与已有场景不能同时作为来源。")
         with database.session(immediate=True) as session:
             prior = session.get(
                 OperationRecordRow, ("mission.create", body.idempotency_key)
@@ -336,7 +342,7 @@ def register_missions(app, database, error, save_new, snapshot_for):
                 s = copy.deepcopy(
                     require(session, ScenarioRow, body.scenario_id, error).content
                 )
-            elif body.template != "blank":
+            elif body.template != "blank" or body.case_id:
                 from backend.app.storage import VersionRow
 
                 s = (
@@ -344,6 +350,13 @@ def register_missions(app, database, error, save_new, snapshot_for):
                     if body.template in ("compact", "compact_joint")
                     else contest_scenario()
                 )
+                if body.case_id:
+                    from backend.app.case_library import case_scenario
+
+                    try:
+                        s = case_scenario(body.case_id)
+                    except ValueError as exc:
+                        raise error(422, "SCHEMA_INVALID", str(exc)) from exc
                 if body.template in ("compact_joint", "contest_joint"):
                     from solver.adapters.contest import contest_communication
 
@@ -405,6 +418,7 @@ def register_missions(app, database, error, save_new, snapshot_for):
             mid = identity("MIS")
             value = {
                 "mission_id": mid,
+                **({"source_case_id": body.case_id} if body.case_id else {}),
                 "name": body.name,
                 "mode": s["mode"] if s else body.mode,
                 "timezone": draft["timezone"],
@@ -429,7 +443,10 @@ def register_missions(app, database, error, save_new, snapshot_for):
                     id=body.idempotency_key,
                     owner_id=mid,
                     request_hash=digest,
-                    content={"mission_id": mid},
+                    content={
+                        "mission_id": mid,
+                        **({"source_case_id": body.case_id} if body.case_id else {}),
+                    },
                 )
             )
             return value

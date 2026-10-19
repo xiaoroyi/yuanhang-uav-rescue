@@ -42,6 +42,9 @@ export function CommandPalette({
   const actions = [
     { label: '返回首页', hint: '首页', href: '#/home', icon: Home },
     { label: '救援任务', hint: '所有任务与历史', href: '#/missions', icon: ListChecks },
+    { label: '案例与任务档案', hint: '演练初始化与输入复用', href: '#/cases', icon: Layers3 },
+    { label: '算法引擎中心', hint: '标准与EOH本地策略', href: '#/engines', icon: FlaskConical },
+    { label: '设备与API接入', hint: '模拟适配器与协议', href: '#/integrations', icon: RadioTower },
     { label: '资源中心', hint: '按任务管理资源', href: '#/resources', icon: Layers3 },
     { label: '演练评测', hint: '比较策略与方法', href: '#/experiments', icon: FlaskConical },
     { label: '图文使用指南', hint: '帮助与术语', href: '#/help', icon: BookOpen },

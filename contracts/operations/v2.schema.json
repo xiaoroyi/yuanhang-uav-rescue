@@ -1657,6 +1657,80 @@
       "title": "EnergyModel",
       "type": "object"
     },
+    "Engine": {
+      "additionalProperties": false,
+      "properties": {
+        "engine_type": {
+          "$ref": "#/$defs/EngineType"
+        },
+        "policy_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Policy Id"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Version"
+        },
+        "origin": {
+          "$ref": "#/$defs/Origin1"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sha256"
+        },
+        "ranking_evaluations": {
+          "minimum": 0,
+          "title": "Ranking Evaluations",
+          "type": "integer"
+        },
+        "fallback_evaluations": {
+          "minimum": 0,
+          "title": "Fallback Evaluations",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "engine_type",
+        "policy_id",
+        "version",
+        "origin",
+        "sha256",
+        "ranking_evaluations",
+        "fallback_evaluations"
+      ],
+      "title": "Engine",
+      "type": "object"
+    },
+    "EngineType": {
+      "enum": [
+        "standard",
+        "eoh"
+      ],
+      "title": "EngineType",
+      "type": "string"
+    },
     "Error1": {
       "additionalProperties": false,
       "properties": {
@@ -3289,6 +3363,48 @@
           "minLength": 1,
           "title": "Idempotency Key",
           "type": "string"
+        },
+        "engine_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "standard",
+                "eoh"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Engine Type"
+        },
+        "heuristic_policy_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9_-]{1,80}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heuristic Policy Id"
+        },
+        "heuristic_policy_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heuristic Policy Sha256"
         }
       },
       "required": [
@@ -3412,6 +3528,46 @@
         "message": {
           "title": "Message",
           "type": "string"
+        },
+        "engine_type": {
+          "anyOf": [
+            {
+              "enum": [
+                "standard",
+                "eoh"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Engine Type"
+        },
+        "heuristic_policy_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heuristic Policy Id"
+        },
+        "heuristic_policy_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Heuristic Policy Sha256"
         }
       },
       "required": [
@@ -3883,6 +4039,19 @@
           "default": null,
           "title": "Scenario Id"
         },
+        "case_id": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Case Id"
+        },
         "idempotency_key": {
           "maxLength": 128,
           "minLength": 1,
@@ -4103,6 +4272,18 @@
         "mission_id": {
           "title": "Mission Id",
           "type": "string"
+        },
+        "source_case_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Case Id"
         },
         "name": {
           "title": "Name",
@@ -4337,6 +4518,15 @@
       "title": "OperationCapabilities",
       "type": "object"
     },
+    "Origin1": {
+      "enum": [
+        "standard",
+        "rule_initialization",
+        "eoh_offline"
+      ],
+      "title": "Origin1",
+      "type": "string"
+    },
     "Plan": {
       "additionalProperties": false,
       "properties": {
@@ -4539,6 +4729,17 @@
           ],
           "default": "deadline_first_v1",
           "description": "Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory."
+        },
+        "engine": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Engine"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [

@@ -34,6 +34,7 @@ from solver.metrics import delivery_analysis, objective_policy, objective_score
 from solver.analysis import analyze
 from solver.ground import earliest_slot, initial_schedule
 from solver.identities import sortie_id
+from solver.engines import engine_run, ranking_score
 from solver.nominal import analyze_single_site
 from solver.weather import (
     eligible_types as weather_types,
@@ -391,6 +392,14 @@ def _construct(
             )
             if objective == "balanced":
                 score = finish / throughput + 300 * route["energy_kwh"] / throughput
+            score = ranking_score(
+                score,
+                finish_s=finish,
+                energy_kwh=route["energy_kwh"],
+                cargo_count=len(route["cargo_ids"]),
+                load_ratio=sum(cargos[c]["mass_kg"] for c in route["cargo_ids"])
+                / types[route["type_id"]]["max_payload_kg"],
+            )
             score *= 1.0 if seed == 0 else rng.uniform(0.94, 1.06)
             alternatives.append((score, route, assigned))
         if not alternatives:
@@ -526,6 +535,7 @@ def _make_plan(snapshot, options, routes, initial_charges=None):
     }
 
 
+@engine_run
 def solve(snapshot, options, progress_callback=None, *, initial_plan=None):
     started = time.perf_counter()
     best = None
@@ -1213,6 +1223,7 @@ def _try_local_repair(
     return None
 
 
+@engine_run
 def replan(snapshot, previous_plan, event, options, progress_callback=None):
     started = time.perf_counter()
     if event.get("event_type") not in capabilities()["supported_events"]:
@@ -1293,6 +1304,7 @@ def replan(snapshot, previous_plan, event, options, progress_callback=None):
     return result
 
 
+@engine_run
 def repair_remaining(snapshot, reference, options, progress_callback=None):
     """Plan only the uncommitted suffix using frozen original source documents."""
     from solver.execution_repair import repair_remaining as compute

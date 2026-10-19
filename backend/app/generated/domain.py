@@ -556,6 +556,25 @@ class RelayEnergyUnavailableEvent(BaseModel):
     payload: Payload3
 
 
+class Origin(Enum):
+    rule_initialization = "rule_initialization"
+    eoh_offline = "eoh_offline"
+
+
+class HeuristicArtifact(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    format: Literal["yuanhang-scalar-v1"]
+    policy_id: constr(pattern=r"^[A-Za-z0-9_-]{1,80}$")
+    name: constr(min_length=1, max_length=120)
+    version: constr(min_length=1, max_length=40)
+    origin: Origin
+    description: constr(min_length=1, max_length=1200)
+    expression: constr(min_length=1, max_length=1800)
+    evolution_record: dict[str, Any] | None = None
+
+
 class DataOrigin(Enum):
     mock = "mock"
     solver = "solver"
@@ -751,6 +770,30 @@ class ObjectivePolicy(Enum):
     tradeoff_v2 = "tradeoff_v2"
 
 
+class EngineType(Enum):
+    standard = "standard"
+    eoh = "eoh"
+
+
+class Origin1(Enum):
+    standard = "standard"
+    rule_initialization = "rule_initialization"
+    eoh_offline = "eoh_offline"
+
+
+class Engine(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    engine_type: EngineType
+    policy_id: str | None
+    version: str | None
+    origin: Origin1
+    sha256: constr(pattern=r"^[a-f0-9]{64}$") | None
+    ranking_evaluations: conint(ge=0)
+    fallback_evaluations: conint(ge=0)
+
+
 class Plan(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
@@ -795,6 +838,7 @@ class Plan(BaseModel):
         "deadline_first_v1",
         description="Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
     )
+    engine: Engine | None = None
 
 
 class Mode(Enum):
@@ -1123,6 +1167,12 @@ class SolverOptions(BaseModel):
         "deadline_first_v1",
         description="Absent means legacy soft-deadline-first. tradeoff_v2 ranks the selected time/energy goal first, soft lateness second. Hard constraints and full service remain mandatory.",
     )
+    engine_type: EngineType | None = Field(
+        None,
+        description="Optional; absence preserves standard engine and old Plan shape.",
+    )
+    heuristic_policy_id: constr(pattern=r"^[A-Za-z0-9_-]{1,80}$") | None = None
+    heuristic_policy_sha256: constr(pattern=r"^[a-f0-9]{64}$") | None = None
 
 
 class AlgorithmMode(Enum):
@@ -1355,6 +1405,9 @@ class DomainContracts(BaseModel):
     capabilities: Capabilities | None = None
     error: Error | None = None
     event: Event | None = None
+    heuristic_artifact: HeuristicArtifact | None = Field(
+        None, alias="heuristic-artifact"
+    )
     plan: Plan | None = None
     scenario: Scenario | None = None
     snapshot: Snapshot | None = None
