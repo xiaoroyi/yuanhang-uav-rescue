@@ -48,6 +48,8 @@ def file_row(stage, path):
 
 
 def keep_demo(relative):
+    if relative.startswith("frontend/dist/"):
+        return True
     if relative.startswith(("portable-python/", "runtime/", "data-backup/")):
         return True
     if Path(relative).name == "AGENTS.md":
@@ -102,6 +104,21 @@ def demo_only(stage):
         path.unlink()
         del rows[key]
         removed.append(key)
+    build = json.loads(
+        (stage / "frontend/dist/assets/build-info.json").read_text(encoding="utf-8")
+    )
+    for artifact in build["artifacts"]:
+        relative = "frontend/dist/" + artifact["path"]
+        target = (stage / relative).resolve()
+        if not target.is_relative_to(stage / "frontend/dist"):
+            raise ValueError("构建清单路径非法。")
+        if not target.is_file() or digest(target) != artifact["sha256"]:
+            source = ROOT / relative
+            if digest(source) != artifact["sha256"]:
+                raise ValueError("正式前端与交付构建不一致。")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
+            rows[relative] = file_row(stage, target)
     # Dependency license/readme files are part of their distribution, not our
     # internal collaboration notes. Retain them even in the compact demo.
     cache = ROOT / ".local/reference-delivery/portable-python"
