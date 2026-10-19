@@ -123,12 +123,13 @@ def set_font(style, size, bold=False):
     style.element.get_or_add_rPr().get_or_add_rFonts().set(qn("w:eastAsia"), "微软雅黑")
 
 
-def make_doc():
-    source = SOURCE.read_text(encoding="utf-8")
+def make_doc(source_path=SOURCE, output_path=OUT, prompt_path=PROMPT):
+    source = source_path.read_text(encoding="utf-8")
     match = re.search(r"## 21 .*?```text\n(.*?)\n```", source, re.S)
-    if not match or len(match[1]) < 1000:
+    if prompt_path is not None and (not match or len(match[1]) < 1000):
         raise ValueError("The full teammate prompt was not found")
-    PROMPT.write_text(
+    if prompt_path is not None:
+        prompt_path.write_text(
         "# 援航当前版本无记忆接手提示词\n\n"
         "配套主文档：[实际实现与协作对接总文档](../docs/PROJECT_DOSSIER.md)。"
         "在队友自己的仓库根目录使用，最后填写本次具体任务。\n\n"
@@ -173,14 +174,15 @@ def make_doc():
     field.set(qn("w:instr"), "PAGE")
     page._r.addnext(field)
     page.font.size = Pt(9)
-    doc.core_properties.title = "援航项目实际实现与协作对接总文档"
-    doc.core_properties.subject = "V4实际算法工程功能与两人协作交接"
+    doc.core_properties.title = source.splitlines()[0].lstrip('# ')
+    doc.core_properties.subject = "无人机救援运输与通信调度项目介绍" if prompt_path is None else "V4完整参考交付与实际算法工程协作交接"
     doc.core_properties.author = "援航项目组"
     doc.core_properties.keywords = "无人机 调度 通信 地形 业务仿真 项目对接"
-    doc.core_properties.comments = "主源 docs/PROJECT_DOSSIER.md V4核心基线3ff456e及后续修复"
+    doc.core_properties.comments = "由" + source_path.relative_to(ROOT).as_posix() + "生成"
 
     lines, i, equations, tables = source.splitlines(), 0, 0, 0
     in_contents = False
+    pending_break = False
     while i < len(lines):
         line = lines[i].strip()
         i += 1
@@ -191,11 +193,25 @@ def make_doc():
         elif line.startswith("## "):
             heading = line[3:]
             in_contents = heading == "阅读目录"
-            if heading.startswith("1 项目"):
+            if source_path == SOURCE and heading.startswith("1 项目"):
                 doc.add_page_break()
-            doc.add_heading(heading, level=1)
+            p = doc.add_heading(heading, level=1)
+            if pending_break:
+                p.paragraph_format.page_break_before = True
+                pending_break = False
         elif line.startswith("### "):
             doc.add_heading(line[4:], level=2)
+        elif line == '<!-- pagebreak -->':
+            pending_break = True
+        elif re.fullmatch(r'!\[.*?\]\(.*?\)', line):
+            picture = re.fullmatch(r'!\[(.*?)\]\((.*?)\)', line)
+            image_path = (source_path.parent / picture[2]).resolve()
+            p = doc.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.keep_with_next = True
+            p.add_run().add_picture(str(image_path), width=Inches(6.0))
+            p = doc.add_paragraph(picture[1], 'Caption')
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         elif line.startswith("$$") and line.endswith("$$"):
             p = doc.add_paragraph()
             p.paragraph_format.space_before = Pt(6)
@@ -317,12 +333,12 @@ def make_doc():
             following = next((row.strip() for row in lines[i:] if row.strip()), "")
             if following.startswith("$$"):
                 p.paragraph_format.keep_with_next = True
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(OUT)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    doc.save(output_path)
     print(json.dumps({
-        "docx": str(OUT), "source_chars": len(source), "equations": equations,
+        "docx": str(output_path), "source_chars": len(source), "equations": equations,
         "tables": tables, "paragraphs": len(doc.paragraphs),
-        "prompt_chars": len(match[1]),
+        "prompt_chars": len(match[1]) if match and prompt_path is not None else 0,
     }, ensure_ascii=False))
 
 

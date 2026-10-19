@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-19T11:29:44.921Z",
+  "url": "http://127.0.0.1:8026",
+  "passed": true,
+  "checks": [
+    "Full V4 home, real DEM, fonts and original task counts render without external requests",
+    "Existing saved plan map, real sortie schedule and resources are preserved",
+    "Existing real plan exports a valid XLSX archive",
+    "Actual flight profile and terrain page load from bundled original DEM",
+    "Original execution ledger and fleet transport board remain available",
+    "Offline tutorial images and video are served correctly",
+    "All four case recipes and original input tables are readable",
+    "New input is solved by the bundled Python subprocess with real local EOH ranking and independent validation"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "health": {
+    "service_id": "yuanhang-rescue",
+    "workspace_id": "63db52419f41",
+    "status": "ok",
+    "service_version": "0.1.0",
+    "solver_ready": true,
+    "service_source_sha256": "19622083612b2b33430ec438e1861efcd090f039a2210a7391c0632687353e87",
+    "runtime_id": "ad9a2d5b30cb"
+  },
+  "missionCount": 5,
+  "originalPlan": "PLAN-99DBD9B0679D4474",
+  "originalSorties": 23,
+  "flightProfileKeys": [
+    "plan_id",
+    "snapshot_id",
+    "scenario_state_version",
+    "sortie_id",
+    "drone_id",
+    "drone_type_id",
+    "terrain_asset_id",
+    "terrain_sha256",
+    "vertical_datum",
+    "total_distance_m",
+    "total_climb_m",
+    "total_descent_m",
+    "flight_time_s",
+    "modeled_energy_kwh",
+    "horizontal_energy_kwh",
+    "climb_energy_kwh",
+    "plan_sortie_energy_kwh",
+    "legs",
+    "notice"
+  ],
+  "newPlan": {
+    "plan_id": "PLAN-36AA1E3652824248",
+    "sorties": 7,
+    "metrics": {
+      "last_delivery_s": 6912.449182328815,
+      "makespan_s": 7224.348720993396,
+      "energy_kwh": 20.494215322988346,
+      "cost_cny": null,
+      "sortie_count": 7,
+      "unserved_demand_count": 0,
+      "mandatory_served_count": 32,
+      "mandatory_total_count": 32,
+      "min_return_soc": 0.23265550791422862
+    },
+    "engine": {
+      "engine_type": "eoh",
+      "policy_id": "eoh-seed-v1",
+      "version": "1.0.0",
+      "origin": "rule_initialization",
+      "sha256": "ed20350b4f9c3881a74628529bc75c794f1cb5a264f0142fe4fcd551a499ea86",
+      "ranking_evaluations": 833,
+      "fallback_evaluations": 0
+    }
+  }
+}

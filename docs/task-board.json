@@ -2216,6 +2216,25 @@
         "evidence/experience-v4/project-document-audit.json",
         "evidence/experience-v4/production-data-after_deployment.json"
       ]
+    },
+    {
+      "id": "REF-01",
+      "phase": "G6",
+      "priority": "P0",
+      "owner": "A+B",
+      "title": "同步内部完整对接资料并交付独立运行演示包",
+      "acceptance": "内部三文档保留实验状态并提交；对外包含便携环境、完整运行数据与前端，去除内部协作与实验文档；实际解压启动检查",
+      "dependencies": [
+        "V4-05"
+      ],
+      "status": "in_progress",
+      "branch": "feat/mission-command-v4",
+      "pr": null,
+      "evidence": [
+        "docs/REFERENCE_DELIVERY.md",
+        "evidence/reference-delivery/TEST_REPORT.md",
+        "evidence/reference-delivery/runtime-review.json"
+      ]
     }
   ]
 }

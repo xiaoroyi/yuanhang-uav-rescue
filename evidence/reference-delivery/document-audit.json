@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "version": "1.2 / V4",
+  "chapters": 25,
+  "native_equations": 7,
+  "tables_including_contents": 18,
+  "pages": 38,
+  "prompt_matches_master": true,
+  "visual_review": "All changed pages inspected; prior unchanged pages matched reviewed hashes. Final internal guide 38 pages; external guide 6 pages with 4 actual screenshots.",
+  "source_sha256": "34811f31e6607f2de5c932f2cc26645b69d9da3ec51dcd277d9697aadf0572f1",
+  "word_sha256": "48a10d179c3bc1e009e011ef6265fee3dd8e7891dceda6d979d21f59974a85db",
+  "prompt_sha256": "63fa32bfce58c244b26f2f268d0e1af3d0f50eb1efe6252d270bf6cceaa45084",
+  "authoring_runtime": "bundled document workspace Python 3.12",
+  "render_provider": "local independent Word via native COM; source opened read-only and closed without save",
+  "scope": "Documentation update and reference delivery; no new algorithm performance claims",
+  "external_guide": {
+    "pages": 6,
+    "images": 4,
+    "sha256": "3eb002ca2a36f4a94f6591f6165401921c49a80627a6384f542487156cbfa566",
+    "excludes_internal_collaboration": true
+  }
+}
