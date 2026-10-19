@@ -1,5 +1,7 @@
 # 接手V3
 
+完整项目理解先读`docs/PROJECT_DOSSIER.md`；该文档第20章给出无记忆接手顺序，第21章有可复制提示词，独立副本在`prompts/06_CURRENT_PROJECT_HANDOFF.md`。Word版见`docs/current-project/`。本文继续作为短交接与代码定位，不代替详细总文档。
+
 当前分支`feat/mission-experience-v3`，基于V2的58e81df；首个体验提交61ca772，后续修复和交接以分支HEAD为准。main/V2保留。长期两人：A算法兼负责人；B一人维护前后端与集成。
 
 先读根AGENTS、docs/IMPLEMENTATION_STATUS、当前索引、API_MIGRATION_MAP、TEST_REPORT及docs/task-board.json。不要从G0或三人模板重新初始化，不覆盖现有算法/原题材料/旧Plan与Snapshot。

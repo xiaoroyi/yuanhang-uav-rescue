@@ -1,5 +1,7 @@
 # 当前交付：援航V3体验候选（2026-10-19）
 
+2026-10-19按实际基线803c295重写 [项目总文档](PROJECT_DOSSIER.md)，集中说明背景、数模继承、详细算法、前后端、功能、边界、原方案差异、可用于本子的表述和无记忆接手顺序；[接手提示词](../prompts/06_CURRENT_PROJECT_HANDOFF.md)可直接使用，[Word版](current-project/README.md)与主Markdown同步。此项只整理文档，不将旧案例说成本轮新求解，也不新增业务完成状态。
+
 当前分支 `feat/mission-experience-v3`，基于V2的58e81df。独立精致首页/动态协同背景、四阶段与子菜单、独立调度表/六页Excel、真实三维升降/剖面、通信联合模板/空间采样、任务资源空间、运输机队看板、图文教程/实际录屏、快速导航与任务数据分析已接入。整体复核额外修复在途总量遗漏、执行确认覆盖预约、生产媒体路由/MIME。
 
 本机8000已运行新版；29份方案/26份快照原文Hash一致，3个暂停实例保留。准确检查范围见 [TEST_REPORT](../evidence/experience-v3/TEST_REPORT.md)，截图与交互见 [VISUAL_REVIEW](../evidence/experience-v3/VISUAL_REVIEW.md)，使用 [DEMO_GUIDE](../evidence/experience-v3/DEMO_GUIDE.md)，交接 [HANDOFF](../evidence/experience-v3/HANDOFF.md)。按用户要求做专项与基础复核，未重跑全部长回归，不把历史计数称为本轮全部通过。

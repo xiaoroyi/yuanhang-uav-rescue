@@ -153,6 +153,7 @@
 | R24 | P2 | A+B | R01, R12, R14, R19 | 多基地/移动补能/协作扩展；验收：真实模型与跨任务预约检查，不止配置表单 | todo | feat/mission-workspace-v2; evidence/redesign-v2/KNOWN_LIMITATIONS.md; evidence/redesign-v2/TEST_REPORT.md; evidence/redesign-v2/DELIVERY_CHECKS.json |
 | V3-09 | P1 | A+B | V3-01, V3-06 | 图文帮助/引导和实际演示录屏；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
 | V3-11 | P0 | A+B | V3-01, V3-02, V3-04, V3-05, V3-06, V3-07, V3-08, V3-09, V3-10 | 关键流程/实景检查与交接；验收：对应用户2026-10-19十二项范围，真实数据、清晰交互和可用界面；证据见docs/experience-v3与evidence/experience-v3 | done | feat/mission-experience-v3; evidence/experience-v3/INDEX.md; evidence/experience-v3/FEATURE_TRACEABILITY.md; evidence/experience-v3/TEST_REPORT.md |
+| V3-12 | P1 | A+B | V3-11 | 按实际V3实现重写项目总文档与无记忆接手包；验收：独立阅读理解背景/算法/前后端/功能/边界/原方案差异；Word与主Markdown一致；明确两人阅读顺序及可复制提示词；文档检查有据 | done | feat/mission-experience-v3; docs/PROJECT_DOSSIER.md; docs/current-project/README.md; prompts/06_CURRENT_PROJECT_HANDOFF.md; evidence/experience-v3/DOCUMENT_REVIEW.md; evidence/experience-v3/project-document-audit.json; evidence/experience-v3/project-document-layout.json |
 
 ## 当前执行入口
 

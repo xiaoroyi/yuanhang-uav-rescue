@@ -1,5 +1,7 @@
 # V3 · 产品体验交付索引
 
+项目背景、详细算法与工程全貌见[实际项目总文档](../../docs/PROJECT_DOSSIER.md)，Word与接手提示词见[当前项目文档](../../docs/current-project/README.md)。文档核对与排版记录见[DOCUMENT_REVIEW](DOCUMENT_REVIEW.md)，不等同于新增业务回归。
+
 日期：2026-10-19。分支：`feat/mission-experience-v3`。本机入口：<http://127.0.0.1:8000/>。基于V2提交58e81df，独立保留main和V2。
 
 - [使用步骤](DEMO_GUIDE.md)：从新建任务到安排表、通信、模拟和复盘。

@@ -1,0 +1,20 @@
+{
+  "code_baseline": "803c2954a97a0e53e40fb5d3e46c8a212471d60a",
+  "date": "2026-10-19 Asia/Shanghai",
+  "passed": true,
+  "chapters": 23,
+  "native_word_equations": 7,
+  "tables_including_contents": 18,
+  "prompt_matches_master": true,
+  "actual_openapi_paths": 83,
+  "existing_case_values_reconciled": [
+    "compact",
+    "compact_joint",
+    "contest_joint"
+  ],
+  "original_desktop_and_archive_unchanged_sha256": "1db25bbdd2b15a9840a57028ae4e348a33679d60156a0876f91b96e96aa029ca",
+  "source_sha256": "72ea5c4e871e52faf85b36cc00a0a21c95533594a7ab21ecb9b5704e1b0abc0a",
+  "word_sha256": "b83e1c90a4ea1d97d95111d65e196fc54e5021f37cb3dfab048bd8f3fc4a0a28",
+  "prompt_sha256": "68ba0b9ead0cb60be8f8609e6749c9f4083203fdb29497fd30cfe324f2222acc",
+  "scope": "Documentation/source/record reconciliation only; no new solver run or full business regression."
+}

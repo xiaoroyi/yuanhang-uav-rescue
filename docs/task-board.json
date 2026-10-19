@@ -2107,6 +2107,28 @@
         "evidence/experience-v3/FEATURE_TRACEABILITY.md",
         "evidence/experience-v3/TEST_REPORT.md"
       ]
+    },
+    {
+      "id": "V3-12",
+      "phase": "G6",
+      "priority": "P1",
+      "owner": "A+B",
+      "title": "按实际V3实现重写项目总文档与无记忆接手包",
+      "acceptance": "独立阅读理解背景/算法/前后端/功能/边界/原方案差异；Word与主Markdown一致；明确两人阅读顺序及可复制提示词；文档检查有据",
+      "dependencies": [
+        "V3-11"
+      ],
+      "status": "done",
+      "branch": "feat/mission-experience-v3",
+      "pr": null,
+      "evidence": [
+        "docs/PROJECT_DOSSIER.md",
+        "docs/current-project/README.md",
+        "prompts/06_CURRENT_PROJECT_HANDOFF.md",
+        "evidence/experience-v3/DOCUMENT_REVIEW.md",
+        "evidence/experience-v3/project-document-audit.json",
+        "evidence/experience-v3/project-document-layout.json"
+      ]
     }
   ]
 }
